@@ -39,3 +39,5 @@ jobs:
 
       - name: Start frontend for Next.js
         run: pm2 restart personal_v3
+
+        
