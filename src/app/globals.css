@@ -1,0 +1,209 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Fonts Helvatica Neue */
+
+/* Add the remaining font weights and styles */
+
+/* src/styles/globals.css */
+@font-face {
+  font-family: "Helvetica Neue";
+  src: url("/fonts/HelveticaNeueBlack.otf") format("opentype");
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Helvetica Neue";
+  src: url("/fonts/HelveticaNeueBlackItalic.otf") format("opentype");
+  font-weight: 900;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Helvetica Neue";
+  src: url("/fonts/HelveticaNeueBold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Helvetica Neue";
+  src: url("/fonts/HelveticaNeueBoldItalic.otf") format("opentype");
+  font-weight: 700;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Helvetica Neue";
+  src: url("/fonts/HelveticaNeueHeavy.otf") format("opentype");
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Helvetica Neue";
+  src: url("/fonts/HelveticaNeueHeavyItalic.otf") format("opentype");
+  font-weight: 800;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Helvetica Neue";
+  src: url("/fonts/HelveticaNeueItalic.otf") format("opentype");
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Helvetica Neue";
+  src: url("/fonts/HelveticaNeueLight.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Helvetica Neue";
+  src: url("/fonts/HelveticaNeueLightItalic.otf") format("opentype");
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Helvetica Neue";
+  src: url("/fonts/HelveticaNeueMedium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Helvetica Neue";
+  src: url("/fonts/HelveticaNeueMediumItalic.otf") format("opentype");
+  font-weight: 500;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Helvetica Neue";
+  src: url("/fonts/HelveticaNeueRoman.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Helvetica Neue";
+  src: url("/fonts/HelveticaNeueThin.otf") format("opentype");
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Helvetica Neue";
+  src: url("/fonts/HelveticaNeueThinItalic.otf") format("opentype");
+  font-weight: 100;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Helvetica Neue";
+  src: url("/fonts/HelveticaNeueUltraLight.otf") format("opentype");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Helvetica Neue";
+  src: url("/fonts/HelveticaNeueUltraLightItalic.otf") format("opentype");
+  font-weight: 200;
+  font-style: italic;
+}
+
+html {
+  font-size: 62.5%; /* 62.5% of the default 16px = 10px */
+}
+
+body {
+  @apply font-sans;
+}
+
+/* Custom Classes */
+.mainContainer {
+  @apply max-w-[1550px] w-full mx-auto px-[1.5rem] md:px-[2rem] lg:px-[3rem] xl:px-[5rem] 2xl:px-[11.5rem];
+}
+
+.primaryGradient {
+  background: radial-gradient(
+    100% 100% at 50% 0%,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  @apply bg-primary;
+}
+
+.border-test {
+  border: 4px solid black;
+}
+
+/* .footerLink {
+  @apply relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1px] after:bg-heading duration-300 hover:text-primary hover:after:hidden;
+} */
+
+.footerLink {
+  @apply relative inline-block text-gray-900 duration-300 hover:text-primary;
+
+  &::before {
+    content: "";
+    @apply absolute bottom-0 left-0 h-[1px] bg-heading transition-all duration-300 ease-in-out;
+    width: 0;
+  }
+
+  &:hover::before {
+    width: 100%;
+  }
+}
+
+/* Header Curved Shape */
+.custom-shape-divider-bottom-1722849639 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.custom-shape-divider-bottom-1722849639 svg {
+  position: relative;
+  display: block;
+  width: calc(274% + 1.3px);
+  height: 220px;
+}
+
+@media screen and (max-width: 780px) {
+  .custom-shape-divider-bottom-1722849639 svg {
+    height: 100px;
+  }
+}
+
+.custom-shape-divider-bottom-1722849639 .shape-fill {
+  @apply fill-primary;
+}
+
+/* Cover Letter Lists Clsses */
+.coverCardsList {
+  @apply flex gap-[1.8rem] items-end;
+}
+
+.coverListBefore {
+  @apply h-[0.7rem] w-[0.7rem] bg-[#2E2E48] inline-block rounded-[50%] absolute top-0 left-0;
+}
+
+/* Primary Button */
+.btn-primary {
+  @apply duration-300 rounded-[6px] border border-white/[0.24] bg-gradient-to-b from-white/30 to-transparent bg-primary shadow-[0px_0px_0px_1px_#FFF] hover:bg-white hover:text-primary hover:border-primary;
+}
+
+.btn-secondary {
+  @apply duration-300 rounded-[6px] border border-primary text-primary bg-transparent hover:bg-gradient-to-b hover:from-white/30 hover:to-transparent hover:bg-primary hover:text-white hover:border-white/[0.24] hover:shadow-[0px_0px_0px_1px_#FFF];
+}
