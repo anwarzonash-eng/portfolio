@@ -924,7 +924,7 @@ const index = () => {
         </div>
       </section>
 
-      {/* My Work Section !Slider Not Completed */}
+      {/* My Work Section Slider  */}
       <section className="w-full">
         <div className="mainContainer my-[12rem]">
           {/* Badge */}
