@@ -3,6 +3,7 @@ import { useState, useRef } from "react";
 
 interface VideoPlayerProps {
   videoSrc: string;
+  videoClassName: string;
   thumbnailSrc: string;
   containerClassName?: string;
   thumbnailClassName?: string;
@@ -16,6 +17,7 @@ interface VideoPlayerProps {
 const VideoPlayer: React.FC<VideoPlayerProps> = ({
   videoSrc,
   thumbnailSrc,
+  videoClassName = "",
   containerClassName = "",
   thumbnailClassName = "",
   thumbnailImage = "",
@@ -52,12 +54,12 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
             className={`${thumbnailImage}`}
           />
           <div className="absolute inset-0 flex items-center justify-center">
-            <button className={` ${playButtonClassName}`}>
+            <button className={`${playButtonClassName}`}>
               {typeof playIcon === "string" ? (
                 <img
                   src={playIcon}
                   alt="Play Icon"
-                  className="w-[2.5rem] h-[2.5rem]"
+                  className="min-w-[2.5rem] min-h-[2.5rem]"
                 />
               ) : (
                 playIcon
@@ -81,7 +83,12 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
               closeIcon
             )}
           </button>
-          <video ref={videoRef} controls autoPlay className="w-full h-auto">
+          <video
+            ref={videoRef}
+            controls
+            autoPlay
+            className={`${videoClassName}`}
+          >
             <source src={videoSrc} type="video/mp4" />
             Your browser does not support the video tag.
           </video>

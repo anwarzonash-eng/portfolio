@@ -338,13 +338,13 @@ const Footer = () => {
               <Link href={"#"} className="footerLink">
                 Home
               </Link>
-              <Link href={"#"} className="footerLink">
+              <Link href={"/offer"} className="footerLink">
                 Cover Letter
               </Link>
               <Link href={"#"} className="footerLink">
                 Projects
               </Link>
-              <Link href={"#"} className="footerLink">
+              <Link href={"/cv"} className="footerLink">
                 CV
               </Link>
               <Link href={"#"} className="footerLink">
@@ -365,7 +365,7 @@ const Footer = () => {
               <Link href={"#"} className="footerLink">
                 Behance
               </Link>
-              <Link href={"#"} className="footerLink">
+              <Link href={"/blog-listing"} className="footerLink">
                 Blog
               </Link>
             </div>

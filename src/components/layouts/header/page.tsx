@@ -19,10 +19,10 @@ const Header: React.FC<HeaderProps> = ({
 }) => {
   const headerLinks: HeaderLink[] = [
     { title: "Home", src: "/" },
-    { title: "Cover Letter", src: "/coverLetter" },
+    { title: "Cover Letter", src: "/offer" },
     { title: "Services", src: "/services" },
     { title: "Projects", src: "/projects" },
-    { title: "Blog", src: "/blog" },
+    { title: "Blog", src: "/blog-listing" },
     { title: "CV", src: "/cv" },
   ];
 
