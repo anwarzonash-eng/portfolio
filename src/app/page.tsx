@@ -749,7 +749,7 @@ const index = () => {
           thumbnailImage="object-cover h-full w-full"
           playButtonClassName="w-[100px] h-[100px] relative border-[0.4rem] rounded-[3.2rem] flex items-center justify-center backdrop-blur-[2.2rem] "
           closeButtonClassName="custom-close-button"
-          playIcon="/images/play.svg"
+          playIcon="/images/Play.svg"
           closeIcon="/images/close-icon.svg"
         />
       </div>
@@ -1547,7 +1547,7 @@ const index = () => {
                 </p>
                 <div className="w-[5.8rem] h-[5.8rem] relative border-[0.4rem] rounded-[1.9rem] flex items-center justify-center backdrop-blur-[2.2rem]">
                   <Image
-                    src={"/images/play.svg"}
+                    src={"/images/Play.svg"}
                     height={20}
                     width={20}
                     className="mr-[-0.5rem]"
