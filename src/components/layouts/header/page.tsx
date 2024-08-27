@@ -1,9 +1,11 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import WorkProofLinks from "@/components/WorkProofLinks";
+import ContactMeLinks from "@/components/ContactMeLinks";
 
 interface HeaderLink {
   title: string;
@@ -17,6 +19,7 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({
   initialBgColor = "bg-transparent",
 }) => {
+  // Header Links
   const headerLinks: HeaderLink[] = [
     { title: "Home", src: "/" },
     { title: "Cover Letter", src: "/offer" },
@@ -31,13 +34,45 @@ const Header: React.FC<HeaderProps> = ({
 
   console.log(pathname);
 
-  const [isResourceOpen, setResourceOpen] = useState<boolean>(false);
   const [sideBarOpen, setSideBarOpen] = useState<boolean>(false);
   const [bgColor, setBgColor] = useState<string>(initialBgColor);
 
+  const [isResourceOpen, setIsResourceOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  // Function to toggle the dropdown on click
   const handleToggle = () => {
-    setResourceOpen(!isResourceOpen);
+    setIsResourceOpen(!isResourceOpen);
   };
+
+  // Close dropdown on scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsResourceOpen(false);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  // Close dropdown on click outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !(dropdownRef.current as any).contains(event.target)
+      ) {
+        setIsResourceOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const handleSidebar = () => {
     setSideBarOpen(!sideBarOpen);
@@ -76,13 +111,15 @@ const Header: React.FC<HeaderProps> = ({
             <div className="max-[1100px]:hidden mainContainer h-[8.8rem] py-[2rem] border-b border-border flex justify-between items-center">
               {/* User Profile */}
               <div className="flex justify-center items-center gap-[1.2rem] ">
-                <Image
-                  src={"/images/NewDevPics/TopHeaderPic(1920x1920).jpg"}
-                  height={48}
-                  width={48}
-                  alt="Profile Picture"
-                  className="rounded-[50%]"
-                />
+                <Link href={"/"}>
+                  <Image
+                    src={"/images/NewDevPics/TopHeaderPic(1920x1920).jpg"}
+                    height={48}
+                    width={48}
+                    alt="Profile Picture"
+                    className="rounded-[50%]"
+                  />
+                </Link>
 
                 <div className="text-heading text-[1.6rem] font-normal leading-tight">
                   Derek
@@ -106,8 +143,12 @@ const Header: React.FC<HeaderProps> = ({
                       </div>
                     ))}
                   </nav>
-                  {/* Resources DropDwon Menu */}
-                  <div className="flex items-center relative mr-[2.4rem]">
+
+                  {/* New Updated Drop  */}
+                  <div
+                    className="flex items-center relative mr-[2.4rem]"
+                    ref={dropdownRef}
+                  >
                     <div
                       className="text-paragraph1 text-[1.6rem] font-normal leading-normal hover:text-primary duration-300 cursor-pointer"
                       onClick={handleToggle}
@@ -115,7 +156,7 @@ const Header: React.FC<HeaderProps> = ({
                       Resources
                     </div>
                     <Image
-                      src="/images/dropDown.svg" // Use a relative path starting with '/'
+                      src="/images/dropDown.svg"
                       height={24}
                       width={24}
                       onClick={handleToggle}
@@ -127,83 +168,23 @@ const Header: React.FC<HeaderProps> = ({
                     {/* Positioned DropDown Menu */}
                     <nav
                       className={`rounded-[0.8rem] duration-300 shadow-md bg-white absolute top-[4rem] left-[-10rem] z-50
-                  ${isResourceOpen ? "opacity-100" : "opacity-0"}
-                     p-[2rem] text-primary text-[1.6rem] font-normal leading-normal flex flex-col gap-[1.5rem] w-[29.6rem] text-nowrap`}
+                         ${isResourceOpen ? "opacity-100" : "opacity-0"}
+                         p-[2rem] text-primary text-[1.6rem] font-normal leading-normal flex flex-col gap-[1.5rem] w-[29.6rem] text-nowrap`}
                     >
+                      {/* Work Proof */}
                       <div className="w-full">
                         <div className="w-full flex items-center gap-[1.4rem]">
-                          <Link href={""}>
-                            <Image
-                              src={"./images/upwork.svg"}
-                              height={45}
-                              width={45}
-                              alt="upwork"
-                            />
-                          </Link>
-                          <Link href={""}>
-                            <Image
-                              src={"./images/github.svg"}
-                              height={45}
-                              width={45}
-                              alt="github"
-                            />
-                          </Link>
-                          <Link href={""}>
-                            <Image
-                              src={"./images/linkedin.svg"}
-                              height={45}
-                              width={45}
-                              alt="linkedin"
-                            />
-                          </Link>
-                          <Link href={""}>
-                            <Image
-                              src={"./images/dribbble.svg"}
-                              height={45}
-                              width={45}
-                              alt="dribble"
-                            />
-                          </Link>
-                          <Link href={""}>
-                            <Image
-                              src={"./images/behance.svg"}
-                              height={45}
-                              width={45}
-                              alt="behance"
-                            />
-                          </Link>
+                          <WorkProofLinks />
                         </div>
                         <p className="text-[1.4rem] font-normal text-paragraph1 mt-[1.6rem]">
                           My Work Proof
                         </p>
                       </div>
                       <hr className="h-[0.1rem] w-full bg-border" />
+                      {/* Contact Me */}
                       <div className="w-full">
                         <div className="w-full flex items-center gap-[1.4rem]">
-                          <Link href={""}>
-                            <Image
-                              src={"./images/gmail.svg"}
-                              height={45}
-                              width={45}
-                              alt="gmail"
-                            />
-                          </Link>
-                          <Link href={""}>
-                            <Image
-                              src={"./images/whatsapp.svg"}
-                              height={45}
-                              width={45}
-                              alt="whatsapp"
-                            />
-                          </Link>
-                          <Link href={""}>
-                            <Image
-                              src={"./images/number.svg"}
-                              height={45}
-                              width={45}
-                              alt="number"
-                            />
-                          </Link>
+                          <ContactMeLinks />
                         </div>
                         <p className="text-[1.4rem] font-normal text-paragraph1 mt-[1.6rem]">
                           Contact Me
@@ -300,46 +281,7 @@ const Header: React.FC<HeaderProps> = ({
                         >
                           <div className="w-full">
                             <div className="w-full flex items-center gap-[1.4rem]">
-                              <Link href={""}>
-                                <Image
-                                  src={"./images/upwork.svg"}
-                                  height={45}
-                                  width={45}
-                                  alt="upwork"
-                                />
-                              </Link>
-                              <Link href={""}>
-                                <Image
-                                  src={"./images/github.svg"}
-                                  height={45}
-                                  width={45}
-                                  alt="github"
-                                />
-                              </Link>
-                              <Link href={""}>
-                                <Image
-                                  src={"./images/linkedin.svg"}
-                                  height={45}
-                                  width={45}
-                                  alt="linkedin"
-                                />
-                              </Link>
-                              <Link href={""}>
-                                <Image
-                                  src={"./images/dribbble.svg"}
-                                  height={45}
-                                  width={45}
-                                  alt="dribble"
-                                />
-                              </Link>
-                              <Link href={""}>
-                                <Image
-                                  src={"./images/behance.svg"}
-                                  height={45}
-                                  width={45}
-                                  alt="behance"
-                                />
-                              </Link>
+                              <WorkProofLinks />
                             </div>
                             <p className="text-[1.4rem] font-normal text-paragraph1 mt-[1.6rem]">
                               My Work Proof
@@ -348,30 +290,7 @@ const Header: React.FC<HeaderProps> = ({
                           <hr className="h-[0.1rem] w-full bg-border" />
                           <div className="w-full">
                             <div className="w-full flex items-center gap-[1.4rem]">
-                              <Link href={""}>
-                                <Image
-                                  src={"./images/gmail.svg"}
-                                  height={45}
-                                  width={45}
-                                  alt="gmail"
-                                />
-                              </Link>
-                              <Link href={""}>
-                                <Image
-                                  src={"./images/whatsapp.svg"}
-                                  height={45}
-                                  width={45}
-                                  alt="whatsapp"
-                                />
-                              </Link>
-                              <Link href={""}>
-                                <Image
-                                  src={"./images/number.svg"}
-                                  height={45}
-                                  width={45}
-                                  alt="number"
-                                />
-                              </Link>
+                              <ContactMeLinks />
                             </div>
                             <p className="text-[1.4rem] font-normal text-paragraph1 mt-[1.6rem]">
                               Contact Me

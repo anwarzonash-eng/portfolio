@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import Newsletter from "@/components/Newsletter";
 import OurBlogs from "@/components/OurBlogs";
 import useBodyBackgroundColor from "@/hooks/useBodyBackgroundColor";
@@ -405,7 +406,7 @@ const blogDetails = () => {
           </h1>
           {/* Social Links */}
           <div className=" flex items-center justify-center gap-[1.2rem] ">
-            <div className="h-[4rem] px-[1.6rem] flex items-center gap-[0.8rem] justify-center bg-white/30 rounded-[0.8rem] shadow border border-[#c6cbd8]/40 backdrop-blur-[14px]">
+            <div className="h-[4rem] px-[1.6rem] flex items-center gap-[0.8rem] justify-center bg-white/30 rounded-[0.8rem] shadow border border-[#c6cbd8]/40 backdrop-blur-[14px] cursor-pointer">
               <Image
                 src={"/images/copy.svg"}
                 height={20}
@@ -417,28 +418,34 @@ const blogDetails = () => {
               </p>
             </div>
             <div className="h-[4rem] w-[4rem] flex items-center justify-center bg-white/30 rounded-[0.8rem] shadow border border-[#c6cbd8]/40 backdrop-blur-[14px]">
-              <Image
-                src={"/images/twitter.svg"}
-                height={20}
-                width={20}
-                alt="Twitter"
-              />
+              <Link href={"/"}>
+                <Image
+                  src={"/images/twitter.svg"}
+                  height={20}
+                  width={20}
+                  alt="Twitter"
+                />
+              </Link>
             </div>
             <div className="h-[4rem] w-[4rem] flex items-center justify-center bg-white/30 rounded-[0.8rem] shadow border border-[#c6cbd8]/40 backdrop-blur-[14px]">
-              <Image
-                src={"/images/facebook.svg"}
-                height={20}
-                width={20}
-                alt="Facebook"
-              />
+              <Link href={"/"}>
+                <Image
+                  src={"/images/facebook.svg"}
+                  height={20}
+                  width={20}
+                  alt="Facebook"
+                />
+              </Link>
             </div>
             <div className="h-[4rem] w-[4rem] flex items-center justify-center bg-white/30 rounded-[0.8rem] shadow border border-[#c6cbd8]/40 backdrop-blur-[14px]">
-              <Image
-                src={"/images/in.svg"}
-                height={20}
-                width={20}
-                alt="Linkedin"
-              />
+              <Link href={"/"}>
+                <Image
+                  src={"/images/in.svg"}
+                  height={20}
+                  width={20}
+                  alt="Linkedin"
+                />
+              </Link>
             </div>
           </div>
         </div>
@@ -616,5 +623,4 @@ const blogDetails = () => {
     </div>
   );
 };
-
 export default blogDetails;

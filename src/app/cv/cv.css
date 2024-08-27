@@ -1,0 +1,30 @@
+@media print {
+  body {
+    margin: 0;
+    padding: 0;
+    font-size: 12pt; /* Adjust font size as needed */
+  }
+
+  .container {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Hide elements that you don't want to print */
+  .no-print {
+    display: none;
+  }
+
+  /* Ensure content fits within the page */
+  .content {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Adjust header and footer if necessary */
+  header,
+  footer {
+    display: none; /* Hide headers and footers if not needed */
+  }
+}

@@ -90,7 +90,6 @@ const blogListing = () => {
         "How do you create compelling presentations that wow your colleagues and impress your managers?",
       link: "/",
     },
-
     // Add more blog entries here
   ];
 
@@ -323,7 +322,7 @@ const blogListing = () => {
           </div>
         </div>
       </section>
-      {/* Blog Cards Pagiation */}
+      {/* Blog Cards */}
       <div className="mainContainer  mt-[-26rem]  lg:mt-[-40rem] relative w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 lg:grid-rows-3 justify-items-center gap-[3.2rem]">
         {blogData.map((blog, index) => (
           <BlogCard

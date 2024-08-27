@@ -1,28 +1,22 @@
 "use client";
-import Link from "next/link";
-import { useState } from "react";
 import Image from "next/image";
 import VideoPlayer from "@/components/VideoPlayer";
-import Slider from "@/components/Sliders/Slider";
 import useBodyBackgroundColor from "@/hooks/useBodyBackgroundColor";
 import HomeSlider from "@/components/Sliders/HomeSlider";
+import Faq from "@/components/Faqs";
+import WorkProofLinks from "@/components/WorkProofLinks";
+import ContactMeLinks from "@/components/ContactMeLinks";
+import TechSkills from "@/components/TechSkills";
+import MyServices from "@/components/MyServicesCards";
+import TestimonialSlider from "@/components/Sliders/TestimonialSlider";
+import TimeLineItem from "@/components/TimeLineItem";
 // import FreeTrialPopup from "@/components/FreeTrialPopup";
 
 const index = () => {
   useBodyBackgroundColor("#f8f9fa");
-  // Define the types for the skills
-  interface Skill {
-    src: string;
-    title: string;
-  }
 
-  interface FAQ {
-    question: string;
-    answer: string;
-  }
-
-  // Update the skills and FAQs arrays
-  const mySkills: string[] = [
+  // Skills
+  const mySkills = [
     "Java",
     "React",
     "iOS",
@@ -38,327 +32,6 @@ const index = () => {
     "Shopify",
     "Python",
     "Android",
-  ];
-
-  const skillsSectionDesktop: Skill[] = [
-    { src: "./images/skills/javascript.svg", title: "Javascript" },
-    { src: "./images/skills/typescript.svg", title: "TypeScript" },
-    { src: "./images/skills/react.svg", title: "React" },
-    { src: "./images/skills/next.svg", title: "Next.js" },
-    { src: "./images/skills/node.svg", title: "Node.js" },
-    { src: "./images/skills/express.svg", title: "Express.js" },
-    { src: "./images/skills/nest.svg", title: "Nest.js" },
-    { src: "./images/skills/socket.svg", title: "Socket.io" },
-    { src: "./images/skills/postgre.svg", title: "PostgreSQL" },
-    { src: "./images/skills/mongodb.svg", title: "MongoDB" },
-    { src: "./images/skills/sass.svg", title: "Sass/Scss" },
-    { src: "./images/skills/tailwind.svg", title: "Tailwindcss" },
-    { src: "./images/skills/figma.svg", title: "Figma" },
-    { src: "./images/skills/cypress.svg", title: "Cypress" },
-    { src: "./images/skills/storybook.svg", title: "Storybook" },
-    { src: "./images/skills/git.svg", title: "Git" },
-  ];
-
-  const faqs: FAQ[] = [
-    {
-      question: "Is there a free trial available?",
-      answer:
-        "Yes, you can try us for free for 30 days. If you want, we’ll provide you with a free, personalized 30-minute onboarding call to get you up and running as soon as possible.",
-    },
-    {
-      question: "Can I change my plan later?",
-      answer: "Yes you can change your plan whenever you want.",
-    },
-    {
-      question: "What is your cancellation policy?",
-      answer: "Our cancellation policy is very customer friendly.",
-    },
-    {
-      question: "How does billing work?",
-      answer: "Billing works around the same day you make payment.",
-    },
-    {
-      question: "How do I change my account email?",
-      answer:
-        "You can easily change your account via connecting our customer support experts.",
-    },
-  ];
-
-  const [activeFaq, setActiveFaq] = useState<number | null>(null);
-
-  const toggleFAQ = (index: number) => {
-    setActiveFaq(activeFaq === index ? null : index);
-  };
-
-  const [isPlaying, setIsPlaying] = useState<boolean>(false);
-
-  const handlePlayClick = () => {
-    setIsPlaying(true);
-  };
-
-  // Slides Array
-  const slides = [
-    // Slide One
-    () => (
-      <div key="slide1">
-        {/* Add your first slide content here */}
-        <div className="w-full hidden lg:block mb-[5rem]">
-          {/* Badge */}
-          <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-['Inter'] leading-tight">
-            Professional Experience
-          </div>
-          {/* Heading */}
-          <div className="text-paragraph2 text-[2.4rem] xl:text-[3rem] font-medium leading-[2.8rem] mt-[2rem]">
-            My Professional Career Journey
-          </div>
-        </div>
-        <div className="p-[2rem] lg:p-[4rem] bg-[rgba(255,255,255,0.2)] rounded-[1.2rem] w-full">
-          {/* DoubleQuotes */}
-          <Image
-            src={"/images/DoubleQuotes.svg"}
-            height={40}
-            width={40}
-            alt="Double Quotes"
-          />
-          <h3 className="text-[2rem] lg:text-[2.4rem] leading-[3.2rem] font-normal text-white my-[2rem]">
-            “Great Designer, does great work and is very flexible with change.
-            if you’re a programmer and are looking for UI/UX designer is
-            definitely well qualified for the job.”
-          </h3>
-          <hr className="h-[0.1rem] w-full bg-border mb-[2rem]" />
-          {/* Testimonial Client Info */}
-          <div className="flex items-center justify-between">
-            <div className="text-white">
-              <h4 className="text-[2rem] font-normal">EaseMyKid</h4>
-              <p className="text-[1.4rem] font-normal">Project</p>
-            </div>
-            <div>
-              <Link href={"#"} className="flex items-center gap-[0.8rem] group">
-                <p className="text-[1.6rem] font-medium text-white">
-                  Check Project
-                </p>
-                <img
-                  src="./images/ArrowRight.svg"
-                  alt="Arrow"
-                  className="group-hover:translate-x-[1rem] duration-300"
-                />
-              </Link>
-            </div>
-          </div>
-        </div>
-        <div className="w-full lg:flex items-center justify-between">
-          {/* Client Info Box */}
-          <div className="flex items-center gap-[1.5rem] mt-[3.2rem] mb-[2.4rem]">
-            <Image
-              src={"/images/cameron.png"}
-              height={72}
-              width={72}
-              alt="Cameron"
-            />
-            <div className="lg:flex items-end ">
-              <div>
-                <h3 className="text-[1.8rem] font-bold leading-[2.6rem] text-paragraph2">
-                  Cameron Williamson
-                </h3>
-                <h4 className="text-[1.6rem] font-bold leading-[2.4rem] text-paragraph2">
-                  Founder of cypexsoft
-                </h4>
-              </div>
-              <hr className="hidden lg:block w-[0.1rem] h-[2.5rem] bg-border mx-[1rem]" />
-              {/* Link */}
-              <div className="flex items-center gap-[0.52rem]">
-                <Image
-                  src={"./images/link.svg"}
-                  height={18}
-                  width={18}
-                  alt="Link"
-                />
-                <Link
-                  href={"https://cpasxsoft.com"}
-                  className="text-[#1F4FE1] text-[1.6rem] leading-normal"
-                >
-                  cpasxsoft.com
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    ),
-    // Slide Two
-    () => (
-      <div key="slide2">
-        {/* Add your first slide content here */}
-        <div className="w-full hidden lg:block mb-[5rem]">
-          {/* Badge */}
-          <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-['Inter'] leading-tight">
-            Professional Experience
-          </div>
-          {/* Heading */}
-          <div className="text-paragraph2 text-[2.4rem] xl:text-[3rem] font-medium leading-[2.8rem] mt-[2rem]">
-            My Professional Career Journey
-          </div>
-        </div>
-        <div className="p-[2rem] lg:p-[4rem] bg-[rgba(255,255,255,0.2)] rounded-[1.2rem] w-full">
-          {/* DoubleQuotes */}
-          <Image
-            src={"/images/DoubleQuotes.svg"}
-            height={40}
-            width={40}
-            alt="DoubleQuotes"
-          />
-          <h3 className="text-[2rem] lg:text-[2.4rem] leading-[3.2rem] font-normal text-white my-[2rem]">
-            “Great Designer, does great work and is very flexible with change.
-            if you’re a programmer and are looking for UI/UX designer is
-            definitely well qualified for the job.”
-          </h3>
-          <hr className="h-[0.1rem] w-full bg-border mb-[2rem]" />
-          {/* Testimonial Client Info */}
-          <div className="flex items-center justify-between">
-            <div className="text-white">
-              <h4 className="text-[2rem] font-normal">EaseMyKid</h4>
-              <p className="text-[1.4rem] font-normal">Project</p>
-            </div>
-            <div>
-              <Link href={"#"} className="flex items-center gap-[0.8rem] group">
-                <p className="text-[1.6rem] font-medium text-white">
-                  Check Project
-                </p>
-                <img
-                  src="./images/ArrowRight.svg"
-                  alt="Arrow"
-                  className="group-hover:translate-x-[1rem] duration-300"
-                />
-              </Link>
-            </div>
-          </div>
-        </div>
-        <div className="w-full lg:flex items-center justify-between">
-          {/* Client Info Box */}
-          <div className="flex items-center gap-[1.5rem] mt-[3.2rem] mb-[2.4rem]">
-            <Image
-              src={"/images/cameron.png"}
-              height={72}
-              width={72}
-              alt="cameron"
-            />
-            <div className="lg:flex items-end ">
-              <div>
-                <h3 className="text-[1.8rem] font-bold leading-[2.6rem] text-paragraph2">
-                  Cameron Williamson
-                </h3>
-                <h4 className="text-[1.6rem] font-bold leading-[2.4rem] text-paragraph2">
-                  Founder of cypexsoft
-                </h4>
-              </div>
-              <hr className="hidden lg:block w-[0.1rem] h-[2.5rem] bg-border mx-[1rem]" />
-              {/* Link */}
-              <div className="flex items-center gap-[0.52rem]">
-                <Image
-                  src={"./images/link.svg"}
-                  height={18}
-                  width={18}
-                  alt="Link"
-                />
-                <Link
-                  href={"https://cpasxsoft.com"}
-                  className="text-[#1F4FE1] text-[1.6rem] leading-normal"
-                >
-                  cpasxsoft.com
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    ),
-    // Slide Three
-    () => (
-      <div key="slide3">
-        {/* Add your first slide content here */}
-        <div className="w-full hidden lg:block mb-[5rem]">
-          {/* Badge */}
-          <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-['Inter'] leading-tight">
-            Professional Experience
-          </div>
-          {/* Heading */}
-          <div className="text-paragraph2 text-[2.4rem] xl:text-[3rem] font-medium leading-[2.8rem] mt-[2rem]">
-            My Professional Career Journey
-          </div>
-        </div>
-        <div className="p-[2rem] lg:p-[4rem] bg-[rgba(255,255,255,0.2)] rounded-[1.2rem] w-full">
-          {/* DoubleQuotes */}
-          <Image
-            src={"/images/DoubleQuotes.svg"}
-            height={40}
-            width={40}
-            alt="Double Quotes"
-          />
-          <h3 className="text-[2rem] lg:text-[2.4rem] leading-[3.2rem] font-normal text-white my-[2rem]">
-            “Great Designer, does great work and is very flexible with change.
-            if you’re a programmer and are looking for UI/UX designer is
-            definitely well qualified for the job.”
-          </h3>
-          <hr className="h-[0.1rem] w-full bg-border mb-[2rem]" />
-          {/* Testimonial Client Info */}
-          <div className="flex items-center justify-between">
-            <div className="text-white">
-              <h4 className="text-[2rem] font-normal">EaseMyKid</h4>
-              <p className="text-[1.4rem] font-normal">Project</p>
-            </div>
-            <div>
-              <Link href={"#"} className="flex items-center gap-[0.8rem] group">
-                <p className="text-[1.6rem] font-medium text-white">
-                  Check Project
-                </p>
-                <img
-                  src="./images/ArrowRight.svg"
-                  alt="Arrow"
-                  className="group-hover:translate-x-[1rem] duration-300"
-                />
-              </Link>
-            </div>
-          </div>
-        </div>
-        <div className="w-full lg:flex items-center justify-between">
-          {/* Client Info Box */}
-          <div className="flex items-center gap-[1.5rem] mt-[3.2rem] mb-[2.4rem]">
-            <Image
-              src={"/images/cameron.png"}
-              height={72}
-              width={72}
-              alt="Cameron"
-            />
-            <div className="lg:flex items-end ">
-              <div>
-                <h3 className="text-[1.8rem] font-bold leading-[2.6rem] text-paragraph2">
-                  Cameron Williamson
-                </h3>
-                <h4 className="text-[1.6rem] font-bold leading-[2.4rem] text-paragraph2">
-                  Founder of cypexsoft
-                </h4>
-              </div>
-              <hr className="hidden lg:block w-[0.1rem] h-[2.5rem] bg-border mx-[1rem]" />
-              {/* Link */}
-              <div className="flex items-center gap-[0.52rem]">
-                <Image
-                  src={"./images/link.svg"}
-                  height={18}
-                  width={18}
-                  alt="Link"
-                />
-                <Link
-                  href={"https://cpasxsoft.com"}
-                  className="text-[#1F4FE1] text-[1.6rem] leading-normal"
-                >
-                  cpasxsoft.com
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    ),
   ];
 
   return (
@@ -652,46 +325,7 @@ const index = () => {
               </div>
               <div className="w-full border border-border border-solid py-[3rem] px-[2rem]">
                 <div className="w-full flex items-center gap-[1.4rem] mb-[0.8rem]">
-                  <Link href={""}>
-                    <Image
-                      src={"./images/upwork.svg"}
-                      height={45}
-                      width={45}
-                      alt="upwork"
-                    />
-                  </Link>
-                  <Link href={""}>
-                    <Image
-                      src={"./images/github.svg"}
-                      height={45}
-                      width={45}
-                      alt="github"
-                    />
-                  </Link>
-                  <Link href={""}>
-                    <Image
-                      src={"./images/linkedin.svg"}
-                      height={45}
-                      width={45}
-                      alt="linkedin"
-                    />
-                  </Link>
-                  <Link href={""}>
-                    <Image
-                      src={"./images/dribbble.svg"}
-                      height={45}
-                      width={45}
-                      alt="dribbble"
-                    />
-                  </Link>
-                  <Link href={""}>
-                    <Image
-                      src={"./images/behance.svg"}
-                      height={45}
-                      width={45}
-                      alt="behance"
-                    />
-                  </Link>
+                  <WorkProofLinks />
                 </div>
                 <p className="text-[1.35rem] font-normal text-paragraph1">
                   My Work Proof
@@ -699,30 +333,7 @@ const index = () => {
               </div>
               <div className="w-full border border-border border-solid py-[3rem] px-[2rem]">
                 <div className="w-full flex items-center  gap-[1.4rem] mb-[0.8rem]">
-                  <Link href={""}>
-                    <Image
-                      src={"./images/gmail.svg"}
-                      height={45}
-                      width={45}
-                      alt="gmail"
-                    />
-                  </Link>
-                  <Link href={""}>
-                    <Image
-                      src={"./images/whatsapp.svg"}
-                      height={45}
-                      width={45}
-                      alt="whatsapp"
-                    />
-                  </Link>
-                  <Link href={""}>
-                    <Image
-                      src={"./images/number.svg"}
-                      height={45}
-                      width={45}
-                      alt="number"
-                    />
-                  </Link>
+                  <ContactMeLinks />
                 </div>
                 <p className="text-[1.35rem] font-normal text-paragraph1">
                   Contact Me
@@ -767,23 +378,7 @@ const index = () => {
         </div>
         {/* Skills Container */}
         <div className="flex items-center justify-center flex-wrap xl:grid xl:grid-cols-8 xl:grid-rows-2 gap-[1.5rem] mt-[6rem]">
-          {skillsSectionDesktop.map((skill, index) => (
-            <div
-              key={index}
-              className="flex flex-col items-center justify-center gap-[0.8rem] max-w-[10rem] lg:max-w-[13rem] w-full"
-            >
-              <Image
-                src={skill.src}
-                alt={skill.title}
-                height={64}
-                width={64}
-                className="h-[6.4rem] w-[6.4rem] "
-              />
-              <p className="text-paragraph1 text-[1.8rem] leading-[2.8rem]">
-                {skill.title}
-              </p>
-            </div>
-          ))}
+          <TechSkills />
         </div>
       </div>
 
@@ -800,126 +395,7 @@ const index = () => {
           </div>
           {/* Services Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:flex xl:grid lg:grid-cols-4 place-items-center items-center justify-center gap-[2.4rem] mt-[6rem] md:flex-wrap ">
-            <div className="bg-white/20 rounded-[1.8rem] md:max-w-[30.12rem] w-full p-[2rem]">
-              {/* Circle */}
-              <div className="w-[8.8rem] h-[8.8rem] flex items-center justify-center bg-white/20 rounded-[12rem] shadow">
-                <div className="text-center text-white text-[4rem] font-medium ">
-                  🛠️
-                </div>
-              </div>
-              {/* Title */}
-              <h3 className="text-[2rem] font-bold text-white leading-[2.4rem] mt-[3rem] mb-[1.2rem]">
-                Back-end Development
-              </h3>
-              {/* Para */}
-              <p className="text-[1.6rem] font-normal leading-[2.4rem] text-paragraph2 mb-[1.6rem]">
-                Vivamus in quam ut felis consectetur imperdiet et sed metus.
-                Nullam tristique scelerisque metus id dignissim.
-              </p>
-              {/* Arrow */}
-              <div className="flex gap-[0.8rem] items-center group">
-                <p className="text-[1.6rem] text-white font-normal cursor-pointer">
-                  Let’s Work Together{" "}
-                </p>
-                <Image
-                  src={"./images/ArrowRight.svg"}
-                  height={24}
-                  width={24}
-                  className="group-hover:translate-x-[1rem] duration-300"
-                  alt="Arrow Right"
-                />
-              </div>
-            </div>
-            <div className="bg-white/20 rounded-[1.8rem] md:max-w-[30.12rem] w-full p-[2rem]">
-              {/* Circle */}
-              <div className="w-[8.8rem] h-[8.8rem] flex items-center justify-center bg-white/20 rounded-[12rem] shadow">
-                <div className="text-center text-white text-[4rem] font-medium ">
-                  📢
-                </div>
-              </div>
-              {/* Title */}
-              <h3 className="text-[2rem] font-bold text-white leading-[2.4rem] mt-[3rem] mb-[1.2rem]">
-                Front-end Development
-              </h3>
-              {/* Para */}
-              <p className="text-[1.6rem] font-normal leading-[2.4rem] text-paragraph2 mb-[1.6rem]">
-                Vivamus in quam ut felis consectetur imperdiet et sed metus.
-                Nullam tristique scelerisque metus id dignissim.
-              </p>
-              {/* Arrow */}
-              <div className="flex gap-[0.8rem] items-center group">
-                <p className="text-[1.6rem] text-white font-normal cursor-pointer">
-                  Let’s Work Together{" "}
-                </p>
-                <Image
-                  src={"./images/ArrowRight.svg"}
-                  height={24}
-                  width={24}
-                  alt="Arrow Right"
-                  className="group-hover:translate-x-[1rem] duration-300"
-                />
-              </div>
-            </div>
-            <div className="bg-white/20 rounded-[1.8rem] md:max-w-[30.12rem] w-full p-[2rem]">
-              {/* Circle */}
-              <div className="w-[8.8rem] h-[8.8rem] flex items-center justify-center bg-white/20 rounded-[12rem] shadow">
-                <div className="text-center text-white text-[4rem] font-medium ">
-                  🚀
-                </div>
-              </div>
-              {/* Title */}
-              <h3 className="text-[2rem] font-bold text-white leading-[2.4rem] mt-[3rem] mb-[1.2rem]">
-                SEO Optimization
-              </h3>
-              {/* Para */}
-              <p className="text-[1.6rem] font-normal leading-[2.4rem] text-paragraph2 mb-[1.6rem]">
-                Vivamus in quam ut felis consectetur imperdiet et sed metus.
-                Nullam tristique scelerisque metus id dignissim.
-              </p>
-              {/* Arrow */}
-              <div className="flex gap-[0.8rem] items-center group">
-                <p className="text-[1.6rem] text-white font-normal cursor-pointer">
-                  Let’s Work Together{" "}
-                </p>
-                <Image
-                  src={"./images/ArrowRight.svg"}
-                  height={24}
-                  width={24}
-                  alt="Arrow Right"
-                  className="group-hover:translate-x-[1rem] duration-300"
-                />
-              </div>
-            </div>
-            <div className="bg-white/20 rounded-[1.8rem] md:max-w-[30.12rem] w-full p-[2rem]">
-              {/* Circle */}
-              <div className="w-[8.8rem] h-[8.8rem] flex items-center justify-center bg-white/20 rounded-[12rem] shadow">
-                <div className="text-center text-white text-[4rem] font-medium ">
-                  ✍
-                </div>
-              </div>
-              {/* Title */}
-              <h3 className="text-[2rem] font-bold text-white leading-[2.4rem] mt-[3rem] mb-[1.2rem]">
-                Content Writing
-              </h3>
-              {/* Para */}
-              <p className="text-[1.6rem] font-normal leading-[2.4rem] text-paragraph2 mb-[1.6rem]">
-                Vivamus in quam ut felis consectetur imperdiet et sed metus.
-                Nullam tristique scelerisque metus id dignissim.
-              </p>
-              {/* Arrow */}
-              <div className="flex gap-[0.8rem] items-center group">
-                <p className="text-[1.6rem] text-white font-normal cursor-pointer">
-                  Let’s Work Together{" "}
-                </p>
-                <Image
-                  src={"./images/ArrowRight.svg"}
-                  height={24}
-                  width={24}
-                  alt="Arrow Right"
-                  className="group-hover:translate-x-[0.5rem] duration-300"
-                />
-              </div>
-            </div>
+            <MyServices />
           </div>
         </div>
       </section>
@@ -964,275 +440,26 @@ const index = () => {
                   2018 / 2019
                 </div>
                 {/* Timeline item */}
-                <div className="relative flex items-start">
-                  {/* Dot */}
-                  <div className="absolute top-0 left-[2rem] hidden lg:block">
-                    <div className="w-[2.6rem] h-[2.6rem] bg-white rounded-full flex items-center shadow-md justify-center">
-                      <div className="w-[0.7rem] h-[0.7rem] bg-heading rounded-full"></div>
-                    </div>
-                  </div>
-                  {/* Card */}
-                  <div className="bg-white p-[1.5rem] lg:p-[2.4rem] rounded-[1rem] shadow lg:ml-[6rem]">
-                    <div className="flex items-center justify-between flex-wrap text-nowrap max-[375px]:justify-center">
-                      {/* About Content */}
-                      <div className="flex gap-[1rem]">
-                        <div className="h-[4.2rem] w-[4.2rem] lg:h-[4.9rem] lg:w-[4.9rem] bg-[#D1E9FF] rounded-[0.4rem] flex items-center justify-center">
-                          <Image
-                            src={"./images/Logomark.svg"}
-                            height={32}
-                            width={32}
-                            alt="Logo Mark"
-                          />
-                        </div>
-                        <div>
-                          <p className="text-[1.4rem] lg:text-[1.6rem] font-normal text-paragraph1">
-                            Cypexsoft
-                          </p>
-                          <h3 className="text-[1.6rem] lg:text-[1.8rem] font-medium text-heading">
-                            UI Developer
-                          </h3>
-                        </div>
-                      </div>
-                      {/* Link */}
-                      <div className="flex items-center gap-[0.52rem]">
-                        <Image
-                          src={"./images/link.svg"}
-                          height={18}
-                          width={18}
-                          alt="Link"
-                        />
-                        <Link
-                          href={"https://cpasxsoft.com"}
-                          className="text-[#1F4FE1] text-[1.6rem] leading-normal"
-                        >
-                          cpasxsoft.com
-                        </Link>
-                      </div>
-                    </div>
-                    <p className="mt-[2rem] text-[1.6rem] font-medium text-paragraph1">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Ullamcorper ullamcorper quis. Lorem ipsum dolor sit amet,
-                      consectetur adipiscing elit. Ullamcorper ullamcorper quis.
-                    </p>
-                    <ul className="my-[2rem] text-paragraph1 text-[1.4rem] list-disc pl-[2rem] flex flex-col gap-[0.8rem]">
-                      <li>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      </li>
-                      <li>Ullamcorper ullamcorper quis.</li>
-                      <li>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      </li>
-                      <li>Ullamcorper ullamcorper quis.</li>
-                    </ul>
-                    <div className="w-full">
-                      <h4 className="text-paragraph1 text-[1.2rem] font-medium mb-[1.2rem] ml-[0.2rem]">
-                        AREAS OF EXPERTISE I'VE WORKED IN
-                      </h4>
-                      <div className="flex items-center gap-[1rem] lg:gap-[0.7rem]   text-nowrap flex-wrap text-[1.2rem]">
-                        <div className="py-[0.4rem] px-[2rem] bg-white border border-solid border-sectionBG text-heading rounded-[1.6rem] text-[1.2rem] font-medium leading-normal">
-                          AWS
-                        </div>
-                        <div className="py-[0.4rem] px-[2rem] bg-white border border-solid border-sectionBG text-heading rounded-[1.6rem] text-[1.2rem] font-medium leading-normal">
-                          React
-                        </div>
-                        <div className="py-[0.4rem] px-[2rem] bg-white border border-solid border-sectionBG text-heading rounded-[1.6rem] text-[1.2rem] font-medium leading-normal">
-                          jQuery
-                        </div>
-                        <div className="py-[0.4rem] px-[2rem] bg-white border border-solid border-sectionBG text-heading rounded-[1.6rem] text-[1.2rem] font-medium leading-normal">
-                          Bootstrap 5
-                        </div>
-                        <div className="py-[0.4rem] px-[2rem] bg-white border border-solid border-sectionBG text-heading rounded-[1.6rem] text-[1.2rem] font-medium leading-normal">
-                          HTML
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <TimeLineItem />
                 {/* Date and divider */}
                 <div className="ml-[0.5rem] lg:ml-auto lg:absolute left-[-10rem] z-10 text-[1.8rem] text-paragraph1">
                   2018 / 2019
                 </div>
                 {/* Timeline item */}
-                <div className="relative flex items-start">
-                  {/* Dot */}
-                  <div className="absolute top-0 left-[2rem] hidden lg:block">
-                    <div className="w-[2.6rem] h-[2.6rem] bg-white rounded-full flex items-center shadow-md justify-center">
-                      <div className="w-[0.7rem] h-[0.7rem] bg-heading rounded-full"></div>
-                    </div>
-                  </div>
-                  {/* Card */}
-                  <div className="bg-white p-[1.5rem] lg:p-[2.4rem] rounded-[1rem] shadow lg:ml-[6rem]">
-                    <div className="flex items-center justify-between flex-wrap text-nowrap max-[375px]:justify-center">
-                      {/* About Content */}
-                      <div className="flex gap-[1rem]">
-                        <div className="h-[4.2rem] w-[4.2rem] lg:h-[4.9rem] lg:w-[4.9rem] bg-[#D1E9FF] rounded-[0.4rem] flex items-center justify-center">
-                          <Image
-                            src={"./images/Logomark.svg"}
-                            height={32}
-                            width={32}
-                            alt="Logo Mark"
-                          />
-                        </div>
-                        <div>
-                          <p className="text-[1.4rem] lg:text-[1.6rem] font-normal text-paragraph1">
-                            Cypexsoft
-                          </p>
-                          <h3 className="text-[1.6rem] lg:text-[1.8rem] font-medium text-heading">
-                            UI Developer
-                          </h3>
-                        </div>
-                      </div>
-                      {/* Link */}
-                      <div className="flex items-center gap-[0.52rem]">
-                        <Image
-                          src={"./images/link.svg"}
-                          height={18}
-                          width={18}
-                          alt="Link"
-                        />
-                        <Link
-                          href={"https://cpasxsoft.com"}
-                          className="text-[#1F4FE1] text-[1.6rem] leading-normal"
-                        >
-                          cpasxsoft.com
-                        </Link>
-                      </div>
-                    </div>
-                    <p className="mt-[2rem] text-[1.6rem] font-medium text-paragraph1">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Ullamcorper ullamcorper quis. Lorem ipsum dolor sit amet,
-                      consectetur adipiscing elit. Ullamcorper ullamcorper quis.
-                    </p>
-                    <ul className="my-[2rem] text-paragraph1 text-[1.4rem] list-disc pl-[2rem] flex flex-col gap-[0.8rem]">
-                      <li>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      </li>
-                      <li>Ullamcorper ullamcorper quis.</li>
-                      <li>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      </li>
-                      <li>Ullamcorper ullamcorper quis.</li>
-                    </ul>
-                    <div className="w-full">
-                      <h4 className="text-paragraph1 text-[1.2rem] font-medium mb-[1.2rem] ml-[0.2rem]">
-                        AREAS OF EXPERTISE I'VE WORKED IN
-                      </h4>
-                      <div className="flex items-center gap-[1rem] lg:gap-[0.7rem]   text-nowrap flex-wrap text-[1.2rem]">
-                        <div className="py-[0.4rem] px-[2rem] bg-white border border-solid border-sectionBG text-heading rounded-[1.6rem] text-[1.2rem] font-medium leading-normal">
-                          AWS
-                        </div>
-                        <div className="py-[0.4rem] px-[2rem] bg-white border border-solid border-sectionBG text-heading rounded-[1.6rem] text-[1.2rem] font-medium leading-normal">
-                          React
-                        </div>
-                        <div className="py-[0.4rem] px-[2rem] bg-white border border-solid border-sectionBG text-heading rounded-[1.6rem] text-[1.2rem] font-medium leading-normal">
-                          jQuery
-                        </div>
-                        <div className="py-[0.4rem] px-[2rem] bg-white border border-solid border-sectionBG text-heading rounded-[1.6rem] text-[1.2rem] font-medium leading-normal">
-                          Bootstrap 5
-                        </div>
-                        <div className="py-[0.4rem] px-[2rem] bg-white border border-solid border-sectionBG text-heading rounded-[1.6rem] text-[1.2rem] font-medium leading-normal">
-                          HTML
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <TimeLineItem />
                 {/* Date and divider */}
                 <div className="ml-[0.5rem]  lg:ml-auto lg:absolute left-[-10rem] z-10 text-[1.8rem] text-paragraph1">
                   2018 / 2019
                 </div>
                 {/* Timeline item */}
-                <div className="relative flex items-start">
-                  {/* Dot */}
-                  <div className="absolute top-0 left-[2rem] hidden lg:block">
-                    <div className="w-[2.6rem] h-[2.6rem] bg-white rounded-full flex items-center shadow-md justify-center">
-                      <div className="w-[0.7rem] h-[0.7rem] bg-heading rounded-full"></div>
-                    </div>
-                  </div>
-                  {/* Card */}
-                  <div className="bg-white p-[1.5rem] lg:p-[2.4rem] rounded-[1rem] shadow lg:ml-[6rem]">
-                    <div className="flex items-center justify-between flex-wrap text-nowrap max-[375px]:justify-center">
-                      {/* About Content */}
-                      <div className="flex gap-[1rem]">
-                        <div className="h-[4.2rem] w-[4.2rem] lg:h-[4.9rem] lg:w-[4.9rem] bg-[#D1E9FF] rounded-[0.4rem] flex items-center justify-center">
-                          <Image
-                            src={"./images/Logomark.svg"}
-                            height={32}
-                            width={32}
-                            alt="Logo Mark"
-                          />
-                        </div>
-                        <div>
-                          <p className="text-[1.4rem] lg:text-[1.6rem] font-normal text-paragraph1">
-                            Cypexsoft
-                          </p>
-                          <h3 className="text-[1.6rem] lg:text-[1.8rem] font-medium text-heading">
-                            UI Developer
-                          </h3>
-                        </div>
-                      </div>
-                      {/* Link */}
-                      <div className="flex items-center gap-[0.52rem]">
-                        <Image
-                          src={"./images/link.svg"}
-                          height={18}
-                          width={18}
-                          alt="Link"
-                        />
-                        <Link
-                          href={"https://cpasxsoft.com"}
-                          className="text-[#1F4FE1] text-[1.6rem] leading-normal"
-                        >
-                          cpasxsoft.com
-                        </Link>
-                      </div>
-                    </div>
-                    <p className="mt-[2rem] text-[1.6rem] font-medium text-paragraph1">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Ullamcorper ullamcorper quis. Lorem ipsum dolor sit amet,
-                      consectetur adipiscing elit. Ullamcorper ullamcorper quis.
-                    </p>
-                    <ul className="my-[2rem] text-paragraph1 text-[1.4rem] list-disc pl-[2rem] flex flex-col gap-[0.8rem]">
-                      <li>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      </li>
-                      <li>Ullamcorper ullamcorper quis.</li>
-                      <li>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      </li>
-                      <li>Ullamcorper ullamcorper quis.</li>
-                    </ul>
-                    <div className="w-full">
-                      <h4 className="text-paragraph1 text-[1.2rem] font-medium mb-[1.2rem] ml-[0.2rem]">
-                        AREAS OF EXPERTISE I'VE WORKED IN
-                      </h4>
-                      <div className="flex items-center gap-[1rem] lg:gap-[0.7rem]   text-nowrap flex-wrap text-[1.2rem]">
-                        <div className="py-[0.4rem] px-[2rem] bg-white border border-solid border-sectionBG text-heading rounded-[1.6rem] text-[1.2rem] font-medium leading-normal">
-                          AWS
-                        </div>
-                        <div className="py-[0.4rem] px-[2rem] bg-white border border-solid border-sectionBG text-heading rounded-[1.6rem] text-[1.2rem] font-medium leading-normal">
-                          React
-                        </div>
-                        <div className="py-[0.4rem] px-[2rem] bg-white border border-solid border-sectionBG text-heading rounded-[1.6rem] text-[1.2rem] font-medium leading-normal">
-                          jQuery
-                        </div>
-                        <div className="py-[0.4rem] px-[2rem] bg-white border border-solid border-sectionBG text-heading rounded-[1.6rem] text-[1.2rem] font-medium leading-normal">
-                          Bootstrap 5
-                        </div>
-                        <div className="py-[0.4rem] px-[2rem] bg-white border border-solid border-sectionBG text-heading rounded-[1.6rem] text-[1.2rem] font-medium leading-normal">
-                          HTML
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <TimeLineItem />
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Testimonial Section !Slider Completed */}
+      {/* Testimonial Section */}
       <section className="bg-sectionBG py-[7rem] lg:py-[10rem]">
         <div className="mainContainer">
           {/* Badge and Heading */}
@@ -1265,66 +492,13 @@ const index = () => {
               </div>
             </div>
             {/* Testimonial Box */}
-            <Slider slides={slides} />
+            <TestimonialSlider />
           </div>
         </div>
       </section>
 
       {/* FAQ Section Completed */}
-      <section className="w-full">
-        <div className="mainContainer my-[10rem] lg:my-[12rem] flex flex-col md:flex-row gap-[4rem] lg:gap-[6rem] lg:justify-between ">
-          {/* Faq Bg */}
-          <div className="bg-primary rounded-[2rem]  overflow-hidden h-[27rem] lg:h-[40.7rem] md:max-w-[35.7rem] w-full relative">
-            {/* Top Content */}
-            <div className="text-paragraph2 pt-[2rem] lg:pt-[3rem] pl-[2rem]">
-              <h4 className="pb-[2rem] text-[2.4rem] lg:text-[3rem] font-medium leading-[3.6rem]">
-                Find your <br /> answer here?
-              </h4>
-              <p className="text-[1.8rem] font-normal leading-[2.6rem]">
-                No worries, You can share your quires over here.
-              </p>
-            </div>
-            <button className="bg-radial-gradient bg-primary rounded-[0.6rem] text-white py-[2rem] px-[5.6rem] text-[1.8rem] font-medium border border-solid border-white absolute bottom-[2.3rem] left-[2.3rem] hover:bg-white hover:text-primary duration-300">
-              Contact Me
-            </button>
-          </div>
-          {/* Faq Container */}
-          <div className="w-full ">
-            <h2 className="text-[4rem] font-medium text-heading">FAQ</h2>
-            {faqs.map((faq, index) => (
-              <div
-                key={index}
-                className="mb-4 border-b border-solid border-border"
-              >
-                <button
-                  className="w-full flex justify-between items-center text-left text-[1.8rem] font-medium leading-[2.8rem] text-heading pt-[2.4rem] pb-[1.2rem] rounded-md focus:outline-none"
-                  onClick={() => toggleFAQ(index)}
-                >
-                  {faq.question}
-                  <img
-                    src={
-                      activeFaq === index
-                        ? "/images/minus.svg"
-                        : "/images/plus.svg"
-                    }
-                    alt={activeFaq === index ? "Collapse" : "Expand"}
-                    className="w-[2.4rem] h-[2.4rem] duration-300"
-                  />
-                </button>
-                <div
-                  className={`overflow-hidden transition-all duration-300 ease-out ${
-                    activeFaq === index ? "max-h-[200px] pt-4 pb-4" : "max-h-0"
-                  }`}
-                >
-                  <div className="text-[1.6rem] font-normal text-paragraph1 mt-2 duration-300">
-                    {faq.answer}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <Faq />
     </main>
   );
 };
