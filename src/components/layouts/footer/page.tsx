@@ -12,16 +12,16 @@ const Footer = () => {
   }
   const footerLinks: FooterLink[] = [
     { href: "/", title: "Home" },
-    { href: "/", title: "Cover Letter" },
-    { href: "/", title: "Projects" },
-    { href: "/", title: "CV" },
+    { href: "/offer", title: "Cover Letter" },
+    { href: "/portfolio-listing", title: "Projects" },
+    { href: "/cv", title: "CV" },
     { href: "/", title: "Skill" },
     { href: "/", title: "Services" },
     { href: "/", title: "GitHub" },
     { href: "/", title: "upWork" },
     { href: "/", title: "Dribble" },
     { href: "/", title: "Behance" },
-    { href: "/", title: "Blog" },
+    { href: "/blog-listing", title: "Blog" },
   ];
   return (
     <>

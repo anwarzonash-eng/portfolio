@@ -21,6 +21,14 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/components/BlogCard.tsx", "src/components/Sliders/SplideCarousel.js"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/components/BlogCard.tsx",
+    "src/components/Sliders/SplideCarousel.js",
+    ".next/types/app/testing/page.tsx"
+  ],
   "exclude": ["node_modules"]
 }

@@ -10,7 +10,8 @@ import TechSkills from "@/components/TechSkills";
 import MyServices from "@/components/MyServicesCards";
 import TestimonialSlider from "@/components/Sliders/TestimonialSlider";
 import TimeLineItem from "@/components/TimeLineItem";
-// import FreeTrialPopup from "@/components/FreeTrialPopup";
+import FreeTrialPopup from "@/components/FreeTrialPopup";
+import Welcome from "@/components/Welcome";
 
 const index = () => {
   useBodyBackgroundColor("#f8f9fa");
@@ -35,8 +36,9 @@ const index = () => {
   ];
 
   return (
-    <main className="w-ful">
-      {/* <FreeTrialPopup /> */}
+    <main className="w-full">
+      <FreeTrialPopup />
+      {/* <Welcome /> */}
 
       {/* Hero Section */}
       <div className="w-full overflow-hidden relative top-[-9rem] bg-bannerBG pt-[9rem]">

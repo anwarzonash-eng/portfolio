@@ -52,7 +52,7 @@ const Header: React.FC<HeaderProps> = ({
     { title: "Home", src: "/" },
     { title: "Cover Letter", src: "/offer" },
     { title: "Services", src: "/services" },
-    { title: "Projects", src: "/projects" },
+    { title: "Projects", src: "/portfolio-listing" },
     { title: "Blog", src: "/blog-listing" },
     { title: "CV", src: "/cv" },
   ];
