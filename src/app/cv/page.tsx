@@ -5,6 +5,7 @@ import Link from "next/link";
 import useBodyBackgroundColor from "@/hooks/useBodyBackgroundColor";
 import ExperienceItemCard from "@/components/ExperienceItemCard";
 import PortfolioItemCard from "@/components/PortfolioItemCard";
+import "./print.css";
 
 export default function Home() {
   useBodyBackgroundColor("#EFF5FD");

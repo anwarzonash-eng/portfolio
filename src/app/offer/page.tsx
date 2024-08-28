@@ -14,6 +14,141 @@ const offer = () => {
   // OF THE Current Page
   useBodyBackgroundColor("#EFF5FD");
 
+  const cardData = [
+    {
+      id: 1,
+      title: "Front-end Web Development",
+      icon: "📢", // You can also use icon paths
+      description: `Equipped with a wealth of frontend development expertise, I specialize in crafting seamless user experiences using technologies such as TypeScript, JavaScript, React, Next.js, Redux, Appolo, Vanilla S, TailwindCSS, MaterialUI, CSS/SASS/SCSS, and more. My commitment to delivering performant, secure, and accessible web applications is evident.`,
+      listItems: [
+        {
+          text: "Full Stack Developer with deep expertise in designing, building, and deploying end-to-end web solutions.",
+          highlight: "designing, building, and deploying",
+        },
+        {
+          text: "Dynamic and results-driven eCommerce specialist with extensive experience in managing online retail operations.",
+          highlight: "extensive experience",
+        },
+        {
+          text: "Proficient in front-end technologies such as React, Next.js, Redux, HTML, CSS, Bootstrap, TailwindCSS, and MaterialUI.",
+          highlight:
+            "React, Next.js, Redux, HTML, CSS, Bootstrap, TailwindCSS, and MaterialUI",
+        },
+        {
+          text: "Mastery in JavaScript and TypeScript, reinforced with tools like GraphQL for efficient data fetching.",
+          highlight: "MongoDB, MySQL, and PostgreSQL",
+        },
+        {
+          text: "Adept at creating and integrating REST APIs ensuring seamless front-to-back functionality and API Integrations.",
+        },
+        {
+          text: "Renowned for effective team collaboration and communication, ensuring aligned progress and shared vision.",
+        },
+      ],
+      linkText: "Check now",
+      linkUrl: "/",
+    },
+    {
+      id: 2,
+      title: "Front-end Web Development",
+      icon: "📢", // You can also use icon paths
+      description: `Equipped with a wealth of frontend development expertise, I specialize in crafting seamless user experiences using technologies such as TypeScript, JavaScript, React, Next.js, Redux, Appolo, Vanilla S, TailwindCSS, MaterialUI, CSS/SASS/SCSS, and more. My commitment to delivering performant, secure, and accessible web applications is evident.`,
+      listItems: [
+        {
+          text: "Full Stack Developer with deep expertise in designing, building, and deploying end-to-end web solutions.",
+          highlight: "designing, building, and deploying",
+        },
+        {
+          text: "Dynamic and results-driven eCommerce specialist with extensive experience in managing online retail operations.",
+          highlight: "extensive experience",
+        },
+        {
+          text: "Proficient in front-end technologies such as React, Next.js, Redux, HTML, CSS, Bootstrap, TailwindCSS, and MaterialUI.",
+          highlight:
+            "React, Next.js, Redux, HTML, CSS, Bootstrap, TailwindCSS, and MaterialUI",
+        },
+        {
+          text: "Mastery in JavaScript and TypeScript, reinforced with tools like GraphQL for efficient data fetching.",
+          highlight: "MongoDB, MySQL, and PostgreSQL",
+        },
+        {
+          text: "Adept at creating and integrating REST APIs ensuring seamless front-to-back functionality and API Integrations.",
+        },
+        {
+          text: "Renowned for effective team collaboration and communication, ensuring aligned progress and shared vision.",
+        },
+      ],
+      linkText: "Check now",
+      linkUrl: "/",
+    },
+    {
+      id: 3,
+      title: "Front-end Web Development",
+      icon: "📢", // You can also use icon paths
+      description: `Equipped with a wealth of frontend development expertise, I specialize in crafting seamless user experiences using technologies such as TypeScript, JavaScript, React, Next.js, Redux, Appolo, Vanilla S, TailwindCSS, MaterialUI, CSS/SASS/SCSS, and more. My commitment to delivering performant, secure, and accessible web applications is evident.`,
+      listItems: [
+        {
+          text: "Full Stack Developer with deep expertise in designing, building, and deploying end-to-end web solutions.",
+          highlight: "designing, building, and deploying",
+        },
+        {
+          text: "Dynamic and results-driven eCommerce specialist with extensive experience in managing online retail operations.",
+          highlight: "extensive experience",
+        },
+        {
+          text: "Proficient in front-end technologies such as React, Next.js, Redux, HTML, CSS, Bootstrap, TailwindCSS, and MaterialUI.",
+          highlight:
+            "React, Next.js, Redux, HTML, CSS, Bootstrap, TailwindCSS, and MaterialUI",
+        },
+        {
+          text: "Mastery in JavaScript and TypeScript, reinforced with tools like GraphQL for efficient data fetching.",
+          highlight: "MongoDB, MySQL, and PostgreSQL",
+        },
+        {
+          text: "Adept at creating and integrating REST APIs ensuring seamless front-to-back functionality and API Integrations.",
+        },
+        {
+          text: "Renowned for effective team collaboration and communication, ensuring aligned progress and shared vision.",
+        },
+      ],
+      linkText: "Check now",
+      linkUrl: "/",
+    },
+    {
+      id: 4,
+      title: "Front-end Web Development",
+      icon: "📢", // You can also use icon paths
+      description: `Equipped with a wealth of frontend development expertise, I specialize in crafting seamless user experiences using technologies such as TypeScript, JavaScript, React, Next.js, Redux, Appolo, Vanilla S, TailwindCSS, MaterialUI, CSS/SASS/SCSS, and more. My commitment to delivering performant, secure, and accessible web applications is evident.`,
+      listItems: [
+        {
+          text: "Full Stack Developer with deep expertise in designing, building, and deploying end-to-end web solutions.",
+          highlight: "designing, building, and deploying",
+        },
+        {
+          text: "Dynamic and results-driven eCommerce specialist with extensive experience in managing online retail operations.",
+          highlight: "extensive experience",
+        },
+        {
+          text: "Proficient in front-end technologies such as React, Next.js, Redux, HTML, CSS, Bootstrap, TailwindCSS, and MaterialUI.",
+          highlight:
+            "React, Next.js, Redux, HTML, CSS, Bootstrap, TailwindCSS, and MaterialUI",
+        },
+        {
+          text: "Mastery in JavaScript and TypeScript, reinforced with tools like GraphQL for efficient data fetching.",
+          highlight: "MongoDB, MySQL, and PostgreSQL",
+        },
+        {
+          text: "Adept at creating and integrating REST APIs ensuring seamless front-to-back functionality and API Integrations.",
+        },
+        {
+          text: "Renowned for effective team collaboration and communication, ensuring aligned progress and shared vision.",
+        },
+      ],
+      linkText: "Check now",
+      linkUrl: "/",
+    },
+  ];
+
   return (
     <div className="bg-[#EFF5FD]">
       {/* Hero Banner */}
@@ -241,7 +376,7 @@ const offer = () => {
       </section>
       {/* Offer Letter Section */}
       <div className="mainContainer w-full mt-[-42rem] lg:mt-[-28rem] relative">
-        {/* Content Box 1 */}
+        {/* Content Box Top */}
         <div className="w-full bg-white rounded-[1rem] border border-border border-solid mb-[4rem]">
           <div className="p-[1rem] lg:p-[3rem]">
             <h3 className="text-center text-[1.8rem] lg:text-[2.2rem] text-heading leading-[3rem] lg:leading-[3.4rem] font-medium border border-border border-solid p-[1rem] lg:p-[3rem] shadow-lg">
@@ -353,564 +488,78 @@ const offer = () => {
             </ul>
           </div>
         </div>
-        {/* Content Box 2 */}
-        <div className="w-full bg-white rounded-[1rem] border border-border border-solid mb-[3rem] overflow-hidden">
-          <div className="p-[1rem] lg:p-[3rem] mb-[5rem] bg-sectionBG  bg-cvBoxMobile sm:bg-cvBoxDesktop bg-center bg-no-repeat bg-cover lg:bg-contain">
-            <div className="flex flex-col md:flex-row items-start md:items-center gap-[2rem] mb-[2rem]">
-              {/* Circle */}
-              <div className="w-[9.3rem] h-[9.3rem] flex items-center justify-center bg-white/20 rounded-[12rem] shadow ">
-                <div className="text-center text-white text-[4.3rem] font-medium ">
-                  📢
+        {/* Content Box Bottom 4 */}
+        {cardData.map((card) => (
+          <div
+            key={card.id}
+            className="w-full bg-white rounded-[1rem] border border-border border-solid mb-[3rem] overflow-hidden"
+          >
+            <div className="p-[1rem] lg:p-[3rem] mb-[5rem] bg-sectionBG bg-cvBoxMobile sm:bg-cvBoxDesktop bg-center bg-no-repeat bg-cover lg:bg-contain">
+              <div className="flex flex-col md:flex-row items-start md:items-center gap-[2rem] mb-[2rem]">
+                {/* Circle Icon */}
+                <div className="w-[9.3rem] h-[9.3rem] flex items-center justify-center bg-white/20 rounded-[12rem] shadow ">
+                  <div className="text-center text-white text-[4.3rem] font-medium ">
+                    {card.icon}
+                  </div>
                 </div>
+                {/* Title */}
+                <h3 className="text-[2.4rem] lg:text-[3rem] text-white leading-[3rem] lg:leading-[3.4rem] font-medium">
+                  {card.title}
+                </h3>
               </div>
-              {/* Title */}
-              <h3 className="text-[2.4rem] lg:text-[3rem] text-white leading-[3rem] lg:leading-[3.4rem] font-medium">
-                Front-end Web <br /> Development
-              </h3>
+              <p className="text-white text-[1.6rem] leading-[2.4rem] sm:text-[1.8rem] sm:leading-[2.8rem] lg:text-[1.8rem] lg:leading-[2.9rem] font-normal lg:font-medium mb-[2rem]">
+                {card.description}
+              </p>
             </div>
-            <p className="text-white text-[1.6rem] leading-[2.4rem] sm:text-[1.8rem] sm:leading-[2.8rem] lg:text-[1.8rem] lg:leading-[2.9rem] font-normal lg:font-medium mb-[2rem]">
-              Equipped with a wealth of frontend development expertise, I
-              specialize in crafting seamless user experiences using
-              technologies such as TypeScript, JavaScript, React, Next.js,
-               Redux, Appolo, Vanilla S,
-               TailwindCSS, MaterialUI, CSS/SASS/SCSS, and more. My commitment
-              to delivering performant, secure, and accessible web applications
-              is evident.
-            </p>
-          </div>
-          <div className="p-[1rem] lg:p-[3rem] rounded-[1rem] mt-[-6rem] lg:mt-[-8rem] bg-white">
-            <ul className="text-heading text-[1.6rem] leading-[2.4rem] flex flex-col gap-[1rem]">
-              <li className="flex items-center gap-[1rem] lg:gap-[1.7rem] ">
+            <div className="p-[1rem] lg:p-[3rem] rounded-[1rem] mt-[-6rem] lg:mt-[-8rem] bg-white">
+              <ul className="text-heading text-[1.6rem] leading-[2.4rem] flex flex-col gap-[1rem]">
+                {card.listItems.map((item, index) => (
+                  <li
+                    key={index}
+                    className="flex items-center gap-[1rem] lg:gap-[1.7rem] "
+                  >
+                    <Image
+                      src={"/images/blueDisc.svg"}
+                      height={20}
+                      width={20}
+                      alt="Blue Disc"
+                      className="flex-shrink-0"
+                    />
+                    <p>
+                      {item.highlight && item.text.includes(item.highlight) ? (
+                        <>
+                          {item.text.split(item.highlight)[0]}
+                          <span className="text-primary font-medium">
+                            {item.highlight}
+                          </span>
+                          {item.text.split(item.highlight)[1]}
+                        </>
+                      ) : (
+                        item.text
+                      )}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+              <Link
+                href={card.linkUrl}
+                className="inline-flex items-center gap-[0.6rem] group mt-[1rem] mx-[2rem] "
+              >
+                <span className="text-[1.6rem] font-medium text-primary">
+                  {card.linkText}
+                </span>
                 <Image
-                  src={"/images/blueDisc.svg"}
-                  height={20}
-                  width={20}
-                  alt="Blue Disc"
-                  className="flex-shrink-0"
+                  src={"./images/ArrowRightGreen.svg"}
+                  height={16}
+                  width={16}
+                  className="group-hover:translate-x-[1rem] duration-300 h-[1.6rem] w-[1.6rem]"
+                  alt="Arrow Right"
                 />
-                <p>
-                  Full Stack Developer with deep expertise in{" "}
-                  <span className="text-primary font-medium">
-                    designing, building, and deploying
-                  </span>{" "}
-                  end-to-end web solutions.
-                </p>
-              </li>
-              <li className="flex items-center gap-[1rem] lg:gap-[1.7rem] ">
-                <Image
-                  src={"/images/blueDisc.svg"}
-                  height={20}
-                  width={20}
-                  alt="Blue Disc"
-                  className="flex-shrink-0"
-                />
-                <p>
-                  Dynamic and results-driven eCommerce specialist with{" "}
-                  <span className="text-primary font-medium">
-                    extensive experience
-                  </span>{" "}
-                  in managing online retail operations, including payment
-                  gateway integration, inventory management, and customer
-                  relationship management.
-                </p>
-              </li>
-              <li className="flex items-center gap-[1rem] lg:gap-[1.7rem] ">
-                <Image
-                  src={"/images/blueDisc.svg"}
-                  height={20}
-                  width={20}
-                  alt="Blue Disc"
-                  className="flex-shrink-0"
-                />
-                <p>
-                  Proficient in front-end technologies such as{" "}
-                  <span className="text-primary font-medium">
-                    React, Next.js, Redux, HTML, CSS, Bootstrap, TailwindCSS,
-                    and MaterialUI.
-                  </span>{" "}
-                </p>
-              </li>
-              <li className="flex items-center gap-[1rem] lg:gap-[1.7rem] ">
-                <Image
-                  src={"/images/blueDisc.svg"}
-                  height={20}
-                  width={20}
-                  alt="Blue Disc"
-                  className="flex-shrink-0"
-                />
-                <p>
-                  Mastery in JavaScript and TypeScript, reinforced with tools
-                  like GraphQL for efficient data fetching. Solid background in
-                  back-end development with Node.js, coupled with hands-on
-                  experience in{" "}
-                  <span className="text-primary font-medium">
-                    MongoDB, MySQL, and PostgreSQL.
-                  </span>{" "}
-                </p>
-              </li>
-              <li className="flex items-center gap-[1rem] lg:gap-[1.7rem] ">
-                <Image
-                  src={"/images/blueDisc.svg"}
-                  height={20}
-                  width={20}
-                  alt="Blue Disc"
-                  className="flex-shrink-0"
-                />
-                <p>
-                  Adept at creating and integrating REST APIs ensuring seamless
-                  front-to-back functionality and API Integrations.
-                </p>
-              </li>
-              <li className="flex items-center gap-[1rem] lg:gap-[1.7rem] ">
-                <Image
-                  src={"/images/blueDisc.svg"}
-                  height={20}
-                  width={20}
-                  alt="Blue Disc"
-                  className="flex-shrink-0"
-                />
-                <p>
-                  Renowned for effective team collaboration and communication,
-                  ensuring aligned progress and shared vision.
-                </p>
-              </li>
-            </ul>
-            <Link
-              href={"/"}
-              className="inline-flex items-center gap-[0.6rem] group mt-[1rem] mx-[2rem] "
-            >
-              <span className="text-[1.6rem] font-medium text-primary">
-                Check now
-              </span>
-              <Image
-                src={"./images/ArrowRightGreen.svg"}
-                height={16}
-                width={16}
-                className="group-hover:translate-x-[1rem] duration-300 h-[1.6rem] w-[1.6rem]"
-                alt="Arrow Right"
-              />
-            </Link>
-          </div>
-        </div>
-        {/* Content Box 3 */}
-        <div className="w-full bg-white rounded-[1rem] border border-border border-solid mb-[3rem] overflow-hidden">
-          <div className="p-[1rem] lg:p-[3rem] mb-[5rem] bg-sectionBG bg-cvBoxMobile sm:bg-cvBoxDesktop bg-center bg-no-repeat bg-cover lg:bg-contain">
-            <div className="flex flex-col md:flex-row items-start md:items-center gap-[2rem] mb-[2rem]">
-              {/* Circle */}
-              <div className="w-[9.3rem] h-[9.3rem] flex items-center justify-center bg-white/20 rounded-[12rem] shadow ">
-                <div className="text-center text-white text-[4.3rem] font-medium ">
-                  📢
-                </div>
-              </div>
-              {/* Title */}
-              <h3 className="text-[2.4rem] lg:text-[3rem] text-white leading-[3rem] lg:leading-[3.4rem] font-medium ">
-                Front-end Web <br /> Development
-              </h3>
+              </Link>
             </div>
-            <p className="text-white text-[1.6rem] leading-[2.4rem] sm:text-[1.8rem] sm:leading-[2.8rem] lg:text-[1.8rem] lg:leading-[2.9rem] font-normal lg:font-medium mb-[2rem]">
-              Equipped with a wealth of frontend development expertise, I
-              specialize in crafting seamless user experiences using
-              technologies such as TypeScript, JavaScript, React, Next.js,
-               Redux, Appolo, Vanilla S,
-               TailwindCSS, MaterialUI, CSS/SASS/SCSS, and more. My commitment
-              to delivering performant, secure, and accessible web applications
-              is evident.
-            </p>
           </div>
-          <div className="p-[1rem] lg:p-[3rem] rounded-[1rem] mt-[-6rem] lg:mt-[-8rem] bg-white">
-            <ul className="text-heading text-[1.6rem] leading-[2.4rem] flex flex-col gap-[1rem]">
-              <li className="flex items-center gap-[1rem] lg:gap-[1.7rem] ">
-                <Image
-                  src={"/images/blueDisc.svg"}
-                  height={20}
-                  width={20}
-                  alt="Blue Disc"
-                  className="flex-shrink-0"
-                />
-                <p>
-                  Full Stack Developer with deep expertise in{" "}
-                  <span className="text-primary font-medium">
-                    designing, building, and deploying
-                  </span>{" "}
-                  end-to-end web solutions.
-                </p>
-              </li>
-              <li className="flex items-center gap-[1rem] lg:gap-[1.7rem] ">
-                <Image
-                  src={"/images/blueDisc.svg"}
-                  height={20}
-                  width={20}
-                  alt="Blue Disc"
-                  className="flex-shrink-0"
-                />
-                <p>
-                  Dynamic and results-driven eCommerce specialist with{" "}
-                  <span className="text-primary font-medium">
-                    extensive experience
-                  </span>{" "}
-                  in managing online retail operations, including payment
-                  gateway integration, inventory management, and customer
-                  relationship management.
-                </p>
-              </li>
-              <li className="flex items-center gap-[1rem] lg:gap-[1.7rem] ">
-                <Image
-                  src={"/images/blueDisc.svg"}
-                  height={20}
-                  width={20}
-                  alt="Blue Disc"
-                  className="flex-shrink-0"
-                />
-                <p>
-                  Proficient in front-end technologies such as{" "}
-                  <span className="text-primary font-medium">
-                    React, Next.js, Redux, HTML, CSS, Bootstrap, TailwindCSS,
-                    and MaterialUI.
-                  </span>{" "}
-                </p>
-              </li>
-              <li className="flex items-center gap-[1rem] lg:gap-[1.7rem] ">
-                <Image
-                  src={"/images/blueDisc.svg"}
-                  height={20}
-                  width={20}
-                  alt="Blue Disc"
-                  className="flex-shrink-0"
-                />
-                <p>
-                  Mastery in JavaScript and TypeScript, reinforced with tools
-                  like GraphQL for efficient data fetching. Solid background in
-                  back-end development with Node.js, coupled with hands-on
-                  experience in{" "}
-                  <span className="text-primary font-medium">
-                    MongoDB, MySQL, and PostgreSQL.
-                  </span>{" "}
-                </p>
-              </li>
-              <li className="flex items-center gap-[1rem] lg:gap-[1.7rem] ">
-                <Image
-                  src={"/images/blueDisc.svg"}
-                  height={20}
-                  width={20}
-                  alt="Blue Disc"
-                  className="flex-shrink-0"
-                />
-                <p>
-                  Adept at creating and integrating REST APIs ensuring seamless
-                  front-to-back functionality and API Integrations.
-                </p>
-              </li>
-              <li className="flex items-center gap-[1rem] lg:gap-[1.7rem] ">
-                <Image
-                  src={"/images/blueDisc.svg"}
-                  height={20}
-                  width={20}
-                  alt="Blue Disc"
-                  className="flex-shrink-0"
-                />
-                <p>
-                  Renowned for effective team collaboration and communication,
-                  ensuring aligned progress and shared vision.
-                </p>
-              </li>
-            </ul>
-            <Link
-              href={"/"}
-              className="inline-flex items-center gap-[0.6rem] group mt-[1rem] mx-[2rem] "
-            >
-              <span className="text-[1.6rem] font-medium text-primary">
-                Check now
-              </span>
-              <Image
-                src={"./images/ArrowRightGreen.svg"}
-                height={16}
-                width={16}
-                className="group-hover:translate-x-[1rem] duration-300 h-[1.6rem] w-[1.6rem]"
-                alt="Arrow Right"
-              />
-            </Link>
-          </div>
-        </div>
-        {/* Content Box 4 */}
-        <div className="w-full bg-white rounded-[1rem] border border-border border-solid mb-[3rem] overflow-hidden">
-          <div className="p-[1rem] lg:p-[3rem] mb-[5rem] bg-sectionBG bg-cvBoxMobile sm:bg-cvBoxDesktop bg-center bg-no-repeat bg-cover lg:bg-contain">
-            <div className="flex flex-col md:flex-row items-start md:items-center gap-[2rem] mb-[2rem]">
-              {/* Circle */}
-              <div className="w-[9.3rem] h-[9.3rem] flex items-center justify-center bg-white/20 rounded-[12rem] shadow ">
-                <div className="text-center text-white text-[4.3rem] font-medium ">
-                  📢
-                </div>
-              </div>
-              {/* Title */}
-              <h3 className="text-[2.4rem] lg:text-[3rem] text-white leading-[3rem] lg:leading-[3.4rem] font-medium ">
-                Front-end Web <br /> Development
-              </h3>
-            </div>
-            <p className="text-white text-[1.6rem] leading-[2.4rem] sm:text-[1.8rem] sm:leading-[2.8rem] lg:text-[1.8rem] lg:leading-[2.9rem] font-normal lg:font-medium mb-[2rem]">
-              Equipped with a wealth of frontend development expertise, I
-              specialize in crafting seamless user experiences using
-              technologies such as TypeScript, JavaScript, React, Next.js,
-               Redux, Appolo, Vanilla S,
-               TailwindCSS, MaterialUI, CSS/SASS/SCSS, and more. My commitment
-              to delivering performant, secure, and accessible web applications
-              is evident.
-            </p>
-          </div>
-          <div className="p-[1rem] lg:p-[3rem] rounded-[1rem] mt-[-6rem] lg:mt-[-8rem] bg-white">
-            <ul className="text-heading text-[1.6rem] leading-[2.4rem] flex flex-col gap-[1rem]">
-              <li className="flex items-center gap-[1rem] lg:gap-[1.7rem] ">
-                <Image
-                  src={"/images/blueDisc.svg"}
-                  height={20}
-                  width={20}
-                  alt="Blue Disc"
-                  className="flex-shrink-0"
-                />
-                <p>
-                  Full Stack Developer with deep expertise in{" "}
-                  <span className="text-primary font-medium">
-                    designing, building, and deploying
-                  </span>{" "}
-                  end-to-end web solutions.
-                </p>
-              </li>
-              <li className="flex items-center gap-[1rem] lg:gap-[1.7rem] ">
-                <Image
-                  src={"/images/blueDisc.svg"}
-                  height={20}
-                  width={20}
-                  alt="Blue Disc"
-                  className="flex-shrink-0"
-                />
-                <p>
-                  Dynamic and results-driven eCommerce specialist with{" "}
-                  <span className="text-primary font-medium">
-                    extensive experience
-                  </span>{" "}
-                  in managing online retail operations, including payment
-                  gateway integration, inventory management, and customer
-                  relationship management.
-                </p>
-              </li>
-              <li className="flex items-center gap-[1rem] lg:gap-[1.7rem] ">
-                <Image
-                  src={"/images/blueDisc.svg"}
-                  height={20}
-                  width={20}
-                  alt="Blue Disc"
-                  className="flex-shrink-0"
-                />
-                <p>
-                  Proficient in front-end technologies such as{" "}
-                  <span className="text-primary font-medium">
-                    React, Next.js, Redux, HTML, CSS, Bootstrap, TailwindCSS,
-                    and MaterialUI.
-                  </span>{" "}
-                </p>
-              </li>
-              <li className="flex items-center gap-[1rem] lg:gap-[1.7rem] ">
-                <Image
-                  src={"/images/blueDisc.svg"}
-                  height={20}
-                  width={20}
-                  alt="Blue Disc"
-                  className="flex-shrink-0"
-                />
-                <p>
-                  Mastery in JavaScript and TypeScript, reinforced with tools
-                  like GraphQL for efficient data fetching. Solid background in
-                  back-end development with Node.js, coupled with hands-on
-                  experience in{" "}
-                  <span className="text-primary font-medium">
-                    MongoDB, MySQL, and PostgreSQL.
-                  </span>{" "}
-                </p>
-              </li>
-              <li className="flex items-center gap-[1rem] lg:gap-[1.7rem] ">
-                <Image
-                  src={"/images/blueDisc.svg"}
-                  height={20}
-                  width={20}
-                  alt="Blue Disc"
-                  className="flex-shrink-0"
-                />
-                <p>
-                  Adept at creating and integrating REST APIs ensuring seamless
-                  front-to-back functionality and API Integrations.
-                </p>
-              </li>
-              <li className="flex items-center gap-[1rem] lg:gap-[1.7rem] ">
-                <Image
-                  src={"/images/blueDisc.svg"}
-                  height={20}
-                  width={20}
-                  alt="Blue Disc"
-                  className="flex-shrink-0"
-                />
-                <p>
-                  Renowned for effective team collaboration and communication,
-                  ensuring aligned progress and shared vision.
-                </p>
-              </li>
-            </ul>
-            <Link
-              href={"/"}
-              className="inline-flex items-center gap-[0.6rem] group mt-[1rem] mx-[2rem] "
-            >
-              <span className="text-[1.6rem] font-medium text-primary">
-                Check now
-              </span>
-              <Image
-                src={"./images/ArrowRightGreen.svg"}
-                height={16}
-                width={16}
-                className="group-hover:translate-x-[1rem] duration-300 h-[1.6rem] w-[1.6rem]"
-                alt="Arrow Right"
-              />
-            </Link>
-          </div>
-        </div>
-        {/* Content Box 5 */}
-        <div className="w-full bg-white rounded-[1rem] border border-border border-solid mb-[3rem] overflow-hidden">
-          <div className="p-[1rem] lg:p-[3rem] mb-[5rem] bg-sectionBG bg-cvBoxMobile sm:bg-cvBoxDesktop bg-center bg-no-repeat bg-cover lg:bg-contain">
-            <div className="flex flex-col md:flex-row items-start md:items-center gap-[2rem] mb-[2rem]">
-              {/* Circle */}
-              <div className="w-[9.3rem] h-[9.3rem] flex items-center justify-center bg-white/20 rounded-[12rem] shadow ">
-                <div className="text-center text-white text-[4.3rem] font-medium ">
-                  📢
-                </div>
-              </div>
-              {/* Title */}
-              <h3 className="text-[2.4rem] lg:text-[3rem] text-white leading-[3rem] lg:leading-[3.4rem] font-medium ">
-                Front-end Web <br /> Development
-              </h3>
-            </div>
-            <p className="text-white text-[1.6rem] leading-[2.4rem] sm:text-[1.8rem] sm:leading-[2.8rem] lg:text-[1.8rem] lg:leading-[2.9rem] font-normal lg:font-medium mb-[2rem]">
-              Equipped with a wealth of frontend development expertise, I
-              specialize in crafting seamless user experiences using
-              technologies such as TypeScript, JavaScript, React, Next.js,
-               Redux, Appolo, Vanilla S,
-               TailwindCSS, MaterialUI, CSS/SASS/SCSS, and more. My commitment
-              to delivering performant, secure, and accessible web applications
-              is evident.
-            </p>
-          </div>
-          <div className="p-[1rem] lg:p-[3rem] rounded-[1rem] mt-[-6rem] lg:mt-[-8rem] bg-white">
-            <ul className="text-heading text-[1.6rem] leading-[2.4rem] flex flex-col gap-[1rem]">
-              <li className="flex items-center gap-[1rem] lg:gap-[1.7rem] ">
-                <Image
-                  src={"/images/blueDisc.svg"}
-                  height={20}
-                  width={20}
-                  alt="Blue Disc"
-                  className="flex-shrink-0"
-                />
-                <p>
-                  Full Stack Developer with deep expertise in{" "}
-                  <span className="text-primary font-medium">
-                    designing, building, and deploying
-                  </span>{" "}
-                  end-to-end web solutions.
-                </p>
-              </li>
-              <li className="flex items-center gap-[1rem] lg:gap-[1.7rem] ">
-                <Image
-                  src={"/images/blueDisc.svg"}
-                  height={20}
-                  width={20}
-                  alt="Blue Disc"
-                  className="flex-shrink-0"
-                />
-                <p>
-                  Dynamic and results-driven eCommerce specialist with{" "}
-                  <span className="text-primary font-medium">
-                    extensive experience
-                  </span>{" "}
-                  in managing online retail operations, including payment
-                  gateway integration, inventory management, and customer
-                  relationship management.
-                </p>
-              </li>
-              <li className="flex items-center gap-[1rem] lg:gap-[1.7rem] ">
-                <Image
-                  src={"/images/blueDisc.svg"}
-                  height={20}
-                  width={20}
-                  alt="Blue Disc"
-                  className="flex-shrink-0"
-                />
-                <p>
-                  Proficient in front-end technologies such as{" "}
-                  <span className="text-primary font-medium">
-                    React, Next.js, Redux, HTML, CSS, Bootstrap, TailwindCSS,
-                    and MaterialUI.
-                  </span>{" "}
-                </p>
-              </li>
-              <li className="flex items-center gap-[1rem] lg:gap-[1.7rem] ">
-                <Image
-                  src={"/images/blueDisc.svg"}
-                  height={20}
-                  width={20}
-                  alt="Blue Disc"
-                  className="flex-shrink-0"
-                />
-                <p>
-                  Mastery in JavaScript and TypeScript, reinforced with tools
-                  like GraphQL for efficient data fetching. Solid background in
-                  back-end development with Node.js, coupled with hands-on
-                  experience in{" "}
-                  <span className="text-primary font-medium">
-                    MongoDB, MySQL, and PostgreSQL.
-                  </span>{" "}
-                </p>
-              </li>
-              <li className="flex items-center gap-[1rem] lg:gap-[1.7rem] ">
-                <Image
-                  src={"/images/blueDisc.svg"}
-                  height={20}
-                  width={20}
-                  alt="Blue Disc"
-                  className="flex-shrink-0"
-                />
-                <p>
-                  Adept at creating and integrating REST APIs ensuring seamless
-                  front-to-back functionality and API Integrations.
-                </p>
-              </li>
-              <li className="flex items-center gap-[1rem] lg:gap-[1.7rem] ">
-                <Image
-                  src={"/images/blueDisc.svg"}
-                  height={20}
-                  width={20}
-                  alt="Blue Disc"
-                  className="flex-shrink-0"
-                />
-                <p>
-                  Renowned for effective team collaboration and communication,
-                  ensuring aligned progress and shared vision.
-                </p>
-              </li>
-            </ul>
-            <Link
-              href={"/"}
-              className="inline-flex items-center gap-[0.6rem] group mt-[1rem] mx-[2rem] "
-            >
-              <span className="text-[1.6rem] font-medium text-primary">
-                Check now
-              </span>
-              <Image
-                src={"./images/ArrowRightGreen.svg"}
-                height={16}
-                width={16}
-                className="group-hover:translate-x-[1rem] duration-300 h-[1.6rem] w-[1.6rem]"
-                alt="Arrow Right"
-              />
-            </Link>
-          </div>
-        </div>
+        ))}
       </div>
-
       {/* My Work Section Slider  */}
       <section className="w-full">
         <div className="mainContainer my-[12rem]">
@@ -927,12 +576,10 @@ const offer = () => {
           <HomeSlider />
         </div>
       </section>
-
       {/* Our Blogs */}
       <div className="my-[10rem] lg:my-[12.6rem]">
         <OurBlogs />
       </div>
-
       {/* Newsletter */}
       <div className="w-full my-[9.6rem]">
         <Newsletter />

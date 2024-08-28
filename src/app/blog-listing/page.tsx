@@ -359,17 +359,17 @@ const blogListing = () => {
           <p className="text-[1.4rem] text-heading font-medium">Previous</p>
         </div>
         <div className="flex justify-start items-start">
-          <div className="h-[4rem] w-[4rem] flex items-center justify-center group hover:bg-primary rounded-[0.8rem] duration-300">
+          <div className="h-[4rem] w-[4rem] flex items-center justify-center group hover:bg-primary rounded-[0.8rem] cursor-pointer duration-300">
             <p className="text-[1.4rem] font-medium text-heading group-hover:text-white">
               1
             </p>
           </div>
-          <div className="h-[4rem] w-[4rem] flex items-center justify-center group hover:bg-primary rounded-[0.8rem] duration-300">
+          <div className="h-[4rem] w-[4rem] flex items-center justify-center group hover:bg-primary rounded-[0.8rem] cursor-pointer duration-300">
             <p className="text-[1.4rem] font-medium text-heading group-hover:text-white">
               2
             </p>
           </div>
-          <div className="h-[4rem] w-[4rem] hidden md:flex items-center justify-center group hover:bg-primary rounded-[0.8rem] duration-300">
+          <div className="h-[4rem] w-[4rem] hidden md:flex items-center justify-center group hover:bg-primary rounded-[0.8rem] cursor-pointer duration-300">
             <p className="text-[1.4rem] font-medium text-heading group-hover:text-white">
               3
             </p>
@@ -378,17 +378,17 @@ const blogListing = () => {
           <div className="h-[4rem] w-[4rem] flex items-center justify-center ">
             <p className="text-[1.4rem] font-medium text-heading ">...</p>
           </div>
-          <div className="h-[4rem] w-[4rem] hidden md:flex items-center justify-center group hover:bg-primary rounded-[0.8rem] duration-300">
+          <div className="h-[4rem] w-[4rem] hidden md:flex items-center justify-center group hover:bg-primary rounded-[0.8rem] cursor-pointer duration-300">
             <p className="text-[1.4rem] font-medium text-heading group-hover:text-white">
               8
             </p>
           </div>
-          <div className="h-[4rem] w-[4rem] hidden md:flex items-center justify-center group hover:bg-primary rounded-[0.8rem] duration-300">
+          <div className="h-[4rem] w-[4rem] hidden md:flex items-center justify-center group hover:bg-primary rounded-[0.8rem] cursor-pointer duration-300">
             <p className="text-[1.4rem] font-medium text-heading group-hover:text-white">
               9
             </p>
           </div>
-          <div className="h-[4rem] w-[4rem] flex items-center justify-center group hover:bg-primary rounded-[0.8rem] duration-300">
+          <div className="h-[4rem] w-[4rem] flex items-center justify-center group hover:bg-primary rounded-[0.8rem] cursor-pointer duration-300">
             <p className="text-[1.4rem] font-medium text-heading group-hover:text-white">
               10
             </p>

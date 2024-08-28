@@ -7,6 +7,92 @@ import useBodyBackgroundColor from "@/hooks/useBodyBackgroundColor";
 
 const portfolioListing = () => {
   useBodyBackgroundColor("#EFF5FD");
+  const timelineData = [
+    {
+      year: "2022 - 2023",
+      title: "EaseMyKid - Education Learning Management System",
+      description: `EaseMyKid is an education, courses, and online (LMS) learning 
+                    management system Figma template designed for people who want 
+                    to start teaching online, create an LMS etc.`,
+      iconSrc: "/images/case-white.svg",
+      imgSrc: "/images/workSample.png",
+      points: [
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ullamcorper ullamcorper quis.",
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        "Lorem ipsum adipiscing sit amet,",
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ullamcorper ullamcorper quis.",
+      ],
+      skills: ["AWS", "React", "jQuery", "Bootstrap 5", "HTML"],
+      links: {
+        viewDetails: "/",
+        livePreview: "/",
+        testimonial: "/",
+      },
+    },
+    {
+      year: "2022 - 2023",
+      title: "EaseMyKid - Education Learning Management System",
+      description: `EaseMyKid is an education, courses, and online (LMS) learning 
+                    management system Figma template designed for people who want 
+                    to start teaching online, create an LMS etc.`,
+      iconSrc: "/images/case-white.svg",
+      imgSrc: "/images/workSample.png",
+      points: [
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ullamcorper ullamcorper quis.",
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        "Lorem ipsum adipiscing sit amet,",
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ullamcorper ullamcorper quis.",
+      ],
+      skills: ["AWS", "React", "jQuery", "Bootstrap 5", "HTML"],
+      links: {
+        viewDetails: "/",
+        livePreview: "/",
+        testimonial: "/",
+      },
+    },
+    {
+      year: "2022 - 2023",
+      title: "EaseMyKid - Education Learning Management System",
+      description: `EaseMyKid is an education, courses, and online (LMS) learning 
+                    management system Figma template designed for people who want 
+                    to start teaching online, create an LMS etc.`,
+      iconSrc: "/images/case-white.svg",
+      imgSrc: "/images/workSample.png",
+      points: [
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ullamcorper ullamcorper quis.",
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        "Lorem ipsum adipiscing sit amet,",
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ullamcorper ullamcorper quis.",
+      ],
+      skills: ["AWS", "React", "jQuery", "Bootstrap 5", "HTML"],
+      links: {
+        viewDetails: "/",
+        livePreview: "/",
+        testimonial: "/",
+      },
+    },
+    {
+      year: "2022 - 2023",
+      title: "EaseMyKid - Education Learning Management System",
+      description: `EaseMyKid is an education, courses, and online (LMS) learning 
+                    management system Figma template designed for people who want 
+                    to start teaching online, create an LMS etc.`,
+      iconSrc: "/images/case-white.svg",
+      imgSrc: "/images/workSample.png",
+      points: [
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ullamcorper ullamcorper quis.",
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        "Lorem ipsum adipiscing sit amet,",
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ullamcorper ullamcorper quis.",
+      ],
+      skills: ["AWS", "React", "jQuery", "Bootstrap 5", "HTML"],
+      links: {
+        viewDetails: "/",
+        livePreview: "/",
+        testimonial: "/",
+      },
+    },
+  ];
   return (
     <div className="bg-[#EFF5FD]">
       {/* Hero Banner */}
@@ -245,507 +331,108 @@ const portfolioListing = () => {
             <div className="absolute left-[-1rem] lg:left-[1rem] top-0 w-[2px] h-[100%] bg-[#7B869E;] mx-[2.1rem] " />
             {/* Timeline items Container */}
             <div className="space-y-[1rem] lg:space-y-[3rem]">
-              {/* Timeline item */}
-              <div className="relative flex items-start ">
-                {/* Dot */}
-                <div className="absolute top-0 left-0 lg:left-[1.8rem]">
-                  <div className="w-[2.6rem] h-[2.6rem] bg-white rounded-full flex items-center shadow-md justify-center">
-                    <div className="w-[0.7rem] h-[0.7rem] bg-[#5531A7] rounded-full"></div>
+              {timelineData.map((item, index) => (
+                <div className="relative flex items-start " key={index}>
+                  {/* Dot */}
+                  <div className="absolute top-0 left-0 lg:left-[1.8rem]">
+                    <div className="w-[2.6rem] h-[2.6rem] bg-white rounded-full flex items-center shadow-md justify-center">
+                      <div className="w-[0.7rem] h-[0.7rem] bg-[#5531A7] rounded-full"></div>
+                    </div>
                   </div>
-                </div>
-                <div className="ml-[3rem] lg:ml-[6rem]">
-                  {/* Title */}
-                  <h1 className="text-heading text-[2rem] leading-[2.7rem] font-bold mb-[1rem] max-lg:ml-[0.5rem]">
-                    2022 - 2023
-                  </h1>
-                  {/* Card */}
-                  <div className="flex flex-col-reverse lg:flex-row max-lg:p-[1.5rem] bg-white shadow-testimonialeShadow relative rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden p-[2.4rem] gap-[2.4rem]">
-                    {/* Content */}
-                    <div className="lg:max-w-[68rem] w-full">
-                      <div className="bg-[#1B6393] p-[1.46rem] rounded-[1rem] inline-block mb-[1rem]">
-                        <Image
-                          src={"/images/case-white.svg"}
-                          alt="Case"
-                          height={34}
-                          width={34}
-                          className="h-[2rem] w-[2rem]"
-                        />
-                      </div>
-                      {/* Heading and Para */}
-                      <div className="text-heading">
-                        {/* Heading */}
-                        <h1 className="text-[1.8rem] lg:text-[2rem] font-bold leading-[2.69rem]">
-                          EaseMyKid - Education Learning Management System
-                        </h1>
-                        {/* Para */}
-                        <p className="text-[1.4rem] leading-[1.8rem] font-normal mt-[1rem]">
-                          EaseMyKid is an{" "}
-                          <span className="text-primary font-medium">
-                            education, courses, and online (LMS)
-                          </span>
-                          learning management system Figma template designed for
-                          people who want to start teaching online, create an
-                          LMS etc.
-                        </p>
-                        <hr className="w-full my-[1.6rem] h-px bg-border" />
-                      </div>
-                      {/* List */}
-                      <ul className="flex flex-col gap-[0.8rem] text-[1.4rem] leading-[150%] text-heading mb-[2rem] list-disc ml-[2rem]">
-                        <li>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit. Ullamcorper ullamcorper quis.
-                        </li>
-                        <li>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit.
-                        </li>
-                        <li>Lorem ipsum adipiscing sit amet,</li>
-                        <li>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit. Ullamcorper ullamcorper quis.
-                        </li>
-                      </ul>
-                      {/* Skills Badges */}
-                      <div>
-                        <h4 className="text-heading text-[1.2rem] font-medium mb-[1.2rem] ml-[0.2rem]">
-                          AREAS OF EXPERTISE I'VE WORKED IN
-                        </h4>
-                        <div className="flex items-center gap-[1rem] lg:gap-[0.7rem]   text-nowrap flex-wrap text-[1.2rem]">
-                          <div className="py-[0.4rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal">
-                            AWS
-                          </div>
-                          <div className="py-[0.4rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal">
-                            React
-                          </div>
-                          <div className="py-[0.4rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal">
-                            jQuery
-                          </div>
-                          <div className="py-[0.4rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal">
-                            Bootstrap 5
-                          </div>
-                          <div className="py-[0.4rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal">
-                            HTML
+                  <div className="ml-[3rem] lg:ml-[6rem]">
+                    {/* Year */}
+                    <h1 className="text-heading text-[2rem] leading-[2.7rem] font-bold mb-[1rem] max-lg:ml-[0.5rem]">
+                      {item.year}
+                    </h1>
+                    {/* Card */}
+                    <div className="flex flex-col-reverse lg:flex-row max-lg:p-[1.5rem] bg-white shadow-testimonialeShadow relative rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden p-[2.4rem] gap-[2.4rem]">
+                      {/* Content */}
+                      <div className="lg:max-w-[68rem] w-full">
+                        <div className="bg-[#1B6393] p-[1.46rem] rounded-[1rem] inline-block mb-[1rem]">
+                          <Image
+                            src={item.iconSrc}
+                            alt="Case"
+                            height={34}
+                            width={34}
+                            className="h-[2rem] w-[2rem]"
+                          />
+                        </div>
+                        {/* Title and Description */}
+                        <div className="text-heading">
+                          <h1 className="text-[1.8rem] lg:text-[2rem] font-bold leading-[2.69rem]">
+                            {item.title}
+                          </h1>
+                          <p className="text-[1.4rem] leading-[1.8rem] font-normal mt-[1rem]">
+                            {item.description}
+                          </p>
+                          <hr className="w-full my-[1.6rem] h-px bg-border" />
+                        </div>
+                        {/* Points */}
+                        <ul className="flex flex-col gap-[0.8rem] text-[1.4rem] leading-[150%] text-heading mb-[2rem] list-disc ml-[2rem]">
+                          {item.points.map((point, i) => (
+                            <li key={i}>{point}</li>
+                          ))}
+                        </ul>
+                        {/* Skills */}
+                        <div>
+                          <h4 className="text-heading text-[1.2rem] font-medium mb-[1.2rem] ml-[0.2rem]">
+                            AREAS OF EXPERTISE I'VE WORKED IN
+                          </h4>
+                          <div className="flex items-center gap-[1rem] lg:gap-[0.7rem] flex-wrap text-[1.2rem]">
+                            {item.skills.map((skill, i) => (
+                              <div
+                                key={i}
+                                className="py-[0.4rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
+                              >
+                                {skill}
+                              </div>
+                            ))}
                           </div>
                         </div>
-                      </div>
-                      {/* Line */}
-                      <hr className="w-full my-[2.4rem] h-px bg-border" />
-                      {/* Links */}
-                      <div className="flex items-center flex-wrap max-sm:flex-col max-md:items-start gap-[1.4rem]">
-                        <Link
-                          href={"/"}
-                          className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent hover:border-primary duration-300 max-sm:w-full text-center rounded-[0.6rem]"
-                        >
-                          View Details
-                        </Link>
-                        <Link
-                          href={"/"}
-                          className="py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-primary border border-solid  hover:border-transparent border-primary duration-300 hover:bg-primary hover:text-white rounded-[0.6rem] max-sm:w-full text-center"
-                        >
-                          Launch Project - Live Preview
-                        </Link>
-                        <Link
-                          href={"/"}
-                          className="text-primary  text-[1.6rem] leading-[2.4rem] font-medium max-sm:w-full text-center"
-                        >
-                          Check Client Testimonial
-                        </Link>
-                      </div>
-                    </div>
-                    {/* Image */}
-                    <div className="lg:max-w-[51rem] w-full xl:flex-shrink-0 rounded-[0.8rem] relative border border-solid border-border">
-                      <Image
-                        src={"/images/workSample.png"}
-                        alt="Project Image"
-                        height={800}
-                        width={800}
-                        className="object-cover h-full w-full"
-                      />
-                      {/* Centered Positioned Button */}
-                      <button className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 py-[1rem] lg:py-[1.4rem] px-[2rem] lg:px-[3.7rem] rounded-[7.77rem] border-2 border-solid border-[#fff] text-[1.8rem] lg:text-[2.2rem] font-medium text-heading min-w-[137px] lg:min-w-[220px] bg-[rgba(0,0,0,0.20)] backdrop-blur-[0.8rem] duration-300 hover:bg-primary hover:bg-opacity-80 hover:text-white">
-                        See All
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              {/* Timeline item */}
-              <div className="relative flex items-start ">
-                {/* Dot */}
-                <div className="absolute top-0 left-0 lg:left-[1.8rem] ">
-                  <div className="w-[2.6rem] h-[2.6rem] bg-white rounded-full flex items-center shadow-md justify-center">
-                    <div className="w-[0.7rem] h-[0.7rem] bg-[#5531A7] rounded-full"></div>
-                  </div>
-                </div>
-                <div className="ml-[3rem] lg:ml-[6rem]">
-                  {/* Title */}
-                  <h1 className="text-heading text-[2rem] leading-[2.7rem] font-bold mb-[1rem] max-lg:ml-[0.5rem]">
-                    2022 - 2023
-                  </h1>
-                  {/* Card */}
-                  <div className="flex flex-col-reverse lg:flex-row max-lg:p-[1.5rem] bg-white shadow-testimonialeShadow relative rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden p-[2.4rem] gap-[2.4rem]">
-                    {/* Content */}
-                    <div className="lg:max-w-[68rem] w-full">
-                      <div className="bg-[#1B6393] p-[1.46rem] rounded-[1rem] inline-block mb-[1rem]">
-                        <Image
-                          src={"/images/case-white.svg"}
-                          alt="Case"
-                          height={34}
-                          width={34}
-                          className="h-[2rem] w-[2rem]"
-                        />
-                      </div>
-                      {/* Heading and Para */}
-                      <div className="text-heading">
-                        {/* Heading */}
-                        <h1 className="text-[1.8rem] lg:text-[2rem] font-bold leading-[2.69rem]">
-                          EaseMyKid - Education Learning Management System
-                        </h1>
-                        {/* Para */}
-                        <p className="text-[1.4rem] leading-[1.8rem] font-normal mt-[1rem]">
-                          EaseMyKid is an{" "}
-                          <span className="text-primary font-medium">
-                            education, courses, and online (LMS)
-                          </span>
-                          learning management system Figma template designed for
-                          people who want to start teaching online, create an
-                          LMS etc.
-                        </p>
-                        <hr className="w-full my-[1.6rem] h-px bg-border" />
-                      </div>
-                      {/* List */}
-                      <ul className="flex flex-col gap-[0.8rem] text-[1.4rem] leading-[150%] text-heading mb-[2rem] list-disc ml-[2rem]">
-                        <li>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit. Ullamcorper ullamcorper quis.
-                        </li>
-                        <li>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit.
-                        </li>
-                        <li>Lorem ipsum adipiscing sit amet,</li>
-                        <li>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit. Ullamcorper ullamcorper quis.
-                        </li>
-                      </ul>
-                      {/* Skills Badges */}
-                      <div>
-                        <h4 className="text-heading text-[1.2rem] font-medium mb-[1.2rem] ml-[0.2rem]">
-                          AREAS OF EXPERTISE I'VE WORKED IN
-                        </h4>
-                        <div className="flex items-center gap-[1rem] lg:gap-[0.7rem]   text-nowrap flex-wrap text-[1.2rem]">
-                          <div className="py-[0.4rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal">
-                            AWS
-                          </div>
-                          <div className="py-[0.4rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal">
-                            React
-                          </div>
-                          <div className="py-[0.4rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal">
-                            jQuery
-                          </div>
-                          <div className="py-[0.4rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal">
-                            Bootstrap 5
-                          </div>
-                          <div className="py-[0.4rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal">
-                            HTML
-                          </div>
+                        <hr className="w-full my-[2.4rem] h-px bg-border" />
+                        {/* Links */}
+                        <div className="flex items-center flex-wrap max-sm:flex-col max-md:items-start gap-[1.4rem]">
+                          <Link
+                            href={item.links.viewDetails}
+                            className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent hover:border-primary duration-300 max-sm:w-full text-center rounded-[0.6rem]"
+                          >
+                            View Details
+                          </Link>
+                          <Link
+                            href={item.links.livePreview}
+                            className="py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-primary border border-solid hover:border-transparent border-primary duration-300 hover:bg-primary hover:text-white rounded-[0.6rem] max-sm:w-full text-center"
+                          >
+                            Launch Project - Live Preview
+                          </Link>
+                          <Link
+                            href={item.links.testimonial}
+                            className="text-primary  text-[1.6rem] leading-[2.4rem] font-medium max-sm:w-full text-center"
+                          >
+                            Check Client Testimonial
+                          </Link>
                         </div>
                       </div>
-                      {/* Line */}
-                      <hr className="w-full my-[2.4rem] h-px bg-border" />
-                      {/* Links */}
-                      <div className="flex items-center flex-wrap  max-sm:flex-col max-md:items-start gap-[1.4rem]">
-                        <Link
-                          href={"/"}
-                          className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent hover:border-primary duration-300 max-sm:w-full text-center rounded-[0.6rem]"
-                        >
-                          View Details
-                        </Link>
-                        <Link
-                          href={"/"}
-                          className="py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-primary border border-solid  hover:border-transparent border-primary duration-300 hover:bg-primary hover:text-white rounded-[0.6rem] max-sm:w-full text-center"
-                        >
-                          Launch Project - Live Preview
-                        </Link>
-                        <Link
-                          href={"/"}
-                          className="text-primary  text-[1.6rem] leading-[2.4rem] font-medium max-sm:w-full text-center"
-                        >
-                          Check Client Testimonial
-                        </Link>
-                      </div>
-                    </div>
-                    {/* Image */}
-                    <div className="lg:max-w-[51rem] w-full xl:flex-shrink-0 rounded-[0.8rem] relative border border-solid border-border">
-                      <Image
-                        src={"/images/workSample.png"}
-                        alt="Project Image"
-                        height={800}
-                        width={800}
-                        className="object-cover h-full w-full"
-                      />
-                      {/* Centered Positioned Button */}
-                      <button className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 py-[1rem] lg:py-[1.4rem] px-[2rem] lg:px-[3.7rem] rounded-[7.77rem] border-2 border-solid border-[#fff] text-[1.8rem] lg:text-[2.2rem] font-medium text-heading min-w-[137px] lg:min-w-[220px] bg-[rgba(0,0,0,0.20)] backdrop-blur-[0.8rem] duration-300 hover:bg-primary hover:bg-opacity-80 hover:text-white">
-                        See All
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              {/* Timeline item */}
-              <div className="relative flex items-start ">
-                {/* Dot */}
-                <div className="absolute top-0 left-0 lg:left-[1.8rem] ">
-                  <div className="w-[2.6rem] h-[2.6rem] bg-white rounded-full flex items-center shadow-md justify-center">
-                    <div className="w-[0.7rem] h-[0.7rem] bg-[#5531A7] rounded-full"></div>
-                  </div>
-                </div>
-                <div className="ml-[3rem] lg:ml-[6rem]">
-                  {/* Title */}
-                  <h1 className="text-heading text-[2rem] leading-[2.7rem] font-bold mb-[1rem] max-lg:ml-[0.5rem]">
-                    2022 - 2023
-                  </h1>
-                  {/* Card */}
-                  <div className="flex flex-col-reverse lg:flex-row max-lg:p-[1.5rem] bg-white shadow-testimonialeShadow relative rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden p-[2.4rem] gap-[2.4rem]">
-                    {/* Content */}
-                    <div className="lg:max-w-[68rem] w-full">
-                      <div className="bg-[#1B6393] p-[1.46rem] rounded-[1rem] inline-block mb-[1rem]">
+                      {/* Image */}
+                      <div className="lg:max-w-[51rem] w-full xl:flex-shrink-0 rounded-[0.8rem] relative border border-solid border-border">
                         <Image
-                          src={"/images/case-white.svg"}
-                          alt="Case"
-                          height={34}
-                          width={34}
-                          className="h-[2rem] w-[2rem]"
+                          src={item.imgSrc}
+                          alt="Project Image"
+                          height={800}
+                          width={800}
+                          className="object-cover h-full w-full"
                         />
+                        <button className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 py-[1rem] lg:py-[1.4rem] px-[2rem] lg:px-[3.7rem] rounded-[7.77rem] border-2 border-solid border-[#fff] text-[1.8rem] lg:text-[2.2rem] font-medium text-heading min-w-[137px] lg:min-w-[220px] bg-[rgba(0,0,0,0.20)] backdrop-blur-[0.8rem] duration-300 hover:bg-primary hover:bg-opacity-80 hover:text-white">
+                          See All
+                        </button>
                       </div>
-                      {/* Heading and Para */}
-                      <div className="text-heading">
-                        {/* Heading */}
-                        <h1 className="text-[1.8rem] lg:text-[2rem] font-bold leading-[2.69rem]">
-                          EaseMyKid - Education Learning Management System
-                        </h1>
-                        {/* Para */}
-                        <p className="text-[1.4rem] leading-[1.8rem] font-normal mt-[1rem]">
-                          EaseMyKid is an{" "}
-                          <span className="text-primary font-medium">
-                            education, courses, and online (LMS)
-                          </span>
-                          learning management system Figma template designed for
-                          people who want to start teaching online, create an
-                          LMS etc.
-                        </p>
-                        <hr className="w-full my-[1.6rem] h-px bg-border" />
-                      </div>
-                      {/* List */}
-                      <ul className="flex flex-col gap-[0.8rem] text-[1.4rem] leading-[150%] text-heading mb-[2rem] list-disc ml-[2rem]">
-                        <li>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit. Ullamcorper ullamcorper quis.
-                        </li>
-                        <li>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit.
-                        </li>
-                        <li>Lorem ipsum adipiscing sit amet,</li>
-                        <li>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit. Ullamcorper ullamcorper quis.
-                        </li>
-                      </ul>
-                      {/* Skills Badges */}
-                      <div>
-                        <h4 className="text-heading text-[1.2rem] font-medium mb-[1.2rem] ml-[0.2rem]">
-                          AREAS OF EXPERTISE I'VE WORKED IN
-                        </h4>
-                        <div className="flex items-center gap-[1rem] lg:gap-[0.7rem]   text-nowrap flex-wrap text-[1.2rem]">
-                          <div className="py-[0.4rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal">
-                            AWS
-                          </div>
-                          <div className="py-[0.4rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal">
-                            React
-                          </div>
-                          <div className="py-[0.4rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal">
-                            jQuery
-                          </div>
-                          <div className="py-[0.4rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal">
-                            Bootstrap 5
-                          </div>
-                          <div className="py-[0.4rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal">
-                            HTML
-                          </div>
-                        </div>
-                      </div>
-                      {/* Line */}
-                      <hr className="w-full my-[2.4rem] h-px bg-border" />
-                      {/* Links */}
-                      <div className="flex items-center flex-wrap  max-sm:flex-col max-md:items-start gap-[1.4rem]">
-                        <Link
-                          href={"/"}
-                          className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent hover:border-primary duration-300 max-sm:w-full text-center rounded-[0.6rem]"
-                        >
-                          View Details
-                        </Link>
-                        <Link
-                          href={"/"}
-                          className="py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-primary border border-solid  hover:border-transparent border-primary duration-300 hover:bg-primary hover:text-white rounded-[0.6rem] max-sm:w-full text-center"
-                        >
-                          Launch Project - Live Preview
-                        </Link>
-                        <Link
-                          href={"/"}
-                          className="text-primary  text-[1.6rem] leading-[2.4rem] font-medium max-sm:w-full text-center"
-                        >
-                          Check Client Testimonial
-                        </Link>
-                      </div>
-                    </div>
-                    {/* Image */}
-                    <div className="lg:max-w-[51rem] w-full xl:flex-shrink-0 rounded-[0.8rem] relative border border-solid border-border">
-                      <Image
-                        src={"/images/workSample.png"}
-                        alt="Project Image"
-                        height={800}
-                        width={800}
-                        className="object-cover h-full w-full"
-                      />
-                      {/* Centered Positioned Button */}
-                      <button className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 py-[1rem] lg:py-[1.4rem] px-[2rem] lg:px-[3.7rem] rounded-[7.77rem] border-2 border-solid border-[#fff] text-[1.8rem] lg:text-[2.2rem] font-medium text-heading min-w-[137px] lg:min-w-[220px] bg-[rgba(0,0,0,0.20)] backdrop-blur-[0.8rem] duration-300 hover:bg-primary hover:bg-opacity-80 hover:text-white">
-                        See All
-                      </button>
                     </div>
                   </div>
                 </div>
-              </div>
-              {/* Timeline item */}
-              <div className="relative flex items-start ">
-                {/* Dot */}
-                <div className="absolute top-0 left-0 lg:left-[1.8rem] ">
-                  <div className="w-[2.6rem] h-[2.6rem] bg-white rounded-full flex items-center shadow-md justify-center">
-                    <div className="w-[0.7rem] h-[0.7rem] bg-[#5531A7] rounded-full"></div>
-                  </div>
-                </div>
-                <div className="ml-[3rem] lg:ml-[6rem]">
-                  {/* Title */}
-                  <h1 className="text-heading text-[2rem] leading-[2.7rem] font-bold mb-[1rem] max-lg:ml-[0.5rem]">
-                    2022 - 2023
-                  </h1>
-                  {/* Card */}
-                  <div className="flex flex-col-reverse lg:flex-row max-lg:p-[1.5rem] bg-white shadow-testimonialeShadow relative rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden p-[2.4rem] gap-[2.4rem]">
-                    {/* Content */}
-                    <div className="lg:max-w-[68rem] w-full">
-                      <div className="bg-[#1B6393] p-[1.46rem] rounded-[1rem] inline-block mb-[1rem]">
-                        <Image
-                          src={"/images/case-white.svg"}
-                          alt="Case"
-                          height={34}
-                          width={34}
-                          className="h-[2rem] w-[2rem]"
-                        />
-                      </div>
-                      {/* Heading and Para */}
-                      <div className="text-heading">
-                        {/* Heading */}
-                        <h1 className="text-[1.8rem] lg:text-[2rem] font-bold leading-[2.69rem]">
-                          EaseMyKid - Education Learning Management System
-                        </h1>
-                        {/* Para */}
-                        <p className="text-[1.4rem] leading-[1.8rem] font-normal mt-[1rem]">
-                          EaseMyKid is an{" "}
-                          <span className="text-primary font-medium">
-                            education, courses, and online (LMS)
-                          </span>
-                          learning management system Figma template designed for
-                          people who want to start teaching online, create an
-                          LMS etc.
-                        </p>
-                        <hr className="w-full my-[1.6rem] h-px bg-border" />
-                      </div>
-                      {/* List */}
-                      <ul className="flex flex-col gap-[0.8rem] text-[1.4rem] leading-[150%] text-heading mb-[2rem] list-disc ml-[2rem]">
-                        <li>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit. Ullamcorper ullamcorper quis.
-                        </li>
-                        <li>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit.
-                        </li>
-                        <li>Lorem ipsum adipiscing sit amet,</li>
-                        <li>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit. Ullamcorper ullamcorper quis.
-                        </li>
-                      </ul>
-                      {/* Skills Badges */}
-                      <div>
-                        <h4 className="text-heading text-[1.2rem] font-medium mb-[1.2rem] ml-[0.2rem]">
-                          AREAS OF EXPERTISE I'VE WORKED IN
-                        </h4>
-                        <div className="flex items-center gap-[1rem] lg:gap-[0.7rem]   text-nowrap flex-wrap text-[1.2rem]">
-                          <div className="py-[0.4rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal">
-                            AWS
-                          </div>
-                          <div className="py-[0.4rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal">
-                            React
-                          </div>
-                          <div className="py-[0.4rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal">
-                            jQuery
-                          </div>
-                          <div className="py-[0.4rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal">
-                            Bootstrap 5
-                          </div>
-                          <div className="py-[0.4rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal">
-                            HTML
-                          </div>
-                        </div>
-                      </div>
-                      {/* Line */}
-                      <hr className="w-full my-[2.4rem] h-px bg-border" />
-                      {/* Links */}
-                      <div className="flex items-center flex-wrap  max-sm:flex-col max-md:items-start gap-[1.4rem]">
-                        <Link
-                          href={"/"}
-                          className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent hover:border-primary duration-300 max-sm:w-full text-center rounded-[0.6rem]"
-                        >
-                          View Details
-                        </Link>
-                        <Link
-                          href={"/"}
-                          className="py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-primary border border-solid  hover:border-transparent border-primary duration-300 hover:bg-primary hover:text-white rounded-[0.6rem] max-sm:w-full text-center"
-                        >
-                          Launch Project - Live Preview
-                        </Link>
-                        <Link
-                          href={"/"}
-                          className="text-primary  text-[1.6rem] leading-[2.4rem] font-medium max-sm:w-full text-center"
-                        >
-                          Check Client Testimonial
-                        </Link>
-                      </div>
-                    </div>
-                    {/* Image */}
-                    <div className="lg:max-w-[51rem] w-full xl:flex-shrink-0 rounded-[0.8rem] relative border border-solid border-border">
-                      <Image
-                        src={"/images/workSample.png"}
-                        alt="Project Image"
-                        height={800}
-                        width={800}
-                        className="object-cover h-full w-full"
-                      />
-                      {/* Centered Positioned Button */}
-                      <button className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 py-[1rem] lg:py-[1.4rem] px-[2rem] lg:px-[3.7rem] rounded-[7.77rem] border-2 border-solid border-[#fff] text-[1.8rem] lg:text-[2.2rem] font-medium text-heading min-w-[137px] lg:min-w-[220px] bg-[rgba(0,0,0,0.20)] backdrop-blur-[0.8rem] duration-300 hover:bg-primary hover:bg-opacity-80 hover:text-white">
-                        See All
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
       </div>
-
       {/* Newsletter */}
       <div className="w-full my-[9.6rem]">
         <Newsletter />

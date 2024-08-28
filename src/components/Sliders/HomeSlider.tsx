@@ -34,21 +34,22 @@ const HomeSlider: React.FC = () => {
       logoBG: "bg-[#005CE8]",
       link: "/",
     },
-
-    // Add more slides if needed
   ];
 
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
   const sliderRef = useRef<HTMLDivElement | null>(null);
   const slideInterval = 3000; // Change slide every 3 seconds
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      nextSlide();
-    }, slideInterval);
+    if (!isPaused) {
+      const interval = setInterval(() => {
+        nextSlide();
+      }, slideInterval);
 
-    return () => clearInterval(interval);
-  }, [currentSlide]);
+      return () => clearInterval(interval);
+    }
+  }, [currentSlide, isPaused]);
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % slides.length);
@@ -58,17 +59,41 @@ const HomeSlider: React.FC = () => {
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
   };
 
+  const handleMouseEnter = () => {
+    setIsPaused(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsPaused(false);
+  };
+
+  const totalSlides = slides.length;
+
+  // Infinite behavior using cloning
+  const displaySlides = [
+    slides[totalSlides - 1], // Clone the last slide to the front for seamless transition
+    ...slides,
+    slides[0], // Clone the first slide to the end
+  ];
+
+  const adjustedCurrentSlide = currentSlide + 1;
+
   return (
     <div className="relative w-full overflow-hidden">
       {/* Slider Container */}
       <div
         className="flex items-center transition-all duration-700 ease-in-out"
-        style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+        style={{ transform: `translateX(-${adjustedCurrentSlide * 100}%)` }}
         ref={sliderRef}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
       >
-        {slides.map((slide, index) => (
-          <div key={index} className="w-full flex-shrink-0">
-            <div className="w-full my-[6rem] flex items-center justify-center">
+        {displaySlides.map((slide, index) => (
+          <div
+            key={index}
+            className="w-full flex-shrink-0 my-[6rem] overflow-hidden"
+          >
+            <div className="w-full flex items-center justify-center">
               <div className="flex flex-col-reverse lg:flex-row max-lg:p-[1.5rem] bg-white shadow-testimonialeShadow relative rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden">
                 {/* Content */}
                 <div className="lg:py-[6.4rem] lg:pl-[6.4rem] w-full">
@@ -146,7 +171,7 @@ const HomeSlider: React.FC = () => {
         ))}
       </div>
 
-      {/* Navigation UI Buttons Sample */}
+      {/* Navigation UI Buttons */}
       <div className="flex items-center justify-center w-full  ">
         <div className="flex items-center justify-center gap-[1.2rem]">
           <div

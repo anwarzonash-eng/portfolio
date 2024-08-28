@@ -19,6 +19,34 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({
   initialBgColor = "bg-transparent",
 }) => {
+  // Use localStorage or initialBgColor for initial background state
+  const [bgColor, setBgColor] = useState(() => {
+    return localStorage.getItem("bgColor") || initialBgColor;
+  });
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scroll = window.scrollY;
+      if (scroll > 10) {
+        setBgColor("bg-white");
+        localStorage.setItem("bgColor", "bg-white");
+      } else {
+        setBgColor(initialBgColor);
+        localStorage.setItem("bgColor", initialBgColor);
+      }
+    };
+
+    // Initial check to set the background color based on the current scroll position
+    handleScroll();
+
+    // Attach the scroll event listener
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [initialBgColor]);
+
   // Header Links
   const headerLinks: HeaderLink[] = [
     { title: "Home", src: "/" },
@@ -35,7 +63,6 @@ const Header: React.FC<HeaderProps> = ({
   console.log(pathname);
 
   const [sideBarOpen, setSideBarOpen] = useState<boolean>(false);
-  const [bgColor, setBgColor] = useState<string>(initialBgColor);
 
   const [isResourceOpen, setIsResourceOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -77,27 +104,6 @@ const Header: React.FC<HeaderProps> = ({
   const handleSidebar = () => {
     setSideBarOpen(!sideBarOpen);
   };
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scroll = window.scrollY;
-      if (scroll > 10) {
-        setBgColor("bg-white");
-      } else {
-        setBgColor(initialBgColor);
-      }
-    };
-
-    // Initial check to set the background color based on the current scroll position
-    handleScroll();
-
-    // Attach the scroll event listener
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [initialBgColor]);
 
   return (
     <>
