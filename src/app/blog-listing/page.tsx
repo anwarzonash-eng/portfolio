@@ -308,7 +308,7 @@ const blogListing = () => {
           {/* Badge Heading and Paara Text */}
           <div className="max-w-[1024px] mx-auto text-center px-[2rem] pt-[8rem] lg:pt-[12.5rem] relative z-20">
             {/* Badge */}
-            <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-['Inter'] leading-tight mx-auto mb-[1.6rem]">
+            <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto mb-[1.6rem]">
               Our blog
             </div>
             {/* Heading */}

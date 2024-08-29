@@ -12,6 +12,7 @@ const config: Config = {
     },
     fontFamily: {
       sans: ["Helvetica Neue", "Helvetica", "Arial", "sans-serif"], // Setting Helvetica Neue as default
+      Inter: ["Inter", "sans-serif"]
     },
     extend: {
       screens: {

@@ -260,7 +260,7 @@ const index = () => {
             {/* About Context */}
             <div className="w-full">
               {/* Badge */}
-              <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-['Inter'] leading-[2rem]">
+              <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium  font-Inter leading-[2rem]">
                 About us
               </div>
               {/* Heading */}
@@ -371,7 +371,7 @@ const index = () => {
       {/* Skills Section Completed */}
       <div className="mainContainer my-[10rem] xl:my-[12rem]">
         {/* Badge */}
-        <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-['Inter'] leading-tight mx-auto">
+        <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto">
           Skills
         </div>
         {/* Heading */}
@@ -388,7 +388,7 @@ const index = () => {
       <section className="w-full bg-sectionBG">
         <div className="mainContainer py-[5rem] xl:py-[10rem]">
           {/* Badge */}
-          <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-['Inter'] leading-tight mx-auto">
+          <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto">
             My Services
           </div>
           {/* Heading */}
@@ -406,7 +406,7 @@ const index = () => {
       <section className="w-full">
         <div className="mainContainer my-[12rem]">
           {/* Badge */}
-          <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-['Inter'] leading-tight mx-auto">
+          <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto">
             My Work
           </div>
           {/* Heading */}
@@ -423,7 +423,7 @@ const index = () => {
       <section className="w-full">
         <div className="mainContainer my-[12rem]">
           {/* Badge */}
-          <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-['Inter'] leading-tight mx-auto">
+          <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto">
             Professional Experience
           </div>
           {/* Heading */}
@@ -467,7 +467,7 @@ const index = () => {
           {/* Badge and Heading */}
           <div className="w-full lg:hidden">
             {/* Badge */}
-            <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-['Inter'] leading-tight">
+            <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight">
               Professional Experience
             </div>
             {/* Heading */}

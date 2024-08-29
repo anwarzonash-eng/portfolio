@@ -564,7 +564,7 @@ const offer = () => {
       <section className="w-full">
         <div className="mainContainer my-[12rem]">
           {/* Badge */}
-          <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-['Inter'] leading-tight mx-auto">
+          <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto">
             My Work
           </div>
           {/* Heading */}

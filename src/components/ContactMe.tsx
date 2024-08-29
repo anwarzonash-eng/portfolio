@@ -100,7 +100,7 @@ const ContactMe = () => {
         {/* Contact Details */}
         <div className="w-full">
           {/* Badge */}
-          <div className="px-[2rem] py-[0.4rem] rounded-[2.2rem] bg-white border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-['Inter'] leading-[2rem] mb-[2rem]">
+          <div className="px-[2rem] py-[0.4rem] rounded-[2.2rem] bg-white border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-[2rem] mb-[2rem]">
             Stay In Touch
           </div>
           {/* Heading */}
