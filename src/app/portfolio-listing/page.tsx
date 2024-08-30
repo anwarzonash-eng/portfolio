@@ -1,9 +1,11 @@
 "use client";
 import React from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Newsletter from "@/components/Newsletter";
 import useBodyBackgroundColor from "@/hooks/useBodyBackgroundColor";
+import PortfolioPopUp from "@/components/PortfolioPopUp";
 
 const portfolioListing = () => {
   useBodyBackgroundColor("#EFF5FD");
@@ -93,6 +95,19 @@ const portfolioListing = () => {
       },
     },
   ];
+
+  // This Code is use to Open Popup
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Function to open the modal
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  // Function to close the modal
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
   return (
     <div className="bg-[#EFF5FD]">
       {/* Hero Banner */}
@@ -322,6 +337,10 @@ const portfolioListing = () => {
           </div>
         </div>
       </section>
+
+      {/* Portfolio PopUp */}
+      <PortfolioPopUp isModalOpen={isModalOpen} closeModal={closeModal} />
+
       {/* Portfolio Timeline Section */}
       <div className="mainContainer mt-[-30rem] lg:mt-[-40rem] xl:mt-[-36rem]  w-full ">
         {/* Timeline */}
@@ -421,7 +440,10 @@ const portfolioListing = () => {
                           width={800}
                           className="object-cover h-full w-full"
                         />
-                        <button className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 py-[1rem] lg:py-[1.4rem] px-[2rem] lg:px-[3.7rem] rounded-[7.77rem] border-2 border-solid border-[#fff] text-[1.8rem] lg:text-[2.2rem] font-medium text-heading min-w-[137px] lg:min-w-[220px] bg-[rgba(0,0,0,0.20)] backdrop-blur-[0.8rem] duration-300 hover:bg-primary hover:bg-opacity-80 hover:text-white">
+                        <button
+                          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 py-[1rem] lg:py-[1.4rem] px-[2rem] lg:px-[3.7rem] rounded-[7.77rem] border-2 border-solid border-[#fff] text-[1.8rem] lg:text-[2.2rem] font-medium text-heading min-w-[137px] lg:min-w-[220px] bg-[rgba(0,0,0,0.20)] backdrop-blur-[0.8rem] duration-300 hover:bg-primary hover:bg-opacity-80 hover:text-white"
+                          onClick={openModal}
+                        >
                           See All
                         </button>
                       </div>
