@@ -1,26 +1,41 @@
-import React from "react";
-import Link from "next/link";
-import Image from "next/image";
+import React from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import Reports from '@/apiCalls/reports';
 
-const ContactMeLinks = () => {
-  interface ConstactLinks {
+const ContactMeLinks = ({ props }) => {
+  interface ContactLinks {
     href: string;
     src: string;
     alt: string;
   }
 
-  const constactLinks: ConstactLinks[] = [
-    { href: "/", src: "/images/gmail.svg", alt: "gmail" },
-    { href: "/", src: "/images/whatsapp.svg", alt: "whatsapp" },
-    { href: "/", src: "/images/number.svg", alt: "number" },
+  const contactLinks: ContactLinks[] = [
+    {
+      href: `mailto:${props?.email}`,
+      src: '/images/gmail.svg',
+      alt: 'gmail',
+    },
+    {
+      href: `https://wa.me/${props?.phone_no}`,
+      src: '/images/whatsapp.svg',
+      alt: 'whatsapp',
+    },
+    {
+      href: `tel:${props?.phone_no}`,
+      src: '/images/number.svg',
+      alt: 'number',
+    },
   ];
   return (
     <>
-      {constactLinks.map(({ href, src, alt }) => (
-        <Link href={href} key={alt}>
-          <Image src={src} height={45} width={45} alt={alt} />
-        </Link>
-      ))}
+      {contactLinks.map(({ href, src, alt }) =>
+        href ? (
+          <Link href={href} key={alt} target='_blank'>
+            <Image src={src} height={45} width={45} alt={alt} />
+          </Link>
+        ) : null
+      )}
     </>
   );
 };
