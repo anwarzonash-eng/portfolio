@@ -1,5 +1,4 @@
 import { skillsPayload, skillsSync } from '@/apiHandlers/skillsApi';
-import { defaultUser } from '@/data/defaultUser';
 import React, { useEffect, useState } from 'react';
 
 const Skills = (actionType = 'list') => {

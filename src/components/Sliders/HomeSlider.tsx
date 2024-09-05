@@ -94,12 +94,13 @@ const HomeSlider = ({ portfolios }) => {
                   {/* Skills Badges */}
                   <div className='flex items-center gap-[1rem] lg:gap-[0.7rem] mt-[3.4rem] mb-[3.2rem] text-nowrap flex-wrap'>
                     {portfolio.skills.map((skill, idx) => (
-                      <div
+                      <Link
+                        href={skill?.url || '#'}
                         key={idx}
-                        className='py-[0.4rem] px-[2rem] bg-bannerBG text-heading rounded-[1.2rem] text-[1.4rem] font-medium leading-[2rem]'
+                        className='hover:bg-primary hover:text-white py-[0.4rem] px-[2rem] bg-bannerBG text-heading rounded-[1.2rem] text-[1.4rem] font-medium leading-[2rem]'
                       >
                         {skill.title}
-                      </div>
+                      </Link>
                     ))}
                   </div>
                   {/* Links */}
@@ -115,7 +116,7 @@ const HomeSlider = ({ portfolios }) => {
                       /
                     </span>
                     <Link
-                      href='/portfolio-detail'
+                      href={`/portfolio-detail?portfolio_id=${portfolio.id}`}
                       className='text-primary underline text-[1.6rem] leading-[2.4rem] font-semibold'
                     >
                       View Details
@@ -136,13 +137,13 @@ const HomeSlider = ({ portfolios }) => {
                   </div>
                 </div>
                 {/* Image */}
-                <div className='lg:max-w-[70rem] w-full relative top-0 lg:right-[-1rem] xl:flex-shrink-0 flex items-center'>
+                <div className='rounded-[1.2rem] lg:max-w-[70rem] w-full relative top-0 lg:right-[-1rem] xl:flex-shrink-0 flex items-center'>
                   <Image
                     src={portfolio.child_hero_banner}
                     alt='Project Image'
                     height={800}
                     width={800}
-                    className='object-cover w-full h-full max-h-[55.2rem]'
+                    className='object-contain lg:pr-[6.4rem] rounded-[1.2rem] w-full h-full max-h-[55.2rem]'
                   />
                 </div>
               </div>

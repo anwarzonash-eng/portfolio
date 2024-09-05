@@ -1,5 +1,7 @@
 // New Popup
 import React, { useState, useEffect, useRef } from 'react';
+import WebsiteLoader from './WebsiteLoader';
+import PortfolioImagesLoader from './PortfolioImagesLoader';
 
 const PortfolioPopUp = ({ isModalOpen, closeModal, portfolioPictures }) => {
   const images = JSON.parse(portfolioPictures);
@@ -252,7 +254,7 @@ const PortfolioPopUp = ({ isModalOpen, closeModal, portfolioPictures }) => {
                   `}</style>
                 </>
               ) : (
-                <div>Loading images...</div>
+                <PortfolioImagesLoader />
               )}
 
               <button

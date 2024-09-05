@@ -17,7 +17,7 @@ const SliderXL = ({ portfolioPictures }) => {
   return (
     <div className='relative w-full overflow-visible rounded-[1.6rem]'>
       {/* Wrapper with overflow-visible */}
-      <div className='relative w-full h-full overflow-hidden rounded-[1.6rem] shadow-lg'>
+      <div className='relative w-full overflow-hidden rounded-[1.6rem] shadow-lg'>
         {/* Slider container */}
         <div
           className='flex transition-transform duration-700'
