@@ -11,11 +11,6 @@ const HomeSlider = ({ portfolios }) => {
   const sliderRef = useRef(null);
   const slideInterval = 3000; // Change slide every 3 seconds
 
-  // Check if portfolios is not defined or empty
-  if (!portfolios || portfolios?.length === 0) {
-    return <PortfolioImagesLoader />; // Display a loading message or spinner while portfolios are loading
-  }
-
   useEffect(() => {
     if (!isPaused && portfolios?.length > 0) {
       const interval = setInterval(() => {
@@ -43,6 +38,10 @@ const HomeSlider = ({ portfolios }) => {
   const handleMouseLeave = () => {
     setIsPaused(false);
   };
+
+  if (!portfolios || portfolios.length === 0) {
+    return <PortfolioImagesLoader />;
+  }
 
   const adjustedCurrentSlide = currentSlide + 1;
   const totalSlides = portfolios.length;
