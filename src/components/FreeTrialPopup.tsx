@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Confetti from './Confetti';
 import VideoPlayer from './VideoPlayer';
+import Reports from '@/apiCalls/reports';
 
 const FreeTrialPopup: React.FC = () => {
   const mySkills: string[] = [
@@ -23,12 +24,14 @@ const FreeTrialPopup: React.FC = () => {
     'Android',
   ];
 
+  const { listOfdata } = Reports();
+
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
     const introPopupViewed = localStorage.getItem('IntropopupViewed');
 
-    if (!introPopupViewed) {
+    if (!introPopupViewed || introPopupViewed !== 'true') {
       const timer = setTimeout(() => {
         setOpen(true);
       }, 1000);
@@ -47,10 +50,10 @@ const FreeTrialPopup: React.FC = () => {
   return (
     <>
       <div className='fixed top-0 left-0 w-full h-full bg-primary bg-opacity-50 z-[500]'>
-        <div className='relative w-full h-full overflow-y-auto  py-[10rem]'>
+        <div className='rounded[1.2rem] relative w-full h-full overflow-y-auto  py-[10rem]'>
           <Confetti />
           {/* Free Trial PopUp */}
-          <div className='max-w-[102.4rem] mx-auto w-full bg-trialPopUpGradient relative'>
+          <div className='rounded[1.2rem] max-w-[102.4rem] mx-auto w-full bg-trialPopUpGradient relative'>
             {/* Close Icon */}
             <div className='absolute top-[-1rem] right-[-1rem] cursor-pointer z-[60]'>
               <Image
@@ -82,15 +85,17 @@ const FreeTrialPopup: React.FC = () => {
                     Work with me for 2 weeks with guaranteed satisfaction.
                   </p>
                 </div>
-                <div className='relative flex items-end justify-center max-w-[97.7rem] w-full px-[1.5rem] mx-auto'>
+                <div className='pb-10 relative flex items-end justify-center max-w-[97.7rem] w-full px-[1.5rem] mx-auto'>
                   {/* Video Section */}
                   <VideoPlayer
-                    videoSrc='/videos/testVideo.mp4'
-                    videoClassName='h-full w-full h-[28.8rem] sm:h-[44rem] object-cover'
-                    thumbnailSrc='/images/popUpPic.png'
-                    containerClassName='max-w-[1200px] w-full'
-                    thumbnailClassName='h-[28.8rem] sm:h-[44rem]'
-                    thumbnailImage='object-cover h-full w-full rounded-[1rem]'
+                    videoSrc={listOfdata?.video}
+                    videoClassName='rounded[1.2rem] h-full w-full h-[28.8rem] sm:h-[44rem] object-cover'
+                    thumbnailSrc={
+                      listOfdata?.profile_photo_3 || '/images/popUpPic.png'
+                    }
+                    containerClassName='rounded[1.2rem] max-w-[1200px] w-full'
+                    thumbnailClassName='rounded[1.2rem] h-[28.8rem] sm:h-[44rem]'
+                    thumbnailImage='rounded[1.2rem] object-cover h-full w-full rounded-[1rem]'
                     playButtonClassName='!w-[100px] !h-[100px] relative flex items-center justify-center'
                     closeButtonClassName='custom-close-button'
                     playIcon='/images/popUpPlay.svg'
@@ -99,22 +104,27 @@ const FreeTrialPopup: React.FC = () => {
                 </div>
               </div>
             </div>
+
             {/* Bottom Content */}
             <div className='bg-white'>
               {/* Heading and Button */}
               <div className='flex flex-wrap justify-center lg:justify-between lg:flex-nowrap lg:items-center gap-[2rem] py-[2rem] px-[3rem] border-b border-solid border-border'>
                 <div className='max-w-[614px] w-full flex-shrink-0'>
                   <p className="text-primary text-[3rem] font-bold font-['Helvetica Neue'] leading-[45px]">
-                    Full Stack Developer
+                    {listOfdata?.name}
+                  </p>
+                  <p className="text-primary text-[2.5rem] font-bold font-['Helvetica Neue'] leading-[45px]">
+                    {listOfdata?.designation}
                   </p>
                   <p className='text-black text-[1.8rem] font-normal leading-[150%]'>
-                    10+ years of experience in front-end and back-end web
-                    development. Ambitious and communicative. Good mentor and
-                    tech lead.
+                    {listOfdata?.tag_line}
                   </p>
                 </div>
                 <div>
-                  <button className='btn-primary px-[3.4rem] py-[1.5rem] rounded-[0.4rem] text-[2rem] text-white'>
+                  <button
+                    onClick={handleClose}
+                    className='btn-primary px-[3.4rem] py-[1.5rem] rounded-[0.4rem] text-[2rem] text-white'
+                  >
                     Keep Exploring My Website
                   </button>
                 </div>
@@ -128,7 +138,9 @@ const FreeTrialPopup: React.FC = () => {
                     <div className='bg-[#F7F9FC] border border-solid border-[#E2E6EE] rounded-[0.8rem] py-[2.5rem] md:max-w-[15rem] w-full flex items-center justify-center h-[9.4rem]'>
                       <div className='text-primary font-medium flex md:flex-col max-md:items-center max-md:px-[2rem] max-md:justify-between max-md:w-full'>
                         <p className='md:mb-[1rem]'>
-                          <span className='text-[2rem]'>$26</span>
+                          <span className='text-[2rem]'>
+                            ${listOfdata?.hourly_rate}
+                          </span>
                           <span className='text-[1.6rem]'>/ hour</span>
                         </p>
                         {/* Divider Visible only Up to Medium Devices */}
@@ -143,7 +155,7 @@ const FreeTrialPopup: React.FC = () => {
                     <div className='bg-[#F7F9FC] border border-solid border-[#E2E6EE] py-[2.5rem] px-[2rem] md:max-w-[22rem] w-full flex items-center justify-start rounded-[0.8rem] h-[9.4rem]'>
                       <div>
                         <div className='w-full flex items-center gap-[1.4rem] mb-[1rem]'>
-                          <Link href=''>
+                          <Link href={`mailto:${listOfdata?.email}`}>
                             <Image
                               src='/images/gmail.svg'
                               height={45}
@@ -152,7 +164,10 @@ const FreeTrialPopup: React.FC = () => {
                               className='h-[3.4rem] w-[3.4rem] md:h-[4.5rem] md:w-[4.5rem]'
                             />
                           </Link>
-                          <Link href=''>
+                          <Link
+                            target='_blank'
+                            href={`https://wa.me/${listOfdata?.phone_no}`}
+                          >
                             <Image
                               src='/images/whatsapp.svg'
                               height={45}
@@ -161,7 +176,7 @@ const FreeTrialPopup: React.FC = () => {
                               className='h-[3.4rem] w-[3.4rem] md:h-[4.5rem] md:w-[4.5rem]'
                             />
                           </Link>
-                          <Link href=''>
+                          <Link href={`tel:${listOfdata?.phone_no}`}>
                             <Image
                               src='/images/number.svg'
                               height={45}
@@ -179,51 +194,67 @@ const FreeTrialPopup: React.FC = () => {
                   </div>
                   <div className='bg-[#F7F9FC] border border-solid border-[#E2E6EE] w-full px-[2rem] rounded-[0.8rem] h-[9.4rem] flex flex-col justify-center gap-[1rem]'>
                     <div className='w-full flex items-center gap-[1.4rem]'>
-                      <Link href=''>
-                        <Image
-                          src='/images/upwork.svg'
-                          height={100}
-                          width={100}
-                          alt='Upwork'
-                          className='h-[3.4rem] w-[3.4rem] md:h-[4.5rem] md:w-[4.5rem]'
-                        />
-                      </Link>
-                      <Link href=''>
-                        <Image
-                          src='/images/github.svg'
-                          height={100}
-                          width={100}
-                          alt='GitHub'
-                          className='h-[3.4rem] w-[3.4rem] md:h-[4.5rem] md:w-[4.5rem]'
-                        />
-                      </Link>
-                      <Link href=''>
-                        <Image
-                          src='/images/linkedin.svg'
-                          height={100}
-                          width={100}
-                          alt='LinkedIn'
-                          className='h-[3.4rem] w-[3.4rem] md:h-[4.5rem] md:w-[4.5rem]'
-                        />
-                      </Link>
-                      <Link href=''>
-                        <Image
-                          src='/images/dribbble.svg'
-                          height={100}
-                          width={100}
-                          alt='Dribbble'
-                          className='h-[3.4rem] w-[3.4rem] md:h-[4.5rem] md:w-[4.5rem]'
-                        />
-                      </Link>
-                      <Link href=''>
-                        <Image
-                          src='/images/behance.svg'
-                          height={100}
-                          width={100}
-                          alt='Behance'
-                          className='h-[3.4rem] w-[3.4rem] md:h-[4.5rem] md:w-[4.5rem]'
-                        />
-                      </Link>
+                      {listOfdata?.upwork && (
+                        <Link target='_blank' href={listOfdata?.upwork || '#'}>
+                          <Image
+                            src='/images/upwork.svg'
+                            height={100}
+                            width={100}
+                            alt='Upwork'
+                            className='h-[3.4rem] w-[3.4rem] md:h-[4.5rem] md:w-[4.5rem]'
+                          />
+                        </Link>
+                      )}
+                      {listOfdata?.github && (
+                        <Link target='_blank' href={listOfdata?.github || '#'}>
+                          <Image
+                            src='/images/github.svg'
+                            height={100}
+                            width={100}
+                            alt='GitHub'
+                            className='h-[3.4rem] w-[3.4rem] md:h-[4.5rem] md:w-[4.5rem]'
+                          />
+                        </Link>
+                      )}
+                      {listOfdata?.linkedIn && (
+                        <Link
+                          target='_blank'
+                          href={listOfdata?.linkedIn || '#'}
+                        >
+                          <Image
+                            src='/images/linkedin.svg'
+                            height={100}
+                            width={100}
+                            alt='LinkedIn'
+                            className='h-[3.4rem] w-[3.4rem] md:h-[4.5rem] md:w-[4.5rem]'
+                          />
+                        </Link>
+                      )}
+                      {listOfdata?.dribbble && (
+                        <Link target='_blank' href='#'>
+                          <Image
+                            src='/images/dribbble.svg'
+                            height={100}
+                            width={100}
+                            alt='Dribbble'
+                            className='h-[3.4rem] w-[3.4rem] md:h-[4.5rem] md:w-[4.5rem]'
+                          />
+                        </Link>
+                      )}
+                      {listOfdata?.behance_link && (
+                        <Link
+                          target='_blank'
+                          href={listOfdata?.behance_link || '#'}
+                        >
+                          <Image
+                            src='/images/behance.svg'
+                            height={100}
+                            width={100}
+                            alt='Behance'
+                            className='h-[3.4rem] w-[3.4rem] md:h-[4.5rem] md:w-[4.5rem]'
+                          />
+                        </Link>
+                      )}
                     </div>
                     <p className='text-[1.2rem] font-normal text-paragraph1'>
                       My Work Proof
@@ -231,26 +262,29 @@ const FreeTrialPopup: React.FC = () => {
                   </div>
                 </div>
                 {/* Skills */}
-                <div className='md:max-w-[62rem] w-full overflow-hidden max-md:p-[1rem] md:py-[2rem] md:pr-[3rem] md:pl-[1rem]'>
-                  <h3 className='text-[1.8rem] font-bold text-primary mb-[1.2rem]'>
-                    My Skills
-                  </h3>
-                  <div className='w-full p-[1rem] md:p-[2rem] flex items-center justify-center border border-border border-solid gap-[1rem] flex-wrap flex-shrink-0 rounded-[1rem]'>
-                    <div className='md:max-w-[536px] w-full bg-white/70 backdrop-blur-[1.2rem] flex flex-wrap flex-shrink-0 gap-[1rem]'>
-                      {mySkills.map((skill, index) => (
-                        <div
-                          key={index}
-                          className='px-[1.5rem] md:px-[2.1rem] py-[0.4rem] md:py-[0.8rem] bg-white rounded-[5rem] shadow-skillShadow border-[1.5px] flex-shrink-0 border-solid border-[#DDD] justify-center items-center gap-[1rem] flex'
-                          style={{ animationDelay: `${index * 0.3}s` }}
-                        >
-                          <div className='text-center text-primary text-[1.8rem] font-medium'>
-                            {skill}
-                          </div>
-                        </div>
-                      ))}
+                {listOfdata && listOfdata?.skills_ids?.length > 0 && (
+                  <div className='md:max-w-[62rem] w-full overflow-hidden max-md:p-[1rem] md:py-[2rem] md:pr-[3rem] md:pl-[1rem]'>
+                    <h3 className='text-[1.8rem] font-bold text-primary mb-[1.2rem]'>
+                      My Skills
+                    </h3>
+                    <div className='w-full p-[1rem] md:p-[2rem] flex items-center justify-center border border-border border-solid gap-[1rem] flex-wrap flex-shrink-0 rounded-[1rem]'>
+                      <div className='md:max-w-[536px] w-full bg-white/70 backdrop-blur-[1.2rem] flex flex-wrap flex-shrink-0 gap-[1rem]'>
+                        {listOfdata?.skills_ids?.map((skill, index) => (
+                          <Link
+                            href={skill?.url || '#'}
+                            key={index}
+                            className='hover:bg-primary hover:text-white text-white px-[1.5rem] md:px-[2.1rem] py-[0.4rem] md:py-[0.8rem] bg-white rounded-[5rem] shadow-skillShadow border-[1.5px] flex-shrink-0 border-solid border-[#DDD] justify-center items-center gap-[1rem] flex'
+                            style={{ animationDelay: `${index * 0.3}s` }}
+                          >
+                            <div className='text-center hover:text-white text-primary text-[1.8rem] font-medium'>
+                              {skill.title}
+                            </div>
+                          </Link>
+                        ))}
+                      </div>
                     </div>
                   </div>
-                </div>
+                )}
               </div>
             </div>
           </div>
