@@ -48,7 +48,7 @@ const HomeSlider = ({ portfolios }) => {
     portfolios[0], // Clone the first slide to the end
   ];
 
-  if (!portfolios || portfolios.length !== 0) {
+  if (!portfolios || portfolios.length === 0) {
     return <PortfolioImagesLoader />; // Display a loading message or spinner while portfolios are loading
   } else {
     return (
