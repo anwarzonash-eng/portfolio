@@ -11,14 +11,20 @@ import Reports from '@/apiCalls/reports';
 import UseURLInfo from '@/components/UseUrlInfo';
 
 const Offer = ({ params }: { params: { slug: string } }) => {
-  const urlInfo = UseURLInfo(params);
+  const urlInfo: any = UseURLInfo(params);
 
   // This is the Custom Hook That
   // use to SET the Background Color
   // OF THE Current Page
   useBodyBackgroundColor('#EFF5FD');
 
-  const { listOfdata } = Reports('home');
+  const payload = {
+    actionType: 'home',
+    domain: urlInfo?.domain,
+    uniqueId: urlInfo?.uniqueID,
+  };
+
+  const { listOfdata } = Reports(payload);
 
   const cardData = [
     {

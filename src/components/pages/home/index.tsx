@@ -96,7 +96,7 @@ const Home = ({ params }: { params: { slug: string } }) => {
               <Image
                 width={731}
                 height={707}
-                alt='Developer Image'
+                alt=''
                 src={listOfdata?.profile_photo_1}
               />
               {/* Positioned Elementes Price */}
@@ -142,7 +142,7 @@ const Home = ({ params }: { params: { slug: string } }) => {
                 <Image
                   width={731}
                   height={707}
-                  alt='Developer Image'
+                  alt=''
                   src={listOfdata?.profile_photo_1}
                   className=''
                 />

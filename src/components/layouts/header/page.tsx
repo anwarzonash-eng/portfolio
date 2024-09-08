@@ -24,6 +24,7 @@ const Header = ({
   loading,
   urlInfo,
 }) => {
+  console.log('listOfdatainheader', listOfdata);
   // Use localStorage or initialBgColor for initial background state
   const [bgColor, setBgColor] = useState(initialBgColor);
 
