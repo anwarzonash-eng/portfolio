@@ -26,14 +26,14 @@ const Home = ({ params }: { params: { slug: string } }) => {
   const urlInfo = UseURLInfo(params);
 
   useBodyBackgroundColor('#f8f9fa');
-  const { listOfdata, loading } = Reports();
+  const { listOfdata, loading } = Reports('home');
   const { listOfskills } = Skills();
-
+  console.log('listOfdata', listOfdata);
   // Conditional rendering: show loader while fetching data
   if (!loading) {
     return (
       <main className='w-full'>
-        <FreeTrialPopup />
+        <FreeTrialPopup listOfdata={listOfdata} />
         {/* <Welcome /> */}
 
         {/* Hero Section */}
@@ -69,11 +69,14 @@ const Home = ({ params }: { params: { slug: string } }) => {
                 {listOfdata?.skills_ids.map((skill, index) => (
                   <div
                     key={index}
-                    className='px-[1.4rem] py-[0.7rem] bg-white rounded-[5rem] shadow border border-[#767676] border-solid flex justify-center items-center gap-[1rem]'
+                    className='hover:bg-primary px-[1.4rem] py-[0.7rem] bg-white rounded-[5rem] shadow border border-[#767676] border-solid flex justify-center items-center gap-[1rem]'
                   >
-                    <div className='text-center text-primary text-[1.4rem] font-medium'>
+                    <Link
+                      href={skill?.url}
+                      className=' hover:text-white text-center text-primary text-[1.4rem] font-medium'
+                    >
                       {skill?.title}
-                    </div>
+                    </Link>
                   </div>
                 ))}
               </div>
@@ -165,12 +168,12 @@ const Home = ({ params }: { params: { slug: string } }) => {
                       {listOfdata?.skills_ids.map((skill, index) => (
                         <div
                           key={index}
-                          className='px-[21px] py-[0.8rem] bg-white rounded-[5rem] shadow border border-[#757575] justify-center items-center gap-[1rem] flex opacity-0 animate-fadeIn'
+                          className='hover:bg-primary hover:text-white  px-[21px] py-[0.8rem] bg-white rounded-[5rem] shadow border border-[#757575] justify-center items-center gap-[1rem] flex opacity-0 animate-fadeIn'
                           style={{ animationDelay: `${index * 0.3}s` }}
                         >
                           <Link
                             href={skill?.url}
-                            className='hover:bg-primary hover:text-white text-center text-primary text-[1.8rem] font-medium'
+                            className=' hover:text-white text-center text-primary text-[1.8rem] font-medium'
                           >
                             {skill?.title}
                           </Link>

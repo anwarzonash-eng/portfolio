@@ -17,10 +17,14 @@ interface HeaderProps {
   initialBgColor?: string;
 }
 
-const Header = ({ initialBgColor = 'bg-transparent', scrollToContact }) => {
+const Header = ({
+  initialBgColor = 'bg-transparent',
+  scrollToContact,
+  listOfdata,
+  loading,
+}) => {
   // Use localStorage or initialBgColor for initial background state
   const [bgColor, setBgColor] = useState(initialBgColor);
-  const { listOfdata, loading } = Reports();
 
   useEffect(() => {
     // Check if `window` is available to safely access `localStorage`

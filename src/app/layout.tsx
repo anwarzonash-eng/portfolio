@@ -5,7 +5,8 @@ import './globals.css';
 import Header from '@/components/layouts/header/page';
 import Footer from '@/components/layouts/footer/page';
 import ClientWrapper from '@/components/ClientWrapper'; // Import the ClientWrapper
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
+import Reports from '@/apiCalls/reports';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -16,6 +17,7 @@ const inter = Inter({ subsets: ['latin'] });
 
 export default function RootLayout({ children }) {
   const contactRef = useRef(null);
+  const { listOfdata, loading } = Reports('home');
 
   const scrollToContact = () => {
     if (contactRef.current) {
@@ -23,14 +25,26 @@ export default function RootLayout({ children }) {
     }
   };
 
+  useEffect(() => {
+    document.title = listOfdata?.name || 'Loading...';
+  }, [listOfdata]);
+
   return (
     <html lang='en'>
       <body>
         <div>
           <ClientWrapper>
-            <Header scrollToContact={scrollToContact} />
+            <Header
+              scrollToContact={scrollToContact}
+              listOfdata={listOfdata}
+              loading={loading}
+            />
             {children}
-            <Footer ref={contactRef} />
+            <Footer
+              ref={contactRef}
+              listOfdata={listOfdata}
+              loading={loading}
+            />
           </ClientWrapper>
         </div>
       </body>

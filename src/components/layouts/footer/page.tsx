@@ -6,8 +6,10 @@ import Link from 'next/link';
 import ContactMe from '@/components/ContactMe';
 import Reports from '@/apiCalls/reports';
 
-const Footer = forwardRef((_, ref) => {
-  const { listOfdata, loading } = Reports();
+const Footer = forwardRef<
+  HTMLDivElement,
+  { listOfdata: any; loading: boolean }
+>(({ listOfdata, loading }, ref) => {
   interface FooterLink {
     href: string;
     title: string;

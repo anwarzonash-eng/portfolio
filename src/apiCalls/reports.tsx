@@ -1,7 +1,7 @@
 import { reports, reportsPayload } from '@/apiHandlers/reportsApi';
 import React, { useEffect, useState } from 'react';
 
-const Reports = (actionType = 'home', itemID = null) => {
+const Reports = (actionType, itemID = null) => {
   const [listOfdata, setListOfData] = useState(null);
   const [loading, setLoading] = useState(true);
 

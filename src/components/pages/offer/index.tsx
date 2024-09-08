@@ -18,7 +18,7 @@ const Offer = ({ params }: { params: { slug: string } }) => {
   // OF THE Current Page
   useBodyBackgroundColor('#EFF5FD');
 
-  const { listOfdata } = Reports();
+  const { listOfdata } = Reports('home');
 
   const cardData = [
     {

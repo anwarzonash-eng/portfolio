@@ -6,26 +6,7 @@ import Confetti from './Confetti';
 import VideoPlayer from './VideoPlayer';
 import Reports from '@/apiCalls/reports';
 
-const FreeTrialPopup: React.FC = () => {
-  const mySkills: string[] = [
-    'Java',
-    'React',
-    'Vue js',
-    'Angular',
-    'iOS',
-    'DevOps',
-    'Backend',
-    'node.js',
-    '.Net',
-    'AWS',
-    'Shopify',
-    'Python',
-    'Odoo',
-    'Android',
-  ];
-
-  const { listOfdata } = Reports();
-
+const FreeTrialPopup = ({ listOfdata }) => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
