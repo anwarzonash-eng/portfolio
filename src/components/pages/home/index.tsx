@@ -23,17 +23,22 @@ import WebsiteLoader from '@/components/WebsiteLoader';
 import UseURLInfo from '@/components/UseUrlInfo';
 
 const Home = ({ params }: { params: { slug: string } }) => {
-  const urlInfo = UseURLInfo(params);
-
+  const urlInfo: any = UseURLInfo(params);
   useBodyBackgroundColor('#f8f9fa');
-  const { listOfdata, loading } = Reports('home');
+
+  const payload = {
+    actionType: 'home',
+    domain: urlInfo?.domain,
+    uniqueId: urlInfo?.uniqueID,
+  };
+
+  const { listOfdata, loading } = Reports(payload);
   const { listOfskills } = Skills();
-  console.log('listOfdata', listOfdata);
   // Conditional rendering: show loader while fetching data
   if (!loading) {
     return (
       <main className='w-full'>
-        <FreeTrialPopup listOfdata={listOfdata} />
+        <FreeTrialPopup listOfdata={listOfdata} urlInfo={urlInfo} />
         {/* <Welcome /> */}
 
         {/* Hero Section */}
@@ -65,21 +70,26 @@ const Home = ({ params }: { params: { slug: string } }) => {
               <p className='mb-[2rem] text-primary leading-[2rem] text-[1.6rem] text-center lg:hidden'>
                 {listOfdata?.tag_line}
               </p>
-              <div className='w-full p-[1.5rem] flex justify-center items-center gap-[0.6rem] flex-wrap lg:hidden'>
-                {listOfdata?.skills_ids.map((skill, index) => (
-                  <div
-                    key={index}
-                    className='hover:bg-primary px-[1.4rem] py-[0.7rem] bg-white rounded-[5rem] shadow border border-[#767676] border-solid flex justify-center items-center gap-[1rem]'
-                  >
-                    <Link
-                      href={skill?.url}
-                      className=' hover:text-white text-center text-primary text-[1.4rem] font-medium'
+              {listOfdata?.skills_ids == null ||
+              listOfdata?.skills_ids.length == 0 ? (
+                ''
+              ) : (
+                <div className='w-full p-[1.5rem] flex justify-center items-center gap-[0.6rem] flex-wrap lg:hidden'>
+                  {listOfdata?.skills_ids?.map((skill, index) => (
+                    <div
+                      key={index}
+                      className='hover:bg-primary px-[1.4rem] py-[0.7rem] bg-white rounded-[5rem] shadow border border-[#767676] border-solid flex justify-center items-center gap-[1rem]'
                     >
-                      {skill?.title}
-                    </Link>
-                  </div>
-                ))}
-              </div>
+                      <Link
+                        href={skill?.url}
+                        className=' hover:text-white text-center text-primary text-[1.4rem] font-medium'
+                      >
+                        {skill?.title}
+                      </Link>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
             {/*Hero Section Developer Image */}
             <div className='relative mt-[-3rem]  md:flex justify-center'>
@@ -159,28 +169,33 @@ const Home = ({ params }: { params: { slug: string } }) => {
                   <p className='w-full text-primary text-[2.2rem] font-medium leading-[3rem] mb-[2rem] text-left'>
                     {listOfdata?.tag_line}
                   </p>
-                  <div className='max-w-[49rem] w-full rounded-[0.6rem] border border-border border-solid overflow-hidden'>
-                    <div className='h-[4.8rem] w-full p-[1.5rem] bg-primary border-b border-border flex justify-start items-center gap-2.5 text-center text-white text-[1.8rem] font-medium'>
-                      My Skills
-                    </div>
+                  {listOfdata?.skills_ids == null ||
+                  listOfdata?.skills_ids.length == 0 ? (
+                    ''
+                  ) : (
+                    <div className='max-w-[49rem] w-full rounded-[0.6rem] border border-border border-solid overflow-hidden'>
+                      <div className='h-[4.8rem] w-full p-[1.5rem] bg-primary border-b border-border flex justify-start items-center gap-2.5 text-center text-white text-[1.8rem] font-medium'>
+                        My Skills
+                      </div>
 
-                    <div className='w-full p-[1.5rem] bg-white/70 backdrop-blur-xl justify-start items-center gap-[0.6rem] flex flex-wrap'>
-                      {listOfdata?.skills_ids.map((skill, index) => (
-                        <div
-                          key={index}
-                          className='hover:bg-primary hover:text-white  px-[21px] py-[0.8rem] bg-white rounded-[5rem] shadow border border-[#757575] justify-center items-center gap-[1rem] flex opacity-0 animate-fadeIn'
-                          style={{ animationDelay: `${index * 0.3}s` }}
-                        >
-                          <Link
-                            href={skill?.url}
-                            className=' hover:text-white text-center text-primary text-[1.8rem] font-medium'
+                      <div className='w-full p-[1.5rem] bg-white/70 backdrop-blur-xl justify-start items-center gap-[0.6rem] flex flex-wrap'>
+                        {listOfdata?.skills_ids?.map((skill, index) => (
+                          <div
+                            key={index}
+                            className='hover:bg-primary hover:text-white  px-[21px] py-[0.8rem] bg-white rounded-[5rem] shadow border border-[#757575] justify-center items-center gap-[1rem] flex opacity-0 animate-fadeIn'
+                            style={{ animationDelay: `${index * 0.3}s` }}
                           >
-                            {skill?.title}
-                          </Link>
-                        </div>
-                      ))}
+                            <Link
+                              href={skill?.url}
+                              className=' hover:text-white text-center text-primary text-[1.8rem] font-medium'
+                            >
+                              {skill?.title}
+                            </Link>
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -281,8 +296,8 @@ const Home = ({ params }: { params: { slug: string } }) => {
                 ></p>
               </div>
               {/* Info Cards */}
-              <div className='my-[2rem] rounded-[0.8rem] overflow-hidden border border-border border-solid border-collapse w-full grid grid-cols-1 sm:grid-cols-2'>
-                <div className='w-full border border-border border-solid py-[3rem] px-[2rem]'>
+              <div className='my-[2rem] rounded-[0.8rem] overflow-hidden  w-full grid grid-cols-12'>
+                <div className='md:col-span-6 col-span-12 w-full border border-border border-solid py-[3rem] px-[2rem]'>
                   <div className='w-full'>
                     <h4 className='text-[2rem] font-normal text-primary'>
                       {listOfdata?.name}
@@ -292,7 +307,7 @@ const Home = ({ params }: { params: { slug: string } }) => {
                     </p>
                   </div>
                 </div>
-                <div className='w-full border border-border border-solid py-[3rem] px-[2rem] '>
+                <div className='md:col-span-6 col-span-12 w-full border border-border border-solid py-[3rem] px-[2rem] '>
                   <div className='w-full'>
                     <Link
                       href={`mailto:${listOfdata?.email}`}
@@ -305,7 +320,7 @@ const Home = ({ params }: { params: { slug: string } }) => {
                     </p>
                   </div>
                 </div>
-                <div className='w-full border border-border border-solid py-[3rem] px-[2rem] '>
+                <div className='md:col-span-6 col-span-12 w-full border border-border border-solid py-[3rem] px-[2rem] '>
                   <div className='w-full'>
                     <Link
                       href={`tel:${listOfdata?.phone_no}`}
@@ -318,7 +333,7 @@ const Home = ({ params }: { params: { slug: string } }) => {
                     </p>
                   </div>
                 </div>
-                <div className='w-full border border-border border-solid py-[3rem] px-[2rem] flex items-center justify-between'>
+                <div className='md:col-span-6 col-span-12 w-full border border-border border-solid py-[3rem] px-[2rem] flex items-center justify-between'>
                   <div className='w-full'>
                     <Link
                       href={`https://www.google.com/maps/place/${listOfdata?.location}
@@ -340,7 +355,11 @@ const Home = ({ params }: { params: { slug: string } }) => {
                     />
                   </div> */}
                 </div>
-                <div className='w-full border border-border border-solid py-[3rem] px-[2rem]'>
+                <div
+                  className={`w-full border border-border border-solid py-[3rem] px-[2rem]  col-span-12 ${
+                    urlInfo?.is_u ? 'md:col-span-12' : 'md:col-span-6'
+                  }`}
+                >
                   <div className='w-full flex items-center gap-[1.4rem] mb-[0.8rem]'>
                     <WorkProofLinks
                       props={{
@@ -348,6 +367,7 @@ const Home = ({ params }: { params: { slug: string } }) => {
                         github: listOfdata?.github,
                         linkedIn: listOfdata?.linkedIn,
                         behance_link: listOfdata?.behance_link,
+                        is_u: urlInfo?.is_u,
                       }}
                     />
                   </div>
@@ -355,19 +375,21 @@ const Home = ({ params }: { params: { slug: string } }) => {
                     My Work Proof
                   </p>
                 </div>
-                <div className='w-full border border-border border-solid py-[3rem] px-[2rem]'>
-                  <div className='w-full flex items-center  gap-[1.4rem] mb-[0.8rem]'>
-                    <ContactMeLinks
-                      props={{
-                        email: listOfdata?.email,
-                        phone_no: listOfdata?.phone_no,
-                      }}
-                    />
+                {!urlInfo?.is_u && (
+                  <div className='md:col-span-6 col-span-12 w-full border border-border border-solid py-[3rem] px-[2rem]'>
+                    <div className='w-full flex items-center  gap-[1.4rem] mb-[0.8rem]'>
+                      <ContactMeLinks
+                        props={{
+                          email: listOfdata?.email,
+                          phone_no: listOfdata?.phone_no,
+                        }}
+                      />
+                    </div>
+                    <p className='text-[1.35rem] font-normal text-paragraph1'>
+                      Contact Me
+                    </p>
                   </div>
-                  <p className='text-[1.35rem] font-normal text-paragraph1'>
-                    Contact Me
-                  </p>
-                </div>
+                )}
               </div>
               {/* Button Line */}
               <div>
@@ -524,14 +546,16 @@ const Home = ({ params }: { params: { slug: string } }) => {
                                   <div className='flex items-center justify-between flex-wrap text-nowrap max-[375px]:justify-center'>
                                     {/* About Content */}
                                     <div className='flex gap-[1rem]'>
-                                      <div className='h-[4.2rem] w-[4.2rem] lg:h-[4.9rem] lg:w-[4.9rem] bg-[#D1E9FF] rounded-[0.4rem] flex items-center justify-center'>
-                                        <Image
-                                          src={experience?.thumbnail}
-                                          height={32}
-                                          width={32}
-                                          alt='Logo Mark'
-                                        />
-                                      </div>
+                                      {experience?.thumbnail && (
+                                        <div className='h-[4.2rem] w-[4.2rem] lg:h-[4.9rem] lg:w-[4.9rem] bg-[#D1E9FF] rounded-[0.4rem] flex items-center justify-center'>
+                                          <Image
+                                            src={experience?.thumbnail}
+                                            height={32}
+                                            width={32}
+                                            alt='Logo Mark'
+                                          />
+                                        </div>
+                                      )}
                                       <div>
                                         <p className='text-[1.4rem] lg:text-[1.6rem] font-normal text-paragraph1'>
                                           {experience?.company_name}
@@ -558,7 +582,7 @@ const Home = ({ params }: { params: { slug: string } }) => {
                                     </div>
                                   </div>
                                   <p
-                                    className='mt-[2rem] text-[1.6rem] font-medium text-paragraph1'
+                                    className='mt-[2rem] list-div text-[1.6rem] font-medium text-paragraph1'
                                     dangerouslySetInnerHTML={{
                                       __html: modifiedContent(
                                         experience?.short_description,
@@ -642,7 +666,7 @@ const Home = ({ params }: { params: { slug: string } }) => {
       </section> */}
 
         {/* FAQ Section Completed */}
-        <Faq />
+        <Faq urlInfo={urlInfo} />
       </main>
     );
   } else {

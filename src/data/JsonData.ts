@@ -100,3 +100,36 @@ export const socialLinks = (listOfdata) => [
     href: listOfdata?.behance_link,
   },
 ];
+
+export const blogs = [
+  {
+    id: 1,
+    category: 'Design',
+    date: '17 Jan 2022',
+    title: 'UX review presentations',
+    description:
+      'How do you create compelling presentations that wow your colleagues and impress your managers?',
+    image: '/images/blogPost1.png',
+    link: '/',
+  },
+  {
+    id: 2,
+    category: 'Design',
+    date: '17 Jan 2022',
+    title: 'UX review presentations',
+    description:
+      'How do you create compelling presentations that wow your colleagues and impress your managers?',
+    image: '/images/blogPost2.png',
+    link: '/',
+  },
+  {
+    id: 3,
+    category: 'Design',
+    date: '17 Jan 2022',
+    title: 'UX review presentations',
+    description:
+      'How do you create compelling presentations that wow your colleagues and impress your managers?',
+    image: '/images/blogPost3.png',
+    link: '/',
+  },
+];

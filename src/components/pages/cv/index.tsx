@@ -11,6 +11,7 @@ import { modifiedContent } from '@/hooks/modifiedContent';
 import { useEffect, useState } from 'react';
 import PortfolioPopUp from '@/components/PortfolioPopUp';
 import {
+  blogs,
   contactDetails,
   dateFormatsOptions,
   socialLinks,
@@ -19,9 +20,15 @@ import WebsiteLoader from '@/components/WebsiteLoader';
 import UseURLInfo from '@/components/UseUrlInfo';
 
 const CV = ({ params }: { params: { slug: string } }) => {
-  const urlInfo = UseURLInfo(params);
+  const urlInfo: any = UseURLInfo(params);
 
-  const { listOfdata, loading } = Reports('cv');
+  const payload = {
+    actionType: 'cv',
+    domain: urlInfo?.domain,
+    uniqueId: urlInfo?.uniqueID,
+  };
+
+  const { listOfdata, loading } = Reports(payload);
   const { listOfskills } = Skills();
 
   useBodyBackgroundColor('#EFF5FD');
@@ -45,38 +52,6 @@ const CV = ({ params }: { params: { slug: string } }) => {
     setIsModalOpen(false);
   };
 
-  const blogs = [
-    {
-      id: 1,
-      category: 'Design',
-      date: '17 Jan 2022',
-      title: 'UX review presentations',
-      description:
-        'How do you create compelling presentations that wow your colleagues and impress your managers?',
-      image: '/images/blogPost1.png',
-      link: '/',
-    },
-    {
-      id: 2,
-      category: 'Design',
-      date: '17 Jan 2022',
-      title: 'UX review presentations',
-      description:
-        'How do you create compelling presentations that wow your colleagues and impress your managers?',
-      image: '/images/blogPost2.png',
-      link: '/',
-    },
-    {
-      id: 3,
-      category: 'Design',
-      date: '17 Jan 2022',
-      title: 'UX review presentations',
-      description:
-        'How do you create compelling presentations that wow your colleagues and impress your managers?',
-      image: '/images/blogPost3.png',
-      link: '/',
-    },
-  ];
   if (!loading) {
     return (
       <>
@@ -145,77 +120,11 @@ const CV = ({ params }: { params: { slug: string } }) => {
               {/* Email, Website, Phone, Location */}
               <div className='mb-[4rem] w-full flex sm:hidden lg:flex flex-col gap-[2.6rem]'>
                 {/* Iterate through the contact details array */}
-                {contactDetails(listOfdata).map((contact, index) => (
-                  <div key={index} className='flex items-center gap-[1.78rem]'>
-                    <div className='h-[3.5rem] w-[3.5rem] bg-[#E2E6EE] rounded-[50%] flex items-center justify-center'>
-                      <Image
-                        src={contact.iconSrc}
-                        height={24}
-                        width={24}
-                        alt={contact.alt}
-                      />
-                    </div>
-                    <div className='flex flex-col gap-[0.45rem]'>
-                      <p className='text-[1.33rem] leading-[1.77rem] text-[#3E3E3E]'>
-                        {contact.type}
-                      </p>
-
-                      <Link
-                        href={contact.href}
-                        className='hover:text-primary text-[1.55rem] font-medium leading-[2rem] text-heading'
-                      >
-                        {contact.value}
-                      </Link>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Divider */}
-              <hr className='w-full h-[0.2rem] bg-[#E2E6EE] mb-[4rem] sm:hidden lg:inline-block' />
-
-              {/* Work Proof */}
-              <div className='mb-[4rem] w-full flex sm:hidden lg:flex flex-col gap-[2.6rem]'>
-                {/* Title */}
-                <h3 className='text-heading text-[1.33rem] font-medium leading-[1.77rem]'>
-                  Work Proof
-                </h3>
-                {/* Iterating on Icons */}
-                {socialLinks(listOfdata).map((social, index) => (
-                  <>
-                    {social?.href && (
-                      <div
-                        key={index}
-                        className='flex items-center gap-[1.78rem]'
-                      >
-                        <Image
-                          src={social.iconSrc}
-                          height={35}
-                          width={35}
-                          alt={social.alt}
-                        />
-                        <div className='flex flex-col gap-[0.45rem]'>
-                          <p className='text-[1.33rem] leading-[1.77rem] text-[#3E3E3E]'>
-                            {social.platform}
-                          </p>
-                          <Link
-                            href={social.href}
-                            className='break-all hover:text-primary text-[1.55rem] font-medium leading-[2rem] text-heading'
-                          >
-                            {social.username}
-                          </Link>
-                        </div>
-                      </div>
-                    )}
-                  </>
-                ))}
-              </div>
-
-              {/* Only Display on The Devices Between Small To Large */}
-              <div className='hidden sm:flex lg:hidden w-full gap-[2rem] items-start'>
-                {/* Email, Website, Phone, Location */}
-                <div className='mb-[4rem] w-full flex flex-col gap-[2.6rem]'>
-                  {contactDetails(listOfdata).map((contact, index) => (
+                {contactDetails(listOfdata)
+                  .filter(({ alt }) =>
+                    urlInfo?.is_u ? alt === 'Location' : true
+                  )
+                  .map((contact, index) => (
                     <div
                       key={index}
                       className='flex items-center gap-[1.78rem]'
@@ -234,7 +143,7 @@ const CV = ({ params }: { params: { slug: string } }) => {
                         </p>
 
                         <Link
-                          href={contact.href}
+                          href={contact.href || '#'}
                           className='hover:text-primary text-[1.55rem] font-medium leading-[2rem] text-heading'
                         >
                           {contact.value}
@@ -242,6 +151,87 @@ const CV = ({ params }: { params: { slug: string } }) => {
                       </div>
                     </div>
                   ))}
+              </div>
+
+              {/* Divider */}
+              <hr className='w-full h-[0.2rem] bg-[#E2E6EE] mb-[4rem] sm:hidden lg:inline-block' />
+
+              {/* Work Proof */}
+              <div className='mb-[4rem] w-full flex sm:hidden lg:flex flex-col gap-[2.6rem]'>
+                {/* Title */}
+                <h3 className='text-heading text-[1.33rem] font-medium leading-[1.77rem]'>
+                  Work Proof
+                </h3>
+                {/* Iterating on Icons */}
+                {socialLinks(listOfdata)
+                  .filter(({ alt }) =>
+                    urlInfo?.is_u ? alt === 'Github' || alt === 'Upwork' : true
+                  )
+                  .map((social, index) => (
+                    <>
+                      {social?.href && (
+                        <div
+                          key={index}
+                          className='flex items-center gap-[1.78rem]'
+                        >
+                          <Image
+                            src={social.iconSrc}
+                            height={35}
+                            width={35}
+                            alt={social.alt}
+                          />
+                          <div className='flex flex-col gap-[0.45rem]'>
+                            <p className='text-[1.33rem] leading-[1.77rem] text-[#3E3E3E]'>
+                              {social.platform}
+                            </p>
+                            <Link
+                              href={social.href || '#'}
+                              className='break-all hover:text-primary text-[1.55rem] font-medium leading-[2rem] text-heading'
+                            >
+                              {social.username}
+                            </Link>
+                          </div>
+                        </div>
+                      )}
+                    </>
+                  ))}
+              </div>
+
+              {/* Only Display on The Devices Between Small To Large */}
+              <div className='hidden sm:flex lg:hidden w-full gap-[2rem] items-start'>
+                {/* Email, Website, Phone, Location */}
+                <div className='mb-[4rem] w-full flex flex-col gap-[2.6rem]'>
+                  {contactDetails(listOfdata)
+                    .filter(({ alt }) =>
+                      urlInfo?.is_u ? alt === 'Location' : true
+                    )
+                    .map((contact, index) => (
+                      <div
+                        key={index}
+                        className='flex items-center gap-[1.78rem]'
+                      >
+                        <div className='h-[3.5rem] w-[3.5rem] bg-[#E2E6EE] rounded-[50%] flex items-center justify-center'>
+                          <Image
+                            src={contact.iconSrc}
+                            height={24}
+                            width={24}
+                            alt={contact.alt}
+                          />
+                        </div>
+                        <div className='flex flex-col gap-[0.45rem]'>
+                          <p className='text-[1.33rem] leading-[1.77rem] text-[#3E3E3E]'>
+                            {contact.type}
+                          </p>
+
+                          <Link
+                            href={contact.href || '#'}
+                            className='hover:text-primary text-[1.55rem] font-medium leading-[2rem] text-heading'
+                          >
+                            {contact.value}
+                          </Link>
+                        </div>
+                      </div>
+                    ))}
                 </div>
 
                 {/* Work Proof */}
@@ -252,30 +242,36 @@ const CV = ({ params }: { params: { slug: string } }) => {
                   </h3>
 
                   {/* Iterating on Icons */}
-                  {socialLinks(listOfdata).map((social, index) => (
-                    <div
-                      key={index}
-                      className='flex items-center gap-[1.78rem]'
-                    >
-                      <Image
-                        src={social.iconSrc}
-                        height={35}
-                        width={35}
-                        alt={social.alt}
-                      />
-                      <div className='flex flex-col gap-[0.45rem]'>
-                        <p className='text-[1.33rem] leading-[1.77rem] text-[#3E3E3E]'>
-                          {social.platform}
-                        </p>
-                        <Link
-                          href={social.href}
-                          className='break-all hover:text-primary text-[1.55rem] font-medium leading-[2rem] text-heading'
-                        >
-                          {social.username}
-                        </Link>
+                  {socialLinks(listOfdata)
+                    .filter(({ alt }) =>
+                      urlInfo?.is_u
+                        ? alt === 'Github' || alt === 'Upwork'
+                        : true
+                    )
+                    .map((social, index) => (
+                      <div
+                        key={index}
+                        className='flex items-center gap-[1.78rem]'
+                      >
+                        <Image
+                          src={social.iconSrc}
+                          height={35}
+                          width={35}
+                          alt={social.alt}
+                        />
+                        <div className='flex flex-col gap-[0.45rem]'>
+                          <p className='text-[1.33rem] leading-[1.77rem] text-[#3E3E3E]'>
+                            {social.platform}
+                          </p>
+                          <Link
+                            href={social.href || '#'}
+                            className='break-all hover:text-primary text-[1.55rem] font-medium leading-[2rem] text-heading'
+                          >
+                            {social.username}
+                          </Link>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
                 </div>
               </div>
             </div>
@@ -408,7 +404,7 @@ const CV = ({ params }: { params: { slug: string } }) => {
                         </li>
                       </ul> */}
                         <div
-                          className='text-heading  text-[1.6rem] leading-[2.4rem] flex flex-col gap-[1rem] mb-[5rem] list-inside'
+                          className='text-heading list-div text-[1.6rem] leading-[2.4rem] flex flex-col gap-[1rem] mb-[5rem] list-inside'
                           dangerouslySetInnerHTML={{
                             __html: modifiedContent(
                               listOfdata?.skills,
@@ -587,7 +583,7 @@ const CV = ({ params }: { params: { slug: string } }) => {
                                         listOfskills
                                       ),
                                     }}
-                                    className='mt-[2rem] text-[1.6rem] font-medium text-paragraph1'
+                                    className='mt-[2rem] list-div text-[1.6rem] font-medium text-paragraph1'
                                   ></p>
                                   <div
                                     dangerouslySetInnerHTML={{
@@ -596,7 +592,7 @@ const CV = ({ params }: { params: { slug: string } }) => {
                                         listOfskills
                                       ),
                                     }}
-                                    className='mt-[2rem] text-heading text-[1.4rem] font-normal leading-[150%] list-disc pl-[2rem] flex flex-col gap-[0.8rem]'
+                                    className='mt-[2rem] list-div text-heading text-[1.4rem] font-normal leading-[150%] list-disc pl-[2rem] flex flex-col gap-[0.8rem]'
                                   ></div>
                                   {/* Skills Badges */}
                                   <div className='mt-[2.2rem]'>
@@ -785,7 +781,7 @@ const CV = ({ params }: { params: { slug: string } }) => {
                                           listOfskills
                                         ),
                                       }}
-                                      className='mt-[2rem] text-heading text-[1.4rem] font-normal leading-[150%] list-disc pl-[2rem] flex flex-col gap-[0.8rem] mb-[2rem]'
+                                      className='mt-[2rem] list-div text-heading text-[1.4rem] font-normal leading-[150%] list-disc pl-[2rem] flex flex-col gap-[0.8rem] mb-[2rem]'
                                     ></div>
                                     {/* Skills Badges */}
                                     <div>
@@ -796,7 +792,7 @@ const CV = ({ params }: { params: { slug: string } }) => {
                                         {portfolio?.skills?.map(
                                           (skill, index) => (
                                             <Link
-                                              href={skill?.url}
+                                              href={skill?.url || '#'}
                                               className='hover:text-white hover:bg-primary py-[0.4rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal'
                                             >
                                               {skill?.title}
@@ -949,7 +945,7 @@ const CV = ({ params }: { params: { slug: string } }) => {
                                 {blog.description}
                               </p>
                               <Link
-                                href={blog.link}
+                                href={blog.link || '#'}
                                 className='duration-300 inline-flex items-center gap-[0.8rem] group'
                               >
                                 <p className='text-primary text-[1.4rem] font-medium leading-[2.4rem]'>

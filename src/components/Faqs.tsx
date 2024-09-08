@@ -6,7 +6,7 @@ interface FAQ {
   answer: string;
 }
 
-const Faqs = () => {
+const Faqs = ({ urlInfo }) => {
   const [faqs, setFaqs] = useState<FAQ[]>([]);
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
 
@@ -42,15 +42,19 @@ const Faqs = () => {
             {/* Top Content */}
             <div className='text-paragraph2 pt-[2rem] lg:pt-[3rem] pl-[2rem]'>
               <h4 className='pb-[2rem] text-[2.4rem] lg:text-[3rem] font-medium leading-[3.6rem]'>
-                Find your <br /> answer here?
+                Find your <br /> answer here{urlInfo.is_u ? '.' : '?'}
               </h4>
-              <p className='text-[1.8rem] font-normal leading-[2.6rem]'>
-                No worries, You can share your quires over here.
-              </p>
+              {!urlInfo?.is_u && (
+                <p className='text-[1.8rem] font-normal leading-[2.6rem]'>
+                  No worries, You can share your quires over here.
+                </p>
+              )}
             </div>
-            <button className='bg-radial-gradient bg-primary rounded-[0.6rem] text-white py-[2rem] px-[5.6rem] text-[1.8rem] font-medium border border-solid border-white absolute bottom-[2.3rem] left-[2.3rem] hover:bg-white hover:text-primary duration-300'>
-              Contact Me
-            </button>
+            {!urlInfo?.is_u && (
+              <button className='bg-radial-gradient bg-primary rounded-[0.6rem] text-white py-[2rem] px-[5.6rem] text-[1.8rem] font-medium border border-solid border-white absolute bottom-[2.3rem] left-[2.3rem] hover:bg-white hover:text-primary duration-300'>
+                Contact Me
+              </button>
+            )}
           </div>
           {/* Faq Container */}
           <div className='w-full'>

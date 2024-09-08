@@ -1,16 +1,24 @@
 import { reports, reportsPayload } from '@/apiHandlers/reportsApi';
 import React, { useEffect, useState } from 'react';
 
-const Reports = (actionType, itemID = null) => {
+const Reports = ({ actionType, domain, uniqueId, itemID = null }) => {
   const [listOfdata, setListOfData] = useState(null);
   const [loading, setLoading] = useState(true);
 
   const handleReportApiCall = async () => {
-    reportsPayload.actionType = actionType;
+    if (actionType && actionType !== null) {
+      reportsPayload.actionType = actionType;
+    }
+    if (domain && domain !== null) {
+      reportsPayload.domain = domain;
+    }
+    if (uniqueId && uniqueId !== null) {
+      reportsPayload.uniqueId = uniqueId;
+    }
     if (itemID && itemID !== null) {
       reportsPayload.itemID = itemID;
     }
-
+    console.log('reportsPayload', reportsPayload);
     const results = await reports();
 
     const statusStr = String(results?.status);
@@ -26,7 +34,7 @@ const Reports = (actionType, itemID = null) => {
 
   useEffect(() => {
     handleReportApiCall();
-  }, []);
+  }, [actionType, domain, uniqueId, itemID]);
 
   return { listOfdata, loading };
 };

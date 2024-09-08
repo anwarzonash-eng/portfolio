@@ -42,7 +42,7 @@ function adjustWithLocalStorage(routesInfo, routeParams) {
 
 const getDomainName = () => {
   const url = new URL(window.location.href);
-  let domain = url.hostname;
+  let domain = url.host;
 
   // Remove 'www.' if present
   if (domain.startsWith('www.')) {

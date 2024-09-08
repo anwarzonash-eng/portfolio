@@ -44,8 +44,6 @@ export const apigateway = async ({
     }
     return response;
   } catch (error) {
-    console.log('errorapi', error);
-
     // if (error.response?.data?.message === 'UnauthorizedException') {
     //   await logoutFunction('/?error=login');
     //   return;

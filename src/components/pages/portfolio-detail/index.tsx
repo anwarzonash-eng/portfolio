@@ -19,12 +19,19 @@ import UseURLInfo from '@/components/UseUrlInfo';
 
 const PortfolioDetails = ({ params }: { params: { slug: string } }) => {
   const searchParams = useSearchParams();
-  const urlInfo = UseURLInfo(params);
+  const urlInfo: any = UseURLInfo(params);
 
   const portfolioId = searchParams.get('portfolio_id');
   const [portfolioDetails, setPortfolioDetails] = useState(null);
 
-  const { listOfdata, loading } = Reports('portfolioById', portfolioId);
+  const payload = {
+    actionType: 'portfolioById',
+    domain: urlInfo?.domain,
+    uniqueId: urlInfo?.uniqueID,
+    itemID: portfolioId,
+  };
+
+  const { listOfdata, loading } = Reports(payload);
   const { listOfskills } = Skills();
 
   useEffect(() => {
@@ -189,7 +196,7 @@ const PortfolioDetails = ({ params }: { params: { slug: string } }) => {
                   </p>
                   {/* Para */}
                   <p
-                    className='text-[2rem] leading-[3.2rem] font-normal mt-[1rem] text-paragraph1 my-[3.2rem]'
+                    className='text-[2rem] list-div leading-[3.2rem] font-normal mt-[1rem] text-paragraph1 my-[3.2rem]'
                     dangerouslySetInnerHTML={{
                       __html: modifiedContent(
                         portfolioDetails?.tagline_2,
@@ -241,7 +248,7 @@ const PortfolioDetails = ({ params }: { params: { slug: string } }) => {
                   listOfskills
                 ),
               }}
-              className='w-full my-[6.4rem] text-[2rem] leading-[3.2rem] text-paragraph1 font-normal'
+              className='w-full list-div my-[6.4rem] text-[2rem] leading-[3.2rem] text-paragraph1 font-normal'
             ></div>
 
             {/* Detiald Banner 2 */}
@@ -265,7 +272,7 @@ const PortfolioDetails = ({ params }: { params: { slug: string } }) => {
 
             {/* Key Modules and Contributions */}
             <div
-              className='my-[6.4rem] text-[2rem] '
+              className='my-[6.4rem] list-div text-[2rem] '
               dangerouslySetInnerHTML={{
                 __html: modifiedContent(
                   portfolioDetails?.features_long,

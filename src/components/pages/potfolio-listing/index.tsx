@@ -11,8 +11,13 @@ import WebsiteLoader from '@/components/WebsiteLoader';
 import UseURLInfo from '@/components/UseUrlInfo';
 
 const PortfolioListing = ({ params }: { params: { slug: string } }) => {
-  const urlInfo = UseURLInfo(params);
-  const { listOfdata, loading } = Reports('portfolio');
+  const urlInfo: any = UseURLInfo(params);
+  const payload = {
+    actionType: 'portfolio',
+    domain: urlInfo?.domain,
+    uniqueId: urlInfo?.uniqueID,
+  };
+  const { listOfdata, loading } = Reports(payload);
   useBodyBackgroundColor('#EFF5FD');
   const [
     selectedPorfolioPicturesforPopup,

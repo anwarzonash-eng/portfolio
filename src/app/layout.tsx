@@ -7,6 +7,7 @@ import Footer from '@/components/layouts/footer/page';
 import ClientWrapper from '@/components/ClientWrapper'; // Import the ClientWrapper
 import React, { useEffect, useRef } from 'react';
 import Reports from '@/apiCalls/reports';
+import UseURLInfo from '@/components/UseUrlInfo';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -15,9 +16,16 @@ const inter = Inter({ subsets: ['latin'] });
 //   description: 'Next Level Web Application Service Poviders',
 // };
 
-export default function RootLayout({ children }) {
+export default function RootLayout({ children, params }) {
+  const urlInfo: any = UseURLInfo(params);
+  const payload = {
+    actionType: 'home',
+    domain: urlInfo?.domain,
+    uniqueId: urlInfo?.uniqueID,
+  };
+
   const contactRef = useRef(null);
-  const { listOfdata, loading } = Reports('home');
+  const { listOfdata, loading } = Reports(payload);
 
   const scrollToContact = () => {
     if (contactRef.current) {
@@ -38,12 +46,14 @@ export default function RootLayout({ children }) {
               scrollToContact={scrollToContact}
               listOfdata={listOfdata}
               loading={loading}
+              urlInfo={urlInfo}
             />
             {children}
             <Footer
               ref={contactRef}
               listOfdata={listOfdata}
               loading={loading}
+              urlInfo={urlInfo}
             />
           </ClientWrapper>
         </div>

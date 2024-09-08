@@ -6,7 +6,7 @@ import Confetti from './Confetti';
 import VideoPlayer from './VideoPlayer';
 import Reports from '@/apiCalls/reports';
 
-const FreeTrialPopup = ({ listOfdata }) => {
+const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -133,45 +133,47 @@ const FreeTrialPopup = ({ listOfdata }) => {
                       </div>
                     </div>
                     {/* Contact */}
-                    <div className='bg-[#F7F9FC] border border-solid border-[#E2E6EE] py-[2.5rem] px-[2rem] md:max-w-[22rem] w-full flex items-center justify-start rounded-[0.8rem] h-[9.4rem]'>
-                      <div>
-                        <div className='w-full flex items-center gap-[1.4rem] mb-[1rem]'>
-                          <Link href={`mailto:${listOfdata?.email}`}>
-                            <Image
-                              src='/images/gmail.svg'
-                              height={45}
-                              width={45}
-                              alt='Gmail'
-                              className='h-[3.4rem] w-[3.4rem] md:h-[4.5rem] md:w-[4.5rem]'
-                            />
-                          </Link>
-                          <Link
-                            target='_blank'
-                            href={`https://wa.me/${listOfdata?.phone_no}`}
-                          >
-                            <Image
-                              src='/images/whatsapp.svg'
-                              height={45}
-                              width={45}
-                              alt='WhatsApp'
-                              className='h-[3.4rem] w-[3.4rem] md:h-[4.5rem] md:w-[4.5rem]'
-                            />
-                          </Link>
-                          <Link href={`tel:${listOfdata?.phone_no}`}>
-                            <Image
-                              src='/images/number.svg'
-                              height={45}
-                              width={45}
-                              alt='Phone Number'
-                              className='h-[3.4rem] w-[3.4rem] md:h-[4.5rem] md:w-[4.5rem]'
-                            />
-                          </Link>
+                    {!urlInfo?.is_u && (
+                      <div className='bg-[#F7F9FC] border border-solid border-[#E2E6EE] py-[2.5rem] px-[2rem] md:max-w-[22rem] w-full flex items-center justify-start rounded-[0.8rem] h-[9.4rem]'>
+                        <div>
+                          <div className='w-full flex items-center gap-[1.4rem] mb-[1rem]'>
+                            <Link href={`mailto:${listOfdata?.email}`}>
+                              <Image
+                                src='/images/gmail.svg'
+                                height={45}
+                                width={45}
+                                alt='Gmail'
+                                className='h-[3.4rem] w-[3.4rem] md:h-[4.5rem] md:w-[4.5rem]'
+                              />
+                            </Link>
+                            <Link
+                              target='_blank'
+                              href={`https://wa.me/${listOfdata?.phone_no}`}
+                            >
+                              <Image
+                                src='/images/whatsapp.svg'
+                                height={45}
+                                width={45}
+                                alt='WhatsApp'
+                                className='h-[3.4rem] w-[3.4rem] md:h-[4.5rem] md:w-[4.5rem]'
+                              />
+                            </Link>
+                            <Link href={`tel:${listOfdata?.phone_no}`}>
+                              <Image
+                                src='/images/number.svg'
+                                height={45}
+                                width={45}
+                                alt='Phone Number'
+                                className='h-[3.4rem] w-[3.4rem] md:h-[4.5rem] md:w-[4.5rem]'
+                              />
+                            </Link>
+                          </div>
+                          <p className='text-[1.2rem] font-normal text-paragraph1'>
+                            Contact Me
+                          </p>
                         </div>
-                        <p className='text-[1.2rem] font-normal text-paragraph1'>
-                          Contact Me
-                        </p>
                       </div>
-                    </div>
+                    )}
                   </div>
                   <div className='bg-[#F7F9FC] border border-solid border-[#E2E6EE] w-full px-[2rem] rounded-[0.8rem] h-[9.4rem] flex flex-col justify-center gap-[1rem]'>
                     <div className='w-full flex items-center gap-[1.4rem]'>
@@ -197,7 +199,7 @@ const FreeTrialPopup = ({ listOfdata }) => {
                           />
                         </Link>
                       )}
-                      {listOfdata?.linkedIn && (
+                      {listOfdata?.linkedIn && !urlInfo?.is_u && (
                         <Link
                           target='_blank'
                           href={listOfdata?.linkedIn || '#'}
@@ -211,7 +213,7 @@ const FreeTrialPopup = ({ listOfdata }) => {
                           />
                         </Link>
                       )}
-                      {listOfdata?.dribbble && (
+                      {listOfdata?.dribbble && !urlInfo?.is_u && (
                         <Link target='_blank' href='#'>
                           <Image
                             src='/images/dribbble.svg'
@@ -222,7 +224,7 @@ const FreeTrialPopup = ({ listOfdata }) => {
                           />
                         </Link>
                       )}
-                      {listOfdata?.behance_link && (
+                      {listOfdata?.behance_link && !urlInfo?.is_u && (
                         <Link
                           target='_blank'
                           href={listOfdata?.behance_link || '#'}

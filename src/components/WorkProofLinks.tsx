@@ -8,6 +8,7 @@ const WorkProofLinks = ({ props }) => {
     src: string;
     alt: string;
   }
+
   const workProofLinks: ProofLinks[] = [
     { href: props?.upwork, src: '/images/upwork.svg', alt: 'upwork' },
     { href: props?.github, src: '/images/github.svg', alt: 'github' },
@@ -26,13 +27,17 @@ const WorkProofLinks = ({ props }) => {
 
   return (
     <>
-      {workProofLinks.map(({ href, src, alt }) =>
-        href ? (
-          <Link href={href} key={alt} target='_blank'>
-            <Image src={src} height={45} width={45} alt={alt} />
-          </Link>
-        ) : null
-      )}
+      {workProofLinks
+        .filter(({ alt }) =>
+          props.is_u ? alt === 'upwork' || alt === 'github' : true
+        )
+        .map(({ href, src, alt }) =>
+          href ? (
+            <Link href={href} key={alt} target='_blank'>
+              <Image src={src} height={45} width={45} alt={alt} />
+            </Link>
+          ) : null
+        )}
     </>
   );
 };

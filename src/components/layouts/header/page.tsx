@@ -22,6 +22,7 @@ const Header = ({
   scrollToContact,
   listOfdata,
   loading,
+  urlInfo,
 }) => {
   // Use localStorage or initialBgColor for initial background state
   const [bgColor, setBgColor] = useState(initialBgColor);
@@ -194,6 +195,7 @@ const Header = ({
                                 github: listOfdata?.github,
                                 linkedIn: listOfdata?.linkedIn,
                                 behance_link: listOfdata?.behance_link,
+                                is_u: urlInfo?.is_u,
                               }}
                             />
                           </div>
@@ -201,39 +203,45 @@ const Header = ({
                             My Work Proof
                           </p>
                         </div>
-                        <hr className='h-[0.1rem] w-full bg-border' />
-                        {/* Contact Me */}
-                        <div className='w-full'>
-                          <div className='w-full flex items-center gap-[1.4rem]'>
-                            <ContactMeLinks
-                              props={{
-                                email: listOfdata?.email,
-                                phone_no: listOfdata?.phone_no,
-                              }}
-                            />
-                          </div>
-                          <p className='text-[1.4rem] font-normal text-paragraph1 mt-[1.6rem]'>
-                            Contact Me
-                          </p>
-                        </div>
+                        {!urlInfo?.is_u && (
+                          <>
+                            <hr className='h-[0.1rem] w-full bg-border' />
+                            {/* Contact Me */}
+                            <div className='w-full'>
+                              <div className='w-full flex items-center gap-[1.4rem]'>
+                                <ContactMeLinks
+                                  props={{
+                                    email: listOfdata?.email,
+                                    phone_no: listOfdata?.phone_no,
+                                  }}
+                                />
+                              </div>
+                              <p className='text-[1.4rem] font-normal text-paragraph1 mt-[1.6rem]'>
+                                Contact Me
+                              </p>
+                            </div>
+                          </>
+                        )}
                       </nav>
                     </div>
                   </div>
                   {/* Buttons */}
-                  <div className='flex items-center gap-[1rem]'>
-                    <button
-                      onClick={scrollToContact}
-                      className='btn-secondary  py-[1rem] px-[2.4rem] text-[1.6rem] font-medium rounded-[0.6rem]'
-                    >
-                      Contact Me
-                    </button>
-                    <button
-                      onClick={scrollToContact}
-                      className='btn-primary rounded-[0.6rem] border-2 border-border border-solid py-[1rem] px-[3.4rem] text-[1.6rem] font-medium text-white'
-                    >
-                      Hire Me
-                    </button>
-                  </div>
+                  {!urlInfo?.is_u && (
+                    <div className='flex items-center gap-[1rem]'>
+                      <button
+                        onClick={scrollToContact}
+                        className='btn-secondary  py-[1rem] px-[2.4rem] text-[1.6rem] font-medium rounded-[0.6rem]'
+                      >
+                        Contact Me
+                      </button>
+                      <button
+                        onClick={scrollToContact}
+                        className='btn-primary rounded-[0.6rem] border-2 border-border border-solid py-[1rem] px-[3.4rem] text-[1.6rem] font-medium text-white'
+                      >
+                        Hire Me
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
               {/* Mobile Header  */}
@@ -317,6 +325,7 @@ const Header = ({
                                     github: listOfdata?.github,
                                     linkedIn: listOfdata?.linkedIn,
                                     behance_link: listOfdata?.behance_link,
+                                    is_u: urlInfo?.is_u,
                                   }}
                                 />
                               </div>
@@ -324,32 +333,44 @@ const Header = ({
                                 My Work Proof
                               </p>
                             </div>
-                            <hr className='h-[0.1rem] w-full bg-border' />
-                            <div className='w-full'>
-                              <div className='w-full flex items-center gap-[1.4rem]'>
-                                <ContactMeLinks
-                                  props={{
-                                    email: listOfdata?.email,
-                                    phone_no: listOfdata?.phone_no,
-                                  }}
-                                />
-                              </div>
-                              <p className='text-[1.4rem] font-normal text-paragraph1 mt-[1.6rem]'>
-                                Contact Me
-                              </p>
-                            </div>
+                            {!urlInfo?.is_u && (
+                              <>
+                                <hr className='h-[0.1rem] w-full bg-border' />
+                                <div className='w-full'>
+                                  <div className='w-full flex items-center gap-[1.4rem]'>
+                                    <ContactMeLinks
+                                      props={{
+                                        email: listOfdata?.email,
+                                        phone_no: listOfdata?.phone_no,
+                                      }}
+                                    />
+                                  </div>
+                                  <p className='text-[1.4rem] font-normal text-paragraph1 mt-[1.6rem]'>
+                                    Contact Me
+                                  </p>
+                                </div>
+                              </>
+                            )}
                           </nav>
                         </div>
                       </div>
                       {/* Buttons */}
-                      <div className='w-full flex flex-col gap-[1rem] h-[200px] '>
-                        <button className='py-[1rem] px-[2.4rem] text-[1.6rem] font-medium  rounded-[0.6rem] btn-secondary'>
-                          Contact Me
-                        </button>
-                        <button className='btn-primary rounded-[0.6rem] border-2 border-border border-solid py-[1rem] px-[3.4rem] text-[1.6rem] font-medium text-white'>
-                          Hire Me
-                        </button>
-                      </div>
+                      {!urlInfo?.is_u && (
+                        <div className='w-full flex flex-col gap-[1rem] h-[200px] '>
+                          <button
+                            onClick={scrollToContact}
+                            className='hover:cursor-pointer py-[1rem] px-[2.4rem] text-[1.6rem] font-medium  rounded-[0.6rem] btn-secondary'
+                          >
+                            Contact Me
+                          </button>
+                          <button
+                            onClick={scrollToContact}
+                            className='btn-primary rounded-[0.6rem] border-2 border-border border-solid py-[1rem] px-[3.4rem] text-[1.6rem] font-medium text-white'
+                          >
+                            Hire Me
+                          </button>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>

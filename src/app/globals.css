@@ -228,3 +228,7 @@ body {
 .modifiedText a:hover::before {
   width: 100%; /* Expand underline to full width on hover */
 }
+
+.list-div ul {
+  list-style-type: disc !important;
+}

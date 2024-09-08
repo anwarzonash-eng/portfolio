@@ -1,7 +1,7 @@
 import { apigateway } from '@/gateways/apigateway';
 
 export let reportsPayload = {
-  domain: 'localhost:5002',
+  domain: '',
   uniqueId: 'a',
   actionType: 'home',
   itemID: '',
