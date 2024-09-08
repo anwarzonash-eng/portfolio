@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import WorkProofLinks from '@/components/WorkProofLinks';
@@ -24,7 +24,6 @@ const Header = ({
   loading,
   urlInfo,
 }) => {
-  console.log('listOfdatainheader', listOfdata);
   // Use localStorage or initialBgColor for initial background state
   const [bgColor, setBgColor] = useState(initialBgColor);
 
@@ -119,7 +118,7 @@ const Header = ({
   if (!loading) {
     return (
       <>
-        {pathname !== '/cv' && (
+        {!pathname.includes('cv') && (
           <header
             className={`sticky top-0 left-0 w-full z-[100]  transition-colors duration-300 ${bgColor}`}
           >

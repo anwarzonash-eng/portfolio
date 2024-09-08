@@ -1,3 +1,4 @@
+import { FaqsData } from '@/data/JsonData';
 import React from 'react';
 import { useState, useEffect } from 'react';
 
@@ -7,7 +8,6 @@ interface FAQ {
 }
 
 const Faqs = ({ urlInfo }) => {
-  const [faqs, setFaqs] = useState<FAQ[]>([]);
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
 
   // Function to toggle FAQ
@@ -15,23 +15,6 @@ const Faqs = ({ urlInfo }) => {
     setActiveFaq(activeFaq === index ? null : index);
   };
 
-  // Fetch FAQ data from the JSON file
-  useEffect(() => {
-    const fetchFaqs = async () => {
-      try {
-        const response = await fetch('/data/faq.json'); // Path to your JSON file
-        if (!response.ok) {
-          throw new Error('Failed to fetch FAQ data');
-        }
-        const data = await response.json();
-        setFaqs(data);
-      } catch (error) {
-        console.error('Error fetching FAQ data:', error);
-      }
-    };
-
-    fetchFaqs();
-  }, []);
   return (
     <>
       {/* FAQ Section Completed */}
@@ -59,7 +42,7 @@ const Faqs = ({ urlInfo }) => {
           {/* Faq Container */}
           <div className='w-full'>
             <h2 className='text-[4rem] font-medium text-heading'>FAQ</h2>
-            {faqs.map((faq, index) => (
+            {FaqsData.map((faq, index) => (
               <div
                 key={index}
                 className='mb-4 border-b border-solid border-border'

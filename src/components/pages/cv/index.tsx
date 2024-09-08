@@ -29,6 +29,7 @@ const CV = ({ params }: { params: { slug: string } }) => {
   };
 
   const { listOfdata, loading } = Reports(payload);
+  console.log('listOfdata', listOfdata);
   const { listOfskills } = Skills();
 
   useBodyBackgroundColor('#EFF5FD');
@@ -305,104 +306,7 @@ const CV = ({ params }: { params: { slug: string } }) => {
                         <h2 className='text-heading leading-[3.56rem] text-[2.67rem] font-medium pl-[0.5rem] mb-[3rem]'>
                           Overview & Skills
                         </h2>
-                        {/* <ul className='text-heading text-[1.6rem] leading-[2.4rem] flex flex-col gap-[1rem] mb-[5rem]'>
-                        <li className='flex items-start gap-[1rem] lg:gap-[1.7rem]'>
-                          <Image
-                            src={'/images/blueDisc.svg'}
-                            height={20}
-                            width={20}
-                            alt='Blue Disc'
-                            className='flex-shrink-0 mt-[0.5rem]'
-                          />
-                          <p>
-                            Full Stack Developer with deep expertise in{' '}
-                            <span className='text-primary font-medium'>
-                              designing, building, and deploying
-                            </span>{' '}
-                            end-to-end web solutions.
-                          </p>
-                        </li>
-                        <li className='flex items-start gap-[1rem] lg:gap-[1.7rem] '>
-                          <Image
-                            src={'/images/blueDisc.svg'}
-                            height={20}
-                            width={20}
-                            alt='Blue Disc'
-                            className='flex-shrink-0 mt-[0.5rem]'
-                          />
-                          <p>
-                            Dynamic and results-driven eCommerce specialist with{' '}
-                            <span className='text-primary font-medium'>
-                              extensive experience
-                            </span>{' '}
-                            in managing online retail operations, including
-                            payment gateway integration, inventory management,
-                            and customer relationship management.
-                          </p>
-                        </li>
-                        <li className='flex items-start gap-[1rem] lg:gap-[1.7rem] '>
-                          <Image
-                            src={'/images/blueDisc.svg'}
-                            height={20}
-                            width={20}
-                            alt='Blue Disc'
-                            className='flex-shrink-0 mt-[0.5rem]'
-                          />
-                          <p>
-                            Proficient in front-end technologies such as{' '}
-                            <span className='text-primary font-medium'>
-                              React, Next.js, Redux, HTML, CSS, Bootstrap,
-                              TailwindCSS, and MaterialUI.
-                            </span>{' '}
-                          </p>
-                        </li>
-                        <li className='flex items-start gap-[1rem] lg:gap-[1.7rem] '>
-                          <Image
-                            src={'/images/blueDisc.svg'}
-                            height={20}
-                            width={20}
-                            alt='Blue Disc'
-                            className='flex-shrink-0 mt-[0.5rem]'
-                          />
-                          <p>
-                            Mastery in JavaScript and TypeScript, reinforced
-                            with tools like GraphQL for efficient data fetching.
-                            Solid background in back-end development with
-                            Node.js, coupled with hands-on experience in{' '}
-                            <span className='text-primary font-medium'>
-                              MongoDB, MySQL, and PostgreSQL.
-                            </span>{' '}
-                          </p>
-                        </li>
-                        <li className='flex items-start gap-[1rem] lg:gap-[1.7rem] '>
-                          <Image
-                            src={'/images/blueDisc.svg'}
-                            height={20}
-                            width={20}
-                            alt='Blue Disc'
-                            className='flex-shrink-0 mt-[0.5rem]'
-                          />
-                          <p>
-                            Adept at creating and integrating REST APIs ensuring
-                            seamless front-to-back functionality and API
-                            Integrations.
-                          </p>
-                        </li>
-                        <li className='flex items-start gap-[1rem] lg:gap-[1.7rem]'>
-                          <Image
-                            src={'/images/blueDisc.svg'}
-                            height={20}
-                            width={20}
-                            alt='Blue Disc'
-                            className='flex-shrink-0 mt-[0.5rem]'
-                          />
-                          <p>
-                            Renowned for effective team collaboration and
-                            communication, ensuring aligned progress and shared
-                            vision.
-                          </p>
-                        </li>
-                      </ul> */}
+
                         <div
                           className='text-heading list-div text-[1.6rem] leading-[2.4rem] flex flex-col gap-[1rem] mb-[5rem] list-inside'
                           dangerouslySetInnerHTML={{
@@ -520,14 +424,16 @@ const CV = ({ params }: { params: { slug: string } }) => {
                                   <div className='flex items-center justify-between flex-wrap text-nowrap max-[375px]:justify-center'>
                                     {/* About Content */}
                                     <div className='flex gap-[1rem]'>
-                                      <div className='h-[4.2rem] w-[4.2rem] lg:h-[4.9rem] lg:w-[4.9rem] bg-[#D1E9FF] rounded-[0.4rem] flex items-center justify-center'>
-                                        <Image
-                                          src={experience?.thumbnail}
-                                          height={32}
-                                          width={32}
-                                          alt='Logo Mark'
-                                        />
-                                      </div>
+                                      {experience?.thumbnail && (
+                                        <div className='h-[4.2rem] w-[4.2rem] lg:h-[4.9rem] lg:w-[4.9rem] bg-[#D1E9FF] rounded-[0.4rem] flex items-center justify-center'>
+                                          <Image
+                                            src={experience?.thumbnail}
+                                            height={32}
+                                            width={32}
+                                            alt='Logo Mark'
+                                          />
+                                        </div>
+                                      )}
                                       <div>
                                         <p className='text-[1.4rem] lg:text-[1.6rem] font-normal text-paragraph1'>
                                           {experience.company_name}

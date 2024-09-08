@@ -1,5 +1,3 @@
-import { useSearchParams } from 'next/navigation';
-
 export const getRoutesDetails = (dynamicRoutes, routeParams) => {
   const routesInfo = {
     uniqueID: '',

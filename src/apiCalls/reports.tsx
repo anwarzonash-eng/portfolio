@@ -18,7 +18,6 @@ const Reports = ({ actionType, domain, uniqueId, itemID = null }) => {
     if (itemID && itemID !== null) {
       reportsPayload.itemID = itemID;
     }
-    console.log('reportsPayload', reportsPayload);
     const results = await reports();
 
     const statusStr = String(results?.status);
