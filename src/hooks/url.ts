@@ -10,13 +10,17 @@ export const getRoutesDetails = (dynamicRoutes, routeParams) => {
     routesInfo.uniqueID = dynamicRoutes.unique_id;
   else routesInfo.uniqueID = 'a';
 
-  if (
-    routeParams &&
-    routeParams.get('is_u') &&
-    routeParams.get('is_u') === 'true'
-  ) {
+  const routeIsU = routeParams && routeParams.get('is_u');
+  if (routeIsU === 'true') {
     routesInfo.is_u = true;
+  } else {
+    // Get is_u value from localStorage if routeParams doesn't have is_u
+    const storedIsU = localStorage.getItem('is_u');
+    if (storedIsU === 'true') {
+      routesInfo.is_u = true;
+    }
   }
+
   if (routeParams && routeParams.get('admin')) {
     routesInfo.admin = true;
     routesInfo.is_u = false;
