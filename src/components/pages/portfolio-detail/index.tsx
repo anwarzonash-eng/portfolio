@@ -8,31 +8,43 @@ import OurBlogs from '@/components/OurBlogs';
 import SliderXL from '@/components/Sliders/SliderXL';
 import useBodyBackgroundColor from '@/hooks/useBodyBackgroundColor';
 import { useSearchParams } from 'next/navigation';
-import Reports from '@/apiCalls/reports';
 import { formatDate } from '@/hooks/formatdate';
 import Portfoliodetailbg from '@/components/portfoliodetailbg';
 import { dateFormatsOptions } from '@/data/JsonData';
 import WebsiteLoader from '@/components/WebsiteLoader';
 import { modifiedContent } from '@/hooks/modifiedContent';
-import Skills from '@/apiCalls/skills';
-import UseURLInfo from '@/components/UseUrlInfo';
+import { reportsApiHandler } from '@/hooks/apihandlers/reportsApiHandlers';
+import { getRoutesDetails } from '@/hooks/url';
+import { handleSkillsApiCall } from '@/hooks/apihandlers/skillsApiHandlers';
 
 const PortfolioDetails = ({ params }: { params: { slug: string } }) => {
   const searchParams = useSearchParams();
-  const urlInfo: any = UseURLInfo(params);
 
   const portfolioId = searchParams.get('portfolio_id');
   const [portfolioDetails, setPortfolioDetails] = useState(null);
 
-  const payload = {
-    actionType: 'portfolioById',
-    domain: urlInfo?.domain,
-    uniqueId: urlInfo?.uniqueID,
-    itemID: portfolioId,
-  };
+  const [urlInfo, setURLInfo] = useState(null);
+  const [listOfdata, setListOfData] = useState(null);
+  const [listOfskills, setListOfSkills] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const { listOfdata, loading } = Reports(payload);
-  const { listOfskills } = Skills();
+  useEffect(() => {
+    setURLInfo(getRoutesDetails(params, searchParams));
+  }, [params, searchParams]);
+
+  useEffect(() => {
+    reportsApiHandler({
+      actionType: 'cv',
+      urlInfo,
+      setLoading,
+      setListOfData,
+      itemID: portfolioId,
+    });
+  }, [urlInfo]);
+
+  useEffect(() => {
+    handleSkillsApiCall({ setListOfSkills });
+  }, []);
 
   useEffect(() => {
     if (listOfdata && listOfdata?.portfolios_ids?.length > 0) {
@@ -200,7 +212,8 @@ const PortfolioDetails = ({ params }: { params: { slug: string } }) => {
                     dangerouslySetInnerHTML={{
                       __html: modifiedContent(
                         portfolioDetails?.tagline_2,
-                        listOfskills
+                        listOfskills,
+                        listOfdata
                       ),
                     }}
                   ></p>
@@ -245,7 +258,8 @@ const PortfolioDetails = ({ params }: { params: { slug: string } }) => {
               dangerouslySetInnerHTML={{
                 __html: modifiedContent(
                   portfolioDetails?.features_short,
-                  listOfskills
+                  listOfskills,
+                  listOfdata
                 ),
               }}
               className='w-full list-div my-[6.4rem] text-[2rem] leading-[3.2rem] text-paragraph1 font-normal'
@@ -276,7 +290,8 @@ const PortfolioDetails = ({ params }: { params: { slug: string } }) => {
               dangerouslySetInnerHTML={{
                 __html: modifiedContent(
                   portfolioDetails?.features_long,
-                  listOfskills
+                  listOfskills,
+                  listOfdata
                 ),
               }}
             ></div>

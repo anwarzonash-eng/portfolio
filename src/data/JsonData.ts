@@ -158,3 +158,138 @@ export const FaqsData = [
       'You can easily change your account via connecting our customer support experts.',
   },
 ];
+
+export const cardData = [
+  {
+    id: 1,
+    title: 'Front-end Web Development',
+    icon: '📢', // You can also use icon paths
+    description: `Equipped with a wealth of frontend development expertise, I specialize in crafting seamless user experiences using technologies such as TypeScript, JavaScript, React, Next.js, Redux, Appolo, Vanilla S, TailwindCSS, MaterialUI, CSS/SASS/SCSS, and more. My commitment to delivering performant, secure, and accessible web applications is evident.`,
+    listItems: [
+      {
+        text: 'Full Stack Developer with deep expertise in designing, building, and deploying end-to-end web solutions.',
+        highlight: 'designing, building, and deploying',
+      },
+      {
+        text: 'Dynamic and results-driven eCommerce specialist with extensive experience in managing online retail operations.',
+        highlight: 'extensive experience',
+      },
+      {
+        text: 'Proficient in front-end technologies such as React, Next.js, Redux, HTML, CSS, Bootstrap, TailwindCSS, and MaterialUI.',
+        highlight:
+          'React, Next.js, Redux, HTML, CSS, Bootstrap, TailwindCSS, and MaterialUI',
+      },
+      {
+        text: 'Mastery in JavaScript and TypeScript, reinforced with tools like GraphQL for efficient data fetching.',
+        highlight: 'MongoDB, MySQL, and PostgreSQL',
+      },
+      {
+        text: 'Adept at creating and integrating REST APIs ensuring seamless front-to-back functionality and API Integrations.',
+      },
+      {
+        text: 'Renowned for effective team collaboration and communication, ensuring aligned progress and shared vision.',
+      },
+    ],
+    linkText: 'Check now',
+    linkUrl: '/',
+  },
+  {
+    id: 2,
+    title: 'Front-end Web Development',
+    icon: '📢', // You can also use icon paths
+    description: `Equipped with a wealth of frontend development expertise, I specialize in crafting seamless user experiences using technologies such as TypeScript, JavaScript, React, Next.js, Redux, Appolo, Vanilla S, TailwindCSS, MaterialUI, CSS/SASS/SCSS, and more. My commitment to delivering performant, secure, and accessible web applications is evident.`,
+    listItems: [
+      {
+        text: 'Full Stack Developer with deep expertise in designing, building, and deploying end-to-end web solutions.',
+        highlight: 'designing, building, and deploying',
+      },
+      {
+        text: 'Dynamic and results-driven eCommerce specialist with extensive experience in managing online retail operations.',
+        highlight: 'extensive experience',
+      },
+      {
+        text: 'Proficient in front-end technologies such as React, Next.js, Redux, HTML, CSS, Bootstrap, TailwindCSS, and MaterialUI.',
+        highlight:
+          'React, Next.js, Redux, HTML, CSS, Bootstrap, TailwindCSS, and MaterialUI',
+      },
+      {
+        text: 'Mastery in JavaScript and TypeScript, reinforced with tools like GraphQL for efficient data fetching.',
+        highlight: 'MongoDB, MySQL, and PostgreSQL',
+      },
+      {
+        text: 'Adept at creating and integrating REST APIs ensuring seamless front-to-back functionality and API Integrations.',
+      },
+      {
+        text: 'Renowned for effective team collaboration and communication, ensuring aligned progress and shared vision.',
+      },
+    ],
+    linkText: 'Check now',
+    linkUrl: '/',
+  },
+  {
+    id: 3,
+    title: 'Front-end Web Development',
+    icon: '📢', // You can also use icon paths
+    description: `Equipped with a wealth of frontend development expertise, I specialize in crafting seamless user experiences using technologies such as TypeScript, JavaScript, React, Next.js, Redux, Appolo, Vanilla S, TailwindCSS, MaterialUI, CSS/SASS/SCSS, and more. My commitment to delivering performant, secure, and accessible web applications is evident.`,
+    listItems: [
+      {
+        text: 'Full Stack Developer with deep expertise in designing, building, and deploying end-to-end web solutions.',
+        highlight: 'designing, building, and deploying',
+      },
+      {
+        text: 'Dynamic and results-driven eCommerce specialist with extensive experience in managing online retail operations.',
+        highlight: 'extensive experience',
+      },
+      {
+        text: 'Proficient in front-end technologies such as React, Next.js, Redux, HTML, CSS, Bootstrap, TailwindCSS, and MaterialUI.',
+        highlight:
+          'React, Next.js, Redux, HTML, CSS, Bootstrap, TailwindCSS, and MaterialUI',
+      },
+      {
+        text: 'Mastery in JavaScript and TypeScript, reinforced with tools like GraphQL for efficient data fetching.',
+        highlight: 'MongoDB, MySQL, and PostgreSQL',
+      },
+      {
+        text: 'Adept at creating and integrating REST APIs ensuring seamless front-to-back functionality and API Integrations.',
+      },
+      {
+        text: 'Renowned for effective team collaboration and communication, ensuring aligned progress and shared vision.',
+      },
+    ],
+    linkText: 'Check now',
+    linkUrl: '/',
+  },
+  {
+    id: 4,
+    title: 'Front-end Web Development',
+    icon: '📢', // You can also use icon paths
+    description: `Equipped with a wealth of frontend development expertise, I specialize in crafting seamless user experiences using technologies such as TypeScript, JavaScript, React, Next.js, Redux, Appolo, Vanilla S, TailwindCSS, MaterialUI, CSS/SASS/SCSS, and more. My commitment to delivering performant, secure, and accessible web applications is evident.`,
+    listItems: [
+      {
+        text: 'Full Stack Developer with deep expertise in designing, building, and deploying end-to-end web solutions.',
+        highlight: 'designing, building, and deploying',
+      },
+      {
+        text: 'Dynamic and results-driven eCommerce specialist with extensive experience in managing online retail operations.',
+        highlight: 'extensive experience',
+      },
+      {
+        text: 'Proficient in front-end technologies such as React, Next.js, Redux, HTML, CSS, Bootstrap, TailwindCSS, and MaterialUI.',
+        highlight:
+          'React, Next.js, Redux, HTML, CSS, Bootstrap, TailwindCSS, and MaterialUI',
+      },
+      {
+        text: 'Mastery in JavaScript and TypeScript, reinforced with tools like GraphQL for efficient data fetching.',
+        highlight: 'MongoDB, MySQL, and PostgreSQL',
+      },
+      {
+        text: 'Adept at creating and integrating REST APIs ensuring seamless front-to-back functionality and API Integrations.',
+      },
+      {
+        text: 'Renowned for effective team collaboration and communication, ensuring aligned progress and shared vision.',
+      },
+    ],
+    linkText: 'Check now',
+    linkUrl: '/',
+  },
+];

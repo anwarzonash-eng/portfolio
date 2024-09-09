@@ -4,9 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import useBodyBackgroundColor from '@/hooks/useBodyBackgroundColor';
 import './print.css';
-import Reports from '@/apiCalls/reports';
 import { formatDate } from '@/hooks/formatdate';
-import Skills from '@/apiCalls/skills';
 import { modifiedContent } from '@/hooks/modifiedContent';
 import { useEffect, useState } from 'react';
 import PortfolioPopUp from '@/components/PortfolioPopUp';
@@ -17,20 +15,34 @@ import {
   socialLinks,
 } from '@/data/JsonData';
 import WebsiteLoader from '@/components/WebsiteLoader';
-import UseURLInfo from '@/components/UseUrlInfo';
+import { useSearchParams } from 'next/navigation';
+import { getRoutesDetails } from '@/hooks/url';
+import { reportsApiHandler } from '@/hooks/apihandlers/reportsApiHandlers';
+import { handleSkillsApiCall } from '@/hooks/apihandlers/skillsApiHandlers';
 
 const CV = ({ params }: { params: { slug: string } }) => {
-  const urlInfo: any = UseURLInfo(params);
+  const [urlInfo, setURLInfo] = useState(null);
+  const [listOfdata, setListOfData] = useState(null);
+  const [listOfskills, setListOfSkills] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const searchParams = useSearchParams();
 
-  const payload = {
-    actionType: 'cv',
-    domain: urlInfo?.domain,
-    uniqueId: urlInfo?.uniqueID,
-  };
+  useEffect(() => {
+    setURLInfo(getRoutesDetails(params, searchParams));
+  }, [params, searchParams]);
 
-  const { listOfdata, loading } = Reports(payload);
-  console.log('listOfdata', listOfdata);
-  const { listOfskills } = Skills();
+  useEffect(() => {
+    reportsApiHandler({
+      actionType: 'cv',
+      urlInfo,
+      setLoading,
+      setListOfData,
+    });
+  }, [urlInfo]);
+
+  useEffect(() => {
+    handleSkillsApiCall({ setListOfSkills });
+  }, []);
 
   useBodyBackgroundColor('#EFF5FD');
 
@@ -312,7 +324,8 @@ const CV = ({ params }: { params: { slug: string } }) => {
                           dangerouslySetInnerHTML={{
                             __html: modifiedContent(
                               listOfdata?.skills,
-                              listOfskills
+                              listOfskills,
+                              listOfdata
                             ),
                           }}
                         ></div>
@@ -486,7 +499,8 @@ const CV = ({ params }: { params: { slug: string } }) => {
                                     dangerouslySetInnerHTML={{
                                       __html: modifiedContent(
                                         experience?.short_description,
-                                        listOfskills
+                                        listOfskills,
+                                        listOfdata
                                       ),
                                     }}
                                     className='mt-[2rem] list-div text-[1.6rem] font-medium text-paragraph1'
@@ -495,7 +509,8 @@ const CV = ({ params }: { params: { slug: string } }) => {
                                     dangerouslySetInnerHTML={{
                                       __html: modifiedContent(
                                         experience?.long_description,
-                                        listOfskills
+                                        listOfskills,
+                                        listOfdata
                                       ),
                                     }}
                                     className='mt-[2rem] list-div text-heading text-[1.4rem] font-normal leading-[150%] list-disc pl-[2rem] flex flex-col gap-[0.8rem]'
@@ -684,7 +699,8 @@ const CV = ({ params }: { params: { slug: string } }) => {
                                       dangerouslySetInnerHTML={{
                                         __html: modifiedContent(
                                           portfolio.features_short,
-                                          listOfskills
+                                          listOfskills,
+                                          listOfdata
                                         ),
                                       }}
                                       className='mt-[2rem] list-div text-heading text-[1.4rem] font-normal leading-[150%] list-disc pl-[2rem] flex flex-col gap-[0.8rem] mb-[2rem]'

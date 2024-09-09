@@ -5,9 +5,10 @@ import './globals.css';
 import Header from '@/components/layouts/header/page';
 import Footer from '@/components/layouts/footer/page';
 import ClientWrapper from '@/components/ClientWrapper'; // Import the ClientWrapper
-import React, { useEffect, useRef } from 'react';
-import Reports from '@/apiCalls/reports';
-import UseURLInfo from '@/components/UseUrlInfo';
+import React, { useEffect, useRef, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { getRoutesDetails } from '@/hooks/url';
+import { reportsApiHandler } from '@/hooks/apihandlers/reportsApiHandlers';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -17,21 +18,31 @@ const inter = Inter({ subsets: ['latin'] });
 // };
 
 export default function RootLayout({ children, params }) {
-  const urlInfo: any = UseURLInfo(params);
-  const payload = {
-    actionType: 'home',
-    domain: urlInfo?.domain,
-    uniqueId: urlInfo?.uniqueID,
-  };
-
   const contactRef = useRef(null);
-  const { listOfdata, loading } = Reports(payload);
 
   const scrollToContact = () => {
     if (contactRef.current) {
       contactRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  const [urlInfo, setURLInfo] = useState(null);
+  const [listOfdata, setListOfData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    setURLInfo(getRoutesDetails(params, searchParams));
+  }, [params, searchParams]);
+
+  useEffect(() => {
+    reportsApiHandler({
+      actionType: 'home',
+      urlInfo,
+      setLoading,
+      setListOfData,
+    });
+  }, [urlInfo]);
 
   useEffect(() => {
     document.title = listOfdata?.name || 'Loading...';

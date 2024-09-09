@@ -1,11 +1,15 @@
-export function modifiedContent(content, skillsList) {
+import { getColors } from './colors';
+
+export function modifiedContent(content, skillsList, listOfdata) {
+  const colors = getColors(listOfdata);
+
   const modifiedContentInner = content
-    ?.replace(/<h1>/g, '<h1 style="color:var(--rootColorFore4);">')
-    ?.replace(/<h2>/g, '<h2 style="color:var(--rootColorFore4);">')
-    ?.replace(/<h3>/g, '<h3 style="color:var(--rootColorFore4);">')
-    ?.replace(/<h4>/g, '<h4 style="color:var(--rootColorFore4);">')
-    ?.replace(/<strong >/g, '<strong style="color:var(--rootColorFore4);">')
-    ?.replace(/<strong>/g, '<strong style="color:var(--rootColorFore4);">')
+    ?.replace(/<h1>/g, `<h1 style="color:${colors.color1}">`)
+    ?.replace(/<h2>/g, `<h2 style="color:${colors.color1}">`)
+    ?.replace(/<h3>/g, `<h3 style="color:${colors.color1}">`)
+    ?.replace(/<h4>/g, `<h4 style="color:${colors.color1}">`)
+    ?.replace(/<strong >/g, `<strong style="color:${colors.color1}">`)
+    ?.replace(/<strong>/g, `<strong style="color:${colors.color1}">`)
     ?.replace(/<u>(.*?)<\/u>/g, (_, match) => {
       const cleanedMatch = match.trim();
 

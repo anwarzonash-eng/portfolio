@@ -10,31 +10,44 @@ import MyServices from '@/components/MyServicesCards';
 import TestimonialSlider from '@/components/Sliders/TestimonialSlider';
 import FreeTrialPopup from '@/components/FreeTrialPopup';
 import Welcome from '@/components/Welcome';
-import { reports, reportsPayload } from '@/apiHandlers/reportsApi';
 import { useEffect, useState } from 'react';
-import Reports from '@/apiCalls/reports';
 import { formatPhoneNumber } from '@/hooks/formatPhoneNumber';
 import Link from 'next/link';
 import { formatDate } from '@/hooks/formatdate';
 import { modifiedContent } from '@/hooks/modifiedContent';
-import Skills from '@/apiCalls/skills';
 import { dateFormatsOptions } from '@/data/JsonData';
 import WebsiteLoader from '@/components/WebsiteLoader';
-import UseURLInfo from '@/components/UseUrlInfo';
+import { useSearchParams } from 'next/navigation';
+import { getRoutesDetails } from '@/hooks/url';
+import { skillsSyncApi } from '@/apiHandlers/skillsApi';
+import { reportsApiHandler } from '@/hooks/apihandlers/reportsApiHandlers';
+import { handleSkillsApiCall } from '@/hooks/apihandlers/skillsApiHandlers';
 
 const Home = ({ params }: { params: { slug: string } }) => {
-  const urlInfo: any = UseURLInfo(params);
   useBodyBackgroundColor('#f8f9fa');
+  const [urlInfo, setURLInfo] = useState(null);
+  const [listOfdata, setListOfData] = useState(null);
+  const [listOfskills, setListOfSkills] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const searchParams = useSearchParams();
 
-  const payload = {
-    actionType: 'home',
-    domain: urlInfo?.domain,
-    uniqueId: urlInfo?.uniqueID,
-  };
+  useEffect(() => {
+    setURLInfo(getRoutesDetails(params, searchParams));
+  }, [params, searchParams]);
 
-  const { listOfdata, loading } = Reports(payload);
-  const { listOfskills } = Skills();
-  // Conditional rendering: show loader while fetching data
+  useEffect(() => {
+    reportsApiHandler({
+      actionType: 'home',
+      urlInfo,
+      setLoading,
+      setListOfData,
+    });
+  }, [urlInfo]);
+
+  useEffect(() => {
+    handleSkillsApiCall({ setListOfSkills });
+  }, []);
+
   if (!loading) {
     return (
       <main className='w-full'>
@@ -586,7 +599,8 @@ const Home = ({ params }: { params: { slug: string } }) => {
                                     dangerouslySetInnerHTML={{
                                       __html: modifiedContent(
                                         experience?.short_description,
-                                        listOfskills
+                                        listOfskills,
+                                        listOfdata
                                       ),
                                     }}
                                   ></p>

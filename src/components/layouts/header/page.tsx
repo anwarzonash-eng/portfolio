@@ -6,7 +6,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import WorkProofLinks from '@/components/WorkProofLinks';
 import ContactMeLinks from '@/components/ContactMeLinks';
-import Reports from '@/apiCalls/reports';
 
 interface HeaderLink {
   title: string;

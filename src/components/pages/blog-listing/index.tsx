@@ -1,13 +1,20 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import BlogCard from '@/components/BlogCard';
 import Newsletter from '@/components/Newsletter';
 import useBodyBackgroundColor from '@/hooks/useBodyBackgroundColor';
-import UseURLInfo from '@/components/UseUrlInfo';
+import { useSearchParams } from 'next/navigation';
+import { getRoutesDetails } from '@/hooks/url';
 
 const BlogListing = ({ params }: { params: { slug: string } }) => {
-  const urlInfo = UseURLInfo(params);
+  const [urlInfo, setURLInfo] = useState(null);
+
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    setURLInfo(getRoutesDetails(params, searchParams));
+  }, [params, searchParams]);
 
   useBodyBackgroundColor('#EFF5FD');
 

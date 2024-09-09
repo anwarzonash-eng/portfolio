@@ -4,7 +4,6 @@ import React, { forwardRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import ContactMe from '@/components/ContactMe';
-import Reports from '@/apiCalls/reports';
 
 const Footer = forwardRef<
   HTMLDivElement,

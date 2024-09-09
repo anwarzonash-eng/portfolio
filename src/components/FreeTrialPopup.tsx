@@ -4,7 +4,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Confetti from './Confetti';
 import VideoPlayer from './VideoPlayer';
-import Reports from '@/apiCalls/reports';
 
 const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
   const [open, setOpen] = useState(false);

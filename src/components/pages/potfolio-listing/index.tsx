@@ -6,18 +6,30 @@ import Link from 'next/link';
 import Newsletter from '@/components/Newsletter';
 import useBodyBackgroundColor from '@/hooks/useBodyBackgroundColor';
 import PortfolioPopUp from '@/components/PortfolioPopUp';
-import Reports from '@/apiCalls/reports';
 import WebsiteLoader from '@/components/WebsiteLoader';
-import UseURLInfo from '@/components/UseUrlInfo';
+import { useSearchParams } from 'next/navigation';
+import { getRoutesDetails } from '@/hooks/url';
+import { reportsApiHandler } from '@/hooks/apihandlers/reportsApiHandlers';
 
 const PortfolioListing = ({ params }: { params: { slug: string } }) => {
-  const urlInfo: any = UseURLInfo(params);
-  const payload = {
-    actionType: 'portfolio',
-    domain: urlInfo?.domain,
-    uniqueId: urlInfo?.uniqueID,
-  };
-  const { listOfdata, loading } = Reports(payload);
+  const [urlInfo, setURLInfo] = useState(null);
+  const [listOfdata, setListOfData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    setURLInfo(getRoutesDetails(params, searchParams));
+  }, [params, searchParams]);
+
+  useEffect(() => {
+    reportsApiHandler({
+      actionType: 'portfolio',
+      urlInfo,
+      setLoading,
+      setListOfData,
+    });
+  }, [urlInfo]);
+
   useBodyBackgroundColor('#EFF5FD');
   const [
     selectedPorfolioPicturesforPopup,

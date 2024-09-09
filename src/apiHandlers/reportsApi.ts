@@ -1,16 +1,9 @@
 import { apigateway } from '@/gateways/apigateway';
 
-export let reportsPayload = {
-  domain: '',
-  uniqueId: '',
-  actionType: 'home',
-  itemID: '',
-};
-
-export const reports = async () => {
+export const reportsSync = async (payload) => {
   return apigateway({
     endpoint: '/reports',
     method: 'POST',
-    payload: reportsPayload,
+    payload: payload,
   });
 };
