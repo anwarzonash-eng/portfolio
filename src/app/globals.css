@@ -9,6 +9,21 @@
 
 /* Add the remaining font weights and styles */
 
+:root {
+  --color1: #ffffff;
+  --color2: #ffffff;
+  --color3: #ffffff;
+  --color4: #ffffff;
+  --primary-color: #00473c;
+  --page_bg_color: #f8f9fa;
+  --banner_bg_color: #a3ddd3;
+  --section_bg_color: #00362e;
+  --heading_color: #262626;
+  --paragrapgh1_color: #3e3e3e;
+  --paragrapgh2_color: #f8f9fa;
+  --border_color: #dddddd;
+}
+
 /* src/styles/globals.css */
 @font-face {
   font-family: 'Helvetica Neue';

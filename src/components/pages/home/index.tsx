@@ -22,6 +22,7 @@ import { getRoutesDetails } from '@/hooks/url';
 import { skillsSyncApi } from '@/apiHandlers/skillsApi';
 import { reportsApiHandler } from '@/hooks/apihandlers/reportsApiHandlers';
 import { handleSkillsApiCall } from '@/hooks/apihandlers/skillsApiHandlers';
+import { getColors, updateCSSVariables } from '@/hooks/colors';
 
 const Home = ({ params }: { params: { slug: string } }) => {
   useBodyBackgroundColor('#f8f9fa');
@@ -487,23 +488,26 @@ const Home = ({ params }: { params: { slug: string } }) => {
             </div>
           </div>
         </section>
+        {listOfdata && listOfdata?.portfolios_ids?.length > 0 && (
+          <>
+            {/* My Work Section Slider  */}
+            <section className='w-full'>
+              <div className='mainContainer my-[12rem]'>
+                {/* Badge */}
+                <div className='px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto'>
+                  My Work
+                </div>
+                {/* Heading */}
+                <div className='text-center text-heading text-[3rem] font-medium leading-[2.8rem] mt-[2rem]'>
+                  Explore My Technical Endeavors
+                </div>
 
-        {/* My Work Section Slider  */}
-        <section className='w-full'>
-          <div className='mainContainer my-[12rem]'>
-            {/* Badge */}
-            <div className='px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto'>
-              My Work
-            </div>
-            {/* Heading */}
-            <div className='text-center text-heading text-[3rem] font-medium leading-[2.8rem] mt-[2rem]'>
-              Explore My Technical Endeavors
-            </div>
-
-            {/* Home Page Slider */}
-            <HomeSlider portfolios={listOfdata?.portfolios_ids} />
-          </div>
-        </section>
+                {/* Home Page Slider */}
+                <HomeSlider portfolios={listOfdata?.portfolios_ids} />
+              </div>
+            </section>
+          </>
+        )}
 
         {listOfdata && listOfdata?.experiences_ids?.length > 0 && (
           <>

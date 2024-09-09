@@ -9,6 +9,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { getRoutesDetails } from '@/hooks/url';
 import { reportsApiHandler } from '@/hooks/apihandlers/reportsApiHandlers';
+import { getColors, updateCSSVariables } from '@/hooks/colors';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -47,6 +48,12 @@ export default function RootLayout({ children, params }) {
   useEffect(() => {
     document.title = listOfdata?.name || 'Loading...';
   }, [listOfdata]);
+
+  const colors = getColors(listOfdata);
+
+  useEffect(() => {
+    updateCSSVariables(colors);
+  }, [colors]);
 
   return (
     <html lang='en'>
