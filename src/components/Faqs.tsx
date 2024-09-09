@@ -25,7 +25,7 @@ const Faqs = ({ urlInfo }) => {
             {/* Top Content */}
             <div className='text-paragraph2 pt-[2rem] lg:pt-[3rem] pl-[2rem]'>
               <h4 className='pb-[2rem] text-[2.4rem] lg:text-[3rem] font-medium leading-[3.6rem]'>
-                Find your <br /> answer here{urlInfo.is_u ? '.' : '?'}
+                Find your <br /> answer here{urlInfo?.is_u ? '.' : '?'}
               </h4>
               {!urlInfo?.is_u && (
                 <p className='text-[1.8rem] font-normal leading-[2.6rem]'>
