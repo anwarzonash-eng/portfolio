@@ -34,7 +34,7 @@ const PortfolioDetails = ({ params }: { params: { slug: string } }) => {
 
   useEffect(() => {
     reportsApiHandler({
-      actionType: 'cv',
+      actionType: 'portfolioById',
       urlInfo,
       setLoading,
       setListOfData,

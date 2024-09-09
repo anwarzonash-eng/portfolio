@@ -415,7 +415,7 @@ const Home = ({ params }: { params: { slug: string } }) => {
         </section>
 
         {/* Custom Video Player Section */}
-        <div className='w-full'>
+        <div className='w-full mb-[10rem] xl:mb-[12rem]'>
           <VideoPlayer
             videoSrc={listOfdata?.video}
             videoClassName='rounded-[1.2rem] h-full w-full h-[40rem] lg:h-[70rem] object-cover'
@@ -432,39 +432,43 @@ const Home = ({ params }: { params: { slug: string } }) => {
           />
         </div>
 
-        {/* Skills Section Completed */}
-        <div className='mainContainer my-[10rem] xl:my-[12rem]'>
-          {/* Badge */}
-          <div className='px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto'>
-            Skills
-          </div>
-          {/* Heading */}
-          <div className='text-center text-heading text-[2.4rem] xl:text-[3rem] font-medium leading-[2.8rem] mt-[2rem]'>
-            The skills, tools and technologies I am really good at:
-          </div>
-          {/* Skills Container */}
-          <div className='flex items-center justify-center flex-wrap gap-[1.5rem] mt-[6rem]'>
-            {listOfdata?.skills_ids?.map((skill, index) => (
-              <div
-                key={index}
-                className='flex flex-col items-center justify-center gap-[0.8rem] max-w-[10rem] lg:max-w-[13rem] w-full'
-              >
-                <div className='flex items-center justify-center'>
-                  <Image
-                    src={skill.icon}
-                    alt={skill.title}
-                    height={64}
-                    width={64}
-                    className='h-[6.4rem] w-[6.4rem] rounded-full'
-                  />
-                </div>
-                <p className='text-paragraph1 text-center text-[1.8rem] leading-[2.8rem] overflow-hidden text-ellipsis whitespace-nowrap'>
-                  {skill.title}
-                </p>
+        {listOfdata && listOfdata?.skills_ids?.length > 0 && (
+          <>
+            {/* Skills Section Completed */}
+            <div className='mainContainer mb-[10rem] xl:mb-[12rem]'>
+              {/* Badge */}
+              <div className='px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto'>
+                Skills
               </div>
-            ))}
-          </div>
-        </div>
+              {/* Heading */}
+              <div className='text-center text-heading text-[2.4rem] xl:text-[3rem] font-medium leading-[2.8rem] mt-[2rem]'>
+                The skills, tools and technologies I am really good at:
+              </div>
+              {/* Skills Container */}
+              <div className='flex items-center justify-center flex-wrap gap-[1.5rem] mt-[6rem]'>
+                {listOfdata?.skills_ids?.map((skill, index) => (
+                  <div
+                    key={index}
+                    className='flex flex-col items-center justify-center gap-[0.8rem] max-w-[10rem] lg:max-w-[13rem] w-full'
+                  >
+                    <div className='flex items-center justify-center'>
+                      <Image
+                        src={skill.icon}
+                        alt={skill.title}
+                        height={64}
+                        width={64}
+                        className='h-[6.4rem] w-[6.4rem] rounded-full'
+                      />
+                    </div>
+                    <p className='text-paragraph1 text-center text-[1.8rem] leading-[2.8rem] overflow-hidden text-ellipsis whitespace-nowrap'>
+                      {skill.title}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>{' '}
+          </>
+        )}
 
         {/* Services Section Completed */}
         <section className='w-full bg-sectionBG'>
