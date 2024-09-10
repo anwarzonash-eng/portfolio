@@ -1,4 +1,4 @@
-name: Development  # Name of the workflow
+name: Production  # Name of the workflow
 
 on:
   push:
