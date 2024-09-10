@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: [self-hosted, production_frontend]
+    runs-on: [self-hosted, personal_v3]
 
     strategy:
       matrix:
