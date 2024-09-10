@@ -1,24 +1,29 @@
-name: Production  # Name of the workflow
+name: Production 
 
 on:
   push:
-    branches: [main]  # Trigger the workflow on pushes to the 'main' branch
+    branches: [main] 
 
 jobs:
   build:
-    runs-on: [self-hosted, personal_v3]  # Run the job on a self-hosted runner tagged with 'personal_v3'
+    runs-on: [self-hosted, production_frontend]
+
+    strategy:
+      matrix:
+        node-version: [18.x]
 
     steps:
-      - name: Checkout repository  # Step to checkout the code from the repository
-        uses: actions/checkout@v2  # Use the official GitHub checkout action
+      - uses: actions/checkout@v2
 
-      - name: Setup Node.js  # Step to set up Node.js in the environment
-        uses: actions/setup-node@v2  # Use the official GitHub Node.js setup action
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
         with:
-          node-version: 18.x  # Specify the Node.js version to use (v18.x)
+          node-version: ${{ matrix.node-version }}
 
-      - name: Install Node Modules  # Step to install Node.js dependencies
-        run: npm i  # Use 'npm ci' to install dependencies from 'package-lock.json' (faster and more reliable in CI)
+      - name: Install Node Modules in frontend
+        run: npm install 
+    
+      - run: rm package-lock.json
 
-      - name: Restart Application  # Step to restart the application using PM2
-        run: pm2 restart v3  # Restart the PM2 process named 'personal_v3'
+      - name: Restart Application  
+        run: pm2 restart v3 
