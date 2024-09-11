@@ -6,9 +6,11 @@ export const getRoutesDetails = (dynamicRoutes, routeParams) => {
     domain: getDomainName(),
   };
 
+
   if (dynamicRoutes && dynamicRoutes.unique_id)
     routesInfo.uniqueID = dynamicRoutes.unique_id;
   else routesInfo.uniqueID = 'a';
+
 
   const routeIsU = routeParams && routeParams.get('is_u');
   if (routeIsU === 'true') {
