@@ -1,29 +1,29 @@
-"use client"; // This makes the component a Client Component
+'use client'; // This makes the component a Client Component
 
-import { usePathname, useSearchParams } from "next/navigation";
-import OfferBanner from "@/components/OfferBanner";
-import Header from "./layouts/header/page";
-import Footer from "./layouts/footer/page";
-import { useEffect, useRef, useState } from "react";
-import { getRoutesDetails } from "@/hooks/url";
-import { reportsApiHandler } from "@/hooks/apihandlers/reportsApiHandlers";
-import { getColors, updateCSSVariables } from "@/hooks/colors";
+import { usePathname, useSearchParams } from 'next/navigation';
+import OfferBanner from '@/components/OfferBanner';
+import Header from './layouts/header/page';
+import Footer from './layouts/footer/page';
+import { useEffect, useRef, useState } from 'react';
+import { getRoutesDetails } from '@/hooks/url';
+import { reportsApiHandler } from '@/hooks/apihandlers/reportsApiHandlers';
+import { getColors, updateCSSVariables } from '@/hooks/colors';
 
 export default function ClientWrapper({
   children,
   params,
 }: {
   children: React.ReactNode;
-  params: { slug: string };
+  params: any;
 }) {
   const pathname = usePathname(); // Get the current route
-  const isHomepage = pathname === "/"; // Check if it's the homepage
+  const isHomepage = pathname === '/'; // Check if it's the homepage
 
   const contactRef = useRef(null);
 
   const scrollToContact = () => {
     if (contactRef.current) {
-      contactRef.current.scrollIntoView({ behavior: "smooth" });
+      contactRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
@@ -39,7 +39,7 @@ export default function ClientWrapper({
   useEffect(() => {
     urlInfo &&
       reportsApiHandler({
-        actionType: "home",
+        actionType: 'home',
         urlInfo,
         setLoading,
         setListOfData,
@@ -47,7 +47,7 @@ export default function ClientWrapper({
   }, [urlInfo]);
 
   useEffect(() => {
-    document.title = listOfdata?.name || "Loading...";
+    document.title = listOfdata?.name || 'Loading...';
   }, [listOfdata]);
 
   const colors = getColors(listOfdata);

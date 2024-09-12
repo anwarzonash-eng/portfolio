@@ -4,12 +4,12 @@ export function modifiedContent(content, skillsList, listOfdata) {
   const colors = getColors(listOfdata);
 
   const modifiedContentInner = content
-    ?.replace(/<h1>/g, `<h1 style="color:${colors.color1}">`)
-    ?.replace(/<h2>/g, `<h2 style="color:${colors.color1}">`)
-    ?.replace(/<h3>/g, `<h3 style="color:${colors.color1}">`)
-    ?.replace(/<h4>/g, `<h4 style="color:${colors.color1}">`)
-    ?.replace(/<strong >/g, `<strong style="color:${colors.color1}">`)
-    ?.replace(/<strong>/g, `<strong style="color:${colors.color1}">`)
+    ?.replace(/<h1>/g, `<h1 style="color:${colors.primary}">`)
+    ?.replace(/<h2>/g, `<h2 style="color:${colors.primary}">`)
+    ?.replace(/<h3>/g, `<h3 style="color:${colors.primary}">`)
+    ?.replace(/<h4>/g, `<h4 style="color:${colors.primary}">`)
+    ?.replace(/<strong >/g, `<strong style="color:${colors.primary}">`)
+    ?.replace(/<strong>/g, `<strong style="color:${colors.primary}">`)
     ?.replace(/<u>(.*?)<\/u>/g, (_, match) => {
       const cleanedMatch = match.trim();
 

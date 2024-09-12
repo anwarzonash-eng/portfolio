@@ -2,7 +2,7 @@
 import BlogDetails from '@/components/pages/blog-detail';
 import React from 'react';
 
-const blogDetail = ({ params }: { params: { slug: string } }) => {
+const blogDetail = ({ params }: { params: any }) => {
   return <BlogDetails params={params} />;
 };
 

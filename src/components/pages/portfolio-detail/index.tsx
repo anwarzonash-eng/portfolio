@@ -17,29 +17,28 @@ import { reportsApiHandler } from '@/hooks/apihandlers/reportsApiHandlers';
 import { getRoutesDetails } from '@/hooks/url';
 import { handleSkillsApiCall } from '@/hooks/apihandlers/skillsApiHandlers';
 
-const PortfolioDetails = ({ params }: { params: { slug: string } }) => {
+const PortfolioDetails = ({ params }: { params: any }) => {
   const searchParams = useSearchParams();
 
-  const portfolioId = searchParams.get('portfolio_id');
   const [portfolioDetails, setPortfolioDetails] = useState(null);
 
   const [urlInfo, setURLInfo] = useState(null);
   const [listOfdata, setListOfData] = useState(null);
   const [listOfskills, setListOfSkills] = useState([]);
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     setURLInfo(getRoutesDetails(params, searchParams));
   }, [params, searchParams]);
 
   useEffect(() => {
-    reportsApiHandler({
-      actionType: 'portfolioById',
-      urlInfo,
-      setLoading,
-      setListOfData,
-      itemID: portfolioId,
-    });
+    urlInfo &&
+      reportsApiHandler({
+        actionType: 'portfolioById',
+        urlInfo,
+        setLoading,
+        setListOfData,
+        itemID: params?.id,
+      });
   }, [urlInfo]);
 
   useEffect(() => {
@@ -54,7 +53,7 @@ const PortfolioDetails = ({ params }: { params: { slug: string } }) => {
 
   useBodyBackgroundColor('#EFF5FD');
 
-  if (!loading && portfolioId && portfolioDetails) {
+  if (!loading && params && portfolioDetails) {
     return (
       <div className='bg-[#EFF5FD]'>
         {/* Hero Section */}
@@ -275,13 +274,13 @@ const PortfolioDetails = ({ params }: { params: { slug: string } }) => {
                 className=' object-contain rounded-[1rem]'
               />
               {/* Mobile */}
-              {/* <Image
-              src={portfolioDetails?.thumbnail}
-              height={500}
-              width={1000}
-              alt='Banner'
-              className='h-[55.6rem] w-full object-contain md:hidden rounded-[1rem]'
-            /> */}
+              <Image
+                src={portfolioDetails?.thumbnail}
+                height={500}
+                width={1000}
+                alt='Banner'
+                className='h-[55.6rem] w-full object-contain md:hidden rounded-[1rem]'
+              />
             </div>
 
             {/* Key Modules and Contributions */}
@@ -309,15 +308,17 @@ const PortfolioDetails = ({ params }: { params: { slug: string } }) => {
                     key={index}
                     className='flex flex-col items-center justify-center gap-[0.8rem] max-w-[100px] lg:max-w-[130px] w-full'
                   >
-                    <div className='flex items-center justify-center'>
-                      <Image
-                        src={skill?.icon}
-                        alt={skill?.title}
-                        height={64}
-                        width={64}
-                        className='h-[6.4rem] w-[6.4rem] rounded-[1.2rem]'
-                      />
-                    </div>
+                    {skill?.icon && (
+                      <div className='flex items-center justify-center'>
+                        <Image
+                          src={skill?.icon}
+                          alt={skill?.title}
+                          height={64}
+                          width={64}
+                          className='h-[6.4rem] w-[6.4rem] rounded-[1.2rem]'
+                        />
+                      </div>
+                    )}
                     <p className='text-paragraph1 text-[1.8rem] leading-[2.8rem] text-center overflow-hidden text-ellipsis whitespace-nowrap'>
                       {skill?.title}
                     </p>

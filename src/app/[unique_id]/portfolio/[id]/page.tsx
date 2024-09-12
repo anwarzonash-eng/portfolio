@@ -1,7 +1,7 @@
 import PortfolioDetails from '@/components/pages/portfolio-detail';
 import React from 'react';
 
-const portfolioDetails = ({ params }: { params: { slug: string } }) => {
+const portfolioDetails = ({ params }: { params: any }) => {
   return <PortfolioDetails params={params} />;
 };
 

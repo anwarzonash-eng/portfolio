@@ -2,7 +2,7 @@
 import CV from '@/components/pages/cv';
 import React from 'react';
 
-const cv = ({ params }: { params: { slug: string } }) => {
+const cv = ({ params }: { params: any }) => {
   return <CV params={params} />;
 };
 

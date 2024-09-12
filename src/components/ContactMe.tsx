@@ -192,7 +192,7 @@ const ContactMe = ({ listOfdata, ref1 }) => {
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2  gap-[1.5rem] mb-[2rem]'>
             <div className=' w-full border border-border border-solid p-[1.5rem] rounded-[0.8rem] flex items-center gap-[1.5rem]'>
               <Image
-                src={'./images/envelop.svg'}
+                src={'/images/envelop.svg'}
                 height={40}
                 width={40}
                 alt='envelop'
@@ -213,7 +213,7 @@ const ContactMe = ({ listOfdata, ref1 }) => {
             </div>
             <div className='w-full border border-border border-solid p-[1.5rem] rounded-[0.8rem] flex items-center gap-[1.5rem]'>
               <Image
-                src={'./images/phone.svg'}
+                src={'/images/phone.svg'}
                 height={40}
                 width={40}
                 alt='phone'
@@ -231,7 +231,7 @@ const ContactMe = ({ listOfdata, ref1 }) => {
             </div>
             <div className='w-full border border-border border-solid p-[1.5rem] rounded-[0.8rem] flex items-center gap-[1.5rem]'>
               <Image
-                src={'./images/location.svg'}
+                src={'/images/location.svg'}
                 height={40}
                 width={40}
                 alt='location'

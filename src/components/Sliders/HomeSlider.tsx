@@ -72,15 +72,17 @@ const HomeSlider = ({ portfolios }) => {
               <div className='flex flex-col-reverse lg:flex-row max-lg:p-[1.5rem] bg-white shadow-testimonialeShadow relative rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden'>
                 {/* Content */}
                 <div className='lg:py-[6.4rem] lg:pl-[6.4rem] pr-[2rem] w-full'>
-                  <div className='bg-primary p-[1.8rem] lg:p-[2.4rem] rounded-[1.6rem] inline-block max-lg:my-[2rem] lg:mb-[3.2rem]'>
-                    <Image
-                      src={portfolio.company_icon}
-                      alt='Case'
-                      height={34}
-                      width={34}
-                      className='h-[2.5rem] w-[2.5rem] lg:h-[3.4rem] lg:w-[3.4rem] rounded-[1.6rem]'
-                    />
-                  </div>
+                  {portfolio?.company_icon && (
+                    <div className='bg-primary p-[1.8rem] lg:p-[2.4rem] rounded-[1.6rem] inline-block max-lg:my-[2rem] lg:mb-[3.2rem]'>
+                      <Image
+                        src={portfolio?.company_icon}
+                        alt='Case'
+                        height={34}
+                        width={34}
+                        className='h-[2.5rem] w-[2.5rem] lg:h-[3.4rem] lg:w-[3.4rem] rounded-[1.6rem]'
+                      />
+                    </div>
+                  )}
                   {/* Heading */}
                   <h1 className='text-[2.4rem] lg:text-[3.2rem] font-bold leading-[3rem] lg:leading-[4rem] text-heading'>
                     {portfolio.title}
@@ -138,15 +140,17 @@ const HomeSlider = ({ portfolios }) => {
                   </div>
                 </div>
                 {/* Image */}
-                <div className='rounded-[1.2rem] lg:max-w-[70rem] w-full relative top-0 lg:right-[-1rem] xl:flex-shrink-0 flex items-center'>
-                  <Image
-                    src={portfolio.child_hero_banner}
-                    alt='Project Image'
-                    height={800}
-                    width={800}
-                    className='object-contain lg:pr-[6.4rem] rounded-[1.2rem] w-full h-full max-h-[55.2rem]'
-                  />
-                </div>
+                {portfolio?.thumbnail && (
+                  <div className='rounded-[1.2rem] lg:max-w-[70rem] w-full relative top-0 lg:right-[-1rem] xl:flex-shrink-0 flex items-center'>
+                    <Image
+                      src={portfolio?.thumbnail}
+                      alt='Project Image'
+                      height={800}
+                      width={800}
+                      className='object-contain lg:pr-[6.4rem] rounded-[1.2rem] w-full h-full max-h-[55.2rem]'
+                    />
+                  </div>
+                )}
               </div>
             </div>
           </div>

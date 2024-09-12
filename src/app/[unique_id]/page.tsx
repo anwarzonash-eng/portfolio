@@ -2,7 +2,7 @@
 import Home from '@/components/pages/home';
 import React from 'react';
 
-const index = ({ params }: { params: { slug: string } }) => {
+const index = ({ params }: { params: any }) => {
   return <Home params={params} />;
 };
 

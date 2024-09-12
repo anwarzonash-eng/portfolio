@@ -16,7 +16,7 @@ const Footer = forwardRef<
   const footerLinks: FooterLink[] = [
     { href: '/', title: 'Home' },
     { href: '/offer', title: 'Cover Letter' },
-    { href: '/portfolio-listing', title: 'Projects' },
+    { href: '/portfolio', title: 'Projects' },
     { href: '/cv', title: 'CV' },
     { href: '/', title: 'Skill' },
     { href: '/', title: 'Services' },

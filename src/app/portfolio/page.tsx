@@ -1,8 +1,9 @@
-"use client";
-import PortfolioListing from "@/components/pages/portfolio";
-import React from "react";
+'use client';
 
-const portfolioListing = ({ params }: { params: { slug: string } }) => {
+import PortfolioListing from '@/components/pages/potfolio-listing';
+import React from 'react';
+
+const portfolioListing = ({ params }: { params: any }) => {
   return <PortfolioListing params={params} />;
 };
 

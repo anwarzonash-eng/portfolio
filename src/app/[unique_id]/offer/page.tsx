@@ -1,7 +1,7 @@
 import Offer from '@/components/pages/offer';
 import React from 'react';
 
-const offer = ({ params }: { params: { slug: string } }) => {
+const offer = ({ params }: { params: any }) => {
   return <Offer params={params} />;
 };
 

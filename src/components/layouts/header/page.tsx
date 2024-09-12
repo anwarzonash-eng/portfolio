@@ -64,7 +64,7 @@ const Header = ({
     { title: 'Home', src: '/' },
     { title: 'Cover Letter', src: '/offer' },
     { title: 'Services', src: '/services' },
-    { title: 'Projects', src: '/portfolio-listing' },
+    { title: 'Projects', src: '/portfolio' },
     { title: 'Blog', src: '/blog-listing' },
     { title: 'CV', src: '/cv' },
   ];
@@ -124,7 +124,7 @@ const Header = ({
             {/* Header Navbar */}
             <div className='w-full'>
               {/* Desktop Header */}
-              <div className='max-[1100px]:hidden mainContainer h-[8.8rem] py-[2rem] border-b border-border flex justify-between items-center'>
+              <div className='max-[1100px]:hidden mainContainer h-[7.5rem] py-[2rem] border-b border-border flex justify-between items-center'>
                 {/* User Profile */}
                 <div className='flex justify-center items-center gap-[1.2rem] '>
                   <Link href={'/'}>

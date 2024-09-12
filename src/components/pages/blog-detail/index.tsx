@@ -8,7 +8,7 @@ import useBodyBackgroundColor from '@/hooks/useBodyBackgroundColor';
 import { useSearchParams } from 'next/navigation';
 import { getRoutesDetails } from '@/hooks/url';
 
-const BlogDetails = ({ params }: { params: { slug: string } }) => {
+const BlogDetails = ({ params }: { params: any }) => {
   const [urlInfo, setURLInfo] = useState(null);
 
   const searchParams = useSearchParams();
