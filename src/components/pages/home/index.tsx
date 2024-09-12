@@ -53,9 +53,6 @@ const Home = ({ params }: { params: any }) => {
     }
     listOfdata && handleSkillsApiCall({ setListOfSkills });
   }, [listOfdata]);
-  useEffect(() => {
-    if (loading) console.log(loading);
-  }, [loading]);
 
   if (!loading && listOfdata) {
     return (

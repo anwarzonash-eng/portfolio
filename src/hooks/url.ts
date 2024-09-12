@@ -6,11 +6,9 @@ export const getRoutesDetails = (dynamicRoutes, routeParams) => {
     domain: getDomainName(),
   };
 
-
   if (dynamicRoutes && dynamicRoutes.unique_id)
     routesInfo.uniqueID = dynamicRoutes.unique_id;
   else routesInfo.uniqueID = 'a';
-
 
   const routeIsU = routeParams && routeParams.get('is_u');
   if (routeIsU === 'true') {
@@ -48,8 +46,11 @@ const getDomainName = () => {
   const url = new URL(window.location.href);
   let domain = url.host;
 
-  // Remove 'www.' if present
+  // Remove 'www.' or 'dev.' if present
   if (domain.startsWith('www.')) {
+    domain = domain.substring(4);
+  }
+  if (domain.startsWith('dev.')) {
     domain = domain.substring(4);
   }
 

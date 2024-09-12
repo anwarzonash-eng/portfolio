@@ -7,13 +7,12 @@ export const reportsApiHandler = async ({
   setListOfData,
   itemID = null,
 }) => {
-  console.log('urlInfo', urlInfo);
   const payload: { actionType: any; domain: any; uniqueId: any; itemID?: any } =
-  {
-    actionType: actionType,
-    domain: urlInfo?.domain,
-    uniqueId: urlInfo?.uniqueID,
-  };
+    {
+      actionType: actionType,
+      domain: urlInfo?.domain,
+      uniqueId: urlInfo?.uniqueID,
+    };
   if (itemID && itemID !== null) {
     payload.itemID = itemID;
   }
@@ -23,7 +22,11 @@ export const reportsApiHandler = async ({
     setLoading(false);
     console.log('error', results);
   } else if (/^2\d{2}$/.test(statusStr)) {
-    console.log({ type: actionType, dataloaded: true, data: results?.data?.data[0] });
+    // console.log({
+    //   type: actionType,
+    //   dataloaded: true,
+    //   data: results?.data?.data[0],
+    // });
     setLoading(false);
     setListOfData(results?.data?.data[0]);
   }
