@@ -9,7 +9,7 @@ import { addLeadsApi } from '@/apiHandlers/leadsApi';
 import { ErrorComponent } from './errorComponent';
 import { formikEnums } from '@/enums/formikEnums';
 
-const ContactMe = ({ listOfdata, ref1 }) => {
+const ContactMe = ({ listOfdata }) => {
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
 
   interface ConstactLinks {
@@ -73,10 +73,7 @@ const ContactMe = ({ listOfdata, ref1 }) => {
 
   return (
     <>
-      <div
-        ref={ref1}
-        className='mt-[-13.5rem] lg:mt-[-31rem] lg:min-h-[69.6rem] flex items-center justify-center flex-wrap lg:flex-nowrap bg-footerMobile md:bg-footerDesktop bg-no-repeat bg-left-top ultra2x:border-[1.5rem] ultra2x:border-white bg-cover rounded-[1rem] relative top-[13.5rem] lg:top-[31rem] p-[1rem] sm:p-[2rem] gap-[2.4rem] shadow-lg'
-      >
+      <div className='mt-[-13.5rem] lg:mt-[-31rem] lg:min-h-[69.6rem] flex items-center justify-center flex-wrap lg:flex-nowrap bg-footerMobile md:bg-footerDesktop bg-no-repeat bg-left-top ultra2x:border-[1.5rem] ultra2x:border-white bg-cover rounded-[1rem] relative top-[13.5rem] lg:top-[31rem] p-[1rem] sm:p-[2rem] gap-[2.4rem] shadow-lg'>
         {/* Contact Form */}
         <Formik
           initialValues={initialValues}

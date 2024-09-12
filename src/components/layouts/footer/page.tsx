@@ -4,15 +4,18 @@ import React, { forwardRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import ContactMe from '@/components/ContactMe';
+import { useAppSelector } from '@/store';
 
-const Footer = forwardRef<
-  HTMLDivElement,
-  { listOfdata: any; loading: boolean; urlInfo: any }
->(({ listOfdata, loading, urlInfo }, ref) => {
+const Footer = () => {
   interface FooterLink {
     href: string;
     title: string;
   }
+
+  const listOfdata = useAppSelector((state) => state.profile.listOfProfileData);
+  const urlInfo = useAppSelector((state) => state.profile.profileUrlInfo);
+  const loading = useAppSelector((state) => state.profile.profileLoading);
+
   const footerLinks: FooterLink[] = [
     { href: '/', title: 'Home' },
     { href: '/offer', title: 'Cover Letter' },
@@ -33,7 +36,7 @@ const Footer = forwardRef<
         {!urlInfo?.is_u && (
           <section className='bg-transparent' id='contact'>
             <div className='mainContainer'>
-              <ContactMe listOfdata={listOfdata} ref1={ref} />
+              <ContactMe listOfdata={listOfdata} />
             </div>
           </section>
         )}
@@ -70,5 +73,5 @@ const Footer = forwardRef<
       </>
     );
   }
-});
+};
 export default Footer;

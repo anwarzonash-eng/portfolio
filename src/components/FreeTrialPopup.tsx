@@ -96,9 +96,10 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
                   <p className="text-primary text-[2.5rem] font-bold font-['Helvetica Neue'] leading-[45px]">
                     {listOfdata?.designation}
                   </p>
-                  <p className='text-black text-[1.8rem] font-normal leading-[150%]'>
-                    {listOfdata?.tag_line}
-                  </p>
+                  <p
+                    dangerouslySetInnerHTML={{ __html: listOfdata?.tag_line }}
+                    className='text-black text-[1.8rem] font-normal leading-[150%]'
+                  ></p>
                 </div>
                 <div>
                   <button

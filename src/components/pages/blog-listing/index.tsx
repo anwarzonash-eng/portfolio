@@ -6,6 +6,9 @@ import Newsletter from '@/components/Newsletter';
 import useBodyBackgroundColor from '@/hooks/useBodyBackgroundColor';
 import { useSearchParams } from 'next/navigation';
 import { getRoutesDetails } from '@/hooks/url';
+import { store } from '@/store';
+import { setProfileLoading, setProfileUrlInfo } from '@/store/profileSlice';
+import { blogData } from '@/data/JsonData';
 
 const BlogListing = ({ params }: { params: any }) => {
   const [urlInfo, setURLInfo] = useState(null);
@@ -18,90 +21,9 @@ const BlogListing = ({ params }: { params: any }) => {
 
   useBodyBackgroundColor('#EFF5FD');
 
-  const blogData = [
-    {
-      imageSrc: '/images/blogListing/blog1.png',
-      category: 'Design',
-      date: '14 Aug 2024',
-      title: 'UX review presentations',
-      description:
-        'How do you create compelling presentations that wow your colleagues and impress your managers?',
-      link: '/',
-    },
-    {
-      imageSrc: '/images/blogListing/blog2.png',
-      category: 'Design',
-      date: '14 Aug 2024',
-      title: 'UX review presentations',
-      description:
-        'How do you create compelling presentations that wow your colleagues and impress your managers?',
-      link: '/',
-    },
-    {
-      imageSrc: '/images/blogListing/blog3.png',
-      category: 'Design',
-      date: '14 Aug 2024',
-      title: 'UX review presentations',
-      description:
-        'How do you create compelling presentations that wow your colleagues and impress your managers?',
-      link: '/',
-    },
-    {
-      imageSrc: '/images/blogListing/blog4.png',
-      category: 'Design',
-      date: '14 Aug 2024',
-      title: 'UX review presentations',
-      description:
-        'How do you create compelling presentations that wow your colleagues and impress your managers?',
-      link: '/',
-    },
-    {
-      imageSrc: '/images/blogListing/blog5.png',
-      category: 'Design',
-      date: '14 Aug 2024',
-      title: 'UX review presentations',
-      description:
-        'How do you create compelling presentations that wow your colleagues and impress your managers?',
-      link: '/',
-    },
-    {
-      imageSrc: '/images/blogListing/blog6.png',
-      category: 'Design',
-      date: '14 Aug 2024',
-      title: 'UX review presentations',
-      description:
-        'How do you create compelling presentations that wow your colleagues and impress your managers?',
-      link: '/',
-    },
-    {
-      imageSrc: '/images/blogListing/blog7.png',
-      category: 'Design',
-      date: '14 Aug 2024',
-      title: 'UX review presentations',
-      description:
-        'How do you create compelling presentations that wow your colleagues and impress your managers?',
-      link: '/',
-    },
-    {
-      imageSrc: '/images/blogListing/blog8.png',
-      category: 'Design',
-      date: '14 Aug 2024',
-      title: 'UX review presentations',
-      description:
-        'How do you create compelling presentations that wow your colleagues and impress your managers?',
-      link: '/',
-    },
-    {
-      imageSrc: '/images/blogListing/blog9.png',
-      category: 'Design',
-      date: '14 Aug 2024',
-      title: 'UX review presentations',
-      description:
-        'How do you create compelling presentations that wow your colleagues and impress your managers?',
-      link: '/',
-    },
-    // Add more blog entries here
-  ];
+  useEffect(() => {
+    store.dispatch(setProfileUrlInfo(urlInfo));
+  }, [urlInfo]);
 
   return (
     <div className='bg-[#EFF5FD]'>

@@ -1,56 +1,36 @@
-'use client'; // This makes the component a Client Component
+'use client';
 
-import { usePathname, useSearchParams } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import OfferBanner from '@/components/OfferBanner';
-import Header from './layouts/header/page';
-import Footer from './layouts/footer/page';
+
 import { useEffect, useRef, useState } from 'react';
-import { getRoutesDetails } from '@/hooks/url';
-import { reportsApiHandler } from '@/hooks/apihandlers/reportsApiHandlers';
+
+const Header = dynamic(() => import('./layouts/header/page'), {
+  ssr: false,
+});
+
+const Footer = dynamic(() => import('./layouts/footer/page'), {
+  ssr: false,
+});
+
 import { getColors, updateCSSVariables } from '@/hooks/colors';
+import { useAppSelector } from '@/store';
+import dynamic from 'next/dynamic';
 
 export default function ClientWrapper({
   children,
-  params,
 }: {
   children: React.ReactNode;
-  params: any;
 }) {
-  const pathname = usePathname(); // Get the current route
-  const isHomepage = pathname === '/'; // Check if it's the homepage
+  const pathname = usePathname();
+  const isHomepage = pathname === '/';
+  const listOfdata = useAppSelector((state) => state.profile.listOfProfileData);
 
-  const contactRef = useRef(null);
-
-  const scrollToContact = () => {
-    if (contactRef.current) {
-      contactRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  const [urlInfo, setURLInfo] = useState(null);
-  const [listOfdata, setListOfData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const searchParams = useSearchParams();
-
-  useEffect(() => {
-    setURLInfo(getRoutesDetails(params, searchParams));
-  }, []);
-
-  useEffect(() => {
-    urlInfo &&
-      reportsApiHandler({
-        actionType: 'home',
-        urlInfo,
-        setLoading,
-        setListOfData,
-      });
-  }, [urlInfo]);
+  const colors = getColors(listOfdata);
 
   useEffect(() => {
     document.title = listOfdata?.name || 'Loading...';
   }, [listOfdata]);
-
-  const colors = getColors(listOfdata);
 
   useEffect(() => {
     updateCSSVariables(colors);
@@ -59,20 +39,11 @@ export default function ClientWrapper({
   return (
     <>
       {isHomepage && <OfferBanner />}
-      <Header
-        scrollToContact={scrollToContact}
-        listOfdata={listOfdata}
-        loading={loading}
-        urlInfo={urlInfo}
-      />
+      <Header />
 
       {children}
-      <Footer
-        ref={contactRef}
-        listOfdata={listOfdata}
-        loading={loading}
-        urlInfo={urlInfo}
-      />
+
+      <Footer />
     </>
   );
 }

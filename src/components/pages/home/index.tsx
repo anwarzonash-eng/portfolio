@@ -23,6 +23,8 @@ import { skillsSyncApi } from '@/apiHandlers/skillsApi';
 import { reportsApiHandler } from '@/hooks/apihandlers/reportsApiHandlers';
 import { handleSkillsApiCall } from '@/hooks/apihandlers/skillsApiHandlers';
 import { getColors, updateCSSVariables } from '@/hooks/colors';
+import { store } from '@/store';
+import { setProfileLoading, setProfileUrlInfo } from '@/store/profileSlice';
 
 const Home = ({ params }: { params: any }) => {
   useBodyBackgroundColor('#f8f9fa');
@@ -53,6 +55,14 @@ const Home = ({ params }: { params: any }) => {
     }
     listOfdata && handleSkillsApiCall({ setListOfSkills });
   }, [listOfdata]);
+
+  useEffect(() => {
+    store.dispatch(setProfileUrlInfo(urlInfo));
+  }, [urlInfo]);
+
+  useEffect(() => {
+    store.dispatch(setProfileLoading(loading));
+  }, [loading]);
 
   if (!loading && listOfdata) {
     return (

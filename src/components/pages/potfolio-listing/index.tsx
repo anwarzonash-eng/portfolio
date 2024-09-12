@@ -10,8 +10,16 @@ import WebsiteLoader from '@/components/WebsiteLoader';
 import { useSearchParams } from 'next/navigation';
 import { getRoutesDetails } from '@/hooks/url';
 import { reportsApiHandler } from '@/hooks/apihandlers/reportsApiHandlers';
+import { store } from '@/store';
+import { setProfileLoading, setProfileUrlInfo } from '@/store/profileSlice';
 
 const PortfolioListing = ({ params }: { params: any }) => {
+  const [
+    selectedPorfolioPicturesforPopup,
+    setSelectedPorfolioPicturesforPopup,
+  ] = useState(null);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [urlInfo, setURLInfo] = useState(null);
   const [listOfdata, setListOfData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -32,12 +40,6 @@ const PortfolioListing = ({ params }: { params: any }) => {
   }, [urlInfo]);
 
   useBodyBackgroundColor('#EFF5FD');
-  const [
-    selectedPorfolioPicturesforPopup,
-    setSelectedPorfolioPicturesforPopup,
-  ] = useState(null);
-  // This Code is use to Open Popup
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Function to open the modal
   const openModal = (pictures) => {
@@ -50,6 +52,15 @@ const PortfolioListing = ({ params }: { params: any }) => {
     setSelectedPorfolioPicturesforPopup(null);
     setIsModalOpen(false);
   };
+
+  useEffect(() => {
+    store.dispatch(setProfileUrlInfo(urlInfo));
+  }, [urlInfo]);
+
+  useEffect(() => {
+    store.dispatch(setProfileLoading(loading));
+  }, [loading]);
+
   if (!loading) {
     return (
       <div className='bg-[#EFF5FD]'>

@@ -19,6 +19,9 @@ import { useSearchParams } from 'next/navigation';
 import { getRoutesDetails } from '@/hooks/url';
 import { reportsApiHandler } from '@/hooks/apihandlers/reportsApiHandlers';
 import { handleSkillsApiCall } from '@/hooks/apihandlers/skillsApiHandlers';
+import { store } from '@/store';
+import { setProfileLoading, setProfileUrlInfo } from '@/store/profileSlice';
+import { scrollToContact } from '@/hooks/scrollToFooter';
 
 const CV = ({ params }: { params: any }) => {
   const [urlInfo, setURLInfo] = useState(null);
@@ -65,6 +68,14 @@ const CV = ({ params }: { params: any }) => {
     setSelectedPorfolioPicturesforPopup(null);
     setIsModalOpen(false);
   };
+
+  useEffect(() => {
+    store.dispatch(setProfileUrlInfo(urlInfo));
+  }, [urlInfo]);
+
+  useEffect(() => {
+    store.dispatch(setProfileLoading(loading));
+  }, [loading]);
 
   if (!loading) {
     return (
@@ -127,7 +138,10 @@ const CV = ({ params }: { params: any }) => {
                     )}
                   </h4>
                 </div>
-                <button className='text-[2rem] text-white w-full py-[1.6rem] px-[3.4rem] bg-gradient-to-b from-white/30 to-transparent bg-primary shadow-[0px_0px_0px_1px_#FFF] hover:bg-white hover:text-primary hover:border-primary hover:border-t border-solid duration-300'>
+                <button
+                  onClick={scrollToContact}
+                  className='text-[2rem] text-white w-full py-[1.6rem] px-[3.4rem] bg-gradient-to-b from-white/30 to-transparent bg-primary shadow-[0px_0px_0px_1px_#FFF] hover:bg-white hover:text-primary hover:border-primary hover:border-t border-solid duration-300'
+                >
                   Hire Me
                 </button>
               </div>
@@ -301,9 +315,10 @@ const CV = ({ params }: { params: any }) => {
           {/* Right Content Section */}
           <section className='w-full pt-[7rem]'>
             {/* 10 Years Experience */}
-            <div className='py-[5rem] px-[3.4rem] primaryGradient text-white text-[2.2rem] leading-[3.1rem] font-bold rounded-[1rem] text-center'>
-              {listOfdata?.tag_line}
-            </div>
+            <div
+              dangerouslySetInnerHTML={{ __html: listOfdata?.tag_line }}
+              className='py-[5rem] px-[3.4rem] primaryGradient text-white text-[2.2rem] leading-[3.1rem] font-bold rounded-[1rem] text-center'
+            ></div>
 
             {/* Timeline Section */}
             <div className=' w-full '>

@@ -7,6 +7,8 @@ import OurBlogs from '@/components/OurBlogs';
 import useBodyBackgroundColor from '@/hooks/useBodyBackgroundColor';
 import { useSearchParams } from 'next/navigation';
 import { getRoutesDetails } from '@/hooks/url';
+import { store } from '@/store';
+import { setProfileUrlInfo } from '@/store/profileSlice';
 
 const BlogDetails = ({ params }: { params: any }) => {
   const [urlInfo, setURLInfo] = useState(null);
@@ -16,6 +18,10 @@ const BlogDetails = ({ params }: { params: any }) => {
   useEffect(() => {
     setURLInfo(getRoutesDetails(params, searchParams));
   }, [params, searchParams]);
+
+  useEffect(() => {
+    store.dispatch(setProfileUrlInfo(urlInfo));
+  }, [urlInfo]);
 
   useBodyBackgroundColor('#EFF5FD');
   return (

@@ -16,6 +16,8 @@ import { modifiedContent } from '@/hooks/modifiedContent';
 import { reportsApiHandler } from '@/hooks/apihandlers/reportsApiHandlers';
 import { getRoutesDetails } from '@/hooks/url';
 import { handleSkillsApiCall } from '@/hooks/apihandlers/skillsApiHandlers';
+import { store } from '@/store';
+import { setProfileLoading, setProfileUrlInfo } from '@/store/profileSlice';
 
 const PortfolioDetails = ({ params }: { params: any }) => {
   const searchParams = useSearchParams();
@@ -50,6 +52,14 @@ const PortfolioDetails = ({ params }: { params: any }) => {
       setPortfolioDetails(listOfdata?.portfolios_ids[0]);
     }
   }, [listOfdata]);
+
+  useEffect(() => {
+    store.dispatch(setProfileUrlInfo(urlInfo));
+  }, [urlInfo]);
+
+  useEffect(() => {
+    store.dispatch(setProfileLoading(loading));
+  }, [loading]);
 
   useBodyBackgroundColor('#EFF5FD');
 

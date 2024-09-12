@@ -6,6 +6,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import WorkProofLinks from '@/components/WorkProofLinks';
 import ContactMeLinks from '@/components/ContactMeLinks';
+import { useAppSelector } from '@/store';
+import { scrollToContact } from '@/hooks/scrollToFooter';
 
 interface HeaderLink {
   title: string;
@@ -16,15 +18,13 @@ interface HeaderProps {
   initialBgColor?: string;
 }
 
-const Header = ({
-  initialBgColor = 'bg-transparent',
-  scrollToContact,
-  listOfdata,
-  loading,
-  urlInfo,
-}) => {
+const Header = ({ initialBgColor = 'bg-transparent' }) => {
   // Use localStorage or initialBgColor for initial background state
   const [bgColor, setBgColor] = useState(initialBgColor);
+
+  const listOfdata = useAppSelector((state) => state.profile.listOfProfileData);
+  const urlInfo = useAppSelector((state) => state.profile.profileUrlInfo);
+  const loading = useAppSelector((state) => state.profile.profileLoading);
 
   useEffect(() => {
     // Check if `window` is available to safely access `localStorage`
