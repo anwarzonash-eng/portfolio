@@ -119,7 +119,7 @@ const HomeSlider = ({ portfolios }) => {
                       /
                     </span>
                     <Link
-                      href={`/portfolio-detail?portfolio_id=${portfolio.id}`}
+                      href={`/portfolio/${portfolio.id}`}
                       className='text-primary underline text-[1.6rem] leading-[2.4rem] font-semibold'
                     >
                       View Details

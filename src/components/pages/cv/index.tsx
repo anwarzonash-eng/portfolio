@@ -664,7 +664,7 @@ const CV = ({ params }: { params: any }) => {
                                           </span>
 
                                           <Link
-                                            href={`/portfolio-detail?portfolio_id=${portfolio.id}`}
+                                            href={`/portfolio/${portfolio.id}`}
                                             className='text-primary underline text-[1.2rem] leading-[1.4rem] font-semibold'
                                           >
                                             View Details
