@@ -14,8 +14,6 @@ import { reportsApiHandler } from '@/hooks/apihandlers/reportsApiHandlers';
 import WebsiteLoader from '@/components/WebsiteLoader';
 import { handleSkillsApiCall } from '@/hooks/apihandlers/skillsApiHandlers';
 import { modifiedContent } from '@/hooks/modifiedContent';
-import { store } from '@/store';
-import { setProfileLoading, setProfileUrlInfo } from '@/store/profileSlice';
 
 const Offer = ({ params }: { params: any }) => {
   // This is the Custom Hook That
@@ -31,8 +29,6 @@ const Offer = ({ params }: { params: any }) => {
   const [listOfskills, setListOfSkills] = useState([]);
 
   const searchParams = useSearchParams();
-  const serviceRefs = useRef([]);
-  const serviceIndex = searchParams.get('serviceIndex');
   useEffect(() => {
     setURLInfo(getRoutesDetails(params, searchParams));
   }, [searchParams]);
@@ -67,6 +63,11 @@ const Offer = ({ params }: { params: any }) => {
     handleSkillsApiCall({ setListOfSkills });
   }, []);
 
+  const serviceRefs = useRef([]);
+
+  // Extract serviceIndex from the URL
+  const serviceIndex = searchParams.get('serviceIndex');
+
   useEffect(() => {
     if (
       serviceRefs?.current &&
@@ -78,14 +79,6 @@ const Offer = ({ params }: { params: any }) => {
       });
     }
   }, [serviceIndex, detailService, mainService]);
-
-  useEffect(() => {
-    store.dispatch(setProfileUrlInfo(urlInfo));
-  }, [urlInfo]);
-
-  useEffect(() => {
-    store.dispatch(setProfileLoading(loading));
-  }, [loading]);
 
   if (!loading && listOfdata) {
     return (
@@ -307,10 +300,9 @@ const Offer = ({ params }: { params: any }) => {
                 Cover Letter
               </div>
               {/* Badge */}
-              <div
-                dangerouslySetInnerHTML={{ __html: listOfdata?.tag_line }}
-                className='px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium  leading-tight mx-auto mb-[1.6rem]'
-              ></div>
+              <div className='px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium  leading-tight mx-auto mb-[1.6rem]'>
+                {listOfdata.tag_line}
+              </div>
             </div>
           </div>
         </section>
@@ -390,6 +382,16 @@ const Offer = ({ params }: { params: any }) => {
                   dangerouslySetInnerHTML={{
                     __html: modifiedContent(
                       service.intro_main,
+                      listOfskills,
+                      listOfdata
+                    ),
+                  }}
+                  className=' p-[1rem] list-div text-[1.6rem] lg:p-[3rem] rounded-[1rem] mt-[-6rem] lg:mt-[-8rem] bg-white'
+                ></div>
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: modifiedContent(
+                      service.intro_detail,
                       listOfskills,
                       listOfdata
                     ),
