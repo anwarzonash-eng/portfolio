@@ -229,32 +229,32 @@ body {
   @apply text-primary font-medium relative inline-block; /* Set as inline-block to apply ::before properly */
 }
 
-.modifiedText a::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  height: 1px; /* You can adjust the thickness of the underline here */
-  width: 0;
-  background-color: currentColor; /* This makes the underline the same color as the text */
-  transition: width 0.3s ease-in-out; /* Smooth animation */
-}
-
-.modifiedText a:hover::before {
-  width: 100%; /* Expand underline to full width on hover */
-}
-
-.list-div ul {
+/* .list-div ul {
   list-style-type: disc !important;
   padding-left: 3.8rem !important;
-}
+} */
 
-.list-div ul li {
+/* .list-div ul li {
   line-height: 3.8rem !important;
   padding-left: 2.8rem !important;
 }
 
 .list-div ul li::marker {
-  font-size: 1.5em; /* Adjust size */
-  color: var(--primary-color); /* Change color to brown */
+  font-size: 1.5em;
+  color: var(--primary-color);
+} */
+
+.list-div ul {
+  @apply text-heading text-[1.6rem] leading-[2.4rem] flex flex-col gap-[1rem] list-disc pl-[3rem];
+}
+.list-div li {
+  @apply pl-[1.3rem];
+}
+
+.list-div ul li::marker {
+  @apply text-[1.7em] text-primary;
+}
+
+.list-div-portfolio ul {
+  @apply flex flex-col gap-[0.8rem] text-[1.4rem] leading-[150%] text-heading mb-[2rem] list-disc;
 }

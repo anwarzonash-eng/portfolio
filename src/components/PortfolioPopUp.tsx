@@ -3,8 +3,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import WebsiteLoader from './WebsiteLoader';
 import PortfolioImagesLoader from './PortfolioImagesLoader';
 
-const PortfolioPopUp = ({ isModalOpen, closeModal, portfolioPictures }) => {
-  const images = JSON.parse(portfolioPictures);
+const PortfolioPopUp = ({ isModalOpen, closeModal, portfolioImages }) => {
+  const images = portfolioImages.filter((src) => src !== null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [preloaded, setPreloaded] = useState(false);
   const thumbnailsContainerRef = useRef<HTMLDivElement>(null);

@@ -14,12 +14,14 @@ import { reportsApiHandler } from '@/hooks/apihandlers/reportsApiHandlers';
 import WebsiteLoader from '@/components/WebsiteLoader';
 import { handleSkillsApiCall } from '@/hooks/apihandlers/skillsApiHandlers';
 import { modifiedContent } from '@/hooks/modifiedContent';
+import { handleCategoryPicture } from '@/hooks/apihandlers/categoryApiHandler';
 
 const Offer = ({ params }: { params: any }) => {
   // This is the Custom Hook That
   // use to SET the Background Color
   // OF THE Current Page
   useBodyBackgroundColor('#EFF5FD');
+  const searchParams = useSearchParams();
 
   const [urlInfo, setURLInfo] = useState(null);
   const [listOfdata, setListOfData] = useState(null);
@@ -27,8 +29,11 @@ const Offer = ({ params }: { params: any }) => {
   const [detailService, setDetailService] = useState(null);
   const [loading, setLoading] = useState(true);
   const [listOfskills, setListOfSkills] = useState([]);
+  const [categoryPictures, setCategoryPictures] = useState({});
+  const serviceRefs = useRef([]);
 
-  const searchParams = useSearchParams();
+  const serviceIndex = searchParams.get('serviceIndex');
+
   useEffect(() => {
     setURLInfo(getRoutesDetails(params, searchParams));
   }, [searchParams]);
@@ -63,10 +68,16 @@ const Offer = ({ params }: { params: any }) => {
     handleSkillsApiCall({ setListOfSkills });
   }, []);
 
-  const serviceRefs = useRef([]);
-
-  // Extract serviceIndex from the URL
-  const serviceIndex = searchParams.get('serviceIndex');
+  useEffect(() => {
+    if (Array.isArray(detailService)) {
+      detailService.forEach((item) => {
+        const category_id = item?.category_id;
+        if (category_id) {
+          handleCategoryPicture(category_id, setCategoryPictures);
+        }
+      });
+    }
+  }, [detailService]);
 
   useEffect(() => {
     if (
@@ -300,29 +311,35 @@ const Offer = ({ params }: { params: any }) => {
                 Cover Letter
               </div>
               {/* Badge */}
-              <div className='px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium  leading-tight mx-auto mb-[1.6rem]'>
-                {listOfdata.tag_line}
-              </div>
+              {mainService?.tagline && (
+                <div
+                  dangerouslySetInnerHTML={{ __html: mainService?.tagline }}
+                  className='px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium  leading-tight mx-auto mb-[1.6rem]'
+                ></div>
+              )}
             </div>
           </div>
         </section>
+
         {/* Offer Letter Section */}
         <div className='mainContainer w-full mt-[-42rem] lg:mt-[-28rem] relative'>
           {/* Content Box Top */}
           {mainService && (
             <div className='w-full bg-white rounded-[1rem] border border-border border-solid mb-[4rem]'>
-              <div className='p-[1rem] lg:p-[3rem]'>
-                <h3
-                  dangerouslySetInnerHTML={{
-                    __html: modifiedContent(
-                      mainService?.intro_main,
-                      listOfskills,
-                      listOfdata
-                    ),
-                  }}
-                  className='text-center list-div text-[1.8rem] lg:text-[2.2rem] text-heading leading-[3rem] lg:leading-[3.4rem] font-medium border border-border border-solid p-[1rem] lg:p-[3rem] shadow-lg'
-                ></h3>
-              </div>
+              {mainService?.intro_main && (
+                <div className='p-[1rem] lg:p-[3rem]'>
+                  <h3
+                    dangerouslySetInnerHTML={{
+                      __html: modifiedContent(
+                        mainService?.intro_main,
+                        listOfskills,
+                        listOfdata
+                      ),
+                    }}
+                    className='text-center list-div text-[1.8rem] lg:text-[2.2rem] text-heading leading-[3rem] lg:leading-[3.4rem] font-medium border border-border border-solid p-[1rem] lg:p-[3rem] shadow-lg'
+                  ></h3>
+                </div>
+              )}
               <div
                 dangerouslySetInnerHTML={{
                   __html: modifiedContent(
@@ -331,7 +348,7 @@ const Offer = ({ params }: { params: any }) => {
                     listOfdata
                   ),
                 }}
-                className='p-[1rem] lg:p-[3rem] list-div'
+                className=' p-[1rem] list-div text-[1.6rem] lg:p-[3rem] rounded-[1rem] bg-white'
               ></div>
             </div>
           )}
@@ -348,20 +365,20 @@ const Offer = ({ params }: { params: any }) => {
                 <div className='p-[1rem] lg:p-[3rem] mb-[5rem] bg-sectionBG bg-cvBoxMobile sm:bg-cvBoxDesktop bg-center bg-no-repeat bg-cover lg:bg-contain'>
                   <div className='flex flex-col md:flex-row items-start md:items-center gap-[2rem] mb-[2rem]'>
                     {/* Circle Icon */}
-                    {service.picture && (
-                      <div className='w-[9.3rem] h-[9.3rem] flex items-center justify-center bg-white/20 rounded-[12rem] shadow '>
-                        <div className='text-center text-white text-[4.3rem] font-medium '>
-                          {/* {service.icon} */}
-
-                          <Image
-                            src={service.picture}
-                            height={100}
-                            width={100}
-                            alt='Icon'
-                          />
+                    {service.category_id &&
+                      categoryPictures[service?.category_id] && (
+                        <div className='w-[9.3rem] h-[9.3rem] flex items-center justify-center bg-white/20 rounded-[12rem] shadow relative'>
+                          <div className='absolute inset-0 flex items-center justify-center'>
+                            <Image
+                              src={categoryPictures[service?.category_id]}
+                              alt='Icon'
+                              layout='fill'
+                              objectFit='cover'
+                              className='rounded-[12rem]'
+                            />
+                          </div>
                         </div>
-                      </div>
-                    )}
+                      )}
                     {/* Title */}
                     <h3 className='text-[2.4rem] lg:text-[3rem] text-white leading-[3rem] lg:leading-[3.4rem] font-medium'>
                       {service.title}
@@ -369,25 +386,12 @@ const Offer = ({ params }: { params: any }) => {
                   </div>
                   <p
                     dangerouslySetInnerHTML={{
-                      __html: modifiedContent(
-                        service.tagline,
-                        listOfskills,
-                        listOfdata
-                      ),
+                      __html: service.intro_main,
                     }}
                     className='text-white list-div text-[1.6rem] leading-[2.4rem] sm:text-[1.8rem] sm:leading-[2.8rem] lg:text-[1.8rem] lg:leading-[2.9rem] font-normal lg:font-medium mb-[2rem]'
                   ></p>
                 </div>
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: modifiedContent(
-                      service.intro_main,
-                      listOfskills,
-                      listOfdata
-                    ),
-                  }}
-                  className=' p-[1rem] list-div text-[1.6rem] lg:p-[3rem] rounded-[1rem] mt-[-6rem] lg:mt-[-8rem] bg-white'
-                ></div>
+
                 <div
                   dangerouslySetInnerHTML={{
                     __html: modifiedContent(

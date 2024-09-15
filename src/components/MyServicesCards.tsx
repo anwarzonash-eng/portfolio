@@ -2,7 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 
 const MyServicesCards = ({ services }) => {
-
+  console.log('services', services);
   return (
     <>
       {services.map((service, index) => (
@@ -28,8 +28,11 @@ const MyServicesCards = ({ services }) => {
             {service?.title}
           </h3>
           {/* Para */}
-          <p className='text-[1.6rem] font-normal leading-[2.4rem] text-paragraph2 mb-[1.6rem] flex-grow'>
-            {service?.tagline} {/* Placeholder to keep the height consistent */}
+          <p
+            dangerouslySetInnerHTML={{ __html: service?.tagline }}
+            className='text-[1.6rem] font-normal leading-[2.4rem] text-paragraph2 mb-[1.6rem] flex-grow'
+          >
+            {/* Placeholder to keep the height consistent */}
           </p>
           {/* Arrow */}
           <div className='flex gap-[0.8rem] items-center group'>
@@ -37,7 +40,7 @@ const MyServicesCards = ({ services }) => {
               href={`/offer?serviceIndex=${index}`}
               className='text-[1.6rem] text-white font-normal cursor-pointer'
             >
-              Let’s Work Together
+              Read More
             </a>
             <Image
               src='/images/ArrowRight.svg'

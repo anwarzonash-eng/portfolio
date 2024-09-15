@@ -1,9 +1,8 @@
 'use client';
 
-import { usePathname } from 'next/navigation';
 import OfferBanner from '@/components/OfferBanner';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect } from 'react';
 
 const Header = dynamic(() => import('./layouts/header/page'), {
   ssr: false,
@@ -22,8 +21,6 @@ export default function ClientWrapper({
 }: {
   children: React.ReactNode;
 }) {
-  const pathname = usePathname();
-  const isHomepage = pathname === '/';
   const listOfdata = useAppSelector((state) => state.profile.listOfProfileData);
 
   const colors = getColors(listOfdata);
@@ -38,7 +35,7 @@ export default function ClientWrapper({
 
   return (
     <>
-      {isHomepage && <OfferBanner />}
+      <OfferBanner />
       <Header />
 
       {children}

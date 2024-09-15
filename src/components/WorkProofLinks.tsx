@@ -17,7 +17,7 @@ const WorkProofLinks = ({ props }) => {
       src: '/images/linkedin.svg',
       alt: 'linkedin',
     },
-    // { href: '/', src: "/images/dribbble.svg", alt: "dribble" },
+
     {
       href: props?.behance_link,
       src: '/images/behance.svg',
@@ -29,7 +29,9 @@ const WorkProofLinks = ({ props }) => {
     <>
       {workProofLinks
         .filter(({ alt }) =>
-          props.is_u ? alt === 'upwork' || alt === 'github' : true
+          props.u
+            ? alt === 'upwork' || alt === 'github' || alt === 'linkedin'
+            : true
         )
         .map(({ href, src, alt }) =>
           href ? (

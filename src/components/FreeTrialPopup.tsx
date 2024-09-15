@@ -46,7 +46,11 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
               />
             </div>
             {/* Top Content */}
-            <div className='relative w-full min-h-[44rem] sm:min-h-[62rem]'>
+            <div
+              className={`relative w-full ${
+                listOfdata?.video && 'min-h-[44rem] sm:min-h-[62rem]'
+              }`}
+            >
               {/* Image */}
               <Image
                 src='/images/popupLine.svg'
@@ -65,23 +69,25 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
                     Work with me for 2 weeks with guaranteed satisfaction.
                   </p>
                 </div>
-                <div className='pb-10 relative flex items-end justify-center max-w-[97.7rem] w-full px-[1.5rem] mx-auto'>
-                  {/* Video Section */}
-                  <VideoPlayer
-                    videoSrc={listOfdata?.video}
-                    videoClassName='rounded[1.2rem] h-full w-full h-[28.8rem] sm:h-[44rem] object-cover'
-                    thumbnailSrc={
-                      listOfdata?.profile_photo_3 || '/images/popUpPic.png'
-                    }
-                    containerClassName='rounded[1.2rem] max-w-[1200px] w-full'
-                    thumbnailClassName='rounded[1.2rem] h-[28.8rem] sm:h-[44rem]'
-                    thumbnailImage='rounded[1.2rem] object-cover h-full w-full rounded-[1rem]'
-                    playButtonClassName='!w-[100px] !h-[100px] relative flex items-center justify-center'
-                    closeButtonClassName='custom-close-button'
-                    playIcon='/images/popUpPlay.svg'
-                    closeIcon='/images/close-icon.svg'
-                  />
-                </div>
+                {listOfdata?.video && (
+                  <div className='pb-10 relative flex items-end justify-center max-w-[97.7rem] w-full px-[1.5rem] mx-auto'>
+                    {/* Video Section */}
+                    <VideoPlayer
+                      videoSrc={listOfdata?.video}
+                      videoClassName='rounded[1.2rem] h-full w-full h-[28.8rem] sm:h-[44rem] object-cover'
+                      thumbnailSrc={
+                        listOfdata?.profile_photo_3 || '/images/popUpPic.png'
+                      }
+                      containerClassName='rounded[1.2rem] max-w-[1200px] w-full'
+                      thumbnailClassName='rounded[1.2rem] h-[28.8rem] sm:h-[44rem]'
+                      thumbnailImage='rounded[1.2rem] object-cover h-full w-full rounded-[1rem]'
+                      playButtonClassName='!w-[100px] !h-[100px] relative flex items-center justify-center'
+                      closeButtonClassName='custom-close-button'
+                      playIcon='/images/popUpPlay.svg'
+                      closeIcon='/images/close-icon.svg'
+                    />
+                  </div>
+                )}
               </div>
             </div>
 
@@ -133,7 +139,7 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
                       </div>
                     </div>
                     {/* Contact */}
-                    {!urlInfo?.is_u && (
+                    {!urlInfo?.u && (
                       <div className='bg-[#F7F9FC] border border-solid border-[#E2E6EE] py-[2.5rem] px-[2rem] md:max-w-[22rem] w-full flex items-center justify-start rounded-[0.8rem] h-[9.4rem]'>
                         <div>
                           <div className='w-full flex items-center gap-[1.4rem] mb-[1rem]'>
@@ -199,7 +205,7 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
                           />
                         </Link>
                       )}
-                      {listOfdata?.linkedIn && !urlInfo?.is_u && (
+                      {listOfdata?.linkedIn && (
                         <Link
                           target='_blank'
                           href={listOfdata?.linkedIn || '#'}
@@ -213,18 +219,8 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
                           />
                         </Link>
                       )}
-                      {listOfdata?.dribbble && !urlInfo?.is_u && (
-                        <Link target='_blank' href='#'>
-                          <Image
-                            src='/images/dribbble.svg'
-                            height={100}
-                            width={100}
-                            alt='Dribbble'
-                            className='h-[3.4rem] w-[3.4rem] md:h-[4.5rem] md:w-[4.5rem]'
-                          />
-                        </Link>
-                      )}
-                      {listOfdata?.behance_link && !urlInfo?.is_u && (
+
+                      {listOfdata?.behance_link && !urlInfo?.u && (
                         <Link
                           target='_blank'
                           href={listOfdata?.behance_link || '#'}

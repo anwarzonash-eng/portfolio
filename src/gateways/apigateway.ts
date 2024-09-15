@@ -29,6 +29,7 @@ export const apigateway = async ({
 
   try {
     const response = await axios(config);
+
     if (isDisplayResponsePopUp) {
       await Swal.fire({
         icon: swalPopupEnums.icon.SUCCESS as SweetAlertIcon,

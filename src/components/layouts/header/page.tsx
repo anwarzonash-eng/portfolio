@@ -63,7 +63,7 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
   const headerLinks: HeaderLink[] = [
     { title: 'Home', src: '/' },
     { title: 'Cover Letter', src: '/offer' },
-    { title: 'Services', src: '/services' },
+    // { title: 'Services', src: '/services' },
     { title: 'Projects', src: '/portfolio' },
     { title: 'Blog', src: '/blog-listing' },
     { title: 'CV', src: '/cv' },
@@ -194,7 +194,7 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
                                 github: listOfdata?.github,
                                 linkedIn: listOfdata?.linkedIn,
                                 behance_link: listOfdata?.behance_link,
-                                is_u: urlInfo?.is_u,
+                                u: urlInfo?.u,
                               }}
                             />
                           </div>
@@ -202,7 +202,7 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
                             My Work Proof
                           </p>
                         </div>
-                        {!urlInfo?.is_u && (
+                        {!urlInfo?.u && (
                           <>
                             <hr className='h-[0.1rem] w-full bg-border' />
                             {/* Contact Me */}
@@ -225,19 +225,21 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
                     </div>
                   </div>
                   {/* Buttons */}
-                  {!urlInfo?.is_u && (
+                  {!urlInfo?.u && (
                     <div className='flex items-center gap-[1rem]'>
-                      <button
-                        onClick={scrollToContact}
-                        className='btn-secondary  py-[1rem] px-[2.4rem] text-[1.6rem] font-medium rounded-[0.6rem]'
-                      >
-                        Contact Me
-                      </button>
+                      <Link href={'/contact-me'}>
+                        <button
+                          // onClick={scrollToContact}
+                          className='btn-secondary  py-[1rem] px-[2.4rem] text-[1.6rem] font-medium rounded-[0.6rem]'
+                        >
+                          Contact Me
+                        </button>
+                      </Link>
                       <button
                         onClick={scrollToContact}
                         className='btn-primary rounded-[0.6rem] border-2 border-border border-solid py-[1rem] px-[3.4rem] text-[1.6rem] font-medium text-white'
                       >
-                        Hire Me
+                        Schedule Call
                       </button>
                     </div>
                   )}
@@ -261,7 +263,7 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
                 </div>
                 {/* Hamburger Icon */}
                 <Image
-                  src={'./images/menu.svg'}
+                  src={'/images/menu.svg'}
                   height={24}
                   width={24}
                   className={`cursor-pointer`}
@@ -324,7 +326,7 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
                                     github: listOfdata?.github,
                                     linkedIn: listOfdata?.linkedIn,
                                     behance_link: listOfdata?.behance_link,
-                                    is_u: urlInfo?.is_u,
+                                    u: urlInfo?.u,
                                   }}
                                 />
                               </div>
@@ -332,7 +334,7 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
                                 My Work Proof
                               </p>
                             </div>
-                            {!urlInfo?.is_u && (
+                            {!urlInfo?.u && (
                               <>
                                 <hr className='h-[0.1rem] w-full bg-border' />
                                 <div className='w-full'>
@@ -354,19 +356,21 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
                         </div>
                       </div>
                       {/* Buttons */}
-                      {!urlInfo?.is_u && (
+                      {!urlInfo?.u && (
                         <div className='w-full flex flex-col gap-[1rem] h-[200px] '>
-                          <button
-                            onClick={scrollToContact}
-                            className='hover:cursor-pointer py-[1rem] px-[2.4rem] text-[1.6rem] font-medium  rounded-[0.6rem] btn-secondary'
-                          >
-                            Contact Me
-                          </button>
+                          <Link href={'/contact-me'}>
+                            <button
+                              // onClick={scrollToContact}
+                              className='w-full hover:cursor-pointer py-[1rem] px-[2.4rem] text-[1.6rem] font-medium  rounded-[0.6rem] btn-secondary'
+                            >
+                              Contact Me
+                            </button>
+                          </Link>
                           <button
                             onClick={scrollToContact}
                             className='btn-primary rounded-[0.6rem] border-2 border-border border-solid py-[1rem] px-[3.4rem] text-[1.6rem] font-medium text-white'
                           >
-                            Hire Me
+                            Schedule Call
                           </button>
                         </div>
                       )}
