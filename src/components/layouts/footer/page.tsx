@@ -19,22 +19,20 @@ const Footer = () => {
   const footerLinks: FooterLink[] = [
     { href: '/', title: 'Home' },
     { href: '/offer', title: 'Cover Letter' },
+    // { href: '/', title: 'Services' },
     { href: '/portfolio', title: 'Projects' },
+    { href: '/blog-listing', title: 'Blog' },
     { href: '/cv', title: 'CV' },
-    { href: '/', title: 'Skill' },
-    { href: '/', title: 'Services' },
     { href: listOfdata?.github, title: 'GitHub' },
     { href: listOfdata?.upwork, title: 'Upwork' },
-    { href: '/', title: 'Dribble' },
     { href: listOfdata?.behance_link, title: 'Behance' },
-    { href: '/blog-listing', title: 'Blog' },
   ];
   if (!loading) {
     return (
       <>
         {/* Contact Form Section */}
-        {!urlInfo?.is_u && (
-          <section className='bg-transparent' id='contact'>
+        {!urlInfo?.u && (
+          <section className='bg-transparent'>
             <div className='mainContainer'>
               <ContactMe listOfdata={listOfdata} />
             </div>
@@ -44,7 +42,7 @@ const Footer = () => {
         <footer className=''>
           <div
             className={`bg-footerBg ${
-              urlInfo?.is_u ? '' : 'h-[46.4rem] lg:h-[57.6rem]'
+              urlInfo?.u ? '' : 'h-[46.4rem] lg:h-[57.6rem]'
             }  py-[6rem] lg:py-[10rem] w-full bg-center bg-cover bg-no-repeat flex flex-col items-center justify-end`}
           >
             <div className='mainContainer flex items-center justify-center'>
@@ -52,9 +50,7 @@ const Footer = () => {
               <div className=' max-w-[63.5rem] w-full flex items-center justify-center flex-wrap gap-[4rem] text-heading text-[1.8rem] font-medium'>
                 {footerLinks
                   .filter(({ title }) =>
-                    urlInfo?.is_u
-                      ? title !== 'Dribble' && title !== 'Behance'
-                      : true
+                    urlInfo?.u ? title !== 'Behance' : true
                   )
                   .map(({ href, title }) =>
                     href ? (
@@ -67,7 +63,11 @@ const Footer = () => {
             </div>
           </div>
           <p className='text-center text-heading text-[1.8rem] font-normal  py-[1.5rem] px-[2rem] bg-white'>
-            All Rights Reserved © Cypexsoft 2024
+            All Rights Reserved ©{' '}
+            <span className='capitalize'>
+              {listOfdata?.name || 'Cypexsoft'}
+            </span>{' '}
+            2024
           </p>
         </footer>
       </>

@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import PageLoader from 'next/dist/client/page-loader';
 import PortfolioImagesLoader from '../PortfolioImagesLoader';
+import { modifiedContent } from '@/hooks/modifiedContent';
 
 const HomeSlider = ({ portfolios }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -88,12 +89,14 @@ const HomeSlider = ({ portfolios }) => {
                     {portfolio.title}
                   </h1>
                   {/* Para */}
-                  <p className='text-[1.6rem] lg:text-[1.8rem] leading-[2.4rem] font-normal text-paragraph1 mt-[1rem]'>
-                    {portfolio.tagline_1}
-                  </p>
-                  <p className='text-[1.6rem] lg:text-[1.8rem] leading-[2.4rem] font-normal text-primary mt-[1rem]'>
-                    {portfolio.tagline_2}
-                  </p>
+                  <p
+                    dangerouslySetInnerHTML={{ __html: portfolio.tagline_1 }}
+                    className='text-[1.6rem] lg:text-[1.8rem] leading-[2.4rem] font-normal text-paragraph1 mt-[1rem]'
+                  ></p>
+                  <p
+                    dangerouslySetInnerHTML={{ __html: portfolio.tagline_2 }}
+                    className='text-[1.6rem] lg:text-[1.8rem] leading-[2.4rem] font-normal text-primary mt-[1rem]'
+                  ></p>
                   {/* Skills Badges */}
                   <div className='flex items-center gap-[1rem] lg:gap-[0.7rem] mt-[3.4rem] mb-[3.2rem] text-nowrap flex-wrap'>
                     {portfolio.skills.map((skill, idx) => (

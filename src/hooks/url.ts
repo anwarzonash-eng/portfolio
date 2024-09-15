@@ -1,29 +1,35 @@
 export const getRoutesDetails = (dynamicRoutes, routeParams) => {
   const routesInfo = {
     uniqueID: '',
-    is_u: false,
-    admin: false,
-    domain: getDomainName(),
+    u: false, // u means is_u
+    a: false, // a means admin
+    domain: getDomainName(routeParams),
   };
 
   if (dynamicRoutes && dynamicRoutes.unique_id)
     routesInfo.uniqueID = dynamicRoutes.unique_id;
   else routesInfo.uniqueID = 'a';
 
-  const routeIsU = routeParams && routeParams.get('is_u');
-  if (routeIsU === 'true') {
-    routesInfo.is_u = true;
+  const routeIsU = routeParams && routeParams.get('u');
+  if (routeIsU) {
+    routesInfo.u = true;
   } else {
-    // Get is_u value from localStorage if routeParams doesn't have is_u
-    const storedIsU = localStorage.getItem('is_u');
+    const storedIsU = localStorage.getItem('u');
     if (storedIsU === 'true') {
-      routesInfo.is_u = true;
+      routesInfo.u = true;
     }
   }
 
-  if (routeParams && routeParams.get('admin')) {
-    routesInfo.admin = true;
-    routesInfo.is_u = false;
+  const routeIsA = routeParams && routeParams.get('a');
+  if (routeIsA) {
+    routesInfo.a = true;
+    // routesInfo.u = false;
+  } else {
+    const storedIsA = localStorage.getItem('a');
+    if (storedIsA === 'true') {
+      routesInfo.a = true;
+      // routesInfo.u = false;
+    }
   }
 
   adjustWithLocalStorage(routesInfo, routeParams);
@@ -32,19 +38,35 @@ export const getRoutesDetails = (dynamicRoutes, routeParams) => {
 };
 
 function adjustWithLocalStorage(routesInfo, routeParams) {
-  if (!routeParams.get('admin')) {
+  if (!routeParams.get('a')) {
     if (localStorage.getItem('uniqueID'))
       routesInfo.uniqueID = localStorage.getItem('uniqueID');
   }
 
   localStorage.setItem('uniqueID', routesInfo.uniqueID);
-  localStorage.setItem('is_u', routesInfo.is_u);
-  localStorage.setItem('admin', routesInfo.admin);
+  localStorage.setItem('u', routesInfo.u);
+  localStorage.setItem('a', routesInfo.a);
+  localStorage.setItem('domain', routesInfo.domain);
 }
 
-const getDomainName = () => {
-  const url = new URL(window.location.href);
-  let domain = url.host;
+const getDomainName = (routeParams) => {
+  let domain = '';
+
+  if (
+    routeParams &&
+    routeParams.get('d') &&
+    localStorage.getItem('a') == 'true'
+  ) {
+    domain = routeParams.get('d');
+  } else if (
+    localStorage.getItem('a') == 'true' &&
+    localStorage.getItem('domain')
+  ) {
+    domain = localStorage.getItem('domain');
+  } else {
+    const url = new URL(window.location.href);
+    domain = url.host;
+  }
 
   // Remove 'www.' or 'dev.' if present
   if (domain.startsWith('www.')) {

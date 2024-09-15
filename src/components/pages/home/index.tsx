@@ -25,6 +25,9 @@ import { handleSkillsApiCall } from '@/hooks/apihandlers/skillsApiHandlers';
 import { getColors, updateCSSVariables } from '@/hooks/colors';
 import { store } from '@/store';
 import { setProfileLoading, setProfileUrlInfo } from '@/store/profileSlice';
+import { downloadFile } from '@/hooks/downloadFile';
+import OurBlogs from '@/components/OurBlogs';
+import Newsletter from '@/components/Newsletter';
 
 const Home = ({ params }: { params: any }) => {
   useBodyBackgroundColor('#f8f9fa');
@@ -33,7 +36,7 @@ const Home = ({ params }: { params: any }) => {
   const [listOfskills, setListOfSkills] = useState([]);
   const [loading, setLoading] = useState(true);
   const searchParams = useSearchParams();
-
+  console.log('urlInfo', urlInfo);
   useEffect(() => {
     setURLInfo(getRoutesDetails(params, searchParams));
   }, [params, searchParams]);
@@ -69,7 +72,7 @@ const Home = ({ params }: { params: any }) => {
       <main className='w-full'>
         {listOfdata ? 'Hello' : 'Loading...'}
 
-        {/* <FreeTrialPopup listOfdata={listOfdata} urlInfo={urlInfo} /> */}
+        <FreeTrialPopup listOfdata={listOfdata} urlInfo={urlInfo} />
         {/* <Welcome /> */}
 
         {/* Hero Section */}
@@ -133,7 +136,7 @@ const Home = ({ params }: { params: any }) => {
               {/* Positioned Elementes Price */}
               <div className='flex gap-[0.35rem]  text-primary text-[1.4rem] font-medium rounded-[3.5rem] py-[0.69rem] bg-white shadow-lg w-[10rem] px-[0.9rem] absolute top-[22%] left-[80%] translate-x-[-60%] animate-pulse text-nowrap'>
                 <Image
-                  src={'./images/dollar-symbol.svg'}
+                  src={'/images/dollar-symbol.svg'}
                   height={14}
                   width={14}
                   alt='Dollar Symbol'
@@ -144,7 +147,7 @@ const Home = ({ params }: { params: any }) => {
               {/* Positioned Elementes Availability */}
               <div className='flex  gap-[0.35rem] text-nowrap  text-primary text-[1.4rem] font-medium rounded-[3.5rem] py-[0.69rem] bg-white shadow-lg max-w-max px-[0.9rem] pr-[1.4rem] absolute bottom-[38%] left-[20%] translate-x-[-20%] animate-pulse'>
                 <Image
-                  src={'./images/clock.svg'}
+                  src={'/images/clock.svg'}
                   height={14}
                   width={14}
                   alt='Clock'
@@ -201,10 +204,10 @@ const Home = ({ params }: { params: any }) => {
                     dangerouslySetInnerHTML={{ __html: listOfdata?.tag_line }}
                     className='w-full text-primary text-[2.2rem] font-medium leading-[3rem] mb-[2rem] text-left'
                   ></p>
+
                   {listOfdata &&
                     listOfdata.skills_ids &&
-                    listOfdata.skills_ids.length > 0 &&
-                    false && (
+                    listOfdata.skills_ids.length > 0 && (
                       <div className='max-w-[49rem] w-full rounded-[0.6rem] border border-border border-solid overflow-hidden'>
                         <div className='h-[4.8rem] w-full p-[1.5rem] bg-primary border-b border-border flex justify-start items-center gap-2.5 text-center text-white text-[1.8rem] font-medium'>
                           My Skills
@@ -316,9 +319,10 @@ const Home = ({ params }: { params: any }) => {
                   About us
                 </div>
                 {/* Heading */}
-                <div className='text-heading text-[2.4rem] mt-[2rem] mb-[1.2rem] font-medium leading-[2.8rem] lg:text-[3rem] lg:leading-[3.8rem]'>
-                  A single, efficient man for managing all your technical needs.
-                </div>
+                <div
+                  dangerouslySetInnerHTML={{ __html: listOfdata?.tag_line }}
+                  className='text-heading text-[2.4rem] mt-[2rem] mb-[1.2rem] font-medium leading-[2.8rem] lg:text-[3rem] lg:leading-[3.8rem]'
+                ></div>
                 {/* Paragraph */}
                 <p
                   className='text-[1.6rem] font-normal text-paragraph1 leading-[2.4rem]'
@@ -329,7 +333,11 @@ const Home = ({ params }: { params: any }) => {
               </div>
               {/* Info Cards */}
               <div className='my-[2rem] rounded-[0.8rem] overflow-hidden  w-full grid grid-cols-12'>
-                <div className='md:col-span-6 col-span-12 w-full border border-border border-solid py-[3rem] px-[2rem]'>
+                <div
+                  className={`w-full border border-border border-solid py-[3rem] px-[2rem]  col-span-12 ${
+                    urlInfo?.u ? 'md:col-span-12' : 'md:col-span-6'
+                  }`}
+                >
                   <div className='w-full'>
                     <h4 className='text-[2rem] font-normal text-primary'>
                       {listOfdata?.name}
@@ -339,35 +347,46 @@ const Home = ({ params }: { params: any }) => {
                     </p>
                   </div>
                 </div>
-                <div className='md:col-span-6 col-span-12 w-full border border-border border-solid py-[3rem] px-[2rem] '>
-                  <div className='w-full'>
-                    <Link
-                      href={`mailto:${listOfdata?.email}`}
-                      className='hover:font-bold text-[2rem] font-normal text-primary'
-                    >
-                      {listOfdata?.email}
-                    </Link>
-                    <p className='text-[1.4rem] font-normal text-paragraph1'>
-                      Email
-                    </p>
+                {!urlInfo?.u && (
+                  <div className='md:col-span-6 col-span-12 w-full border border-border border-solid py-[3rem] px-[2rem]'>
+                    <div className='w-full'>
+                      <Link
+                        href={`mailto:${listOfdata?.email}`}
+                        className='hover:font-bold text-[2rem] font-normal text-primary'
+                      >
+                        {listOfdata?.email}
+                      </Link>
+                      <p className='text-[1.4rem] font-normal text-paragraph1'>
+                        Email
+                      </p>
+                    </div>
                   </div>
-                </div>
-                <div className='md:col-span-6 col-span-12 w-full border border-border border-solid py-[3rem] px-[2rem] '>
-                  <div className='w-full'>
-                    <Link
-                      href={`tel:${listOfdata?.phone_no}`}
-                      className='hover:font-bold text-[2rem] font-medium text-primary'
-                    >
-                      {formatPhoneNumber(listOfdata?.phone_no)}
-                    </Link>
-                    <p className='text-[1.4rem] font-normal text-paragraph1'>
-                      Contact
-                    </p>
+                )}
+
+                {!urlInfo?.u && (
+                  <div className='md:col-span-6 col-span-12 w-full border border-border border-solid py-[3rem] px-[2rem]'>
+                    <div className='w-full'>
+                      <Link
+                        href={`tel:${listOfdata?.phone_no}`}
+                        className='hover:font-bold text-[2rem] font-normal text-primary'
+                      >
+                        {formatPhoneNumber(listOfdata?.phone_no)}
+                      </Link>
+                      <p className='text-[1.4rem] font-normal text-paragraph1'>
+                        Contact
+                      </p>
+                    </div>
                   </div>
-                </div>
-                <div className='md:col-span-6 col-span-12 w-full border border-border border-solid py-[3rem] px-[2rem] flex items-center justify-between'>
+                )}
+
+                <div
+                  className={`w-full border border-border border-solid py-[3rem] px-[2rem]  col-span-12 ${
+                    urlInfo?.u ? 'md:col-span-12' : 'md:col-span-6'
+                  }`}
+                >
                   <div className='w-full'>
                     <Link
+                      target='_blank'
                       href={`https://www.google.com/maps/place/${listOfdata?.location}
                   )}`}
                       className='hover:font-bold text-[2rem] font-normal text-primary'
@@ -378,18 +397,11 @@ const Home = ({ params }: { params: any }) => {
                       Address
                     </p>
                   </div>
-                  {/* <div>
-                    <Image
-                      src={'/images/Pakistan.png'}
-                      height={35}
-                      width={35}
-                      alt='Pakistan'
-                    />
-                  </div> */}
                 </div>
+
                 <div
                   className={`w-full border border-border border-solid py-[3rem] px-[2rem]  col-span-12 ${
-                    urlInfo?.is_u ? 'md:col-span-12' : 'md:col-span-6'
+                    urlInfo?.u ? 'md:col-span-12' : 'md:col-span-6'
                   }`}
                 >
                   <div className='w-full flex items-center gap-[1.4rem] mb-[0.8rem]'>
@@ -399,7 +411,7 @@ const Home = ({ params }: { params: any }) => {
                         github: listOfdata?.github,
                         linkedIn: listOfdata?.linkedIn,
                         behance_link: listOfdata?.behance_link,
-                        is_u: urlInfo?.is_u,
+                        u: urlInfo?.u,
                       }}
                     />
                   </div>
@@ -407,7 +419,7 @@ const Home = ({ params }: { params: any }) => {
                     My Work Proof
                   </p>
                 </div>
-                {!urlInfo?.is_u && (
+                {!urlInfo?.u && (
                   <div className='md:col-span-6 col-span-12 w-full border border-border border-solid py-[3rem] px-[2rem]'>
                     <div className='w-full flex items-center  gap-[1.4rem] mb-[0.8rem]'>
                       <ContactMeLinks
@@ -424,32 +436,56 @@ const Home = ({ params }: { params: any }) => {
                 )}
               </div>
               {/* Button Line */}
-              <div>
-                <button className='btn-primary rounded-[0.6rem] text-white py-[2rem] px-[5.6rem] text-[1.8rem] font-medium border border-solid border-custom'>
-                  Download CV
-                </button>
+              <div className='space-x-5 py-[2rem] '>
+                <Link href={'/cv'}>
+                  <button className='btn-primary rounded-[0.6rem] text-white py-[2rem] px-[5.6rem] text-[1.8rem] font-medium border border-solid border-custom'>
+                    {' '}
+                    View CV Online
+                  </button>
+                </Link>
+
+                {listOfdata?.is_pdf_generated &&
+                  listOfdata?.pdf_download_links?.length > 0 &&
+                  listOfdata.pdf_download_links
+                    .filter((link) => link.type === 'CV')
+                    .map((cvLink, index) => (
+                      <button
+                        key={index}
+                        onClick={() =>
+                          downloadFile(
+                            cvLink.cvFileUrl,
+                            `${listOfdata?.name} - CV`
+                          )
+                        }
+                        className='btn-primary rounded-[0.6rem] text-white py-[2rem] px-[5.6rem] text-[1.8rem] font-medium border border-solid border-custom'
+                      >
+                        Download CV
+                      </button>
+                    ))}
               </div>
             </div>
           </div>
         </section>
 
         {/* Custom Video Player Section */}
-        <div className='w-full mb-[10rem] xl:mb-[12rem]'>
-          <VideoPlayer
-            videoSrc={listOfdata?.video}
-            videoClassName='rounded-[1.2rem] h-full w-full h-[40rem] lg:h-[70rem] object-cover'
-            thumbnailSrc={
-              listOfdata?.profile_photo_3 || '/images/thumbnail.png'
-            }
-            containerClassName='rounded-[1.2rem] max-w-[1550px] mx-auto w-full'
-            thumbnailClassName='rounded-[1.2rem] h-[40rem] lg:h-[70rem]'
-            thumbnailImage='rounded-[1.2rem] object-cover h-full w-full'
-            playButtonClassName='w-[100px] h-[100px] relative border-[0.4rem] rounded-[3.2rem] flex items-center justify-center backdrop-blur-[2.2rem] '
-            closeButtonClassName='rounded-full custom-close-button'
-            playIcon='/images/Play.svg'
-            closeIcon='/images/close-icon.svg'
-          />
-        </div>
+        {listOfdata?.video && (
+          <div className='w-full mb-[10rem] xl:mb-[12rem]'>
+            <VideoPlayer
+              videoSrc={listOfdata?.video}
+              videoClassName='rounded-[1.2rem] h-full w-full h-[40rem] lg:h-[70rem] object-cover'
+              thumbnailSrc={
+                listOfdata?.profile_photo_3 || '/images/thumbnail.png'
+              }
+              containerClassName='rounded-[1.2rem] max-w-[1550px] mx-auto w-full'
+              thumbnailClassName='rounded-[1.2rem] h-[40rem] lg:h-[70rem]'
+              thumbnailImage='rounded-[1.2rem] object-cover h-full w-full'
+              playButtonClassName='w-[100px] h-[100px] relative border-[0.4rem] rounded-[3.2rem] flex items-center justify-center backdrop-blur-[2.2rem] '
+              closeButtonClassName='rounded-full custom-close-button'
+              playIcon='/images/Play.svg'
+              closeIcon='/images/close-icon.svg'
+            />
+          </div>
+        )}
 
         {listOfdata && listOfdata?.skills_ids?.length > 0 && (
           <>
@@ -536,10 +572,9 @@ const Home = ({ params }: { params: any }) => {
               </section>
             </>
           )}
-
-        {
-          //
-          false && (
+        {listOfdata &&
+          listOfdata.experiences_ids &&
+          listOfdata.experiences_ids.length > 0 && (
             <>
               {/* Professional Experience Timeline Section Completed */}
               <section className='w-full'>
@@ -557,128 +592,130 @@ const Home = ({ params }: { params: any }) => {
                     <div className='relative'>
                       {/* Vertical line */}
                       <div className='absolute left-[10rem] top-[3rem] w-[0.4rem] h-[100%] bg-border  mx-[2.1rem] hidden lg:block' />
-                      {listOfdata?.experiences_ids
-                        ?.sort(
-                          (a, b) =>
-                            new Date(b.ending_Date).getFullYear() -
-                            new Date(a.ending_Date).getFullYear()
-                        )
-                        ?.map((experience, index) => (
-                          <>
-                            {/* Timeline items Container */}
-                            <div className='space-y-[1rem] lg:space-y-[3rem] lg:space-x-[9rem] mt-10'>
-                              {/* Date and divider */}
-                              <div className='ml-[0.5rem] lg:mb-auto lg:ml-auto lg:absolute left-[-1.6rem] z-10 text-[1.8rem] text-paragraph1 capitalize'>
-                                {formatDate(
-                                  experience.starting_date,
-                                  dateFormatsOptions.onlyYear
-                                )}{' '}
-                                -{' '}
-                                {isNaN(
-                                  new Date(experience.ending_Date).getFullYear()
-                                )
-                                  ? experience.ending_Date
-                                  : formatDate(
-                                      experience.ending_Date,
-                                      dateFormatsOptions.onlyYear
-                                    )}
-                              </div>
-                              {/* Timeline item */}
-                              <>
-                                <div className='relative flex items-start'>
-                                  {/* Dot */}
-                                  <div className='absolute top-0 left-[2rem] hidden lg:block'>
-                                    <div className='w-[2.6rem] h-[2.6rem] bg-white rounded-full flex items-center shadow-md justify-center'>
-                                      <div className='w-[0.7rem] h-[0.7rem] bg-heading rounded-full'></div>
+                      {listOfdata?.experiences_ids &&
+                        [...listOfdata.experiences_ids]
+                          ?.sort(
+                            (a, b) =>
+                              new Date(b.ending_Date).getFullYear() -
+                              new Date(a.ending_Date).getFullYear()
+                          )
+                          ?.map((experience, index) => (
+                            <>
+                              {/* Timeline items Container */}
+                              <div className='space-y-[1rem] lg:space-y-[3rem] lg:space-x-[9rem] mt-10'>
+                                {/* Date and divider */}
+                                <div className='ml-[0.5rem] lg:mb-auto lg:ml-auto lg:absolute left-[-1.6rem] z-10 text-[1.8rem] text-paragraph1 capitalize'>
+                                  {formatDate(
+                                    experience.starting_date,
+                                    dateFormatsOptions.onlyYear
+                                  )}{' '}
+                                  -{' '}
+                                  {isNaN(
+                                    new Date(
+                                      experience.ending_Date
+                                    ).getFullYear()
+                                  )
+                                    ? experience.ending_Date
+                                    : formatDate(
+                                        experience.ending_Date,
+                                        dateFormatsOptions.onlyYear
+                                      )}
+                                </div>
+                                {/* Timeline item */}
+                                <>
+                                  <div className='relative flex items-start'>
+                                    {/* Dot */}
+                                    <div className='absolute top-0 left-[2rem] hidden lg:block'>
+                                      <div className='w-[2.6rem] h-[2.6rem] bg-white rounded-full flex items-center shadow-md justify-center'>
+                                        <div className='w-[0.7rem] h-[0.7rem] bg-heading rounded-full'></div>
+                                      </div>
                                     </div>
-                                  </div>
-                                  {/* Card */}
-                                  <div className='bg-white p-[1.5rem] lg:p-[2.4rem] rounded-[1rem] shadow lg:ml-[6rem]'>
-                                    <div className='flex items-center justify-between flex-wrap text-nowrap max-[375px]:justify-center'>
-                                      {/* About Content */}
-                                      <div className='flex gap-[1rem]'>
-                                        {experience?.thumbnail && (
-                                          <div className='h-[4.2rem] w-[4.2rem] lg:h-[4.9rem] lg:w-[4.9rem] bg-[#D1E9FF] rounded-[0.4rem] flex items-center justify-center'>
-                                            <Image
-                                              src={experience?.thumbnail}
-                                              height={32}
-                                              width={32}
-                                              alt='Logo Mark'
-                                            />
+                                    {/* Card */}
+                                    <div className='bg-white p-[1.5rem] lg:p-[2.4rem] rounded-[1rem] shadow lg:ml-[6rem]'>
+                                      <div className='flex items-center justify-between flex-wrap text-nowrap max-[375px]:justify-center'>
+                                        {/* About Content */}
+                                        <div className='flex gap-[1rem]'>
+                                          {experience?.thumbnail && (
+                                            <div className='h-[4.2rem] w-[4.2rem] lg:h-[4.9rem] lg:w-[4.9rem] bg-[#D1E9FF] rounded-[0.4rem] flex items-center justify-center'>
+                                              <Image
+                                                src={experience?.thumbnail}
+                                                height={32}
+                                                width={32}
+                                                alt='Logo Mark'
+                                              />
+                                            </div>
+                                          )}
+                                          <div>
+                                            <p className='text-[1.4rem] lg:text-[1.6rem] font-normal text-paragraph1'>
+                                              {experience?.company_name}
+                                            </p>
+                                            <h3 className='text-[1.6rem] lg:text-[1.8rem] font-medium text-heading'>
+                                              {experience?.title}
+                                            </h3>
                                           </div>
-                                        )}
-                                        <div>
-                                          <p className='text-[1.4rem] lg:text-[1.6rem] font-normal text-paragraph1'>
-                                            {experience?.company_name}
-                                          </p>
-                                          <h3 className='text-[1.6rem] lg:text-[1.8rem] font-medium text-heading'>
-                                            {experience?.title}
-                                          </h3>
+                                        </div>
+                                        {/* Link */}
+                                        <div className='flex items-center gap-[0.52rem]'>
+                                          <Image
+                                            src={'/images/link.svg'}
+                                            height={18}
+                                            width={18}
+                                            alt='Link'
+                                          />
+                                          <Link
+                                            href={experience?.company_website}
+                                            className='text-[#1F4FE1] text-[1.6rem] leading-normal'
+                                          >
+                                            {experience?.company_website}
+                                          </Link>
                                         </div>
                                       </div>
-                                      {/* Link */}
-                                      <div className='flex items-center gap-[0.52rem]'>
-                                        <Image
-                                          src={'./images/link.svg'}
-                                          height={18}
-                                          width={18}
-                                          alt='Link'
-                                        />
-                                        <Link
-                                          href={experience?.company_website}
-                                          className='text-[#1F4FE1] text-[1.6rem] leading-normal'
-                                        >
-                                          {experience?.company_website}
-                                        </Link>
-                                      </div>
-                                    </div>
-                                    <p
-                                      className='mt-[2rem] list-div text-[1.6rem] font-medium text-paragraph1'
-                                      dangerouslySetInnerHTML={{
-                                        __html: modifiedContent(
-                                          experience?.short_description,
-                                          listOfskills,
-                                          listOfdata
-                                        ),
-                                      }}
-                                    ></p>
-                                    {/* <p
+                                      <p
+                                        className='mt-[2rem] list-div text-[1.6rem] font-medium text-paragraph1'
+                                        dangerouslySetInnerHTML={{
+                                          __html: modifiedContent(
+                                            experience?.short_description,
+                                            listOfskills,
+                                            listOfdata
+                                          ),
+                                        }}
+                                      ></p>
+                                      {/* <p
                         className='my-[2rem] text-paragraph1 text-[1.4rem] list-disc pl-[2rem] flex flex-col gap-[0.8rem]'
                         dangerouslySetInnerHTML={{
                           __html: experience?.long_description,
                         }}
                       ></p> */}
-                                    <div className='w-full'>
-                                      <h4 className='text-paragraph1 text-[1.2rem] font-medium mb-[1.2rem] ml-[0.2rem]'>
-                                        AREAS OF EXPERTISE I'VE WORKED IN
-                                      </h4>
-                                      <div className='flex items-center gap-[1rem] lg:gap-[0.7rem]   text-nowrap flex-wrap text-[1.2rem]'>
-                                        {experience?.skills?.map(
-                                          (skill, index) => (
-                                            <Link
-                                              key={index}
-                                              href={skill?.url}
-                                              className='py-[0.4rem] px-[2rem] bg-white border border-solid border-sectionBG text-heading rounded-[1.6rem] text-[1.2rem] font-medium leading-normal hover:text-white hover:bg-primary'
-                                            >
-                                              {skill?.title}
-                                            </Link>
-                                          )
-                                        )}
+                                      <div className='w-full'>
+                                        <h4 className='text-paragraph1 text-[1.2rem] font-medium mb-[1.2rem] ml-[0.2rem]'>
+                                          AREAS OF EXPERTISE I'VE WORKED IN
+                                        </h4>
+                                        <div className='flex items-center gap-[1rem] lg:gap-[0.7rem]   text-nowrap flex-wrap text-[1.2rem]'>
+                                          {experience?.skills?.map(
+                                            (skill, index) => (
+                                              <Link
+                                                key={index}
+                                                href={skill?.url}
+                                                className='py-[0.4rem] px-[2rem] bg-white border border-solid border-sectionBG text-heading rounded-[1.6rem] text-[1.2rem] font-medium leading-normal hover:text-white hover:bg-primary'
+                                              >
+                                                {skill?.title}
+                                              </Link>
+                                            )
+                                          )}
+                                        </div>
                                       </div>
                                     </div>
                                   </div>
-                                </div>
-                              </>
-                            </div>{' '}
-                          </>
-                        ))}{' '}
+                                </>
+                              </div>{' '}
+                            </>
+                          ))}{' '}
                     </div>
                   </div>
                 </div>
               </section>
             </>
-          )
-        }
+          )}
 
         {/* Testimonial Section */}
         {/* <section className='bg-sectionBG py-[7rem] lg:py-[10rem]'>
@@ -720,6 +757,14 @@ const Home = ({ params }: { params: any }) => {
 
         {/* FAQ Section Completed */}
         <Faq urlInfo={urlInfo} />
+        {/* Our Blogs */}
+        <div className='my-[10rem] lg:my-[12.6rem]'>
+          <OurBlogs />
+        </div>
+        {/* Newsletter */}
+        <div className='w-full my-[9.6rem]'>
+          <Newsletter />
+        </div>
       </main>
     );
   } else {

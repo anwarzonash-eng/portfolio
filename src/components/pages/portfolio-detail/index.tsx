@@ -67,26 +67,13 @@ const PortfolioDetails = ({ params }: { params: any }) => {
     return (
       <div className='bg-[#EFF5FD]'>
         {/* Hero Section */}
-        <section className='mainContainer w-full max-ultraSmall:h-[45rem] h-[78rem] lg:h-[90rem] relative '>
+        <section className='mainContainer w-full lg:h-[90rem] relative '>
           {/* Background SVG */}
           <Portfoliodetailbg />
           {/* Hero Top Content */}
           <div className='mainContainer w-full flex items-center justify-center flex-col text-center pt-[12.5rem] pb-[8rem] relative z-20'>
             {/* info */}
             <div className='flex items-center text-white text-[1.4rem] leading-[2rem] font-medium'>
-              <p className=''>9 min read</p>
-              {/* SVG Dot */}
-              <div className='mx-[1.2rem]'>
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  width='5'
-                  height='6'
-                  viewBox='0 0 5 6'
-                  fill='none'
-                >
-                  <circle cx='2.5' cy='3' r='2.5' fill='white' opacity='0.6' />
-                </svg>
-              </div>
               <p className=''>
                 {formatDate(
                   portfolioDetails?.updated_date,
@@ -185,17 +172,19 @@ const PortfolioDetails = ({ params }: { params: any }) => {
                   </div>
                 )}
                 {/* Aside Child */}
-                <div className=''>
-                  <p className='text-[1.4rem] font-normal text-paragraph1 leading-[2rem] mb-[0.8rem]'>
-                    CLIENT DESIGNATION
-                  </p>
-                  <ul className='text-[1.8rem] text-heading font-medium leading-[2.6rem]'>
-                    <li>
-                      This slide is 100% editable. Adapt it to your needs and
-                      capture your audience’s attention.
-                    </li>
-                  </ul>
-                </div>
+                {portfolioDetails?.has_testimonial && (
+                  <div className=''>
+                    <p className='text-[1.4rem] font-normal text-paragraph1 leading-[2rem] mb-[0.8rem]'>
+                      CLIENT DESIGNATION
+                    </p>
+                    <ul className='text-[1.8rem] text-heading font-medium leading-[2.6rem]'>
+                      <li>
+                        This slide is 100% editable. Adapt it to your needs and
+                        capture your audience’s attention.
+                      </li>
+                    </ul>
+                  </div>
+                )}
               </aside>
               {/* Content */}
               <div className='w-full '>
@@ -212,9 +201,16 @@ const PortfolioDetails = ({ params }: { params: any }) => {
                     Client/Project Brief Description
                   </h1>
                   {/* Para */}
-                  <p className='text-[2rem] leading-[3.2rem] font-normal mt-[1rem] text-paragraph1 my-[3.2rem]'>
-                    {portfolioDetails?.tagline_1}
-                  </p>
+                  <p
+                    dangerouslySetInnerHTML={{
+                      __html: modifiedContent(
+                        portfolioDetails?.tagline_1,
+                        listOfskills,
+                        listOfdata
+                      ),
+                    }}
+                    className='text-[2rem] leading-[3.2rem] font-normal mt-[1rem] text-paragraph1 my-[3.2rem]'
+                  ></p>
                   {/* Para */}
                   <p
                     className='text-[2rem] list-div leading-[3.2rem] font-normal mt-[1rem] text-paragraph1 my-[3.2rem]'

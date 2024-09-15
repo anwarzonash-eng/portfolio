@@ -26,15 +26,15 @@ const Faqs = ({ urlInfo }) => {
             {/* Top Content */}
             <div className='text-paragraph2 pt-[2rem] lg:pt-[3rem] pl-[2rem]'>
               <h4 className='pb-[2rem] text-[2.4rem] lg:text-[3rem] font-medium leading-[3.6rem]'>
-                Find your <br /> answer here{urlInfo?.is_u ? '.' : '?'}
+                Find your <br /> answer here{urlInfo?.u ? '.' : '?'}
               </h4>
-              {!urlInfo?.is_u && (
+              {!urlInfo?.u && (
                 <p className='text-[1.8rem] font-normal leading-[2.6rem]'>
                   No worries, You can share your quires over here.
                 </p>
               )}
             </div>
-            {!urlInfo?.is_u && (
+            {!urlInfo?.u && (
               <button
                 onClick={scrollToContact}
                 className='bg-radial-gradient bg-primary rounded-[0.6rem] text-white py-[2rem] px-[5.6rem] text-[1.8rem] font-medium border border-solid border-white absolute bottom-[2.3rem] left-[2.3rem] hover:bg-white hover:text-primary duration-300'
@@ -46,7 +46,9 @@ const Faqs = ({ urlInfo }) => {
           {/* Faq Container */}
           <div className='w-full'>
             <h2 className='text-[4rem] font-medium text-heading'>FAQ</h2>
-            {FaqsData.map((faq, index) => (
+            {FaqsData.filter(({ altName }) =>
+              urlInfo?.u ? altName !== 'Payment' : true
+            ).map((faq, index) => (
               <div
                 key={index}
                 className='mb-4 border-b border-solid border-border'

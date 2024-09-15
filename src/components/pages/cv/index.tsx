@@ -9,7 +9,7 @@ import { modifiedContent } from '@/hooks/modifiedContent';
 import { useEffect, useState } from 'react';
 import PortfolioPopUp from '@/components/PortfolioPopUp';
 import {
-  blogs,
+  blogData,
   contactDetails,
   dateFormatsOptions,
   socialLinks,
@@ -58,8 +58,11 @@ const CV = ({ params }: { params: any }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Function to open the modal
-  const openModal = (pictures) => {
-    setSelectedPorfolioPicturesforPopup(pictures);
+  const openModal = (pictures, thumbnail, child_hero_banner) => {
+    const portfolioImages = JSON.parse(pictures);
+    const allImages = [thumbnail, child_hero_banner, ...portfolioImages];
+    setSelectedPorfolioPicturesforPopup(allImages);
+
     setIsModalOpen(true);
   };
 
@@ -84,7 +87,7 @@ const CV = ({ params }: { params: any }) => {
           <PortfolioPopUp
             isModalOpen={isModalOpen}
             closeModal={closeModal}
-            portfolioPictures={selectedPorfolioPicturesforPopup}
+            portfolioImages={selectedPorfolioPicturesforPopup}
           />
         )}
         <div className='mainContainer bg-white flex flex-col lg:flex-row gap-[4rem] relative pb-[5rem] lg:pb-[7rem] mb-[10rem] lg:mb-[9.6rem]'>
@@ -138,20 +141,20 @@ const CV = ({ params }: { params: any }) => {
                     )}
                   </h4>
                 </div>
-                <button
-                  onClick={scrollToContact}
-                  className='text-[2rem] text-white w-full py-[1.6rem] px-[3.4rem] bg-gradient-to-b from-white/30 to-transparent bg-primary shadow-[0px_0px_0px_1px_#FFF] hover:bg-white hover:text-primary hover:border-primary hover:border-t border-solid duration-300'
-                >
-                  Hire Me
-                </button>
+                {!urlInfo?.u && (
+                  <button
+                    onClick={scrollToContact}
+                    className='text-[2rem] text-white w-full py-[1.6rem] px-[3.4rem] bg-gradient-to-b from-white/30 to-transparent bg-primary shadow-[0px_0px_0px_1px_#FFF] hover:bg-white hover:text-primary hover:border-primary hover:border-t border-solid duration-300'
+                  >
+                    Schedule Call
+                  </button>
+                )}
               </div>
               {/* Email, Website, Phone, Location */}
               <div className='mb-[4rem] w-full flex sm:hidden lg:flex flex-col gap-[2.6rem]'>
                 {/* Iterate through the contact details array */}
                 {contactDetails(listOfdata)
-                  .filter(({ alt }) =>
-                    urlInfo?.is_u ? alt === 'Location' : true
-                  )
+                  .filter(({ alt }) => (urlInfo?.u ? alt === 'Location' : true))
                   .map((contact, index) => (
                     <div
                       key={index}
@@ -195,7 +198,11 @@ const CV = ({ params }: { params: any }) => {
                 {/* Iterating on Icons */}
                 {socialLinks(listOfdata)
                   .filter(({ alt }) =>
-                    urlInfo?.is_u ? alt === 'Github' || alt === 'Upwork' : true
+                    urlInfo?.u
+                      ? alt === 'Github' ||
+                        alt === 'Linkedin' ||
+                        alt === 'Upwork'
+                      : true
                   )
                   .map((social, index) => (
                     <>
@@ -235,7 +242,7 @@ const CV = ({ params }: { params: any }) => {
                 <div className='mb-[4rem] w-full flex flex-col gap-[2.6rem]'>
                   {contactDetails(listOfdata)
                     .filter(({ alt }) =>
-                      urlInfo?.is_u ? alt === 'Location' : true
+                      urlInfo?.u ? alt === 'Location' : true
                     )
                     .map((contact, index) => (
                       <div
@@ -278,8 +285,10 @@ const CV = ({ params }: { params: any }) => {
                   {/* Iterating on Icons */}
                   {socialLinks(listOfdata)
                     .filter(({ alt }) =>
-                      urlInfo?.is_u
-                        ? alt === 'Github' || alt === 'Upwork'
+                      urlInfo?.u
+                        ? alt === 'Github' ||
+                          alt === 'Upwork' ||
+                          alt === 'Linkedin'
                         : true
                     )
                     .map((social, index) => (
@@ -330,31 +339,33 @@ const CV = ({ params }: { params: any }) => {
                   {/* Timeline items Container */}
                   <div className='space-y-[1rem] lg:space-y-[2rem]'>
                     {/* Overview & Skills Timeline item */}
-                    <div className='relative flex items-start'>
-                      {/* Dot */}
-                      <div className='absolute top-0 left-[-1.3rem]'>
-                        <div className='w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center'>
-                          <div className='w-[0.8rem] h-[0.8rem] bg-sectionBG rounded-full'></div>
+                    {listOfdata?.skills && (
+                      <div className='relative flex items-start'>
+                        {/* Dot */}
+                        <div className='absolute top-0 left-[-1.3rem]'>
+                          <div className='w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center'>
+                            <div className='w-[0.8rem] h-[0.8rem] bg-sectionBG rounded-full'></div>
+                          </div>
+                        </div>
+                        <div className='ml-[2rem] md:ml-[3rem] lg:ml-[5rem]'>
+                          {/* Title */}
+                          <h2 className='text-heading leading-[3.56rem] text-[2.67rem] font-medium pl-[0.5rem] mb-[3rem]'>
+                            Overview & Skills
+                          </h2>
+
+                          <div
+                            className='text-heading list-div text-[1.6rem] leading-[2.4rem] flex flex-col gap-[1rem] mb-[5rem] list-inside'
+                            dangerouslySetInnerHTML={{
+                              __html: modifiedContent(
+                                listOfdata?.skills,
+                                listOfskills,
+                                listOfdata
+                              ),
+                            }}
+                          ></div>
                         </div>
                       </div>
-                      <div className='ml-[2rem] md:ml-[3rem] lg:ml-[5rem]'>
-                        {/* Title */}
-                        <h2 className='text-heading leading-[3.56rem] text-[2.67rem] font-medium pl-[0.5rem] mb-[3rem]'>
-                          Overview & Skills
-                        </h2>
-
-                        <div
-                          className='text-heading list-div text-[1.6rem] leading-[2.4rem] flex flex-col gap-[1rem] mb-[5rem] list-inside'
-                          dangerouslySetInnerHTML={{
-                            __html: modifiedContent(
-                              listOfdata?.skills,
-                              listOfskills,
-                              listOfdata
-                            ),
-                          }}
-                        ></div>
-                      </div>
-                    </div>
+                    )}
 
                     {/* Skills Timeline item */}
                     {listOfdata?.skills_ids && (
@@ -504,7 +515,7 @@ const CV = ({ params }: { params: any }) => {
                                       {experience?.company_website && (
                                         <div className='flex items-center gap-[0.52rem]'>
                                           <Image
-                                            src={'./images/link.svg'}
+                                            src={'/images/link.svg'}
                                             height={18}
                                             width={18}
                                             alt='Link'
@@ -714,7 +725,11 @@ const CV = ({ params }: { params: any }) => {
                                         {/* Centered Positioned Button */}
                                         <button
                                           onClick={() =>
-                                            openModal(portfolio?.pictures)
+                                            openModal(
+                                              portfolio?.pictures,
+                                              portfolio?.thumbnail,
+                                              portfolio?.child_hero_banner
+                                            )
                                           }
                                           className='hover:tracking-[.25em] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 py-[0.8rem] px-[2rem] rounded-[4.2rem] border border-solid border-[#fff] text-[1.2rem] font-medium text-heading min-w-[11.9rem] backdrop-blur-[0.8rem] duration-300 bg-primary hover:bg-opacity-80 text-white'
                                         >
@@ -840,24 +855,26 @@ const CV = ({ params }: { params: any }) => {
                           <h2 className='text-heading leading-[3.56rem] text-[2.67rem] font-medium pl-[0.5rem]'>
                             Blogs
                           </h2>
-                          <button className='btn-secondary text-white py-[1rem] px-[2.4rem] text-[1.6rem] font-medium'>
-                            View all
-                          </button>
+                          <Link href={'/blog-listing'}>
+                            <button className='btn-secondary text-white py-[1rem] px-[2.4rem] text-[1.6rem] font-medium'>
+                              View all
+                            </button>
+                          </Link>
                         </div>
                         {/* Map Through the Blogs Array */}
-                        {blogs.map((blog) => (
+                        {blogData?.slice(0, 3).map((blog, index) => (
                           <article
-                            key={blog.id}
+                            key={index}
                             className='w-full flex items-start gap-[2rem] p-[1.2rem] bg-white shadow-lg mb-[1.2rem] flex-col sm:flex-row'
                           >
                             {/* Card Image */}
-                            {blog?.image && (
+                            {blog?.imageSrc && (
                               <div className='sm:w-[20rem] h-[19rem] w-full flex-shrink-0'>
                                 <Image
-                                  src={blog?.image}
+                                  src={blog?.imageSrc}
                                   height={300}
                                   width={300}
-                                  alt={`Blog ${blog.id}`}
+                                  alt={`Blog ${index + 1}`}
                                   className='object-cover h-full w-full'
                                 />
                               </div>
