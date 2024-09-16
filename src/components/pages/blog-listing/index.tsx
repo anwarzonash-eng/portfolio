@@ -8,7 +8,7 @@ import { useSearchParams } from 'next/navigation';
 import { getRoutesDetails } from '@/hooks/url';
 import { store } from '@/store';
 import { setProfileLoading, setProfileUrlInfo } from '@/store/profileSlice';
-import { authorBlogIds, blogData, dateFormatsOptions } from '@/data/JsonData';
+import { dateFormatsOptions } from '@/data/JsonData';
 import axios from 'axios';
 import WebsiteLoader from '@/components/WebsiteLoader';
 import { reportsApiHandler } from '@/hooks/apihandlers/reportsApiHandlers';

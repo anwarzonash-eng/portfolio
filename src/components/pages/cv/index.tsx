@@ -22,13 +22,22 @@ import { handleSkillsApiCall } from '@/hooks/apihandlers/skillsApiHandlers';
 import { store } from '@/store';
 import { setProfileLoading, setProfileUrlInfo } from '@/store/profileSlice';
 import { scrollToContact } from '@/hooks/scrollToFooter';
+import { blogsListing } from '@/hooks/apihandlers/blogListingApiHandler';
 
 const CV = ({ params }: { params: any }) => {
+  const searchParams = useSearchParams();
   const [urlInfo, setURLInfo] = useState(null);
   const [listOfdata, setListOfData] = useState(null);
   const [listOfskills, setListOfSkills] = useState([]);
   const [loading, setLoading] = useState(true);
-  const searchParams = useSearchParams();
+
+  const [
+    selectedPorfolioPicturesforPopup,
+    setSelectedPorfolioPicturesforPopup,
+  ] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [blogsList, setBlogsList] = useState([]);
+  const [loadingblogs, setLoadingBlogs] = useState(false);
 
   useEffect(() => {
     setURLInfo(getRoutesDetails(params, searchParams));
@@ -48,14 +57,13 @@ const CV = ({ params }: { params: any }) => {
     handleSkillsApiCall({ setListOfSkills });
   }, []);
 
-  useBodyBackgroundColor('#EFF5FD');
+  useEffect(() => {
+    if (listOfdata) {
+      blogsListing(setLoadingBlogs, listOfdata, setBlogsList);
+    }
+  }, [listOfdata]);
 
-  const [
-    selectedPorfolioPicturesforPopup,
-    setSelectedPorfolioPicturesforPopup,
-  ] = useState(null);
-  // This Code is use to Open Popup
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  useBodyBackgroundColor('#EFF5FD');
 
   // Function to open the modal
   const openModal = (pictures, thumbnail, child_hero_banner) => {
@@ -849,7 +857,7 @@ const CV = ({ params }: { params: any }) => {
                           <div className='w-[0.8rem] h-[0.8rem] bg-sectionBG rounded-full'></div>
                         </div>
                       </div>
-                      <div className='ml-[2rem] md:ml-[3rem] lg:ml-[5rem]'>
+                      <div className='ml-[2rem] md:ml-[3rem] lg:ml-[5rem] w-full'>
                         {/* Title */}
                         <div className='flex items-center justify-between mb-5'>
                           <h2 className='text-heading leading-[3.56rem] text-[2.67rem] font-medium pl-[0.5rem]'>
@@ -862,96 +870,115 @@ const CV = ({ params }: { params: any }) => {
                           </Link>
                         </div>
                         {/* Map Through the Blogs Array */}
-                        {blogData?.slice(0, 3).map((blog, index) => (
-                          <article
-                            key={index}
-                            className='w-full flex items-start gap-[2rem] p-[1.2rem] bg-white shadow-lg mb-[1.2rem] flex-col sm:flex-row'
-                          >
-                            {/* Card Image */}
-                            {blog?.imageSrc && (
-                              <div className='sm:w-[20rem] h-[19rem] w-full flex-shrink-0'>
-                                <Image
-                                  src={blog?.imageSrc}
-                                  height={300}
-                                  width={300}
-                                  alt={`Blog ${index + 1}`}
-                                  className='object-cover h-full w-full'
-                                />
-                              </div>
-                            )}
-                            {/* Card Content */}
-                            <div className=''>
-                              {/* Date */}
-                              <div className='mb-[1.2rem] flex items-center'>
-                                <h4 className='text-heading text-[1.4rem] leading-[2rem] font-medium'>
-                                  {blog.category}
-                                </h4>
-                                <div className='flex items-center'>
-                                  {/* SVG Dot */}
-                                  <div className='mx-[0.6rem]'>
-                                    <svg
-                                      xmlns='http://www.w3.org/2000/svg'
-                                      width='5'
-                                      height='6'
-                                      viewBox='0 0 5 6'
-                                      fill='none'
-                                    >
-                                      <circle
-                                        cx='2.5'
-                                        cy='3'
-                                        r='2.5'
-                                        fill='#C6CBD8'
-                                      />
-                                    </svg>
-                                  </div>
-                                  <p className='text-paragraph1 text-[1.4rem] leading-[2rem] font-normal'>
-                                    {blog.date}
-                                  </p>
-                                </div>
-                              </div>
-                              {/* Title */}
-                              <h2 className='text-[2.4rem] font-medium leading-[3.2rem] text-heading mb-[1.2rem]'>
-                                {blog.title}
-                              </h2>
-                              {/* Description */}
-                              <p className='text-[1.6rem] leading-[2.4rem] text-paragraph1 mb-[3rem]'>
-                                {blog.description}
-                              </p>
-                              <Link
-                                href={blog.link || '#'}
-                                className='duration-300 inline-flex items-center gap-[0.8rem] group'
-                              >
-                                <p className='text-primary text-[1.4rem] font-medium leading-[2.4rem]'>
-                                  Read Now
-                                </p>
-                                {/* Arrow */}
-                                <svg
-                                  xmlns='http://www.w3.org/2000/svg'
-                                  width='25'
-                                  height='25'
-                                  viewBox='0 0 25 25'
-                                  fill='none'
-                                  className='group-hover:translate-x-[1rem] duration-300'
+                        {loadingblogs ? (
+                          <WebsiteLoader height='h-[20rem]' />
+                        ) : (
+                          <>
+                            {blogsList
+                              ?.slice(0, Math.min(3, blogsList.length))
+                              .map((blog, index) => (
+                                <article
+                                  key={index}
+                                  className='w-full flex items-start gap-[2rem] p-[1.2rem] bg-white shadow-lg mb-[1.2rem] flex-col sm:flex-row'
                                 >
-                                  <path
-                                    d='M4.02783 12.8789H20.5278'
-                                    stroke='#00473C'
-                                    strokeWidth='1.5'
-                                    strokeLinecap='round'
-                                    strokeLinejoin='round'
-                                  />
-                                  <path
-                                    d='M13.7778 6.12891L20.5278 12.8789L13.7778 19.6289'
-                                    stroke='#00473C'
-                                    strokeWidth='1.5'
-                                    strokeLinecap='round'
-                                    strokeLinejoin='round'
-                                  />
-                                </svg>
-                              </Link>
-                            </div>
-                          </article>
-                        ))}
+                                  {/* Card Image */}
+                                  {blog?._embedded?.['wp:featuredmedia'][0]
+                                    ?.source_url && (
+                                    <div className='sm:w-[20rem] h-[19rem] w-full flex-shrink-0'>
+                                      <Image
+                                        src={
+                                          blog?._embedded?.[
+                                            'wp:featuredmedia'
+                                          ][0]?.source_url
+                                        }
+                                        height={300}
+                                        width={300}
+                                        alt={`Blog ${index + 1}`}
+                                        className='object-cover h-full w-full'
+                                      />
+                                    </div>
+                                  )}
+                                  {/* Card Content */}
+                                  <div className=''>
+                                    {/* Date */}
+                                    <div className='mb-[1.2rem] flex items-center'>
+                                      <div className='flex items-center'>
+                                        {/* SVG Dot */}
+                                        <div className='mx-[0.6rem]'>
+                                          <svg
+                                            xmlns='http://www.w3.org/2000/svg'
+                                            width='5'
+                                            height='6'
+                                            viewBox='0 0 5 6'
+                                            fill='none'
+                                          >
+                                            <circle
+                                              cx='2.5'
+                                              cy='3'
+                                              r='2.5'
+                                              fill='#C6CBD8'
+                                            />
+                                          </svg>
+                                        </div>
+                                        <p className='text-paragraph1 text-[1.4rem] leading-[2rem] font-normal'>
+                                          {formatDate(
+                                            blog?.date,
+                                            dateFormatsOptions.dayMonthYear
+                                          )}
+                                        </p>
+                                      </div>
+                                    </div>
+                                    {/* Title */}
+                                    <h2
+                                      dangerouslySetInnerHTML={{
+                                        __html: blog?.title?.rendered,
+                                      }}
+                                      className='text-[2.4rem] font-medium leading-[3.2rem] text-heading mb-[1.2rem]'
+                                    ></h2>
+                                    {/* Description */}
+                                    <p
+                                      dangerouslySetInnerHTML={{
+                                        __html: blog?.excerpt?.rendered,
+                                      }}
+                                      className='text-[1.6rem] leading-[2.4rem] text-paragraph1 mb-[3rem]'
+                                    ></p>
+                                    <Link
+                                      href={`/blog-listing/${blog?.id}`}
+                                      className='duration-300 inline-flex items-center gap-[0.8rem] group'
+                                    >
+                                      <p className='text-primary text-[1.4rem] font-medium leading-[2.4rem]'>
+                                        Read Now
+                                      </p>
+                                      {/* Arrow */}
+                                      <svg
+                                        xmlns='http://www.w3.org/2000/svg'
+                                        width='25'
+                                        height='25'
+                                        viewBox='0 0 25 25'
+                                        fill='none'
+                                        className='group-hover:translate-x-[1rem] duration-300'
+                                      >
+                                        <path
+                                          d='M4.02783 12.8789H20.5278'
+                                          stroke='#00473C'
+                                          strokeWidth='1.5'
+                                          strokeLinecap='round'
+                                          strokeLinejoin='round'
+                                        />
+                                        <path
+                                          d='M13.7778 6.12891L20.5278 12.8789L13.7778 19.6289'
+                                          stroke='#00473C'
+                                          strokeWidth='1.5'
+                                          strokeLinecap='round'
+                                          strokeLinejoin='round'
+                                        />
+                                      </svg>
+                                    </Link>
+                                  </div>
+                                </article>
+                              ))}
+                          </>
+                        )}
                       </div>
                     </div>
                   </div>
