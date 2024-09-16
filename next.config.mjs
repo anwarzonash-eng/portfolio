@@ -9,6 +9,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'personalimagelist.s3.eu-north-1.amazonaws.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'blog.cypexsoft.com',
+      },
     ],
   },
 };

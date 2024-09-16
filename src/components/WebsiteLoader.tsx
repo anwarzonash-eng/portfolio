@@ -1,10 +1,12 @@
 import React from 'react';
 
-const WebsiteLoader = () => {
+const WebsiteLoader = ({ height = null }) => {
   return (
     <div
       role='status'
-      className='flex justify-center align-middle items-center h-screen'
+      className={`flex justify-center align-middle items-center ${
+        height ? height : 'h-screen'
+      }`}
     >
       <svg
         aria-hidden='true'

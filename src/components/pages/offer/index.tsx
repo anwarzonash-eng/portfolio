@@ -425,7 +425,7 @@ const Offer = ({ params }: { params: any }) => {
         )}
         {/* Our Blogs */}
         <div className='my-[10rem] lg:my-[12.6rem]'>
-          <OurBlogs />
+          <OurBlogs listOfdata={listOfdata} />
         </div>
         {/* Newsletter */}
         <div className='w-full my-[9.6rem]'>

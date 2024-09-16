@@ -550,7 +550,7 @@ const CV = ({ params }: { params: any }) => {
                                         listOfdata
                                       ),
                                     }}
-                                    className='mt-[2rem] list-div text-heading text-[1.4rem] font-normal leading-[150%] list-disc pl-[2rem] flex flex-col gap-[0.8rem]'
+                                    className='mt-[2rem] list-div-portfolio text-heading text-[1.4rem] font-normal leading-[150%] list-disc pl-[2rem] flex flex-col gap-[0.8rem]'
                                   ></div>
                                   {/* Skills Badges */}
                                   <div className='mt-[2.2rem]'>
@@ -748,7 +748,7 @@ const CV = ({ params }: { params: any }) => {
                                           listOfdata
                                         ),
                                       }}
-                                      className='mt-[2rem] list-div text-heading text-[1.4rem] font-normal leading-[150%] list-disc pl-[2rem] flex flex-col gap-[0.8rem] mb-[2rem]'
+                                      className='mt-[2rem] list-div-portfolio text-heading text-[1.4rem] font-normal leading-[150%] list-disc pl-[2rem] flex flex-col gap-[0.8rem] mb-[2rem]'
                                     ></div>
                                     {/* Skills Badges */}
                                     <div>
