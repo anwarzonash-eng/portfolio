@@ -655,20 +655,20 @@ const Home = ({ params }: { params: any }) => {
                                           </div>
                                         </div>
                                         {/* Link */}
-                                        <div className='flex items-center gap-[0.52rem]'>
-                                          <Image
-                                            src={'/images/link.svg'}
-                                            height={18}
-                                            width={18}
-                                            alt='Link'
-                                          />
-                                          <Link
-                                            href={experience?.company_website}
-                                            className='text-[#1F4FE1] text-[1.6rem] leading-normal'
-                                          >
-                                            {experience?.company_website}
-                                          </Link>
-                                        </div>
+
+                                        <Link
+                                          href={experience?.company_website}
+                                        >
+                                          <button className='flex items-center gap-[0.52rem] btn-secondary rounded-[1.6rem] border-2 border-border border-solid py-[0.5rem] px-[1.4rem] text-[1.6rem] font-medium text-white'>
+                                            <Image
+                                              src={'/images/link.svg'}
+                                              height={18}
+                                              width={18}
+                                              alt='Link'
+                                            />{' '}
+                                            View Online
+                                          </button>
+                                        </Link>
                                       </div>
                                       <p
                                         className='mt-[2rem] list-div text-[1.6rem] font-medium text-paragraph1'
