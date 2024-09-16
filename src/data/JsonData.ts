@@ -377,3 +377,50 @@ export const blogData = [
   },
   // Add more blog entries here
 ];
+
+export const authorBlogIds = [
+  {
+    authorName: 'findusman.me',
+    id: 2,
+  },
+  {
+    authorName: 'saddamdev.me',
+    id: 6,
+  },
+  {
+    authorName: 'findahmad.me',
+    id: 3,
+  },
+  {
+    authorName: 'noyandev.me',
+    id: 12,
+  },
+  {
+    authorName: 'usamaashraf.dev',
+    id: 5,
+  },
+  {
+    authorName: 'abdullahdev.me',
+    id: 11,
+  },
+  {
+    authorName: 'farhanali.dev',
+    id: 4,
+  },
+  {
+    authorName: 'atifaccountant.com',
+    id: 13,
+  },
+  {
+    authorName: 'basit-cpa.me',
+    id: 14,
+  },
+  {
+    authorName: 'harisdev.me',
+    id: 8,
+  },
+  {
+    authorName: 'muzamildev.me',
+    id: 10,
+  },
+];

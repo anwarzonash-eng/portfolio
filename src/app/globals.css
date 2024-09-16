@@ -244,14 +244,54 @@ body {
   color: var(--primary-color);
 } */
 
-.list-div ul {
+.blogs-modified h1,
+.blogs-modified h2,
+.blogs-modified h3,
+.blogs-modified h4,
+.blogs-modified h5,
+.blogs-modified h6 {
+  @apply text-primary font-bold text-[2.5rem] py-6;
+}
+
+.blogs-modified a {
+  @apply break-all;
+}
+
+.list-div img {
+  @apply w-full rounded-[0.8rem] my-10;
+}
+
+.list-div table {
+  @apply w-full border-collapse border border-primary rounded-[0.8rem] my-8;
+}
+
+.list-div table th,
+.list-div table td {
+  @apply px-4 py-2 border border-primary text-left;
+}
+
+.list-div table thead {
+  @apply bg-primary text-white;
+}
+
+.list-div table tbody tr:nth-child(even) {
+  @apply bg-gray-100;
+}
+
+.list-div table tbody tr:hover {
+  @apply bg-gray-200;
+}
+
+.list-div ul,
+.list-div ol {
   @apply text-heading text-[1.6rem] leading-[2.4rem] flex flex-col gap-[1rem] list-disc pl-[3rem];
 }
 .list-div li {
   @apply pl-[1.3rem];
 }
 
-.list-div ul li::marker {
+.list-div ul li::marker,
+.list-div ol li::marker {
   @apply text-[1.7em] text-primary;
 }
 

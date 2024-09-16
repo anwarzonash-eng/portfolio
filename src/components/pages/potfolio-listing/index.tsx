@@ -455,7 +455,7 @@ const PortfolioListing = ({ params }: { params: any }) => {
         )}
         {/* Our Blogs Section */}
         <div className='w-full my-[10rem] lg:my-[12rem]'>
-          <OurBlogs />
+          <OurBlogs listOfdata={listOfdata} />
         </div>
         {/* Newsletter */}
         <div className='w-full my-[9.6rem]'>

@@ -40,7 +40,7 @@ const OfferBanner = () => {
             <CharacterAnimation text='Get Free Development Trial!' />
           </div>
           <div className='mb-2'>
-            <img src='./images/offerBannerStars.svg' />
+            <img src='/images/offerBannerStars.svg' />
           </div>
         </div>
 
