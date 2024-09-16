@@ -37,7 +37,7 @@ const MyServicesCards = ({ services }) => {
           {/* Arrow */}
           <div className='flex gap-[0.8rem] items-center group'>
             <a
-              href={`/offer?serviceIndex=${index}`}
+              href={`/offer?service=${service?.title}`}
               className='text-[1.6rem] text-white font-normal cursor-pointer'
             >
               Read More

@@ -12,6 +12,7 @@ import { scrollToContact } from '@/hooks/scrollToFooter';
 interface HeaderLink {
   title: string;
   src: string;
+  isDropdown?: boolean;
 }
 
 interface HeaderProps {
@@ -25,6 +26,39 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
   const listOfdata = useAppSelector((state) => state.profile.listOfProfileData);
   const urlInfo = useAppSelector((state) => state.profile.profileUrlInfo);
   const loading = useAppSelector((state) => state.profile.profileLoading);
+  const pathname = usePathname(); // Gets the current pathname
+  // Gets the search params (query string)
+
+  const [sideBarOpen, setSideBarOpen] = useState<boolean>(false);
+
+  const [isResourceOpen, setIsResourceOpen] = useState(false);
+  const [isServicesOpen, setIsServicesOpen] = useState(false);
+
+  const resourceDropdownRef = useRef(null);
+  const servicesDropdownRef = useRef(null);
+
+  const headerLinks: HeaderLink[] = [
+    { title: 'Home', src: '/' },
+    { title: 'Cover Letter', src: '/offer' },
+    ...(listOfdata?.services && listOfdata?.services?.length > 0
+      ? [{ title: 'Services', src: '#', isDropdown: true }]
+      : []),
+    { title: 'Projects', src: '/portfolio' },
+    { title: 'Blog', src: '/blog-listing' },
+    { title: 'CV', src: '/cv' },
+  ];
+
+  const handleToggleResource = () => {
+    setIsResourceOpen(!isResourceOpen);
+  };
+
+  const handleToggleServices = () => {
+    setIsServicesOpen(!isServicesOpen);
+  };
+
+  const handleSidebar = () => {
+    setSideBarOpen(!sideBarOpen);
+  };
 
   useEffect(() => {
     // Check if `window` is available to safely access `localStorage`
@@ -59,33 +93,11 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
     };
   }, [initialBgColor]);
 
-  // Header Links
-  const headerLinks: HeaderLink[] = [
-    { title: 'Home', src: '/' },
-    { title: 'Cover Letter', src: '/offer' },
-    // { title: 'Services', src: '/services' },
-    { title: 'Projects', src: '/portfolio' },
-    { title: 'Blog', src: '/blog-listing' },
-    { title: 'CV', src: '/cv' },
-  ];
-
-  const pathname = usePathname(); // Gets the current pathname
-  // Gets the search params (query string)
-
-  const [sideBarOpen, setSideBarOpen] = useState<boolean>(false);
-
-  const [isResourceOpen, setIsResourceOpen] = useState(false);
-  const dropdownRef = useRef(null);
-
-  // Function to toggle the dropdown on click
-  const handleToggle = () => {
-    setIsResourceOpen(!isResourceOpen);
-  };
-
   // Close dropdown on scroll
   useEffect(() => {
     const handleScroll = () => {
       setIsResourceOpen(false);
+      setIsServicesOpen(false);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -95,25 +107,27 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
   }, []);
 
   // Close dropdown on click outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !(dropdownRef.current as any).contains(event.target)
-      ) {
-        setIsResourceOpen(false);
-      }
-    };
+  // useEffect(() => {
+  //   const handleClickOutside = (event: MouseEvent) => {
+  //     console.log('clicked outside', resourceDropdownRef);
+  //     if (
+  //       resourceDropdownRef.current &&
+  //       !resourceDropdownRef.current.contains(event.target as Node)
+  //     ) {
+  //       setIsResourceOpen(false);
+  //     }
+  //     if (
+  //       servicesDropdownRef.current &&
+  //       !servicesDropdownRef.current.contains(event.target as Node)
+  //     ) {
+  //       setIsServicesOpen(false);
+  //     }
+  //   };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
+  //   document.addEventListener('mousedown', handleClickOutside);
+  //   return () => document.removeEventListener('mousedown', handleClickOutside);
+  // }, []);
 
-  const handleSidebar = () => {
-    setSideBarOpen(!sideBarOpen);
-  };
   if (!loading) {
     return (
       <>
@@ -146,26 +160,72 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
                   <div className='flex items-center gap-[2.4rem]'>
                     {/* Nav Link */}
                     <nav className='text-paragraph1 text-[1.6rem] font-normal leading-normal flex justify-center items-center gap-[2.4rem]'>
-                      {headerLinks.map((link, index) => (
-                        <div
-                          key={index}
-                          className={`hover:text-primary duration-300 ${
-                            index == 0 ? 'font-bold' : ''
-                          }`}
-                        >
-                          <Link href={link.src}>{link.title}</Link>
-                        </div>
-                      ))}
+                      {headerLinks.map((link, index) =>
+                        link.isDropdown ? (
+                          <div
+                            className='flex items-center relative '
+                            ref={servicesDropdownRef}
+                          >
+                            <div
+                              className='text-paragraph1 text-[1.6rem] font-normal leading-normal hover:text-primary duration-300 cursor-pointer'
+                              onClick={handleToggleServices}
+                            >
+                              {link.title}
+                            </div>
+                            <Image
+                              src='/images/dropDown.svg'
+                              height={24}
+                              width={24}
+                              alt='Dropdown'
+                              className={`cursor-pointer duration-300 ${
+                                isServicesOpen ? 'rotate-180' : 'rotate-0'
+                              }`}
+                            />
+                            {/* Positioned DropDown Menu */}
+                            {isServicesOpen && (
+                              <nav
+                                className={`rounded-[0.8rem] duration-300 shadow-md bg-white absolute top-[4rem] left-[-10rem] z-50
+   ${isServicesOpen ? 'opacity-100' : 'opacity-0'}
+   p-[2rem] text-primary text-[1.6rem] font-normal leading-normal flex flex-col gap-[1.5rem] w-[29.6rem]`}
+                              >
+                                {/* Work Proof */}
+                                <div className='w-full'>
+                                  {listOfdata?.services?.map(
+                                    (service, index) => (
+                                      <Link
+                                        href={`/offer?service=${service?.title}`}
+                                        key={index}
+                                        className={`w-full flex items-center gap-[1.4rem] px-4 py-2 hover:bg-primary hover:text-white hover:rounded-lg transition-all duration-300 ease-in-out cursor-pointer text-wrap border-b border-gray-200 last:border-b-0`}
+                                      >
+                                        {service?.title}
+                                      </Link>
+                                    )
+                                  )}
+                                </div>
+                              </nav>
+                            )}
+                          </div>
+                        ) : (
+                          <div
+                            key={index}
+                            className={`hover:text-primary duration-300 ${
+                              index == 0 ? 'font-bold' : ''
+                            }`}
+                          >
+                            <Link href={link.src}>{link.title}</Link>
+                          </div>
+                        )
+                      )}
                     </nav>
 
                     {/* New Updated Drop  */}
                     <div
                       className='flex items-center relative mr-[2.4rem]'
-                      ref={dropdownRef}
+                      ref={resourceDropdownRef}
                     >
                       <div
                         className='text-paragraph1 text-[1.6rem] font-normal leading-normal hover:text-primary duration-300 cursor-pointer'
-                        onClick={handleToggle}
+                        onClick={handleToggleResource}
                       >
                         Resources
                       </div>
@@ -173,55 +233,56 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
                         src='/images/dropDown.svg'
                         height={24}
                         width={24}
-                        onClick={handleToggle}
                         alt='Dropdown'
                         className={`cursor-pointer duration-300 ${
                           isResourceOpen ? 'rotate-180' : 'rotate-0'
                         }`}
                       />
                       {/* Positioned DropDown Menu */}
-                      <nav
-                        className={`rounded-[0.8rem] duration-300 shadow-md bg-white absolute top-[4rem] left-[-10rem] z-50
+                      {isResourceOpen && (
+                        <nav
+                          className={`rounded-[0.8rem] duration-300 shadow-md bg-white absolute top-[4rem] left-[-10rem] z-50
                          ${isResourceOpen ? 'opacity-100' : 'opacity-0'}
                          p-[2rem] text-primary text-[1.6rem] font-normal leading-normal flex flex-col gap-[1.5rem] w-[29.6rem] text-nowrap`}
-                      >
-                        {/* Work Proof */}
-                        <div className='w-full'>
-                          <div className='w-full flex items-center gap-[1.4rem]'>
-                            <WorkProofLinks
-                              props={{
-                                upwork: listOfdata?.upwork,
-                                github: listOfdata?.github,
-                                linkedIn: listOfdata?.linkedIn,
-                                behance_link: listOfdata?.behance_link,
-                                u: urlInfo?.u,
-                              }}
-                            />
-                          </div>
-                          <p className='text-[1.4rem] font-normal text-paragraph1 mt-[1.6rem]'>
-                            My Work Proof
-                          </p>
-                        </div>
-                        {!urlInfo?.u && (
-                          <>
-                            <hr className='h-[0.1rem] w-full bg-border' />
-                            {/* Contact Me */}
-                            <div className='w-full'>
-                              <div className='w-full flex items-center gap-[1.4rem]'>
-                                <ContactMeLinks
-                                  props={{
-                                    email: listOfdata?.email,
-                                    phone_no: listOfdata?.phone_no,
-                                  }}
-                                />
-                              </div>
-                              <p className='text-[1.4rem] font-normal text-paragraph1 mt-[1.6rem]'>
-                                Contact Me
-                              </p>
+                        >
+                          {/* Work Proof */}
+                          <div className='w-full'>
+                            <div className='w-full flex items-center gap-[1.4rem]'>
+                              <WorkProofLinks
+                                props={{
+                                  upwork: listOfdata?.upwork,
+                                  github: listOfdata?.github,
+                                  linkedIn: listOfdata?.linkedIn,
+                                  behance_link: listOfdata?.behance_link,
+                                  u: urlInfo?.u,
+                                }}
+                              />
                             </div>
-                          </>
-                        )}
-                      </nav>
+                            <p className='text-[1.4rem] font-normal text-paragraph1 mt-[1.6rem]'>
+                              My Work Proof
+                            </p>
+                          </div>
+                          {!urlInfo?.u && (
+                            <>
+                              <hr className='h-[0.1rem] w-full bg-border' />
+                              {/* Contact Me */}
+                              <div className='w-full'>
+                                <div className='w-full flex items-center gap-[1.4rem]'>
+                                  <ContactMeLinks
+                                    props={{
+                                      email: listOfdata?.email,
+                                      phone_no: listOfdata?.phone_no,
+                                    }}
+                                  />
+                                </div>
+                                <p className='text-[1.4rem] font-normal text-paragraph1 mt-[1.6rem]'>
+                                  Contact Me
+                                </p>
+                              </div>
+                            </>
+                          )}
+                        </nav>
+                      )}
                     </div>
                   </div>
                   {/* Buttons */}
@@ -245,6 +306,7 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
                   )}
                 </div>
               </div>
+
               {/* Mobile Header  */}
               <div className='min-[1100px]:hidden mainContainer flex items-center justify-between bg-white py-[1.2rem] relative z-[200]'>
                 {/* User Profile  */}
@@ -284,20 +346,74 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
                       <div className='flex flex-col'>
                         {/* Nav Link */}
                         <nav className='text-[#101828] text-[1.6rem] font-medium leading-[2.4rem] flex flex-col  gap-[2.4rem]'>
-                          {headerLinks.map((link, index) => (
-                            <div
-                              key={index}
-                              className={`hover:text-primary duration-300`}
-                            >
-                              <Link href={link.src}>{link.title}</Link>
-                            </div>
-                          ))}
+                          {headerLinks.map((link, index) =>
+                            link.isDropdown ? (
+                              <div
+                                className='flex flex-col'
+                                ref={servicesDropdownRef}
+                              >
+                                <div
+                                  className='text-paragraph1 text-[1.6rem] font-normal leading-normal hover:text-primary duration-300 cursor-pointer flex gap-[0.8rem]'
+                                  onClick={handleToggleServices}
+                                >
+                                  <p>{link?.title}</p>
+                                  <Image
+                                    src='/images/dropDown.svg' // Use a relative path starting with '/'
+                                    alt='dropMenu'
+                                    height={24}
+                                    width={24}
+                                    className={`cursor-pointer duration-300 ${
+                                      isServicesOpen ? 'rotate-180' : 'rotate-0'
+                                    }`}
+                                  />
+                                </div>
+                                {/* Positioned DropDown Menu */}
+                                {isServicesOpen && (
+                                  <nav
+                                    className={`rounded-[0.8rem] duration-300 shadow-md bg-white z-50
+                    ${
+                      isServicesOpen
+                        ? 'h-[21.5rem] opacity-100'
+                        : 'h-0 opacity-0'
+                    }
+                   
+                       p-[2rem] text-primary text-[1.6rem] font-normal leading-normal flex flex-col gap-[1.5rem] max-w-[32rem] w-full text-nowrap`}
+                                  >
+                                    <div className='w-full'>
+                                      {listOfdata?.services?.map(
+                                        (service, index) => (
+                                          <Link
+                                            href={`/offer?service=${service?.title}`}
+                                            key={index}
+                                            className={`w-full flex items-center gap-[1.4rem] px-4 py-2 hover:bg-primary hover:text-white hover:rounded-lg transition-all duration-300 ease-in-out cursor-pointer text-wrap border-b border-gray-200 last:border-b-0`}
+                                          >
+                                            {service?.title}
+                                          </Link>
+                                        )
+                                      )}
+                                    </div>
+                                  </nav>
+                                )}
+                              </div>
+                            ) : (
+                              <div
+                                key={index}
+                                className={`hover:text-primary duration-300`}
+                              >
+                                <Link href={link.src}>{link.title}</Link>
+                              </div>
+                            )
+                          )}
                         </nav>
+
                         {/* Resources DropDwon Menu */}
-                        <div className='flex flex-col my-[2rem]'>
+                        <div
+                          className='flex flex-col my-[2rem]'
+                          ref={resourceDropdownRef}
+                        >
                           <div
                             className='text-paragraph1 text-[1.6rem] font-normal leading-normal hover:text-primary duration-300 cursor-pointer flex gap-[0.8rem]'
-                            onClick={handleToggle}
+                            onClick={handleToggleResource}
                           >
                             <p>Resources</p>
                             <Image
@@ -305,54 +421,57 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
                               alt='dropMenu'
                               height={24}
                               width={24}
-                              onClick={handleToggle}
                               className={`cursor-pointer duration-300 ${
                                 isResourceOpen ? 'rotate-180' : 'rotate-0'
                               }`}
                             />
                           </div>
                           {/* Positioned DropDown Menu */}
-                          <nav
-                            className={`rounded-[0.8rem] duration-300 shadow-md bg-white z-50
-                  ${isResourceOpen ? 'h-[21.5rem]' : 'h-0'}
-                  ${isResourceOpen ? 'opacity-100' : 'opacity-0'}
+                          {isResourceOpen && (
+                            <nav
+                              className={`rounded-[0.8rem] duration-300 shadow-md bg-white z-50
+                  ${
+                    isResourceOpen ? 'h-[21.5rem] opacity-100' : 'h-0 opacity-0'
+                  }
+                
                      p-[2rem] text-primary text-[1.6rem] font-normal leading-normal flex flex-col gap-[1.5rem] max-w-[32rem] w-full text-nowrap`}
-                          >
-                            <div className='w-full'>
-                              <div className='w-full flex items-center gap-[1.4rem]'>
-                                <WorkProofLinks
-                                  props={{
-                                    upwork: listOfdata?.upwork,
-                                    github: listOfdata?.github,
-                                    linkedIn: listOfdata?.linkedIn,
-                                    behance_link: listOfdata?.behance_link,
-                                    u: urlInfo?.u,
-                                  }}
-                                />
-                              </div>
-                              <p className='text-[1.4rem] font-normal text-paragraph1 mt-[1.6rem]'>
-                                My Work Proof
-                              </p>
-                            </div>
-                            {!urlInfo?.u && (
-                              <>
-                                <hr className='h-[0.1rem] w-full bg-border' />
-                                <div className='w-full'>
-                                  <div className='w-full flex items-center gap-[1.4rem]'>
-                                    <ContactMeLinks
-                                      props={{
-                                        email: listOfdata?.email,
-                                        phone_no: listOfdata?.phone_no,
-                                      }}
-                                    />
-                                  </div>
-                                  <p className='text-[1.4rem] font-normal text-paragraph1 mt-[1.6rem]'>
-                                    Contact Me
-                                  </p>
+                            >
+                              <div className='w-full'>
+                                <div className='w-full flex items-center gap-[1.4rem]'>
+                                  <WorkProofLinks
+                                    props={{
+                                      upwork: listOfdata?.upwork,
+                                      github: listOfdata?.github,
+                                      linkedIn: listOfdata?.linkedIn,
+                                      behance_link: listOfdata?.behance_link,
+                                      u: urlInfo?.u,
+                                    }}
+                                  />
                                 </div>
-                              </>
-                            )}
-                          </nav>
+                                <p className='text-[1.4rem] font-normal text-paragraph1 mt-[1.6rem]'>
+                                  My Work Proof
+                                </p>
+                              </div>
+                              {!urlInfo?.u && (
+                                <>
+                                  <hr className='h-[0.1rem] w-full bg-border' />
+                                  <div className='w-full'>
+                                    <div className='w-full flex items-center gap-[1.4rem]'>
+                                      <ContactMeLinks
+                                        props={{
+                                          email: listOfdata?.email,
+                                          phone_no: listOfdata?.phone_no,
+                                        }}
+                                      />
+                                    </div>
+                                    <p className='text-[1.4rem] font-normal text-paragraph1 mt-[1.6rem]'>
+                                      Contact Me
+                                    </p>
+                                  </div>
+                                </>
+                              )}
+                            </nav>
+                          )}
                         </div>
                       </div>
                       {/* Buttons */}

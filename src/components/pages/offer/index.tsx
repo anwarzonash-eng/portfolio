@@ -32,7 +32,7 @@ const Offer = ({ params }: { params: any }) => {
   const [categoryPictures, setCategoryPictures] = useState({});
   const serviceRefs = useRef([]);
 
-  const serviceIndex = searchParams.get('serviceIndex');
+  const serviceToScroll = searchParams.get('service');
 
   useEffect(() => {
     setURLInfo(getRoutesDetails(params, searchParams));
@@ -82,14 +82,14 @@ const Offer = ({ params }: { params: any }) => {
   useEffect(() => {
     if (
       serviceRefs?.current &&
-      serviceIndex &&
-      serviceRefs?.current[serviceIndex]
+      serviceToScroll &&
+      serviceRefs?.current[serviceToScroll]
     ) {
-      serviceRefs?.current[serviceIndex]?.scrollIntoView({
+      serviceRefs?.current[serviceToScroll]?.scrollIntoView({
         behavior: 'smooth',
       });
     }
-  }, [serviceIndex, detailService, mainService]);
+  }, [serviceToScroll, detailService]);
 
   if (!loading && listOfdata) {
     return (
@@ -358,7 +358,7 @@ const Offer = ({ params }: { params: any }) => {
               <div
                 key={index}
                 ref={(el) => {
-                  serviceRefs.current[index + 1] = el;
+                  serviceRefs.current[service?.title] = el;
                 }}
                 className='w-full bg-white rounded-[1rem] border border-border border-solid mb-[3rem] overflow-hidden'
               >
