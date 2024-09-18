@@ -23,6 +23,7 @@ import { store } from '@/store';
 import { setProfileLoading, setProfileUrlInfo } from '@/store/profileSlice';
 import { scrollToContact } from '@/hooks/scrollToFooter';
 import { blogsListing } from '@/hooks/apihandlers/blogListingApiHandler';
+import Newsletter from '@/components/Newsletter';
 
 const CV = ({ params }: { params: any }) => {
   const searchParams = useSearchParams();
@@ -987,6 +988,11 @@ const CV = ({ params }: { params: any }) => {
             </div>
           </section>
         </div>
+        {!urlInfo?.u && (
+          <div className='w-full my-[9.6rem]'>
+            <Newsletter />
+          </div>
+        )}
       </>
     );
   } else {

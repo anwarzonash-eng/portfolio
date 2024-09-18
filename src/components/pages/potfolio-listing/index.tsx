@@ -458,9 +458,12 @@ const PortfolioListing = ({ params }: { params: any }) => {
           <OurBlogs listOfdata={listOfdata} />
         </div>
         {/* Newsletter */}
-        <div className='w-full my-[9.6rem]'>
-          <Newsletter />
-        </div>
+
+        {!urlInfo?.u && (
+          <div className='w-full my-[9.6rem]'>
+            <Newsletter />
+          </div>
+        )}
       </div>
     );
   } else {

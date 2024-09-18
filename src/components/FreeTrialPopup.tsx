@@ -48,7 +48,8 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
             {/* Top Content */}
             <div
               className={`relative w-full ${
-                listOfdata?.video && 'min-h-[44rem] sm:min-h-[62rem]'
+                listOfdata?.video_attached?.videoURL &&
+                'min-h-[44rem] sm:min-h-[62rem]'
               }`}
             >
               {/* Image */}
@@ -63,17 +64,19 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
               <div className='relative w-full h-full z-20'>
                 <div className='text-white text-center flex flex-col gap-[1.2rem] items-center justify-center py-[3rem]'>
                   <h1 className='text-[3.2rem] lg:text-[5rem] font-bold leading-normal'>
-                    2 Weeks Free Trial Development!
+                    {listOfdata?.companytype == 'leewop'
+                      ? '2 Weeks Free Trial Business Finance!'
+                      : '2 Weeks Free Trial Development!'}
                   </h1>
                   <p className='text-[1.8rem] lg:text-[2.2rem] font-normal leading-normal'>
                     Work with me for 2 weeks with guaranteed satisfaction.
                   </p>
                 </div>
-                {listOfdata?.video && (
-                  <div className='pb-10 relative flex items-end justify-center max-w-[97.7rem] w-full px-[1.5rem] mx-auto'>
+                {listOfdata?.video_attached?.videoURL && (
+                  <div className='pb-10 relative rounded[1.2rem] flex items-end justify-center max-w-[97.7rem] w-full px-[1.5rem] mx-auto'>
                     {/* Video Section */}
-                    <VideoPlayer
-                      videoSrc={listOfdata?.video}
+                    {/* <VideoPlayer
+                      videoSrc={listOfdata?.video_attached?.videoURL}
                       videoClassName='rounded[1.2rem] h-full w-full h-[28.8rem] sm:h-[44rem] object-cover'
                       thumbnailSrc={
                         listOfdata?.profile_photo_3 || '/images/popUpPic.png'
@@ -85,7 +88,20 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
                       closeButtonClassName='custom-close-button'
                       playIcon='/images/popUpPlay.svg'
                       closeIcon='/images/close-icon.svg'
-                    />
+                    /> */}
+                    <video
+                      autoPlay
+                      muted
+                      loop
+                      controls
+                      className='rounded-xl w-full h-[28.8rem] sm:h-[44rem] object-cover'
+                    >
+                      <source
+                        src={listOfdata?.video_attached?.videoURL}
+                        type='video/mp4'
+                      />
+                      Your browser does not support the video tag.
+                    </video>
                   </div>
                 )}
               </div>

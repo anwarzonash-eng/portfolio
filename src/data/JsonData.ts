@@ -154,7 +154,13 @@ export const FaqsData = [
     question: 'What is your development process?',
     answer:
       'My development process begins with an in-depth consultation to understand your needs and goals. From there, I move into project planning, wireframing, and design. Once approved, I start development, followed by thorough testing, and then deployment. Throughout the process, I maintain open communication and offer you opportunities to provide feedback at key stages.',
-    altName: 'Process',
+    altName: 'Development_process',
+  },
+  {
+    question: 'What is your bookkeeping process?',
+    answer:
+      '  My bookkeeping process begins with an in-depth consultation to understand your financial needs and goals. From there, I move into organizing your financial data, setting up accounting systems, and managing records. Once set, I focus on maintaining accurate bookkeeping, followed by thorough reviews and reporting. Throughout the process, I ensure open communication and offer you opportunities to review and provide feedback at key stages.',
+    altName: 'bookkeeping_process',
   },
 ];
 

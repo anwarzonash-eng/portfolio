@@ -2,7 +2,6 @@ import React from 'react';
 import Image from 'next/image';
 
 const MyServicesCards = ({ services }) => {
-  console.log('services', services);
   return (
     <>
       {services.map((service, index) => (

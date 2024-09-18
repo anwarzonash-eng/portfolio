@@ -3,18 +3,23 @@ import { scrollToContact } from '@/hooks/scrollToFooter';
 import React from 'react';
 import { useState, useEffect } from 'react';
 
-interface FAQ {
-  question: string;
-  answer: string;
-}
-
-const Faqs = ({ urlInfo }) => {
+const Faqs = ({ urlInfo, companyType }) => {
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
 
   // Function to toggle FAQ
   const toggleFAQ = (index: number) => {
     setActiveFaq(activeFaq === index ? null : index);
   };
+
+  const filteredFaqs = FaqsData?.filter(({ altName }) => {
+    const urlFilter =
+      !urlInfo?.u || (altName !== 'Starting' && altName !== 'Payment');
+    const companyFilter =
+      companyType === 'leewop'
+        ? altName !== 'Development_process'
+        : altName !== 'bookkeeping_process';
+    return urlFilter && companyFilter;
+  });
 
   return (
     <>
@@ -46,9 +51,8 @@ const Faqs = ({ urlInfo }) => {
           {/* Faq Container */}
           <div className='w-full'>
             <h2 className='text-[4rem] font-medium text-heading'>FAQ</h2>
-            {FaqsData.filter(({ altName }) =>
-              urlInfo?.u ? altName !== 'Payment' : true
-            ).map((faq, index) => (
+
+            {filteredFaqs.map((faq, index) => (
               <div
                 key={index}
                 className='mb-4 border-b border-solid border-border'

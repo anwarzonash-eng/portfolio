@@ -7,7 +7,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { formikEnums } from '@/enums/formikEnums';
 
-const OfferBanner = () => {
+const OfferBanner = ({ companyType }) => {
   const initialValues = {
     email: '',
   };
@@ -34,11 +34,17 @@ const OfferBanner = () => {
         {/* I Place it in Div BCZ later i will animate this */}
         <div className='flex items-center gap-1'>
           <div className='text-heading text-[1.8rem] hidden min-[1122px]:block'>
-            <CharacterAnimation text='Subscribe for FREE 2-Week Development TRIAL!' />
+            <CharacterAnimation
+              text={`${
+                companyType == 'leewop'
+                  ? 'Subscribe for FREE 2-Week Business Finance TRIAL!'
+                  : 'Subscribe for FREE 2-Week Development TRIAL!'
+              } `}
+            />
           </div>
-          <div className='text-heading text-[1.8rem] min-[1122px]:hidden'>
+          {/* <div className='text-heading text-[1.8rem] min-[1122px]:hidden'>
             <CharacterAnimation text='Get Free Development Trial!' />
-          </div>
+          </div> */}
           <div className='mb-2'>
             <img src='/images/offerBannerStars.svg' />
           </div>

@@ -15,7 +15,6 @@ export const blogsListing = async (
     const res = await axios.get(
       `https://www.blog.cypexsoft.com/wp-json/wp/v2/posts?author=${authorId}&_embed=true`
     );
-    console.log('blogs', res?.data);
     setLoadingBlogs(false);
     setBlogsList(res?.data);
   } catch (error) {

@@ -3,7 +3,7 @@ import Image from 'next/image';
 import VideoPlayer from '@/components/VideoPlayer';
 import useBodyBackgroundColor from '@/hooks/useBodyBackgroundColor';
 import HomeSlider from '@/components/Sliders/HomeSlider';
-import Faq from '@/components/Faqs';
+import Faqs from '@/components/Faqs';
 import WorkProofLinks from '@/components/WorkProofLinks';
 import ContactMeLinks from '@/components/ContactMeLinks';
 import MyServices from '@/components/MyServicesCards';
@@ -36,7 +36,6 @@ const Home = ({ params }: { params: any }) => {
   const [listOfskills, setListOfSkills] = useState([]);
   const [loading, setLoading] = useState(true);
   const searchParams = useSearchParams();
-  console.log('urlInfo', urlInfo);
   useEffect(() => {
     setURLInfo(getRoutesDetails(params, searchParams));
   }, [params, searchParams]);
@@ -131,7 +130,7 @@ const Home = ({ params }: { params: any }) => {
                 width={731}
                 height={707}
                 alt=''
-                src={listOfdata?.profile_photo_1}
+                src={listOfdata?.profile_photo_2}
               />
               {/* Positioned Elementes Price */}
               <div className='flex gap-[0.35rem]  text-primary text-[1.4rem] font-medium rounded-[3.5rem] py-[0.69rem] bg-white shadow-lg w-[10rem] px-[0.9rem] absolute top-[22%] left-[80%] translate-x-[-60%] animate-pulse text-nowrap'>
@@ -177,7 +176,7 @@ const Home = ({ params }: { params: any }) => {
                   width={731}
                   height={707}
                   alt=''
-                  src={listOfdata?.profile_photo_1}
+                  src={listOfdata?.profile_photo_2}
                   className=''
                 />
                 {/* Left Pricing and Hours Badge Positoned */}
@@ -260,7 +259,7 @@ const Home = ({ params }: { params: any }) => {
               <div
                 className='relative h-[44rem] xl:h-[65rem] max-w-[56rem] bg-center bg-cover bg-no-repeat w-full rounded-[1rem]'
                 style={{
-                  backgroundImage: `url('${listOfdata?.profile_photo_2}')`,
+                  backgroundImage: `url('${listOfdata?.profile_photo_3}')`,
                 }}
               >
                 {/* Experience Badge */}
@@ -468,10 +467,10 @@ const Home = ({ params }: { params: any }) => {
         </section>
 
         {/* Custom Video Player Section */}
-        {listOfdata?.video && (
-          <div className='w-full mb-[10rem] xl:mb-[12rem]'>
-            <VideoPlayer
-              videoSrc={listOfdata?.video}
+        {listOfdata?.video_attached?.videoURL && (
+          <div className='w-full mb-[10rem] xl:mb-[12rem] mainContainer'>
+            {/* <VideoPlayer
+              videoSrc={listOfdata?.video_attached?.videoURL}
               videoClassName='rounded-[1.2rem] h-full w-full h-[40rem] lg:h-[70rem] object-cover'
               thumbnailSrc={
                 listOfdata?.profile_photo_3 || '/images/thumbnail.png'
@@ -483,7 +482,20 @@ const Home = ({ params }: { params: any }) => {
               closeButtonClassName='rounded-full custom-close-button'
               playIcon='/images/Play.svg'
               closeIcon='/images/close-icon.svg'
-            />
+            /> */}
+            <video
+              autoPlay
+              muted
+              loop
+              controls
+              className='rounded-xl h-[40rem] lg:h-[70rem] w-full object-cover'
+            >
+              <source
+                src={listOfdata?.video_attached?.videoURL}
+                type='video/mp4'
+              />
+              Your browser does not support the video tag.
+            </video>
           </div>
         )}
 
@@ -631,7 +643,7 @@ const Home = ({ params }: { params: any }) => {
                                       </div>
                                     </div>
                                     {/* Card */}
-                                    <div className='bg-white p-[1.5rem] lg:p-[2.4rem] rounded-[1rem] shadow lg:ml-[6rem]'>
+                                    <div className='bg-white p-[1.5rem] lg:p-[2.4rem] rounded-[1rem] shadow lg:ml-[6rem] w-full'>
                                       <div className='flex items-center justify-between flex-wrap text-nowrap max-[375px]:justify-center'>
                                         {/* About Content */}
                                         <div className='flex gap-[1rem]'>
@@ -756,15 +768,17 @@ const Home = ({ params }: { params: any }) => {
       </section> */}
 
         {/* FAQ Section Completed */}
-        <Faq urlInfo={urlInfo} />
+        <Faqs urlInfo={urlInfo} companyType={listOfdata?.companytype} />
         {/* Our Blogs */}
         <div className='my-[10rem] lg:my-[12.6rem]'>
           <OurBlogs listOfdata={listOfdata} />
         </div>
         {/* Newsletter */}
-        <div className='w-full my-[9.6rem]'>
-          <Newsletter />
-        </div>
+        {!urlInfo?.u && (
+          <div className='w-full my-[9.6rem]'>
+            <Newsletter />
+          </div>
+        )}
       </main>
     );
   } else {

@@ -8,6 +8,7 @@ import WorkProofLinks from '@/components/WorkProofLinks';
 import ContactMeLinks from '@/components/ContactMeLinks';
 import { useAppSelector } from '@/store';
 import { scrollToContact } from '@/hooks/scrollToFooter';
+import OfferBanner from '@/components/OfferBanner';
 
 interface HeaderLink {
   title: string;
@@ -131,6 +132,7 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
   if (!loading) {
     return (
       <>
+        {!urlInfo?.u && <OfferBanner companyType={listOfdata?.companytype} />}
         {!pathname.includes('cv') && (
           <header
             className={`sticky top-0 left-0 w-full z-[100]  transition-colors duration-300 ${bgColor}`}
@@ -296,12 +298,21 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
                           Contact Me
                         </button>
                       </Link>
-                      <button
-                        onClick={scrollToContact}
-                        className='btn-primary rounded-[0.6rem] border-2 border-border border-solid py-[1rem] px-[3.4rem] text-[1.6rem] font-medium text-white'
-                      >
-                        Schedule Call
-                      </button>
+                      {listOfdata?.calendly_link ? (
+                        <Link
+                          className='btn-primary rounded-[0.6rem] border-2 border-border border-solid py-[1rem] px-[3.4rem] text-[1.6rem] font-medium text-white'
+                          href={listOfdata?.calendly_link || '#'}
+                        >
+                          Schedule Call
+                        </Link>
+                      ) : (
+                        <button
+                          className='btn-primary rounded-[0.6rem] border-2 border-border border-solid py-[1rem] px-[3.4rem] text-[1.6rem] font-medium text-white'
+                          onClick={scrollToContact}
+                        >
+                          Hire Me
+                        </button>
+                      )}
                     </div>
                   )}
                 </div>
@@ -485,12 +496,22 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
                               Contact Me
                             </button>
                           </Link>
-                          <button
-                            onClick={scrollToContact}
-                            className='btn-primary rounded-[0.6rem] border-2 border-border border-solid py-[1rem] px-[3.4rem] text-[1.6rem] font-medium text-white'
-                          >
-                            Schedule Call
-                          </button>
+
+                          {listOfdata?.calendly_link ? (
+                            <Link
+                              className='btn-primary rounded-[0.6rem] text-center border-2 border-border border-solid py-[1rem] px-[3.4rem] text-[1.6rem] font-medium text-white'
+                              href={listOfdata?.calendly_link || '#'}
+                            >
+                              Schedule Call
+                            </Link>
+                          ) : (
+                            <button
+                              onClick={scrollToContact}
+                              className='btn-primary rounded-[0.6rem] border-2 border-border border-solid py-[1rem] px-[3.4rem] text-[1.6rem] font-medium text-white'
+                            >
+                              Hire Me{' '}
+                            </button>
+                          )}
                         </div>
                       )}
                     </div>

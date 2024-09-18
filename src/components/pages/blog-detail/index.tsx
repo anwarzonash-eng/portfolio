@@ -25,7 +25,6 @@ const BlogDetails = ({ params }: { params: any }) => {
   const [blogdata, setBlogData] = useState(null);
   const [error, setError] = useState(null);
 
-  console.log('paramaaas', params);
   const searchParams = useSearchParams();
 
   useEffect(() => {
@@ -45,7 +44,6 @@ const BlogDetails = ({ params }: { params: any }) => {
       const res = await axios.get(
         `https://www.blog.cypexsoft.com/wp-json/wp/v2/posts/${params?.id}?_embed=true`
       );
-      console.log('blogs', res);
       setLoadingBlogs(false);
       setBlogData(res?.data);
     } catch (error) {
@@ -53,7 +51,6 @@ const BlogDetails = ({ params }: { params: any }) => {
       setError(
         error?.response?.data?.message || 'Invalid URL. Please try again.'
       );
-      console.log('error', error?.response?.data?.message);
     }
   };
 
@@ -635,9 +632,12 @@ const BlogDetails = ({ params }: { params: any }) => {
         )}
 
         {/* Newsletter */}
-        <section className='w-full mb-[10rem] lg:mb-[12rem]'>
-          <Newsletter />
-        </section>
+
+        {!urlInfo?.u && (
+          <section className='w-full mb-[10rem] lg:mb-[12rem]'>
+            <Newsletter />
+          </section>
+        )}
       </div>
     );
   } else {
