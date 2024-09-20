@@ -356,7 +356,10 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
                     <div className='flex flex-col p-[1rem]'>
                       <div className='flex flex-col'>
                         {/* Nav Link */}
-                        <nav className='text-[#101828] text-[1.6rem] font-medium leading-[2.4rem] flex flex-col  gap-[2.4rem]'>
+                        <nav
+                          onClick={() => setSideBarOpen(!sideBarOpen)}
+                          className='text-[#101828] text-[1.6rem] font-medium leading-[2.4rem] flex flex-col  gap-[2.4rem]'
+                        >
                           {headerLinks.map((link, index) =>
                             link.isDropdown ? (
                               <div

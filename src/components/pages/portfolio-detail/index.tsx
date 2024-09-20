@@ -335,9 +335,7 @@ const PortfolioDetails = ({ params }: { params: any }) => {
 
             {/* SliderXL */}
             {portfolioDetails !== null && (
-              <article className='w-full flex items-center justify-center'>
-                <SliderXL portfolioPictures={portfolioDetails?.pictures} />
-              </article>
+              <SliderXL portfolioPictures={portfolioDetails?.pictures} />
             )}
           </div>
         </section>

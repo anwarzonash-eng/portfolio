@@ -17,10 +17,10 @@ const SliderXL = ({ portfolioPictures }) => {
   return (
     <div className='relative w-full overflow-visible rounded-[1.6rem]'>
       {/* Wrapper with overflow-visible */}
-      <div className='relative w-full overflow-hidden rounded-[1.6rem] shadow-lg'>
+      <div className='relative w-full overflow-hidden rounded-[1.6rem]'>
         {/* Slider container */}
         <div
-          className='flex transition-transform duration-700'
+          className='flex transition-transform duration-700 rounded-[1.6rem]'
           style={{ transform: `translateX(-${currentSlide * 100}%)` }}
         >
           {images.map((img, index) => (
@@ -35,7 +35,7 @@ const SliderXL = ({ portfolioPictures }) => {
       </div>
 
       {/* Display on Less Then XL Devices */}
-      <div className='xl:hidden flex items-center justify-center gap-[2rem] mt-[2rem]'>
+      <div className='xl:hidden flex items-center justify-center gap-[2rem] mt-[1rem]'>
         <button
           onClick={prevSlide}
           className='bg-white rounded-full shadow-md focus:outline-none inline-flex items-center justify-center h-[5rem] w-[5rem] xl:h-[7.2rem] xl:w-[7.2rem]'

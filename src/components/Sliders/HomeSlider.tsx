@@ -85,7 +85,7 @@ const HomeSlider = ({ portfolios }) => {
                     </div>
                   )}
                   {/* Heading */}
-                  <h1 className='text-[2.4rem] lg:text-[3.2rem] font-bold leading-[3rem] lg:leading-[4rem] text-heading'>
+                  <h1 className='text-[2.4rem] pt-[1rem] lg:text-[3.2rem] font-bold leading-[3rem] lg:leading-[4rem] text-heading'>
                     {portfolio.title}
                   </h1>
                   {/* Para */}

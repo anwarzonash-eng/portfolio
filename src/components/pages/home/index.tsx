@@ -568,7 +568,7 @@ const Home = ({ params }: { params: any }) => {
             <>
               {/* My Work Section Slider  */}
               <section className='w-full'>
-                <div className='mainContainer my-[12rem]'>
+                <div className='mainContainer my-[5rem]'>
                   {/* Badge */}
                   <div className='px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto'>
                     My Work
@@ -590,7 +590,7 @@ const Home = ({ params }: { params: any }) => {
             <>
               {/* Professional Experience Timeline Section Completed */}
               <section className='w-full'>
-                <div className='mainContainer my-[12rem]'>
+                <div className='mainContainer '>
                   {/* Badge */}
                   <div className='px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto'>
                     Professional Experience
@@ -644,7 +644,7 @@ const Home = ({ params }: { params: any }) => {
                                     </div>
                                     {/* Card */}
                                     <div className='bg-white p-[1.5rem] lg:p-[2.4rem] rounded-[1rem] shadow lg:ml-[6rem] w-full'>
-                                      <div className='flex items-center justify-between flex-wrap text-nowrap max-[375px]:justify-center'>
+                                      <div className='flex items-center justify-between flex-wrap text-nowrap gap-[3rem] max-[375px]:justify-center'>
                                         {/* About Content */}
                                         <div className='flex gap-[1rem]'>
                                           {experience?.thumbnail && (

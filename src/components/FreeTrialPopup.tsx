@@ -29,11 +29,11 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
 
   return (
     <>
-      <div className='fixed top-0 left-0 w-full h-full bg-primary bg-opacity-50 z-[500]'>
-        <div className='rounded[1.2rem] relative w-full h-full overflow-y-auto  py-[10rem]'>
+      <div className='fixed top-0 left-0 w-full h-full bg-opacity-50 backdrop-blur-sm z-[500]'>
+        <div className='rounded-[1.2rem] relative w-full h-full overflow-y-auto  py-[10rem]'>
           <Confetti />
           {/* Free Trial PopUp */}
-          <div className='rounded[1.2rem] max-w-[102.4rem] mx-auto w-full bg-trialPopUpGradient relative'>
+          <div className='rounded-[1.2rem] max-w-[102.4rem] mx-auto w-full bg-trialPopUpGradient relative'>
             {/* Close Icon */}
             <div className='absolute top-[-1rem] right-[-1rem] cursor-pointer z-[60]'>
               <Image
@@ -73,17 +73,17 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
                   </p>
                 </div>
                 {listOfdata?.video_attached?.videoURL && (
-                  <div className='pb-10 relative rounded[1.2rem] flex items-end justify-center max-w-[97.7rem] w-full px-[1.5rem] mx-auto'>
+                  <div className='pb-10 relative rounded-[1.2rem] flex items-end justify-center max-w-[97.7rem] w-full px-[1.5rem] mx-auto'>
                     {/* Video Section */}
                     {/* <VideoPlayer
                       videoSrc={listOfdata?.video_attached?.videoURL}
-                      videoClassName='rounded[1.2rem] h-full w-full h-[28.8rem] sm:h-[44rem] object-cover'
+                      videoClassName='rounded-[1.2rem] h-full w-full h-[28.8rem] sm:h-[44rem] object-cover'
                       thumbnailSrc={
                         listOfdata?.profile_photo_3 || '/images/popUpPic.png'
                       }
-                      containerClassName='rounded[1.2rem] max-w-[1200px] w-full'
-                      thumbnailClassName='rounded[1.2rem] h-[28.8rem] sm:h-[44rem]'
-                      thumbnailImage='rounded[1.2rem] object-cover h-full w-full rounded-[1rem]'
+                      containerClassName='rounded-[1.2rem] max-w-[1200px] w-full'
+                      thumbnailClassName='rounded-[1.2rem] h-[28.8rem] sm:h-[44rem]'
+                      thumbnailImage='rounded-[1.2rem] object-cover h-full w-full rounded-[1rem]'
                       playButtonClassName='!w-[100px] !h-[100px] relative flex items-center justify-center'
                       closeButtonClassName='custom-close-button'
                       playIcon='/images/popUpPlay.svg'
@@ -108,7 +108,7 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
             </div>
 
             {/* Bottom Content */}
-            <div className='bg-white'>
+            <div className='bg-white rounded-[1.2rem]'>
               {/* Heading and Button */}
               <div className='flex flex-wrap justify-center lg:justify-between lg:flex-nowrap lg:items-center gap-[2rem] py-[2rem] px-[3rem] border-b border-solid border-border'>
                 <div className='max-w-[614px] w-full flex-shrink-0'>
