@@ -271,21 +271,13 @@ const PortfolioDetails = ({ params }: { params: any }) => {
             ></div>
 
             {/* Detiald Banner 2 */}
-            <div className='w-full h-auto my-[6.4rem]'>
+            <div className='w-full h-auto my-[2.4rem]'>
               <Image
                 src={portfolioDetails?.thumbnail}
                 height={1500}
                 width={1500}
                 alt='Banner'
-                className=' object-contain rounded-[1rem]'
-              />
-              {/* Mobile */}
-              <Image
-                src={portfolioDetails?.thumbnail}
-                height={500}
-                width={1000}
-                alt='Banner'
-                className='h-[55.6rem] w-full object-contain md:hidden rounded-[1rem]'
+                className=' object-contain rounded-[1rem] '
               />
             </div>
 
