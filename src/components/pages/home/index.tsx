@@ -133,7 +133,19 @@ const Home = ({ params }: { params: any }) => {
                 src={listOfdata?.profile_photo_2}
               />
               {/* Positioned Elementes Price */}
-              <div className='flex gap-[0.35rem]  text-primary text-[1.4rem] font-medium rounded-[3.5rem] py-[0.69rem] bg-white shadow-lg w-[10rem] px-[0.9rem] absolute top-[22%] left-[80%] translate-x-[-60%] animate-pulse text-nowrap'>
+
+              <div className='flex gap-[0.35rem] text-nowrap text-primary text-[1.4rem] font-medium rounded-[3.5rem] py-[0.69rem] bg-white shadow-lg px-[1.2rem] absolute top-[22%] left-[90%] translate-x-[-90%] md:left-[80%] md:translate-x-[-80%] animate-pulse min-w-max'>
+                <Image
+                  src={'/images/clock.svg'}
+                  height={14}
+                  width={14}
+                  alt='Clock'
+                />
+                <p>45 hr / Week Availability</p>
+              </div>
+
+              {/* Positioned Elementes Availability */}
+              <div className='flex gap-[0.35rem] text-nowrap text-primary text-[2rem] font-medium rounded-[3.5rem] py-[0.69rem] bg-white shadow-lg max-w-max px-[0.9rem] pr-[1.4rem] absolute bottom-[38%] left-[15%] translate-x-[-15%] md:left-[20%] md:translate-x-[-20%] animate-pulse'>
                 <Image
                   src={'/images/dollar-symbol.svg'}
                   height={14}
@@ -141,17 +153,7 @@ const Home = ({ params }: { params: any }) => {
                   alt='Dollar Symbol'
                   className='h-[auto] w-[auto]'
                 />
-                <p>${listOfdata?.hourly_rate} /hour</p>
-              </div>
-              {/* Positioned Elementes Availability */}
-              <div className='flex  gap-[0.35rem] text-nowrap  text-primary text-[1.4rem] font-medium rounded-[3.5rem] py-[0.69rem] bg-white shadow-lg max-w-max px-[0.9rem] pr-[1.4rem] absolute bottom-[38%] left-[20%] translate-x-[-20%] animate-pulse'>
-                <Image
-                  src={'/images/clock.svg'}
-                  height={14}
-                  width={14}
-                  alt='Clock'
-                />
-                <p>45 hr/Week Availability</p>
+                <p>${listOfdata?.hourly_rate} / hour</p>
               </div>
             </div>
           </div>
@@ -251,7 +253,7 @@ const Home = ({ params }: { params: any }) => {
         </div>
 
         {/* About Section Completed*/}
-        <section className='w-full mb-[10rem] xl:mb-[12rem] lg:mt-[5rem]'>
+        <section className='w-full mb-[5rem]'>
           {/* Container Div*/}
           <div className='mainContainer flex flex-col-reverse gap-[5rem] xl:gap-0 xl:flex-row items-center justify-center xl:justify-between'>
             {/* Container For Image and Badges */}
@@ -263,7 +265,7 @@ const Home = ({ params }: { params: any }) => {
                 }}
               >
                 {/* Experience Badge */}
-                <div className='bg-white rounded-[0.8rem] absolute  bottom-[12rem] left-[1rem] xl:bottom-auto xl:left-auto xl:top-[7rem] xl:right-[-8rem] p-[1.4rem] xl:h-[12rem] xl:w-[26rem] xl:rounded-[2rem] flex items-center shadow-md gap-[1rem] xl:gap-[2rem] animate-bounce'>
+                <div className='bg-white rounded-[0.8rem] absolute   bottom-auto left-auto top-[-3rem] right-[3rem] xl:top-[7rem] xl:right-[-8rem] p-[1.4rem] xl:h-[12rem] xl:w-[26rem] xl:rounded-[2rem] flex items-center shadow-md gap-[1rem] xl:gap-[2rem] animate-bounce'>
                   {/* Badge SVG */}
                   <div className='bg-[#2A97FC] rounded-[50%] flex items-center justify-center h-[4.9rem] w-[4.9rem] xl:h-[6.8rem] xl:w-[6.8rem]'>
                     <img
@@ -278,17 +280,16 @@ const Home = ({ params }: { params: any }) => {
                       Experience
                     </h3>
                     <p className='text-[2.4rem] xl:text-[3rem] font-bold text-primary'>
-                      {listOfdata?.no_of_experiences}+
+                      {listOfdata?.no_of_experiences}+{' '}
+                      <span className='text-[2rem]'>
+                        {listOfdata?.no_of_experiences === 1 ? 'year' : 'years'}
+                      </span>
                     </p>
                   </div>
                 </div>
 
                 {/* Projects Badge */}
-                <div
-                  className='
-              bg-white rounded-[0.8rem] xl:rounded-[2rem] p-[1.4rem] xl:h-[12rem] flex items-center shadow-md gap-[1rem] xl:gap-[2rem]
-              absolute bottom-[2rem] left-[1rem] xl:bottom-[3rem] xl:left-[3rem]'
-                >
+                <div className='bg-white  mb-3 rounded-[0.8rem] absolute   top-auto right-auto bottom-[-4rem]   xl:bottom-[3rem] xl:left-[3rem] left-[3rem] p-[1.4rem] xl:h-[12rem] xl:rounded-[2rem] flex items-center shadow-md gap-[1rem] xl:gap-[2rem] animate-bounce xl:animate-none'>
                   {/* Badge SVG */}
                   <div className='bg-[#FC822A] rounded-[50%] flex items-center justify-center h-[4.9rem] w-[4.9rem] xl:h-[6.8rem] xl:w-[6.8rem]'>
                     <img
@@ -300,7 +301,7 @@ const Home = ({ params }: { params: any }) => {
                   {/* Badge Content */}
                   <div className='flex flex-col justify-center'>
                     <h3 className='uppercase text-[1.4rem] xl:text-[1.8rem] font-semibold  text-heading leading-none mt-[1rem]'>
-                      Project Completed
+                      Projects Completed
                     </h3>
                     <p className='text-[2.4rem] xl:text-[3rem] font-bold text-primary'>
                       {listOfdata?.projects_completed}+
@@ -315,7 +316,7 @@ const Home = ({ params }: { params: any }) => {
               <div className='w-full'>
                 {/* Badge */}
                 <div className='px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium  font-Inter leading-[2rem]'>
-                  About us
+                  About Me
                 </div>
                 {/* Heading */}
                 <div
@@ -323,12 +324,20 @@ const Home = ({ params }: { params: any }) => {
                   className='text-heading text-[2.4rem] mt-[2rem] mb-[1.2rem] font-medium leading-[2.8rem] lg:text-[3rem] lg:leading-[3.8rem]'
                 ></div>
                 {/* Paragraph */}
-                <p
-                  className='text-[1.6rem] font-normal text-paragraph1 leading-[2.4rem]'
-                  dangerouslySetInnerHTML={{
-                    __html: listOfdata?.home_page_tagline,
-                  }}
-                ></p>
+                {listOfdata?.home_page_tagline ? (
+                  <p
+                    className='text-[1.6rem] font-normal text-paragraph1  leading-[2.4rem]'
+                    dangerouslySetInnerHTML={{
+                      __html: listOfdata?.home_page_tagline,
+                    }}
+                  ></p>
+                ) : (
+                  <p className='text-[1.6rem] font-normal text-paragraph1  leading-[2.4rem]'>
+                    Currently Open for full time position as a{' '}
+                    <span className='lowercase'>{listOfdata?.designation}</span>
+                    .
+                  </p>
+                )}
               </div>
               {/* Info Cards */}
               <div className='my-[2rem] rounded-[0.8rem] overflow-hidden  w-full grid grid-cols-12'>
@@ -435,9 +444,9 @@ const Home = ({ params }: { params: any }) => {
                 )}
               </div>
               {/* Button Line */}
-              <div className='space-x-5 py-[2rem] '>
+              <div className='md:space-x-5 py-[2rem] '>
                 <Link href={'/cv'}>
-                  <button className='btn-primary rounded-[0.6rem] text-white py-[2rem] px-[5.6rem] text-[1.8rem] font-medium border border-solid border-custom'>
+                  <button className='w-full md:max-w-max btn-primary rounded-[0.6rem] text-white py-[2rem] px-[5.6rem] text-[1.8rem] font-medium border border-solid border-custom'>
                     {' '}
                     View CV Online
                   </button>
@@ -456,7 +465,7 @@ const Home = ({ params }: { params: any }) => {
                             `${listOfdata?.name} - CV`
                           )
                         }
-                        className='btn-primary rounded-[0.6rem] text-white py-[2rem] px-[5.6rem] text-[1.8rem] font-medium border border-solid border-custom'
+                        className='w-full md:max-w-max mt-5 md:mt-0 btn-primary rounded-[0.6rem] text-white py-[2rem] px-[5.6rem] text-[1.8rem] font-medium border border-solid border-custom'
                       >
                         Download CV
                       </button>
@@ -502,7 +511,7 @@ const Home = ({ params }: { params: any }) => {
         {listOfdata && listOfdata?.skills_ids?.length > 0 && (
           <>
             {/* Skills Section Completed */}
-            <div className='mainContainer mb-[10rem] xl:mb-[12rem]'>
+            <div className='mainContainer my-[5rem] '>
               {/* Badge */}
               <div className='px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto'>
                 Skills
@@ -543,7 +552,7 @@ const Home = ({ params }: { params: any }) => {
         {listOfdata &&
           listOfdata?.services &&
           listOfdata?.services?.length > 0 && (
-            <section className='w-full bg-sectionBG'>
+            <section className='w-full bg-sectionBG my-[5rem]'>
               <div className='mainContainer py-[5rem] xl:py-[10rem]'>
                 {/* Badge */}
                 <div className='px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto'>
@@ -567,7 +576,7 @@ const Home = ({ params }: { params: any }) => {
           listOfdata.portfolios_ids.length > 0 && (
             <>
               {/* My Work Section Slider  */}
-              <section className='w-full'>
+              <section className='w-full my-[5rem]'>
                 <div className='mainContainer my-[5rem]'>
                   {/* Badge */}
                   <div className='px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto'>
@@ -600,7 +609,7 @@ const Home = ({ params }: { params: any }) => {
                     My Professional Career Journey
                   </div>
                   {/* Timeline */}
-                  <div className='mainContainer flex items-center justify-center mt-[4rem] lg:mt-[6rem]'>
+                  <div className='mainContainer flex items-center justify-center mt-[2rem] '>
                     <div className='relative'>
                       {/* Vertical line */}
                       <div className='absolute left-[10rem] top-[3rem] w-[0.4rem] h-[100%] bg-border  mx-[2.1rem] hidden lg:block' />
@@ -644,7 +653,7 @@ const Home = ({ params }: { params: any }) => {
                                     </div>
                                     {/* Card */}
                                     <div className='bg-white p-[1.5rem] lg:p-[2.4rem] rounded-[1rem] shadow lg:ml-[6rem] w-full'>
-                                      <div className='flex items-center justify-between flex-wrap text-nowrap gap-[3rem] max-[375px]:justify-center'>
+                                      <div className='flex items-center flex-wrap text-nowrap gap-[1.5rem] md:justify-between'>
                                         {/* About Content */}
                                         <div className='flex gap-[1rem]'>
                                           {experience?.thumbnail && (
@@ -666,22 +675,25 @@ const Home = ({ params }: { params: any }) => {
                                             </h3>
                                           </div>
                                         </div>
-                                        {/* Link */}
 
-                                        <Link
-                                          href={experience?.company_website}
-                                        >
-                                          <button className='flex items-center gap-[0.52rem] btn-secondary rounded-[1.6rem] border-2 border-border border-solid py-[0.5rem] px-[1.4rem] text-[1.6rem] font-medium text-white'>
-                                            <Image
-                                              src={'/images/link.svg'}
-                                              height={18}
-                                              width={18}
-                                              alt='Link'
-                                            />{' '}
-                                            View Online
-                                          </button>
-                                        </Link>
+                                        {/* Link */}
+                                        <div className='flex justify-center md:justify-end w-full md:w-auto'>
+                                          <Link
+                                            href={experience?.company_website}
+                                          >
+                                            <button className='flex items-center gap-[0.52rem] btn-secondary rounded-[1.6rem] border-2 border-border border-solid py-[0.5rem] px-[1.4rem] text-[1.6rem] font-medium text-white'>
+                                              <Image
+                                                src={'/images/link.svg'}
+                                                height={18}
+                                                width={18}
+                                                alt='Link'
+                                              />{' '}
+                                              View Online
+                                            </button>
+                                          </Link>
+                                        </div>
                                       </div>
+
                                       <p
                                         className='mt-[2rem] list-div text-[1.6rem] font-medium text-paragraph1'
                                         dangerouslySetInnerHTML={{
@@ -770,7 +782,7 @@ const Home = ({ params }: { params: any }) => {
         {/* FAQ Section Completed */}
         <Faqs urlInfo={urlInfo} companyType={listOfdata?.companytype} />
         {/* Our Blogs */}
-        <div className='my-[10rem] lg:my-[12.6rem]'>
+        <div className='my-[5rem]'>
           <OurBlogs listOfdata={listOfdata} />
         </div>
         {/* Newsletter */}

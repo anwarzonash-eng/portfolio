@@ -21,7 +21,7 @@ const OurBlogs = ({ listOfdata }) => {
   return (
     <section className='mainContainer w-full'>
       {/* Top Content */}
-      <div className='flex justify-between flex-wrap items-end md:items-center gap-[2rem] mb-[4rem]'>
+      <div className='flex justify-between flex-wrap items-end sm:items-center gap-[2rem] mb-[4rem]'>
         <div>
           <p className='text-sectionBG text-[1.6rem] leading-[2.4rem] font-medium'>
             Our blog
@@ -30,14 +30,15 @@ const OurBlogs = ({ listOfdata }) => {
             My Latest Blogs
           </h3>
         </div>
-        <div>
+        <div className='w-full sm:w-auto flex justify-center'>
           <Link href={'/blog-listing'}>
-            <button className='btn-primary  text-white py-[1rem] px-[3.4rem] text-[1.8rem] font-medium'>
+            <button className='btn-primary text-white py-[1rem] px-[3.4rem] text-[1.8rem] font-medium'>
               View All Blogs
             </button>
           </Link>
         </div>
       </div>
+
       {loadingblogs ? (
         <WebsiteLoader height='h-[20rem]' />
       ) : (
@@ -45,8 +46,9 @@ const OurBlogs = ({ listOfdata }) => {
           {blogsList
             ?.slice(0, Math.min(3, blogsList.length))
             .map((blog, index) => (
-              <div
+              <Link
                 key={index}
+                href={`/blog-listing/${blog?.id}`}
                 className='max-w-[41.8rem] w-full p-[2.4rem] bg-white shadow-lg mb-[1.6rem]'
               >
                 {/* Card Image */}
@@ -123,7 +125,7 @@ const OurBlogs = ({ listOfdata }) => {
                     className='text-[1.6rem] leading-[2.4rem] text-paragraph1'
                   ></p>
                 </div>
-              </div>
+              </Link>
             ))}
         </div>
       )}

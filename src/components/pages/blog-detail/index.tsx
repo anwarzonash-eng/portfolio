@@ -569,14 +569,14 @@ const BlogDetails = ({ params }: { params: any }) => {
             </section>
             {/* Blog Content Section */}
             <section className='mainContainer w-full relative max-ultraSmall:mt-0  mt-[-45rem] lg:mt-[-54rem]'>
-              <div className='max-w-[102.4rem] mx-auto w-full my-[10rem] lg:my-[12rem]'>
+              <div className='max-w-[102.4rem] mx-auto w-full my-[10rem] lg:my-[12rem] rounded-[1rem]'>
                 {/* Blog Detail Pic Desktop*/}
                 <Image
                   src={blogdata?._embedded?.['wp:featuredmedia'][0]?.source_url}
                   height={532}
                   width={1024}
                   alt='Banner'
-                  className='hidden md:block h-[53.2rem] w-[102.4rem] object-cover rounded-[1rem]'
+                  className='hidden md:block h-[53.2rem] w-[102.4rem] object-contain rounded-[1rem]'
                 />
                 {/* Mobile */}
                 <Image
@@ -584,7 +584,7 @@ const BlogDetails = ({ params }: { params: any }) => {
                   height={410}
                   width={800}
                   alt='Banner'
-                  className='h-[41rem] w-full object-cover md:hidden rounded-[1rem]'
+                  className='h-[41rem] w-full object-contain md:hidden rounded-[1rem]'
                 />
                 {/* Blog Detail Content */}
                 <article className='mt-[6rem] '>

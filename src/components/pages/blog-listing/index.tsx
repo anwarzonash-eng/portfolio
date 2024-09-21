@@ -293,7 +293,8 @@ const BlogListing = ({ params }: { params: any }) => {
         {!loadingblogs && blogsList && blogsList.length > 0 && (
           <div className='mainContainer  mt-[-26rem]  lg:mt-[-40rem] relative w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 lg:grid-rows-3 justify-items-center gap-[3.2rem]'>
             {blogsList.map((blog, index) => (
-              <div
+              <Link
+                href={`/blog-listing/${blog?.id}`}
                 key={index}
                 className='max-w-[41.8rem] w-full p-[2.4rem] bg-white shadow-lg mb-[1.6rem]'
               >
@@ -371,7 +372,7 @@ const BlogListing = ({ params }: { params: any }) => {
                     className='text-[1.6rem] leading-[2.4rem] text-paragraph1'
                   ></p>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         )}

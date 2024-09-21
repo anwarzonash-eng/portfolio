@@ -164,7 +164,7 @@ const ContactMe = ({ listOfdata }) => {
                 </div>
               </div>
               <button
-                className={`btn-primary text-white py-[2rem] px-[5.6rem] leading-[1.6rem] text-[1.8rem] font-medium ${
+                className={`btn-primary w-full lg:max-w-max text-white py-[2rem] px-[5.6rem] leading-[1.6rem] text-[1.8rem] font-medium ${
                   isSubmitting && 'cursor-not-allowed'
                 }`}
                 type='submit'

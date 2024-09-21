@@ -40,7 +40,10 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
 
   const headerLinks: HeaderLink[] = [
     { title: 'Home', src: '/' },
-    { title: 'Cover Letter', src: '/offer' },
+    ...(listOfdata?.services && listOfdata?.services?.length > 0
+      ? [{ title: 'Cover Letter', src: '/offer' }]
+      : []),
+
     ...(listOfdata?.services && listOfdata?.services?.length > 0
       ? [{ title: 'Services', src: '#', isDropdown: true }]
       : []),

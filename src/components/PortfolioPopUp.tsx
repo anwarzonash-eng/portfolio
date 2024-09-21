@@ -56,7 +56,7 @@ const PortfolioPopUp = ({ isModalOpen, closeModal, portfolioImages }) => {
   return (
     <>
       {isModalOpen && (
-        <div className='fixed top-0 left-0 w-full h-full bg-primary bg-opacity-50 z-[500]'>
+        <div className='fixed top-0 left-0 w-full h-full  bg-opacity-50 backdrop-blur-2xl z-[500]'>
           <div className='min-h-screen flex items-center justify-center'>
             <div
               className='absolute inset-0'

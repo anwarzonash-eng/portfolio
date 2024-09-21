@@ -42,8 +42,8 @@ const Footer = () => {
         <footer className=''>
           <div
             className={`bg-footerBg ${
-              urlInfo?.u ? '' : 'h-[46.4rem] lg:h-[57.6rem]'
-            }  py-[6rem] lg:py-[10rem] w-full bg-center bg-cover bg-no-repeat flex flex-col items-center justify-end`}
+              urlInfo?.u ? '' : 'h-[40.4rem] lg:h-[57.6rem]'
+            }  py-[6rem]  w-full bg-center bg-cover bg-no-repeat flex flex-col items-center justify-end`}
           >
             <div className='mainContainer flex items-center justify-center'>
               {/* Footer Links */}

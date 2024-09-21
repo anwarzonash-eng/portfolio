@@ -32,7 +32,7 @@ const Newsletter: React.FC = () => {
     <section className='mainContainer'>
       <div className='w-full bg-sectionBG bg-Newslatter bg-no-repeat bg-contain bg-right flex items-center flex-wrap-reverse gap-[2rem] md:gap-[4rem] justify-start sm:justify-center md:justify-between p-[2rem] rounded-[1rem] lg:px-[3rem] xl:px-[4rem] lg:py-[6rem]'>
         {/* Text */}
-        <div className='flex flex-col gap-[2rem] lg:gap-[3rem]'>
+        <div className='flex flex-col items-center gap-[2rem] lg:gap-[3rem]'>
           <h2 className='text-[2.4rem] lg:text-[3.4rem] font-medium leading-[3rem] lg:leading-[4.5rem] text-white'>
             Subscribe to never miss important tech{' '}
             <br className='hidden md:block' /> world updates.

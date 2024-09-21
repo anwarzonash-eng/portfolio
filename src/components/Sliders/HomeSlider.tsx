@@ -67,7 +67,7 @@ const HomeSlider = ({ portfolios }) => {
         {displaySlides.map((portfolio, index) => (
           <div
             key={index}
-            className='w-full flex-shrink-0 my-[6rem] overflow-hidden'
+            className='w-full flex-shrink-0 my-[2rem] overflow-hidden'
           >
             <div className='w-full flex items-center justify-center'>
               <div className='flex flex-col-reverse lg:flex-row max-lg:p-[1.5rem] bg-white shadow-testimonialeShadow relative rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden'>
@@ -85,7 +85,7 @@ const HomeSlider = ({ portfolios }) => {
                     </div>
                   )}
                   {/* Heading */}
-                  <h1 className='text-[2.4rem] pt-[1rem] lg:text-[3.2rem] font-bold leading-[3rem] lg:leading-[4rem] text-heading'>
+                  <h1 className='mt-8 lg:mt-0 text-[2.4rem] lg:text-[3.2rem] font-bold leading-[3rem] lg:leading-[4rem] text-heading'>
                     {portfolio.title}
                   </h1>
                   {/* Para */}
@@ -110,7 +110,7 @@ const HomeSlider = ({ portfolios }) => {
                     ))}
                   </div>
                   {/* Links */}
-                  <div className='flex items-center flex-wrap text-nowrap max-md:flex-col max-md:items-start'>
+                  {/* <div className='flex items-center flex-wrap text-nowrap max-md:flex-col max-md:items-start'>
                     <Link
                       href={portfolio.link}
                       target='_blank'
@@ -139,6 +139,30 @@ const HomeSlider = ({ portfolios }) => {
                           Check Client Testimonial
                         </Link>
                       </>
+                    )}
+                  </div> */}
+                  <hr className='w-full my-[2.4rem] h-px bg-border' />
+                  {/* Links */}
+                  <div className='flex items-center flex-wrap max-sm:flex-col max-md:items-start gap-[1.4rem]'>
+                    <Link
+                      href={`/portfolio/${portfolio.id}`}
+                      className='text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent hover:border-primary duration-300 max-lg:w-full text-center rounded-[0.6rem]'
+                    >
+                      View Details
+                    </Link>
+                    <Link
+                      href={portfolio?.link}
+                      className='py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-primary border border-solid hover:border-transparent border-primary duration-300 hover:bg-primary hover:text-white rounded-[0.6rem] max-lg:w-full text-center'
+                    >
+                      Launch Project - Live Preview
+                    </Link>
+                    {portfolio?.has_testimonial == true && (
+                      <Link
+                        href={'#'}
+                        className='text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent hover:border-primary duration-300 max-lg:w-full text-center rounded-[0.6rem]'
+                      >
+                        Check Client Testimonial
+                      </Link>
                     )}
                   </div>
                 </div>

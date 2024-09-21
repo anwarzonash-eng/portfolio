@@ -316,14 +316,14 @@ const PortfolioListing = ({ params }: { params: any }) => {
             {/* Portfolio Timeline Section */}
             <div className='mainContainer mt-[-30rem] lg:mt-[-40rem] xl:mt-[-36rem]  w-full '>
               {/* Timeline */}
-              <div className='flex items-center justify-center mt-[4rem] lg:mt-[6rem]'>
+              <div className='flex items-center justify-center mt-[2rem]'>
                 <div className='relative'>
                   {/* Vertical line */}
                   <div className='absolute left-[-1rem] lg:left-[1rem] top-0 w-[2px] h-[100%] bg-[#7B869E;] mx-[2.1rem] ' />
                   {/* Timeline items Container */}
-                  <div className='space-y-[1rem] lg:space-y-[3rem]'>
+                  <div className='space-y-[3.5rem]'>
                     {listOfdata?.portfolios_ids?.map((portfolio, index) => (
-                      <div className='relative flex items-start ' key={index}>
+                      <div className='relative flex items-start' key={index}>
                         {/* Dot */}
                         <div className='absolute top-0 left-0 lg:left-[1.8rem]'>
                           <div className='w-[2.6rem] h-[2.6rem] bg-white rounded-full flex items-center shadow-md justify-center'>
@@ -332,7 +332,7 @@ const PortfolioListing = ({ params }: { params: any }) => {
                         </div>
                         <div className='ml-[3rem] lg:ml-[6rem]'>
                           {/* Year */}
-                          <h1 className='text-heading text-[2rem] leading-[2.7rem] font-bold mb-[1rem] max-lg:ml-[0.5rem]'>
+                          <h1 className='mb-[3rem] text-heading text-[2rem] leading-[2.7rem] font-bold max-lg:ml-[0.5rem]'>
                             {new Date(portfolio.starting_date).getFullYear()} -{' '}
                             {isNaN(
                               new Date(portfolio.ending_Date).getFullYear()
@@ -422,7 +422,7 @@ const PortfolioListing = ({ params }: { params: any }) => {
                               </div>
                             </div>
                             {/* Image */}
-                            <div className='lg:max-w-[51rem] w-full xl:flex-shrink-0 rounded-[1.2rem] relative  flex items-center'>
+                            <div className='lg:max-w-[51rem] w-full  rounded-[1.2rem] relative align-middle justify-center flex-col flex items-center'>
                               <Image
                                 src={portfolio?.thumbnail}
                                 alt='Project Image'
@@ -431,7 +431,7 @@ const PortfolioListing = ({ params }: { params: any }) => {
                                 className='object-contain w-full rounded-[1.2rem] border border-solid border-border'
                               />
                               <button
-                                className='hover:tracking-[.25em] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 py-[1rem] lg:py-[1.4rem] px-[2rem] lg:px-[3.7rem] rounded-[7.77rem] border-2 border-solid border-[#fff] text-[1.8rem] lg:text-[2.2rem] font-medium  min-w-[137px] lg:min-w-[220px]  backdrop-blur-[0.8rem] duration-300 bg-primary hover:bg-opacity-80 text-white'
+                                className='hover:tracking-[.25em] mt-[1rem] py-[1rem]  px-[2rem]  rounded-[7.77rem] border-2 border-solid border-[#fff] text-[1.8rem]  font-medium  min-w-[137px] lg:min-w-[220px]  backdrop-blur-[0.8rem] duration-300 bg-primary hover:bg-opacity-80 text-white'
                                 onClick={() =>
                                   openModal(
                                     portfolio?.pictures,
@@ -440,7 +440,7 @@ const PortfolioListing = ({ params }: { params: any }) => {
                                   )
                                 }
                               >
-                                See All
+                                Explore the Gallery
                               </button>
                             </div>
                           </div>

@@ -9,7 +9,7 @@ const ChildWrapperContainer = ({ children }) => {
   return (
     <div>
       <ReduxProvider>
-        <Suspense fallback={<WebsiteLoader />}>
+        <Suspense fallback={<div>loading...</div>}>
           <ChildWrapper>{children}</ChildWrapper>
         </Suspense>
       </ReduxProvider>

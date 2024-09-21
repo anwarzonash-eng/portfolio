@@ -25,7 +25,7 @@ const Faqs = ({ urlInfo, companyType }) => {
     <>
       {/* FAQ Section Completed */}
       <section className='w-full'>
-        <div className='mainContainer my-[10rem] lg:my-[12rem] flex flex-col md:flex-row gap-[4rem] lg:gap-[6rem] lg:justify-between '>
+        <div className='mainContainer mt-[10rem] mb-[5rem] flex flex-col md:flex-row gap-[4rem] lg:gap-[6rem] lg:justify-between '>
           {/* Faq Bg */}
           <div className='bg-primary rounded-[2rem]  overflow-hidden h-[27rem] lg:h-[40.7rem] md:max-w-[35.7rem] w-full relative'>
             {/* Top Content */}
@@ -53,12 +53,9 @@ const Faqs = ({ urlInfo, companyType }) => {
             <h2 className='text-[4rem] font-medium text-heading'>FAQ</h2>
 
             {filteredFaqs.map((faq, index) => (
-              <div
-                key={index}
-                className='mb-4 border-b border-solid border-border'
-              >
+              <div key={index} className='border-b border-solid border-border'>
                 <button
-                  className='w-full flex justify-between items-center text-left text-[1.8rem] font-medium leading-[2.8rem] text-heading pt-[2.4rem] pb-[1.2rem] rounded-md focus:outline-none'
+                  className='w-full gap-[2rem] flex justify-between items-center text-left text-[1.8rem] font-medium leading-[2.8rem] text-heading py-[2.4rem]  rounded-md focus:outline-none'
                   onClick={() => toggleFAQ(index)}
                 >
                   {faq.question}
@@ -73,7 +70,7 @@ const Faqs = ({ urlInfo, companyType }) => {
                   />
                 </button>
                 <div
-                  className={`overflow-hidden transition-all duration-300 ease-out ${
+                  className={`overflow-hidden transition-all duration-300 ease-out  ${
                     activeFaq === index ? 'max-h-[200px] pt-4 pb-4' : 'max-h-0'
                   }`}
                 >
