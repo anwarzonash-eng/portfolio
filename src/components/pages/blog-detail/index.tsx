@@ -589,12 +589,12 @@ const BlogDetails = ({ params }: { params: any }) => {
                 {/* Blog Detail Content */}
                 <article className="mt-[6rem] ">
                   {/* Content */}
-                  <div className="my-[6.4rem] w-full ">
+                  <div className="my-[6.4rem] w-full">
                     <div
                       dangerouslySetInnerHTML={{
                         __html: blogdata?.content?.rendered,
                       }}
-                      className="text-heading list-div modifiedText blogs-modified text-[1.8rem] leading-[3.6rem] self-stretch justify-start items-start w-full mt-[3.2rem]"
+                      className="text-heading list-div modifiedText blogs-modified text-[1.8rem] leading-[3.6rem] self-stretch justify-start items-start w-full mt-[3.2rem] "
                     >
                       {/* Point 1 */}
                       {/* <div className='self-stretch  flex-col justify-start items-start gap-6 flex'>

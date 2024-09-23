@@ -54,33 +54,6 @@ const HomeSlider = ({ portfolios }) => {
     portfolios[0], // Clone the first slide to the end
   ];
 
-  // Logic To Implement Height of the
-  // Para Text
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [showButton, setShowButton] = useState(false);
-  const textRef = useRef(null);
-
-  useEffect(() => {
-    // Check if the text exceeds two lines
-    const checkTextHeight = () => {
-      if (textRef.current) {
-        const lineHeight = parseFloat(
-          window.getComputedStyle(textRef.current).lineHeight
-        );
-        const maxHeight = lineHeight * 2; // for two lines
-        if (textRef.current.scrollHeight > maxHeight) {
-          setShowButton(true); // Show button if text exceeds two lines
-        }
-      }
-    };
-
-    checkTextHeight();
-    window.addEventListener("resize", checkTextHeight); // Recheck on resize
-    return () => {
-      window.removeEventListener("resize", checkTextHeight);
-    };
-  }, []);
-
   return (
     <div className="relative w-full overflow-hidden">
       {/* Slider Container */}
@@ -94,12 +67,12 @@ const HomeSlider = ({ portfolios }) => {
         {displaySlides.map((portfolio, index) => (
           <div
             key={index}
-            className="w-full flex-shrink-0 my-[2rem] overflow-hidden"
+            className="w-full flex-shrink-0 my-[3rem] overflow-hidden"
           >
-            <div className="w-full flex items-center justify-center">
-              <div className="flex flex-col-reverse lg:flex-row max-lg:p-[1.5rem] items-center bg-white shadow-testimonialeShadow relative rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden h-[90rem] lg:h-[55rem] my-[2rem]">
+            <div className="w-full flex items-center justify-center ">
+              <div className="flex flex-col-reverse lg:flex-row items-center bg-white relative rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden h-[90rem] lg:h-[55rem] my-[2rem]">
                 {/* Content */}
-                <div className="p-[2rem] lg:p-[3.5rem] w-full ">
+                <div className="p-[2rem] lg:p-[3.5rem] w-full max-lg:h-[70rem] max-lg:overflow-auto">
                   {portfolio?.company_icon && (
                     <div className="bg-primary p-[1.8rem] lg:p-[2.4rem] rounded-[1.6rem] inline-block max-lg:my-[2rem] lg:mb-[3.2rem]">
                       <Image
@@ -121,35 +94,11 @@ const HomeSlider = ({ portfolios }) => {
                     className="text-[1.6rem] lg:text-[1.8rem] leading-[2.4rem] font-normal text-paragraph1 mt-[1rem]"
                   ></p>
                   {/* Prev Para Text */}
-                  {/* <p
+                  <p
                     dangerouslySetInnerHTML={{ __html: portfolio.tagline_2 }}
                     className="text-[1.6rem] lg:text-[1.8rem] leading-[2.4rem] font-normal text-primary mt-[1rem]"
-                  ></p> */}
-                  {/* Logic Implemented Text */}
-                  <div>
-                    <p
-                      ref={textRef}
-                      dangerouslySetInnerHTML={{ __html: portfolio.tagline_2 }}
-                      className={`text-[1.6rem] lg:text-[1.8rem] leading-[2.4rem] font-normal text-primary mt-[1rem] ${
-                        isExpanded ? "line-clamp-none" : "line-clamp-2"
-                      }`} // Tailwind's line-clamp is useful for clamping the text
-                      style={{
-                        overflow: "hidden",
-                        display: "-webkit-box",
-                        WebkitLineClamp: isExpanded ? "unset" : "2", // Control how many lines to show
-                        WebkitBoxOrient: "vertical",
-                      }}
-                    ></p>
+                  ></p>
 
-                    {showButton && (
-                      <button
-                        onClick={() => setIsExpanded(!isExpanded)}
-                        className="font-medium hover:underline text-primary text-[1.6rem] duration-300"
-                      >
-                        {isExpanded ? "Show Less" : "Show More"}
-                      </button>
-                    )}
-                  </div>
                   {/* Skills Badges */}
                   <div className="flex items-center gap-[1rem] lg:gap-[0.7rem] mt-[3.4rem] mb-[3.2rem] text-nowrap flex-wrap">
                     {portfolio.skills.map((skill, idx) => (
@@ -189,7 +138,7 @@ const HomeSlider = ({ portfolios }) => {
                 </div>
                 {/* Image */}
                 {portfolio?.thumbnail && (
-                  <div className="rounded-[1.2rem] lg:max-w-[60rem] w-full relative top-0 lg:right-[-1rem] xl:flex-shrink-0 flex items-center h-[30rem] lg:h-auto">
+                  <div className="rounded-[1.2rem] lg:max-w-[60rem] w-full relative top-0 lg:right-[-1rem] xl:flex-shrink-0 flex items-center h-auto">
                     <Image
                       src={portfolio?.thumbnail}
                       alt="Project Image"
