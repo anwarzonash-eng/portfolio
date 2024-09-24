@@ -87,7 +87,7 @@ const BlogDetails = ({ params }: { params: any }) => {
           </>
         ) : (
           <>
-            <section className="mainContainer w-full max-ultraSmall:h-[54rem] h-[75rem] lg:h-[90rem] relative overflow-hidden">
+            <section className="mainContainer w-full lg:h-[90rem] relative overflow-hidden">
               {/* Background SVG */}
               <div className="absolute top-0 left-0 w-full h-auto">
                 {/* Desktop */}
@@ -568,7 +568,7 @@ const BlogDetails = ({ params }: { params: any }) => {
               </div>
             </section>
             {/* Blog Content Section */}
-            <section className="mainContainer w-full relative max-ultraSmall:mt-[-30rem] mt-[-40rem] lg:mt-[-54rem]">
+            <section className="mainContainer w-full relative top-0 lg:mt-[-54rem]">
               <div className="max-w-[102.4rem] mx-auto w-full my-[10rem] lg:my-[12rem] rounded-[1rem]">
                 {/* Blog Detail Pic Desktop*/}
                 <Image
@@ -576,7 +576,7 @@ const BlogDetails = ({ params }: { params: any }) => {
                   height={532}
                   width={1024}
                   alt="Banner"
-                  className="hidden md:block h-[53.2rem] w-[102.4rem] object-contain rounded-[1rem]"
+                  className="hidden lg:block h-[53.2rem] w-[102.4rem] object-contain rounded-[1rem]"
                 />
                 {/* Mobile */}
                 <Image
@@ -584,7 +584,7 @@ const BlogDetails = ({ params }: { params: any }) => {
                   height={410}
                   width={800}
                   alt="Banner"
-                  className="h-[41rem] w-full object-contain md:hidden rounded-[1rem]"
+                  className="w-full object-contain lg:hidden rounded-[1rem]"
                 />
                 {/* Blog Detail Content */}
                 <article className="mt-[6rem] ">
