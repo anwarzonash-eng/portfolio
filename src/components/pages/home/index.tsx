@@ -330,7 +330,7 @@ const Home = ({ params }: { params: any }) => {
                       {/* About Context */}
                       <div className='w-full'>
                         {/* Badge */}
-                        <div className='px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium  font-Inter leading-[2rem]'>
+                        <div className='px-[2rem] mt-[3rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium  font-Inter leading-[2rem]'>
                           About Me
                         </div>
                         {/* Heading */}
