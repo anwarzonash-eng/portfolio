@@ -9,6 +9,12 @@ import { addLeadsApi } from '@/apiHandlers/leadsApi';
 import { ErrorComponent } from './errorComponent';
 import { formikEnums } from '@/enums/formikEnums';
 
+declare global {
+  interface Window {
+    Tawk_API?: any;
+  }
+}
+
 const ContactMe = ({ listOfdata }) => {
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
 
@@ -68,6 +74,13 @@ const ContactMe = ({ listOfdata }) => {
     await addLeadsApi(payload, successCallbackFunction);
   };
 
+  const openChat = (e) => {
+    e.preventDefault();
+    if (window.Tawk_API) {
+      window.Tawk_API.maximize();
+    }
+  };
+
   return (
     <>
       <div
@@ -87,7 +100,16 @@ const ContactMe = ({ listOfdata }) => {
                   Contact Form
                 </h4>
                 <p className='text-paragraph1 text-[1.6rem] font-normal leading-normal'>
-                  Feel free to contact me. I will reply within 48 hours.
+                  Have questions? Feel free to reach out, and I will respond
+                  within 4 hours.
+                  <br />
+                  Need immediate assistance?{' '}
+                  <button
+                    onClick={openChat}
+                    className='text-primary font-bold text-lg'
+                  >
+                    Chat Now
+                  </button>
                 </p>
               </div>
 

@@ -4,6 +4,7 @@ import { getColors, updateCSSVariables } from '@/hooks/colors';
 import { useAppSelector } from '@/store';
 import dynamic from 'next/dynamic';
 import Tawkto from './Tawkto';
+import ProgressBar from './ProgressBar';
 
 const Header = dynamic(() => import('./layouts/header/page'), {
   ssr: false,
@@ -47,6 +48,7 @@ export default function ChildWrapper({
 
   return (
     <>
+      {/* <ProgressBar /> */}
       <Tawkto />
       <Header />
 

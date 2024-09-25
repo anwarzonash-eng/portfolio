@@ -4,7 +4,7 @@ const WebsiteLoader = ({ height = null }) => {
   return (
     <div
       role='status'
-      className={`flex justify-center align-middle items-center ${
+      className={`flex justify-center align-middle items-center z-50 ${
         height ? height : 'h-screen'
       }`}
     >
