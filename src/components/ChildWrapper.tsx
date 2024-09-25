@@ -4,7 +4,7 @@ import { getColors, updateCSSVariables } from '@/hooks/colors';
 import { useAppSelector } from '@/store';
 import dynamic from 'next/dynamic';
 import Tawkto from './Tawkto';
-import ProgressBar from './ProgressBar';
+import { usePathname, useSearchParams } from 'next/navigation';
 
 const Header = dynamic(() => import('./layouts/header/page'), {
   ssr: false,
@@ -13,12 +13,15 @@ const Header = dynamic(() => import('./layouts/header/page'), {
 const Footer = dynamic(() => import('./layouts/footer/page'), {
   ssr: false,
 });
+import NProgress from 'nprogress';
 
 export default function ChildWrapper({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const listOfdata = useAppSelector((state) => state.profile.listOfProfileData);
 
   const colors = getColors(listOfdata);
@@ -46,9 +49,13 @@ export default function ChildWrapper({
     updateCSSVariables(colors);
   }, [colors]);
 
+  useEffect(() => {
+    NProgress.start();
+    NProgress.done();
+  }, [pathname, searchParams]);
+
   return (
     <>
-      {/* <ProgressBar /> */}
       <Tawkto />
       <Header />
 

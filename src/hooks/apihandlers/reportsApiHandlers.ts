@@ -19,7 +19,6 @@ export const reportsApiHandler = async ({
     payload.itemID = itemID;
   }
   const results = await reportsSync(payload);
-  console.log('results', results);
   const statusStr = String(results?.status);
   if (/^4\d{2}$/.test(statusStr)) {
     setLoading(false);
