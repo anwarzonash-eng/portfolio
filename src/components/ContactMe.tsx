@@ -225,9 +225,7 @@ const ContactMe = ({ listOfdata }) => {
                     href={`mailto:${listOfdata?.email}`}
                     className="text-heading text-[1.5rem] hover:text-primary duration-300 "
                   >
-                    {/* {listOfdata?.email} */}
-                    {/* i'mArslanTesting@Test.com */}
-                    imHaris@haris.com
+                    {listOfdata?.email}
                   </Link>
                 </div>
               </div>
