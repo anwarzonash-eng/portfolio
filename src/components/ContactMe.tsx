@@ -223,10 +223,11 @@ const ContactMe = ({ listOfdata }) => {
                   </p>
                   <Link
                     href={`mailto:${listOfdata?.email}`}
-                    className="text-heading text-[1.8rem] hover:text-primary"
+                    className="text-heading text-[1.5rem] hover:text-primary duration-300 "
                   >
-                    {listOfdata?.email}
+                    {/* {listOfdata?.email} */}
                     {/* i'mArslanTesting@Test.com */}
+                    imHaris@haris.com
                   </Link>
                 </div>
               </div>
@@ -243,7 +244,7 @@ const ContactMe = ({ listOfdata }) => {
                   <p className="text-paragraph1 text-[1.2rem] uppercase">
                     Call Me
                   </p>
-                  <h4 className="text-heading text-[1.8rem] hover:text-primary">
+                  <h4 className="text-heading text-[1.5rem] hover:text-primary duration-300 ">
                     {formatPhoneNumber(listOfdata?.phone_no)}
                   </h4>
                 </div>
@@ -262,7 +263,7 @@ const ContactMe = ({ listOfdata }) => {
                 </p>
                 <Link
                   target="_blank"
-                  className="text-heading text-[1.8rem] hover:text-primary"
+                  className="text-heading text-[1.5rem] hover:text-primary duration-300 "
                   href={`https://www.google.com/maps/place/${listOfdata?.location}
                   )}`}
                 >

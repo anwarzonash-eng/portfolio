@@ -366,7 +366,7 @@ const Home = ({ params }: { params: any }) => {
                           }`}
                         >
                           <div className="w-full">
-                            <h4 className="text-[2rem] font-normal text-primary">
+                            <h4 className="hover:font-bold  text-[1.6rem] duration-300 font-normal text-primary">
                               {listOfdata?.name}
                             </h4>
                             <p className="text-[1.4rem] font-normal text-paragraph1">
@@ -379,7 +379,7 @@ const Home = ({ params }: { params: any }) => {
                             <div className="w-full text-wrap break-words">
                               <Link
                                 href={`mailto:${listOfdata?.email}`}
-                                className="hover:font-bold text-[2rem] font-normal text-primary "
+                                className="hover:font-bold  text-[1.6rem] duration-300  font-normal text-primary "
                               >
                                 {listOfdata?.email}
                               </Link>
@@ -395,7 +395,7 @@ const Home = ({ params }: { params: any }) => {
                             <div className="w-full">
                               <Link
                                 href={`tel:${listOfdata?.phone_no}`}
-                                className="hover:font-bold text-[2rem] font-normal text-primary"
+                                className="hover:font-bold  text-[1.6rem] duration-300 font-normal text-primary"
                               >
                                 {formatPhoneNumber(listOfdata?.phone_no)}
                               </Link>
@@ -416,7 +416,7 @@ const Home = ({ params }: { params: any }) => {
                               target="_blank"
                               href={`https://www.google.com/maps/place/${listOfdata?.location}
                 )}`}
-                              className="hover:font-bold text-[2rem] font-normal text-primary"
+                              className="hover:font-bold  text-[1.6rem] duration-300 font-normal text-primary"
                             >
                               {listOfdata?.location}
                             </Link>
