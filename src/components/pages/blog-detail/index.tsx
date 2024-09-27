@@ -575,7 +575,7 @@ const BlogDetails = ({ params }: { params: any }) => {
               </section>
               {/* Blog Content Section */}
               <section className='mainContainer w-full relative top-0 lg:mt-[-54rem]'>
-                <div className='max-w-[102.4rem] mx-auto w-full my-[10rem] lg:my-[12rem] rounded-[1rem]'>
+                <div className='max-w-[102.4rem] mx-auto w-full my-[5rem] rounded-[1rem]'>
                   {/* Blog Detail Pic Desktop*/}
                   <Image
                     src={
@@ -597,17 +597,16 @@ const BlogDetails = ({ params }: { params: any }) => {
                     className='w-full object-contain lg:hidden rounded-[1rem]'
                   />
                   {/* Blog Detail Content */}
-                  <article className='mt-[6rem] '>
-                    {/* Content */}
-                    <div className='my-[6.4rem] w-full'>
-                      <div
-                        dangerouslySetInnerHTML={{
-                          __html: blogdata?.content?.rendered,
-                        }}
-                        className='text-heading list-div modifiedText blogs-modified text-[1.8rem] leading-[3.6rem] self-stretch justify-start items-start w-full mt-[3.2rem] '
-                      >
-                        {/* Point 1 */}
-                        {/* <div className='self-stretch  flex-col justify-start items-start gap-6 flex'>
+                  {/* Content */}
+                  <div className='my-[4.4rem] w-full'>
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: blogdata?.content?.rendered,
+                      }}
+                      className='text-heading list-div modifiedText blogs-modified text-[1.8rem] leading-[3.6rem] self-stretch justify-start items-start w-full mt-[3.2rem] '
+                    >
+                      {/* Point 1 */}
+                      {/* <div className='self-stretch  flex-col justify-start items-start gap-6 flex'>
                     <h3 className='text-heading text-[2rem] font-medium  leading-normal px-[0.4rem]'>
                       1. Photovoltaic Cells
                     </h3>
@@ -629,9 +628,8 @@ const BlogDetails = ({ params }: { params: any }) => {
                       </div>
                     </div>
                   </div> */}
-                      </div>
                     </div>
-                  </article>
+                  </div>
                 </div>
               </section>
               {/* Our Blogs Section */}

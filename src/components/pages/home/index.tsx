@@ -341,14 +341,7 @@ const Home = ({ params }: { params: any }) => {
                           className='text-heading text-[2.4rem] mt-[2rem] mb-[1.2rem] font-medium leading-[2.8rem] lg:text-[3rem] lg:leading-[3.8rem]'
                         ></div>
                         {/* Paragraph */}
-                        {listOfdata?.home_page_tagline ? (
-                          <p
-                            className='text-[1.6rem] font-normal text-paragraph1  leading-[2.4rem]'
-                            dangerouslySetInnerHTML={{
-                              __html: listOfdata?.home_page_tagline,
-                            }}
-                          ></p>
-                        ) : (
+                        {listOfdata?.designation && (
                           <p className='text-[1.6rem] font-normal text-paragraph1  leading-[2.4rem]'>
                             Currently Open for full time position as a{' '}
                             <span className='lowercase'>
@@ -699,49 +692,6 @@ const Home = ({ params }: { params: any }) => {
                                                 </div>
 
                                                 {/* Link */}
-                                                {/* <div className='flex gap-2 justify-center md:justify-end w-full md:w-auto'>
-                                                  {experience?.company_website && (
-                                                    <div className='flex items-center gap-[0.52rem]'>
-                                                      <Link
-                                                        href={
-                                                          experience?.company_website ||
-                                                          '#'
-                                                        }
-                                                        className='flex gap-2 hover:bg-primary hover:text-white py-[0.4rem] px-[1rem] text-heading bg-[#A3DDD3] rounded-[1.8rem] text-[1.4rem] font-medium leading-normal'
-                                                      >
-                                                        <Image
-                                                          src={
-                                                            '/images/link.svg'
-                                                          }
-                                                          height={18}
-                                                          width={18}
-                                                          alt='Link'
-                                                        />{' '}
-                                                        {
-                                                          experience.company_website
-                                                            .replace(
-                                                              /^(https?:\/\/)?(www\.)?/,
-                                                              ''
-                                                            )
-                                                            .split('/')[0]
-                                                        }{' '}
-                                                      </Link>
-                                                    </div>
-                                                  )}
-
-                                                  {experience.company_website.includes(
-                                                    'upwork'
-                                                  ) && (
-                                                    <Link
-                                                      href={
-                                                        experience.company_website
-                                                      }
-                                                      className='hover:bg-primary hover:text-white py-[0.4rem] px-[1rem] text-heading bg-[#A3DDD3] rounded-[1.8rem] text-[1.4rem] font-medium leading-normal'
-                                                    >
-                                                      View my Freelance Profile
-                                                    </Link>
-                                                  )}
-                                                </div> */}
 
                                                 <div className='flex justify-center md:justify-end w-full md:w-auto'>
                                                   <div className='flex flex-col-reverse gap-[1rem] max-w-max'>
