@@ -29,7 +29,7 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
   const loading = useAppSelector((state) => state.profile.profileLoading);
   const pathname = usePathname(); // Gets the current pathname
   // Gets the search params (query string)
-
+  console.log('pathname', pathname);
   const [sideBarOpen, setSideBarOpen] = useState<boolean>(false);
 
   const [isResourceOpen, setIsResourceOpen] = useState(false);
@@ -234,7 +234,11 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
                             <div
                               key={index}
                               className={`hover:text-primary duration-300 ${
-                                index == 0 ? 'font-bold' : ''
+                                pathname === link.src ||
+                                (link.src !== '/' &&
+                                  pathname.includes(link.src))
+                                  ? 'font-bold text-primary'
+                                  : ''
                               }`}
                             >
                               <Link prefetch={true} href={link.src}>
@@ -443,7 +447,13 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
                               ) : (
                                 <div
                                   key={index}
-                                  className={`hover:text-primary duration-300`}
+                                  className={`hover:text-primary duration-300  ${
+                                    pathname === link.src ||
+                                    (link.src !== '/' &&
+                                      pathname.includes(link.src))
+                                      ? 'font-extrabold text-primary'
+                                      : null
+                                  }`}
                                   onClick={() => setSideBarOpen(!sideBarOpen)}
                                 >
                                   <Link prefetch={true} href={link.src}>
