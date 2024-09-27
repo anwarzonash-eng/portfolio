@@ -344,7 +344,7 @@ const PortfolioDetails = ({ params }: { params: any }) => {
               {/* Newsletter */}
 
               {!urlInfo?.u && (
-                <section className='w-full mb-[10rem] lg:mb-[12rem]'>
+                <section className='w-full mb-[5rem]'>
                   <Newsletter />
                 </section>
               )}

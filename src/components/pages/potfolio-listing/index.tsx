@@ -457,7 +457,7 @@ const PortfolioListing = ({ params }: { params: any }) => {
           </div>
           {/* Newsletter */}
           {!urlInfo?.u && (
-            <div className='w-full my-[9.6rem]'>
+            <div className='w-full mb-[5rem]'>
               <Newsletter />
             </div>
           )}{' '}
