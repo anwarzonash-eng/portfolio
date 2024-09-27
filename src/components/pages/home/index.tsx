@@ -141,7 +141,7 @@ const Home = ({ params }: { params: any }) => {
                       />
                       {/* Positioned Elementes Price */}
 
-                      <div className='flex gap-[0.35rem] text-nowrap text-primary text-[1.4rem] font-medium rounded-[3.5rem] py-[0.69rem] bg-white shadow-lg px-[1.2rem] absolute top-[22%] left-[90%] translate-x-[-90%] md:left-[80%] md:translate-x-[-80%] animate-pulse min-w-max'>
+                      <div className='flex gap-[0.35rem] text-nowrap text-primary text-[1.4rem] font-medium rounded-[3.5rem] py-[0.69rem] bg-white shadow-lg px-[1.2rem] absolute top-[8%] left-[90%] translate-x-[-90%] md:left-[80%] md:translate-x-[-80%] animate-pulse min-w-max'>
                         <Image
                           src={'/images/clock.svg'}
                           height={14}
@@ -152,7 +152,7 @@ const Home = ({ params }: { params: any }) => {
                       </div>
 
                       {/* Positioned Elementes Availability */}
-                      <div className='flex gap-[0.35rem] text-nowrap text-primary text-[2rem] font-medium rounded-[3.5rem] py-[0.69rem] bg-white shadow-lg max-w-max px-[0.9rem] pr-[1.4rem] absolute bottom-[38%] left-[15%] translate-x-[-15%] md:left-[20%] md:translate-x-[-20%] animate-pulse'>
+                      <div className='flex gap-[0.35rem] text-nowrap text-primary text-[2rem] font-medium rounded-[3.5rem] py-[0.69rem] bg-white shadow-lg max-w-max px-[0.9rem] pr-[1.4rem] absolute bottom-[25%] left-[10%] translate-x-[-15%] md:left-[20%] md:translate-x-[-20%] animate-pulse'>
                         <Image
                           src={'/images/dollar-symbol.svg'}
                           height={14}

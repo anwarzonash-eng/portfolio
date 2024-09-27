@@ -162,21 +162,22 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
                 {/* Desktop Header */}
                 <div className='max-[1100px]:hidden mainContainer h-[7.5rem] py-[2rem] border-b border-border flex justify-between items-center'>
                   {/* User Profile */}
-                  <div className='flex justify-center items-center gap-[1.2rem] '>
-                    <Link href={'/'}>
-                      <Image
-                        src={listOfdata?.profile_photo_1}
-                        height={48}
-                        width={48}
-                        alt='Profile Picture'
-                        className='rounded-[50%]'
-                      />
-                    </Link>
+                  <Link
+                    href={'/'}
+                    className='flex justify-center items-center gap-[1.2rem] '
+                  >
+                    <Image
+                      src={listOfdata?.profile_photo_1}
+                      height={48}
+                      width={48}
+                      alt='Profile Picture'
+                      className='rounded-[50%]'
+                    />
 
                     <div className='text-heading text-[1.6rem] font-normal leading-tight break-all capitalize'>
                       {listOfdata?.name}
                     </div>
-                  </div>
+                  </Link>
                   {/* NavLinks and Buttons */}
                   <div className='flex justify-center items-center'>
                     <div className='flex items-center gap-[2.4rem]'>
@@ -343,7 +344,11 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
                 {/* Mobile Header  */}
                 <div className='min-[1100px]:hidden mainContainer flex items-center justify-between bg-white py-[1.2rem] relative z-[200]'>
                   {/* User Profile  */}
-                  <div className='flex justify-center items-center gap-[1.2rem]'>
+                  <Link
+                    href={'/'}
+                    className='flex justify-center items-center gap-[1.2rem]'
+                  >
+                    {' '}
                     <Image
                       src={listOfdata?.profile_photo_1}
                       height={48}
@@ -351,11 +356,10 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
                       alt='Profile Picture'
                       className='rounded-[50%]'
                     />
-
                     <div className='text-heading text-[1.6rem] font-normal leading-tight break-all capitalize'>
                       {listOfdata?.name}
                     </div>
-                  </div>
+                  </Link>
                   {/* Hamburger Icon */}
                   <Image
                     src={'/images/menu.svg'}
