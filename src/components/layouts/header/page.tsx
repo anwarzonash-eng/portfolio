@@ -37,6 +37,10 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
 
   const resourceDropdownRef = useRef(null);
   const servicesDropdownRef = useRef(null);
+  const sidebarRef = useRef(null);
+  const sidebarHamburgerButtonRef = useRef(null);
+  const servivesDropdownButtonRef = useRef(null);
+  const resourcesDropdownButtonRef = useRef(null);
 
   const headerLinks: HeaderLink[] = [
     { title: 'Home', src: '/' },
@@ -61,7 +65,7 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
   };
 
   const handleSidebar = () => {
-    setSideBarOpen(!sideBarOpen);
+    setSideBarOpen((prev) => !prev);
   };
 
   useEffect(() => {
@@ -111,26 +115,38 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
   }, []);
 
   // Close dropdown on click outside
-  // useEffect(() => {
-  //   const handleClickOutside = (event: MouseEvent) => {
-  //     console.log('clicked outside', resourceDropdownRef);
-  //     if (
-  //       resourceDropdownRef.current &&
-  //       !resourceDropdownRef.current.contains(event.target as Node)
-  //     ) {
-  //       setIsResourceOpen(false);
-  //     }
-  //     if (
-  //       servicesDropdownRef.current &&
-  //       !servicesDropdownRef.current.contains(event.target as Node)
-  //     ) {
-  //       setIsServicesOpen(false);
-  //     }
-  //   };
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      console.log('clicked outside', resourceDropdownRef);
+      if (
+        resourceDropdownRef.current &&
+        !resourceDropdownRef.current.contains(event.target as Node) &&
+        resourcesDropdownButtonRef.current &&
+        !resourcesDropdownButtonRef.current.contains(event.target)
+      ) {
+        setIsResourceOpen(false);
+      }
+      if (
+        servicesDropdownRef.current &&
+        !servicesDropdownRef.current.contains(event.target as Node) &&
+        servivesDropdownButtonRef.current &&
+        !servivesDropdownButtonRef.current.contains(event.target)
+      ) {
+        setIsServicesOpen(false);
+      }
+      if (
+        sidebarRef.current &&
+        !sidebarRef.current.contains(event.target as Node) &&
+        sidebarHamburgerButtonRef.current &&
+        !sidebarHamburgerButtonRef.current.contains(event.target)
+      ) {
+        setSideBarOpen(false);
+      }
+    };
 
-  //   document.addEventListener('mousedown', handleClickOutside);
-  //   return () => document.removeEventListener('mousedown', handleClickOutside);
-  // }, []);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   return (
     <>
@@ -173,20 +189,21 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
                               ref={servicesDropdownRef}
                             >
                               <div
-                                className='text-paragraph1 text-[1.6rem] font-normal leading-normal hover:text-primary duration-300 cursor-pointer'
+                                className='flex gap-[0.8rem] text-paragraph1 text-[1.6rem] font-normal leading-normal hover:text-primary duration-300 cursor-pointer'
                                 onClick={handleToggleServices}
+                                ref={servivesDropdownButtonRef}
                               >
                                 {link.title}
+                                <Image
+                                  src='/images/dropDown.svg'
+                                  height={24}
+                                  width={24}
+                                  alt='Dropdown'
+                                  className={`cursor-pointer duration-300 ${
+                                    isServicesOpen ? 'rotate-180' : 'rotate-0'
+                                  }`}
+                                />{' '}
                               </div>
-                              <Image
-                                src='/images/dropDown.svg'
-                                height={24}
-                                width={24}
-                                alt='Dropdown'
-                                className={`cursor-pointer duration-300 ${
-                                  isServicesOpen ? 'rotate-180' : 'rotate-0'
-                                }`}
-                              />
                               {/* Positioned DropDown Menu */}
                               {isServicesOpen && (
                                 <nav
@@ -230,20 +247,21 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
                         ref={resourceDropdownRef}
                       >
                         <div
-                          className='text-paragraph1 text-[1.6rem] font-normal leading-normal hover:text-primary duration-300 cursor-pointer'
+                          className='text-paragraph1 flex gap-[0.8rem] text-[1.6rem] font-normal leading-normal hover:text-primary duration-300 cursor-pointer'
                           onClick={handleToggleResource}
+                          ref={resourcesDropdownButtonRef}
                         >
                           Resources
+                          <Image
+                            src='/images/dropDown.svg'
+                            height={24}
+                            width={24}
+                            alt='Dropdown'
+                            className={`cursor-pointer duration-300 ${
+                              isResourceOpen ? 'rotate-180' : 'rotate-0'
+                            }`}
+                          />{' '}
                         </div>
-                        <Image
-                          src='/images/dropDown.svg'
-                          height={24}
-                          width={24}
-                          alt='Dropdown'
-                          className={`cursor-pointer duration-300 ${
-                            isResourceOpen ? 'rotate-180' : 'rotate-0'
-                          }`}
-                        />
                         {/* Positioned DropDown Menu */}
                         {isResourceOpen && (
                           <nav
@@ -345,6 +363,7 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
                     width={24}
                     className={`cursor-pointer`}
                     onClick={handleSidebar}
+                    ref={sidebarHamburgerButtonRef}
                     alt='menu'
                   />
                   {/* Positioned Sidebar */}
@@ -361,7 +380,7 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
                         <div className='flex flex-col'>
                           {/* Nav Link */}
                           <nav
-                            onClick={() => setSideBarOpen(!sideBarOpen)}
+                            ref={sidebarRef}
                             className='text-[#101828] text-[1.6rem] font-medium leading-[2.4rem] flex flex-col  gap-[2.4rem]'
                           >
                             {headerLinks.map((link, index) =>
@@ -374,7 +393,7 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
                                     className='text-paragraph1 text-[1.6rem] font-normal leading-normal hover:text-primary duration-300 cursor-pointer flex gap-[0.8rem]'
                                     onClick={handleToggleServices}
                                   >
-                                    <p>{link?.title}</p>
+                                    <p className='font-medium'>{link?.title}</p>
                                     <Image
                                       src='/images/dropDown.svg' // Use a relative path starting with '/'
                                       alt='dropMenu'
@@ -391,11 +410,7 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
                                   {isServicesOpen && (
                                     <nav
                                       className={`rounded-[0.8rem] duration-300 shadow-md bg-white z-50
-                    ${
-                      isServicesOpen
-                        ? 'h-[21.5rem] opacity-100'
-                        : 'h-0 opacity-0'
-                    }
+                    ${isServicesOpen ? 'opacity-100' : 'h-0 opacity-0'}
                    
                        p-[2rem] text-primary text-[1.6rem] font-normal leading-normal flex flex-col gap-[1.5rem] max-w-[32rem] w-full text-nowrap`}
                                     >
@@ -419,80 +434,81 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
                                 <div
                                   key={index}
                                   className={`hover:text-primary duration-300`}
+                                  onClick={() => setSideBarOpen(!sideBarOpen)}
                                 >
                                   <Link href={link.src}>{link.title}</Link>
                                 </div>
                               )
                             )}
-                          </nav>
-
-                          {/* Resources DropDwon Menu */}
-                          <div
-                            className='flex flex-col my-[2rem]'
-                            ref={resourceDropdownRef}
-                          >
+                            {/* Resources DropDwon Menu */}
                             <div
-                              className='text-paragraph1 text-[1.6rem] font-normal leading-normal hover:text-primary duration-300 cursor-pointer flex gap-[0.8rem]'
-                              onClick={handleToggleResource}
+                              className='flex flex-col mb-[2rem]'
+                              ref={resourceDropdownRef}
                             >
-                              <p>Resources</p>
-                              <Image
-                                src='/images/dropDown.svg' // Use a relative path starting with '/'
-                                alt='dropMenu'
-                                height={24}
-                                width={24}
-                                className={`cursor-pointer duration-300 ${
-                                  isResourceOpen ? 'rotate-180' : 'rotate-0'
-                                }`}
-                              />
-                            </div>
-                            {/* Positioned DropDown Menu */}
-                            {isResourceOpen && (
-                              <nav
-                                className={`rounded-[0.8rem] duration-300 shadow-md bg-white z-50
+                              <div
+                                className='text-paragraph1 text-[1.6rem] font-normal leading-normal hover:text-primary duration-300 cursor-pointer flex gap-[0.8rem]'
+                                onClick={handleToggleResource}
+                              >
+                                <p className='font-medium'>Resources</p>
+                                <Image
+                                  src='/images/dropDown.svg' // Use a relative path starting with '/'
+                                  alt='dropMenu'
+                                  height={24}
+                                  width={24}
+                                  className={`cursor-pointer duration-300 ${
+                                    isResourceOpen ? 'rotate-180' : 'rotate-0'
+                                  }`}
+                                />
+                              </div>
+                              {/* Positioned DropDown Menu */}
+                              {isResourceOpen && (
+                                <nav
+                                  className={`rounded-[0.8rem] duration-300 shadow-md bg-white z-50
                   ${
                     isResourceOpen ? 'h-[21.5rem] opacity-100' : 'h-0 opacity-0'
                   }
                 
                      p-[2rem] text-primary text-[1.6rem] font-normal leading-normal flex flex-col gap-[1.5rem] max-w-[32rem] w-full text-nowrap`}
-                              >
-                                <div className='w-full'>
-                                  <div className='w-full flex items-center gap-[1.4rem]'>
-                                    <WorkProofLinks
-                                      props={{
-                                        upwork: listOfdata?.upwork,
-                                        github: listOfdata?.github,
-                                        linkedIn: listOfdata?.linkedIn,
-                                        behance_link: listOfdata?.behance_link,
-                                        u: urlInfo?.u,
-                                      }}
-                                    />
-                                  </div>
-                                  <p className='text-[1.4rem] font-normal text-paragraph1 mt-[1.6rem]'>
-                                    My Work Proof
-                                  </p>
-                                </div>
-                                {!urlInfo?.u && (
-                                  <>
-                                    <hr className='h-[0.1rem] w-full bg-border' />
-                                    <div className='w-full'>
-                                      <div className='w-full flex items-center gap-[1.4rem]'>
-                                        <ContactMeLinks
-                                          props={{
-                                            email: listOfdata?.email,
-                                            phone_no: listOfdata?.phone_no,
-                                          }}
-                                        />
-                                      </div>
-                                      <p className='text-[1.4rem] font-normal text-paragraph1 mt-[1.6rem]'>
-                                        Contact Me
-                                      </p>
+                                >
+                                  <div className='w-full'>
+                                    <div className='w-full flex items-center gap-[1.4rem]'>
+                                      <WorkProofLinks
+                                        props={{
+                                          upwork: listOfdata?.upwork,
+                                          github: listOfdata?.github,
+                                          linkedIn: listOfdata?.linkedIn,
+                                          behance_link:
+                                            listOfdata?.behance_link,
+                                          u: urlInfo?.u,
+                                        }}
+                                      />
                                     </div>
-                                  </>
-                                )}
-                              </nav>
-                            )}
-                          </div>
+                                    <p className='text-[1.4rem] font-normal text-paragraph1 mt-[1.6rem]'>
+                                      My Work Proof
+                                    </p>
+                                  </div>
+                                  {!urlInfo?.u && (
+                                    <>
+                                      <hr className='h-[0.1rem] w-full bg-border' />
+                                      <div className='w-full'>
+                                        <div className='w-full flex items-center gap-[1.4rem]'>
+                                          <ContactMeLinks
+                                            props={{
+                                              email: listOfdata?.email,
+                                              phone_no: listOfdata?.phone_no,
+                                            }}
+                                          />
+                                        </div>
+                                        <p className='text-[1.4rem] font-normal text-paragraph1 mt-[1.6rem]'>
+                                          Contact Me
+                                        </p>
+                                      </div>
+                                    </>
+                                  )}
+                                </nav>
+                              )}
+                            </div>{' '}
+                          </nav>
                         </div>
                         {/* Buttons */}
                         {!urlInfo?.u && (
