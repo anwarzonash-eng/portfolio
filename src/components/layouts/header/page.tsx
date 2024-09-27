@@ -117,7 +117,6 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
   // Close dropdown on click outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      console.log('clicked outside', resourceDropdownRef);
       if (
         resourceDropdownRef.current &&
         !resourceDropdownRef.current.contains(event.target as Node) &&
@@ -163,6 +162,7 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
                 <div className='max-[1100px]:hidden mainContainer h-[7.5rem] py-[2rem] border-b border-border flex justify-between items-center'>
                   {/* User Profile */}
                   <Link
+                    prefetch={true}
                     href={'/'}
                     className='flex justify-center items-center gap-[1.2rem] '
                   >
@@ -217,6 +217,7 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
                                     {listOfdata?.services?.map(
                                       (service, index) => (
                                         <Link
+                                          prefetch={true}
                                           href={`/offer?service=${service?.title}`}
                                           key={index}
                                           className={`w-full flex items-center gap-[1.4rem] px-4 py-2 hover:bg-primary hover:text-white hover:rounded-lg transition-all duration-300 ease-in-out cursor-pointer text-wrap border-b border-gray-200 last:border-b-0`}
@@ -236,7 +237,9 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
                                 index == 0 ? 'font-bold' : ''
                               }`}
                             >
-                              <Link href={link.src}>{link.title}</Link>
+                              <Link prefetch={true} href={link.src}>
+                                {link.title}
+                              </Link>
                             </div>
                           )
                         )}
@@ -313,7 +316,7 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
                     {/* Buttons */}
                     {!urlInfo?.u && (
                       <div className='flex items-center gap-[1rem]'>
-                        <Link href={'/contact-me'}>
+                        <Link prefetch={true} href={'/contact-me'}>
                           <button
                             // onClick={scrollToContact}
                             className='btn-secondary  py-[1rem] px-[2.4rem] text-[1.6rem] font-medium rounded-[0.6rem]'
@@ -323,6 +326,7 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
                         </Link>
                         {listOfdata?.calendly_link ? (
                           <Link
+                            prefetch={true}
                             className='text-center btn-primary rounded-[0.6rem] border-2 border-border border-solid py-[1rem] px-[3.4rem] text-[1.6rem] font-medium text-white'
                             href={listOfdata?.calendly_link || '#'}
                           >
@@ -345,6 +349,7 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
                 <div className='min-[1100px]:hidden mainContainer flex items-center justify-between bg-white py-[1.2rem] relative z-[200]'>
                   {/* User Profile  */}
                   <Link
+                    prefetch={true}
                     href={'/'}
                     className='flex justify-center items-center gap-[1.2rem]'
                   >
@@ -422,6 +427,7 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
                                         {listOfdata?.services?.map(
                                           (service, index) => (
                                             <Link
+                                              prefetch={true}
                                               href={`/offer?service=${service?.title}`}
                                               key={index}
                                               className={`w-full flex items-center gap-[1.4rem] px-4 py-2 hover:bg-primary hover:text-white hover:rounded-lg transition-all duration-300 ease-in-out cursor-pointer text-wrap border-b border-gray-200 last:border-b-0`}
@@ -440,7 +446,9 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
                                   className={`hover:text-primary duration-300`}
                                   onClick={() => setSideBarOpen(!sideBarOpen)}
                                 >
-                                  <Link href={link.src}>{link.title}</Link>
+                                  <Link prefetch={true} href={link.src}>
+                                    {link.title}
+                                  </Link>
                                 </div>
                               )
                             )}
@@ -517,7 +525,7 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
                         {/* Buttons */}
                         {!urlInfo?.u && (
                           <div className='w-full flex flex-col gap-[1rem] h-[200px] '>
-                            <Link href={'/contact-me'}>
+                            <Link prefetch={true} href={'/contact-me'}>
                               <button
                                 // onClick={scrollToContact}
                                 className='w-full hover:cursor-pointer py-[1rem] px-[2.4rem] text-[1.6rem] font-medium  rounded-[0.6rem] btn-secondary'
@@ -528,6 +536,7 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
 
                             {listOfdata?.calendly_link ? (
                               <Link
+                                prefetch={true}
                                 className='text-center btn-primary rounded-[0.6rem] border-2 border-border border-solid py-[1rem] px-[3.4rem] text-[1.6rem] font-medium text-white'
                                 href={listOfdata?.calendly_link || '#'}
                               >
