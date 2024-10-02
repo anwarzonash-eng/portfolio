@@ -20,7 +20,7 @@
   right: 0px;
   width: 100px;
   height: 100%;
-  box-shadow: 0 0 10px #ffc300, 0 0 5px #ffc300;
+  box-shadow: 0 0 10px var(--primary-color), 0 0 5px var(--primary-color);
   opacity: 1;
 
   -webkit-transform: rotate(3deg) translate(0px, -4px);
@@ -44,8 +44,8 @@
   box-sizing: border-box;
 
   border: solid 5px transparent;
-  border-top-color: #ffc300;
-  border-left-color: #ffc300;
+  border-top-color: var(--primary-color);
+  border-left-color: var(--primary-color);
   border-radius: 50%;
 
   -webkit-animation: nprogress-spinner 400ms linear infinite;

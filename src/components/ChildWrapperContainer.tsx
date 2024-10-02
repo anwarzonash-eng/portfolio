@@ -10,7 +10,7 @@ const ChildWrapperContainer = ({ children }) => {
   return (
     <div>
       <ProgressBar
-        height='5px'
+        height='4px'
         color='primary'
         options={{ showSpinner: false }}
         shallowRouting
