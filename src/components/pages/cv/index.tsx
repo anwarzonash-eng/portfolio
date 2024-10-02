@@ -490,7 +490,7 @@ const CV = ({ params }: { params: any }) => {
                                             <div className='w-[0.8rem] h-[0.8rem] bg-sectionBG rounded-full'></div>
                                           </div>
                                         </div>
-                                        <div>
+                                        <div className='w-full'>
                                           {/* Date */}
                                           <h2 className='text-heading leading-[2.67rem] text-[2rem] font-bold pl-[0.5rem] mb-[1rem] '>
                                             {formatDate(
@@ -701,7 +701,7 @@ const CV = ({ params }: { params: any }) => {
                                             <div className='w-[0.8rem] h-[0.8rem] bg-sectionBG rounded-full'></div>
                                           </div>
                                         </div>
-                                        <div>
+                                        <div className='w-full'>
                                           {/* Date */}
                                           <h2
                                             key={index}
