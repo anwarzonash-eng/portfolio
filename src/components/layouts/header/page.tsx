@@ -40,6 +40,8 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
   const sidebarHamburgerButtonRef = useRef(null);
   const servivesDropdownButtonRef = useRef(null);
   const resourcesDropdownButtonRef = useRef(null);
+  const resourcesDivRef = useRef(null);
+  const servicesDivRef = useRef(null);
 
   const headerLinks: HeaderLink[] = [
     { title: 'Home', src: '/' },
@@ -120,7 +122,9 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
         resourceDropdownRef.current &&
         !resourceDropdownRef.current.contains(event.target as Node) &&
         resourcesDropdownButtonRef.current &&
-        !resourcesDropdownButtonRef.current.contains(event.target)
+        !resourcesDropdownButtonRef.current.contains(event.target) &&
+        resourcesDivRef.current &&
+        !resourcesDivRef.current.contains(event.target)
       ) {
         setIsResourceOpen(false);
       }
@@ -128,7 +132,9 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
         servicesDropdownRef.current &&
         !servicesDropdownRef.current.contains(event.target as Node) &&
         servivesDropdownButtonRef.current &&
-        !servivesDropdownButtonRef.current.contains(event.target)
+        !servivesDropdownButtonRef.current.contains(event.target) &&
+        servicesDivRef.current &&
+        !servicesDivRef.current.contains(event.target)
       ) {
         setIsServicesOpen(false);
       }
@@ -207,6 +213,7 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
                               {/* Positioned DropDown Menu */}
                               {isServicesOpen && (
                                 <nav
+                                  ref={servicesDivRef}
                                   className={`rounded-[0.8rem] duration-300 shadow-md bg-white absolute top-[4rem] left-[-10rem] z-50
    ${isServicesOpen ? 'opacity-100' : 'opacity-0'}
    p-[2rem] text-primary text-[1.6rem] font-normal leading-normal flex flex-col gap-[1.5rem] w-[29.6rem]`}
@@ -272,6 +279,7 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
                         {/* Positioned DropDown Menu */}
                         {isResourceOpen && (
                           <nav
+                            ref={resourcesDivRef}
                             className={`rounded-[0.8rem] duration-300 shadow-md bg-white absolute top-[4rem] left-[-10rem] z-50
                          ${isResourceOpen ? 'opacity-100' : 'opacity-0'}
                          p-[2rem] text-primary text-[1.6rem] font-normal leading-normal flex flex-col gap-[1.5rem] w-[29.6rem] text-nowrap`}
