@@ -29,7 +29,6 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
   const loading = useAppSelector((state) => state.profile.profileLoading);
   const pathname = usePathname(); // Gets the current pathname
   // Gets the search params (query string)
-  console.log('pathname', pathname);
   const [sideBarOpen, setSideBarOpen] = useState<boolean>(false);
 
   const [isResourceOpen, setIsResourceOpen] = useState(false);

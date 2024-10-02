@@ -1,24 +1,20 @@
 'use client';
 
-import React, { Suspense, useEffect } from 'react';
+import React, { Suspense } from 'react';
 import ReduxProvider from '@/store/redux-provider';
 import ChildWrapper from './ChildWrapper';
-import { usePathname, useSearchParams } from 'next/navigation';
-import NProgress from 'nprogress';
 
-NProgress.configure({ showSpinner: false });
+import { AppProgressBar as ProgressBar } from 'next-nprogress-bar';
 
 const ChildWrapperContainer = ({ children }) => {
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-
-  useEffect(() => {
-    NProgress.start();
-    NProgress.done();
-  }, [pathname, searchParams]);
-
   return (
     <div>
+      <ProgressBar
+        height='5px'
+        color='primary'
+        options={{ showSpinner: false }}
+        shallowRouting
+      />
       <ReduxProvider>
         <Suspense fallback={<></>}>
           <ChildWrapper>{children}</ChildWrapper>
