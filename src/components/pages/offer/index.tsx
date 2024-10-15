@@ -406,20 +406,21 @@ const Offer = ({ params }: { params: any }) => {
                       <div className='p-[1rem] lg:p-[3rem] mb-[5rem] bg-sectionBG bg-cvBoxMobile sm:bg-cvBoxDesktop bg-center bg-no-repeat bg-cover lg:bg-contain'>
                         <div className='flex flex-col md:flex-row items-start md:items-center gap-[2rem] mb-[2rem]'>
                           {/* Circle Icon */}
-                          {service.category_id &&
-                            categoryPictures[service?.category_id] && (
-                              <div className='w-[9.3rem] h-[9.3rem] flex items-center justify-center rounded-[12rem] shadow relative'>
-                                <div className='absolute inset-0 flex items-center justify-center'>
-                                  <Image
-                                    src={categoryPictures[service?.category_id]}
-                                    alt='Icon'
-                                    layout='fill'
-                                    objectFit='cover'
-                                    className='rounded-[12rem] w-[9.3rem] h-[9.3rem] object-contain'
-                                  />
-                                </div>
+                          {/* {service.category_id &&
+                            categoryPictures[service?.category_id] && ( */}
+                          {service.picture && (
+                            <div className='w-[9.3rem] h-[9.3rem] flex items-center justify-center rounded-[12rem] shadow relative'>
+                              <div className='absolute inset-0 flex items-center justify-center'>
+                                <Image
+                                  src={service.picture}
+                                  alt='Icon'
+                                  layout='fill'
+                                  objectFit='cover'
+                                  className='rounded-[12rem] w-[9.3rem] h-[9.3rem] object-contain'
+                                />
                               </div>
-                            )}
+                            </div>
+                          )}
                           {/* Title */}
                           <h3 className='text-[2.4rem] lg:text-[3rem] text-white leading-[3rem] lg:leading-[3.4rem] font-medium'>
                             {service.title}
