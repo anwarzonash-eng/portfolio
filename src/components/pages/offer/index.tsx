@@ -408,14 +408,14 @@ const Offer = ({ params }: { params: any }) => {
                           {/* Circle Icon */}
                           {service.category_id &&
                             categoryPictures[service?.category_id] && (
-                              <div className='w-[9.3rem] h-[9.3rem] flex items-center justify-center bg-white/20 rounded-[12rem] shadow relative'>
+                              <div className='w-[9.3rem] h-[9.3rem] flex items-center justify-center rounded-[12rem] shadow relative'>
                                 <div className='absolute inset-0 flex items-center justify-center'>
                                   <Image
                                     src={categoryPictures[service?.category_id]}
                                     alt='Icon'
                                     layout='fill'
                                     objectFit='cover'
-                                    className='rounded-[12rem]'
+                                    className='rounded-[12rem] w-[9.3rem] h-[9.3rem] object-contain'
                                   />
                                 </div>
                               </div>

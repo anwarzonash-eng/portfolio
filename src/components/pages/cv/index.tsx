@@ -159,7 +159,10 @@ const CV = ({ params }: { params: any }) => {
                       {!urlInfo?.u && (
                         <>
                           {listOfdata?.calendly_link ? (
-                            <Link href={listOfdata?.calendly_link || '#'}>
+                            <Link
+                              target='_blank'
+                              href={listOfdata?.calendly_link || '#'}
+                            >
                               <button className='text-[2rem] text-white w-full py-[1.6rem] px-[3.4rem] bg-gradient-to-b from-white/30 to-transparent bg-primary shadow-[0px_0px_0px_1px_#FFF] hover:bg-white hover:text-primary hover:border-primary hover:border-t border-solid duration-300'>
                                 Schedule Call
                               </button>

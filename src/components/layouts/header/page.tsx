@@ -337,6 +337,7 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
                         </Link>
                         {listOfdata?.calendly_link ? (
                           <Link
+                            target='_blank'
                             prefetch={true}
                             className='text-center btn-primary rounded-[0.6rem] border-2 border-border border-solid py-[1rem] px-[3.4rem] text-[1.6rem] font-medium text-white'
                             href={listOfdata?.calendly_link || '#'}
@@ -553,6 +554,7 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
 
                             {listOfdata?.calendly_link ? (
                               <Link
+                                target='_blank'
                                 prefetch={true}
                                 className='text-center btn-primary rounded-[0.6rem] border-2 border-border border-solid py-[1rem] px-[3.4rem] text-[1.6rem] font-medium text-white'
                                 href={listOfdata?.calendly_link || '#'}

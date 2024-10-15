@@ -27,9 +27,12 @@ const Footer = () => {
 
     { href: '/blog-listing', title: 'Blog' },
     { href: '/cv', title: 'CV' },
+    { href: '/contact-me', title: 'Contact Me' },
+    { href: listOfdata?.calendly_link, title: 'Schedule Call' },
     { href: listOfdata?.github, title: 'GitHub' },
     { href: listOfdata?.upwork, title: 'Upwork' },
     { href: listOfdata?.behance_link, title: 'Behance' },
+    { href: listOfdata?.linkedIn, title: 'LinkedIn' },
   ];
 
   return (
@@ -56,11 +59,20 @@ const Footer = () => {
                 <div className=' max-w-[63.5rem] w-full flex items-center justify-center flex-wrap gap-[4rem] text-heading text-[1.8rem] font-medium'>
                   {footerLinks
                     .filter(({ title }) =>
-                      urlInfo?.u ? title !== 'Behance' : true
+                      urlInfo?.u
+                        ? title !== 'Behance' &&
+                          title !== 'Contact Me' &&
+                          title !== 'Schedule Call'
+                        : true
                     )
                     .map(({ href, title }) =>
                       href ? (
-                        <Link href={href} key={title} className='footerLink'>
+                        <Link
+                          href={href}
+                          key={title}
+                          className='footerLink'
+                          target='_blank'
+                        >
                           {title}
                         </Link>
                       ) : null
