@@ -391,6 +391,9 @@ const Offer = ({ params }: { params: any }) => {
                       }}
                       className=' p-[1rem] list-div text-[1.6rem] lg:p-[3rem] rounded-[1rem] bg-white'
                     ></div>
+                    {mainService?.skills && mainService?.skills.length > 0 && (
+                      <SkillsComponent service={mainService} />
+                    )}
                   </div>
                 )}
                 {/* Content Box Bottom 4 */}
@@ -408,11 +411,11 @@ const Offer = ({ params }: { params: any }) => {
                           {/* Circle Icon */}
                           {/* {service.category_id &&
                             categoryPictures[service?.category_id] && ( */}
-                          {service.picture && (
+                          {service?.picture && (
                             <div className='w-[9.3rem] h-[9.3rem] flex items-center justify-center rounded-[12rem] shadow relative'>
                               <div className='absolute inset-0 flex items-center justify-center'>
                                 <Image
-                                  src={service.picture}
+                                  src={service?.picture}
                                   alt='Icon'
                                   layout='fill'
                                   objectFit='cover'
@@ -433,7 +436,6 @@ const Offer = ({ params }: { params: any }) => {
                           className='text-white list-div text-[1.6rem] leading-[2.4rem] sm:text-[1.8rem] sm:leading-[2.8rem] lg:text-[1.8rem] lg:leading-[2.9rem] font-normal lg:font-medium mb-[2rem]'
                         ></p>
                       </div>
-
                       <div
                         dangerouslySetInnerHTML={{
                           __html: modifiedContent(
@@ -444,13 +446,16 @@ const Offer = ({ params }: { params: any }) => {
                         }}
                         className=' p-[1rem] list-div text-[1.6rem] lg:p-[3rem] rounded-[1rem] mt-[-6rem] lg:mt-[-8rem] bg-white'
                       ></div>
+                      {service?.skills && service?.skills.length > 0 && (
+                        <SkillsComponent service={service} />
+                      )}
                     </div>
                   ))}
               </div>
               {/* My Work Section Slider  */}
               {listOfdata && listOfdata?.portfolios_ids?.length > 0 && (
                 <section className='w-full'>
-                  <div className='mainContainer my-[12rem]'>
+                  <div className='mainContainer my-[5rem]'>
                     {/* Badge */}
                     <div className='px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto'>
                       My Work
@@ -484,3 +489,23 @@ const Offer = ({ params }: { params: any }) => {
 };
 
 export default Offer;
+
+const SkillsComponent = ({ service }) => {
+  return (
+    <div className='px-[1rem]  lg:px-[3rem] text-black list-div text-[1.6rem] leading-[2.4rem] sm:text-[1.8rem] sm:leading-[2.8rem] lg:text-[1.8rem] lg:leading-[2.9rem] font-normal lg:font-medium mb-[2rem]'>
+      AREAS OF EXPERTISE I'VE WORKED IN
+      <div className='flex items-center gap-[1rem] lg:gap-[0.7rem] my-[2.4rem] text-nowrap flex-wrap'>
+        {service?.skills.map((skill, idx) => (
+          <div
+            // Link
+            // href={skill?.url || '#'}
+            key={idx}
+            className='hover:bg-primary capitalize hover:text-white py-[0.4rem] px-[2rem] bg-bannerBG text-heading rounded-[1.2rem] text-[1.4rem] font-medium leading-[2rem]'
+          >
+            {skill.title}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};

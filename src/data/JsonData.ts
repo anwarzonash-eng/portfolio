@@ -62,6 +62,13 @@ export const contactDetails = (listOfdata) => [
     href: `https://www.google.com/maps/place/${listOfdata?.location}
     )}`,
   },
+  {
+    type: 'WhatsApp',
+    iconSrc: '/images/whatsapp-cv.svg',
+    alt: 'WhatsApp',
+    value: 'https://www.whatsapp.com/',
+    href: `https://wa.me/${listOfdata?.phone_no}`,
+  },
 ];
 export const socialLinks = (listOfdata) => [
   {
@@ -85,13 +92,7 @@ export const socialLinks = (listOfdata) => [
     username: listOfdata?.linkedIn,
     href: listOfdata?.linkedIn,
   },
-  {
-    platform: 'Dribbble',
-    iconSrc: '/images/dribbble.svg',
-    alt: 'Dribbble',
-    username: '',
-    href: '',
-  },
+
   {
     platform: 'Behance',
     iconSrc: '/images/behance.svg',

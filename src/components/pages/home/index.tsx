@@ -29,6 +29,7 @@ import { downloadFile } from '@/hooks/downloadFile';
 import OurBlogs from '@/components/OurBlogs';
 import Newsletter from '@/components/Newsletter';
 import PageRendering from '@/components/PageRendering';
+import { scrollToSection } from '@/hooks/scrollToSection';
 
 const Home = ({ params }: { params: any }) => {
   useBodyBackgroundColor('#f8f9fa');
@@ -225,29 +226,38 @@ const Home = ({ params }: { params: any }) => {
                             listOfdata.skills_ids &&
                             listOfdata.skills_ids.length > 0 && (
                               <div className='max-w-[49rem] w-full rounded-[0.6rem] border border-border border-solid overflow-hidden'>
-                                <div className='h-[4.8rem] w-full p-[1.5rem] bg-primary border-b border-border flex justify-start items-center gap-2.5 text-center text-white text-[1.8rem] font-medium'>
-                                  My Skills
+                                <div className='flex justify-between bg-primary border-b border-border w-full py-[1rem] px-[2rem]'>
+                                  <div className='text-left text-white text-[1.8rem] font-medium'>
+                                    My Skills
+                                  </div>
+                                  {listOfdata?.skills_ids?.length > 8 && (
+                                    <button
+                                      onClick={() =>
+                                        scrollToSection('skills_ids')
+                                      }
+                                      className='py-0 px-[1rem] text-center text-primary text-[1.8rem] font-medium  bg-white rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn'
+                                    >
+                                      See More
+                                    </button>
+                                  )}
                                 </div>
 
                                 <div className='w-full p-[1.5rem] bg-white/70 backdrop-blur-xl justify-start items-center gap-[0.6rem] flex flex-wrap'>
-                                  {listOfdata?.skills_ids?.map(
-                                    (skill, index) => (
-                                      <div
-                                        key={index}
-                                        className='hover:bg-primary hover:text-white  px-[21px] py-[0.8rem] bg-white rounded-[5rem] shadow border border-[#757575] justify-center items-center gap-[1rem] flex opacity-0 animate-fadeIn'
-                                        style={{
-                                          animationDelay: `${index * 0.3}s`,
-                                        }}
-                                      >
-                                        <Link
-                                          href={skill?.url}
-                                          className=' hover:text-white text-center text-primary text-[1.8rem] font-medium'
-                                        >
-                                          {skill?.title}
-                                        </Link>
-                                      </div>
-                                    )
-                                  )}
+                                  {(listOfdata?.skills_ids?.length < 8
+                                    ? listOfdata?.skills_ids
+                                    : listOfdata?.skills_ids?.slice(0, 8)
+                                  ).map((skill, index) => (
+                                    <Link
+                                      key={index}
+                                      href={skill?.url}
+                                      style={{
+                                        animationDelay: `${index * 0.3}s`,
+                                      }}
+                                      className=' hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.8rem] font-medium px-[21px] py-[0.8rem] bg-white rounded-[5rem] shadow border border-[#757575]  opacity-0 animate-fadeIn'
+                                    >
+                                      {skill?.title}
+                                    </Link>
+                                  ))}
                                 </div>
                               </div>
                             )}
@@ -531,7 +541,10 @@ const Home = ({ params }: { params: any }) => {
                     {/* Skills Section Completed */}
                     <div className='mainContainer my-[5rem] '>
                       {/* Badge */}
-                      <div className='px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto'>
+                      <div
+                        id='skills_ids'
+                        className='px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto'
+                      >
                         Skills
                       </div>
                       {/* Heading */}
@@ -543,7 +556,10 @@ const Home = ({ params }: { params: any }) => {
                         {listOfdata?.skills_ids?.map((skill, index) => (
                           <div
                             key={index}
-                            className='flex flex-col items-center justify-center gap-[0.8rem] max-w-[10rem] lg:max-w-[13rem] w-full'
+                            style={{
+                              animationDelay: `${index * 0.2}s`,
+                            }}
+                            className='flex flex-col items-center justify-center gap-[0.8rem] max-w-[13rem] lg:max-w-[17rem] w-full animate-fadeIn opacity-0'
                           >
                             {skill.icon && (
                               <div className='flex items-center justify-center'>
@@ -556,7 +572,7 @@ const Home = ({ params }: { params: any }) => {
                                 />
                               </div>
                             )}
-                            <p className='text-paragraph1 text-center text-[1.8rem] leading-[2.8rem] overflow-hidden text-ellipsis whitespace-nowrap'>
+                            <p className='text-paragraph1 text-center text-[1.8rem] leading-[2.8rem] overflow-hidden text-ellipsis'>
                               {skill.title}
                             </p>
                           </div>
@@ -582,9 +598,11 @@ const Home = ({ params }: { params: any }) => {
                           can do more
                         </div>
                         {/* Services Cards */}
-                        <div className='grid grid-cols-1 sm:grid-cols-2 md:flex xl:grid lg:grid-cols-4 place-items-center items-center justify-center gap-[2.4rem] mt-[6rem] md:flex-wrap '>
-                          <MyServices services={listOfdata?.services} />
-                        </div>
+                        <MyServices
+                          services={listOfdata?.services?.filter(
+                            (service) => service?.type !== 'main'
+                          )}
+                        />
                       </div>
                     </section>
                   )}
@@ -760,25 +778,30 @@ const Home = ({ params }: { params: any }) => {
                         __html: experience?.long_description,
                       }}
                     ></p> */}
-                                              <div className='w-full'>
-                                                <h4 className='text-paragraph1 text-[1.2rem] font-medium mb-[1.2rem] ml-[0.2rem]'>
-                                                  AREAS OF EXPERTISE I'VE WORKED
-                                                  IN
-                                                </h4>
-                                                <div className='flex items-center gap-[1rem] lg:gap-[0.7rem]   text-nowrap flex-wrap text-[1.2rem]'>
-                                                  {experience?.skills?.map(
-                                                    (skill, index) => (
-                                                      <Link
-                                                        key={index}
-                                                        href={skill?.url}
-                                                        className='py-[0.4rem] px-[2rem] bg-white border border-solid border-sectionBG text-heading rounded-[1.6rem] text-[1.2rem] font-medium leading-normal hover:text-white hover:bg-primary'
-                                                      >
-                                                        {skill?.title}
-                                                      </Link>
-                                                    )
-                                                  )}
-                                                </div>
-                                              </div>
+
+                                              {experience?.skills &&
+                                                experience?.skills.length >
+                                                  0 && (
+                                                  <div className='w-full'>
+                                                    <h4 className=' text-[1.5rem] text-primary font-medium my-[1.6rem] '>
+                                                      AREAS OF EXPERTISE I'VE
+                                                      WORKED IN
+                                                    </h4>
+                                                    <div className='flex items-center gap-[1rem] lg:gap-[0.7rem]   text-nowrap flex-wrap text-[1.2rem]'>
+                                                      {experience?.skills?.map(
+                                                        (skill, index) => (
+                                                          <Link
+                                                            key={index}
+                                                            href={skill?.url}
+                                                            className='py-[0.4rem] px-[2rem] bg-white border border-solid border-sectionBG text-heading rounded-[1.6rem] text-[1.2rem] font-medium leading-normal hover:text-white hover:bg-primary'
+                                                          >
+                                                            {skill?.title}
+                                                          </Link>
+                                                        )
+                                                      )}
+                                                    </div>
+                                                  </div>
+                                                )}
                                             </div>
                                           </div>
                                         </>

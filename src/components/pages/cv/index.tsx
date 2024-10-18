@@ -20,7 +20,7 @@ import { reportsApiHandler } from '@/hooks/apihandlers/reportsApiHandlers';
 import { handleSkillsApiCall } from '@/hooks/apihandlers/skillsApiHandlers';
 import { store } from '@/store';
 import { setProfileLoading, setProfileUrlInfo } from '@/store/profileSlice';
-import { scrollToContact } from '@/hooks/scrollToFooter';
+import { scrollToSection } from '@/hooks/scrollToSection';
 import { blogsListing } from '@/hooks/apihandlers/blogListingApiHandler';
 import Newsletter from '@/components/Newsletter';
 import PageRendering from '@/components/PageRendering';
@@ -169,7 +169,7 @@ const CV = ({ params }: { params: any }) => {
                             </Link>
                           ) : (
                             <button
-                              onClick={scrollToContact}
+                              onClick={() => scrollToSection('contact')}
                               className='text-[2rem] text-white w-full py-[1.6rem] px-[3.4rem] bg-gradient-to-b from-white/30 to-transparent bg-primary shadow-[0px_0px_0px_1px_#FFF] hover:bg-white hover:text-primary hover:border-primary hover:border-t border-solid duration-300'
                             >
                               Hire Me
@@ -206,6 +206,7 @@ const CV = ({ params }: { params: any }) => {
                               </p>
 
                               <Link
+                                target='_blank'
                                 href={contact.href || '#'}
                                 className='hover:text-primary text-[1.55rem] font-medium leading-[2rem] text-heading'
                               >
@@ -406,34 +407,39 @@ const CV = ({ params }: { params: any }) => {
                                   <div className='w-[0.8rem] h-[0.8rem] bg-sectionBG rounded-full'></div>
                                 </div>
                               </div>
-                              <div className='ml-[2rem] md:ml-[3rem] lg:ml-[5rem]'>
+                              <div className=''>
                                 {/* Title */}
-                                <h2 className='text-heading leading-[3.56rem] text-[2.67rem] font-medium pl-[0.5rem] mb-[3rem]'>
+                                <h2 className='ml-[2rem] md:ml-[3rem] lg:ml-[5rem] text-heading leading-[3.56rem] text-[2.67rem] font-medium pl-[0.5rem] mb-[3rem]'>
                                   Skills
                                 </h2>
-                                <div className='w-full flex flex-wrap gap-[0.4rem] mb-[4rem]'>
+
+                                <div className='ml-[2rem] flex items-center justify-center flex-wrap gap-[1.5rem] mt-[6rem]'>
                                   {listOfdata?.skills_ids?.map(
                                     (skill, index) => (
-                                      <div
-                                        className='w-[9rem] lg:w-[19.8rem] h-[7.7rem] flex items-center justify-center rounded-tl-[0.4rem] bg-[#F7F9FC]'
+                                      <Link
+                                        href={skill?.url || '#'}
                                         key={index}
+                                        style={{
+                                          animationDelay: `${index * 0.2}s`,
+                                        }}
+                                        className='flex flex-col items-center justify-center gap-[0.8rem] max-w-[13rem] lg:max-w-[16rem] mb-[2rem] w-full animate-fadeIn opacity-0'
                                       >
-                                        <div className='flex flex-col items-center gap-[0.6rem]'>
-                                          {skill?.icon && (
+                                        {skill.icon && (
+                                          <div className='flex items-center justify-center'>
                                             <Image
                                               src={skill?.icon}
                                               alt={skill?.title}
-                                              height={24}
-                                              width={24}
+                                              height={64}
+                                              width={64}
+                                              className='h-[6.4rem] w-[6.4rem] rounded-full'
                                             />
-                                          )}
-                                          <h4 className='text-[1.3rem] font-medium text-[#2E2E48]'>
-                                            {' '}
-                                            {/* Fixed text color class */}
-                                            {skill.title}
-                                          </h4>
-                                        </div>
-                                      </div>
+                                          </div>
+                                        )}
+
+                                        <p className='text-paragraph1 text-center text-[1.8rem] leading-[2.8rem] overflow-hidden text-ellipsis'>
+                                          {skill.title}
+                                        </p>
+                                      </Link>
                                     )
                                   )}
                                 </div>
@@ -447,15 +453,15 @@ const CV = ({ params }: { params: any }) => {
                               <div className='relative flex items-start'>
                                 {/* Dot */}
                                 <div className='absolute top-0 left-[-1.3rem] '>
-                                  <div className='w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center'>
+                                  <div className='w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center mt-[3rem] mb-[2rem]'>
                                     <div className='w-[0.8rem] h-[0.8rem] bg-sectionBG rounded-full'></div>
                                   </div>
                                 </div>
                                 <div className='ml-[2rem] md:ml-[3rem] lg:ml-[5rem]'>
                                   {/* Title */}
-                                  <div className='flex items-center justify-between w-full mb-[3.5rem]'>
-                                    <h2 className='text-heading leading-[3.56rem] text-[2.67rem] font-medium pl-[0.5rem] '>
-                                      Experience
+                                  <div className='w-full mb-[3.5rem]'>
+                                    <h2 className='text-heading leading-[3.56rem] text-[3.67rem] font-medium pl-[0.5rem] pt-[3rem] pb-[2rem]'>
+                                      Experiences
                                     </h2>
                                     {/* <div className='flex items-center gap-[0.6rem] group cursor-pointer'>
                           <p className='text-[1.4rem] text-heading font-medium'>
@@ -495,7 +501,7 @@ const CV = ({ params }: { params: any }) => {
                                         </div>
                                         <div className='w-full'>
                                           {/* Date */}
-                                          <h2 className='text-heading leading-[2.67rem] text-[2rem] font-bold pl-[0.5rem] mb-[1rem] '>
+                                          <h2 className='text-heading leading-[2.67rem] text-[2rem] font-bold pl-[0.5rem] mb-[3rem]'>
                                             {formatDate(
                                               experience?.starting_date,
                                               dateFormatsOptions.shortMonthYear
@@ -656,15 +662,15 @@ const CV = ({ params }: { params: any }) => {
                               <div className='relative flex items-start'>
                                 {/* Dot */}
                                 <div className='absolute top-0 left-[-1.3rem] '>
-                                  <div className='w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center'>
+                                  <div className='w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center mt-[3rem] mb-[2rem]'>
                                     <div className='w-[0.8rem] h-[0.8rem] bg-sectionBG rounded-full'></div>
                                   </div>
                                 </div>
                                 <div className='ml-[2rem] md:ml-[3rem] lg:ml-[5rem]'>
                                   {/* Title */}
                                   <div className='flex items-center justify-between w-full mb-[3rem]'>
-                                    <h2 className='text-heading leading-[3.56rem] text-[2.67rem] font-medium pl-[0.5rem] '>
-                                      Portfolio
+                                    <h2 className='text-heading leading-[3.56rem] text-[3.67rem] font-medium pl-[0.5rem] pt-[3rem] pb-[2rem]'>
+                                      Portfolios
                                     </h2>
                                     <Link
                                       href={'/portfolio'}
@@ -708,7 +714,7 @@ const CV = ({ params }: { params: any }) => {
                                           {/* Date */}
                                           <h2
                                             key={index}
-                                            className='text-heading leading-[2.67rem] text-[2rem] font-bold pl-[0.5rem] mb-[1rem] '
+                                            className='text-heading leading-[2.67rem] text-[2rem] font-bold pl-[0.5rem] mb-[3rem] '
                                           >
                                             {formatDate(
                                               portfolio?.starting_date,
@@ -752,12 +758,26 @@ const CV = ({ params }: { params: any }) => {
                                                       {portfolio?.title}
                                                     </h1>
                                                     {/* Para */}
-                                                    <p className='text-[1.4rem] leading-[1.8rem] font-normal mt-[1rem]'>
-                                                      {portfolio?.tagline_1}
-                                                    </p>
-                                                    <p className='text-primary text-[1.4rem] leading-[1.8rem] font-normal mt-[1rem]'>
-                                                      {portfolio?.tagline_2}
-                                                    </p>
+                                                    <p
+                                                      className='text-[1.4rem] leading-[1.8rem] font-normal mt-[1rem]'
+                                                      dangerouslySetInnerHTML={{
+                                                        __html: modifiedContent(
+                                                          portfolio?.tagline_1,
+                                                          listOfskills,
+                                                          listOfdata
+                                                        ),
+                                                      }}
+                                                    ></p>
+                                                    <p
+                                                      className='text-primary text-[1.4rem] leading-[1.8rem] font-normal mt-[1rem]'
+                                                      dangerouslySetInnerHTML={{
+                                                        __html: modifiedContent(
+                                                          portfolio?.tagline_2,
+                                                          listOfskills,
+                                                          listOfdata
+                                                        ),
+                                                      }}
+                                                    ></p>
                                                   </div>
                                                 </div>
                                                 {/* Image */}
@@ -858,13 +878,13 @@ const CV = ({ params }: { params: any }) => {
                               <div className='relative flex items-start'>
                                 {/* Dot */}
                                 <div className='absolute top-0 left-[-1.3rem] '>
-                                  <div className='w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center'>
+                                  <div className='w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center my-[3rem] '>
                                     <div className='w-[0.8rem] h-[0.8rem] bg-sectionBG rounded-full'></div>
                                   </div>
                                 </div>
                                 <div className='ml-[2rem] md:ml-[3rem] lg:ml-[5rem]'>
                                   {/* Title */}
-                                  <h2 className='text-heading leading-[3.56rem] text-[2.67rem] font-medium pl-[0.5rem] mb-[3rem]'>
+                                  <h2 className='text-heading leading-[3.56rem] text-[3.67rem] font-medium pl-[0.5rem] py-[3rem]'>
                                     Education
                                   </h2>
                                   <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-[1.2rem] w-full'>
@@ -921,20 +941,40 @@ const CV = ({ params }: { params: any }) => {
                           <div className='relative flex items-start'>
                             {/* Dot */}
                             <div className='absolute top-0 left-[-1.3rem] '>
-                              <div className='w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center'>
+                              <div className='w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center my-[3rem]'>
                                 <div className='w-[0.8rem] h-[0.8rem] bg-sectionBG rounded-full'></div>
                               </div>
                             </div>
                             <div className='ml-[2rem] md:ml-[3rem] lg:ml-[5rem] w-full'>
                               {/* Title */}
                               <div className='flex items-center justify-between mb-5'>
-                                <h2 className='text-heading leading-[3.56rem] text-[2.67rem] font-medium pl-[0.5rem]'>
+                                <h2 className='text-heading leading-[3.56rem] text-[3.67rem] font-medium pl-[0.5rem] py-[3rem]'>
                                   Blogs
                                 </h2>
-                                <Link href={'/blog-listing'}>
-                                  <button className='btn-secondary text-white py-[1rem] px-[2.4rem] text-[1.6rem] font-medium'>
+                                <Link
+                                  href={'/blog-listing'}
+                                  className=' flex items-center gap-[0.6rem] group cursor-pointer'
+                                >
+                                  <div className='hover:font-bold hover:text-primary text-[1.4rem] text-heading font-medium'>
                                     View all
-                                  </button>
+                                  </div>
+                                  <div className='group-hover:translate-x-[1rem] duration-300'>
+                                    <svg
+                                      xmlns='http://www.w3.org/2000/svg'
+                                      width='20'
+                                      height='20'
+                                      viewBox='0 0 20 20'
+                                      fill='none'
+                                    >
+                                      <path
+                                        d='M4.1665 10.0003H15.8332M15.8332 10.0003L9.99984 4.16699M15.8332 10.0003L9.99984 15.8337'
+                                        stroke='#262626'
+                                        strokeWidth='1.67'
+                                        strokeLinecap='round'
+                                        strokeLinejoin='round'
+                                      />
+                                    </svg>
+                                  </div>
                                 </Link>
                               </div>
                               {/* Map Through the Blogs Array */}

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Newsletter from '@/components/Newsletter';
@@ -63,6 +63,15 @@ const PortfolioDetails = ({ params }: { params: any }) => {
   }, [loading]);
 
   useBodyBackgroundColor('#EFF5FD');
+  const skillsRef = useRef<HTMLDivElement | null>(null); // Create a ref for the skills section
+
+  useEffect(() => {
+    if (portfolioDetails) {
+      if (searchParams.get('scroll') === 'skills' && skillsRef.current) {
+        skillsRef.current.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, [searchParams, portfolioDetails]);
 
   return (
     <div className='bg-[#EFF5FD]'>
@@ -219,6 +228,7 @@ const PortfolioDetails = ({ params }: { params: any }) => {
                         ></p>
                         {/* Para */}
                         <p
+                          ref={skillsRef}
                           className='text-[2rem] list-div leading-[3.2rem] font-normal mt-[1rem] text-paragraph1 my-[3.2rem]'
                           dangerouslySetInnerHTML={{
                             __html: modifiedContent(

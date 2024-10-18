@@ -1,5 +1,5 @@
 import { FaqsData } from '@/data/JsonData';
-import { scrollToContact } from '@/hooks/scrollToFooter';
+import { scrollToSection } from '@/hooks/scrollToSection';
 import React from 'react';
 import { useState, useEffect } from 'react';
 
@@ -41,7 +41,7 @@ const Faqs = ({ urlInfo, companyType }) => {
             </div>
             {!urlInfo?.u && (
               <button
-                onClick={scrollToContact}
+                onClick={() => scrollToSection('contact')}
                 className='bg-radial-gradient bg-primary rounded-[0.6rem] text-white py-[2rem] px-[5.6rem] text-[1.8rem] font-medium border border-solid border-white absolute bottom-[2.3rem] left-[2.3rem] hover:bg-white hover:text-primary duration-300'
               >
                 Contact Me

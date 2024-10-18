@@ -229,7 +229,7 @@ body {
   @apply duration-300 rounded-[6px] border border-primary text-primary bg-transparent hover:bg-gradient-to-b hover:from-white/30 hover:to-transparent hover:bg-primary hover:text-white hover:border-white/[0.24] hover:shadow-[0px_0px_0px_1px_#FFF];
 }
 .modifiedText a {
-  @apply text-primary font-medium relative inline-block; /* Set as inline-block to apply ::before properly */
+  @apply text-primary font-medium relative inline-block underline; /* Set as inline-block to apply ::before properly */
 }
 
 /* .list-div ul {
@@ -300,4 +300,13 @@ body {
 
 .list-div-portfolio ul {
   @apply flex flex-col gap-[0.8rem] text-[1.4rem] leading-[150%] text-heading mb-[2rem] list-disc;
+}
+
+.line-clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
 }

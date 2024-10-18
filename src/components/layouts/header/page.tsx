@@ -7,7 +7,7 @@ import Image from 'next/image';
 import WorkProofLinks from '@/components/WorkProofLinks';
 import ContactMeLinks from '@/components/ContactMeLinks';
 import { useAppSelector } from '@/store';
-import { scrollToContact } from '@/hooks/scrollToFooter';
+import { scrollToSection } from '@/hooks/scrollToSection';
 import OfferBanner from '@/components/OfferBanner';
 
 interface HeaderLink {
@@ -195,7 +195,7 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
                               ref={servicesDropdownRef}
                             >
                               <div
-                                className='flex gap-[0.8rem] text-paragraph1 text-[1.6rem] font-normal leading-normal hover:text-primary duration-300 cursor-pointer'
+                                className='flex gap-[0.2rem] text-paragraph1 text-[1.6rem] font-normal leading-normal hover:text-primary duration-300 cursor-pointer'
                                 onClick={handleToggleServices}
                                 ref={servivesDropdownButtonRef}
                               >
@@ -220,8 +220,9 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
                                 >
                                   {/* Work Proof */}
                                   <div className='w-full'>
-                                    {listOfdata?.services?.map(
-                                      (service, index) => (
+                                    {listOfdata?.services
+                                      ?.filter(({ type }) => type !== 'main')
+                                      .map((service, index) => (
                                         <Link
                                           prefetch={true}
                                           href={`/offer?service=${service?.title}`}
@@ -230,8 +231,7 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
                                         >
                                           {service?.title}
                                         </Link>
-                                      )
-                                    )}
+                                      ))}
                                   </div>
                                 </nav>
                               )}
@@ -261,7 +261,7 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
                         ref={resourceDropdownRef}
                       >
                         <div
-                          className='text-paragraph1 flex gap-[0.8rem] text-[1.6rem] font-normal leading-normal hover:text-primary duration-300 cursor-pointer'
+                          className='text-paragraph1 flex gap-[0.2rem] text-[1.6rem] font-normal leading-normal hover:text-primary duration-300 cursor-pointer'
                           onClick={handleToggleResource}
                           ref={resourcesDropdownButtonRef}
                         >
@@ -329,7 +329,7 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
                       <div className='flex items-center gap-[1rem]'>
                         <Link prefetch={true} href={'/contact-me'}>
                           <button
-                            // onClick={scrollToContact}
+                            //  onClick={() => scrollToSection('contact')}
                             className='btn-secondary  py-[1rem] px-[2.4rem] text-[1.6rem] font-medium rounded-[0.6rem]'
                           >
                             Contact Me
@@ -347,7 +347,7 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
                         ) : (
                           <button
                             className='btn-primary rounded-[0.6rem] border-2 border-border border-solid py-[1rem] px-[3.4rem] text-[1.6rem] font-medium text-white'
-                            onClick={scrollToContact}
+                            onClick={() => scrollToSection('contact')}
                           >
                             Hire Me
                           </button>
@@ -411,7 +411,7 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
                                   ref={servicesDropdownRef}
                                 >
                                   <div
-                                    className='text-paragraph1 text-[1.6rem] font-normal leading-normal hover:text-primary duration-300 cursor-pointer flex gap-[0.8rem]'
+                                    className='text-paragraph1 text-[1.6rem] font-normal leading-normal hover:text-primary duration-300 cursor-pointer flex gap-[0.2rem]'
                                     onClick={handleToggleServices}
                                   >
                                     <p className='font-medium'>{link?.title}</p>
@@ -436,8 +436,11 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
                        p-[2rem] text-primary text-[1.6rem] font-normal leading-normal flex flex-col gap-[1.5rem] max-w-[32rem] w-full text-nowrap`}
                                     >
                                       <div className='w-full'>
-                                        {listOfdata?.services?.map(
-                                          (service, index) => (
+                                        {listOfdata?.services
+                                          ?.filter(
+                                            ({ type }) => type !== 'main'
+                                          )
+                                          .map((service, index) => (
                                             <Link
                                               prefetch={true}
                                               href={`/offer?service=${service?.title}`}
@@ -446,8 +449,7 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
                                             >
                                               {service?.title}
                                             </Link>
-                                          )
-                                        )}
+                                          ))}
                                       </div>
                                     </nav>
                                   )}
@@ -476,7 +478,7 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
                               ref={resourceDropdownRef}
                             >
                               <div
-                                className='text-paragraph1 text-[1.6rem] font-normal leading-normal hover:text-primary duration-300 cursor-pointer flex gap-[0.8rem]'
+                                className='text-paragraph1 text-[1.6rem] font-normal leading-normal hover:text-primary duration-300 cursor-pointer flex gap-[0.2rem]'
                                 onClick={handleToggleResource}
                               >
                                 <p className='font-medium'>Resources</p>
@@ -545,7 +547,7 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
                           <div className='w-full flex flex-col gap-[1rem] h-[200px] '>
                             <Link prefetch={true} href={'/contact-me'}>
                               <button
-                                // onClick={scrollToContact}
+                                //  onClick={() => scrollToSection('contact')}
                                 className='w-full hover:cursor-pointer py-[1rem] px-[2.4rem] text-[1.6rem] font-medium  rounded-[0.6rem] btn-secondary'
                               >
                                 Contact Me
@@ -563,7 +565,7 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
                               </Link>
                             ) : (
                               <button
-                                onClick={scrollToContact}
+                                onClick={() => scrollToSection('contact')}
                                 className='btn-primary rounded-[0.6rem] border-2 border-border border-solid py-[1rem] px-[3.4rem] text-[1.6rem] font-medium text-white'
                               >
                                 Hire Me{' '}

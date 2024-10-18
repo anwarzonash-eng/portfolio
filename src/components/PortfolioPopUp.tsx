@@ -62,7 +62,7 @@ const PortfolioPopUp = ({ isModalOpen, closeModal, portfolioImages }) => {
               className='absolute inset-0'
               onClick={closeModal} // Close modal on background click
             ></div>
-            <div className='relative max-w-[35rem] lg:max-w-[800px] w-full mx-auto bg-white p-6 rounded-lg shadow-lg transform transition-all duration-300'>
+            <div className='relative max-w-[35rem] lg:max-w-[1000px] w-full mx-auto bg-white p-6 rounded-lg shadow-lg transform transition-all duration-300'>
               {preloaded ? (
                 <>
                   {/* Desktop Navigation buttons */}
@@ -98,7 +98,7 @@ const PortfolioPopUp = ({ isModalOpen, closeModal, portfolioImages }) => {
                     <img
                       src={images[currentImageIndex]}
                       alt='Slide'
-                      className='h-[342px] lg:h-[400px] w-full object-cover object-center'
+                      className='h-[342px] lg:h-[450px] w-full object-cover object-center'
                     />
 
                     <div

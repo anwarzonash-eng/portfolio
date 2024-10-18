@@ -1,27 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
-import { handleCategoryPicture } from '@/hooks/apihandlers/categoryApiHandler';
 import Link from 'next/link';
 
 const MyServicesCards = ({ services }) => {
-  // const [categoryPictures, setCategoryPictures] = useState({});
-  // useEffect(() => {
-  //   if (Array.isArray(services)) {
-  //     services.forEach((item) => {
-  //       const category_id = item?.category_id;
-  //       if (category_id) {
-  //         handleCategoryPicture(category_id, setCategoryPictures);
-  //       }
-  //     });
-  //   }
-  // }, [services]);
-
   return (
-    <>
+    <div className='grid grid-cols-1 sm:grid-cols-2 md:flex xl:grid lg:grid-cols-4 place-items-center items-center justify-center gap-[2.4rem] mt-[6rem] md:flex-wrap '>
       {services.map((service, index) => {
         const truncatedTagline =
           service?.tagline?.split(' ')?.slice(0, 8)?.join(' ') +
           (service?.tagline?.split(' ').length > 8 ? '...' : '');
+
         return (
           <div
             key={index}
@@ -29,7 +17,7 @@ const MyServicesCards = ({ services }) => {
           >
             {/* Circle */}
             {service.picture && (
-              <div className='w-[8.8rem] h-[8.8rem] flex items-center justify-center rounded-[12rem] mx-auto '>
+              <div className='w-[8.8rem] h-[8.8rem] flex items-center justify-center rounded-[12rem] mx-auto'>
                 <div className='text-center text-white text-[4.3rem] font-medium'>
                   <Image
                     src={service.picture}
@@ -41,27 +29,28 @@ const MyServicesCards = ({ services }) => {
                 </div>
               </div>
             )}
-            {/* {service.category_id && categoryPictures[service?.category_id] && (
-              <div className='w-[8.8rem] h-[8.8rem] flex items-center justify-center mx-auto rounded-[12rem]'>
-                <div className=' text-white text-[4.3rem] font-medium'>
-                  <Image
-                    src={categoryPictures[service?.category_id]}
-                    height={100}
-                    width={100}
-                    alt='Icon'
-                    className=' w-[8.8rem] h-[8.8rem] rounded-[12rem] object-cover'
-                  />
-                </div>
-              </div>
-            )} */}
-            {/* Title */}
-            <h3 className='text-[2rem] font-bold text-white leading-[2.4rem] mt-[3rem] mb-[1.2rem]'>
+
+            {/* Title with max height */}
+            <h3
+              className='text-[2rem] font-bold text-white leading-[2.4rem] mt-[3rem] mb-[1.2rem] max-h-[4.8rem] overflow-hidden text-ellipsis'
+              style={{
+                display: '-webkit-box',
+                WebkitLineClamp: 2,
+                WebkitBoxOrient: 'vertical',
+              }}
+            >
               {service?.title}
             </h3>
-            {/* Para */}
+
+            {/* Truncated Tagline with max height */}
             <p
               dangerouslySetInnerHTML={{ __html: truncatedTagline }}
-              className='text-[1.6rem] font-normal leading-[2.4rem] text-paragraph2 mb-[1.6rem] flex-grow'
+              className='text-[1.6rem] font-normal leading-[2.4rem] text-paragraph2 mb-[1.6rem] flex-grow max-h-[4.8rem] overflow-hidden text-ellipsis'
+              style={{
+                display: '-webkit-box',
+                WebkitLineClamp: 2,
+                WebkitBoxOrient: 'vertical',
+              }}
             >
               {/* Placeholder to keep the height consistent */}
             </p>
@@ -85,7 +74,7 @@ const MyServicesCards = ({ services }) => {
           </div>
         );
       })}
-    </>
+    </div>
   );
 };
 

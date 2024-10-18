@@ -5,13 +5,19 @@ import Link from 'next/link';
 import PageLoader from 'next/dist/client/page-loader';
 import PortfolioImagesLoader from '../PortfolioImagesLoader';
 import { modifiedContent } from '@/hooks/modifiedContent';
+import PortfolioPopUp from '../PortfolioPopUp';
 
 const HomeSlider = ({ portfolios }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const sliderRef = useRef(null);
   const slideInterval = 3000; // Change slide every 3 seconds
+  const [
+    selectedPorfolioPicturesforPopup,
+    setSelectedPorfolioPicturesforPopup,
+  ] = useState(null);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
   useEffect(() => {
     if (!isPaused && portfolios?.length > 0) {
       const interval = setInterval(() => {
@@ -21,6 +27,19 @@ const HomeSlider = ({ portfolios }) => {
       return () => clearInterval(interval);
     }
   }, [currentSlide, isPaused, portfolios]);
+
+  const openModal = (pictures, thumbnail, child_hero_banner) => {
+    const portfolioImages = JSON.parse(pictures);
+    const allImages = [thumbnail, child_hero_banner, ...portfolioImages];
+    setSelectedPorfolioPicturesforPopup(allImages);
+
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setSelectedPorfolioPicturesforPopup(null);
+    setIsModalOpen(false);
+  };
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % portfolios.length);
@@ -55,7 +74,14 @@ const HomeSlider = ({ portfolios }) => {
   ];
 
   return (
-    <div className='relative w-full overflow-hidden'>
+    <div className=' relative w-full overflow-hidden'>
+      {isModalOpen && selectedPorfolioPicturesforPopup !== null && (
+        <PortfolioPopUp
+          isModalOpen={isModalOpen}
+          closeModal={closeModal}
+          portfolioImages={selectedPorfolioPicturesforPopup}
+        />
+      )}
       {/* Slider Container */}
       <div
         className='flex items-center transition-all duration-700 ease-in-out'
@@ -91,25 +117,39 @@ const HomeSlider = ({ portfolios }) => {
                   {/* Para */}
                   <p
                     dangerouslySetInnerHTML={{ __html: portfolio.tagline_1 }}
-                    className='text-[1.6rem] lg:text-[1.8rem] leading-[2.4rem] font-normal text-paragraph1 mt-[1rem]'
+                    className='text-[1.6rem] lg:text-[1.8rem] leading-[2.4rem] font-normal text-paragraph1 mt-[1rem] line-clamp'
                   ></p>
                   {/* Prev Para Text */}
                   <p
                     dangerouslySetInnerHTML={{ __html: portfolio.tagline_2 }}
-                    className='text-[1.6rem] lg:text-[1.8rem] leading-[2.4rem] font-normal text-primary mt-[1rem]'
+                    className='text-[1.6rem] lg:text-[1.8rem] leading-[2.4rem] font-normal text-primary mt-[1rem] line-clamp'
                   ></p>
 
-                  {/* Skills Badges */}
-                  <div className='flex items-center gap-[1rem] lg:gap-[0.7rem] mt-[3.4rem] mb-[3.2rem] text-nowrap flex-wrap'>
-                    {portfolio.skills.map((skill, idx) => (
-                      <Link
-                        href={skill?.url || '#'}
-                        key={idx}
-                        className='hover:bg-primary hover:text-white py-[0.4rem] px-[2rem] bg-bannerBG text-heading rounded-[1.2rem] text-[1.4rem] font-medium leading-[2rem]'
-                      >
-                        {skill.title}
-                      </Link>
-                    ))}
+                  <div className=' text-black text-[1.6rem] leading-[2.4rem] sm:text-[1.8rem] sm:leading-[2.8rem] lg:text-[1.8rem] lg:leading-[2.9rem] font-normal lg:font-medium my-[2rem]'>
+                    AREAS OF EXPERTISE I'VE WORKED IN:
+                    {/* Skills Badges */}
+                    <div className='flex items-center gap-[1rem] lg:gap-[0.7rem] my-[2rem] text-nowrap flex-wrap'>
+                      {(portfolio?.skills?.length < 15
+                        ? portfolio?.skills
+                        : portfolio?.skills?.slice(0, 15)
+                      ).map((skill, idx) => (
+                        <Link
+                          href={skill?.url || '#'}
+                          key={idx}
+                          className='hover:bg-primary hover:text-white py-[0.4rem] px-[2rem] bg-bannerBG text-heading rounded-[1.2rem] text-[1.4rem] font-medium leading-[2rem]'
+                        >
+                          {skill.title}
+                        </Link>
+                      ))}
+                      {portfolio?.skills?.length > 15 && (
+                        <Link
+                          href={`/portfolio/${portfolio.id}?scroll=skills`}
+                          className='bg-primary text-white border border-transparent py-[0.4rem] px-[2rem] hover:bg-white hover:text-primary hover:border-primary hover:border text-heading rounded-[1.2rem] text-[1.4rem] font-medium leading-[2rem]'
+                        >
+                          See More
+                        </Link>
+                      )}
+                    </div>
                   </div>
                   <hr className='w-full my-[2.4rem] h-px bg-border' />
                   {/* Links */}
@@ -137,17 +177,31 @@ const HomeSlider = ({ portfolios }) => {
                   </div>
                 </div>
                 {/* Image */}
-                {portfolio?.thumbnail && (
-                  <div className='rounded-[1.2rem] lg:max-w-[60rem] w-full relative top-0 lg:right-[-1rem] xl:flex-shrink-0 flex items-center h-auto'>
-                    <Image
-                      src={portfolio?.thumbnail}
-                      alt='Project Image'
-                      height={800}
-                      width={800}
-                      className='object-contain lg:pr-[6.4rem] rounded-[1.2rem] w-full h-full max-h-[55.2rem]'
-                    />
-                  </div>
-                )}
+                <div className='lg:max-w-[51rem] w-full  rounded-[1.2rem] relative align-middle justify-center flex-col flex items-center'>
+                  {portfolio?.thumbnail && (
+                    <div className='rounded-[1.2rem] lg:max-w-[60rem] w-full relative top-0 lg:right-[-1rem] xl:flex-shrink-0 flex items-center h-auto'>
+                      <Image
+                        src={portfolio?.thumbnail}
+                        alt='Project Image'
+                        height={800}
+                        width={800}
+                        className='object-contain lg:pr-[6.4rem] rounded-[1.2rem] w-full h-full max-h-[55.2rem]'
+                      />
+                    </div>
+                  )}
+                  <button
+                    className='hover:tracking-[.25em] mt-[1rem] py-[1rem]  px-[2rem]  rounded-[7.77rem] border-2 border-solid border-[#fff] text-[1.8rem]  font-medium  min-w-[137px] lg:min-w-[220px]  backdrop-blur-[0.8rem] duration-300 bg-primary hover:bg-opacity-80 text-white'
+                    onClick={() =>
+                      openModal(
+                        portfolio?.pictures,
+                        portfolio?.thumbnail,
+                        portfolio?.child_hero_banner
+                      )
+                    }
+                  >
+                    Explore the Gallery
+                  </button>
+                </div>
               </div>
             </div>
           </div>
