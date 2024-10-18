@@ -380,7 +380,7 @@ const CV = ({ params }: { params: any }) => {
                               </div>
                               <div className='ml-[2rem] md:ml-[3rem] lg:ml-[5rem]'>
                                 {/* Title */}
-                                <h2 className='text-heading leading-[3.56rem] text-[2.67rem] font-medium pl-[0.5rem] mb-[3rem]'>
+                                <h2 className='text-heading leading-[3.56rem] text-[3.67rem] font-medium pl-[0.5rem] mb-[3rem]'>
                                   Overview & Skills
                                 </h2>
 
@@ -409,7 +409,7 @@ const CV = ({ params }: { params: any }) => {
                               </div>
                               <div className=''>
                                 {/* Title */}
-                                <h2 className='ml-[2rem] md:ml-[3rem] lg:ml-[5rem] text-heading leading-[3.56rem] text-[2.67rem] font-medium pl-[0.5rem] mb-[3rem]'>
+                                <h2 className='ml-[2rem] md:ml-[3rem] lg:ml-[5rem] text-heading leading-[3.56rem] text-[3.67rem] font-medium pl-[0.5rem] mb-[3rem]'>
                                   Skills
                                 </h2>
 
@@ -499,6 +499,7 @@ const CV = ({ params }: { params: any }) => {
                                             <div className='w-[0.8rem] h-[0.8rem] bg-sectionBG rounded-full'></div>
                                           </div>
                                         </div>
+
                                         <div className='w-full'>
                                           {/* Date */}
                                           <h2 className='text-heading leading-[2.67rem] text-[2rem] font-bold pl-[0.5rem] mb-[3rem]'>
