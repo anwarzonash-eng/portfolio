@@ -298,12 +298,14 @@ const BlogListing = ({ params }: { params: any }) => {
               className='max-w-[41.8rem] w-full p-[2.4rem] bg-white shadow-lg mb-[1.6rem]'
             >
               {/* Card Image */}
-              <Image
-                src={blog?._embedded?.['wp:featuredmedia'][0]?.source_url}
-                height={240}
-                width={370}
-                alt='blog'
-              />
+              {blog?._embedded?.['wp:featuredmedia']?.[0]?.source_url && (
+                <Image
+                  src={blog?._embedded?.['wp:featuredmedia'][0]?.source_url}
+                  height={240}
+                  width={370}
+                  alt='blog'
+                />
+              )}
 
               {/* Card Content */}
               <div className='mt-[3.2rem]'>

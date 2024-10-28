@@ -10,7 +10,7 @@ import MyServices from '@/components/MyServicesCards';
 import TestimonialSlider from '@/components/Sliders/TestimonialSlider';
 import FreeTrialPopup from '@/components/FreeTrialPopup';
 import Welcome from '@/components/Welcome';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { formatPhoneNumber } from '@/hooks/formatPhoneNumber';
 import Link from 'next/link';
 import { formatDate } from '@/hooks/formatdate';
@@ -38,6 +38,8 @@ const Home = ({ params }: { params: any }) => {
   const [listOfskills, setListOfSkills] = useState([]);
   const [loading, setLoading] = useState(true);
   const searchParams = useSearchParams();
+  const skillsContainerRef = useRef(null);
+  const [isOverflowing, setIsOverflowing] = useState(false);
   useEffect(() => {
     setURLInfo(getRoutesDetails(params, searchParams));
   }, [params, searchParams]);
@@ -51,6 +53,16 @@ const Home = ({ params }: { params: any }) => {
         setListOfData,
       });
   }, [urlInfo]);
+
+  useEffect(() => {
+    const skillsContainer = skillsContainerRef?.current;
+    if (skillsContainer) {
+      // Check if content overflows the specified height (e.g., 40rem)
+      setIsOverflowing(
+        skillsContainer?.scrollHeight > skillsContainer?.clientHeight
+      );
+    }
+  }, [listOfdata?.skills_ids]);
 
   useEffect(() => {
     if (listOfdata) {
@@ -101,9 +113,15 @@ const Home = ({ params }: { params: any }) => {
                         />
                       </div>
                       {/* Badge */}
-                      <div className='flex items-center justify-center lg:justify-start max-w-[88rem] mx-auto'>
-                        <button className='px-[2rem] py-[1.5rem] md:py-[2rem] md:px-[4rem] bg-primary rounded-[5rem] text-center text-[1.6rem] md:text-[2.4rem] font-bold text-white border-none outline-none my-[2rem] lg:mb-auto'>
-                          {listOfdata?.designation}
+                      <div className='flex items-center justify-center max-w-[88rem] mx-auto mb-[2rem]'>
+                        <button className='px-[2rem] py-[1.5rem] lg:py-[2rem] lg:px-[4rem] bg-primary rounded-[5rem] text-center text-[1.6rem] lg:text-[2.4rem] font-bold text-white border-none outline-none my-[2rem] lg:mb-auto'>
+                          {listOfdata?.designation
+                            ?.split('|')
+                            .map((item, index) => (
+                              <div key={index} className='text-center'>
+                                {item.trim()}
+                              </div>
+                            ))}
                         </button>
                       </div>
                       <p
@@ -117,17 +135,16 @@ const Home = ({ params }: { params: any }) => {
                         listOfdata.skills_ids.length > 0 && (
                           <div className='w-full p-[1.5rem] flex justify-center items-center gap-[0.6rem] flex-wrap lg:hidden'>
                             {listOfdata?.skills_ids?.map((skill, index) => (
-                              <div
+                              <Link
                                 key={index}
-                                className='hover:bg-primary px-[1.4rem] py-[0.7rem] bg-white rounded-[5rem] shadow border border-[#767676] border-solid flex justify-center items-center gap-[1rem]'
+                                href={skill?.url}
+                                style={{
+                                  animationDelay: `${index * 0.3}s`,
+                                }}
+                                className='hover:text-white text-center text-primary text-[1.4rem] font-medium hover:bg-primary px-[1.4rem] py-[0.7rem] opacity-0 animate-fadeIn bg-white rounded-[5rem] shadow border border-[#767676] border-solid flex justify-center items-center gap-[1rem]'
                               >
-                                <Link
-                                  href={skill?.url}
-                                  className=' hover:text-white text-center text-primary text-[1.4rem] font-medium'
-                                >
-                                  {skill?.title}
-                                </Link>
-                              </div>
+                                {skill?.title}
+                              </Link>
                             ))}
                           </div>
                         )}
@@ -175,12 +192,12 @@ const Home = ({ params }: { params: any }) => {
                         {listOfdata?.name}
                       </h1>
                       {/* Badge */}
-                      <div className='flex items-center justify-center lg:justify-start mt-[-1.5rem] relative z-[50]'>
-                        <div className='px-[2rem] py-[1.5rem] lg:py-[1rem] lg:px-[4rem] bg-primary rounded-[5rem] text-center text-[1.6rem] lg:text-[2.4rem] font-bold text-white border-none outline-none mb-[2rem]'>
+                      <div className='flex items-center justify-center lg:justify-start lg:ms-[3.5rem] mt-[-1.5rem] relative z-[50]'>
+                        <div className='px-[2rem] py-[1.5rem] lg:py-[1rem]  lg:px-[4rem] bg-primary   lg:max-w-[45rem] rounded-[5rem] text-center text-[1.6rem] lg:text-[2.4rem] font-bold text-white border-none outline-none mb-[2rem]'>
                           {listOfdata?.designation
                             ?.split('|')
                             .map((item, index) => (
-                              <div key={index} className='text-left'>
+                              <div key={index} className='text-center'>
                                 {item.trim()}
                               </div>
                             ))}
@@ -225,39 +242,42 @@ const Home = ({ params }: { params: any }) => {
                           {listOfdata &&
                             listOfdata.skills_ids &&
                             listOfdata.skills_ids.length > 0 && (
-                              <div className='max-w-[49rem] w-full rounded-[0.6rem] border border-border border-solid overflow-hidden'>
+                              <div className='z-[200] absolute max-w-[49rem] w-full rounded-[0.6rem] border border-border border-solid overflow-hidden'>
                                 <div className='flex justify-between bg-primary border-b border-border w-full py-[1rem] px-[2rem]'>
                                   <div className='text-left text-white text-[1.8rem] font-medium'>
                                     My Skills
                                   </div>
-                                  {listOfdata?.skills_ids?.length > 8 && (
+                                  {isOverflowing && (
                                     <button
                                       onClick={() =>
                                         scrollToSection('skills_ids')
                                       }
-                                      className='py-0 px-[1rem] text-center text-primary text-[1.8rem] font-medium  bg-white rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn'
+                                      className='py-0 px-[1rem] text-center text-primary text-[1.8rem] font-medium bg-white rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn'
                                     >
                                       See More
                                     </button>
                                   )}
                                 </div>
 
-                                <div className='w-full p-[1.5rem] bg-white/70 backdrop-blur-xl justify-start items-center gap-[0.6rem] flex flex-wrap'>
-                                  {(listOfdata?.skills_ids?.length < 8
-                                    ? listOfdata?.skills_ids
-                                    : listOfdata?.skills_ids?.slice(0, 8)
-                                  ).map((skill, index) => (
-                                    <Link
-                                      key={index}
-                                      href={skill?.url}
-                                      style={{
-                                        animationDelay: `${index * 0.3}s`,
-                                      }}
-                                      className=' hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.8rem] font-medium px-[21px] py-[0.8rem] bg-white rounded-[5rem] shadow border border-[#757575]  opacity-0 animate-fadeIn'
-                                    >
-                                      {skill?.title}
-                                    </Link>
-                                  ))}
+                                <div
+                                  ref={skillsContainerRef}
+                                  className='w-full p-[1.5rem]  bg-white/70 backdrop-blur-xl justify-start items-center gap-[0.6rem] flex flex-wrap overflow-hidden'
+                                  style={{ maxHeight: '47.3rem' }} // Set max height for the container
+                                >
+                                  {listOfdata?.skills_ids?.map(
+                                    (skill, index) => (
+                                      <Link
+                                        key={index}
+                                        href={skill?.url}
+                                        style={{
+                                          animationDelay: `${index * 0.3}s`,
+                                        }}
+                                        className='hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.8rem] font-medium px-[21px] py-[0.8rem] bg-white rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn'
+                                      >
+                                        {skill?.title}
+                                      </Link>
+                                    )
+                                  )}
                                 </div>
                               </div>
                             )}
@@ -266,7 +286,7 @@ const Home = ({ params }: { params: any }) => {
                     </div>
                   </div>
                   {/* Custom Shape Divider */}
-                  <div className='custom-shape-divider-bottom-1722849639'>
+                  <div className='custom-shape-divider-bottom-1722849639 z-[10]'>
                     <svg
                       data-name='Layer 1'
                       xmlns='http://www.w3.org/2000/svg'

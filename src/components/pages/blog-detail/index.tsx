@@ -577,25 +577,32 @@ const BlogDetails = ({ params }: { params: any }) => {
               <section className='mainContainer w-full relative top-0 lg:mt-[-54rem]'>
                 <div className='max-w-[102.4rem] mx-auto w-full my-[5rem] rounded-[1rem]'>
                   {/* Blog Detail Pic Desktop*/}
-                  <Image
-                    src={
-                      blogdata?._embedded?.['wp:featuredmedia'][0]?.source_url
-                    }
-                    height={532}
-                    width={1024}
-                    alt='Banner'
-                    className='hidden lg:block h-[53.2rem] w-[102.4rem] object-contain rounded-[1rem]'
-                  />
-                  {/* Mobile */}
-                  <Image
-                    src={
-                      blogdata?._embedded?.['wp:featuredmedia'][0]?.source_url
-                    }
-                    height={410}
-                    width={800}
-                    alt='Banner'
-                    className='w-full object-contain lg:hidden rounded-[1rem]'
-                  />
+                  {blogdata?._embedded?.['wp:featuredmedia']?.[0]
+                    ?.source_url && (
+                    <>
+                      <Image
+                        src={
+                          blogdata?._embedded?.['wp:featuredmedia'][0]
+                            ?.source_url
+                        }
+                        height={532}
+                        width={1024}
+                        alt='Banner'
+                        className='hidden lg:block h-[53.2rem] w-[102.4rem] object-contain rounded-[1rem]'
+                      />
+                      {/* Mobile */}
+                      <Image
+                        src={
+                          blogdata?._embedded?.['wp:featuredmedia'][0]
+                            ?.source_url
+                        }
+                        height={410}
+                        width={800}
+                        alt='Banner'
+                        className='w-full object-contain lg:hidden rounded-[1rem]'
+                      />
+                    </>
+                  )}
                   {/* Blog Detail Content */}
                   {/* Content */}
                   <div className='my-[4.4rem] w-full'>
