@@ -19,6 +19,7 @@ import { handleSkillsApiCall } from '@/hooks/apihandlers/skillsApiHandlers';
 import { store } from '@/store';
 import { setProfileLoading, setProfileUrlInfo } from '@/store/profileSlice';
 import PageRendering from '@/components/PageRendering';
+import SkillsContainer from '@/components/SkillsContainer';
 
 const PortfolioDetails = ({ params }: { params: any }) => {
   const searchParams = useSearchParams();
@@ -316,29 +317,7 @@ const PortfolioDetails = ({ params }: { params: any }) => {
                       The skills, tools and technologies I used in this project:
                     </div>
                     {/* Skills Container */}
-                    <div className='flex items-center justify-center flex-wrap xl:grid xl:grid-cols-8 xl:grid-rows-2 gap-[1.5rem] mt-[6rem]'>
-                      {portfolioDetails?.skills?.map((skill, index) => (
-                        <div
-                          key={index}
-                          className='flex flex-col items-center justify-center gap-[0.8rem] max-w-[100px] lg:max-w-[130px] w-full'
-                        >
-                          {skill?.icon && (
-                            <div className='flex items-center justify-center'>
-                              <Image
-                                src={skill?.icon}
-                                alt={skill?.title}
-                                height={64}
-                                width={64}
-                                className='h-[6.4rem] w-[6.4rem] rounded-[1.2rem]'
-                              />
-                            </div>
-                          )}
-                          <p className='text-paragraph1 text-[1.8rem] leading-[2.8rem] text-center overflow-hidden text-ellipsis whitespace-wrap'>
-                            {skill?.title}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
+                    <SkillsContainer list={portfolioDetails?.skills} />
                   </article>
 
                   {/* SliderXL */}

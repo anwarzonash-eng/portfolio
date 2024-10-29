@@ -30,6 +30,7 @@ import OurBlogs from '@/components/OurBlogs';
 import Newsletter from '@/components/Newsletter';
 import PageRendering from '@/components/PageRendering';
 import { scrollToSection } from '@/hooks/scrollToSection';
+import SkillsContainer from '@/components/SkillsContainer';
 
 const Home = ({ params }: { params: any }) => {
   useBodyBackgroundColor('#f8f9fa');
@@ -526,20 +527,6 @@ const Home = ({ params }: { params: any }) => {
                 {/* Custom Video Player Section */}
                 {listOfdata?.video_attached?.videoURL && (
                   <div className='w-full mb-[10rem] xl:mb-[12rem] mainContainer'>
-                    {/* <VideoPlayer
-            videoSrc={listOfdata?.video_attached?.videoURL}
-            videoClassName='rounded-[1.2rem] h-full w-full h-[40rem] lg:h-[70rem] object-cover'
-            thumbnailSrc={
-              listOfdata?.profile_photo_3 || '/images/thumbnail.png'
-            }
-            containerClassName='rounded-[1.2rem] max-w-[1550px] mx-auto w-full'
-            thumbnailClassName='rounded-[1.2rem] h-[40rem] lg:h-[70rem]'
-            thumbnailImage='rounded-[1.2rem] object-cover h-full w-full'
-            playButtonClassName='w-[100px] h-[100px] relative border-[0.4rem] rounded-[3.2rem] flex items-center justify-center backdrop-blur-[2.2rem] '
-            closeButtonClassName='rounded-full custom-close-button'
-            playIcon='/images/Play.svg'
-            closeIcon='/images/close-icon.svg'
-          /> */}
                     <video
                       autoPlay
                       muted
@@ -572,32 +559,8 @@ const Home = ({ params }: { params: any }) => {
                         The skills, tools and technologies I am really good at:
                       </div>
                       {/* Skills Container */}
-                      <div className='flex items-center justify-center flex-wrap gap-[1.5rem] mt-[6rem]'>
-                        {listOfdata?.skills_ids?.map((skill, index) => (
-                          <div
-                            key={index}
-                            style={{
-                              animationDelay: `${index * 0.2}s`,
-                            }}
-                            className='flex flex-col items-center justify-center gap-[0.8rem] max-w-[13rem] lg:max-w-[17rem] w-full animate-fadeIn opacity-0'
-                          >
-                            {skill.icon && (
-                              <div className='flex items-center justify-center'>
-                                <Image
-                                  src={skill?.icon}
-                                  alt={skill?.title}
-                                  height={64}
-                                  width={64}
-                                  className='h-[6.4rem] w-[6.4rem] rounded-full'
-                                />
-                              </div>
-                            )}
-                            <p className='text-paragraph1 text-center text-[1.8rem] leading-[2.8rem] overflow-hidden text-ellipsis'>
-                              {skill.title}
-                            </p>
-                          </div>
-                        ))}
-                      </div>
+
+                      <SkillsContainer list={listOfdata?.skills_ids} />
                     </div>{' '}
                   </>
                 )}

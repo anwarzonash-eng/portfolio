@@ -24,6 +24,7 @@ import { scrollToSection } from '@/hooks/scrollToSection';
 import { blogsListing } from '@/hooks/apihandlers/blogListingApiHandler';
 import Newsletter from '@/components/Newsletter';
 import PageRendering from '@/components/PageRendering';
+import SkillsContainer from '@/components/SkillsContainer';
 
 const CV = ({ params }: { params: any }) => {
   const searchParams = useSearchParams();
@@ -413,33 +414,31 @@ const CV = ({ params }: { params: any }) => {
                                   Skills
                                 </h2>
 
-                                <div className='ml-[2rem] flex items-center justify-center flex-wrap gap-[1.5rem] mt-[6rem]'>
+                                <div className='grid  grid-cols-4 md:grid-cols-6 lg:grid-cols-4 xl:grid-cols-6 gap-[1.5rem] ml-[2rem] '>
                                   {listOfdata?.skills_ids?.map(
                                     (skill, index) => (
-                                      <Link
-                                        href={skill?.url || '#'}
+                                      <div
                                         key={index}
                                         style={{
                                           animationDelay: `${index * 0.2}s`,
                                         }}
-                                        className='flex flex-col items-center justify-center gap-[0.8rem] max-w-[13rem] lg:max-w-[16rem] mb-[2rem] w-full animate-fadeIn opacity-0'
+                                        className='mx-auto mb-[4rem] flex flex-col items-center justify-start gap-[0.8rem] max-w-[15rem] lg:max-w-[19rem] w-full animate-fadeIn opacity-0'
                                       >
                                         {skill.icon && (
-                                          <div className='flex items-center justify-center'>
+                                          <div className='flex items-center justify-center max-h-[6.4rem] max-w-[6.4rem]'>
                                             <Image
                                               src={skill?.icon}
                                               alt={skill?.title}
                                               height={64}
                                               width={64}
-                                              className='h-[6.4rem] w-[6.4rem] rounded-full'
+                                              className='object-contain rounded-full max-h-[6.4rem] max-w-[6.4rem]'
                                             />
                                           </div>
                                         )}
-
                                         <p className='text-paragraph1 text-center text-[1.8rem] leading-[2.8rem] overflow-hidden text-ellipsis'>
                                           {skill.title}
                                         </p>
-                                      </Link>
+                                      </div>
                                     )
                                   )}
                                 </div>
