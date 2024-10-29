@@ -377,7 +377,7 @@ const Offer = ({ params }: { params: any }) => {
                               listOfdata
                             ),
                           }}
-                          className='text-center list-div text-[1.8rem] lg:text-[2.2rem] text-heading leading-[3rem] lg:leading-[3.4rem] font-medium border border-border border-solid p-[1rem] lg:p-[3rem] shadow-lg'
+                          className='text-center list-div text-[1.8rem] lg:text-[2.2rem] text-heading leading-[3rem] lg:leading-[3.4rem]  border border-border border-solid p-[1rem] lg:p-[3rem] shadow-lg'
                         ></h3>
                       </div>
                     )}

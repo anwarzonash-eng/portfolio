@@ -90,6 +90,16 @@ const CV = ({ params }: { params: any }) => {
     store.dispatch(setProfileLoading(loading));
   }, [loading]);
 
+  const [expandedItems, setExpandedItems] = useState({});
+
+  // Toggle the "Show More" state for a specific item
+  const toggleShowMore = (index) => {
+    setExpandedItems((prev) => ({
+      ...prev,
+      [index]: !prev[index], // Toggle the specific item
+    }));
+  };
+
   return (
     <>
       <PageRendering
@@ -631,8 +641,29 @@ const CV = ({ params }: { params: any }) => {
                                                   listOfdata
                                                 ),
                                               }}
-                                              className='mt-[2rem] list-div-portfolio text-heading text-[1.4rem] font-normal leading-[150%] list-disc pl-[2rem] flex flex-col gap-[0.8rem]'
+                                              className={`mt-[2rem] list-div-portfolio text-heading text-[1.4rem] font-normal leading-[150%] list-disc pl-[2rem] flex flex-col gap-[0.8rem] overflow-hidden transition-[max-height] duration-200 ease-in-out ${
+                                                expandedItems[index]
+                                                  ? 'max-h-[100rem]'
+                                                  : 'max-h-[20rem]'
+                                              }`}
                                             ></div>
+
+                                            {/* Show More / Show Less button */}
+                                            {experience?.long_description &&
+                                              experience?.long_description?.includes(
+                                                '<li>'
+                                              ) && (
+                                                <button
+                                                  onClick={() =>
+                                                    toggleShowMore(index)
+                                                  }
+                                                  className='bg-primary py-[0.4rem] px-[2rem] text-white hover:bg-white border border-[#E2E6EE] border-solid hover:border hover:border-primary hover:border-solid hover:text-primary mt-[1rem] rounded-[1.2rem] text-[1.2rem] font-medium leading-normal'
+                                                >
+                                                  {expandedItems[index]
+                                                    ? 'Show Less'
+                                                    : 'Show More'}
+                                                </button>
+                                              )}
                                             {/* Skills Badges */}
                                             <div className='mt-[2.2rem]'>
                                               <h4 className='text-heading text-[1.2rem] font-medium mb-[1.2rem] ml-[0.2rem]'>
@@ -742,8 +773,8 @@ const CV = ({ params }: { params: any }) => {
                                           <div className='max-lg:p-[1.5rem] bg-white shadow-testimonialeShadow relative rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden p-[2.4rem] gap-[2.4rem] mb-[2rem]'>
                                             {/* Content */}
                                             <div className='w-full '>
-                                              <div className='flex gap-[2.2rem] flex-wrap-reverse lg:flex-nowrap '>
-                                                <div>
+                                              <div className=''>
+                                                <div className=''>
                                                   {portfolio?.company_icon && (
                                                     <div className='bg-[#1B6393] p-[1.46rem] rounded-[1rem] inline-block mb-[1rem]'>
                                                       <Image
@@ -759,13 +790,40 @@ const CV = ({ params }: { params: any }) => {
                                                   )}
                                                   {/* Heading and Para */}
                                                   <div className='text-heading'>
+                                                    {/* Para */}
+                                                    <div className='md:ms-[2rem] lg:w-[30rem]  float-right w-full rounded-[1.2rem] relative align-middle justify-center flex-col flex items-center'>
+                                                      {portfolio?.thumbnail && (
+                                                        <Image
+                                                          src={
+                                                            portfolio?.thumbnail
+                                                          }
+                                                          alt='Project Image'
+                                                          height={800}
+                                                          width={800}
+                                                          className='rounded-[1.2rem] object-cover w-full h-full max-h-[55.2rem]'
+                                                        />
+                                                      )}
+                                                      {/* Centered Positioned Button */}
+                                                      <button
+                                                        onClick={() =>
+                                                          openModal(
+                                                            portfolio?.pictures,
+                                                            portfolio?.thumbnail,
+                                                            portfolio?.child_hero_banner
+                                                          )
+                                                        }
+                                                        className='my-[1rem] py-[1rem]  px-[2rem]  rounded-[7.77rem] border-2 border-solid border-[#fff] text-[1.2rem]  font-medium  max-w-max  backdrop-blur-[0.8rem] duration-300 bg-primary hover:bg-opacity-80 text-white hover:bg-white hover:text-primary hover:border-1 hover:border-primary'
+                                                      >
+                                                        Explore the Gallery
+                                                      </button>
+                                                    </div>
+
                                                     {/* Heading */}
                                                     <h1 className='text-[1.8rem] lg:text-[2rem] font-bold leading-[2.69rem]'>
                                                       {portfolio?.title}
                                                     </h1>
-                                                    {/* Para */}
                                                     <p
-                                                      className='text-[1.4rem] leading-[1.8rem] font-normal mt-[1rem]'
+                                                      className=' text-[1.6rem] leading-[150%] font-normal mt-[1rem]'
                                                       dangerouslySetInnerHTML={{
                                                         __html: modifiedContent(
                                                           portfolio?.tagline_1,
@@ -775,7 +833,7 @@ const CV = ({ params }: { params: any }) => {
                                                       }}
                                                     ></p>
                                                     <p
-                                                      className='text-primary text-[1.4rem] leading-[1.8rem] font-normal mt-[1rem]'
+                                                      className='text-primary text-[1.6rem] leading-[150%] font-normal mt-[1rem] '
                                                       dangerouslySetInnerHTML={{
                                                         __html: modifiedContent(
                                                           portfolio?.tagline_2,
@@ -784,38 +842,24 @@ const CV = ({ params }: { params: any }) => {
                                                         ),
                                                       }}
                                                     ></p>
+                                                    <p
+                                                      dangerouslySetInnerHTML={{
+                                                        __html: modifiedContent(
+                                                          portfolio.features_short,
+                                                          listOfskills,
+                                                          listOfdata
+                                                        ),
+                                                      }}
+                                                      className='mt-[2rem] list-div-portfolio1 pl-[2rem]'
+                                                    ></p>
                                                   </div>
                                                 </div>
                                                 {/* Image */}
-                                                <div className='w-full rounded-[1.2rem] relative align-middle justify-center flex-col flex items-center'>
-                                                  {portfolio?.thumbnail && (
-                                                    <Image
-                                                      src={portfolio?.thumbnail}
-                                                      alt='Project Image'
-                                                      height={800}
-                                                      width={800}
-                                                      className='rounded-[1.2rem] object-cover h-full w-full'
-                                                    />
-                                                  )}
-                                                  {/* Centered Positioned Button */}
-                                                  <button
-                                                    onClick={() =>
-                                                      openModal(
-                                                        portfolio?.pictures,
-                                                        portfolio?.thumbnail,
-                                                        portfolio?.child_hero_banner
-                                                      )
-                                                    }
-                                                    className='mt-[1rem] py-[1rem]  px-[2rem]  rounded-[7.77rem] border-2 border-solid border-[#fff] text-[1.2rem]  font-medium  max-w-max  backdrop-blur-[0.8rem] duration-300 bg-primary hover:bg-opacity-80 text-white hover:bg-white hover:text-primary hover:border-1 hover:border-primary'
-                                                  >
-                                                    Explore the Gallery
-                                                  </button>
-                                                </div>
                                               </div>
                                               {/* Line */}
-                                              <hr className='w-full my-[2.1rem] h-px bg-border' />
+                                              {/* <hr className='w-full my-[2.1rem] h-px bg-border' /> */}
                                               {/* List */}
-                                              <div
+                                              {/* <div
                                                 dangerouslySetInnerHTML={{
                                                   __html: modifiedContent(
                                                     portfolio.features_short,
@@ -824,7 +868,7 @@ const CV = ({ params }: { params: any }) => {
                                                   ),
                                                 }}
                                                 className='mt-[2rem] list-div-portfolio text-heading text-[1.4rem] font-normal leading-[150%] list-disc pl-[2rem] flex flex-col gap-[0.8rem] mb-[2rem]'
-                                              ></div>
+                                              ></div> */}
                                               {/* Skills Badges */}
                                               <div>
                                                 <h4 className='text-heading text-[1.2rem] font-medium mb-[1.2rem] ml-[0.2rem]'>

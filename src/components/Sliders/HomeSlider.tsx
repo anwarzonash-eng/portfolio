@@ -96,7 +96,7 @@ const HomeSlider = ({ portfolios }) => {
             className='w-full flex-shrink-0 my-[3rem] overflow-hidden'
           >
             <div className='w-full flex items-center justify-center '>
-              <div className='flex flex-col-reverse lg:flex-row items-center bg-white relative rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden my-[2rem]'>
+              <div className='flex flex-col-reverse lg:flex-row items-center bg-white relative rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden'>
                 {/* Content */}
                 <div className='p-[2rem] lg:p-[3.5rem] w-full '>
                   {portfolio?.company_icon && (
@@ -117,12 +117,12 @@ const HomeSlider = ({ portfolios }) => {
                   {/* Para */}
                   <p
                     dangerouslySetInnerHTML={{ __html: portfolio.tagline_1 }}
-                    className='text-[1.6rem] lg:text-[1.8rem] leading-[2.4rem] font-normal text-paragraph1 mt-[1rem] line-clamp'
+                    className='text-[1.6rem] lg:text-[1.8rem] leading-[2.4rem] font-normal text-paragraph1 mt-[1rem] line-clampforTagline1 basicLineClamp'
                   ></p>
                   {/* Prev Para Text */}
                   <p
                     dangerouslySetInnerHTML={{ __html: portfolio.tagline_2 }}
-                    className='text-[1.6rem] lg:text-[1.8rem] leading-[2.4rem] font-normal text-primary mt-[1rem] line-clamp'
+                    className='text-[1.6rem] lg:text-[1.8rem] leading-[2.4rem] font-normal text-primary mt-[1rem] line-clamp basicLineClamp'
                   ></p>
 
                   <div className=' text-black text-[1.6rem] leading-[2.4rem] sm:text-[1.8rem] sm:leading-[2.8rem] lg:text-[1.8rem] lg:leading-[2.9rem] font-normal lg:font-medium my-[2rem]'>
@@ -179,7 +179,7 @@ const HomeSlider = ({ portfolios }) => {
                 {/* Image */}
                 <div className='lg:max-w-[51rem] w-full  rounded-[1.2rem] relative align-middle justify-center flex-col flex items-center'>
                   {portfolio?.thumbnail && (
-                    <div className='rounded-[1.2rem] lg:max-w-[60rem] w-full relative top-0 lg:right-[-1rem] xl:flex-shrink-0 flex items-center h-auto'>
+                    <div className='rounded-[1.2rem] lg:max-w-[60rem] w-full relative top-0 lg:right-[-1rem] xl:flex-shrink-0 flex items-center'>
                       <Image
                         src={portfolio?.thumbnail}
                         alt='Project Image'

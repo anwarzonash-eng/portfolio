@@ -299,14 +299,28 @@ body {
 }
 
 .list-div-portfolio ul {
-  @apply flex flex-col gap-[0.8rem] text-[1.4rem] leading-[150%] text-heading mb-[2rem] list-disc;
+  @apply flex flex-col gap-[0.8rem] text-[1.6rem] leading-[150%] text-heading mb-[2rem] list-disc;
 }
 
-.line-clamp {
+.list-div-portfolio1 ul {
+  @apply gap-[0.8rem] text-[1.6rem] leading-[150%] text-heading mb-[2rem] list-disc;
+}
+
+.list-div-portfolio1 ul li {
+  @apply mb-[1rem];
+}
+.basicLineClamp {
   display: -webkit-box;
-  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
   word-break: break-word;
+}
+
+.line-clamp {
+  -webkit-line-clamp: 1;
+}
+
+.line-clampforTagline1 {
+  -webkit-line-clamp: 1;
 }

@@ -364,7 +364,7 @@ const PortfolioListing = ({ params }: { params: any }) => {
                                 dangerouslySetInnerHTML={{
                                   __html: portfolio.tagline_1,
                                 }}
-                                className='text-[1.4rem] leading-[1.8rem] font-normal mt-[1rem]'
+                                className='text-[1.4rem] leading-[1.8rem] font-medium mt-[1rem] text-primary'
                               ></p>
                               <hr className='w-full my-[1.6rem] h-px bg-border' />
                             </div>
@@ -377,7 +377,7 @@ const PortfolioListing = ({ params }: { params: any }) => {
                                   listOfdata
                                 ),
                               }}
-                              className='text-[1.4rem] list-div-portfolio leading-[150%] text-heading mb-[2rem] ml-[2rem]'
+                              className='text-[1.4rem] list-div-portfolio leading-[150%]  mb-[2rem] ml-[2rem]'
                             ></div>
                             {/* Skills */}
                             <div>
