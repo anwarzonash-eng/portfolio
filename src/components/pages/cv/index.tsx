@@ -128,7 +128,13 @@ const CV = ({ params }: { params: any }) => {
                     </Link>
                     {/* Designation */}
                     <h3 className='text-primary text-[2rem] font-medium leading-normal mt-[0.9rem]'>
-                      {listOfdata?.designation}
+                      {listOfdata?.designation
+                        ?.split('|')
+                        .map((item, index) => (
+                          <div key={index} className='text-center'>
+                            {item.trim()}
+                          </div>
+                        ))}
                     </h3>
                     {/* Info */}
                     <p className='my-[4rem] text-[2rem] leading-[2.6rem] text-heading font-normal text-center'>
@@ -431,11 +437,11 @@ const CV = ({ params }: { params: any }) => {
                                               alt={skill?.title}
                                               height={64}
                                               width={64}
-                                              className='object-contain rounded-full max-h-[6.4rem] max-w-[6.4rem]'
+                                              className='object-cover rounded-full max-h-[6.4rem] max-w-[6.4rem]'
                                             />
                                           </div>
                                         )}
-                                        <p className='text-paragraph1 text-center text-[1.8rem] leading-[2.8rem] overflow-hidden text-ellipsis'>
+                                        <p className='mt-[1.5rem] text-paragraph1 text-center text-[1.8rem] leading-[2.8rem] overflow-hidden text-ellipsis'>
                                           {skill.title}
                                         </p>
                                       </div>
