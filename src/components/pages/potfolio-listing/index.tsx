@@ -364,7 +364,7 @@ const PortfolioListing = ({ params }: { params: any }) => {
                                 dangerouslySetInnerHTML={{
                                   __html: portfolio.tagline_1,
                                 }}
-                                className='text-[1.4rem] leading-[1.8rem] font-medium mt-[1rem] text-primary'
+                                className='text-[1.4rem] leading-[150%] font-medium mt-[1rem] text-primary'
                               ></p>
                               <hr className='w-full my-[1.6rem] h-px bg-border' />
                             </div>

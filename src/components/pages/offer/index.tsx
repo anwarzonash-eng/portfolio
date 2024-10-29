@@ -406,7 +406,7 @@ const Offer = ({ params }: { params: any }) => {
                       }}
                       className='w-full bg-white rounded-[1rem] border border-border border-solid mb-[3rem] overflow-hidden'
                     >
-                      <div className='p-[1rem] lg:p-[3rem] mb-[5rem] bg-sectionBG bg-cvBoxMobile sm:bg-cvBoxDesktop bg-center bg-no-repeat bg-cover lg:bg-contain'>
+                      <div className='p-[1rem] lg:p-[3rem] mb-[5rem] bg-primary bg-cvBoxDesktop bg-center bg-no-repeat bg-cover lg:bg-contain'>
                         <div className='flex flex-col md:flex-row items-start md:items-center gap-[2rem] mb-[2rem]'>
                           {/* Circle Icon */}
                           {/* {service.category_id &&

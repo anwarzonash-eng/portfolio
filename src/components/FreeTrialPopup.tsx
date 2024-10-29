@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Confetti from './Confetti';
 import VideoPlayer from './VideoPlayer';
+import { scrollToSection } from '@/hooks/scrollToSection';
 
 const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
   const [open, setOpen] = useState(false);
@@ -34,7 +35,7 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
           <Confetti />
           {/* Free Trial PopUp */}
           <div className='mx-6'>
-            <div className='rounded-[1.2rem] max-w-[102.4rem] w-full mx-auto bg-trialPopUpGradient relative'>
+            <div className='rounded-[1.2rem] max-w-[102.4rem] w-full mx-auto bg-primary relative'>
               {' '}
               {/* Close Icon */}
               <div className='absolute top-[-1rem] right-[-1rem] cursor-pointer z-[60]'>
@@ -77,20 +78,7 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
                   {listOfdata?.video_attached?.videoURL && (
                     <div className='pb-10 relative rounded-[1.2rem] flex items-end justify-center max-w-[97.7rem] w-full px-[1.5rem] mx-auto'>
                       {/* Video Section */}
-                      {/* <VideoPlayer
-                      videoSrc={listOfdata?.video_attached?.videoURL}
-                      videoClassName='rounded-[1.2rem] h-full w-full h-[28.8rem] sm:h-[44rem] object-cover'
-                      thumbnailSrc={
-                        listOfdata?.profile_photo_3 || '/images/popUpPic.png'
-                      }
-                      containerClassName='rounded-[1.2rem] max-w-[1200px] w-full'
-                      thumbnailClassName='rounded-[1.2rem] h-[28.8rem] sm:h-[44rem]'
-                      thumbnailImage='rounded-[1.2rem] object-cover h-full w-full rounded-[1rem]'
-                      playButtonClassName='!w-[100px] !h-[100px] relative flex items-center justify-center'
-                      closeButtonClassName='custom-close-button'
-                      playIcon='/images/popUpPlay.svg'
-                      closeIcon='/images/close-icon.svg'
-                    /> */}
+
                       <video
                         autoPlay
                         muted
@@ -266,21 +254,36 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
                   {/* Skills */}
                   {listOfdata && listOfdata?.skills_ids?.length > 0 && (
                     <div className='md:max-w-[62rem] w-full overflow-hidden max-md:p-[1rem] md:py-[2rem] md:pr-[3rem] md:pl-[1rem]'>
-                      <h3 className='text-[1.8rem] font-bold text-primary mb-[1.2rem]'>
-                        My Skills
-                      </h3>
+                      <div className='flex justify-between mb-[1rem]'>
+                        <h3 className='flex items-center align-middle justify-center text-[1.8rem] font-bold text-primary mb-[1.2rem]'>
+                          My Skills
+                        </h3>
+
+                        {listOfdata?.skills_ids.length > 10 && (
+                          <button
+                            onClick={() => {
+                              handleClose(), scrollToSection('skills_ids');
+                            }}
+                            className=' text-center hover:text-white text-primary text-[1.8rem] font-medium hover:bg-primary px-[1.5rem] md:px-[2.1rem]  bg-white rounded-[5rem] shadow-skillShadow border-[1.5px] flex-shrink-0 border-solid border-[#DDD] justify-center items-center gap-[1rem] flex'
+                          >
+                            See More
+                          </button>
+                        )}
+                      </div>
                       <div className='w-full p-[1rem] md:p-[2rem] flex items-center justify-center border border-border border-solid gap-[1rem] flex-wrap flex-shrink-0 rounded-[1rem]'>
                         <div className='md:max-w-[536px] w-full bg-white/70 backdrop-blur-[1.2rem] flex flex-wrap flex-shrink-0 gap-[1rem]'>
-                          {listOfdata?.skills_ids?.map((skill, index) => (
+                          {(listOfdata?.skills_ids &&
+                          listOfdata?.skills_ids.length > 10
+                            ? listOfdata.skills_ids.slice(0, 10)
+                            : listOfdata?.skills_ids
+                          )?.map((skill, index) => (
                             <Link
                               href={skill?.url || '#'}
                               key={index}
-                              className='hover:bg-primary hover:text-white text-white px-[1.5rem] md:px-[2.1rem] py-[0.4rem] md:py-[0.8rem] bg-white rounded-[5rem] shadow-skillShadow border-[1.5px] flex-shrink-0 border-solid border-[#DDD] justify-center items-center gap-[1rem] flex'
+                              className='text-center hover:text-white text-primary text-[1.8rem] font-medium hover:bg-primary px-[1.5rem] md:px-[2.1rem] py-[0.4rem] md:py-[0.8rem] bg-white rounded-[5rem] shadow-skillShadow border-[1.5px] flex-shrink-0 border-solid border-[#DDD] justify-center items-center gap-[1rem] flex'
                               style={{ animationDelay: `${index * 0.3}s` }}
                             >
-                              <div className='text-center hover:text-white text-primary text-[1.8rem] font-medium'>
-                                {skill.title}
-                              </div>
+                              {skill.title}
                             </Link>
                           ))}
                         </div>
