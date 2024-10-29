@@ -431,13 +431,13 @@ const CV = ({ params }: { params: any }) => {
                                         className='mx-auto mb-[4rem] flex flex-col items-center justify-start gap-[0.8rem] max-w-[15rem] lg:max-w-[19rem] w-full animate-fadeIn opacity-0'
                                       >
                                         {skill.icon && (
-                                          <div className='flex items-center justify-center max-h-[6.4rem] max-w-[6.4rem]'>
+                                          <div className='flex items-center justify-center h-[6.4rem] w-[6.4rem]'>
                                             <Image
                                               src={skill?.icon}
                                               alt={skill?.title}
                                               height={64}
                                               width={64}
-                                              className='object-cover rounded-full max-h-[6.4rem] max-w-[6.4rem]'
+                                              className='object-cover rounded-full h-[6.4rem] w-[6.4rem]'
                                             />
                                           </div>
                                         )}
