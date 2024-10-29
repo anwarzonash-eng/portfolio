@@ -32,7 +32,6 @@ const Offer = ({ params }: { params: any }) => {
   const [listOfskills, setListOfSkills] = useState([]);
   const [categoryPictures, setCategoryPictures] = useState({});
   const serviceRefs = useRef([]);
-
   const serviceToScroll = searchParams.get('service');
 
   useEffect(() => {
@@ -392,7 +391,10 @@ const Offer = ({ params }: { params: any }) => {
                       className=' p-[1rem] list-div text-[1.6rem] lg:p-[3rem] rounded-[1rem] bg-white'
                     ></div>
                     {mainService?.skills && mainService?.skills.length > 0 && (
-                      <SkillsComponent service={mainService} />
+                      <SkillsComponent
+                        service={mainService}
+                        skillsList={listOfskills}
+                      />
                     )}
                   </div>
                 )}
@@ -447,7 +449,10 @@ const Offer = ({ params }: { params: any }) => {
                         className=' p-[1rem] list-div text-[1.6rem] lg:p-[3rem] rounded-[1rem] mt-[-6rem] lg:mt-[-8rem] bg-white'
                       ></div>
                       {service?.skills && service?.skills.length > 0 && (
-                        <SkillsComponent service={service} />
+                        <SkillsComponent
+                          service={service}
+                          skillsList={listOfskills}
+                        />
                       )}
                     </div>
                   ))}
@@ -490,21 +495,33 @@ const Offer = ({ params }: { params: any }) => {
 
 export default Offer;
 
-const SkillsComponent = ({ service }) => {
+const SkillsComponent = ({ service, skillsList }) => {
   return (
-    <div className='px-[1rem]  lg:px-[3rem] text-black list-div text-[1.6rem] leading-[2.4rem] sm:text-[1.8rem] sm:leading-[2.8rem] lg:text-[1.8rem] lg:leading-[2.9rem] font-normal lg:font-medium mb-[2rem]'>
+    <div className='px-[1rem] lg:px-[3rem] text-black list-div text-[1.6rem] leading-[2.4rem] sm:text-[1.8rem] sm:leading-[2.8rem] lg:text-[1.8rem] lg:leading-[2.9rem] font-normal lg:font-medium mb-[2rem]'>
       AREAS OF EXPERTISE I'VE WORKED IN
       <div className='flex items-center gap-[1rem] lg:gap-[0.7rem] my-[2.4rem] text-nowrap flex-wrap'>
-        {service?.skills.map((skill, idx) => (
-          <div
-            // Link
-            // href={skill?.url || '#'}
-            key={idx}
-            className='hover:bg-primary capitalize hover:text-white py-[0.4rem] px-[2rem] bg-bannerBG text-heading rounded-[1.2rem] text-[1.4rem] font-medium leading-[2rem]'
-          >
-            {skill.title}
-          </div>
-        ))}
+        {service?.skills.map((skill, idx) => {
+          const matchedSkill = skillsList.find((s) => s.title === skill.title);
+          const href = matchedSkill?.url;
+
+          return href ? (
+            <Link
+              href={href}
+              target='_blank'
+              key={idx}
+              className='hover:bg-primary capitalize hover:text-white py-[0.4rem] px-[2rem] bg-bannerBG text-heading rounded-[1.2rem] text-[1.4rem] font-medium leading-[2rem]'
+            >
+              {skill.title}
+            </Link>
+          ) : (
+            <div
+              key={idx}
+              className='hover:bg-primary capitalize hover:text-white py-[0.4rem] px-[2rem] bg-bannerBG text-heading rounded-[1.2rem] text-[1.4rem] font-medium leading-[2rem]'
+            >
+              {skill.title}
+            </div>
+          );
+        })}
       </div>
     </div>
   );
