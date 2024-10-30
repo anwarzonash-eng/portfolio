@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev -p 3059",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 3059",
     "lint": "next lint",
     "postcss": "postcss src/styles -o src/styles/build.css"
   },
