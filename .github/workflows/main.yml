@@ -27,5 +27,4 @@ jobs:
       - run: rm package-lock.json
 
       - run: cp .env.development .env
-      - name: Restart Application  
-        run: pm2 restart v3 
+      - run: npm run build
