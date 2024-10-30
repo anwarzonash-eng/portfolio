@@ -20,11 +20,10 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-
-      - name: Install Node Modules in frontend
-        run: npm install 
-    
-      - run: rm package-lock.json
-
+      - name: Clear Next.js Cache
+        run: rm -rf .next
       - run: cp .env.development .env
-      - run: npm run build
+      - name: Install Dependencies
+        run: npm ci
+      - name: Build
+        run: npm run build
