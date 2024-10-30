@@ -125,7 +125,7 @@ const PortfolioDetails = ({ params }: { params: any }) => {
                   {/* Blog Detail Content */}
                   <article className='mt-[6rem] flex gap-[4rem] flex-col items-center justify-center md:flex-row md:items-start md:justify-normal'>
                     {/* Aside */}
-                    <aside className='rounded-[1rem] order-1 bg-white p-[2.4rem] md:max-w-[31.2rem] w-full flex flex-col gap-[3.2rem] '>
+                    <aside className='rounded-[1rem] bg-white p-[2.4rem] md:max-w-[31.2rem] w-full flex flex-col gap-[3.2rem] '>
                       {/* Aside Child */}
                       {portfolioDetails?.my_role && (
                         <div className=''>
