@@ -16,6 +16,7 @@ import { handleSkillsApiCall } from '@/hooks/apihandlers/skillsApiHandlers';
 import { modifiedContent } from '@/hooks/modifiedContent';
 import { handleCategoryPicture } from '@/hooks/apihandlers/categoryApiHandler';
 import PageRendering from '@/components/PageRendering';
+import { skillsGrouping } from '@/hooks/skillsGrouping';
 
 const Offer = ({ params }: { params: any }) => {
   // This is the Custom Hook That
@@ -354,7 +355,7 @@ const Offer = ({ params }: { params: any }) => {
                         dangerouslySetInnerHTML={{
                           __html: mainService?.tagline,
                         }}
-                        className='px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium  leading-tight mx-auto mb-[1.6rem]'
+                        className='px-[2rem] py-[1.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-[1.8rem] lg:text-[2.2rem] text-heading leading-[3rem] lg:leading-[3.4rem] font-medium  mx-auto mb-[1.6rem]'
                       ></div>
                     )}
                   </div>
@@ -415,7 +416,7 @@ const Offer = ({ params }: { params: any }) => {
                             categoryPictures[service?.category_id] && ( */}
                           {service?.picture && (
                             <div className='w-[9.3rem] h-[9.3rem] flex items-center justify-center rounded-[12rem] shadow relative'>
-                              <div className='absolute inset-0 flex items-center justify-center'>
+                              <div className='flex items-center justify-center w-[9.3rem] h-[9.3rem]'>
                                 <Image
                                   src={service?.picture}
                                   alt='Icon'
@@ -427,7 +428,7 @@ const Offer = ({ params }: { params: any }) => {
                             </div>
                           )}
                           {/* Title */}
-                          <h3 className='text-[2.4rem] lg:text-[3rem] text-white leading-[3rem] lg:leading-[3.4rem] font-medium'>
+                          <h3 className='text-[2.4rem] lg:text-[4.5rem] text-white leading-tight font-medium'>
                             {service.title}
                           </h3>
                         </div>
@@ -496,32 +497,47 @@ const Offer = ({ params }: { params: any }) => {
 export default Offer;
 
 const SkillsComponent = ({ service, skillsList }) => {
+  const skills: {
+    [key: string]: {
+      title: string;
+      url?: string;
+      order?: string;
+    }[];
+  } = skillsGrouping(service?.skills);
   return (
     <div className='px-[1rem] lg:px-[3rem] text-black list-div text-[1.6rem] leading-[2.4rem] sm:text-[1.8rem] sm:leading-[2.8rem] lg:text-[1.8rem] lg:leading-[2.9rem] font-normal lg:font-medium mb-[2rem]'>
       AREAS OF EXPERTISE I'VE WORKED IN
       <div className='flex items-center gap-[1rem] lg:gap-[0.7rem] my-[2.4rem] text-nowrap flex-wrap'>
-        {service?.skills.map((skill, idx) => {
-          const matchedSkill = skillsList.find((s) => s.title === skill.title);
-          const href = matchedSkill?.url;
+        {Object?.values(skills)?.map((group, groupIndex) => (
+          <React.Fragment key={groupIndex}>
+            {group.map((skill, i) => {
+              const matchedSkill = skillsList.find(
+                (s) => s.title === skill.title
+              );
+              const href = matchedSkill?.url;
 
-          return href ? (
-            <Link
-              href={href}
-              target='_blank'
-              key={idx}
-              className='hover:bg-primary capitalize hover:text-white py-[0.4rem] px-[2rem] bg-bannerBG text-heading rounded-[1.2rem] text-[1.4rem] font-medium leading-[2rem]'
-            >
-              {skill.title}
-            </Link>
-          ) : (
-            <div
-              key={idx}
-              className='hover:bg-primary capitalize hover:text-white py-[0.4rem] px-[2rem] bg-bannerBG text-heading rounded-[1.2rem] text-[1.4rem] font-medium leading-[2rem]'
-            >
-              {skill.title}
-            </div>
-          );
-        })}
+              return href ? (
+                <Link
+                  href={href}
+                  target='_blank'
+                  key={i}
+                  className='hover:bg-primary capitalize hover:text-white py-[0.4rem] px-[2rem] bg-bannerBG text-heading rounded-[1.2rem] text-[1.4rem] font-medium leading-[2rem]'
+                >
+                  {skill.title}
+                </Link>
+              ) : (
+                <div
+                  key={i}
+                  className='hover:bg-primary capitalize hover:text-white py-[0.4rem] px-[2rem] bg-bannerBG text-heading rounded-[1.2rem] text-[1.4rem] font-medium leading-[2rem]'
+                >
+                  {skill.title}
+                </div>
+              );
+            })}
+            {/* Line break after each group */}
+            <div className='w-full mb-[1px]' />
+          </React.Fragment>
+        ))}
       </div>
     </div>
   );
