@@ -5,7 +5,6 @@ import Image from 'next/image';
 import Confetti from './Confetti';
 import VideoPlayer from './VideoPlayer';
 import { scrollToSection } from '@/hooks/scrollToSection';
-import { skillsGrouping } from '@/hooks/skillsGrouping';
 
 const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
   const [open, setOpen] = useState(false);
@@ -28,18 +27,6 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
   };
 
   if (!open) return null;
-
-  const skills: {
-    [key: string]: {
-      title: string;
-      url?: string;
-      order?: string;
-    }[];
-  } = skillsGrouping(
-    listOfdata?.skills_ids && listOfdata?.skills_ids.length > 6
-      ? listOfdata.skills_ids.slice(0, 6)
-      : listOfdata?.skills_ids
-  );
 
   return (
     <>
@@ -272,7 +259,7 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
                           My Skills
                         </h3>
 
-                        {listOfdata?.skills_ids.length > 6 && (
+                        {listOfdata?.skills_ids.length > 10 && (
                           <button
                             onClick={() => {
                               handleClose(), scrollToSection('skills_ids');
@@ -285,21 +272,19 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
                       </div>
                       <div className='w-full p-[1rem] md:p-[2rem] flex items-center justify-center border border-border border-solid gap-[1rem] flex-wrap flex-shrink-0 rounded-[1rem]'>
                         <div className='md:max-w-[536px] w-full bg-white/70 backdrop-blur-[1.2rem] flex flex-wrap flex-shrink-0 gap-[1rem]'>
-                          {Object?.values(skills)?.map((group, groupIndex) => (
-                            <React.Fragment key={groupIndex}>
-                              {group.map((skill, i) => (
-                                <Link
-                                  href={skill?.url || '#'}
-                                  key={i}
-                                  className='text-center hover:text-white text-primary text-[1.8rem] font-medium hover:bg-primary px-[1.5rem] md:px-[2.1rem] py-[0.4rem] md:py-[0.8rem] bg-white rounded-[5rem] shadow-skillShadow border-[1.5px] flex-shrink-0 border-solid border-[#DDD] justify-center items-center gap-[1rem] flex'
-                                  style={{ animationDelay: `${i * 0.3}s` }}
-                                >
-                                  {skill.title}
-                                </Link>
-                              ))}
-                              {/* Line break after each group */}
-                              <div className='w-full mb-[1px]' />
-                            </React.Fragment>
+                          {(listOfdata?.skills_ids &&
+                          listOfdata?.skills_ids.length > 10
+                            ? listOfdata.skills_ids.slice(0, 10)
+                            : listOfdata?.skills_ids
+                          )?.map((skill, index) => (
+                            <Link
+                              href={skill?.url || '#'}
+                              key={index}
+                              className='text-center hover:text-white text-primary text-[1.8rem] font-medium hover:bg-primary px-[1.5rem] md:px-[2.1rem] py-[0.4rem] md:py-[0.8rem] bg-white rounded-[5rem] shadow-skillShadow border-[1.5px] flex-shrink-0 border-solid border-[#DDD] justify-center items-center gap-[1rem] flex'
+                              style={{ animationDelay: `${index * 0.3}s` }}
+                            >
+                              {skill.title}
+                            </Link>
                           ))}
                         </div>
                       </div>

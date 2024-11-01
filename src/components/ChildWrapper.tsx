@@ -4,7 +4,6 @@ import { getColors, updateCSSVariables } from '@/hooks/colors';
 import { useAppSelector } from '@/store';
 import dynamic from 'next/dynamic';
 import Tawkto from './Tawkto';
-import GoogleAnalytics from './GoogleAnalytics';
 
 const Header = dynamic(() => import('./layouts/header/page'), {
   ssr: false,
@@ -48,10 +47,8 @@ export default function ChildWrapper({
 
   return (
     <>
-      <GoogleAnalytics scriptNumber={listOfdata?.googleAnalyticsScript} />
       <Tawkto />
       <Header />
-
       {children}
       <Footer />
     </>
