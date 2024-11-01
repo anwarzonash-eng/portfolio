@@ -255,32 +255,18 @@ const ContactMe = ({ listOfdata }) => {
                 width={40}
                 alt='location'
               />
-              <div className='w-full flex justify-between'>
-                <div>
-                  <div className=' font-medium'>
-                    <p className='text-paragraph1 text-[1.2rem] uppercase '>
-                      Address
-                    </p>
-                    <Link
-                      target='_blank'
-                      className='text-heading text-[1.5rem] hover:text-primary duration-300 '
-                      href={`https://www.google.com/maps/place/${listOfdata?.location}
+              <div className='w-full font-medium'>
+                <p className='text-paragraph1 text-[1.2rem] uppercase '>
+                  Address
+                </p>
+                <Link
+                  target='_blank'
+                  className='text-heading text-[1.5rem] hover:text-primary duration-300 '
+                  href={`https://www.google.com/maps/place/${listOfdata?.location}
                   )}`}
-                    >
-                      {listOfdata?.location}
-                    </Link>
-                  </div>{' '}
-                </div>
-
-                {listOfdata?.location?.includes('Manchester, UK') && (
-                  <Image
-                    src={'/images/ukFlag.svg'}
-                    height={35}
-                    width={35}
-                    className='h-[3rem] w-[3rem] rounded-full object-cover'
-                    alt='Uk Flag'
-                  />
-                )}
+                >
+                  {listOfdata?.location}
+                </Link>
               </div>
             </div>
             <div className='w-full border border-border border-solid p-[1.5rem] rounded-[0.8rem] flex items-center justify-around'>

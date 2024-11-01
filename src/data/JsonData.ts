@@ -1,5 +1,4 @@
 import { formatPhoneNumber } from '@/hooks/formatPhoneNumber';
-import { getUsername } from '@/hooks/getUserName';
 
 export const dateFormatsOptions = {
   longMonth: {
@@ -67,7 +66,7 @@ export const contactDetails = (listOfdata) => [
     type: 'WhatsApp',
     iconSrc: '/images/whatsapp-cv.svg',
     alt: 'WhatsApp',
-    value: formatPhoneNumber(listOfdata?.phone_no),
+    value: 'https://www.whatsapp.com/',
     href: `https://wa.me/${listOfdata?.phone_no}`,
   },
 ];
@@ -83,21 +82,22 @@ export const socialLinks = (listOfdata) => [
     platform: 'Github',
     iconSrc: '/images/github.svg',
     alt: 'Github',
-    username: getUsername(listOfdata?.github),
+    username: listOfdata?.github,
     href: listOfdata?.github,
   },
   {
     platform: 'Linkedin',
     iconSrc: '/images/linkedin.svg',
     alt: 'Linkedin',
-    username: getUsername(listOfdata?.linkedIn),
+    username: listOfdata?.linkedIn,
     href: listOfdata?.linkedIn,
   },
+
   {
     platform: 'Behance',
     iconSrc: '/images/behance.svg',
     alt: 'Behance',
-    username: getUsername(listOfdata?.behance_link),
+    username: listOfdata?.behance_link,
     href: listOfdata?.behance_link,
   },
 ];
