@@ -20,6 +20,7 @@ import { store } from '@/store';
 import { setProfileLoading, setProfileUrlInfo } from '@/store/profileSlice';
 import PageRendering from '@/components/PageRendering';
 import SkillsContainer from '@/components/SkillsContainer';
+import { skillsGrouping } from '@/hooks/skillsGrouping';
 
 const PortfolioDetails = ({ params }: { params: any }) => {
   const searchParams = useSearchParams();
@@ -73,6 +74,14 @@ const PortfolioDetails = ({ params }: { params: any }) => {
       }
     }
   }, [searchParams, portfolioDetails]);
+
+  const skillsforDetailPortfolio: {
+    [key: string]: {
+      title: string;
+      url?: string;
+      order?: string;
+    }[];
+  } = skillsGrouping(portfolioDetails?.skills);
 
   return (
     <div className='bg-[#EFF5FD]'>
@@ -243,14 +252,26 @@ const PortfolioDetails = ({ params }: { params: any }) => {
 
                       {/* Skills Badges */}
                       <div className='flex items-center gap-[1rem] lg:gap-[0.7rem] text-nowrap flex-wrap text-[1.2rem] my-[3.2rem]'>
-                        {portfolioDetails?.skills?.map((skill, index) => (
-                          <Link
-                            href={skill?.url || '#'}
-                            className='hover:bg-primary hover:text-white py-[0.4rem] px-[2rem] text-heading bg-[#A3DDD3] rounded-[1.8rem] text-[1.4rem] font-medium leading-normal'
-                          >
-                            {skill.title}
-                          </Link>
-                        ))}
+                        {skillsforDetailPortfolio && (
+                          <>
+                            {Object?.values(skillsforDetailPortfolio)?.map(
+                              (group, groupIndex) => (
+                                <React.Fragment key={groupIndex}>
+                                  {group.map((skill, i) => (
+                                    <Link
+                                      href={skill?.url || '#'}
+                                      className='hover:bg-primary hover:text-white py-[0.4rem] px-[2rem] text-heading bg-[#A3DDD3] rounded-[1.8rem] text-[1.4rem] font-medium leading-normal'
+                                    >
+                                      {skill.title}
+                                    </Link>
+                                  ))}
+                                  {/* Line break after each group */}
+                                  <div className='w-full mb-[1px]' />
+                                </React.Fragment>
+                              )
+                            )}
+                          </>
+                        )}
                       </div>
 
                       {/* Links */}
