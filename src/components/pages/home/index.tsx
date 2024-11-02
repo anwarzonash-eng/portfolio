@@ -838,9 +838,6 @@ const Home = ({ params }: { params: any }) => {
                                                                   >
                                                                     {
                                                                       skill?.title
-                                                                    }{' '}
-                                                                    {
-                                                                      skill?.order
                                                                     }
                                                                   </Link>
                                                                 )
