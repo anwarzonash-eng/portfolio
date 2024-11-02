@@ -373,12 +373,12 @@ const BlogListing = ({ params }: { params: any }) => {
             </Link>
           ))}
           {/* Newsletter */}
+        </div>
+      )}
 
-          {!urlInfo?.u && (
-            <div className='w-full mb-[5rem]'>
-              <Newsletter />
-            </div>
-          )}
+      {!urlInfo?.u && (
+        <div className='w-full my-[5rem]'>
+          <Newsletter />
         </div>
       )}
       {/* Pagination */}
