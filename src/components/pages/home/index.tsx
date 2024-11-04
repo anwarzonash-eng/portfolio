@@ -32,9 +32,11 @@ import PageRendering from '@/components/PageRendering';
 import { scrollToSection } from '@/hooks/scrollToSection';
 import SkillsContainer from '@/components/SkillsContainer';
 import { skillsGrouping } from '@/hooks/skillsGrouping';
+import ShowmoreSkills from '@/components/showmoreSkills';
 
 const Home = ({ params }: { params: any }) => {
   useBodyBackgroundColor('#f8f9fa');
+  const [showMoreSkills, setShowMoreSkills] = useState([]);
   const [urlInfo, setURLInfo] = useState(null);
   const [listOfdata, setListOfData] = useState(null);
   const [listOfskills, setListOfSkills] = useState([]);
@@ -682,7 +684,11 @@ const Home = ({ params }: { params: any }) => {
                                         order?: string;
                                         icon?: string;
                                       }[];
-                                    } = skillsGrouping(experience?.skills);
+                                    } = skillsGrouping(
+                                      showMoreSkills[index]
+                                        ? experience?.skills
+                                        : experience?.skills?.slice(0, 15)
+                                    );
                                     return (
                                       <>
                                         {/* Timeline items Container */}
@@ -843,10 +849,22 @@ const Home = ({ params }: { params: any }) => {
                                                                 )
                                                               )}
                                                               {/* Line break after each group */}
-                                                              <div className='w-full mb-[1px]' />
+                                                              {showMoreSkills[
+                                                                index
+                                                              ] && (
+                                                                <div className='w-full mb-[1px]' />
+                                                              )}
                                                             </React.Fragment>
                                                           )
                                                         )}
+                                                        <ShowmoreSkills
+                                                          props={{
+                                                            list: experience?.skills,
+                                                            index,
+                                                            setShowMoreSkills,
+                                                            showMoreSkills,
+                                                          }}
+                                                        />
                                                       </div>
                                                     </div>
                                                   )}

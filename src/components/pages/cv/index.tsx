@@ -25,6 +25,7 @@ import { blogsListing } from '@/hooks/apihandlers/blogListingApiHandler';
 import Newsletter from '@/components/Newsletter';
 import PageRendering from '@/components/PageRendering';
 import { skillsGrouping } from '@/hooks/skillsGrouping';
+import ShowmoreSkills from '@/components/showmoreSkills';
 
 const CV = ({ params }: { params: any }) => {
   const searchParams = useSearchParams();
@@ -41,6 +42,11 @@ const CV = ({ params }: { params: any }) => {
   const [blogsList, setBlogsList] = useState([]);
   const [loadingblogs, setLoadingBlogs] = useState(false);
   const [showAll, setShowAll] = useState(false);
+  const [showMoreSkillsForExperiences, setShowMoreSkillsForExperiences] =
+    useState([]);
+  const [showMoreSkillsForPortfolios, setShowMoreSkillsForPortfolios] =
+    useState([]);
+
   const initialVisibleItems = 3 * 6;
 
   const visibleSkills = showAll
@@ -516,7 +522,11 @@ const CV = ({ params }: { params: any }) => {
                                           url?: string;
                                           order?: string;
                                         }[];
-                                      } = skillsGrouping(experience?.skills);
+                                      } = skillsGrouping(
+                                        showMoreSkillsForExperiences[index]
+                                          ? experience?.skills
+                                          : experience?.skills?.slice(0, 15)
+                                      );
                                       return (
                                         <div
                                           className='relative flex items-start mt-[2rem]'
@@ -662,7 +672,7 @@ const CV = ({ params }: { params: any }) => {
                                                 className={`mt-[2rem] list-div-portfolio text-heading text-[1.4rem] font-normal leading-[150%] list-disc pl-[2rem] flex flex-col gap-[0.8rem] overflow-hidden transition-[max-height] duration-200 ease-in-out ${
                                                   expandedItems[index]
                                                     ? 'max-h-[100rem]'
-                                                    : 'max-h-[20rem]'
+                                                    : 'max-h-[19rem]'
                                                 }`}
                                               ></div>
 
@@ -703,7 +713,7 @@ const CV = ({ params }: { params: any }) => {
                                                                 skill?.url ||
                                                                 '#'
                                                               }
-                                                              key={index}
+                                                              key={i}
                                                               className='hover:bg-primary py-[0.4rem] px-[2rem] hover:text-white bg-white border border-[#E2E6EE] border-solid text-heading rounded-[1.2rem] text-[1.2rem] font-medium leading-normal'
                                                             >
                                                               {skill.title}
@@ -711,10 +721,26 @@ const CV = ({ params }: { params: any }) => {
                                                           )
                                                         )}
                                                         {/* Line break after each group */}
-                                                        <div className='w-full mb-[1px]' />
+                                                        {showMoreSkillsForExperiences[
+                                                          index
+                                                        ] && (
+                                                          <div className='w-full mb-[1px]' />
+                                                        )}
                                                       </React.Fragment>
                                                     )
                                                   )}
+                                                  <ShowmoreSkills
+                                                    props={{
+                                                      list: experience?.skills,
+                                                      index,
+                                                      setShowMoreSkills:
+                                                        setShowMoreSkillsForExperiences,
+                                                      showMoreSkills:
+                                                        showMoreSkillsForExperiences,
+                                                      className:
+                                                        'bg-primary py-[0.4rem] px-[2rem] text-white hover:bg-white border border-[#E2E6EE] border-solid hover:border hover:border-primary hover:border-solid hover:text-primary rounded-[1.2rem] text-[1.2rem] font-medium leading-normal',
+                                                    }}
+                                                  />
                                                 </div>
                                               </div>
                                             </div>
@@ -777,7 +803,11 @@ const CV = ({ params }: { params: any }) => {
                                           url?: string;
                                           order?: string;
                                         }[];
-                                      } = skillsGrouping(portfolio?.skills);
+                                      } = skillsGrouping(
+                                        showMoreSkillsForPortfolios[index]
+                                          ? portfolio?.skills
+                                          : portfolio?.skills?.slice(0, 15)
+                                      );
 
                                       return (
                                         <div
@@ -943,10 +973,24 @@ const CV = ({ params }: { params: any }) => {
                                                             )
                                                           )}
                                                           {/* Line break after each group */}
-                                                          <div className='w-full mb-[1px]' />
+                                                          {showMoreSkillsForPortfolios[
+                                                            index
+                                                          ] && (
+                                                            <div className='w-full mb-[1px]' />
+                                                          )}
                                                         </React.Fragment>
                                                       )
                                                     )}
+                                                    <ShowmoreSkills
+                                                      props={{
+                                                        list: portfolio?.skills,
+                                                        index,
+                                                        setShowMoreSkills:
+                                                          setShowMoreSkillsForPortfolios,
+                                                        showMoreSkills:
+                                                          showMoreSkillsForPortfolios,
+                                                      }}
+                                                    />
                                                   </div>
                                                 </div>
                                                 <hr className='w-full my-[2.4rem] h-px bg-border' />

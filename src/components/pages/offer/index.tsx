@@ -17,6 +17,7 @@ import { modifiedContent } from '@/hooks/modifiedContent';
 import { handleCategoryPicture } from '@/hooks/apihandlers/categoryApiHandler';
 import PageRendering from '@/components/PageRendering';
 import { skillsGrouping } from '@/hooks/skillsGrouping';
+import ShowmoreSkills from '@/components/showmoreSkills';
 
 const Offer = ({ params }: { params: any }) => {
   // This is the Custom Hook That
@@ -453,6 +454,7 @@ const Offer = ({ params }: { params: any }) => {
                         <SkillsComponent
                           service={service}
                           skillsList={listOfskills}
+                          index={index}
                         />
                       )}
                     </div>
@@ -496,14 +498,18 @@ const Offer = ({ params }: { params: any }) => {
 
 export default Offer;
 
-const SkillsComponent = ({ service, skillsList }) => {
+const SkillsComponent = ({ service, skillsList, index = 0 }) => {
+  const [showMoreSkills, setShowMoreSkills] = useState([]);
+
   const skills: {
     [key: string]: {
       title: string;
       url?: string;
       order?: string;
     }[];
-  } = skillsGrouping(service?.skills);
+  } = skillsGrouping(
+    showMoreSkills[index] ? service?.skills : service?.skills?.slice(0, 15)
+  );
   return (
     <div className='px-[1rem] lg:px-[3rem] text-black list-div text-[1.6rem] leading-[2.4rem] sm:text-[1.8rem] sm:leading-[2.8rem] lg:text-[1.8rem] lg:leading-[2.9rem] font-normal lg:font-medium mb-[2rem]'>
       AREAS OF EXPERTISE I'VE WORKED IN
@@ -535,9 +541,17 @@ const SkillsComponent = ({ service, skillsList }) => {
               );
             })}
             {/* Line break after each group */}
-            <div className='w-full mb-[1px]' />
+            {showMoreSkills[index] && <div className='w-full mb-[1px]' />}
           </React.Fragment>
-        ))}
+        ))}{' '}
+        <ShowmoreSkills
+          props={{
+            list: service?.skills,
+            index,
+            setShowMoreSkills,
+            showMoreSkills,
+          }}
+        />
       </div>
     </div>
   );

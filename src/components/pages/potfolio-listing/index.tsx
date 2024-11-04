@@ -16,13 +16,15 @@ import OurBlogs from '@/components/OurBlogs';
 import { modifiedContent } from '@/hooks/modifiedContent';
 import { handleSkillsApiCall } from '@/hooks/apihandlers/skillsApiHandlers';
 import { skillsGrouping } from '@/hooks/skillsGrouping';
+import { toggleShowMoreSkills } from '@/hooks/toggleShowMoreSkills';
+import ShowmoreSkills from '@/components/showmoreSkills';
 
 const PortfolioListing = ({ params }: { params: any }) => {
   const [
     selectedPorfolioPicturesforPopup,
     setSelectedPorfolioPicturesforPopup,
   ] = useState(null);
-
+  const [showMoreSkills, setShowMoreSkills] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [urlInfo, setURLInfo] = useState(null);
   const [listOfdata, setListOfData] = useState(null);
@@ -332,7 +334,11 @@ const PortfolioListing = ({ params }: { params: any }) => {
                         url?: string;
                         order?: string;
                       }[];
-                    } = skillsGrouping(portfolio.skills);
+                    } = skillsGrouping(
+                      showMoreSkills[index]
+                        ? portfolio?.skills
+                        : portfolio?.skills?.slice(0, 15)
+                    );
                     return (
                       <div className='relative flex items-start' key={index}>
                         {/* Dot */}
@@ -431,10 +437,21 @@ const PortfolioListing = ({ params }: { params: any }) => {
                                         </Link>
                                       ))}
                                       {/* Line break after each group */}
-                                      <div className='w-full mb-[1px]' />
+                                      {showMoreSkills[index] && (
+                                        <div className='w-full mb-[1px]' />
+                                      )}
                                     </React.Fragment>
                                   )
                                 )}
+
+                                <ShowmoreSkills
+                                  props={{
+                                    list: portfolio?.skills,
+                                    index,
+                                    setShowMoreSkills,
+                                    showMoreSkills,
+                                  }}
+                                />
                               </div>
                               <hr className='w-full my-[2.4rem] h-px bg-border' />
                               {/* Links */}
