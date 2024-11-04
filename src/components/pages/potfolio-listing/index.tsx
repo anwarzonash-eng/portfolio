@@ -354,7 +354,32 @@ const PortfolioListing = ({ params }: { params: any }) => {
                           {/* Card */}
                           <div className='flex flex-col-reverse lg:flex-row max-lg:p-[1.5rem] bg-white shadow-testimonialeShadow relative rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden p-[2.4rem] gap-[2.4rem]'>
                             {/* Content */}
-                            <div className='lg:max-w-[68rem] w-full'>
+                            <div className=''>
+                              {' '}
+                              {/* Title and Description */}
+                              {portfolio?.thumbnail && (
+                                <div className='ms-0 lg:ms-5 lg:w-[50rem]  float-right w-full  rounded-[1.2rem] relative align-middle justify-center flex-col flex items-center'>
+                                  <Image
+                                    src={portfolio?.thumbnail}
+                                    alt='Project Image'
+                                    height={800}
+                                    width={800}
+                                    className='object-contain w-full rounded-[1.2rem] border border-solid border-border'
+                                  />
+                                  <button
+                                    className='mb-3 hover:tracking-[.25em] mt-[1rem] py-[1rem]  px-[2rem]  rounded-[7.77rem] border-2 border-solid border-[#fff] text-[1.8rem]  font-medium  min-w-[137px] lg:min-w-[220px]  backdrop-blur-[0.8rem] duration-300 bg-primary hover:bg-opacity-80 text-white'
+                                    onClick={() =>
+                                      openModal(
+                                        portfolio?.pictures,
+                                        portfolio?.thumbnail,
+                                        portfolio?.child_hero_banner
+                                      )
+                                    }
+                                  >
+                                    Explore the Gallery
+                                  </button>
+                                </div>
+                              )}
                               {portfolio?.company_icon && (
                                 <div className='bg-[#1B6393] p-[1.46rem] rounded-[1rem] inline-block mb-[1rem]'>
                                   <Image
@@ -362,25 +387,22 @@ const PortfolioListing = ({ params }: { params: any }) => {
                                     alt='Case'
                                     height={34}
                                     width={34}
-                                    className='h-[2rem] w-[2rem] rounded-[1rem]'
+                                    className='h-[2rem] w-[2rem] rounded-[1rem] object-contain'
                                   />
                                 </div>
                               )}
-                              {/* Title and Description */}
-                              <div className='text-heading'>
-                                <h1 className='text-[1.8rem] lg:text-[2rem] font-bold leading-[2.69rem]'>
-                                  {portfolio?.title}
-                                </h1>
-                                <p
-                                  dangerouslySetInnerHTML={{
-                                    __html: portfolio.tagline_1,
-                                  }}
-                                  className='text-[1.9rem] leading-[150%] font-medium mt-[1rem] text-primary'
-                                ></p>
-                                <hr className='w-full my-[1.6rem] h-px bg-border' />
-                              </div>
+                              <h1 className='text-[1.8rem] lg:text-[2rem] font-bold leading-[2.69rem]'>
+                                {portfolio?.title}
+                              </h1>
+                              <p
+                                dangerouslySetInnerHTML={{
+                                  __html: portfolio.tagline_1,
+                                }}
+                                className='text-[1.9rem] leading-[150%] font-medium mt-[1rem] text-primary'
+                              ></p>
+                              {/* <hr className='w-full my-[1.6rem] h-px bg-border' /> */}
                               {/* Points */}
-                              <div
+                              <p
                                 dangerouslySetInnerHTML={{
                                   __html: modifiedContent(
                                     portfolio.features_short,
@@ -388,43 +410,31 @@ const PortfolioListing = ({ params }: { params: any }) => {
                                     listOfdata
                                   ),
                                 }}
-                                className='text-[1.4rem] list-div-portfolio leading-[150%]  mb-[2rem] ml-[2rem]'
-                              ></div>
+                                className='mt-[2rem] list-div-portfolio1 pl-[2rem]'
+                              ></p>
                               {/* Skills */}
-                              <div>
-                                <h4 className='text-heading text-[1.2rem] font-medium mb-[1.2rem] ml-[0.2rem]'>
-                                  AREAS OF EXPERTISE I'VE WORKED IN
-                                </h4>
-                                <div className='flex items-center gap-[1rem] lg:gap-[0.7rem] flex-wrap text-[1.2rem]'>
-                                  {/* {portfolio?.skills?.map((skill, i) => (
-                                  <Link
-                                    href={skill?.url}
-                                    key={i}
-                                    className='hover:bg-primary hover:text-white py-[0.4rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal'
-                                  >
-                                    {skill.title}
-                                  </Link>
-                                ))} */}
-
-                                  {Object?.values(skills)?.map(
-                                    (group, groupIndex) => (
-                                      <React.Fragment key={groupIndex}>
-                                        {group.map((skill, i) => (
-                                          <Link
-                                            key={i}
-                                            href={skill.url || '#'}
-                                            target='_blank'
-                                            className='hover:bg-primary hover:text-white py-[0.4rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal'
-                                          >
-                                            {skill.title}
-                                          </Link>
-                                        ))}
-                                        {/* Line break after each group */}
-                                        <div className='w-full mb-[1px]' />
-                                      </React.Fragment>
-                                    )
-                                  )}
-                                </div>
+                              <h4 className='text-heading text-[1.2rem] font-medium mb-[1.2rem] ml-[0.2rem]'>
+                                AREAS OF EXPERTISE I'VE WORKED IN
+                              </h4>
+                              <div className='flex items-center gap-[1rem] lg:gap-[0.7rem] flex-wrap text-[1.2rem] w-full'>
+                                {Object?.values(skills)?.map(
+                                  (group, groupIndex) => (
+                                    <React.Fragment key={groupIndex}>
+                                      {group.map((skill, i) => (
+                                        <Link
+                                          key={i}
+                                          href={skill.url || '#'}
+                                          target='_blank'
+                                          className='hover:bg-primary hover:text-white py-[0.4rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal'
+                                        >
+                                          {skill.title}
+                                        </Link>
+                                      ))}
+                                      {/* Line break after each group */}
+                                      <div className='w-full mb-[1px]' />
+                                    </React.Fragment>
+                                  )
+                                )}
                               </div>
                               <hr className='w-full my-[2.4rem] h-px bg-border' />
                               {/* Links */}
@@ -452,27 +462,6 @@ const PortfolioListing = ({ params }: { params: any }) => {
                               </div>
                             </div>
                             {/* Image */}
-                            <div className='lg:max-w-[51rem] w-full  rounded-[1.2rem] relative align-middle justify-center flex-col flex items-center'>
-                              <Image
-                                src={portfolio?.thumbnail}
-                                alt='Project Image'
-                                height={800}
-                                width={800}
-                                className='object-contain w-full rounded-[1.2rem] border border-solid border-border'
-                              />
-                              <button
-                                className='hover:tracking-[.25em] mt-[1rem] py-[1rem]  px-[2rem]  rounded-[7.77rem] border-2 border-solid border-[#fff] text-[1.8rem]  font-medium  min-w-[137px] lg:min-w-[220px]  backdrop-blur-[0.8rem] duration-300 bg-primary hover:bg-opacity-80 text-white'
-                                onClick={() =>
-                                  openModal(
-                                    portfolio?.pictures,
-                                    portfolio?.thumbnail,
-                                    portfolio?.child_hero_banner
-                                  )
-                                }
-                              >
-                                Explore the Gallery
-                              </button>
-                            </div>
                           </div>
                         </div>
                       </div>
