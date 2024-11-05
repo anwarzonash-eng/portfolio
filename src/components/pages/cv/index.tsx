@@ -21,7 +21,10 @@ import { handleSkillsApiCall } from '@/hooks/apihandlers/skillsApiHandlers';
 import { store } from '@/store';
 import { setProfileLoading, setProfileUrlInfo } from '@/store/profileSlice';
 import { scrollToSection } from '@/hooks/scrollToSection';
-import { blogsListing } from '@/hooks/apihandlers/blogListingApiHandler';
+import {
+  blogsListing,
+  loadBlogs,
+} from '@/hooks/apihandlers/blogListingApiHandler';
 import Newsletter from '@/components/Newsletter';
 import PageRendering from '@/components/PageRendering';
 import { skillsGrouping } from '@/hooks/skillsGrouping';
@@ -81,9 +84,19 @@ const CV = ({ params }: { params: any }) => {
     handleSkillsApiCall({ setListOfSkills });
   }, []);
 
+  // useEffect(() => {
+  //   if (listOfdata) {
+  //     blogsListing(setLoadingBlogs, listOfdata, setBlogsList);
+  //   }
+  // }, [listOfdata]);
+
   useEffect(() => {
     if (listOfdata) {
-      blogsListing(setLoadingBlogs, listOfdata, setBlogsList);
+      loadBlogs({
+        domain: listOfdata?.domain,
+        setBlogs: setBlogsList,
+        setLoading: setLoadingBlogs,
+      });
     }
   }, [listOfdata]);
 
@@ -158,7 +171,7 @@ const CV = ({ params }: { params: any }) => {
                 />
               )}
 
-              <div className='mt-[-30rem] xl:mt-[-36rem] mainContainer  '>
+              <div className='mt-[-30rem] xl:mt-[-36rem] max-w-[1550px] w-full mx-auto px-[1.5rem]'>
                 <div className='bg-white flex flex-col lg:flex-row gap-[4rem] pb-[5rem] lg:pb-[7rem] px-[3rem] rounded-[1.4rem]  relative  mb-[10rem] lg:mb-[9.6rem]'>
                   {/* Side Panel */}
                   <aside className='lg:max-w-[40rem] w-full flex-shrink-0 bg-cvSideBg bg-no-repeat bg-cover pb-[2rem] pt-[5rem] px-[3rem]'>
@@ -473,7 +486,7 @@ const CV = ({ params }: { params: any }) => {
                                     Skills
                                   </h2>
                                   <div className='flex flex-col items-center'>
-                                    <div className='grid  grid-cols-4 md:grid-cols-6 lg:grid-cols-4 xl:grid-cols-6 gap-[1.5rem] ml-[2rem] '>
+                                    <div className='grid  grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-3 xl:grid-cols-5 gap-[1.5rem] ml-[2rem] '>
                                       {Object?.values(skillsforCV)?.map(
                                         (group, groupIndex) => (
                                           <>
@@ -492,7 +505,7 @@ const CV = ({ params }: { params: any }) => {
                                                       alt={skill?.title}
                                                       height={64}
                                                       width={64}
-                                                      className='object-cover rounded-full h-[6.4rem] w-[6.4rem]'
+                                                      className='object-contain rounded-full h-[6.4rem] w-[6.4rem]'
                                                     />
                                                   </div>
                                                 )}
@@ -1167,21 +1180,16 @@ const CV = ({ params }: { params: any }) => {
                                     {blogsList
                                       ?.slice(0, Math.min(3, blogsList.length))
                                       .map((blog, index) => (
-                                        <article
+                                        <Link
+                                          href={`/blog-listing/${blog?.id}`}
                                           key={index}
                                           className='w-full flex items-start gap-[2rem] p-[1.2rem] bg-white shadow-lg mb-[1.2rem] flex-col sm:flex-row'
                                         >
                                           {/* Card Image */}
-                                          {blog?._embedded?.[
-                                            'wp:featuredmedia'
-                                          ][0]?.source_url && (
+                                          {blog?.featuredImage && (
                                             <div className='sm:w-[20rem] h-[19rem] w-full flex-shrink-0'>
                                               <Image
-                                                src={
-                                                  blog?._embedded?.[
-                                                    'wp:featuredmedia'
-                                                  ][0]?.source_url
-                                                }
+                                                src={blog?.featuredImage}
                                                 height={300}
                                                 width={300}
                                                 alt={`Blog ${index + 1}`}
@@ -1222,14 +1230,14 @@ const CV = ({ params }: { params: any }) => {
                                             {/* Title */}
                                             <h2
                                               dangerouslySetInnerHTML={{
-                                                __html: blog?.title?.rendered,
+                                                __html: blog?.title,
                                               }}
                                               className='text-[2.4rem] font-medium leading-[3.2rem] text-heading mb-[1.2rem]'
                                             ></h2>
                                             {/* Description */}
                                             <p
                                               dangerouslySetInnerHTML={{
-                                                __html: blog?.excerpt?.rendered,
+                                                __html: blog?.excerpt,
                                               }}
                                               className='text-[1.6rem] leading-[2.4rem] text-paragraph1 mb-[3rem]'
                                             ></p>
@@ -1266,7 +1274,7 @@ const CV = ({ params }: { params: any }) => {
                                               </svg>
                                             </Link>
                                           </div>
-                                        </article>
+                                        </Link>
                                       ))}
                                   </>
                                 )}

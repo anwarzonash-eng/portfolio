@@ -115,21 +115,21 @@ const Offer = ({ params }: { params: any }) => {
                       Cover Letter
                     </div>
                     {/* Badge */}
-                    {mainService?.tagline && (
-                      <div
-                        dangerouslySetInnerHTML={{
-                          __html: mainService?.tagline,
-                        }}
-                        className='px-[2rem] py-[1.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-[1.8rem] lg:text-[2.2rem] text-heading leading-[3rem] lg:leading-[3.4rem] font-medium  mx-auto mb-[1.6rem]'
-                      ></div>
-                    )}
                   </div>
                 </div>
               </section>
 
               {/* Offer Letter Section */}
-              <div className='mainContainer w-full mt-[-42rem] lg:mt-[-28rem] relative'>
+              <div className='mainContainer w-full mt-[-50rem] lg:mt-[-38rem] relative'>
                 {/* Content Box Top */}
+                {mainService?.tagline && (
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: mainService?.tagline,
+                    }}
+                    className='px-[2rem] py-[1.4rem] max-w-[1024px] bg-white rounded-[2.2rem] border border-border border-solid text-center  text-[1.8rem] lg:text-[2.2rem] text-heading leading-[3rem] lg:leading-[3.4rem] font-medium  mx-auto mb-[1.6rem]'
+                  ></div>
+                )}
                 {mainService && (
                   <div className='w-full bg-white rounded-[1rem] border border-border border-solid mb-[4rem]'>
                     {mainService?.intro_main && (
