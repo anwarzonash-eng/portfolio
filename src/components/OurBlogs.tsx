@@ -4,20 +4,26 @@ import React, { useEffect, useState } from 'react';
 import BlogCard from './BlogCard';
 import Link from 'next/link';
 import { dateFormatsOptions } from '@/data/JsonData';
-import { blogsListing } from '@/hooks/apihandlers/blogListingApiHandler';
+import {
+  blogsListing,
+  loadBlogs,
+} from '@/hooks/apihandlers/blogListingApiHandler';
 import { formatDate } from '@/hooks/formatdate';
 import Image from 'next/image';
 import WebsiteLoader from './WebsiteLoader';
 import PageRendering from './PageRendering';
 
-const OurBlogs = ({ listOfdata }) => {
-  const [blogsList, setBlogsList] = useState([]);
+const OurBlogs = ({ domain }) => {
+  const [blogsList, setBlogs] = useState([]);
   const [loadingblogs, setLoadingBlogs] = useState(false);
+
   useEffect(() => {
-    if (listOfdata) {
-      blogsListing(setLoadingBlogs, listOfdata, setBlogsList);
-    }
-  }, [listOfdata]);
+    loadBlogs({
+      domain: domain,
+      setBlogs: setBlogs,
+      setLoading: setLoadingBlogs,
+    });
+  }, [domain]);
 
   return (
     <section className='mainContainer w-full'>
@@ -55,11 +61,9 @@ const OurBlogs = ({ listOfdata }) => {
                     href={`/blog-listing/${blog?.id}`}
                     className='max-w-[41.8rem] w-full p-[2.4rem] bg-white shadow-lg mb-[1.6rem]'
                   >
-                    {blog?._embedded?.['wp:featuredmedia']?.[0]?.source_url && (
+                    {blog?.featuredImage && (
                       <Image
-                        src={
-                          blog?._embedded?.['wp:featuredmedia'][0]?.source_url
-                        }
+                        src={blog?.featuredImage}
                         height={240}
                         width={370}
                         alt='blog'
@@ -97,7 +101,7 @@ const OurBlogs = ({ listOfdata }) => {
                       <div className='w-full flex items-center justify-between mb-[1.2rem]'>
                         <h2
                           dangerouslySetInnerHTML={{
-                            __html: blog?.title?.rendered,
+                            __html: blog?.title,
                           }}
                           className='text-[2.4rem] font-medium leading-[3.2rem] text-heading'
                         ></h2>
@@ -126,7 +130,7 @@ const OurBlogs = ({ listOfdata }) => {
                       {/* Description */}
                       <p
                         dangerouslySetInnerHTML={{
-                          __html: blog?.excerpt?.rendered,
+                          __html: blog?.excerpt,
                         }}
                         className='text-[1.6rem] leading-[2.4rem] text-paragraph1'
                       ></p>

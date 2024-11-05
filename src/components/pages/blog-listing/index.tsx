@@ -15,7 +15,10 @@ import { reportsApiHandler } from '@/hooks/apihandlers/reportsApiHandlers';
 import Image from 'next/image';
 import Link from 'next/link';
 import { formatDate } from '@/hooks/formatdate';
-import { blogsListing } from '@/hooks/apihandlers/blogListingApiHandler';
+import {
+  blogsListing,
+  loadBlogs,
+} from '@/hooks/apihandlers/blogListingApiHandler';
 
 const BlogListing = ({ params }: { params: any }) => {
   const [urlInfo, setURLInfo] = useState(null);
@@ -46,9 +49,19 @@ const BlogListing = ({ params }: { params: any }) => {
     store.dispatch(setProfileUrlInfo(urlInfo));
   }, [urlInfo]);
 
+  // useEffect(() => {
+  //   if (listOfdata) {
+  //     blogsListing(setLoadingBlogs, listOfdata, setBlogsList);
+  //   }
+  // }, [listOfdata]);
+
   useEffect(() => {
     if (listOfdata) {
-      blogsListing(setLoadingBlogs, listOfdata, setBlogsList);
+      loadBlogs({
+        domain: listOfdata?.domain,
+        setBlogs: setBlogsList,
+        setLoading: setLoadingBlogs,
+      });
     }
   }, [listOfdata]);
 
@@ -289,7 +302,7 @@ const BlogListing = ({ params }: { params: any }) => {
         </div>
       </section>
       {/* Blog Cards */}
-      {!loadingblogs && blogsList && blogsList.length > 0 && (
+      {blogsList && blogsList.length > 0 && (
         <div className='mainContainer  mt-[-26rem]  lg:mt-[-40rem] relative w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 lg:grid-rows-3 justify-items-center gap-[3.2rem]'>
           {blogsList.map((blog, index) => (
             <Link
@@ -298,9 +311,9 @@ const BlogListing = ({ params }: { params: any }) => {
               className='max-w-[41.8rem] w-full p-[2.4rem] bg-white shadow-lg mb-[1.6rem]'
             >
               {/* Card Image */}
-              {blog?._embedded?.['wp:featuredmedia']?.[0]?.source_url && (
+              {blog?.featuredImage && (
                 <Image
-                  src={blog?._embedded?.['wp:featuredmedia'][0]?.source_url}
+                  src={blog?.featuredImage}
                   height={240}
                   width={370}
                   alt='blog'
@@ -336,7 +349,7 @@ const BlogListing = ({ params }: { params: any }) => {
                 <div className='w-full flex items-center justify-between mb-[1.2rem]'>
                   <h2
                     dangerouslySetInnerHTML={{
-                      __html: blog?.title?.rendered,
+                      __html: blog?.title,
                     }}
                     className='text-[2.4rem] font-medium leading-[3.2rem] text-heading'
                   ></h2>
@@ -365,7 +378,7 @@ const BlogListing = ({ params }: { params: any }) => {
                 {/* Description */}
                 <p
                   dangerouslySetInnerHTML={{
-                    __html: blog?.excerpt?.rendered,
+                    __html: blog?.excerpt,
                   }}
                   className='text-[1.6rem] leading-[2.4rem] text-paragraph1'
                 ></p>

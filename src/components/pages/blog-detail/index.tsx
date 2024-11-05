@@ -15,7 +15,7 @@ import WebsiteLoader from '@/components/WebsiteLoader';
 import { swalPopupEnums } from '@/enums/app.enums';
 import Swal, { SweetAlertIcon } from 'sweetalert2';
 import { formatDate } from '@/hooks/formatdate';
-import { dateFormatsOptions } from '@/data/JsonData';
+import { authorBlogIds, dateFormatsOptions } from '@/data/JsonData';
 import PageRendering from '@/components/PageRendering';
 
 const BlogDetails = ({ params }: { params: any }) => {
@@ -42,16 +42,19 @@ const BlogDetails = ({ params }: { params: any }) => {
     try {
       setLoadingBlogs(true);
 
-      const res = await axios.get(
-        `https://www.blog.cypexsoft.com/wp-json/wp/v2/posts/${params?.id}?_embed=true`
+      const author = authorBlogIds.find(
+        (item) => item.authorName === listOfdata?.domain
       );
-      setLoadingBlogs(false);
-      setBlogData(res?.data);
+      if (author) {
+        const response = await fetch(author.fileName);
+        const data = await response.json();
+        const foundData = data?.find((blog) => blog.id === Number(params?.id));
+        setLoadingBlogs(false);
+        setBlogData(foundData);
+      }
     } catch (error) {
       setLoadingBlogs(false);
-      setError(
-        error?.response?.data?.message || 'Invalid URL. Please try again.'
-      );
+      setError('Invalid URL. Please try again.');
     }
   };
 
@@ -641,7 +644,7 @@ const BlogDetails = ({ params }: { params: any }) => {
               </section>
               {/* Our Blogs Section */}
               <div className='w-full my-[10rem] lg:my-[12rem]'>
-                <OurBlogs listOfdata={listOfdata} />
+                <OurBlogs domain={listOfdata?.domain} />
               </div>
               {/* Newsletter */}
               {!urlInfo?.u && (

@@ -389,45 +389,56 @@ export const authorBlogIds = [
   {
     authorName: 'findusman.me',
     id: 2,
+    fileName: '/blogsJson/usman.json',
   },
   {
-    authorName: 'saddamdev.me',
+    authorName: 'sadam.me',
     id: 6,
+    fileName: '/blogsJson/saddam.json',
   },
   {
     authorName: 'findahmad.me',
     id: 3,
+    fileName: '/blogsJson/ahmad.json',
   },
   {
     authorName: 'noyandev.me',
     id: 12,
+    fileName: '/blogsJson/noyan.json',
   },
   {
     authorName: 'usamaashraf.dev',
     id: 5,
+    fileName: '/blogsJson/usama.json',
   },
   {
     authorName: 'abdullahdev.me',
     id: 11,
+    fileName: '/blogsJson/abdullah.json',
   },
   {
     authorName: 'farhanali.dev',
     id: 4,
+    fileName: '/blogsJson/farhan.json',
   },
   {
     authorName: 'atifaccountant.com',
     id: 13,
+    fileName: '/blogsJson/atif.json',
   },
   {
     authorName: 'basit-cpa.me',
     id: 14,
+    fileName: '/blogsJson/basit.json',
   },
   {
     authorName: 'harisdev.me',
     id: 8,
+    fileName: '/blogsJson/haris.json',
   },
   {
     authorName: 'muzamildev.me',
     id: 10,
+    fileName: '/blogsJson/muzamil.json',
   },
 ];

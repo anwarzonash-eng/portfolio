@@ -924,7 +924,7 @@ const Home = ({ params }: { params: any }) => {
                 <Faqs urlInfo={urlInfo} companyType={listOfdata?.companytype} />
                 {/* Our Blogs */}
                 <div className='my-[5rem]'>
-                  <OurBlogs listOfdata={listOfdata} />
+                  <OurBlogs domain={listOfdata?.domain} />
                 </div>
                 {/* Newsletter */}
                 {!urlInfo?.u && (

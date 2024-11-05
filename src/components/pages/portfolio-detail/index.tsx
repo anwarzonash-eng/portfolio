@@ -349,7 +349,7 @@ const PortfolioDetails = ({ params }: { params: any }) => {
               </section>
               {/* Our Blogs Section */}
               <div className='w-full my-[10rem] lg:my-[12rem]'>
-                <OurBlogs listOfdata={listOfdata} />
+                <OurBlogs domain={listOfdata?.domain} />
               </div>
               {/* Newsletter */}
 
