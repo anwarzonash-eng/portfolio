@@ -389,56 +389,56 @@ export const authorBlogIds = [
   {
     authorName: 'findusman.me',
     id: 2,
-    fileName: '/blogsJson/usman.json',
+    fileName: '/blogsJson/cypexsoft/usman.json',
   },
   {
     authorName: 'sadam.me',
     id: 6,
-    fileName: '/blogsJson/saddam.json',
+    fileName: '/blogsJson/cypexsoft/saddam.json',
   },
   {
     authorName: 'findahmad.me',
     id: 3,
-    fileName: '/blogsJson/ahmad.json',
+    fileName: '/blogsJson/cypexsoft/ahmad.json',
   },
   {
     authorName: 'noyandev.me',
     id: 12,
-    fileName: '/blogsJson/noyan.json',
+    fileName: '/blogsJson/cypexsoft/noyan.json',
   },
   {
     authorName: 'usamaashraf.dev',
     id: 5,
-    fileName: '/blogsJson/usama.json',
+    fileName: '/blogsJson/cypexsoft/usama.json',
   },
   {
     authorName: 'abdullahdev.me',
     id: 11,
-    fileName: '/blogsJson/abdullah.json',
+    fileName: '/blogsJson/cypexsoft/abdullah.json',
   },
   {
     authorName: 'farhanali.dev',
     id: 4,
-    fileName: '/blogsJson/farhan.json',
+    fileName: '/blogsJson/cypexsoft/farhan.json',
   },
   {
     authorName: 'atifaccountant.com',
     id: 13,
-    fileName: '/blogsJson/atif.json',
+    fileName: '/blogsJson/leewop/atif.json',
   },
   {
     authorName: 'basit-cpa.me',
     id: 14,
-    fileName: '/blogsJson/basit.json',
+    fileName: '/blogsJson/cypexsoft/basit.json',
   },
   {
     authorName: 'harisdev.me',
     id: 8,
-    fileName: '/blogsJson/haris.json',
+    fileName: '/blogsJson/cypexsoft/haris.json',
   },
   {
     authorName: 'muzamildev.me',
     id: 10,
-    fileName: '/blogsJson/muzamil.json',
+    fileName: '/blogsJson/cypexsoft/muzamil.json',
   },
 ];

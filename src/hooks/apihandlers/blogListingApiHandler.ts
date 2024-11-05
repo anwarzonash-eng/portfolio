@@ -16,6 +16,7 @@ export const blogsListing = async (
       `https://www.blog.cypexsoft.com/wp-json/wp/v2/posts?author=${authorId}&_embed=true`
     );
     setLoadingBlogs(false);
+    console.log('res', res);
     setBlogsList(res?.data);
   } catch (error) {
     setLoadingBlogs(false);
@@ -34,11 +35,11 @@ export const loadBlogs = async ({
   const author = authorBlogIds.find((item) => item.authorName === domain);
   if (author) {
     // Fetch the JSON file specified by fileName
-    const response = await fetch(author.fileName);
+    const response = await fetch(author?.fileName);
     const data = await response.json();
     setLoading(false);
     // Map the data to include only necessary fields
-    const filteredData = data?.map((blog) => ({
+    const filteredData = await data?.map((blog) => ({
       id: blog.id,
       title: blog?.title?.rendered,
       date: blog?.date,

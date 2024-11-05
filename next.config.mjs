@@ -10,8 +10,12 @@ const nextConfig = {
         hostname: 'personalimagelist.s3.eu-north-1.amazonaws.com',
       },
       {
-        protocol: 'https',
+        protocol: 'http',
         hostname: 'blog.cypexsoft.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'leewopbookkeeping.com',
       },
     ],
   },

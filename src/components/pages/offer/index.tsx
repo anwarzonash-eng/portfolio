@@ -53,14 +53,14 @@ const Offer = ({ params }: { params: any }) => {
 
   useEffect(() => {
     if (urlInfo) {
-      const tmpMainservice = listOfdata.services?.find((service) => {
+      const tmpMainservice = listOfdata?.services?.find((service) => {
         return service.type === 'main';
       });
 
       setMainService(tmpMainservice);
 
       setDetailService(
-        listOfdata.services?.filter((service) => {
+        listOfdata?.services?.filter((service) => {
           return service.type === 'detail';
         })
       );
