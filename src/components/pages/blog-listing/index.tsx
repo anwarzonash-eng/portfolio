@@ -24,7 +24,7 @@ const BlogListing = ({ params }: { params: any }) => {
   const [urlInfo, setURLInfo] = useState(null);
   const [blogsList, setBlogsList] = useState([]);
   const [listOfdata, setListOfData] = useState(null);
-  const [loadingblogs, setLoadingBlogs] = useState(false);
+  const [loadingblogs, setLoadingBlogs] = useState(true);
   const [loading, setLoading] = useState(false);
 
   const searchParams = useSearchParams();
