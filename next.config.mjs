@@ -13,10 +13,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'blog.cypexsoft.com',
       },
-      {
-        protocol: 'http',
-        hostname: 'blog.cypexsoft.com',
-      },
+      // {
+      //   protocol: 'http',
+      //   hostname: 'blog.cypexsoft.com',
+      // },
       {
         protocol: 'https',
         hostname: 'leewopbookkeeping.com',
