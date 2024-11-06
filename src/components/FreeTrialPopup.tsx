@@ -18,7 +18,12 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
         setOpen(true);
       }, 1000);
 
-      return () => clearTimeout(timer);
+      const removeIntroPopupViewed = setTimeout(() => {
+        localStorage.removeItem('IntropopupViewed');
+        setOpen(true);
+      }, 24 * 60 * 60 * 1000); // 1 day
+
+      return () => clearTimeout(removeIntroPopupViewed);
     }
   }, []);
 

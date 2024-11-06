@@ -48,7 +48,7 @@ const OfferBanner = ({ listOfdata }) => {
             <div className='text-heading text-[1.8rem] hidden min-[1122px]:block'>
               <CharacterAnimation
                 text={`${
-                  listOfdata?.companyType == 'leewop'
+                  listOfdata?.companytype == 'leewop'
                     ? 'ubscribe for FREE 2-Week Bookkeeping Service TRIAL!'
                     : 'Subscribe for FREE 2-Week Development TRIAL!'
                 } `}
