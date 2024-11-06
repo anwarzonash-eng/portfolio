@@ -673,14 +673,30 @@ const Home = ({ params }: { params: any }) => {
                           <div className='mainContainer flex items-center justify-center mt-[2rem] '>
                             <div className='relative'>
                               {/* Vertical line */}
-                              <div className='absolute left-[10rem] top-[3rem] w-[0.4rem] h-[100%] bg-border  mx-[2.1rem] hidden lg:block' />
+                              <div className='absolute left-[10rem] top-[3rem] w-[0.4rem] h-[100%] bg-border  mx-[2.1rem] hidden xl:block' />
                               {listOfdata?.experiences_ids &&
                                 [...listOfdata.experiences_ids]
-                                  ?.sort(
-                                    (a, b) =>
-                                      new Date(b.ending_Date).getFullYear() -
-                                      new Date(a.ending_Date).getFullYear()
-                                  )
+                                  ?.sort((a, b) => {
+                                    const yearA = new Date(
+                                      a.ending_Date
+                                    ).getFullYear();
+                                    const yearB = new Date(
+                                      b.ending_Date
+                                    ).getFullYear();
+
+                                    if (yearA !== yearB) {
+                                      return yearB - yearA; // Sort by year in descending order
+                                    }
+
+                                    const monthA = new Date(
+                                      a.ending_Date
+                                    ).getMonth();
+                                    const monthB = new Date(
+                                      b.ending_Date
+                                    ).getMonth();
+
+                                    return monthB - monthA; // If years are the same, sort by month in descending order
+                                  })
                                   ?.map((experience, index) => {
                                     const skillsforExpereince: {
                                       [key: string]: {
@@ -697,12 +713,12 @@ const Home = ({ params }: { params: any }) => {
                                     return (
                                       <>
                                         {/* Timeline items Container */}
-                                        <div className='space-y-[1rem] lg:space-y-[3rem] lg:space-x-[9rem] mt-10'>
+                                        <div className='space-y-[1rem] xl:space-y-[3rem] xl:space-x-[9rem] mt-10'>
                                           {/* Date and divider */}
-                                          <div className='ml-[0.5rem] lg:mb-auto lg:ml-auto lg:absolute left-[-1.6rem] z-10 text-[1.8rem] text-paragraph1 capitalize'>
+                                          <div className='ml-[0.5rem] xl:mb-auto xl:ml-auto xl:absolute left-[-7.6rem] z-10 text-[1.8rem] text-paragraph1 capitalize'>
                                             {formatDate(
                                               experience.starting_date,
-                                              dateFormatsOptions.onlyYear
+                                              dateFormatsOptions.shortMonthYear
                                             )}{' '}
                                             -{' '}
                                             {isNaN(
@@ -713,20 +729,20 @@ const Home = ({ params }: { params: any }) => {
                                               ? experience.ending_Date
                                               : formatDate(
                                                   experience.ending_Date,
-                                                  dateFormatsOptions.onlyYear
+                                                  dateFormatsOptions.shortMonthYear
                                                 )}
                                           </div>
                                           {/* Timeline item */}
                                           <>
                                             <div className='relative flex items-start'>
                                               {/* Dot */}
-                                              <div className='absolute top-0 left-[2rem] hidden lg:block'>
+                                              <div className='absolute top-0 left-[2rem] hidden xl:block'>
                                                 <div className='w-[2.6rem] h-[2.6rem] bg-white rounded-full flex items-center shadow-md justify-center'>
                                                   <div className='w-[0.7rem] h-[0.7rem] bg-heading rounded-full'></div>
                                                 </div>
                                               </div>
                                               {/* Card */}
-                                              <div className='bg-white p-[1.5rem] lg:p-[2.4rem] rounded-[1rem] shadow lg:ml-[6rem] w-full'>
+                                              <div className='bg-white p-[1.5rem] lg:p-[2.4rem] rounded-[1rem] shadow xl:ml-[6rem] w-full'>
                                                 <div className='flex items-center flex-wrap text-nowrap gap-[1.5rem] md:justify-between'>
                                                   {/* About Content */}
                                                   <div className='flex gap-[1rem]'>
