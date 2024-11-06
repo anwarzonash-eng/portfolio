@@ -152,13 +152,10 @@ const CV = ({ params }: { params: any }) => {
                     {/* Badge */}
 
                     {/* Heading */}
-                    <div className='text-center text-primary text-[4rem] lg:text-[6rem] font-medium  leading-[5rem] lg:leading-[6rem] mt-[1.6rem] mb-[2.4rem]'>
-                      Curriculum Vitae
+                    <div className='text-center text-primary text-[4rem] lg:text-[6rem] font-medium  leading-[5rem] lg:leading-[6rem] mt-[1.6rem]'>
+                      CV
                     </div>
-                    {/* Pars Text */}
-                    <p className='text-[2rem] leading-[3rem] font-normal text-heading'>
-                      Here’s a glimpse of what I do best.
-                    </p>
+
                     {loading && <WebsiteLoader height='h-[30rem]' />}
                   </div>
                 </div>
@@ -171,7 +168,7 @@ const CV = ({ params }: { params: any }) => {
                 />
               )}
 
-              <div className='mt-[-30rem] xl:mt-[-36rem] max-w-[1550px] w-full mx-auto px-[1.5rem]'>
+              <div className='mt-[-40rem] max-w-[1550px] w-full mx-auto px-[1.5rem]'>
                 <div className='bg-white flex flex-col lg:flex-row gap-[4rem] pb-[5rem] lg:pb-[7rem] px-[3rem] rounded-[1.4rem]  relative  mb-[10rem] lg:mb-[9.6rem]'>
                   {/* Side Panel */}
                   <aside className='lg:max-w-[40rem] w-full flex-shrink-0 bg-cvSideBg bg-no-repeat bg-cover pb-[2rem] pt-[5rem] px-[3rem]'>
@@ -1039,13 +1036,16 @@ const CV = ({ params }: { params: any }) => {
                                                     >
                                                       View Details
                                                     </Link>
-                                                    <Link
-                                                      href={portfolio?.link}
-                                                      className='py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-primary border border-solid hover:border-transparent border-primary duration-300 hover:bg-primary hover:text-white rounded-[0.6rem] w-full md:max-w-max text-center'
-                                                    >
-                                                      Launch Project - Live
-                                                      Preview
-                                                    </Link>
+                                                    {listOfdata?.companytype !==
+                                                      'leewop' && (
+                                                      <Link
+                                                        href={portfolio?.link}
+                                                        className='py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-primary border border-solid hover:border-transparent border-primary duration-300 hover:bg-primary hover:text-white rounded-[0.6rem] w-full md:max-w-max text-center'
+                                                      >
+                                                        Launch Project - Live
+                                                        Preview
+                                                      </Link>
+                                                    )}
                                                     {portfolio?.has_testimonial ==
                                                       true && (
                                                       <Link
@@ -1289,7 +1289,7 @@ const CV = ({ params }: { params: any }) => {
               </div>
               {!urlInfo?.u && (
                 <div className='w-full mb-[5rem]'>
-                  <Newsletter />
+                  <Newsletter listOfdata={listOfdata} />
                 </div>
               )}
             </div>

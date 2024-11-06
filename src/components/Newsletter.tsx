@@ -1,13 +1,18 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { formikEnums } from '@/enums/formikEnums';
 import { addLeadsApi } from '@/apiHandlers/leadsApi';
+import Link from 'next/link';
+import { openChat } from '@/hooks/openTawkTochat';
+import ThankyouPopup from './ThankyouPopup';
 
-const Newsletter: React.FC = () => {
+const Newsletter = ({ listOfdata }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const initialValues = {
     email: '',
   };
@@ -22,10 +27,12 @@ const Newsletter: React.FC = () => {
       email: values.email,
       source_category: 'subscribe',
     };
-    const successCallbackFunction = () => {
+
+    const res = await addLeadsApi(payload);
+    if (/^2\d{2}$/.test(res?.status)) {
+      setIsModalOpen(true);
       resetForm();
-    };
-    await addLeadsApi(payload, successCallbackFunction);
+    }
   };
 
   return (
@@ -82,6 +89,12 @@ const Newsletter: React.FC = () => {
           />
         </div>
       </div>
+      {isModalOpen && (
+        <ThankyouPopup
+          setIsModalOpen={setIsModalOpen}
+          listOfdata={listOfdata}
+        />
+      )}
     </section>
   );
 };

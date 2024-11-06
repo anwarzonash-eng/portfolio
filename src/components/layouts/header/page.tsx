@@ -53,7 +53,7 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
       ? [{ title: 'Services', src: '#', isDropdown: true }]
       : []),
     { title: 'Projects', src: '/portfolio' },
-    { title: 'Blog', src: '/blog-listing' },
+    { title: 'Blogs', src: '/blog-listing' },
     { title: 'CV', src: '/cv' },
   ];
 
@@ -156,7 +156,7 @@ const Header = ({ initialBgColor = 'bg-transparent' }) => {
     <>
       {!loading && (
         <>
-          {!urlInfo?.u && <OfferBanner companyType={listOfdata?.companytype} />}
+          {!urlInfo?.u && <OfferBanner listOfdata={listOfdata} />}
           {/* {!pathname.includes('cv') && ( */}
           <header
             className={`sticky top-0 left-0 w-full z-[100]  transition-colors duration-300 ${bgColor}`}

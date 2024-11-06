@@ -238,7 +238,10 @@ const Offer = ({ params }: { params: any }) => {
                     </div>
 
                     {/* Home Page Slider */}
-                    <HomeSlider portfolios={listOfdata?.portfolios_ids} />
+                    <HomeSlider
+                      portfolios={listOfdata?.portfolios_ids}
+                      companyType={listOfdata?.companytype}
+                    />
                   </div>
                 </section>
               )}
@@ -249,7 +252,7 @@ const Offer = ({ params }: { params: any }) => {
               {/* Newsletter */}
               {!urlInfo?.u && (
                 <div className='w-full mb-[5rem]'>
-                  <Newsletter />
+                  <Newsletter listOfdata={listOfdata} />
                 </div>
               )}
             </>

@@ -79,9 +79,9 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
                 {/* Content */}
                 <div className='relative w-full h-full z-20'>
                   <div className='text-white text-center flex flex-col gap-[1.2rem] items-center justify-center py-[3rem]'>
-                    <h1 className='text-[3.2rem] lg:text-[5rem] font-bold leading-normal'>
+                    <h1 className='text-[3.2rem] lg:text-[5rem] font-bold leading-normal px-[2rem]'>
                       {listOfdata?.companytype == 'leewop'
-                        ? '2 Weeks Free Trial Business Finance!'
+                        ? '2 Weeks Free Trial Bookkeeping Services!'
                         : '2 Weeks Free Trial Development!'}
                     </h1>
                     <p className='text-[1.8rem] lg:text-[2.2rem] font-normal leading-normal'>

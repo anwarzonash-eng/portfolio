@@ -391,7 +391,7 @@ const BlogListing = ({ params }: { params: any }) => {
 
       {!urlInfo?.u && (
         <div className='w-full my-[5rem]'>
-          <Newsletter />
+          <Newsletter listOfdata={listOfdata} />
         </div>
       )}
       {/* Pagination */}

@@ -17,7 +17,7 @@ const MyServicesCards = ({ services }) => {
           >
             {/* Circle */}
             {service.picture && (
-              <div className='w-[8.8rem] h-[8.8rem] flex items-center justify-center rounded-[12rem] mx-auto'>
+              <div className='w-[8.8rem] h-[8.8rem] flex items-center justify-center rounded-[12rem] mx-auto image-wrapper'>
                 <div className='text-center text-white text-[4.3rem] font-medium'>
                   <Image
                     src={service.picture}
@@ -25,6 +25,13 @@ const MyServicesCards = ({ services }) => {
                     width={100}
                     alt='Icon'
                     className='w-[8.8rem] h-[8.8rem] rounded-[12rem] object-cover'
+                    onError={(e) => {
+                      (
+                        (e.target as HTMLElement).closest(
+                          '.image-wrapper'
+                        ) as HTMLElement
+                      ).style.display = 'none';
+                    }}
                   />
                 </div>
               </div>

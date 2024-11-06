@@ -592,7 +592,9 @@ const Home = ({ params }: { params: any }) => {
                       </div>
                       {/* Heading */}
                       <div className='text-center text-heading text-[2.4rem] xl:text-[3rem] font-medium leading-[2.8rem] mt-[2rem]'>
-                        The skills, tools and technologies I am really good at:
+                        {listOfdata?.companytype == 'leewop'
+                          ? 'The skills & tools I am really good at:'
+                          : ' The skills, tools and technologies I am really good at:'}
                       </div>
                       {/* Skills Container */}
 
@@ -643,7 +645,10 @@ const Home = ({ params }: { params: any }) => {
                           </div>
 
                           {/* Home Page Slider */}
-                          <HomeSlider portfolios={listOfdata?.portfolios_ids} />
+                          <HomeSlider
+                            portfolios={listOfdata?.portfolios_ids}
+                            companyType={listOfdata?.companytype}
+                          />
                         </div>
                       </section>
                     </>
@@ -929,7 +934,7 @@ const Home = ({ params }: { params: any }) => {
                 {/* Newsletter */}
                 {!urlInfo?.u && (
                   <div className='w-full mb-[5rem]'>
-                    <Newsletter />
+                    <Newsletter listOfdata={listOfdata} />
                   </div>
                 )}
               </>

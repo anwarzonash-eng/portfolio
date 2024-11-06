@@ -276,14 +276,15 @@ const PortfolioDetails = ({ params }: { params: any }) => {
 
                       {/* Links */}
                       <div className='flex flex-col text-nowrap  gap-[1.4rem]'>
-                        {portfolioDetails?.link && (
-                          <Link
-                            href={portfolioDetails?.link || '#'}
-                            className='text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-center btn-primary inline-block max-w-max'
-                          >
-                            Launch Project - Live Preview
-                          </Link>
-                        )}
+                        {portfolioDetails?.link &&
+                          listOfdata?.companytype !== 'leewop' && (
+                            <Link
+                              href={portfolioDetails?.link || '#'}
+                              className='text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-center btn-primary inline-block max-w-max'
+                            >
+                              Launch Project - Live Preview
+                            </Link>
+                          )}
                         {portfolioDetails?.has_testimonial && (
                           <Link
                             href={'/'}
@@ -355,7 +356,7 @@ const PortfolioDetails = ({ params }: { params: any }) => {
 
               {!urlInfo?.u && (
                 <section className='w-full mb-[5rem]'>
-                  <Newsletter />
+                  <Newsletter listOfdata={listOfdata} />
                 </section>
               )}
             </>

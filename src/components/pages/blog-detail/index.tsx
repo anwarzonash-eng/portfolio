@@ -649,7 +649,7 @@ const BlogDetails = ({ params }: { params: any }) => {
               {/* Newsletter */}
               {!urlInfo?.u && (
                 <section className='w-full mb-[5rem]'>
-                  <Newsletter />
+                  <Newsletter listOfdata={listOfdata} />
                 </section>
               )}
             </>

@@ -324,3 +324,16 @@ body {
 .line-clampforTagline1 {
   -webkit-line-clamp: 1;
 }
+
+.modalCloseButtonforCustomOffer button svg path {
+  color: black;
+}
+
+.modalCloseButtonforCustomOffer button svg {
+  font-size: 1.5rem;
+}
+.modalCloseButtonforCustomOffer:first-of-type > button:first-of-type,
+.modalCloseButtonforCustomOffer:first-of-type > button:first-of-type:hover {
+  background-color: #ffc300;
+  margin: 10px 10px 0px 0px;
+}

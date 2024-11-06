@@ -8,7 +8,7 @@ import { modifiedContent } from '@/hooks/modifiedContent';
 import PortfolioPopUp from '../PortfolioPopUp';
 import { skillsGrouping } from '@/hooks/skillsGrouping';
 
-const HomeSlider = ({ portfolios }) => {
+const HomeSlider = ({ portfolios, companyType }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const sliderRef = useRef(null);
@@ -180,12 +180,14 @@ const HomeSlider = ({ portfolios }) => {
                       >
                         View Details
                       </Link>
-                      <Link
-                        href={portfolio?.link}
-                        className='py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-primary border border-solid hover:border-transparent border-primary duration-300 hover:bg-primary hover:text-white rounded-[0.6rem] max-lg:w-full text-center'
-                      >
-                        Launch Project - Live Preview
-                      </Link>
+                      {companyType !== 'leewop' && (
+                        <Link
+                          href={portfolio?.link}
+                          className='py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-primary border border-solid hover:border-transparent border-primary duration-300 hover:bg-primary hover:text-white rounded-[0.6rem] max-lg:w-full text-center'
+                        >
+                          Launch Project - Live Preview
+                        </Link>
+                      )}
                       {portfolio?.has_testimonial == true && (
                         <Link
                           href={'#'}
