@@ -1,10 +1,15 @@
-export const getRoutesDetails = (dynamicRoutes, routeParams) => {
+import { getTargetURLFromTinyURL } from '@/apiHandlers/tinyURLApi';
+import { NextRouter } from 'next/router';
+
+export const getRoutesDetails = async (dynamicRoutes, routeParams) => {
+
   const routesInfo = {
     uniqueID: '',
     u: false, // u means is_u
     a: false, // a means admin
     domain: getDomainName(routeParams),
   };
+
 
   if (dynamicRoutes && dynamicRoutes.unique_id)
     routesInfo.uniqueID = dynamicRoutes.unique_id;
@@ -32,10 +37,38 @@ export const getRoutesDetails = (dynamicRoutes, routeParams) => {
     }
   }
 
-  adjustWithLocalStorage(routesInfo, routeParams);
+  if (routesInfo.domain == 'gourls.link') {
+    await tinyURLNivation(routesInfo);
+    // console.log('results', results);
+
+    // window.location.href = 'https://www.google.com';
+  }
+  else
+
+    adjustWithLocalStorage(routesInfo, routeParams);
+
 
   return routesInfo;
 };
+
+async function tinyURLNivation(routesInfo) {
+  try {
+
+    const payload =
+    {
+      uniqueId: routesInfo.uniqueID
+    };
+
+    const results = await getTargetURLFromTinyURL(payload);
+    if (results?.data?.status == 'Error')
+      window.location.href = 'https://www.cypexsoft.com'
+    else
+      results?.data?.data.target_link && (window.location.href = 'https://' + results?.data?.data.target_link);
+  } catch (error) {
+    window.location.href = 'https://www.cypexsoft.com'
+  }
+
+}
 
 function adjustWithLocalStorage(routesInfo, routeParams) {
   if (!routeParams.get('a')) {
