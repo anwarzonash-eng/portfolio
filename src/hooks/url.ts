@@ -1,7 +1,7 @@
 import { getTargetURLFromTinyURL } from '@/apiHandlers/tinyURLApi';
 import { NextRouter } from 'next/router';
 
-export const getRoutesDetails = async (dynamicRoutes, routeParams) => {
+export const getRoutesDetails = (dynamicRoutes, routeParams) => {
 
   const routesInfo = {
     uniqueID: '',
@@ -38,7 +38,8 @@ export const getRoutesDetails = async (dynamicRoutes, routeParams) => {
   }
 
   if (routesInfo.domain == 'gourls.link') {
-    await tinyURLNivation(routesInfo);
+
+    tinyURLNivation(routesInfo);
     // console.log('results', results);
 
     // window.location.href = 'https://www.google.com';
@@ -56,7 +57,7 @@ async function tinyURLNivation(routesInfo) {
 
     const payload =
     {
-      uniqueId: routesInfo.uniqueID
+      uniqueId: decodeURIComponent(routesInfo.uniqueID)
     };
 
     const results = await getTargetURLFromTinyURL(payload);
@@ -64,6 +65,8 @@ async function tinyURLNivation(routesInfo) {
       window.location.href = 'https://www.cypexsoft.com'
     else
       results?.data?.data.target_link && (window.location.href = 'https://' + results?.data?.data.target_link);
+
+
   } catch (error) {
     window.location.href = 'https://www.cypexsoft.com'
   }
