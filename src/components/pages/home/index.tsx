@@ -115,8 +115,7 @@ const Home = ({ params }: { params: any }) => {
                         Hello! I’m
                       </p>
                       <div className="mt-[0.5rem] font-bold text-[4rem] md:text-[8rem] lg:text-[12rem] text-primary  gap-[1rem] relative inline-block">
-                        <h1>{listOfdata?.name}</h1>
-                        {/* Positioned Image */}
+                        s {/* Positioned Image */}
                         <Image
                           src={"/images/mobileStars.svg"}
                           height={45}
