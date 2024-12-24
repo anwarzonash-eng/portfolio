@@ -1,18 +1,18 @@
-'use client';
-import React, { useState, useEffect, useRef } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import PageLoader from 'next/dist/client/page-loader';
-import PortfolioImagesLoader from '../PortfolioImagesLoader';
-import { modifiedContent } from '@/hooks/modifiedContent';
-import PortfolioPopUp from '../PortfolioPopUp';
-import { skillsGrouping } from '@/hooks/skillsGrouping';
+"use client";
+import React, { useState, useEffect, useRef } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import PageLoader from "next/dist/client/page-loader";
+import PortfolioImagesLoader from "../PortfolioImagesLoader";
+import { modifiedContent } from "@/hooks/modifiedContent";
+import PortfolioPopUp from "../PortfolioPopUp";
+import { skillsGrouping } from "@/hooks/skillsGrouping";
 
 const HomeSlider = ({ portfolios, companyType }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const sliderRef = useRef(null);
-  const slideInterval = 3000; // Change slide every 3 seconds
+  const slideInterval = 3000;
   const [
     selectedPorfolioPicturesforPopup,
     setSelectedPorfolioPicturesforPopup,
@@ -75,7 +75,7 @@ const HomeSlider = ({ portfolios, companyType }) => {
   ];
 
   return (
-    <div className=' relative w-full overflow-hidden'>
+    <div className=" relative w-full overflow-hidden">
       {isModalOpen && selectedPorfolioPicturesforPopup !== null && (
         <PortfolioPopUp
           isModalOpen={isModalOpen}
@@ -85,7 +85,7 @@ const HomeSlider = ({ portfolios, companyType }) => {
       )}
       {/* Slider Container */}
       <div
-        className='flex items-center transition-all duration-700 ease-in-out'
+        className="flex items-center transition-all duration-700 ease-in-out"
         style={{ transform: `translateX(-${adjustedCurrentSlide * 100}%)` }}
         ref={sliderRef}
         onMouseEnter={handleMouseEnter}
@@ -108,111 +108,127 @@ const HomeSlider = ({ portfolios, companyType }) => {
           return (
             <div
               key={index}
-              className='w-full flex-shrink-0 my-[3rem] overflow-hidden'
+              className="w-full flex-shrink-0 my-[3rem] overflow-hidden"
             >
-              <div className='w-full flex items-center justify-center '>
-                <div className='flex flex-col-reverse lg:flex-row items-center bg-white relative rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden'>
+              <div className="w-full flex items-center justify-center ">
+                <div className="flex flex-col-reverse lg:flex-row items-center bg-white relative rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden">
                   {/* Content */}
-                  <div className='p-[2rem] lg:p-[3.5rem] w-full '>
-                    <div className='flex gap-[2rem] mb-[2rem]'>
+                  <div className="p-[2rem] lg:p-[3.5rem] w-full ">
+                    <div className="flex gap-[2rem] mb-[2rem]">
                       {portfolio?.company_icon && (
-                        <div className='bg-primary p-[1.8rem] lg:p-[2.4rem] rounded-[1.6rem]  '>
+                        <div className="bg-primary p-[1.8rem] lg:p-[2.4rem] rounded-[1.6rem]  ">
                           <Image
                             src={portfolio?.company_icon}
-                            alt='Case'
+                            alt="Case"
                             height={34}
                             width={34}
-                            className='h-[2.5rem] w-[2.5rem] lg:h-[3.4rem] lg:w-[3.4rem] rounded-[1.6rem]'
+                            className="h-[2.5rem] w-[2.5rem] lg:h-[3.4rem] lg:w-[3.4rem] rounded-[1.6rem]"
                           />
                         </div>
                       )}
                       {/* Heading */}
-                      <h1 className='flex  items-center  text-[2.4rem] lg:text-[3.2rem] font-bold leading-[3rem] lg:leading-[4rem] text-heading'>
+                      {/* <h1 className="flex  items-center  text-[2.4rem] lg:text-[3.2rem] font-bold leading-[3rem] lg:leading-[4rem] text-heading">
                         {portfolio.title}
-                      </h1>{' '}
+                      </h1>{" "} */}
+                      <Link href={`/portfolio/${portfolio.id}`}>
+                        <h1 className="flex  items-center  text-[2.4rem] lg:text-[3.2rem] font-bold leading-[3rem] lg:leading-[4rem] text-heading">
+                          {portfolio.title}
+                        </h1>{" "}
+                      </Link>
                     </div>
                     {/* Para */}
                     <p
                       dangerouslySetInnerHTML={{ __html: portfolio.tagline_1 }}
-                      className='text-[1.6rem] lg:text-[1.8rem] leading-[2.4rem] font-normal text-paragraph1 mt-[1rem] line-clampforTagline1 basicLineClamp'
+                      className="text-[1.6rem] lg:text-[1.8rem] leading-[2.4rem] font-normal text-paragraph1 mt-[1rem] line-clampforTagline1 basicLineClamp"
                     ></p>
                     {/* Prev Para Text */}
                     <p
                       dangerouslySetInnerHTML={{ __html: portfolio.tagline_2 }}
-                      className='text-[1.6rem] lg:text-[1.8rem] leading-[2.4rem] font-normal text-primary mt-[1rem] line-clamp basicLineClamp'
+                      className="text-[1.6rem] lg:text-[1.8rem] leading-[2.4rem] font-normal text-primary mt-[1rem] line-clamp basicLineClamp"
                     ></p>
 
-                    <div className=' text-black text-[1.6rem] leading-[2.4rem] sm:text-[1.8rem] sm:leading-[2.8rem] lg:text-[1.8rem] lg:leading-[2.9rem] font-normal lg:font-medium my-[2rem]'>
+                    <div className=" text-black text-[1.6rem] leading-[2.4rem] sm:text-[1.8rem] sm:leading-[2.8rem] lg:text-[1.8rem] lg:leading-[2.9rem] font-normal lg:font-medium my-[2rem]">
                       AREAS OF EXPERTISE I'VE WORKED IN:
                       {/* Skills Badges */}
-                      <div className='flex items-center gap-[1rem] lg:gap-[0.7rem] my-[2rem] text-nowrap flex-wrap'>
+                      <div className="flex items-center gap-[1rem] lg:gap-[0.7rem] my-[2rem] text-nowrap flex-wrap">
                         {Object?.values(skills)?.map((group, groupIndex) => (
                           <React.Fragment key={groupIndex}>
                             {group.map((skill, i) => (
                               <Link
-                                href={skill?.url || '#'}
+                                href={skill?.url || "#"}
                                 key={i}
-                                className='hover:bg-primary hover:text-white py-[0.4rem] px-[2rem] bg-bannerBG text-heading rounded-[1.2rem] text-[1.4rem] font-medium leading-[2rem]'
+                                className="hover:bg-primary hover:text-white py-[0.4rem] px-[2rem] bg-bannerBG text-heading rounded-[1.2rem] text-[1.4rem] font-medium leading-[2rem]"
                               >
                                 {skill.title}
                               </Link>
                             ))}
                             {/* Line break after each group */}
-                            <div className='w-full mb-[1px]' />
+                            <div className="w-full mb-[1px]" />
                           </React.Fragment>
                         ))}
                         {portfolio?.skills?.length > 15 && (
                           <Link
                             href={`/portfolio/${portfolio.id}?scroll=skills`}
-                            className='bg-primary text-white border border-transparent py-[0.4rem] px-[2rem] hover:bg-white hover:text-primary hover:border-primary hover:border text-heading rounded-[1.2rem] text-[1.4rem] font-medium leading-[2rem]'
+                            className="bg-primary text-white border border-transparent py-[0.4rem] px-[2rem] hover:bg-white hover:text-primary hover:border-primary hover:border text-heading rounded-[1.2rem] text-[1.4rem] font-medium leading-[2rem]"
                           >
                             See More
                           </Link>
                         )}
                       </div>
                     </div>
-                    <hr className='w-full my-[2.4rem] h-px bg-border' />
+                    <hr className="w-full my-[2.4rem] h-px bg-border" />
                     {/* Links */}
-                    <div className='flex items-center flex-wrap max-sm:flex-col max-md:items-start gap-[1.4rem]'>
+                    <div className="flex items-center flex-wrap max-sm:flex-col max-md:items-start gap-[1.4rem]">
                       <Link
                         href={`/portfolio/${portfolio.id}`}
-                        className='text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent hover:border-primary duration-300 max-lg:w-full text-center rounded-[0.6rem]'
+                        className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent hover:border-primary duration-300 max-lg:w-full text-center rounded-[0.6rem]"
                       >
                         View Details
                       </Link>
-                      {companyType !== 'leewop' && (
+                      {companyType !== "leewop" && (
                         <Link
                           href={portfolio?.link}
-                          className='py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-primary border border-solid hover:border-transparent border-primary duration-300 hover:bg-primary hover:text-white rounded-[0.6rem] max-lg:w-full text-center'
+                          className="py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-primary border border-solid hover:border-transparent border-primary duration-300 hover:bg-primary hover:text-white rounded-[0.6rem] max-lg:w-full text-center"
                         >
                           Launch Project - Live Preview
                         </Link>
                       )}
                       {portfolio?.has_testimonial == true && (
                         <Link
-                          href={'#'}
-                          className='text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent hover:border-primary duration-300 max-lg:w-full text-center rounded-[0.6rem]'
+                          href={"#"}
+                          className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent hover:border-primary duration-300 max-lg:w-full text-center rounded-[0.6rem]"
                         >
                           Check Client Testimonial
                         </Link>
                       )}
                     </div>
                   </div>
-                  {/* Image */}
-                  <div className='lg:max-w-[51rem] w-full  rounded-[1.2rem] relative align-middle justify-center flex-col flex items-center'>
+                  {/*plz fix only this Image part */}
+                  <div className="lg:max-w-[51rem] w-full  lg:h-[31rem]  rounded-[1.2rem] relative align-middle justify-center flex-col flex items-center">
                     {portfolio?.thumbnail && (
-                      <div className='rounded-[1.2rem] lg:max-w-[60rem] w-full relative top-0 lg:right-[-1rem] xl:flex-shrink-0 flex items-center'>
+                      <div className="rounded-[1.2rem] cursor-pointer lg:h-[30rem] lg:w-[47rem] w-full relative top-0 lg:right-[-1rem] xl:flex-shrink-0 flex items-center justify-center ">
                         <Image
-                          src={portfolio?.thumbnail}
-                          alt='Project Image'
-                          height={800}
-                          width={800}
-                          className='object-contain lg:pr-[6.4rem] rounded-[1.2rem] w-full h-full max-h-[55.2rem]'
+                          src={
+                            portfolio?.thumbnail
+                              ? portfolio.thumbnail
+                              : "/images/dummy_port_img.webp"
+                          }
+                          alt="Project Image"
+                          height={400}
+                          width={400}
+                          className=" rounded-[1.2rem] w-full h-full"
+                          onClick={() =>
+                            openModal(
+                              portfolio?.pictures,
+                              portfolio?.thumbnail,
+                              portfolio?.child_hero_banner
+                            )
+                          }
                         />
                       </div>
                     )}
                     <button
-                      className='hover:tracking-[.25em] mt-[1rem] py-[1rem]  px-[2rem]  rounded-[7.77rem] border-2 border-solid border-[#fff] text-[1.8rem]  font-medium  min-w-[137px] lg:min-w-[220px]  backdrop-blur-[0.8rem] duration-300 bg-primary hover:bg-opacity-80 text-white'
+                      className="hover:tracking-[.25em] mt-[1rem] py-[1rem]  px-[2rem]  rounded-[7.77rem] border-2 border-solid border-[#fff] text-[1.8rem]  font-medium  min-w-[137px] lg:min-w-[220px]  backdrop-blur-[0.8rem] duration-300 bg-primary hover:bg-opacity-80 text-white"
                       onClick={() =>
                         openModal(
                           portfolio?.pictures,
@@ -232,59 +248,59 @@ const HomeSlider = ({ portfolios, companyType }) => {
       </div>
 
       {/* Navigation UI Buttons */}
-      <div className='flex items-center justify-center w-full'>
-        <div className='flex items-center justify-center gap-[1.2rem]'>
+      <div className="flex items-center justify-center w-full">
+        <div className="flex items-center justify-center gap-[1.2rem]">
           <div
-            className='rounded-[50%] h-[5.6rem] w-[5.6rem] border-[0.2rem] border-primary border-solid flex items-center justify-center hover:bg-primary group duration-300 cursor-pointer'
+            className="rounded-[50%] h-[5.6rem] w-[5.6rem] border-[0.2rem] border-primary border-solid flex items-center justify-center hover:bg-primary group duration-300 cursor-pointer"
             onClick={prevSlide}
           >
             <svg
-              xmlns='http://www.w3.org/2000/svg'
-              width='24'
-              height='24'
-              viewBox='0 0 24 24'
-              fill='none'
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
             >
               <path
-                d='M20.25 12H3.75'
-                className='stroke-primary group-hover:stroke-white'
-                strokeWidth='1.5'
-                strokeLinecap='round'
-                strokeLinejoin='round'
+                d="M20.25 12H3.75"
+                className="stroke-primary group-hover:stroke-white"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
               <path
-                d='M10.5 5.25L3.75 12L10.5 18.75'
-                className='stroke-primary group-hover:stroke-white'
-                strokeWidth='1.5'
-                strokeLinecap='round'
-                strokeLinejoin='round'
+                d="M10.5 5.25L3.75 12L10.5 18.75"
+                className="stroke-primary group-hover:stroke-white"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
             </svg>
           </div>
           <div
-            className='rounded-[50%] h-[5.6rem] w-[5.6rem] border-[0.2rem] border-primary border-solid flex items-center justify-center hover:bg-primary group duration-300 cursor-pointer'
+            className="rounded-[50%] h-[5.6rem] w-[5.6rem] border-[0.2rem] border-primary border-solid flex items-center justify-center hover:bg-primary group duration-300 cursor-pointer"
             onClick={nextSlide}
           >
             <svg
-              xmlns='http://www.w3.org/2000/svg'
-              width='24'
-              height='24'
-              viewBox='0 0 24 24'
-              fill='none'
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
             >
               <path
-                d='M3.75 12H20.25'
-                className='stroke-primary group-hover:stroke-white'
-                strokeWidth='1.5'
-                strokeLinecap='round'
-                strokeLinejoin='round'
+                d="M3.75 12H20.25"
+                className="stroke-primary group-hover:stroke-white"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
               <path
-                d='M13.5 5.25L20.25 12L13.5 18.75'
-                className='stroke-primary group-hover:stroke-white'
-                strokeWidth='1.5'
-                strokeLinecap='round'
-                strokeLinejoin='round'
+                d="M13.5 5.25L20.25 12L13.5 18.75"
+                className="stroke-primary group-hover:stroke-white"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
             </svg>
           </div>

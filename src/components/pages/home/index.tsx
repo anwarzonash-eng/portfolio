@@ -211,8 +211,8 @@ const Home = ({ params }: { params: any }) => {
                         {listOfdata?.name}
                       </h1>
                       {/* Badge */}
-                      <div className="flex items-center justify-center lg:justify-start lg:ms-[3.5rem] mt-[-1.5rem] relative z-[50]">
-                        <div className="px-[2rem] py-[1.5rem] lg:py-[1rem]  lg:px-[4rem] bg-primary   lg:max-w-[45rem] rounded-[5rem] text-center text-[1.6rem] lg:text-[2.4rem] font-bold text-white border-none outline-none mb-[2rem]">
+                      <div className="relative z-[50] mt-[1rem] flex items-center justify-start">
+                        <div className="inline-block px-[2rem] py-[1.5rem] lg:py-[1rem] lg:px-[4rem] bg-primary lg:max-w-[45rem] rounded-[5rem] text-center text-[1.6rem] lg:text-[2.4rem] font-bold text-white border-none outline-none mb-[2rem]">
                           {listOfdata?.designation
                             ?.split("|")
                             .map((item, index) => (
@@ -222,15 +222,16 @@ const Home = ({ params }: { params: any }) => {
                             ))}
                         </div>
                       </div>
-                      <div className="mt-[-15rem] flex justify-center relative">
+                      <div className="mt-[-12rem] flex justify-center relative">
                         {/* Center Dev Image */}
                         <Image
                           width={731}
                           height={707}
                           alt=""
                           src={listOfdata?.profile_photo_2}
-                          className=""
+                          className="mr-[6rem]" // Apply margin-right using Tailwind
                         />
+
                         {/* Left Pricing and Hours Badge Positoned */}
                         <div className="absolute left-0 top-[24rem] w-[33.5rem] h-[18rem] inline-flex items-center justify-center bg-Circle bg-no-repeat bg-contain animate-bounce">
                           <div className="h-[100px] p-5 rounded  justify-center items-center gap-5 inline-flex">
@@ -271,7 +272,7 @@ const Home = ({ params }: { params: any }) => {
                                       onClick={() =>
                                         scrollToSection("skills_ids")
                                       }
-                                      className="py-0 px-[1rem] text-center text-primary text-[1.8rem] font-medium bg-white rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn"
+                                      className="py-[3px] px-[1.6rem] text-center text-primary text-[1.5rem] font-medium bg-white rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn"
                                     >
                                       See More
                                     </button>
@@ -290,9 +291,9 @@ const Home = ({ params }: { params: any }) => {
                                           <Link
                                             href={skill.url || "#"}
                                             style={{
-                                              animationDelay: `${i * 0.3}s`,
+                                              animationDelay: `${i * 0.1}s`,
                                             }}
-                                            className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.8rem] font-medium px-[21px] py-[0.8rem] bg-white rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn"
+                                            className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.5rem] font-medium px-[21px] py-[0.8rem] bg-white rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn"
                                           >
                                             {skill?.title}
                                           </Link>
@@ -464,16 +465,16 @@ const Home = ({ params }: { params: any }) => {
                             urlInfo?.u ? "md:col-span-12" : "md:col-span-6"
                           }`}
                         >
-                          <div className="w-full flex justify-between">
-                            <div>
-                              <Link
-                                target="_blank"
-                                href={`https://www.google.com/maps/place/${listOfdata?.location}
+                          <Link
+                            target="_blank"
+                            href={`https://www.google.com/maps/place/${listOfdata?.location}
                 )}`}
-                                className="hover:font-bold  text-[1.6rem] duration-300 font-normal text-primary"
-                              >
+                            className="w-full flex justify-between group "
+                          >
+                            <div>
+                              <h4 className="group-hover:font-bold  text-[1.6rem] duration-300 font-normal text-primary">
                                 {listOfdata?.location}
-                              </Link>
+                              </h4>
                               <p className="text-[1.4rem] font-normal text-paragraph1">
                                 Address
                               </p>{" "}
@@ -489,7 +490,7 @@ const Home = ({ params }: { params: any }) => {
                                 alt="Uk Flag"
                               />
                             )}
-                          </div>
+                          </Link>
                         </div>
 
                         <div

@@ -41,7 +41,7 @@ const OfferBanner = ({ listOfdata }) => {
           listOfdata={listOfdata}
         />
       )}
-      <div className='max-[1100px]:hidden bg-[#FCDC2A] w-full'>
+      <div className='max-[1100px]:hidden bg-[#FCDC2A] w-full print:hidden block '>
         <div className='mainContainer px-[2rem] h-[3.4rem] w-full flex items-center justify-between gap-[1.6rem]'>
           {/* I Place it in Div BCZ later i will animate this */}
           <div className='flex items-center gap-1'>

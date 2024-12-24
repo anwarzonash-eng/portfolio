@@ -27,4 +27,7 @@
   footer {
     display: none; /* Hide headers and footers if not needed */
   }
+  .break-before-page {
+    break-before: page;
+  }
 }
