@@ -30,4 +30,25 @@
   .break-before-page {
     break-before: page;
   }
+  .print-hidden {
+    display: none !important;
+  }
+
+  /* Ensure the banner is only on the first page */
+  .banner-section {
+    page-break-after: always;
+  }
+
+  /* Add page breaks between portfolios and avoid splitting content */
+  .portfolio-item {
+    page-break-before: always;
+    page-break-inside: avoid; /* Prevent splitting within the portfolio */
+  }
+
+  /* Avoid splitting long text elements inside portfolio items */
+  .portfolio-item p,
+  .portfolio-item h1,
+  .portfolio-item h4 {
+    page-break-inside: avoid;
+  }
 }

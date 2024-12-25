@@ -129,7 +129,7 @@ const Offer = ({ params }: { params: any }) => {
                         className="w-[145px] h-[143px] rounded-full"
                       />
                       <div className="flex items-start justify-start flex-col">
-                        <h2 className="text-[6rem] font-bold">
+                        <h2 className="text-[5rem] font-bold">
                           {" "}
                           {listOfdata?.name}
                         </h2>

@@ -19,6 +19,7 @@ import { skillsGrouping } from "@/hooks/skillsGrouping";
 import { toggleShowMoreSkills } from "@/hooks/toggleShowMoreSkills";
 import ShowmoreSkills from "@/components/showmoreSkills";
 import Background from "@/components/background";
+import { useAppSelector } from "@/store";
 
 const PortfolioListing = ({ params }: { params: any }) => {
   const [
@@ -30,7 +31,9 @@ const PortfolioListing = ({ params }: { params: any }) => {
   const [urlInfo, setURLInfo] = useState(null);
   const [listOfdata, setListOfData] = useState(null);
   const [listOfskills, setListOfSkills] = useState([]);
-
+  const listOfdatas = useAppSelector(
+    (state) => state.profile.listOfProfileData
+  );
   const [loading, setLoading] = useState(true);
   const searchParams = useSearchParams();
 
@@ -81,24 +84,42 @@ const PortfolioListing = ({ params }: { params: any }) => {
     <div className="bg-[#EFF5FD]">
       {/* Hero Banner */}
 
-      <section className="w-full relative ">
-        <div className="mainContainer h-[60.7rem] lg:h-[65rem] w-full relative ">
+      <section className="w-full relative banner-section">
+        <div className="mainContainer h-[60.7rem] lg:h-[65rem] print:h-auto w-full relative ">
           {/* Background SVG */}
           <Background />
           {/* Badge Heading and Paara Text */}
-          <div className="max-w-[1024px] mx-auto text-center px-[2rem] pt-[8rem] relative z-20">
+          <div className="max-w-[1024px] mx-auto text-center px-[2rem] pt-[8rem] relative z-20 print:mt-[20rem] ">
             {/* Badge */}
-            <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto mb-[1.6rem]">
+            <div className="px-[2rem] py-[0.4rem] print:hidden bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto mb-[1.6rem]">
               Portfolio
             </div>
             {/* Heading */}
-            <div className="text-center text-primary text-[4rem] lg:text-[6rem] font-medium  leading-[5rem] lg:leading-[6rem] mt-[1.6rem] mb-[2.4rem]">
+            <div className="text-center print:hidden  text-primary text-[4rem] lg:text-[6rem] font-medium  leading-[5rem] lg:leading-[6rem] mt-[1.6rem] mb-[2.4rem]">
               My Recent Work
             </div>
             {/* Pars Text */}
-            <p className="text-[2rem] leading-[3rem] font-normal text-heading">
+            <p className="text-[2rem] leading-[3rem] font-normal text-heading print:hidden">
               Check out some of the best work I have done.
             </p>
+            <div className=" items-start justify-strat gap-[4rem] print:flex hidden  w-full  ">
+              <img
+                src={listOfdatas?.profile_photo_1}
+                alt=""
+                className="w-[145px] h-[143px] rounded-full"
+              />
+              <div className="flex items-start justify-start flex-col">
+                <h2 className="text-[5rem] font-bold"> {listOfdata?.name}</h2>
+                <div className="text-[3rem] font-medium flex items-center justify-center flex-wrap gap-[3px]">
+                  {" "}
+                  {listOfdatas?.designation?.split("|").map((item, index) => (
+                    <div key={index} className="text-center">
+                      {item.trim()}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
             {loading && <WebsiteLoader height="h-[30rem]" />}
           </div>
         </div>
@@ -115,12 +136,12 @@ const PortfolioListing = ({ params }: { params: any }) => {
       {listOfdata && listOfdata?.portfolios_ids?.length > 0 && (
         <>
           {/* Portfolio Timeline Section */}
-          <div className="mainContainer mt-[-30rem] lg:mt-[-40rem] xl:mt-[-36rem]  w-full ">
+          <div className="mainContainer mt-[-30rem] lg:mt-[-40rem] xl:mt-[-36rem] print:mt-0  w-full ">
             {/* Timeline */}
             <div className="flex items-center justify-center mt-[2rem]">
               <div className="relative">
                 {/* Vertical line */}
-                <div className="absolute left-[-1rem] lg:left-[1rem] top-0 w-[2px] h-[100%] bg-[#7B869E;] mx-[2.1rem] " />
+                <div className="absolute left-[-1rem] print:hidden lg:left-[1rem] top-0 w-[2px] h-[100%] bg-[#7B869E;] mx-[2.1rem] " />
                 {/* Timeline items Container */}
                 <div className="space-y-[3.5rem]">
                   {listOfdata?.portfolios_ids?.map((portfolio, index) => {
@@ -136,16 +157,19 @@ const PortfolioListing = ({ params }: { params: any }) => {
                         : portfolio?.skills?.slice(0, 15)
                     );
                     return (
-                      <div className="relative flex items-start" key={index}>
+                      <div
+                        className="relative flex items-start portfolio-item w-full"
+                        key={index}
+                      >
                         {/* Dot */}
-                        <div className="absolute top-0 left-0 lg:left-[1.8rem]">
-                          <div className="w-[2.6rem] h-[2.6rem] bg-white rounded-full flex items-center shadow-md justify-center">
+                        <div className="absolute top-0 left-0 lg:left-[1.8rem] print:hidden ">
+                          <div className="w-[2.6rem]  h-[2.6rem] bg-white rounded-full flex items-center shadow-md justify-center">
                             <div className="w-[0.7rem] h-[0.7rem] bg-[#5531A7] rounded-full"></div>
                           </div>
                         </div>
-                        <div className="ml-[3rem] lg:ml-[6rem]">
+                        <div className="ml-[3rem] lg:ml-[6rem] print:m-auto  w-full">
                           {/* Year */}
-                          <h1 className="mb-[3rem] text-heading text-[2rem] leading-[2.7rem] font-bold max-lg:ml-[0.5rem]">
+                          <h1 className="mb-[3rem] text-heading text-[2rem] leading-[2.7rem] font-bold max-lg:ml-[0.5rem] print:hidden block">
                             {new Date(portfolio.starting_date).getFullYear()} -{" "}
                             {isNaN(
                               new Date(portfolio.ending_Date).getFullYear()
@@ -154,20 +178,25 @@ const PortfolioListing = ({ params }: { params: any }) => {
                               : new Date(portfolio.ending_Date).getFullYear()}
                           </h1>
                           {/* Card */}
-                          <div className="flex flex-col-reverse lg:flex-row max-lg:p-[1.5rem] bg-white shadow-testimonialeShadow relative rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden p-[2.4rem] gap-[2.4rem]">
+                          <div className="flex flex-col-reverse lg:flex-row max-lg:p-[1.5rem] bg-white shadow-testimonialeShadow relative rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden p-[2.4rem] gap-[2.4rem] print:mt-[15rem] ">
                             {/* Content */}
-                            <div className="">
+                            <div className="w-full">
                               {" "}
                               {/* Title and Description */}
                               {portfolio?.thumbnail && (
-                                <div className="ms-0 lg:ms-5 lg:w-[50rem]  float-right w-full  rounded-[1.2rem] relative align-middle justify-center flex-col flex print:hidden items-center">
+                                <div className="ms-0 lg:ms-5 lg:w-[50rem]  float-right w-full  rounded-[1.2rem] relative align-middle justify-center flex-col flex print:hidden items-center ">
                                   <Image
-                                    src={portfolio?.thumbnail}
+                                    src={
+                                      portfolio?.thumbnail
+                                        ? portfolio.thumbnail
+                                        : "/images/project_img.webp"
+                                    }
                                     alt="Project Image"
-                                    height={800}
+                                    height={800} // You can adjust these sizes as needed
                                     width={800}
-                                    className="object-contain w-full rounded-[1.2rem] border border-solid border-border"
+                                    className="lg:h-[300px] lg:w-[800px] w-full object-cover rounded-[1.2rem] border border-solid border-border"
                                   />
+
                                   <button
                                     className="mb-3 hover:tracking-[.25em] mt-[1rem] py-[1rem]  px-[2rem]  rounded-[7.77rem] border-2 border-solid border-[#fff] text-[1.8rem]  font-medium  min-w-[137px] lg:min-w-[220px]  backdrop-blur-[0.8rem] duration-300 bg-primary hover:bg-opacity-80 text-white"
                                     onClick={() =>
@@ -254,7 +283,7 @@ const PortfolioListing = ({ params }: { params: any }) => {
                               <div className="flex items-center flex-wrap max-sm:flex-col max-md:items-start gap-[1.4rem]">
                                 <Link
                                   href={`/portfolio/${portfolio.id}`}
-                                  className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent hover:border-primary duration-300 max-sm:w-full text-center rounded-[0.6rem]"
+                                  className="text-white py-[1rem] px-[3.4rem] print:hidden text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent hover:border-primary duration-300 max-sm:w-full text-center rounded-[0.6rem]"
                                 >
                                   View Details
                                 </Link>
