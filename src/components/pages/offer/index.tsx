@@ -205,13 +205,25 @@ const Offer = ({ params }: { params: any }) => {
                           ref={(el) => {
                             serviceRefs.current[service?.title] = el;
                           }}
-                          className="w-full bg-white block print:hidden rounded-[1rem] border border-border border-solid mb-[3rem] overflow-hidden"
+                          className="w-full bg-white block print:hidden rounded-[1rem] border border-border border-solid mb-[3rem] overflow-hidden relative"
                         >
+                          {/*  section where i click to ecpand and collaspe the */}
                           <div
                             className={`p-[1rem] lg:p-[3rem] mb-[5rem] bg-primary bg-cvBoxDesktop bg-center bg-no-repeat bg-cover lg:bg-contain cursor-pointer ${
                               activeDropdown === index ? "bg-expanded" : ""
                             }`}
-                            onClick={() => toggleDropdown(index)}
+                            onClick={() => {
+                              // Toggle dropdown
+                              toggleDropdown(index);
+
+                              // Scroll to make it visible in the user's viewport
+                              serviceRefs.current[
+                                service?.title
+                              ]?.scrollIntoView({
+                                behavior: "smooth", // Smooth scrolling
+                                block: "center", // Align the section to the center of the visible screen
+                              });
+                            }}
                           >
                             <div className="flex flex-col md:flex-row items-start md:items-center gap-[2rem] mb-[2rem]">
                               <div className="w-full flex items-center justify-between">
@@ -290,61 +302,6 @@ const Offer = ({ params }: { params: any }) => {
                                 )}
                             </div>
                           </div>
-                        </div>
-                        <div
-                          key={index}
-                          ref={(el) => {
-                            serviceRefs.current[service?.title] = el;
-                          }}
-                          className="w-full hidden print:block bg-white rounded-[1rem] border border-border border-solid mb-[3rem] overflow-hidden"
-                        >
-                          <div className="p-[1rem] lg:p-[3rem] mb-[5rem] bg-primary bg-cvBoxDesktop bg-center bg-no-repeat bg-cover lg:bg-contain">
-                            <div className="flex flex-col md:flex-row items-start md:items-center gap-[2rem] mb-[2rem]">
-                              {/* Circle Icon */}
-                              {/* {service.category_id &&
-                                                  categoryPictures[service?.category_id] && ( */}
-                              {service?.picture && (
-                                <div className="w-[9.3rem] h-[9.3rem] flex items-center justify-center rounded-[12rem] shadow relative">
-                                  <div className="flex items-center justify-center w-[9.3rem] h-[9.3rem]">
-                                    <Image
-                                      src={service?.picture}
-                                      alt="Icon"
-                                      layout="fill"
-                                      objectFit="cover"
-                                      className="rounded-[12rem] w-[9.3rem] h-[9.3rem] object-contain"
-                                    />
-                                  </div>
-                                </div>
-                              )}
-                              {/* Title */}
-                              <h3 className="text-[2.4rem] lg:text-[4.5rem] text-white leading-tight font-medium">
-                                {service.title}
-                              </h3>
-                            </div>
-                            <p
-                              dangerouslySetInnerHTML={{
-                                __html: service.intro_main,
-                              }}
-                              className="text-white list-div text-[1.6rem] leading-[2.4rem] sm:text-[1.8rem] sm:leading-[2.8rem] lg:text-[1.8rem] lg:leading-[2.9rem] font-normal lg:font-medium mb-[2rem]"
-                            ></p>
-                          </div>
-                          <div
-                            dangerouslySetInnerHTML={{
-                              __html: modifiedContent(
-                                service.intro_detail,
-                                listOfskills,
-                                listOfdata
-                              ),
-                            }}
-                            className=" p-[1rem] list-div text-[1.6rem] lg:p-[3rem] rounded-[1rem] mt-[-6rem] lg:mt-[-8rem] bg-white"
-                          ></div>
-                          {service?.skills && service?.skills.length > 0 && (
-                            <SkillsComponent
-                              service={service}
-                              skillsList={listOfskills}
-                              index={index}
-                            />
-                          )}
                         </div>
                       </>
                     ))}
