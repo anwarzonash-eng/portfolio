@@ -20,6 +20,7 @@ import { skillsGrouping } from "@/hooks/skillsGrouping";
 import ShowmoreSkills from "@/components/showmoreSkills";
 import Background from "@/components/background";
 import { useAppSelector } from "@/store";
+import PrintBannerSection from "@/components/PrintBannerSection";
 
 const Offer = ({ params }: { params: any }) => {
   // This is the Custom Hook That

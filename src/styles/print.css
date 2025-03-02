@@ -52,3 +52,9 @@
     page-break-inside: avoid;
   }
 }
+@media print {
+  a.no-print-decoration {
+    text-decoration: none;
+    color: blue;
+  }
+}

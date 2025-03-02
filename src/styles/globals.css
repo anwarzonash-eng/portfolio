@@ -337,16 +337,6 @@ body {
   background-color: #ffc300;
   margin: 10px 10px 0px 0px;
 }
-iframe#ugsglunbv091735213562151 {
-  display: none; /* To hide the widget completely */
-}
-iframe#ugsglunbv091735213562151::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 124px;
-  height: 95px;
-  background: white; /* Or match your background color */
-  z-index: 1000003; /* Higher than the iframe */
+#tawkchat-container .tawk-we-are-here {
+  display: none !important;
 }
