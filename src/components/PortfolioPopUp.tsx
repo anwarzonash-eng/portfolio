@@ -6,7 +6,7 @@ import PortfolioImagesLoader from './PortfolioImagesLoader';
 const PortfolioPopUp = ({ isModalOpen, closeModal, portfolioImages }) => {
   const images = portfolioImages.filter((src) => src !== null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [preloaded, setPreloaded] = useState(false);
+  const [preloaded, setPreloaded] = useState(true);
   const thumbnailsContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

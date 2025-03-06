@@ -185,7 +185,7 @@ const PortfolioListing = ({ params }: { params: any }) => {
                               {/* Title and Description */}
                               {portfolio?.thumbnail && (
                                 <div className="ms-0 lg:ms-5 lg:w-[50rem]  float-right w-full  rounded-[1.2rem] relative align-middle justify-center flex-col flex print:hidden items-center ">
-                                  <Image
+                                  <img
                                     src={
                                       portfolio?.thumbnail
                                         ? portfolio.thumbnail
