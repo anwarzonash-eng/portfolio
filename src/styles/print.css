@@ -58,3 +58,7 @@
     color: blue;
   }
 }
+
+.tawk-icon-right {
+  display: none !important;
+}

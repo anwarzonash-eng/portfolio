@@ -62,7 +62,7 @@ const OurBlogs = ({ domain }) => {
                     className="max-w-[41.8rem] w-full p-[2.4rem] bg-white shadow-lg mb-[1.6rem]"
                   >
                     {blog?.featuredImage && (
-                      <Image
+                      <img
                         src={blog?.featuredImage}
                         height={240}
                         width={370}
