@@ -21,7 +21,7 @@ const Footer = () => {
     ...(listOfdata?.services && listOfdata?.services?.length > 0
       ? [{ title: "Cover Letter", href: "/offer" }]
       : []),
-    { href: "/portfolio", title: "Projects" },
+    { href: "/portfolio", title: "Portfolios" },
     { href: "/blog-listing", title: "Blog" },
     { href: "/cv", title: "CV" },
     { href: "/contact-me", title: "Contact Me" },
@@ -66,7 +66,7 @@ const Footer = () => {
                         [
                           "Home",
                           "Cover Letter",
-                          "Projects",
+                          "Portfolios",
                           "Blog",
                           "CV",
                           "Contact Me",

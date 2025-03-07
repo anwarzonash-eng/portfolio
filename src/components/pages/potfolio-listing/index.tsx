@@ -91,7 +91,7 @@ const PortfolioListing = ({ params }: { params: any }) => {
           {/* Badge Heading and Paara Text */}
           <div className="max-w-[1024px] mx-auto text-center px-[2rem] pt-[8rem] relative z-20 print:mt-[20rem] ">
             {/* Badge */}
-            <div className="px-[2rem] py-[0.4rem] print:hidden bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto mb-[1.6rem]">
+            <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto mb-[1.6rem]">
               Portfolio
             </div>
             {/* Heading */}
@@ -178,7 +178,7 @@ const PortfolioListing = ({ params }: { params: any }) => {
                               : new Date(portfolio.ending_Date).getFullYear()}
                           </h1>
                           {/* Card */}
-                          <div className="flex flex-col-reverse lg:flex-row max-lg:p-[1.5rem] bg-white shadow-testimonialeShadow relative rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden p-[2.4rem] gap-[2.4rem] print:mt-[15rem] ">
+                          <div className="flex flex-col-reverse lg:flex-row max-lg:p-[1.5rem] bg-white shadow-testimonialeShadow relative rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden p-[2.4rem] gap-[2.4rem] print:mt-[10rem] ">
                             {/* Content */}
                             <div className="w-full">
                               {" "}
@@ -283,7 +283,7 @@ const PortfolioListing = ({ params }: { params: any }) => {
                               <div className="flex items-center flex-wrap max-sm:flex-col max-md:items-start gap-[1.4rem]">
                                 <Link
                                   href={`/portfolio/${portfolio.id}`}
-                                  className="text-white py-[1rem] px-[3.4rem] print:hidden text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent hover:border-primary duration-300 max-sm:w-full text-center rounded-[0.6rem]"
+                                  className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent print:!border-primary hover:border-primary duration-300 max-sm:w-full text-center rounded-[0.6rem] print:!text-primary"
                                 >
                                   View Details
                                 </Link>
@@ -291,7 +291,7 @@ const PortfolioListing = ({ params }: { params: any }) => {
                                   <a
                                     href={portfolio?.link}
                                     target="_blank"
-                                    className="py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-primary border border-solid hover:border-transparent border-primary duration-300 hover:bg-primary hover:text-white rounded-[0.6rem] max-sm:w-full text-center no-print-decoration"
+                                    className="py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-primary border border-solid hover:border-transparent border-primary print:!text-primary duration-300 hover:bg-primary hover:text-white rounded-[0.6rem] max-sm:w-full text-center no-print-decoration"
                                   >
                                     Launch Project - Live Preview
                                   </a>
@@ -317,7 +317,7 @@ const PortfolioListing = ({ params }: { params: any }) => {
             </div>
           </div>
           {/* Our Blogs Section */}
-          <div className="w-full my-[10rem] lg:my-[12rem]">
+          <div className="w-full my-[10rem] lg:my-[12rem] block print:hidden">
             <OurBlogs domain={listOfdata?.domain} />
           </div>
           {/* Newsletter */}

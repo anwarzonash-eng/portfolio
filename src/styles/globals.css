@@ -340,3 +340,22 @@ body {
 #tawkchat-container .tawk-we-are-here {
   display: none !important;
 }
+@media print {
+  .print-expanded {
+    max-height: none !important;
+    opacity: 1 !important;
+    display: block !important;
+  }
+}
+@media print {
+  .print-black-bg {
+    background: black !important;
+    background-image: none !important;
+    color: white !important; /* Ensure text is visible on black background */
+  }
+}
+@media print {
+  .print-section {
+    break-before: page; /* Ensures each section starts on a new page */
+  }
+}
