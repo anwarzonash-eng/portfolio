@@ -34,6 +34,7 @@ import SkillsContainer from "@/components/SkillsContainer";
 import { skillsGrouping } from "@/hooks/skillsGrouping";
 import ShowmoreSkills from "@/components/showmoreSkills";
 import { useRouter } from "next/router";
+import { useMediaQuery } from "react-responsive";
 
 const Home = ({ params }: { params: any }) => {
   useBodyBackgroundColor("#f8f9fa");
@@ -45,6 +46,8 @@ const Home = ({ params }: { params: any }) => {
   const searchParams = useSearchParams();
   const skillsContainerRef = useRef(null);
   const [isOverflowing, setIsOverflowing] = useState(false);
+  const isSmallScreen = useMediaQuery({ query: "(max-width: 768px)" });
+  const [showAll, setShowAll] = useState(false);
   useEffect(() => {
     setURLInfo(getRoutesDetails(params, searchParams));
   }, [params, searchParams]);
@@ -142,28 +145,43 @@ const Home = ({ params }: { params: any }) => {
                         }}
                         className="mb-[2rem] text-primary leading-[2rem] text-[1.6rem] text-center lg:hidden"
                       ></p>
+                      {/* for small screen */}
                       {listOfdata &&
                         listOfdata.skills_ids &&
                         listOfdata.skills_ids.length > 0 && (
                           <div className="w-full p-[1.5rem] flex justify-center items-center gap-[0.6rem] flex-wrap lg:hidden">
-                            {Object?.values(skills)?.map(
-                              (group, groupIndex) => (
-                                <React.Fragment key={groupIndex}>
-                                  {group.map((skill, i) => (
+                            {Object.values(skills).map((group, groupIndex) => (
+                              <React.Fragment key={groupIndex}>
+                                {group
+                                  .slice(
+                                    0,
+                                    isSmallScreen && !showAll
+                                      ? 10
+                                      : group.length
+                                  )
+                                  .map((skill, i) => (
                                     <Link
-                                      href={skill?.url || "#"}
+                                      href={skill.url || "#"}
                                       style={{
-                                        animationDelay: `${i * 0.3}s`,
+                                        animationDelay: `${i * 0.1}s`,
                                       }}
-                                      className="hover:text-white text-center text-primary text-[1.4rem] font-medium hover:bg-primary px-[1.4rem] py-[0.7rem] opacity-0 animate-fadeIn bg-white rounded-[5rem] shadow border border-[#767676] border-solid flex justify-center items-center gap-[1rem]"
+                                      className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium px-[21px] py-[0.5rem] bg-white rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn"
+                                      key={i}
                                     >
                                       {skill?.title}
                                     </Link>
                                   ))}
-                                  {/* Line break after each group */}
-                                  <div className="w-full mb-[1px]" />
-                                </React.Fragment>
-                              )
+                                {/* Line break after each group */}
+                                <div className="w-full mb-[1px]" />
+                              </React.Fragment>
+                            ))}
+                            {isSmallScreen && (
+                              <button
+                                onClick={() => setShowAll(!showAll)}
+                                className="mt-4 bg-primary text-white px-4 py-2 mb-[15px] rounded"
+                              >
+                                {showAll ? "Show Less" : "Show More"}
+                              </button>
                             )}
                           </div>
                         )}
@@ -281,8 +299,8 @@ const Home = ({ params }: { params: any }) => {
 
                                 <div
                                   ref={skillsContainerRef}
-                                  className="w-full p-[1.5rem]  bg-white/70 backdrop-blur-xl justify-start items-center gap-[0.6rem] flex flex-wrap overflow-hidden"
-                                  style={{ maxHeight: "47.3rem" }} // Set max height for the container
+                                  className="w-full p-[1.5rem]  bg-white/70 backdrop-blur-xl justify-start items-center gap-[0.6rem] flex flex-wrap overflow-y-auto"
+                                  style={{ maxHeight: "46.3rem" }} // Set max height for the container
                                 >
                                   {Object?.values(skills)?.map(
                                     (group, groupIndex) => (
@@ -293,7 +311,7 @@ const Home = ({ params }: { params: any }) => {
                                             style={{
                                               animationDelay: `${i * 0.1}s`,
                                             }}
-                                            className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.5rem] font-medium px-[21px] py-[0.8rem] bg-white rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn"
+                                            className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium px-[21px] py-[0.5rem] bg-white rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn"
                                           >
                                             {skill?.title}
                                           </Link>

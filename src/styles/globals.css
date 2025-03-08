@@ -166,7 +166,6 @@ body {
   border: 4px solid black;
 }
 
-
 /* .footerLink {
   @apply relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1px] after:bg-heading duration-300 hover:text-primary hover:after:hidden;
 } */
@@ -338,4 +337,25 @@ body {
   background-color: #ffc300;
   margin: 10px 10px 0px 0px;
 }
- 
+#tawkchat-container .tawk-we-are-here {
+  display: none !important;
+}
+@media print {
+  .print-expanded {
+    max-height: none !important;
+    opacity: 1 !important;
+    display: block !important;
+  }
+}
+@media print {
+  .print-black-bg {
+    background: black !important;
+    background-image: none !important;
+    color: white !important; /* Ensure text is visible on black background */
+  }
+}
+@media print {
+  .print-section {
+    break-before: page; /* Ensures each section starts on a new page */
+  }
+}

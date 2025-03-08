@@ -52,7 +52,7 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
     ...(listOfdata?.services && listOfdata?.services?.length > 0
       ? [{ title: "Services", src: "#", isDropdown: true }]
       : []),
-    { title: "Projects", src: "/portfolio" },
+    { title: "Portfolios ", src: "/portfolio" },
     { title: "Blogs", src: "/blog-listing" },
     { title: "CV", src: "/cv" },
   ];
