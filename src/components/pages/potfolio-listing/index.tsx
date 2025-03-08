@@ -280,7 +280,7 @@ const PortfolioListing = ({ params }: { params: any }) => {
                               </div>
                               <hr className="w-full my-[2.4rem] h-px bg-border" />
                               {/* Links */}
-                              <div className="flex items-center flex-wrap max-sm:flex-col max-md:items-start gap-[1.4rem]">
+                              <div className="flex items-center flex-wrap max-sm:flex-col max-md:items-start gap-[1.4rem] print:hidden">
                                 <Link
                                   href={`/portfolio/${portfolio.id}`}
                                   className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent print:!border-primary hover:border-primary duration-300 max-sm:w-full text-center rounded-[0.6rem] print:!text-primary"

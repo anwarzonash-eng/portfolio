@@ -155,7 +155,9 @@ const Home = ({ params }: { params: any }) => {
                                 {group
                                   .slice(
                                     0,
-                                    isSmallScreen && !showAll ? 3 : group.length
+                                    isSmallScreen && !showAll
+                                      ? 10
+                                      : group.length
                                   )
                                   .map((skill, i) => (
                                     <Link
@@ -297,8 +299,8 @@ const Home = ({ params }: { params: any }) => {
 
                                 <div
                                   ref={skillsContainerRef}
-                                  className="w-full p-[1.5rem]  bg-white/70 backdrop-blur-xl justify-start items-center gap-[0.6rem] flex flex-wrap overflow-hidden"
-                                  style={{ maxHeight: "47.3rem" }} // Set max height for the container
+                                  className="w-full p-[1.5rem]  bg-white/70 backdrop-blur-xl justify-start items-center gap-[0.6rem] flex flex-wrap overflow-y-auto"
+                                  style={{ maxHeight: "46.3rem" }} // Set max height for the container
                                 >
                                   {Object?.values(skills)?.map(
                                     (group, groupIndex) => (
