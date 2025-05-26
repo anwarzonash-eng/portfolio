@@ -149,38 +149,54 @@ const Home = ({ params }: { params: any }) => {
                       {listOfdata &&
                         listOfdata.skills_ids &&
                         listOfdata.skills_ids.length > 0 && (
-                          <div className="w-full p-[1.5rem] flex justify-center items-center gap-[0.6rem] flex-wrap lg:hidden">
-                            {Object.values(skills).map((group, groupIndex) => (
-                              <React.Fragment key={groupIndex}>
-                                {group
-                                  .slice(
-                                    0,
-                                    isSmallScreen && !showAll
-                                      ? 10
-                                      : group.length
-                                  )
-                                  .map((skill, i) => (
+                          <div className="w-full p-[1.5rem] flex justify-center items-center flex-col gap-[1rem] lg:hidden">
+                            <div className="w-full flex justify-center items-center gap-[0.6rem] flex-wrap">
+                              {Object.values(skills)
+                                .flat() // Combine all groups into one array
+                                .slice(0, !showAll ? 10 : undefined)
+                                .map((skill, i) => {
+                                  // Find original group index for numbering
+                                  const groupIndex = Object.values(
+                                    skills
+                                  ).findIndex((group) => group.includes(skill));
+                                  const skillNumber = `${groupIndex + 1}.${
+                                    skills[
+                                      Object.keys(skills)[groupIndex]
+                                    ].indexOf(skill) + 1
+                                  }`;
+
+                                  return (
                                     <Link
                                       href={skill.url || "#"}
-                                      style={{
-                                        animationDelay: `${i * 0.1}s`,
-                                      }}
-                                      className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium px-[21px] py-[0.5rem] bg-white rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn"
-                                      key={i}
+                                      style={{ animationDelay: `${i * 0.1}s` }}
+                                      className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium px-[21px] py-[0.5rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
+                                      key={`${groupIndex}-${i}`}
                                     >
+                                      <span className=" bg-primary text-white group-hover:bg-white group-hover:text-primary text-[0.8rem] pt-[1.5px] font-bold rounded-full size-[21px] flex items-center justify-center">
+                                        {skillNumber}
+                                      </span>
                                       {skill?.title}
                                     </Link>
-                                  ))}
-                                {/* Line break after each group */}
-                                <div className="w-full mb-[1px]" />
-                              </React.Fragment>
-                            ))}
-                            {isSmallScreen && (
+                                  );
+                                })}
+                            </div>
+
+                            {!showAll &&
+                              Object.values(skills).flat().length > 10 && (
+                                <button
+                                  onClick={() => setShowAll(true)}
+                                  className="mt-4 bg-primary text-white px-4 py-2 mb-[15px] rounded hover:bg-primary-dark transition-colors"
+                                >
+                                  Show More Skills
+                                </button>
+                              )}
+
+                            {showAll && (
                               <button
-                                onClick={() => setShowAll(!showAll)}
-                                className="mt-4 bg-primary text-white px-4 py-2 mb-[15px] rounded"
+                                onClick={() => setShowAll(false)}
+                                className="mt-4 bg-primary text-white px-4 py-2 mb-[15px] rounded hover:bg-primary-dark transition-colors"
                               >
-                                {showAll ? "Show Less" : "Show More"}
+                                Show Less
                               </button>
                             )}
                           </div>
@@ -290,34 +306,44 @@ const Home = ({ params }: { params: any }) => {
                                       onClick={() =>
                                         scrollToSection("skills_ids")
                                       }
-                                      className="py-[3px] px-[1.6rem] text-center text-primary text-[1.5rem] font-medium bg-white rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn"
+                                      className="py-[3px] px-[1.6rem] text-center text-primary text-[1rem] font-medium bg-white rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn"
                                     >
-                                      See More
+                                      See More Skills
                                     </button>
                                   )}
                                 </div>
 
                                 <div
                                   ref={skillsContainerRef}
-                                  className="w-full p-[1.5rem]  bg-white/70 backdrop-blur-xl justify-start items-center gap-[0.6rem] flex flex-wrap overflow-y-auto"
-                                  style={{ maxHeight: "46.3rem" }} // Set max height for the container
+                                  className="w-full p-[1.5rem] bg-white/70 backdrop-blur-xl justify-start items-center gap-[0.6rem] flex flex-wrap overflow-y-auto hide-scrollbar"
+                                  style={{ maxHeight: "46.3rem" }}
                                 >
                                   {Object?.values(skills)?.map(
                                     (group, groupIndex) => (
                                       <React.Fragment key={groupIndex}>
-                                        {group.map((skill, i) => (
-                                          <Link
-                                            href={skill.url || "#"}
-                                            style={{
-                                              animationDelay: `${i * 0.1}s`,
-                                            }}
-                                            className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium px-[21px] py-[0.5rem] bg-white rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn"
-                                          >
-                                            {skill?.title}
-                                          </Link>
-                                        ))}
-                                        {/* Line break after each group */}
-                                        <div className="w-full mb-[1px]" />
+                                        {group.map((skill, i) => {
+                                          // Calculate the skill number (groupIndex+1).(i+1)
+                                          const skillNumber = `${
+                                            groupIndex + 1
+                                          }.${i + 1}`;
+
+                                          return (
+                                            <Link
+                                              href={skill.url || "#"}
+                                              style={{
+                                                animationDelay: `${i * 0.1}s`,
+                                              }}
+                                              className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium px-[21px] py-[0.5rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
+                                              key={`${groupIndex}-${i}`}
+                                            >
+                                              {/* Skill number badge */}
+                                              <span className=" bg-primary text-white group-hover:bg-white group-hover:text-primary text-[0.8rem] pt-[1.5px] font-bold rounded-full size-[21px] flex items-center justify-center">
+                                                {skillNumber}
+                                              </span>
+                                              {skill?.title}
+                                            </Link>
+                                          );
+                                        })}
                                       </React.Fragment>
                                     )
                                   )}
