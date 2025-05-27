@@ -888,6 +888,7 @@ const Home = ({ params }: { params: any }) => {
                                                         AREAS OF EXPERTISE I'VE
                                                         WORKED IN
                                                       </h4>
+                                                      <div className="w-full flex-col items-start flex gap-5">
                                                       <div className="flex items-center gap-[1rem] lg:gap-[0.7rem]   text-nowrap flex-wrap text-[1.2rem]">
                                                         {Object?.values(
                                                           skillsforExpereince
@@ -896,34 +897,34 @@ const Home = ({ params }: { params: any }) => {
                                                             group,
                                                             groupIndex
                                                           ) => (
-                                                            <React.Fragment
-                                                              key={groupIndex}
-                                                            >
-                                                              {group.map(
-                                                                (skill, i) => (
-                                                                  <Link
-                                                                    key={i}
-                                                                    href={
-                                                                      skill?.url ||
-                                                                      "#"
-                                                                    }
-                                                                    className=" py-[0.4rem] px-[2rem] bg-white border border-solid border-sectionBG text-heading rounded-[1.6rem] text-[1.2rem] font-medium leading-normal hover:text-white hover:bg-primary"
-                                                                  >
-                                                                    {
-                                                                      skill?.title
-                                                                    }
-                                                                  </Link>
-                                                                )
-                                                              )}
-                                                              {/* Line break after each group */}
-                                                              {showMoreSkills[
-                                                                index
-                                                              ] && (
-                                                                <div className="w-full mb-[1px]" />
-                                                              )}
-                                                            </React.Fragment>
+                                                            <React.Fragment key={groupIndex}>
+                                        {group.map((skill, i) => {
+                                          // Calculate the skill number (groupIndex+1).(i+1)
+                                          const skillNumber = `${
+                                            groupIndex + 1
+                                          }.${i + 1}`;
+
+                                          return (
+                                            <Link
+                                              href={skill.url || "#"}
+                                              style={{
+                                                animationDelay: `${i * 0.1}s`,
+                                              }}
+                                              className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium py-[0.4rem] px-[2rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
+                                              key={`${groupIndex}-${i}`}
+                                            >
+                                              {/* Skill number badge */}
+                                              <span className=" bg-primary text-white group-hover:bg-white group-hover:text-primary text-[0.8rem] pt-[1.5px] font-bold rounded-full size-[21px] flex items-center justify-center">
+                                                {skillNumber}
+                                              </span>
+                                              {skill?.title}
+                                            </Link>
+                                          );
+                                        })}
+                                      </React.Fragment>
                                                           )
                                                         )}
+</div>
                                                         <ShowmoreSkills
                                                           props={{
                                                             list: experience?.skills,
@@ -942,6 +943,7 @@ const Home = ({ params }: { params: any }) => {
                                       </>
                                     );
                                   })}{" "}
+                                  
                                   {listOfdata.experiences_ids.length > 3 && (
   <div className="flex justify-center mt-8">
     <button

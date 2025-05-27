@@ -68,7 +68,7 @@ const HomeSlider = ({ portfolios, companyType }) => {
 
   return (
     <div className="w-full flex flex-col items-center gap-3 mt-[3rem]">
-    <div className="relative w-full overflow-x-hidden lg:h-[540px] h-full" >
+    <div className="relative w-full overflow-x-hidden lg:h-[610px] h-full" >
       {isModalOpen && selectedPorfolioPicturesforPopup !== null && (
         <PortfolioPopUp
           isModalOpen={isModalOpen}
@@ -137,17 +137,39 @@ const HomeSlider = ({ portfolios, companyType }) => {
                       <div className="flex items-center gap-[1rem] lg:gap-[0.7rem] my-[2rem] text-nowrap flex-wrap">
                        
                         {Object?.values(skills)?.map((group, groupIndex) => (
-                          <React.Fragment key={groupIndex}>
-                            {group.map((skill, i) => (
-                              <Link
-                                href={skill?.url || "#"}
-                                key={i}
-                                className="hover:bg-primary hover:text-white py-[0.4rem] px-[2rem] bg-bannerBG text-heading rounded-[1.2rem] text-[1.4rem] font-medium leading-[2rem]"
-                              >
-                                {skill.title}
-                              </Link>
-                            ))}
-                          </React.Fragment>
+                         
+
+<React.Fragment key={groupIndex}>
+                                        {group.map((skill, i) => {
+                                          // Calculate the skill number (groupIndex+1).(i+1)
+                                          const skillNumber = `${
+                                            groupIndex + 1
+                                          }.${i + 1}`;
+
+                                          return (
+                                            <Link
+                                              href={skill.url || "#"}
+                                              style={{
+                                                animationDelay: `${i * 0.1}s`,
+                                              }}
+                                              className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium py-[0.4rem] px-[2rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
+                                              key={`${groupIndex}-${i}`}
+                                            >
+                                              {/* Skill number badge */}
+                                              <span className=" bg-primary text-white group-hover:bg-white group-hover:text-primary text-[0.8rem] pt-[1.5px] font-bold rounded-full size-[21px] flex items-center justify-center">
+                                                {skillNumber}
+                                              </span>
+                                              {skill?.title}
+                                            </Link>
+                                          );
+                                        })}
+                                      </React.Fragment>
+
+
+
+
+
+
                         ))}
                         </div>
                         {portfolio?.skills?.length > 15 && (
