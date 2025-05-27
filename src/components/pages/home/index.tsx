@@ -264,7 +264,7 @@ const Home = ({ params }: { params: any }) => {
                           height={707}
                           alt=""
                           src={listOfdata?.profile_photo_2}
-                          className="mr-[6rem]" // Apply margin-right using Tailwind
+                          className="mr-[12rem]"
                         />
 
                         {/* Left Pricing and Hours Badge Positoned */}
