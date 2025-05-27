@@ -48,6 +48,7 @@ const Home = ({ params }: { params: any }) => {
   const [isOverflowing, setIsOverflowing] = useState(false);
   const isSmallScreen = useMediaQuery({ query: "(max-width: 768px)" });
   const [showAll, setShowAll] = useState(false);
+  const [showAllExperiences, setShowAllExperiences] = useState(false);
   useEffect(() => {
     setURLInfo(getRoutesDetails(params, searchParams));
   }, [params, searchParams]);
@@ -678,7 +679,7 @@ const Home = ({ params }: { params: any }) => {
                   listOfdata.portfolios_ids.length > 0 && (
                     <>
                       {/* My Work Section Slider  */}
-                      <section className="w-full my-[5rem]">
+                      <section className="w-full mt-[8rem] mb-[7rem]">
                         <div className="mainContainer my-[5rem]">
                           {/* Badge */}
                           <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto">
@@ -718,7 +719,7 @@ const Home = ({ params }: { params: any }) => {
                           <div className="mainContainer flex items-center justify-center mt-[2rem] ">
                             <div className="relative">
                               {/* Vertical line */}
-                              <div className="absolute left-[10rem] top-[3rem] w-[0.4rem] h-[100%] bg-border  mx-[2.1rem] hidden xl:block" />
+                              <div className="absolute left-[10rem] top-[3rem] w-[0.4rem] h-[calc(100%-78px)] bg-border  mx-[2.1rem] hidden xl:block" />
                               {listOfdata?.experiences_ids &&
                                 [...listOfdata.experiences_ids]
                                   ?.sort((a, b) => {
@@ -730,7 +731,7 @@ const Home = ({ params }: { params: any }) => {
                                     ).getFullYear();
 
                                     if (yearA !== yearB) {
-                                      return yearB - yearA; // Sort by year in descending order
+                                      return yearB - yearA; 
                                     }
 
                                     const monthA = new Date(
@@ -740,9 +741,9 @@ const Home = ({ params }: { params: any }) => {
                                       b.ending_Date
                                     ).getMonth();
 
-                                    return monthB - monthA; // If years are the same, sort by month in descending order
+                                    return monthB - monthA; 
                                   })
-                                  ?.map((experience, index) => {
+                                  ?.slice(0, showAllExperiences ? listOfdata.experiences_ids.length : 3)?.map((experience, index) => {
                                     const skillsforExpereince: {
                                       [key: string]: {
                                         title: string;
@@ -941,6 +942,16 @@ const Home = ({ params }: { params: any }) => {
                                       </>
                                     );
                                   })}{" "}
+                                  {listOfdata.experiences_ids.length > 3 && (
+  <div className="flex justify-center mt-8">
+    <button
+      onClick={() => setShowAllExperiences(!showAllExperiences)}
+      className="bg-primary text-white py-[0.4rem] px-[2rem] border border-primary border-solid hover:text-primary hover:bg-white rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
+    >
+      {showAllExperiences ? 'Show Less Professionals' : 'Show More Professionals'}
+    </button>
+  </div>
+)}
                             </div>
                           </div>
                         </div>
@@ -948,44 +959,7 @@ const Home = ({ params }: { params: any }) => {
                     </>
                   )}
 
-                {/* Testimonial Section */}
-                {/* <section className='bg-sectionBG py-[7rem] lg:py-[10rem]'>
-      <div className='mainContainer'>
-     
-        <div className='w-full lg:hidden'>
-       
-          <div className='px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight'>
-            Professional Experience
-          </div>
-       
-          <div className='text-paragraph2 text-[2.4rem] xl:text-[3rem] font-medium leading-[2.8rem] mt-[2rem]'>
-            My Professional Career Journey
-          </div>
-        </div>
-       
-        <div className='w-full flex gap-[2rem] lg:gap-[10rem] flex-col md:flex-row-reverse  mt-[4rem] lg:items-end'>
-          <div className='h-[37.2rem] lg:h-[56.8rem]  max-w-[36.3rem] lg:w-[39.4rem] w-full rounded-[2rem] bg-testmonialBG bg-center bg-no-repeat bg-cover relative  overflow-hidden flex-shrink-0'>
-            <div className='absolute bottom-0 left-0 p-[2rem] flex items-center justify-between w-full bg-[rgba(0,0,0,0.05)] '>
-              <p className='text-[1.8rem] font-bold text-white leading-[2.4rem]'>
-                Founder of <br /> GearUp
-              </p>
-              <div className='w-[5.8rem] h-[5.8rem] relative border-[0.4rem] rounded-[1.9rem] flex items-center justify-center backdrop-blur-[2.2rem]'>
-                <Image
-                  src={'/images/Play.svg'}
-                  height={20}
-                  width={20}
-                  className='mr-[-0.5rem]'
-                  alt='Play Icon'
-                />
-              </div>
-            </div>
-          </div>
-
-          <TestimonialSlider />
-        </div>
-      </div>
-    </section> */}
-
+      
                 {/* FAQ Section Completed */}
                 <Faqs urlInfo={urlInfo} companyType={listOfdata?.companytype} />
                 {/* Our Blogs */}

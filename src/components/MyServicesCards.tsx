@@ -97,17 +97,19 @@ const MyServicesCards = ({ services }) => {
             >
               {/* Image Container with Hover Effect */}
               {service.picture && (
-                <div className="relative h-48 overflow-hidden group">
+                <div className="relative h-48 flex items-center justify-center overflow-hidden group">
                   <Image
                     src={service.picture}
-                    fill
+                   
+                      height={150}
+                      width={150}
                     alt={service.title || "Service image"}
-                    className="object-cover transition-transform duration-500 group-hover:scale-110"
+                    className="object-cover transition-transform duration-500 group-hover:scale-110 w-[9.8rem] h-[9.8rem] rounded-[12rem]"
                     onError={(e) => {
                       (e.target as HTMLImageElement).style.display = "none";
                     }}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#6f656591] to-transparent" />
                 </div>
               )}
 
