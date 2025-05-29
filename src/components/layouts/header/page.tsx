@@ -190,52 +190,68 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
                     <nav className="text-paragraph1 text-[1.6rem] font-normal leading-normal flex justify-center items-center gap-[2.4rem]">
                       {headerLinks.map((link, index) =>
                         link.isDropdown ? (
-                          <div
-                            className="flex items-center relative "
-                            ref={servicesDropdownRef}
-                          >
-                            <div
-                              className="flex gap-[0.2rem] text-paragraph1 text-[1.6rem] font-normal leading-normal hover:text-primary duration-300 cursor-pointer"
-                              onClick={handleToggleServices}
-                              ref={servivesDropdownButtonRef}
-                            >
-                              {link.title}
-                              <Image
-                                src="/images/dropDown.svg"
-                                height={24}
-                                width={24}
-                                alt="Dropdown"
-                                className={`cursor-pointer duration-300 ${
-                                  isServicesOpen ? "rotate-180" : "rotate-0"
-                                }`}
-                              />{" "}
-                            </div>
-                            {/* Positioned DropDown Menu */}
-                            {isServicesOpen && (
-                              <nav
-                                ref={servicesDivRef}
-                                className={`rounded-[0.8rem] duration-300 shadow-md bg-white absolute top-[4rem] left-[-10rem] z-50
-   ${isServicesOpen ? "opacity-100" : "opacity-0"}
-   p-[2rem] text-primary text-[1.6rem] font-normal leading-normal flex flex-col gap-[1.5rem] w-[29.6rem]`}
-                              >
-                                {/* Work Proof */}
-                                <div className="w-full">
-                                  {listOfdata?.services
-                                    ?.filter(({ type }) => type !== "main")
-                                    .map((service, index) => (
-                                      <Link
-                                        prefetch={true}
-                                        href={`/offer?service=${service?.title}`}
-                                        key={index}
-                                        className={`w-full flex items-center gap-[1.4rem] px-4 py-2 hover:bg-primary hover:text-white hover:rounded-lg transition-all duration-300 ease-in-out cursor-pointer text-wrap border-b border-gray-200 last:border-b-0`}
-                                      >
-                                        {service?.title}
-                                      </Link>
-                                    ))}
-                                </div>
-                              </nav>
-                            )}
-                          </div>
+                     <div className="flex items-center relative" ref={servicesDropdownRef}>
+  <div
+    className="flex gap-[0.2rem] text-paragraph1 text-[1.6rem] font-normal leading-normal hover:text-primary duration-300 cursor-pointer"
+    onClick={handleToggleServices}
+    ref={servivesDropdownButtonRef}
+  >
+    {link.title}
+    <Image
+      src="/images/dropDown.svg"
+      height={24}
+      width={24}
+      alt="Dropdown"
+      className={`cursor-pointer duration-300 ${
+        isServicesOpen ? "rotate-180" : "rotate-0"
+      }`}
+    />
+  </div>
+  
+  {/* Positioned DropDown Menu */}
+  {isServicesOpen && (
+    <nav
+      ref={servicesDivRef}
+      className={`rounded-[0.8rem] duration-300 shadow-lg bg-white absolute top-[4rem] left-[-10rem] z-50
+        ${isServicesOpen ? "opacity-100" : "opacity-0"}
+        p-[2rem] w-[90rem]`}
+    >
+      {/* Services Grid - 3 columns */}
+      <div className="grid grid-cols-3 gap-6">
+  {listOfdata?.services
+    ?.filter(({ type }) => type !== "main")
+    .map((service, index) => (
+      <Link
+        prefetch={true}
+        href={`/offer?service=${service?.title}`}
+        key={index}
+        className="group p-4 hover:bg-gray-50 rounded-lg transition-all duration-300 border border-gray-100 hover:border-primary/20 hover:shadow-sm"
+      >
+        {/* Service Icon with Database-like image */}
+        <div className="flex items-center gap-3 mb-3">
+          <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center group-hover:bg-blue-100">
+            <Image 
+              src="/images/my_services/db.jpg"  
+              width={20} 
+              height={20} 
+              alt={service.title}
+              className="text-blue-500"
+            />
+          </div>
+          <h3 className="text-[1.6rem] font-semibold text-gray-800 group-hover:text-primary">
+            {service?.title}
+          </h3>
+        </div>
+        
+        <p className="text-[1.4rem] text-gray-600 pl-[3.2rem]">
+          {service?.description || "Secure, scalable solutions for your business needs."}
+        </p>
+      </Link>
+    ))}
+</div>
+    </nav>
+  )}
+</div>
                         ) : (
                           <div
                             key={index}
