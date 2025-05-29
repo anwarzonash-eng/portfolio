@@ -872,7 +872,7 @@ const Home = ({ params }: { params: any }) => {
                                                           }
                                                           className="hover:bg-primary hover:text-white py-[0.4rem] px-[1rem] text-heading bg-[#A3DDD3] rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
                                                         >
-                                                          View my Freelance
+                                                          View my upwork Freelance
                                                           Profile
                                                         </Link>
                                                       )}{" "}

@@ -354,37 +354,43 @@ const SkillsComponent = ({ service, skillsList, index = 0 }) => {
   return (
     <div className="px-[1rem] lg:px-[3rem] text-black list-div text-[1.6rem] leading-[2.4rem] sm:text-[1.8rem] sm:leading-[2.8rem] lg:text-[1.8rem] lg:leading-[2.9rem] font-normal lg:font-medium mb-[2rem]">
       AREAS OF EXPERTISE I'VE WORKED IN
+        <div className="w-full flex-col items-start flex ">
       <div className="flex items-center gap-[1rem] lg:gap-[0.7rem] my-[2.4rem] text-nowrap flex-wrap">
         {Object?.values(skills)?.map((group, groupIndex) => (
-          <React.Fragment key={groupIndex}>
-            {group.map((skill, i) => {
-              const matchedSkill = skillsList.find(
-                (s) => s.title === skill.title
-              );
-              const href = matchedSkill?.url;
-
-              return href ? (
-                <Link
-                  href={href}
-                  target="_blank"
-                  key={i}
-                  className="hover:bg-primary capitalize hover:text-white py-[0.4rem] px-[2rem] bg-bannerBG text-heading rounded-[1.2rem] text-[1.4rem] font-medium leading-[2rem]"
-                >
-                  {skill.title}
-                </Link>
-              ) : (
-                <div
-                  key={i}
-                  className="hover:bg-primary capitalize hover:text-white py-[0.4rem] px-[2rem] bg-bannerBG text-heading rounded-[1.2rem] text-[1.4rem] font-medium leading-[2rem]"
-                >
-                  {skill.title}
-                </div>
-              );
-            })}
-            {/* Line break after each group */}
-            {showMoreSkills[index] && <div className="w-full mb-[1px]" />}
-          </React.Fragment>
+            <React.Fragment key={groupIndex}>
+                                                  {group.map((skill, i) => {
+                                                    // Calculate the skill number (groupIndex+1).(i+1)
+                                                    const skillNumber = `${
+                                                      groupIndex + 1
+                                                    }.${i + 1}`;
+          
+                                                    return (
+                                                      
+          
+          
+          <Link href={skill.url || "#"} legacyBehavior key={`${groupIndex}-${i}`}>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                animationDelay: `${i * 0.1}s`,
+              }}
+              className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium py-[0.4rem] px-[2rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
+            >
+              <span className=" bg-primary text-white group-hover:bg-white group-hover:text-primary text-[0.8rem] pt-[1.5px] font-bold rounded-full size-[21px] flex items-center justify-center">
+                {skillNumber}
+              </span>
+              {skill?.title}
+            </a>
+          </Link>
+          
+          
+          
+          
+                                                    );
+                                                  })}</React.Fragment>
         ))}{" "}
+        </div>
         <ShowmoreSkills
           props={{
             list: service?.skills,
@@ -393,6 +399,7 @@ const SkillsComponent = ({ service, skillsList, index = 0 }) => {
             showMoreSkills,
           }}
         />
+      
       </div>
     </div>
   );
