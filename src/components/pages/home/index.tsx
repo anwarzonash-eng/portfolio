@@ -151,66 +151,79 @@ const Home = ({ params }: { params: any }) => {
                         listOfdata.skills_ids &&
                         listOfdata.skills_ids.length > 0 && (
                           <div className="w-full p-[1.5rem] flex justify-center items-center flex-col gap-[1rem] lg:hidden">
-                            <div className="w-full flex justify-center items-center gap-[0.6rem] flex-wrap">
-                              {Object.values(skills)
-                                .flat() // Combine all groups into one array
-                                .slice(0, !showAll ? 10 : undefined)
-                                .map((skill, i) => {
-                                  // Find original group index for numbering
-                                  const groupIndex = Object.values(
-                                    skills
-                                  ).findIndex((group) => group.includes(skill));
-                                  const skillNumber = `${groupIndex + 1}.${
-                                    skills[
-                                      Object.keys(skills)[groupIndex]
-                                    ].indexOf(skill) + 1
-                                  }`;
+  <div className="w-full flex justify-center items-center gap-[0.6rem] flex-wrap">
+    {/* Normal view (shows limited skills) */}
+    {Object.values(skills)
+      .flat()
+      .slice(0, !showAll ? 10 : undefined)
+      .map((skill, i) => {
+        const groupIndex = Object.values(skills).findIndex((group) => group.includes(skill));
+        const skillNumber = `${groupIndex + 1}.${
+          skills[Object.keys(skills)[groupIndex]].indexOf(skill) + 1
+        }`;
 
-                                  return (
-                                   
+        return (
+          <Link href={skill.url || "#"} legacyBehavior key={`${groupIndex}-${i}`}>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ animationDelay: `${i * 0.1}s` }}
+              className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium px-[21px] py-[0.5rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group print:opacity-100"
+            >
+              {/* <span className="bg-primary text-white group-hover:bg-white group-hover:text-primary text-[0.8rem] pt-[1.5px] font-bold rounded-full size-[21px] flex items-center justify-center">
+                {skillNumber}
+              </span> */}
+              {skill?.title}
+            </a>
+          </Link>
+        );
+      })}
+    
+    {/* Print view (shows all skills) */}
+    <div className="hidden print:flex print:flex-wrap  print:justify-center print:items-center print:gap-[18px] print:w-full">
+      {Object.values(skills)
+        .flat()
+        .map((skill, i) => {
+          const groupIndex = Object.values(skills).findIndex((group) => group.includes(skill));
+          const skillNumber = `${groupIndex + 1}.${
+            skills[Object.keys(skills)[groupIndex]].indexOf(skill) + 1
+          }`;
 
+          return (
+            <Link href={skill.url || "#"} legacyBehavior key={`print-${groupIndex}-${i}`}>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                className="capitalize text-center text-primary text-[1.3rem] font-medium px-[21px] py-[0.5rem] bg-white flex items-center justify-center  rounded-[5rem] shadow border border-[#757575]"
+              >
+               
+                {skill?.title}
+              </a>
+            </Link>
+          );
+        })}
+    </div>
+  </div>
 
-<Link href={skill.url || "#"} legacyBehavior key={`${groupIndex}-${i}`}>
-  <a
-    target="_blank"
-    rel="noopener noreferrer"
-    style={{
-      animationDelay: `${i * 0.1}s`,
-    }}
-    className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium px-[21px] py-[0.5rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
-  >
-    <span className=" bg-primary text-white group-hover:bg-white group-hover:text-primary text-[0.8rem] pt-[1.5px] font-bold rounded-full size-[21px] flex items-center justify-center">
-      {skillNumber}
-    </span>
-    {skill?.title}
-  </a>
-</Link>
+  {/* Buttons hidden on print */}
+  {!showAll && Object.values(skills).flat().length > 10 && (
+    <button
+      onClick={() => setShowAll(true)}
+      className="mt-4 bg-primary text-white px-4 py-2 mb-[15px] rounded hover:bg-primary-dark transition-colors print:hidden"
+    >
+      Show More Skills
+    </button>
+  )}
 
-
-
-                                  );
-                                })}
-                            </div>
-
-                            {!showAll &&
-                              Object.values(skills).flat().length > 10 && (
-                                <button
-                                  onClick={() => setShowAll(true)}
-                                  className="mt-4 bg-primary text-white px-4 py-2 mb-[15px] rounded hover:bg-primary-dark transition-colors"
-                                >
-                                  Show More Skills
-                                </button>
-                              )}
-
-                            {showAll && (
-                              <button
-                                onClick={() => setShowAll(false)}
-                                className="mt-4 bg-primary text-white px-4 py-2 mb-[15px] rounded hover:bg-primary-dark transition-colors"
-                              >
-                                Show Less
-                              </button>
-                            )}
-                          </div>
+  {showAll && (
+    <button
+      onClick={() => setShowAll(false)}
+      className="mt-4 bg-primary text-white px-4 py-2 mb-[15px] rounded hover:bg-primary-dark transition-colors print:hidden"
+    >
+      Show Less
+    </button>
+  )}
+</div>
                         )}
                     </div>
                     {/*Hero Section Developer Image */}
@@ -351,9 +364,9 @@ const Home = ({ params }: { params: any }) => {
     }}
     className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium px-[21px] py-[0.5rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
   >
-    <span className=" bg-primary text-white group-hover:bg-white group-hover:text-primary text-[0.8rem] pt-[1.5px] font-bold rounded-full size-[21px] flex items-center justify-center">
+    {/* <span className=" bg-primary text-white group-hover:bg-white group-hover:text-primary text-[0.8rem] pt-[1.5px] font-bold rounded-full size-[21px] flex items-center justify-center">
       {skillNumber}
-    </span>
+    </span> */}
     {skill?.title}
   </a>
 </Link>
@@ -401,7 +414,7 @@ const Home = ({ params }: { params: any }) => {
                         }}
                       >
                         {/* Experience Badge */}
-                        <div className="bg-white rounded-[0.8rem] absolute   bottom-auto left-auto top-[-3rem] right-[3rem] xl:top-[7rem] xl:right-[-8rem] p-[1.4rem] xl:h-[12rem] xl:w-[26rem] xl:rounded-[2rem] flex items-center shadow-md gap-[1rem] xl:gap-[2rem] animate-bounce">
+                        <div className="bg-white print:hidden rounded-[0.8rem] absolute   bottom-auto left-auto top-[-3rem] right-[3rem] xl:top-[7rem] xl:right-[-8rem] p-[1.4rem] xl:h-[12rem] xl:w-[26rem] xl:rounded-[2rem] flex items-center shadow-md gap-[1rem] xl:gap-[2rem] animate-bounce">
                           {/* Badge SVG */}
                           <div className="bg-[#2A97FC] rounded-[50%] flex items-center justify-center h-[4.9rem] w-[4.9rem] xl:h-[6.8rem] xl:w-[6.8rem]">
                             <img
@@ -427,7 +440,7 @@ const Home = ({ params }: { params: any }) => {
                         </div>
 
                         {/* Projects Badge */}
-                        <div className="bg-white  mb-3 rounded-[0.8rem] absolute   top-auto right-auto bottom-[-4rem]   xl:bottom-[3rem] xl:left-[3rem] left-[3rem] p-[1.4rem] xl:h-[12rem] xl:rounded-[2rem] flex items-center shadow-md gap-[1rem] xl:gap-[2rem] animate-bounce xl:animate-none">
+                        <div className="bg-white print:hidden mb-3 rounded-[0.8rem] absolute   top-auto right-auto bottom-[-4rem]   xl:bottom-[3rem] xl:left-[3rem] left-[3rem] p-[1.4rem] xl:h-[12rem] xl:rounded-[2rem] flex items-center shadow-md gap-[1rem] xl:gap-[2rem] animate-bounce xl:animate-none">
                           {/* Badge SVG */}
                           <div className="bg-[#FC822A] rounded-[50%] flex items-center justify-center h-[4.9rem] w-[4.9rem] xl:h-[6.8rem] xl:w-[6.8rem]">
                             <img
@@ -934,9 +947,7 @@ const Home = ({ params }: { params: any }) => {
     }}
     className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium py-[0.4rem] px-[2rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
   >
-    <span className=" bg-primary text-white group-hover:bg-white group-hover:text-primary text-[0.8rem] pt-[1.5px] font-bold rounded-full size-[21px] flex items-center justify-center">
-      {skillNumber}
-    </span>
+  
     {skill?.title}
   </a>
 </Link>

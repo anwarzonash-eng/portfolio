@@ -240,6 +240,7 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
           </div>
           <h3 className="text-[1.6rem] font-semibold text-gray-800 group-hover:text-primary">
             {service?.title}
+            {/* database_develoment */}
           </h3>
         </div>
         

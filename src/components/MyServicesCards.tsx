@@ -91,66 +91,68 @@ const MyServicesCards = ({ services }) => {
             (service?.tagline?.split(" ").length > 12 ? "..." : "");
 
           return (
-            <div
-              key={index}
-              className="bg-gradient-to-br from-white/10 to-white/5 rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-white/10"
-            >
-              {/* Image Container with Hover Effect */}
-              {service.picture && (
-                <div className="relative h-48 flex items-center justify-center overflow-hidden group">
-                  <Image
-                    src={service.picture}
-                   
-                      height={150}
-                      width={150}
-                    alt={service.title || "Service image"}
-                    className="object-cover transition-transform duration-500 group-hover:scale-110 w-[9.8rem] h-[9.8rem] rounded-[12rem]"
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).style.display = "none";
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#6f656591] to-transparent" />
-                </div>
-              )}
+        <div
+  key={index}
+  className="bg-gradient-to-br from-white/10 to-white/5 rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-white/10"
+>
+  {/* Image Container with Hover Effect - Fixed */}
+  {service.picture && (
+    <div className="relative h-[17rem] w-full flex items-center justify-center overflow-hidden group">
+      <Image
+        src={service.picture}
+        alt={service.title || "Service image"}
+        height={150}
+        width={150}
+        className="object-cover transition-transform duration-500 z-10 group-hover:scale-110 w-[9.8rem] h-[9.8rem] rounded-full"
+        onError={(e) => {
+          const target = e.target as HTMLImageElement;
+          target.style.display = "none";
+          // Consider adding a fallback image here
+        }}
+      />
+      {/* Hover overlay - fixed positioning and z-index */}
+      <div className="absolute inset-0 bg-white hover:bg-gradient-to-t hover:from-[#6f656591] hover:to-transparent opacity-100 transition-opacity duration-500 z-0" />
+    </div>
+  )}
 
-              {/* Content */}
-              <div className="p-6">
-                {/* Title */}
-                <h3 className="font-bold text-[2rem] text-white mb-3 line-clamp-2">
-                  {service?.title}
-                </h3>
+  {/* Rest of your content remains the same */}
+  <div className="p-6">
+    {/* Title */}
+    <h3 className="font-bold text-[2rem] text-white mb-3 line-clamp-2">
+      {service?.title}
+    </h3>
 
-                {/* Tagline */}
-                <p
-                  dangerouslySetInnerHTML={{ __html: truncatedTagline }}
-                  className="text-gray-300 text-[1.3rem] mb-6 line-clamp-3 leading-relaxed"
-                />
+    {/* Tagline */}
+    <p
+      dangerouslySetInnerHTML={{ __html: truncatedTagline }}
+      className="text-gray-300 text-[1.3rem] mb-6 line-clamp-3 leading-relaxed"
+    />
 
-                {/* CTA Button */}
-                <Link
-                  href={`/offer?service=${service?.title}`}
-                  className="inline-flex items-center gap-2 text-white/90 hover:text-white transition-colors group"
-                >
-                  <span className="font-medium text-[1rem]">Discover more</span>
-                  <span className="group-hover:translate-x-1 transition-transform">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="20"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M5 12h14" />
-                      <path d="m12 5 7 7-7 7" />
-                    </svg>
-                  </span>
-                </Link>
-              </div>
-            </div>
+    {/* CTA Button */}
+    <Link
+      href={`/offer?service=${service?.title}`}
+      className="inline-flex items-center gap-2 text-white/90 hover:text-white transition-colors group"
+    >
+      <span className="font-medium text-[1rem]">Discover more</span>
+      <span className="group-hover:translate-x-1 transition-transform">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M5 12h14" />
+          <path d="m12 5 7 7-7 7" />
+        </svg>
+      </span>
+    </Link>
+  </div>
+</div>
           );
         })}
       </div>

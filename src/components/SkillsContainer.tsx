@@ -30,7 +30,8 @@ const SkillsContainer = ({ list }) => {
 
   return (
     <div className="flex flex-col items-center">
-      <div className="grid grid-cols-3 lg:grid-cols-6 gap-[1.5rem] mt-[6rem]">
+      {/* Normal View Grid */}
+      <div className="grid grid-cols-3 lg:grid-cols-6 gap-[1.5rem] mt-[6rem] print:hidden">
         {Object?.values(skills)?.map((group, groupIndex) => (
           <React.Fragment key={groupIndex}>
             {group.map((skill, i) => (
@@ -61,11 +62,40 @@ const SkillsContainer = ({ list }) => {
         ))}
       </div>
 
-      {/* Show More/Show Less button */}
+      {/* Print View Grid - Always shows all skills in 3 columns */}
+      <div className="hidden print:grid print:grid-cols-8 print:gap-[1.5rem] print:mt-[6rem]">
+        {list && skillsGrouping(list) && Object?.values(skillsGrouping(list))?.map((group, groupIndex) => (
+          <React.Fragment key={`print-${groupIndex}`}>
+            {group.map((skill, i) => (
+              <div
+                key={`print-${groupIndex}-${i}`}
+                className="mx-auto mb-[4rem] flex flex-col items-center justify-start gap-[0.8rem] max-w-[13rem] w-full print:opacity-100"
+              >
+                {skill.icon && (
+                  <div className="flex items-center justify-center h-[6.4rem] w-[6.4rem]">
+                    <Image
+                      src={skill?.icon}
+                      alt={skill?.title}
+                      height={64}
+                      width={64}
+                      className="object-cover rounded-full h-[6.4rem] w-[6.4rem]"
+                    />
+                  </div>
+                )}
+                <p className="mt-[1.5rem] text-paragraph1 text-center text-[1.8rem] leading-[2.8rem] overflow-hidden text-ellipsis">
+                  {skill.title}
+                </p>
+              </div>
+            ))}
+          </React.Fragment>
+        ))}
+      </div>
+
+      {/* Show More/Show Less button - Hidden on print */}
       {list?.length > initialVisibleItemsSmall && (
         <button
           onClick={() => setShowAll(!showAll)}
-          className="px-[4rem] py-[1.4rem] bg-primary rounded-[2.2rem] hover:bg-white hover:text-primary hover:border-primary border border-border border-solid text-center max-w-max text-white text-[1.4rem] font-medium font-Inter leading-tight mx-auto"
+          className="px-[4rem] py-[1.4rem] bg-primary rounded-[2.2rem] hover:bg-white hover:text-primary hover:border-primary border border-border border-solid text-center max-w-max text-white text-[1.4rem] font-medium font-Inter leading-tight mx-auto print:hidden"
         >
           {showAll ? "Show Less" : "Show More Skills"}
         </button>
