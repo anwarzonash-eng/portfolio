@@ -186,7 +186,7 @@ const Offer = ({ params }: { params: any }) => {
                           listOfdata
                         ),
                       }}
-                      className=" p-[1rem] list-div text-[1.6rem] lg:p-[3rem] rounded-[1rem] bg-white"
+                      className=" p-[1rem] list-div text-[1.6rem] lg:p-[3rem] rounded-[1rem] bg-white services_main"
                     ></div>
                     {mainService?.skills && mainService?.skills.length > 0 && (
                       <SkillsComponent
@@ -205,13 +205,12 @@ const Offer = ({ params }: { params: any }) => {
                         ref={(el) => {
                           serviceRefs.current[service?.title] = el;
                         }}
-                        className="w-full bg-white block rounded-[1rem] border border-border border-solid mb-[3rem] overflow-hidden relative print-section"
+                        className="w-full bg-white print:break-before-page block rounded-[1rem] border border-border border-solid mb-[3rem] overflow-hidden relative print-section"
                       >
                         {/* Section where click to expand and collapse */}
                         <div
-                          className={`p-[1rem] lg:p-[3rem] mb-[5rem] print:!mb-[2rem] bg-primary bg-cvBoxDesktop bg-center bg-no-repeat bg-cover lg:bg-contain cursor-pointer print-black-bg ${
-                            activeDropdown === index ? "bg-expanded" : ""
-                          }`}
+                          className={`p-[1rem] lg:p-[3rem] print:p-[17px] mb-[5rem] print:!mb-[2rem] bg-primary bg-cvBoxDesktop bg-center bg-no-repeat bg-cover lg:bg-contain cursor-pointer print:bg-black print:text-white ${activeDropdown === index ? "bg-expanded" : ""
+                            }`}
                           onClick={() => {
                             toggleDropdown(index);
                             serviceRefs.current[service?.title]?.scrollIntoView(
@@ -238,23 +237,21 @@ const Offer = ({ params }: { params: any }) => {
                                     </div>
                                   </div>
                                 )}
-                                <h3 className="text-[2.4rem] lg:text-[4.5rem] print:!font-semibold text-white print:!text-black leading-tight font-medium">
+                                <h3 className="text-[2.4rem] lg:text-[4.5rem] print:!font-semibold text-white print:!text-white leading-tight font-medium">
                                   {service.title}
                                 </h3>
                               </div>
                               <img
                                 src="/images/expand_icon.png"
                                 alt=""
-                                className={`w-[52px] print:hidden block ${
-                                  activeDropdown === index ? "hidden" : "block"
-                                }`}
+                                className={`w-[52px] print:hidden block ${activeDropdown === index ? "hidden" : "block"
+                                  }`}
                               />
                               <img
                                 src="/images/collaps_icon.png"
                                 alt=""
-                                className={`w-[52px] print:hidden block ${
-                                  activeDropdown === index ? "block" : "hidden"
-                                }`}
+                                className={`w-[52px] print:hidden block ${activeDropdown === index ? "block" : "hidden"
+                                  }`}
                               />
                             </div>
                           </div>
@@ -262,17 +259,16 @@ const Offer = ({ params }: { params: any }) => {
                             dangerouslySetInnerHTML={{
                               __html: service.intro_main,
                             }}
-                            className="text-white print:!text-black list-div text-[1.6rem] print:!font-medium leading-[2.4rem] sm:text-[1.8rem] sm:leading-[2.8rem] lg:text-[1.8rem] lg:leading-[2.9rem] font-normal lg:font-medium mb-[2rem]"
+                            className="text-white print:!text-white list-div text-[1.6rem] print:!font-medium leading-[2.4rem] sm:text-[1.8rem] sm:leading-[2.8rem] lg:text-[1.8rem] lg:leading-[2.9rem] font-normal lg:font-medium mb-[2rem]"
                           ></p>
                         </div>
 
                         {/* Expandable content with smooth transitions */}
                         <div
-                          className={`transition-all duration-500 ease-in-out overflow-hidden ${
-                            activeDropdown === index
+                          className={`transition-all duration-500 ease-in-out overflow-hidden ${activeDropdown === index
                               ? "md:max-h-[950px] opacity-100"
                               : "max-h-0 opacity-0"
-                          } print-expanded`}
+                            } print-expanded`}
                         >
                           <div className="flex w-full flex-col items-start">
                             <div
@@ -283,7 +279,7 @@ const Offer = ({ params }: { params: any }) => {
                                   listOfdata
                                 ),
                               }}
-                              className="p-[1rem] list-div text-[1.6rem] lg:p-[3rem] rounded-[1rem] bg-white"
+                              className="p-[1rem] offer_main list-div text-[1.6rem] lg:p-[3rem] rounded-[1rem] bg-white"
                             ></div>
                             {service?.skills && service?.skills.length > 0 && (
                               <SkillsComponent
@@ -352,42 +348,41 @@ const SkillsComponent = ({ service, skillsList, index = 0 }) => {
     showMoreSkills[index] ? service?.skills : service?.skills?.slice(0, 15)
   );
   return (
-    <div className="px-[1rem] lg:px-[3rem] text-black list-div text-[1.6rem] leading-[2.4rem] sm:text-[1.8rem] sm:leading-[2.8rem] lg:text-[1.8rem] lg:leading-[2.9rem] font-normal lg:font-medium mb-[2rem]">
+    <div className="px-[1rem] lg:px-[3rem] text-black list-div text-[1.6rem] leading-[2.4rem] sm:text-[1.8rem] sm:leading-[2.8rem] lg:text-[1.8rem] lg:leading-[2.9rem]  font-normal lg:font-medium mb-[2rem] print_AREAS_EXPERTISE ">
       AREAS OF EXPERTISE I'VE WORKED IN
-        <div className="w-full flex-col items-start flex ">
-      <div className="flex items-center gap-[1rem] lg:gap-[0.7rem] my-[2.4rem] text-nowrap flex-wrap">
-        {Object?.values(skills)?.map((group, groupIndex) => (
+      <div className="w-full flex-col items-start flex ">
+        <div className="flex items-center gap-[1rem] lg:gap-[0.7rem] my-[2.4rem] text-nowrap flex-wrap">
+          {Object?.values(skills)?.map((group, groupIndex) => (
             <React.Fragment key={groupIndex}>
-                                                  {group.map((skill, i) => {
-                                                    // Calculate the skill number (groupIndex+1).(i+1)
-                                                    const skillNumber = `${
-                                                      groupIndex + 1
-                                                    }.${i + 1}`;
-          
-                                                    return (
-                                                      
-          
-          
-          <Link href={skill.url || "#"} legacyBehavior key={`${groupIndex}-${i}`}>
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                animationDelay: `${i * 0.1}s`,
-              }}
-              className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium py-[0.4rem] px-[2rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
-            >
-              
-              {skill?.title}
-            </a>
-          </Link>
-          
-          
-          
-          
-                                                    );
-                                                  })}</React.Fragment>
-        ))}{" "}
+              {group.map((skill, i) => {
+                // Calculate the skill number (groupIndex+1).(i+1)
+                const skillNumber = `${groupIndex + 1
+                  }.${i + 1}`;
+
+                return (
+
+
+
+                  <Link href={skill.url || "#"} legacyBehavior key={`${groupIndex}-${i}`}>
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        animationDelay: `${i * 0.1}s`,
+                      }}
+                      className="hover:bg-primary capitaliz  print:!py-[1px] hover:text-white text-center text-primary text-[1.3rem] font-medium  py-[0.4rem] px-[2rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
+                    >
+
+                      {skill?.title}
+                    </a>
+                  </Link>
+
+
+
+
+                );
+              })}</React.Fragment>
+          ))}{" "}
         </div>
         <ShowmoreSkills
           props={{
@@ -397,7 +392,7 @@ const SkillsComponent = ({ service, skillsList, index = 0 }) => {
             showMoreSkills,
           }}
         />
-      
+
       </div>
     </div>
   );

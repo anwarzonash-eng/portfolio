@@ -63,7 +63,7 @@ const SkillsContainer = ({ list }) => {
       </div>
 
       {/* Print View Grid - Always shows all skills in 3 columns */}
-      <div className="hidden print:grid print:grid-cols-8 print:gap-[1.5rem] print:mt-[6rem]">
+      <div className="hidden print:grid print:grid-cols-10 print:gap-[1.5rem] print:mt-[6rem]">
         {list && skillsGrouping(list) && Object?.values(skillsGrouping(list))?.map((group, groupIndex) => (
           <React.Fragment key={`print-${groupIndex}`}>
             {group.map((skill, i) => (

@@ -160,8 +160,8 @@ const CV = ({ params }: { params: any }) => {
           loading: loading,
           actualPage: (
             <div className="bg-[#EFF5FD]">
-              <section className="w-full relative ">
-                <div className="mainContainer h-[60.7rem] lg:h-[65rem] w-full relative ">
+              <section className="w-full relative print:hidden">
+                <div className="mainContainer h-[60.7rem] lg:h-[65rem] print:h-auto  w-full relative ">
                   {/* Background SVG */}
                   <Background />
                   {/* Badge Heading and Paara Text */}
@@ -172,7 +172,7 @@ const CV = ({ params }: { params: any }) => {
                     <div className="text-center text-primary text-[4rem] lg:text-[6rem] font-medium  leading-[5rem] lg:leading-[6rem] mt-[1.6rem]">
                       CV
                     </div>
-                    <div className=" items-start justify-strat gap-[4rem] print:flex hidden w-full ">
+                    <div className=" items-start justify-strat gap-[4rem] hidden w-full ">
                       <img
                         src={listOfdatas?.profile_photo_1}
                         alt=""
@@ -207,51 +207,61 @@ const CV = ({ params }: { params: any }) => {
                 />
               )}
 
-              <div className="mt-[-40rem] max-w-[1550px] w-full mx-auto px-[1.5rem]">
+              <div className="mt-[-40rem] print:mt-0 max-w-[1550px] print:max-w-[1550px] w-full mx-auto px-[1.5rem]">
                 <div className="bg-white flex flex-col lg:flex-row gap-[4rem] pb-[5rem] lg:pb-[7rem] px-[3rem] rounded-[1.4rem]  relative  mb-[10rem] lg:mb-[9.6rem]">
                   {/* Side Panel */}
-                  <aside className="lg:max-w-[40rem] w-full print:hidden flex-shrink-0 bg-cvSideBg bg-no-repeat bg-cover pb-[2rem] pt-[5rem] px-[3rem]">
+                  <aside className="lg:max-w-[40rem] print:w-full print:break-before-page w-full  flex-shrink-0 bg-cvSideBg bg-no-repeat bg-cover pb-[2rem] pt-[5rem] print:pt-[2rem] px-[3rem]">
                     <div className="flex flex-col items-center">
                       {/* Profile Bg */}
-                      <Link href="/">
-                        <Image
-                          src={listOfdata?.profile_photo_1}
-                          height={1200}
-                          width={1200}
-                          alt="Profile Picture"
-                          className="h-[20.12rem] w-[20.12rem] rounded-[50%] bg-cover bg-no-repeat bg-center"
-                        />
-                      </Link>
-                      {/* Name */}
-                      <Link
-                        href={"/"}
-                        className="text-heading text-[3.55rem] font-medium leading-[4.4rem] mt-[1.78rem] text-center"
-                      >
-                        {listOfdata?.name}
-                      </Link>
-                      {/* Designation */}
-                      <h3 className="text-primary text-[2rem] font-medium leading-normal mt-[0.9rem]">
-                        {listOfdata?.designation
-                          ?.split("|")
-                          .map((item, index) => (
-                            <div key={index} className="text-center">
-                              {item.trim()}
-                            </div>
-                          ))}
-                      </h3>
-                      {/* Info */}
-                      <p className="my-[4rem] text-[2rem] leading-[2.6rem] text-heading font-normal text-center">
-                        Reach out today and I'll provide you with my
-                        comprehensive onboarding package designed for full-time
-                        employment or Contract Based Jobs. This package covers
-                        various aspects that potential employers often inquire
-                        about, such as my salary expectations and the seamless
-                        integration process into your company.
-                      </p>
+                      <div className="print:flex flex flex-col items-center justify-center gap-4 print:w-full">
+                        <div className="print:flex flex flex-col print:flex-row items-center justify-center gap-4 print:w-full">
+                          <Link href="/" className=" block">
+                            <Image
+                              src={listOfdata?.profile_photo_1}
+                              height={1200}
+                              width={1200}
+                              alt="Profile Picture"
+                              className="h-[20.12rem] w-[20.12rem] rounded-[50%] bg-cover bg-no-repeat bg-center"
+                            />
+                          </Link>
+                          <div className="">
+                            {/* Name */}
+
+                            <Link
+                              href={"/"}
+                              className="text-heading text-[3.55rem] font-medium leading-[4.4rem] mt-[1.78rem] text-center"
+                            >
+                              {listOfdata?.name}
+                            </Link>
+                            {/* Designation */}
+                            <h3 className="text-primary text-[2rem] font-medium leading-normal mt-[0.9rem]">
+                              {listOfdata?.designation
+                                ?.split("|")
+                                .map((item, index) => (
+                                  <div key={index} className="text-center">
+                                    {item.trim()}
+                                  </div>
+                                ))}
+                            </h3>
+                          </div>
+                        </div>
+                        <div className="flex flex-col items-center justify-center print:w-full">
+                          {/* Info */}
+                          <p className="my-[4rem] text-[2rem] leading-[2.6rem] text-heading font-normal text-center">
+                            Reach out today and I'll provide you with my
+                            comprehensive onboarding package designed for
+                            full-time employment or Contract Based Jobs. This
+                            package covers various aspects that potential
+                            employers often inquire about, such as my salary
+                            expectations and the seamless integration process
+                            into your company.
+                          </p>
+                        </div>
+                      </div>
                       {/* Divider */}
-                      <hr className="w-full h-[0.2rem] bg-[#E2E6EE] mb-[4rem] inline-block" />
+                      <hr className="w-full h-[0.2rem] bg-[#E2E6EE] print:hidden mb-[4rem] inline-block" />
                       {/* Availability */}
-                      <div className="mb-[4rem] w-full text-center border border-solid border-[#E2E6EE] rounded-tl-[0.6rem] rounded-tr-[0.6rem] rounded-bl-[0.6rem] rounded-br-[0.6rem] overflow-hidden">
+                      <div className="mb-[4rem] w-full print:hidden text-center border border-solid border-[#E2E6EE] rounded-tl-[0.6rem] rounded-tr-[0.6rem] rounded-bl-[0.6rem] rounded-br-[0.6rem] overflow-hidden">
                         <div className="bg-[#F7F9FC]  p-[1.5rem]">
                           <p className="text-[1.6rem] leading-normal font-normal text-heading">
                             Next available
@@ -480,21 +490,21 @@ const CV = ({ params }: { params: any }) => {
                           <div className="space-y-[1rem] lg:space-y-[2rem]">
                             {/* Overview & Skills Timeline item */}
                             {listOfdata?.skills && (
-                              <div className="relative flex items-start">
+                              <div className="relative flex items-start print:break-before-page">
                                 {/* Dot */}
                                 <div className="absolute top-0 left-[-1.3rem] block print:hidden">
                                   <div className="w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center">
                                     <div className="w-[0.8rem] h-[0.8rem] bg-sectionBG rounded-full"></div>
                                   </div>
                                 </div>
-                                <div className="ml-[2rem] md:ml-[3rem] lg:ml-[5rem]">
+                                <div className="ml-[2rem] md:ml-[3rem] lg:ml-[5rem] print:break-before-page">
                                   {/* Title */}
                                   <h2 className="text-heading leading-[3.56rem] text-[3.67rem] font-medium pl-[0.5rem] mb-[3rem]">
                                     Overview & Skills
                                   </h2>
 
                                   <div
-                                    className="text-heading list-div text-[1.6rem] leading-[2.4rem] flex flex-col gap-[1rem] mb-[5rem] list-inside"
+                                    className="text-heading services_main list-div text-[1.6rem] leading-[2.4rem] flex flex-col gap-[1rem] mb-[5rem] list-inside"
                                     dangerouslySetInnerHTML={{
                                       __html: modifiedContent(
                                         listOfdata?.skills,
@@ -509,20 +519,20 @@ const CV = ({ params }: { params: any }) => {
 
                             {/* Skills Timeline item */}
                             {listOfdata?.skills_ids && (
-                              <div className="relative flex items-start  print:hidden ">
+                              <div className="relative flex items-start  print:break-before-page ">
                                 {/* Dot */}
                                 <div className="absolute top-0 left-[-1.3rem] block print:hidden ">
                                   <div className="w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center">
                                     <div className="w-[0.8rem] h-[0.8rem] bg-sectionBG rounded-full"></div>
                                   </div>
                                 </div>
-                                <div className="">
+                                <div className="print:mt-[4rem]">
                                   {/* Title */}
                                   <h2 className="ml-[2rem] md:ml-[3rem] lg:ml-[5rem] text-heading leading-[3.56rem] text-[3.67rem] font-medium pl-[0.5rem] mb-[3rem]">
                                     Skills
                                   </h2>
                                   <div className="flex flex-col items-center">
-                                    <div className="grid  grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-4 xl:grid-cols-6 gap-[1.5rem] ml-[2rem] ">
+                                    <div className="grid  grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-4 print:grid-cols-5 xl:grid-cols-6 gap-[1.5rem] ml-[2rem] ">
                                       {Object?.values(skillsforCV)?.map(
                                         (group, groupIndex) => (
                                           <>
@@ -558,7 +568,7 @@ const CV = ({ params }: { params: any }) => {
                                       initialVisibleItems && (
                                       <button
                                         onClick={() => setShowAll(!showAll)}
-                                        className="px-[4rem] py-[1.4rem] bg-primary rounded-[2.2rem] hover:bg-white hover:text-primary hover:border-primary border border-border border-solid text-center max-w-max text-white text-[1.4rem] font-medium font-Inter leading-tight mx-auto"
+                                        className="px-[4rem] print:hidden py-[1.4rem] bg-primary rounded-[2.2rem] hover:bg-white hover:text-primary hover:border-primary border border-border border-solid text-center max-w-max text-white text-[1.4rem] font-medium font-Inter leading-tight mx-auto"
                                       >
                                         {showAll ? "Show Less" : "Show More"}
                                       </button>
@@ -571,16 +581,17 @@ const CV = ({ params }: { params: any }) => {
                             {/* {Experience} */}
                             {listOfdata &&
                               listOfdata?.experiences_ids?.length > 0 && (
-                                <div className="relative flex items-start">
-                                  {/* Dot */}
-                                  <div className="absolute top-0 left-[-1.3rem] block print:hidden ">
+                                <div className="relative flex items-start print:break-before-page">
+                                  {/* Dot - Hidden in print */}
+                                  <div className="absolute top-0 left-[-1.3rem] block print:hidden">
                                     <div className="w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center mt-[3rem] mb-[2rem]">
                                       <div className="w-[0.8rem] h-[0.8rem] bg-sectionBG rounded-full"></div>
                                     </div>
                                   </div>
+
                                   <div className="ml-[2rem] md:ml-[3rem] lg:ml-[5rem]">
-                                    {/* Title */}
-                                    <div className="w-full mb-[3.5rem]">
+                                    {/* Title - Hidden in print */}
+                                    <div className="w-full mb-[3.5rem] print:hidden">
                                       <h2 className="text-heading leading-[3.56rem] text-[3.67rem] font-medium pl-[0.5rem] pt-[3rem] pb-[2rem]">
                                         Experiences
                                       </h2>
@@ -595,32 +606,32 @@ const CV = ({ params }: { params: any }) => {
                                           const yearB = new Date(
                                             b.ending_Date
                                           ).getFullYear();
-
-                                          if (yearA !== yearB) {
-                                            return yearB - yearA; // Sort by year in descending order
-                                          }
-
+                                          if (yearA !== yearB)
+                                            return yearB - yearA;
                                           const monthA = new Date(
                                             a.ending_Date
                                           ).getMonth();
                                           const monthB = new Date(
                                             b.ending_Date
                                           ).getMonth();
-
-                                          return monthB - monthA; // If years are the same, sort by month in descending order
+                                          return monthB - monthA;
                                         })
                                         ?.map((experience, index) => {
-                                          const skillsforExpereinces: {
-                                            [key: string]: {
-                                              title: string;
-                                              url?: string;
-                                              order?: string;
-                                            }[];
-                                          } = skillsGrouping(
-                                            showMoreSkillsForExperiences[index]
-                                              ? experience?.skills
-                                              : experience?.skills?.slice(0, 15)
-                                          );
+                                          if (isPrinting && index >= 2) {
+                                            return null;
+                                          }
+
+                                          const skillsforExpereinces =
+                                            skillsGrouping(
+                                              showMoreSkillsForExperiences[
+                                                index
+                                              ]
+                                                ? experience?.skills
+                                                : experience?.skills?.slice(
+                                                    0,
+                                                    15
+                                                  )
+                                            );
                                           return (
                                             <div
                                               className="relative flex items-start mt-[2rem] print-section"
@@ -634,6 +645,9 @@ const CV = ({ params }: { params: any }) => {
                                               </div>
 
                                               <div className="w-full">
+                                                <h2 className="text-heading print:block hidden leading-[3.56rem] text-[3.67rem] font-medium pl-[0.5rem] pt-[3rem] pb-[2rem]">
+                                                  Experiences
+                                                </h2>
                                                 {/* Date */}
                                                 <h2 className="text-heading leading-[2.67rem] text-[2rem] font-bold pl-[0.5rem] mb-[3rem]">
                                                   {formatDate(
@@ -711,7 +725,7 @@ const CV = ({ params }: { params: any }) => {
                                                     </div>
 
                                                     {/* Link */}
-                                                    <div className="flex justify-center md:justify-end w-full md:w-auto">
+                                                    <div className="flex justify-center md:justify-end w-full md:w-auto print:hidden">
                                                       <div className="flex flex-col-reverse gap-[1rem] max-w-max">
                                                         <div className="py-[1rem] px-[2rem] bg-white border border-[#E2E6EE] border-solid text-[#47516B] rounded-[2rem] text-[1.5rem] font-medium leading-[0.8rem]">
                                                           {formatDate(
@@ -765,7 +779,7 @@ const CV = ({ params }: { params: any }) => {
                                                         listOfdata
                                                       ),
                                                     }}
-                                                    className={`mt-[2rem] list-div-portfolio text-heading text-[1.4rem] font-normal leading-[150%] list-disc pl-[2rem] flex flex-col gap-[0.8rem] overflow-hidden transition-[max-height] duration-200 ease-in-out ${
+                                                    className={`mt-[2rem] offer_main list-div-portfolio text-heading text-[1.4rem] font-normal leading-[150%] list-disc pl-[2rem] flex flex-col gap-[0.8rem] overflow-hidden transition-[max-height] duration-200 ease-in-out ${
                                                       expandedItems[index]
                                                         ? "max-h-[100rem]"
                                                         : "max-h-[19rem]"
@@ -834,7 +848,7 @@ const CV = ({ params }: { params: any }) => {
                                                           showMoreSkills:
                                                             showMoreSkillsForExperiences,
                                                           className:
-                                                            "bg-primary py-[0.4rem] px-[2rem] text-white hover:bg-white border border-[#E2E6EE] border-solid hover:border hover:border-primary hover:border-solid hover:text-primary rounded-[1.2rem] text-[1.2rem] font-medium leading-normal",
+                                                            "bg-primary py-[0.4rem] px-[2rem] print:hidden text-white hover:bg-white border border-[#E2E6EE] border-solid hover:border hover:border-primary hover:border-solid hover:text-primary rounded-[1.2rem] text-[1.2rem] font-medium leading-normal",
                                                         }}
                                                       />
                                                     </div>
@@ -851,17 +865,17 @@ const CV = ({ params }: { params: any }) => {
                             {/* Portfolio Timeline item */}
                             {listOfdata &&
                               listOfdata?.portfolios_ids?.length > 0 && (
-                                <div className="relative flex items-start">
+                                <div className="relative flex items-start print:break-before-page">
                                   {/* Dot */}
                                   <div className="absolute top-0 left-[-1.3rem] block print:hidden ">
                                     <div className="w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center mt-[3rem] mb-[2rem]">
                                       <div className="w-[0.8rem] h-[0.8rem] bg-sectionBG rounded-full"></div>
                                     </div>
                                   </div>
-                                  <div className="ml-[2rem] md:ml-[3rem] lg:ml-[5rem]">
+                                  <div className="ml-[2rem] md:ml-[3rem] lg:ml-[5rem] ">
                                     {/* Title */}
-                                    <div className="flex items-center justify-between w-full mb-[3rem]">
-                                      <h2 className="text-heading leading-[3.56rem] text-[3.67rem] font-medium pl-[0.5rem] pt-[3rem] pb-[2rem]">
+                                    <div className="flex items-center print:hidden justify-between w-full mb-[3rem]">
+                                      <h2 className="text-heading  leading-[3.56rem] text-[3.67rem] font-medium pl-[0.5rem] pt-[3rem] pb-[2rem]">
                                         Portfolios
                                       </h2>
                                       <Link
@@ -892,6 +906,10 @@ const CV = ({ params }: { params: any }) => {
                                     </div>
                                     {listOfdata?.portfolios_ids?.map(
                                       (portfolio, index) => {
+                                        if (isPrinting && index >= 2) {
+                                          return null;
+                                        }
+
                                         const skillsForPortfolios: {
                                           [key: string]: {
                                             title: string;
@@ -916,6 +934,9 @@ const CV = ({ params }: { params: any }) => {
                                               </div>
                                             </div>
                                             <div className="w-full">
+                                              <h2 className="text-heading print:block hidden  leading-[3.56rem] text-[3.67rem] font-medium pl-[0.5rem] pt-[3rem] pb-[2rem]">
+                                                Portfolios
+                                              </h2>
                                               {/* Date */}
                                               <h2
                                                 key={index}
@@ -1130,7 +1151,7 @@ const CV = ({ params }: { params: any }) => {
                             {/* Education Timeline item */}
                             {listOfdata &&
                               listOfdata?.education_ids?.length > 0 && (
-                                <div className="relative flex items-start">
+                                <div className="relative flex items-start print:break-before-page">
                                   {/* Dot */}
                                   <div className="absolute top-0 left-[-1.3rem] block print:hidden ">
                                     <div className="w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center my-[3rem] ">
@@ -1142,11 +1163,11 @@ const CV = ({ params }: { params: any }) => {
                                     <h2 className="text-heading leading-[3.56rem] text-[3.67rem] font-medium pl-[0.5rem] py-[3rem]">
                                       Education
                                     </h2>
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-[1.2rem] w-full">
+                                    <div className="grid grid-cols-1  sm:grid-cols-2 md:grid-cols-3 gap-[1.2rem] w-full print:grid-cols-1 print:gap-4 print:w-full">
                                       {listOfdata?.education_ids?.map((edu) => (
                                         <div
                                           key={edu.id}
-                                          className="p-[2rem] rounded-[0.8rem] border border-solid border-[#E2E6EE] bg-[#F7F9FC]"
+                                          className="p-[2rem] w-full rounded-[0.8rem] border border-solid border-[#E2E6EE] bg-[#F7F9FC]"
                                         >
                                           <div className="flex items-center gap-[1.8rem]">
                                             {edu?.thumbnail && (
@@ -1200,7 +1221,7 @@ const CV = ({ params }: { params: any }) => {
                                   <div className="w-[0.8rem] h-[0.8rem] bg-sectionBG rounded-full"></div>
                                 </div>
                               </div>
-                              <div className="ml-[2rem] md:ml-[3rem] lg:ml-[5rem] w-full">
+                              <div className="ml-[2rem] md:ml-[3rem] lg:ml-[5rem] print:break-before-page w-full">
                                 {/* Title */}
                                 <div className="flex items-center justify-between mb-5">
                                   <h2 className="text-heading leading-[3.56rem] text-[3.67rem] font-medium pl-[0.5rem] py-[3rem]">

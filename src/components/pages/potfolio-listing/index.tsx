@@ -106,7 +106,7 @@ const PortfolioListing = ({ params }: { params: any }) => {
               <img
                 src={listOfdatas?.profile_photo_1}
                 alt=""
-                className="w-[145px] h-[143px] rounded-full"
+                className="w-[145px] h-[143px] rounded-full "
               />
               <div className="flex items-start justify-start flex-col">
                 <h2 className="text-[5rem] font-bold"> {listOfdata?.name}</h2>
@@ -183,71 +183,64 @@ const PortfolioListing = ({ params }: { params: any }) => {
                             <div className="w-full">
                               {" "}
                               {/* Title and Description */}
-                              {portfolio?.thumbnail && (
-                                <div className="ms-0 lg:ms-5 lg:w-[50rem]  float-right w-full  rounded-[1.2rem] relative align-middle justify-center flex-col flex print:hidden items-center ">
-                                  <img
-                                    src={
-                                      portfolio?.thumbnail
-                                        ? portfolio.thumbnail
-                                        : "/images/project_img.webp"
-                                    }
-                                    alt="Project Image"
-                                    height={800} // You can adjust these sizes as needed
-                                    width={800}
-                                    className="lg:h-[300px] lg:w-[800px] w-full object-cover rounded-[1.2rem] border border-solid border-border"
-                                  />
+                              <div className="print:flex flex-row print:w-full gap-3 items-center justify-center print:flex-row-reverse">
+                                {portfolio?.thumbnail && (
+                                  <div className="ms-0 lg:ms-5 lg:w-[50rem]  float-right w-full  rounded-[1.2rem] relative align-middle justify-center flex-col flex  items-center ">
+                                    <img
+                                      src={
+                                        portfolio?.thumbnail
+                                          ? portfolio.thumbnail
+                                          : "/images/project_img.png"
+                                      }
+                                      alt="Project Image"
+                                      height={800}
+                                      width={800}
+                                      className="lg:h-[300px] lg:w-[800px] w-full object-cover rounded-[1.2rem] border border-solid border-border"
+                                    />
 
-                                  <button
-                                    className="mb-3 hover:tracking-[.25em] mt-[1rem] py-[1rem]  px-[2rem]  rounded-[7.77rem] border-2 border-solid border-[#fff] text-[1.8rem]  font-medium  min-w-[137px] lg:min-w-[220px]  backdrop-blur-[0.8rem] duration-300 bg-primary hover:bg-opacity-80 text-white"
-                                    onClick={() =>
-                                      openModal(
-                                        portfolio?.pictures,
-                                        portfolio?.thumbnail,
-                                        portfolio?.child_hero_banner
-                                      )
-                                    }
-                                  >
-                                    Explore the Gallery
-                                  </button>
+                                    <button
+                                      className="mb-3 print:hidden min-w-[137px] lg:min-w-[220px] text-white py-[6px] mt-[17px] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent hover:border-primary duration-300 max-lg:w-full text-center rounded-[0.6rem] relative "
+                                      onClick={() =>
+                                        openModal(
+                                          portfolio?.pictures,
+                                          portfolio?.thumbnail,
+                                          portfolio?.child_hero_banner
+                                        )
+                                      }
+                                    >
+                                      Explore the Gallery
+                                    </button>
+                                  </div>
+                                )}
+                                <div className="">
+                                  <h1 className="text-[1.8rem] lg:text-[2rem] font-bold leading-[2.69rem]">
+                                    {portfolio?.title}
+                                  </h1>
+                                  <p
+                                    dangerouslySetInnerHTML={{
+                                      __html: portfolio.tagline_1,
+                                    }}
+                                    className="text-[1.9rem] leading-[150%] font-medium mt-[1rem] text-primary"
+                                  ></p>
+                                  {/* <hr className='w-full my-[1.6rem] h-px bg-border' /> */}
+                                  {/* Points */}
+                                  <p
+                                    dangerouslySetInnerHTML={{
+                                      __html: modifiedContent(
+                                        portfolio.features_short,
+                                        listOfskills,
+                                        listOfdata
+                                      ),
+                                    }}
+                                    className="mt-[2rem] list-div-portfolio1 pl-[2rem]"
+                                  ></p>
+                                  {/* Skills */}
                                 </div>
-                              )}
-                              {portfolio?.company_icon && (
-                                <div className="bg-[#1B6393] p-[1.46rem] rounded-[1rem] inline-block mb-[1rem]">
-                                  <Image
-                                    src={portfolio?.company_icon}
-                                    alt="Case"
-                                    height={34}
-                                    width={34}
-                                    className="h-[2rem] w-[2rem] rounded-[1rem] object-contain"
-                                  />
-                                </div>
-                              )}
-                              <h1 className="text-[1.8rem] lg:text-[2rem] font-bold leading-[2.69rem]">
-                                {portfolio?.title}
-                              </h1>
-                              <p
-                                dangerouslySetInnerHTML={{
-                                  __html: portfolio.tagline_1,
-                                }}
-                                className="text-[1.9rem] leading-[150%] font-medium mt-[1rem] text-primary"
-                              ></p>
-                              {/* <hr className='w-full my-[1.6rem] h-px bg-border' /> */}
-                              {/* Points */}
-                              <p
-                                dangerouslySetInnerHTML={{
-                                  __html: modifiedContent(
-                                    portfolio.features_short,
-                                    listOfskills,
-                                    listOfdata
-                                  ),
-                                }}
-                                className="mt-[2rem] list-div-portfolio1 pl-[2rem]"
-                              ></p>
-                              {/* Skills */}
+                              </div>
                               <h4 className="text-heading text-[1.2rem] font-medium mb-[1.2rem] ml-[0.2rem]">
                                 AREAS OF EXPERTISE I'VE WORKED IN
                               </h4>
-                              <div className="flex items-center gap-[1rem] lg:gap-[0.7rem] flex-wrap text-[1.2rem] w-full">
+                              <div className="flex items-center gap-[1rem] mt-3 lg:gap-[0.7rem] flex-wrap text-[1.2rem] w-full">
                                 {Object?.values(skills)?.map(
                                   (group, groupIndex) => (
                                     <React.Fragment key={groupIndex}>
@@ -256,7 +249,7 @@ const PortfolioListing = ({ params }: { params: any }) => {
                                           key={i}
                                           href={skill.url || "#"}
                                           target="_blank"
-                                          className="hover:bg-primary hover:text-white py-[0.4rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
+                                          className="hover:bg-primary hover:text-white py-[0.4rem] print:py-[0.1rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
                                         >
                                           {skill.title}
                                         </Link>
@@ -278,7 +271,7 @@ const PortfolioListing = ({ params }: { params: any }) => {
                                   }}
                                 />
                               </div>
-                              <hr className="w-full my-[2.4rem] h-px bg-border" />
+                              <hr className="w-full my-[2.4rem] h-px bg-border print:hidden" />
                               {/* Links */}
                               <div className="flex items-center flex-wrap max-sm:flex-col max-md:items-start gap-[1.4rem] print:hidden">
                                 <Link
@@ -319,7 +312,7 @@ const PortfolioListing = ({ params }: { params: any }) => {
             </div>
           </div>
           {/* Our Blogs Section */}
-          <div className="w-full my-[10rem] lg:my-[12rem] block print:hidden">
+          <div className="w-full my-[10rem] lg:my-[12rem] print:my-1">
             <OurBlogs domain={listOfdata?.domain} />
           </div>
           {/* Newsletter */}

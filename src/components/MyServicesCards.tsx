@@ -5,7 +5,7 @@ import Link from "next/link";
 const MyServicesCards = ({ services }) => {
   return (
     <div className="w-full flex items-center justify-center gap-10 flex-col">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:flex xl:grid lg:grid-cols-4 place-items-center items-center justify-center gap-[2.4rem] mt-[6rem] md:flex-wrap ">
+      <div className="grid grid-cols-1 print:hidden sm:grid-cols-2 md:flex xl:grid lg:grid-cols-4 place-items-center items-center justify-center gap-[2.4rem] mt-[6rem] md:flex-wrap ">
         {services.map((service, index) => {
           const truncatedTagline =
             service?.tagline?.split(" ")?.slice(0, 8)?.join(" ") +
@@ -84,7 +84,7 @@ const MyServicesCards = ({ services }) => {
           );
         })}
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mt-12 px-4">
+      <div className="grid grid-cols-1  sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mt-12 px-4  print:grid-cols-4">
         {services.map((service, index) => {
           const truncatedTagline =
             service?.tagline?.split(" ")?.slice(0, 12)?.join(" ") +
@@ -98,21 +98,24 @@ const MyServicesCards = ({ services }) => {
   {/* Image Container with Hover Effect - Fixed */}
   {service.picture && (
     <div className="relative h-[17rem] w-full flex items-center justify-center overflow-hidden group">
-      <Image
-        src={service.picture}
-        alt={service.title || "Service image"}
-        height={150}
-        width={150}
-        className="object-cover transition-transform duration-500 z-10 group-hover:scale-110 w-[9.8rem] h-[9.8rem] rounded-full"
-        onError={(e) => {
-          const target = e.target as HTMLImageElement;
-          target.style.display = "none";
-          // Consider adding a fallback image here
-        }}
-      />
-      {/* Hover overlay - fixed positioning and z-index */}
-      <div className="absolute inset-0 bg-white hover:bg-gradient-to-t hover:from-[#6f656591] hover:to-transparent opacity-100 transition-opacity duration-500 z-0" />
-    </div>
+  <Image
+    src={service.picture}
+    alt={service.title || "Service image"}
+    height={150}
+    width={150}
+    className="object-cover transition-transform duration-500 z-10 group-hover:scale-110 w-[9.8rem] h-[9.8rem] rounded-full"
+    onError={(e) => {
+      const target = e.target as HTMLImageElement;
+      target.style.display = "none";
+    }}
+  />
+
+  {/* Gradient overlay - only fades in on hover */}
+  <div className="absolute inset-0 bg-white z-0">
+    <div className="h-full w-full bg-gradient-to-t from-[#6f656591] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+  </div>
+</div>
+
   )}
 
   {/* Rest of your content remains the same */}
