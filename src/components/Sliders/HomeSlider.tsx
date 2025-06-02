@@ -6,15 +6,40 @@ import PortfolioImagesLoader from "../PortfolioImagesLoader";
 import PortfolioPopUp from "../PortfolioPopUp";
 import { skillsGrouping } from "@/hooks/skillsGrouping";
 
-const HomeSlider = ({ portfolios, companyType }) => {
+// Define types
+type SkillType = {
+  title: string;
+  url?: string;
+  order?: string;
+  icon?: string;
+};
+
+type PortfolioType = {
+  id: string;
+  title: string;
+  tagline_1: string;
+  tagline_2: string;
+  skills: SkillType[];
+  thumbnail: string;
+  pictures: string;
+  child_hero_banner: string;
+  link: string;
+  has_testimonial: boolean;
+  company_icon?: string;
+  // Add any other portfolio properties you use
+};
+
+interface HomeSliderProps {
+  portfolios: PortfolioType[];
+  companyType: string;
+}
+
+const HomeSlider: React.FC<HomeSliderProps> = ({ portfolios, companyType }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
-  const sliderRef = useRef(null);
+  const sliderRef = useRef<HTMLDivElement>(null);
   const slideInterval = 80000;
-  const [
-    selectedPorfolioPicturesforPopup,
-    setSelectedPorfolioPicturesforPopup,
-  ] = useState(null);
+  const [selectedPorfolioPicturesforPopup, setSelectedPorfolioPicturesforPopup] = useState<string[] | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
@@ -27,8 +52,8 @@ const HomeSlider = ({ portfolios, companyType }) => {
     }
   }, [currentSlide, isPaused, portfolios]);
 
-  const openModal = (pictures, thumbnail, child_hero_banner) => {
-    const portfolioImages = JSON.parse(pictures);
+  const openModal = (pictures: string, thumbnail: string, child_hero_banner: string) => {
+    const portfolioImages = JSON.parse(pictures) as string[];
     const allImages = [thumbnail, child_hero_banner, ...portfolioImages];
     setSelectedPorfolioPicturesforPopup(allImages);
     setIsModalOpen(true);
@@ -44,9 +69,7 @@ const HomeSlider = ({ portfolios, companyType }) => {
   };
 
   const prevSlide = () => {
-    setCurrentSlide(
-      (prev) => (prev - 1 + portfolios.length) % portfolios.length
-    );
+    setCurrentSlide((prev) => (prev - 1 + portfolios.length) % portfolios.length);
   };
 
   const handleMouseEnter = () => {
@@ -95,7 +118,7 @@ const HomeSlider = ({ portfolios, companyType }) => {
               portfolio?.skills?.length < 15
                 ? portfolio?.skills
                 : portfolio?.skills?.slice(0, 15)
-            );
+            ) as Record<string, SkillType[]>;
 
             return (
               <div
@@ -103,22 +126,11 @@ const HomeSlider = ({ portfolios, companyType }) => {
                 className="w-full flex-shrink-0 px-[1.5rem] h-full"
               >
                 <div className="h-full flex items-center justify-center">
-                  <div className="flex flex-col-reverse lg:flex-row  items-stretch bg-white rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden h-full w-full">
+                  <div className="flex flex-col-reverse lg:flex-row items-stretch bg-white rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden h-full w-full">
                     {/* Content Section */}
                     <div className="p-[2rem] lg:p-[3.5rem] w-full lg:w-1/2 print:w-full overflow-y-auto hide-scrollbar flex items-start justify-between flex-col">
                       <div className="flex items-start w-full flex-col">
                         <div className="flex gap-[2rem] mb-[2rem]">
-                          {/* {portfolio?.company_icon && (
-                        <div className="bg-primary p-[1.8rem] lg:p-[2.4rem] rounded-[1.6rem]">
-                          <Image
-                            src={portfolio?.company_icon}
-                            alt="Case"
-                            height={34}
-                            width={34}
-                            className="h-[2.5rem] w-[2.5rem] lg:h-[3.4rem] lg:w-[3.4rem] rounded-[1.6rem]"
-                          />
-                        </div>
-                      )} */}
                           <Link href={`/portfolio/${portfolio.id}`}>
                             <h1 className="flex items-center text-[2.4rem] lg:text-[3.2rem] font-bold leading-[3rem] lg:leading-[4rem] text-heading">
                               {portfolio.title}
@@ -142,17 +154,12 @@ const HomeSlider = ({ portfolios, companyType }) => {
 
                         <div className="text-black text-[1.6rem] leading-[2.4rem] sm:text-[1.8rem] sm:leading-[2.8rem] lg:text-[1.8rem] lg:leading-[2.9rem] font-normal lg:font-medium my-[2rem]">
                           AREAS OF EXPERTISE I'VE WORKED IN:
-                          <div className="w-full flex flex-col items-start  ">
+                          <div className="w-full flex flex-col items-start">
                             <div className="flex items-center gap-[1rem] lg:gap-[0.7rem] my-[2rem] text-nowrap flex-wrap">
-                              {Object?.values(skills)?.map(
-                                (group, groupIndex) => (
+                              {Object.values(skills).map(
+                                (group: SkillType[], groupIndex: number) => (
                                   <React.Fragment key={groupIndex}>
-                                    {group.map((skill, i) => {
-                                      // Calculate the skill number (groupIndex+1).(i+1)
-                                      const skillNumber = `${groupIndex + 1}.${
-                                        i + 1
-                                      }`;
-
+                                    {group.map((skill: SkillType, i: number) => {
                                       return (
                                         <Link
                                           href={skill.url || "#"}
@@ -167,9 +174,6 @@ const HomeSlider = ({ portfolios, companyType }) => {
                                             }}
                                             className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium py-[0.4rem] px-[2rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
                                           >
-                                            {/* <span className=" bg-primary text-white group-hover:bg-white group-hover:text-primary text-[0.8rem] pt-[1.5px] font-bold rounded-full size-[21px] flex items-center justify-center">
-      {skillNumber}
-    </span> */}
                                             {skill?.title}
                                           </a>
                                         </Link>
@@ -190,9 +194,8 @@ const HomeSlider = ({ portfolios, companyType }) => {
                           </div>
                         </div>
                       </div>
-                      {/* <hr className="w-full mt-[2.4rem] h-px bg-border" /> */}
 
-                      <div className="flex print:hidden  items-center  flex-wrap max-sm:flex-col max-md:items-start gap-[1.4rem]">
+                      <div className="flex print:hidden items-center flex-wrap max-sm:flex-col max-md:items-start gap-[1.4rem]">
                         <Link
                           href={`/portfolio/${portfolio.id}`}
                           className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent hover:border-primary duration-300 max-lg:w-full text-center rounded-[0.6rem]"
@@ -219,7 +222,7 @@ const HomeSlider = ({ portfolios, companyType }) => {
                     </div>
 
                     {/* Image Section */}
-                    <div className="lg:w-1/2 print:w-full  w-full flex flex-col items-center justify-center p-4">
+                    <div className="lg:w-1/2 print:w-full w-full flex flex-col items-center justify-center p-4">
                       {portfolio?.thumbnail && (
                         <div className="relative w-full h-[300px] lg:h-[400px] rounded-[1.2rem] overflow-hidden">
                           <Image
@@ -275,9 +278,9 @@ const HomeSlider = ({ portfolios, companyType }) => {
             );
           })}
         </div>
-
-        {/* Navigation Buttons */}
       </div>
+      
+      {/* Navigation Buttons */}
       <div className="flex print:hidden items-center justify-center w-full mt-4">
         <div className="flex items-center justify-center gap-[1.2rem]">
           <div

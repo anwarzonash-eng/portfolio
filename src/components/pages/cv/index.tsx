@@ -31,7 +31,11 @@ import { skillsGrouping } from "@/hooks/skillsGrouping";
 import ShowmoreSkills from "@/components/showmoreSkills";
 import Background from "@/components/background";
 import { useAppSelector } from "@/store";
-
+type SkillType = {
+  title: string;
+  url?: string;
+  // add other properties if they exist
+};
 const CV = ({ params }: { params: any }) => {
   const searchParams = useSearchParams();
   const [urlInfo, setURLInfo] = useState(null);
@@ -812,12 +816,18 @@ const CV = ({ params }: { params: any }) => {
                                                       {Object?.values(
                                                         skillsforExpereinces
                                                       )?.map(
-                                                        (group, groupIndex) => (
+                                                        (
+                                                          group: SkillType[],
+                                                          groupIndex: number // Explicitly type the group
+                                                        ) => (
                                                           <React.Fragment
                                                             key={groupIndex}
                                                           >
                                                             {group.map(
-                                                              (skill, i) => (
+                                                              (
+                                                                skill: SkillType,
+                                                                i: number // Explicitly type skill
+                                                              ) => (
                                                                 <Link
                                                                   href={
                                                                     skill?.url ||
@@ -829,12 +839,6 @@ const CV = ({ params }: { params: any }) => {
                                                                   {skill.title}
                                                                 </Link>
                                                               )
-                                                            )}
-                                                            {/* Line break after each group */}
-                                                            {showMoreSkillsForExperiences[
-                                                              index
-                                                            ] && (
-                                                              <div className="w-full mb-[1px]" />
                                                             )}
                                                           </React.Fragment>
                                                         )
@@ -980,32 +984,43 @@ const CV = ({ params }: { params: any }) => {
                                                       {/* Heading and Para */}
                                                       <div className="text-heading">
                                                         {/* Para */}
-                                                        <div className="md:ms-[2rem] lg:w-[30rem]  float-right w-full rounded-[1.2rem] print:hidden relative align-middle justify-center flex-col flex items-center">
-                                                          {portfolio?.thumbnail && (
-                                                            <Image
-                                                              src={
-                                                                portfolio?.thumbnail
+                                                        {/* slider image */}
+
+                                                        {portfolio?.thumbnail && (
+                                                          <div className="md:ms-[2rem] flex items-center gap-2 flex-col lg:w-[30rem] float-right w-full rounded-[1.2rem] print:hidden relative">
+                                                            {/* Container with fixed aspect ratio (16:9 example) */}
+                                                            <div className="relative pt-[56.25%] w-full">
+                                                              {" "}
+                                                              {/* 16:9 aspect ratio */}
+                                                              <Image
+                                                                src={
+                                                                  portfolio.thumbnail
+                                                                }
+                                                                alt="Project Image"
+                                                                fill
+                                                                sizes="(max-width: 768px) 100vw, 30rem"
+                                                                className="rounded-[1.2rem] object-cover absolute top-0 left-0 w-full h-full"
+                                                                priority={
+                                                                  index === 0
+                                                                } // Only prioritize first image
+                                                              />
+                                                            </div>
+                                                            {/* Button remains the same */}
+                                                            <button
+                                                              onClick={() =>
+                                                                openModal(
+                                                                  portfolio?.pictures,
+                                                                  portfolio?.thumbnail,
+                                                                  portfolio?.child_hero_banner
+                                                                )
                                                               }
-                                                              alt="Project Image"
-                                                              height={800}
-                                                              width={800}
-                                                              className="rounded-[1.2rem] object-cover w-full h-full max-h-[55.2rem]"
-                                                            />
-                                                          )}
-                                                          {/* Centered Positioned Button */}
-                                                          <button
-                                                            onClick={() =>
-                                                              openModal(
-                                                                portfolio?.pictures,
-                                                                portfolio?.thumbnail,
-                                                                portfolio?.child_hero_banner
-                                                              )
-                                                            }
-                                                            className="my-[1rem] py-[1rem]  px-[2rem]  rounded-[7.77rem] border-2 border-solid border-[#fff] text-[1.2rem]  font-medium  max-w-max  backdrop-blur-[0.8rem] duration-300 bg-primary hover:bg-opacity-80 text-white hover:bg-white hover:text-primary hover:border-1 hover:border-primary"
-                                                          >
-                                                            Explore the Gallery
-                                                          </button>
-                                                        </div>
+                                                              className="my-[1rem] py-[1rem] px-[2rem] rounded-[0.7rem] border-2 border-solid border-[#fff] text-[1.2rem] font-medium max-w-max backdrop-blur-[0.8rem] duration-300 bg-primary hover:bg-opacity-80 text-white hover:bg-white hover:text-primary hover:border-1 hover:border-primary"
+                                                            >
+                                                              Explore the
+                                                              Gallery
+                                                            </button>
+                                                          </div>
+                                                        )}
 
                                                         {/* Heading */}
                                                         <h1 className="text-[1.8rem] lg:text-[2rem] font-bold leading-[2.69rem]">
