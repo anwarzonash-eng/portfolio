@@ -39,7 +39,10 @@ const HomeSlider: React.FC<HomeSliderProps> = ({ portfolios, companyType }) => {
   const [isPaused, setIsPaused] = useState(false);
   const sliderRef = useRef<HTMLDivElement>(null);
   const slideInterval = 80000;
-  const [selectedPorfolioPicturesforPopup, setSelectedPorfolioPicturesforPopup] = useState<string[] | null>(null);
+  const [
+    selectedPorfolioPicturesforPopup,
+    setSelectedPorfolioPicturesforPopup,
+  ] = useState<string[] | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
@@ -52,7 +55,11 @@ const HomeSlider: React.FC<HomeSliderProps> = ({ portfolios, companyType }) => {
     }
   }, [currentSlide, isPaused, portfolios]);
 
-  const openModal = (pictures: string, thumbnail: string, child_hero_banner: string) => {
+  const openModal = (
+    pictures: string,
+    thumbnail: string,
+    child_hero_banner: string
+  ) => {
     const portfolioImages = JSON.parse(pictures) as string[];
     const allImages = [thumbnail, child_hero_banner, ...portfolioImages];
     setSelectedPorfolioPicturesforPopup(allImages);
@@ -69,7 +76,9 @@ const HomeSlider: React.FC<HomeSliderProps> = ({ portfolios, companyType }) => {
   };
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + portfolios.length) % portfolios.length);
+    setCurrentSlide(
+      (prev) => (prev - 1 + portfolios.length) % portfolios.length
+    );
   };
 
   const handleMouseEnter = () => {
@@ -129,28 +138,30 @@ const HomeSlider: React.FC<HomeSliderProps> = ({ portfolios, companyType }) => {
                   <div className="flex flex-col-reverse lg:flex-row items-stretch bg-white rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden h-full w-full">
                     {/* Content Section */}
                     <div className="p-[2rem] lg:p-[3.5rem] w-full lg:w-1/2 print:w-full overflow-y-auto hide-scrollbar flex items-start justify-between flex-col">
-                      <div className="flex items-start w-full flex-col">
-                        <div className="flex gap-[2rem] mb-[2rem]">
-                          <Link href={`/portfolio/${portfolio.id}`}>
-                            <h1 className="flex items-center text-[2.4rem] lg:text-[3.2rem] font-bold leading-[3rem] lg:leading-[4rem] text-heading">
-                              {portfolio.title}
-                            </h1>
-                          </Link>
+                      <div className="flex items-start w-full flex-col justify-between h-full">
+                        <div>
+                          <div className="flex gap-[2rem] mb-[2rem]">
+                            <Link href={`/portfolio/${portfolio.id}`}>
+                              <h1 className="flex items-center text-[2.4rem] lg:text-[3.2rem] font-bold leading-[3rem] lg:leading-[4rem] text-heading">
+                                {portfolio.title}
+                              </h1>
+                            </Link>
+                          </div>
+
+                          <p
+                            dangerouslySetInnerHTML={{
+                              __html: portfolio.tagline_1,
+                            }}
+                            className="text-[1.6rem] lg:text-[1.8rem] leading-[2.4rem] font-normal text-paragraph1 mt-[1rem] line-clampforTagline1 basicLineClamp"
+                          ></p>
+
+                          <p
+                            dangerouslySetInnerHTML={{
+                              __html: portfolio.tagline_2,
+                            }}
+                            className="text-[1.6rem] lg:text-[1.8rem] leading-[2.4rem] font-normal text-primary mt-[1rem] line-clamp basicLineClamp"
+                          ></p>
                         </div>
-
-                        <p
-                          dangerouslySetInnerHTML={{
-                            __html: portfolio.tagline_1,
-                          }}
-                          className="text-[1.6rem] lg:text-[1.8rem] leading-[2.4rem] font-normal text-paragraph1 mt-[1rem] line-clampforTagline1 basicLineClamp"
-                        ></p>
-
-                        <p
-                          dangerouslySetInnerHTML={{
-                            __html: portfolio.tagline_2,
-                          }}
-                          className="text-[1.6rem] lg:text-[1.8rem] leading-[2.4rem] font-normal text-primary mt-[1rem] line-clamp basicLineClamp"
-                        ></p>
 
                         <div className="text-black text-[1.6rem] leading-[2.4rem] sm:text-[1.8rem] sm:leading-[2.8rem] lg:text-[1.8rem] lg:leading-[2.9rem] font-normal lg:font-medium my-[2rem]">
                           AREAS OF EXPERTISE I'VE WORKED IN:
@@ -159,26 +170,28 @@ const HomeSlider: React.FC<HomeSliderProps> = ({ portfolios, companyType }) => {
                               {Object.values(skills).map(
                                 (group: SkillType[], groupIndex: number) => (
                                   <React.Fragment key={groupIndex}>
-                                    {group.map((skill: SkillType, i: number) => {
-                                      return (
-                                        <Link
-                                          href={skill.url || "#"}
-                                          legacyBehavior
-                                          key={`${groupIndex}-${i}`}
-                                        >
-                                          <a
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            style={{
-                                              animationDelay: `${i * 0.1}s`,
-                                            }}
-                                            className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium py-[0.4rem] px-[2rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
+                                    {group.map(
+                                      (skill: SkillType, i: number) => {
+                                        return (
+                                          <Link
+                                            href={skill.url || "#"}
+                                            legacyBehavior
+                                            key={`${groupIndex}-${i}`}
                                           >
-                                            {skill?.title}
-                                          </a>
-                                        </Link>
-                                      );
-                                    })}
+                                            <a
+                                              target="_blank"
+                                              rel="noopener noreferrer"
+                                              style={{
+                                                animationDelay: `${i * 0.1}s`,
+                                              }}
+                                              className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium py-[0.4rem] px-[2rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
+                                            >
+                                              {skill?.title}
+                                            </a>
+                                          </Link>
+                                        );
+                                      }
+                                    )}
                                   </React.Fragment>
                                 )
                               )}
@@ -227,8 +240,9 @@ const HomeSlider: React.FC<HomeSliderProps> = ({ portfolios, companyType }) => {
                         <div className="relative w-full h-[300px] lg:h-[400px] rounded-[1.2rem] overflow-hidden">
                           <Image
                             src={
-                              portfolio?.thumbnail ||
-                              "/images/dummy_port_img.webp"
+                              portfolio?.thumbnail
+                                ? portfolio?.thumbnail
+                                : "/images/dummy_port_img.webp"
                             }
                             alt="Project Image"
                             fill
@@ -279,9 +293,9 @@ const HomeSlider: React.FC<HomeSliderProps> = ({ portfolios, companyType }) => {
           })}
         </div>
       </div>
-      
+
       {/* Navigation Buttons */}
-      <div className="flex print:hidden items-center justify-center w-full mt-4">
+      <div className="flex print:hidden items-center justify-center w-full">
         <div className="flex items-center justify-center gap-[1.2rem]">
           <div
             className="rounded-[50%] h-[5.6rem] w-[5.6rem] border-[0.2rem] border-primary border-solid flex items-center justify-center hover:bg-primary group duration-300 cursor-pointer"

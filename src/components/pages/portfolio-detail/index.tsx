@@ -268,7 +268,6 @@ const PortfolioDetails = ({ params }: { params: any }) => {
                                     </Link>
                                   ))}
                                   {/* Line break after each group */}
-                                  <div className="w-full mb-[1px]" />
                                 </React.Fragment>
                               )
                             )}

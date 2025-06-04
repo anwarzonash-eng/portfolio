@@ -104,7 +104,7 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({ list }) => {
           onClick={() => setShowAll(!showAll)}
           className="px-[4rem] py-[1.4rem] bg-primary rounded-[2.2rem] hover:bg-white hover:text-primary hover:border-primary border border-border border-solid text-center max-w-max text-white text-[1.4rem] font-medium font-Inter leading-tight mx-auto print:hidden"
         >
-          {showAll ? "Show Less" : "Show More Skills"}
+          {showAll ? "See Less" : "See More Skills"}
         </button>
       )}
     </div>

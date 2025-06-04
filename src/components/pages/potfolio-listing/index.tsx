@@ -106,7 +106,7 @@ const PortfolioListing = ({ params }: { params: any }) => {
               <img
                 src={listOfdatas?.profile_photo_1}
                 alt=""
-                className="w-[145px] h-[143px] rounded-full "
+                className="w-[145px] h-[143px] rounded-full"
               />
               <div className="flex items-start justify-start flex-col">
                 <h2 className="text-[5rem] font-bold"> {listOfdata?.name}</h2>
@@ -192,10 +192,17 @@ const PortfolioListing = ({ params }: { params: any }) => {
                                           ? portfolio.thumbnail
                                           : "/images/project_img.png"
                                       }
-                                      alt="Project Image"
+                                      onClick={() => {
+                                        openModal(
+                                          portfolio?.pictures,
+                                          portfolio?.thumbnail,
+                                          portfolio?.child_hero_banner
+                                        );
+                                      }}
+                                      alt="Portfolio Image"
                                       height={800}
                                       width={800}
-                                      className="lg:h-[300px] lg:w-[800px] w-full object-cover rounded-[1.2rem] border border-solid border-border"
+                                      className="lg:h-[300px] lg:w-[800px] w-full object-cover rounded-[1.2rem] border border-solid border-border cursor-pointer"
                                     />
 
                                     <button

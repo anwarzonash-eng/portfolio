@@ -14,7 +14,7 @@ const ShowmoreSkills = ({ props }) => {
             'bg-primary text-white py-[0.4rem] print_hidden px-[2rem] border border-primary border-solid hover:text-primary hover:bg-white rounded-[1.8rem] text-[1.4rem] font-medium leading-normal'
           }
         >
-          {props?.showMoreSkills[props?.index] ? 'Show Less' : 'Show More'}
+          {props?.showMoreSkills[props?.index] ? 'Show Less' : 'Show More Skills'}
         </button>
       )}
     </>
