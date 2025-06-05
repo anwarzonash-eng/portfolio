@@ -26,7 +26,7 @@ const OurBlogs = ({ domain }) => {
   }, [domain]);
 
   return (
-    <section className="mainContainer w-full print:break-before-page">
+    <section className="mainContainer w-full print:break-before-page ">
       {/* Top Content */}
       <div className="flex justify-between flex-wrap items-end sm:items-center gap-[2rem] mb-[4rem]">
         <div>

@@ -58,7 +58,7 @@ const MyServicesCards = ({ services }) => {
       href={`/offer?service=${service?.title}`}
       className="inline-flex items-center gap-2 text-white/90 hover:text-white transition-colors group"
     >
-      <span className="font-medium text-[1rem]">Discover more</span>
+      <span className="font-bold text-[1.5rem] text-[#ffffff]">Discover more</span>
       <span className="group-hover:translate-x-1 transition-transform">
         <svg
           xmlns="http://www.w3.org/2000/svg"

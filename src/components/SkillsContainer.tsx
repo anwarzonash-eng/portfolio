@@ -19,8 +19,8 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({ list }) => {
   const [showAll, setShowAll] = useState(false);
 
   // Number of items to display by default
-  const initialVisibleItemsLarge = 3 * 6; // 18 items (6 columns × 3 rows)
-  const initialVisibleItemsSmall = 3 * 3; // 9 items (3 columns × 3 rows)
+  const initialVisibleItemsLarge = 3 * 6; 
+  const initialVisibleItemsSmall = 3 * 3; 
 
   // Determine the skills to show based on screen size and showAll state
   const visibleSkills = showAll
@@ -36,7 +36,7 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({ list }) => {
   const skills: Record<string, SkillType[]> = skillsGrouping(visibleSkills || []);
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center justify-center">
       {/* Normal View Grid */}
       <div className="grid grid-cols-3 lg:grid-cols-6 gap-[1.5rem] mt-[6rem] print:hidden">
         {Object.values(skills).map((group: SkillType[], groupIndex: number) => (
@@ -70,7 +70,7 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({ list }) => {
       </div>
 
       {/* Print View Grid - Always shows all skills in 3 columns */}
-      <div className="hidden print:grid print:grid-cols-10 print:gap-[1.5rem] print:mt-[6rem]">
+      <div className="hidden print:grid print:grid-cols-10 items-center justify-center print:gap-[1.5rem] print:mt-[6rem]">
         {list && Object.values(skillsGrouping(list)).map((group: SkillType[], groupIndex: number) => (
           <React.Fragment key={`print-${groupIndex}`}>
             {group.map((skill: SkillType, i: number) => (
