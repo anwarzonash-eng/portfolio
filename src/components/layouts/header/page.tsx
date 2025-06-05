@@ -42,6 +42,7 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
   const resourcesDropdownButtonRef = useRef(null);
   const resourcesDivRef = useRef(null);
   const servicesDivRef = useRef(null);
+  console.log("listOfdata ::: ", listOfdata);
 
   const headerLinks: HeaderLink[] = [
     { title: "Home", src: "/" },
@@ -56,88 +57,6 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
     { title: "Blogs", src: "/blog-listing" },
     { title: "CV", src: "/cv" },
   ];
-  const serviceContentMap = {
-    "Database Development": {
-      image: "/images/my_services/db.jpg",
-      description:
-        "Design and manage scalable, secure databases to support your applications and business logic.",
-    },
-    "Shopify Development": {
-      image: "/images/my_services/shopify.png",
-      description:
-        "Build and customize high-performing Shopify stores to grow your eCommerce business effectively.",
-    },
-    "Product Development": {
-      image: "/images/my_services/product.png",
-      description:
-        "Transform ideas into fully functional digital products with end-to-end design and development support.",
-    },
-    "Back-End Web Development": {
-      image: "/images/my_services/backend.png",
-      description:
-        "Create robust server-side logic, APIs, and integrations to power modern, scalable web applications.",
-    },
-    "Full-Stack Developer": {
-      image: "/images/my_services/Full Stack Programmer.png",
-      description:
-        "Deliver complete solutions from front-end interfaces to back-end systems with end-to-end development expertise.",
-    },
-    "Front-End Web Development": {
-      image: "/images/my_services/Front-End Web Development.png",
-      description:
-        "Craft responsive, user-friendly interfaces with modern technologies that enhance user experience.",
-    },
-    "Wordpress Development": {
-      image: "/images/my_services/wordpress.webp",
-      description:
-        "Develop dynamic WordPress websites with custom themes, plugins, and SEO optimization for better performance.",
-    },
-    " Shopify Theme Customaization": {
-      image: "/images/my_services/Shopify Theme Development.png",
-      description:
-        "Tailor your Shopify store’s look and feel with custom themes designed to match your brand and boost engagement.",
-    },
-    "Shopify Theme Development": {
-      image: "/images/my_services/Shopify Theme.png",
-      description:
-        "Build responsive, high-converting Shopify themes from scratch to deliver a seamless shopping experience.",
-    },
-    "Shopify App  Development": {
-      image: "/images/my_services/Shopify App  Development.png",
-      description:
-        "Create powerful custom Shopify apps to enhance functionality, automate processes, and improve user experience.",
-    },
-
-    "Web Performance Optimization": {
-      image: "/images/my_services/Web Performance Optimization.png",
-      description:
-        "Enhance website speed, loading times, and overall user experience through advanced performance tuning techniques.",
-    },
-
-    "Next.js Expert": {
-      image: "/images/my_services/nextjs.svg",
-      description:
-        "Build high-performance, SEO-friendly, and scalable web apps using the powerful Next.js framework.",
-    },
-
-    "API Development and Integration": {
-      image: "/images/my_services/api.png",
-      description:
-        "Design robust APIs and seamlessly integrate third-party services to enable smooth data communication across platforms.",
-    },
-
-    "AWS Web Services Development": {
-      image: "/images/my_services/aws.png",
-      description:
-        "Leverage AWS cloud solutions for building secure, scalable, and highly available web applications and infrastructures.",
-    },
-
-    "DevOps Developer": {
-      image: "/images/my_services/devops.png",
-      description:
-        "Streamline development and deployment pipelines using CI/CD, containerization, and cloud automation practices.",
-    },
-  };
 
   const handleToggleResource = () => {
     setIsResourceOpen(!isResourceOpen);
@@ -306,15 +225,6 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
                                   {listOfdata?.services
                                     ?.filter(({ type }) => type !== "main")
                                     .map((service, index) => {
-                                      const content = serviceContentMap[
-                                        service.title
-                                      ] || {
-                                        image:
-                                          "/images/my_services/Full Stack Programmer.png",
-                                        description:
-                                          "Deliver complete solutions from front-end interfaces to back-end systems with end-to-end development expertise.",
-                                      };
-
                                       return (
                                         <Link
                                           prefetch={true}
@@ -325,7 +235,7 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
                                           <div className="flex items-center gap-3 mb-3">
                                             <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center group-hover:bg-blue-100">
                                               <Image
-                                                src={content.image}
+                                                src={service.picture}
                                                 width={20}
                                                 height={20}
                                                 alt={service.title}
@@ -338,7 +248,7 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
                                           </div>
 
                                           <p className="text-[1.4rem] text-gray-600 pl-[3.2rem]">
-                                            {content.description}
+                                            {service?.tagline}
                                           </p>
                                         </Link>
                                       );
