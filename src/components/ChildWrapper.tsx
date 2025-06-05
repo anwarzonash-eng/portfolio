@@ -5,6 +5,8 @@ import { useAppSelector } from '@/store';
 import dynamic from 'next/dynamic';
 import Tawkto from './Tawkto';
 import GoogleAnalytics from './GoogleAnalytics';
+import ContactMe from './ContactMe';
+// import { useAppSelector } from "@/store";
 
 const Header = dynamic(() => import('./layouts/header/page'), {
   ssr: false,
@@ -20,6 +22,7 @@ export default function ChildWrapper({
   children: React.ReactNode;
 }) {
   const listOfdata = useAppSelector((state) => state.profile.listOfProfileData);
+  const urlInfo = useAppSelector((state) => state.profile.profileUrlInfo);
 
   const colors = getColors(listOfdata);
 
@@ -53,7 +56,16 @@ export default function ChildWrapper({
       <Header />
 
       {children}
+      {/* {!urlInfo?.u && (
+            <section className="bg-transparent">
+              <div className="mainContainer">
+                <ContactMe listOfdata={listOfdata} />
+              </div>
+            </section>
+          )} */}
+      <div className="print:hidden block">
       <Footer />
+      </div>
     </>
   );
 }

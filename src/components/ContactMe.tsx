@@ -195,7 +195,7 @@ const ContactMe = ({ listOfdata }) => {
     <>
       <div
         id="contact"
-        className="print:hidden flex items-center justify-center flex-wrap lg:flex-nowrap bg-footerMobile md:bg-footerDesktop bg-no-repeat bg-left-top ultra2x:border-[1.5rem] ultra2x:border-white bg-cover rounded-[1rem] relative  p-[1rem] sm:p-[2rem] gap-[2.4rem] shadow-lg"
+        className="flex print:break-before-page items-center justify-center flex-wrap lg:flex-nowrap bg-footerMobile md:bg-footerDesktop bg-no-repeat bg-left-top ultra2x:border-[1.5rem] ultra2x:border-white bg-cover rounded-[1rem] relative  p-[1rem] sm:p-[2rem] gap-[2.4rem] shadow-lg"
       >
         {/* Contact Form */}
         <Formik
@@ -204,7 +204,7 @@ const ContactMe = ({ listOfdata }) => {
           onSubmit={handleContactFormSubmit}
         >
           {({ isSubmitting }) => (
-            <Form className="bg-white rounded-[0.6rem] p-[2rem] shadow-lg lg:max-w-[44.7rem] w-full">
+            <Form className="bg-white print:hidden rounded-[0.6rem] p-[2rem] shadow-lg lg:max-w-[44.7rem] w-full">
               <div className="mb-[2rem] flex flex-col gap-[1rem]">
                 <h4 className="text-[2.4rem] leading-loose font-medium text-heading">
                   Contact Form
@@ -310,7 +310,7 @@ const ContactMe = ({ listOfdata }) => {
         {/* Contact Details */}
         <div className="w-full">
           {/* Badge */}
-          <div className="px-[2rem] py-[0.4rem] rounded-[2.2rem] bg-white border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-[2rem] mb-[2rem]">
+          <div className="px-[2rem] py-[0.4rem] rounded-[2.2rem] bg-white border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-[2rem] mb-[2rem] print:px-[6rem] print:text-[3rem] print:py-[2rem]">
             Stay In Touch
           </div>
           {/* Heading */}
@@ -369,7 +369,7 @@ const ContactMe = ({ listOfdata }) => {
                 width={40}
                 alt="location"
               />
-              <div className="w-full flex justify-between">
+              <div className="w-full flex justify-between print:justify-start print:gap-8">
                 <div>
                   <div className=" font-medium">
                     <p className="text-paragraph1 text-[1.2rem] uppercase ">
@@ -397,7 +397,7 @@ const ContactMe = ({ listOfdata }) => {
                 )}
               </div>
             </div>
-            <div className="w-full border border-border border-solid p-[1.5rem] rounded-[0.8rem] flex items-center justify-around">
+            <div className="w-full border border-border border-solid p-[1.5rem] rounded-[0.8rem] flex items-center justify-around print:justify-start print:gap-8">
               {constactLinks.map(({ href, src, alt }) =>
                 href ? (
                   <Link href={href} key={alt} target="_blank">

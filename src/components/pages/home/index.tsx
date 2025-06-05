@@ -99,7 +99,7 @@ const Home = ({ params }: { params: any }) => {
 
   return (
     <>
-      <main className="w-full print:bg-[#a3ddd3]">
+      <main className="w-full print:bg-bannerBG">
         <PageRendering
           props={{
             list: listOfdata,
@@ -477,7 +477,7 @@ const Home = ({ params }: { params: any }) => {
                 </div>
 
                 {/* About Section Completed*/}
-                <section className="w-full mb-[5rem] landscape_print_page_height print:bg-[#a3ddd3] ">
+                <section className="w-full mb-[5rem] landscape_print_page_height print:bg-bannerBG ">
                   {/* Container Div*/}
                   <div className="mainContainer flex flex-col-reverse gap-[5rem] xl:gap-0 xl:flex-row xl:justify-between print:flex items-center justify-center print:flex-col print:w-full ">
                     {/* Container For Image and Badges */}
@@ -796,7 +796,7 @@ const Home = ({ params }: { params: any }) => {
                 {listOfdata && listOfdata?.skills_ids?.length > 0 && (
                   <>
                     {/* Skills Section Completed */}
-                    <div className="mainContainer my-[5rem]  print:break-before-page print:pt-[56px]  landscape_print_page_height print:bg-[#a3ddd3]">
+                    <div className="mainContainer my-[5rem]  print:break-before-page print:pt-[56px]  landscape_print_page_height print:bg-bannerBG">
                       {/* Badge */}
                       <div
                         id="skills_ids"
@@ -847,7 +847,7 @@ const Home = ({ params }: { params: any }) => {
                   listOfdata.portfolios_ids.length > 0 && (
                     <>
                       {/* My Work Section Slider  */}
-                      <section className="w-full mt-[8rem] mb-[7rem] landscape_print_page_pedding print:bg-[#a3ddd3]  ">
+                      <section className="w-full mt-[8rem] mb-[7rem] landscape_print_page_pedding print:bg-bannerBG  ">
                         <div className="mainContainer my-[5rem] ">
                           {/* Badge */}
                           <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto print:px-[6rem] print:text-[3rem] ">
@@ -873,7 +873,7 @@ const Home = ({ params }: { params: any }) => {
                   listOfdata.experiences_ids.length > 0 && (
                     <>
                       {/* Professional Experience Timeline Section Completed */}
-                      <section className="w-full landscape_print_page_height print:py-[3rem] print:bg-[#a3ddd3] landscape_print_page_height">
+                      <section className="w-full landscape_print_page_height print:py-[3rem] print:bg-bannerBG landscape_print_page_height">
                         <div className="mainContainer print:break-before-page print:shadow-none ">
                           {/* Badge */}
                           <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto print:px-[6rem] print:text-[3rem] ">
@@ -1158,7 +1158,7 @@ const Home = ({ params }: { params: any }) => {
                 {/* FAQ Section Completed */}
                 <Faqs urlInfo={urlInfo} companyType={listOfdata?.companytype} />
                 {/* Our Blogs */}
-                <div className="my-[5rem] print:bg-[#a3ddd3] landscape_print_page_height">
+                <div className="my-[5rem] print:bg-bannerBG landscape_print_page_height">
                   <OurBlogs domain={listOfdata?.domain} />
                 </div>
                 {/* Newsletter */}

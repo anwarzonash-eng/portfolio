@@ -41,18 +41,18 @@ const Footer = () => {
         <>
           {/* Contact Form Section */}
           {!urlInfo?.u && (
-            <section className="bg-transparent">
+            <section className="bg-transparent print:hidden block">
               <div className="mainContainer">
                 <ContactMe listOfdata={listOfdata} />
               </div>
             </section>
           )}
           {/* Footer */}
-          <footer>
+          <footer className="print:block print:mt-[2rem]">
             <div
-              className={`bg-footerBg ${
+              className={`bg-footerBg print:bg-none print:!bg-white  ${
                 urlInfo?.u ? "" : ""
-              } w-full bg-center bg-cover bg-no-repeat flex print:hidden flex-col items-center justify-end`}
+              } w-full bg-center print:block bg-cover bg-no-repeat flex flex-col items-center justify-end`}
             >
               <div className="mainContainer text-[1.8rem] font-medium flex items-center justify-center">
                 <div className="py-[3rem] w-full flex items-start justify-between flex-wrap gap-[4rem] text-heading text-[1.8rem] font-medium">
@@ -135,12 +135,12 @@ const Footer = () => {
                 </div>
               </div>
             </div>
-            <p className="text-center text-heading text-[1.8rem] font-normal py-[1.5rem] px-[2rem] bg-white">
+            <p className="text-center print:hidden  text-heading text-[1.8rem] font-normal py-[1.5rem] px-[2rem] bg-white">
               All Rights Reserved ©{" "}
               <span className="capitalize">
                 {listOfdata?.name || "Cypexsoft"}
               </span>{" "}
-              2024
+              2025
             </p>
           </footer>
         </>
