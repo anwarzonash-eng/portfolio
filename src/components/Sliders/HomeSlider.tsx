@@ -92,7 +92,7 @@ const HomeSlider: React.FC<HomeSliderProps> = ({ portfolios, companyType }) => {
   if (!portfolios || portfolios.length === 0) {
     return <PortfolioImagesLoader />;
   }
-
+  const [showAllSkills, setShowAllSkills] = useState(false);
   const adjustedCurrentSlide = currentSlide + 1;
   const totalSlides = portfolios.length;
 
@@ -105,7 +105,7 @@ const HomeSlider: React.FC<HomeSliderProps> = ({ portfolios, companyType }) => {
 
   return (
     <div className="w-full flex flex-col items-center gap-3 mt-[3rem]">
-      <div className="relative w-full overflow-x-hidden lg:h-[610px] h-full">
+      <div className="relative w-full overflow-x-hidden print:overflow-x-hidden lg:h-[610px] print:h-auto h-full">
         {isModalOpen && selectedPorfolioPicturesforPopup !== null && (
           <PortfolioPopUp
             isModalOpen={isModalOpen}
@@ -116,13 +116,18 @@ const HomeSlider: React.FC<HomeSliderProps> = ({ portfolios, companyType }) => {
 
         {/* Slider Container */}
         <div
-          className="flex items-center transition-all duration-700 ease-in-out h-full"
+          className="flex items-center  transition-all duration-700 ease-in-out h-full print:h-auto"
           style={{ transform: `translateX(-${adjustedCurrentSlide * 100}%)` }}
           ref={sliderRef}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
-          {displaySlides.map((portfolio, index) => {
+          {(typeof window !== "undefined" &&
+          window.matchMedia &&
+          window.matchMedia("print").matches
+            ? displaySlides.slice(0, 2)
+            : displaySlides
+          ).map((portfolio, index) => {
             const skills = skillsGrouping(
               portfolio?.skills?.length < 15
                 ? portfolio?.skills
@@ -137,7 +142,7 @@ const HomeSlider: React.FC<HomeSliderProps> = ({ portfolios, companyType }) => {
                 <div className="h-full flex items-center justify-center">
                   <div className="flex flex-col-reverse lg:flex-row items-stretch bg-white rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden h-full w-full">
                     {/* Content Section */}
-                    <div className="p-[2rem] lg:p-[3.5rem] w-full lg:w-1/2 print:w-full overflow-y-auto hide-scrollbar flex items-start justify-between flex-col">
+                    <div className="p-[2rem] lg:p-[3.5rem] w-full lg:w-1/2 print:w-full overflow-y-auto  flex items-start justify-between flex-col">
                       <div className="flex items-start w-full flex-col justify-between h-full">
                         <div>
                           <div className="flex gap-[2rem] mb-[2rem]">
@@ -165,50 +170,42 @@ const HomeSlider: React.FC<HomeSliderProps> = ({ portfolios, companyType }) => {
 
                         <div className="text-black text-[1.6rem] leading-[2.4rem] sm:text-[1.8rem] sm:leading-[2.8rem] lg:text-[1.8rem] lg:leading-[2.9rem] font-normal lg:font-medium my-[2rem]">
                           AREAS OF EXPERTISE I'VE WORKED IN:
-                          <div className="w-full flex flex-col items-start">
                             <div className="flex items-center gap-[1rem] lg:gap-[0.7rem] my-[2rem] text-nowrap flex-wrap">
-                              {Object.values(skills).map(
-                                (group: SkillType[], groupIndex: number) => (
-                                  <React.Fragment key={groupIndex}>
-                                    {group.map(
-                                      (skill: SkillType, i: number) => {
-                                        return (
-                                          <Link
-                                            href={skill.url || "#"}
-                                            legacyBehavior
-                                            key={`${groupIndex}-${i}`}
-                                          >
-                                            <a
-                                              target="_blank"
-                                              rel="noopener noreferrer"
-                                              style={{
-                                                animationDelay: `${i * 0.1}s`,
-                                              }}
-                                              className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium py-[0.4rem] px-[2rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
-                                            >
-                                              {skill?.title}
-                                            </a>
-                                          </Link>
-                                        );
-                                      }
-                                    )}
-                                  </React.Fragment>
-                                )
-                              )}
-                            </div>
-                            {portfolio?.skills?.length > 15 && (
-                              <Link
-                                href={`/portfolio/${portfolio.id}?scroll=skills`}
+                              {Object.values(skills)
+                                .flat()
+                                .slice(0, showAllSkills ? undefined : 8)
+                                .map((skill: SkillType, i: number) => (
+                                  <Link
+                                    href={skill.url || "#"}
+                                    legacyBehavior
+                                    key={`skill-${i}`}
+                                  >
+                                    <a
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      style={{
+                                        animationDelay: `${i * 0.1}s`,
+                                      }}
+                                      className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium py-[0.4rem] px-[2rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
+                                    >
+                                      {skill?.title}
+                                    </a>
+                                  </Link>
+                                ))}
+                                {Object.values(skills).flat().length > 8 && (
+                              <button
+                                onClick={() => setShowAllSkills(!showAllSkills)}
                                 className="bg-primary text-white print:hidden border border-transparent py-[0.4rem] px-[2rem] hover:bg-white hover:text-primary hover:border-primary hover:border text-heading rounded-[1.2rem] text-[1.4rem] font-medium leading-[2rem]"
                               >
-                                See More
-                              </Link>
+                                {showAllSkills ? "Show Less" : "See More"}
+                              </button>
                             )}
-                          </div>
+                            </div>
+                            
                         </div>
                       </div>
 
-                      <div className="flex print:hidden items-center flex-wrap max-sm:flex-col max-md:items-start gap-[1.4rem]">
+                      <div className="flex  items-center flex-wrap max-sm:flex-col max-md:items-start gap-[1.4rem]">
                         <Link
                           href={`/portfolio/${portfolio.id}`}
                           className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent hover:border-primary duration-300 max-lg:w-full text-center rounded-[0.6rem]"
@@ -226,7 +223,7 @@ const HomeSlider: React.FC<HomeSliderProps> = ({ portfolios, companyType }) => {
                         {portfolio?.has_testimonial == true && (
                           <Link
                             href={"#"}
-                            className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent hover:border-primary duration-300 max-lg:w-full text-center rounded-[0.6rem]"
+                            className="text-white print:hidden py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent hover:border-primary duration-300 max-lg:w-full text-center rounded-[0.6rem]"
                           >
                             Check Client Testimonial
                           </Link>
@@ -293,7 +290,12 @@ const HomeSlider: React.FC<HomeSliderProps> = ({ portfolios, companyType }) => {
           })}
         </div>
       </div>
-
+      <Link
+        href="/"
+        className="text-white hidden print:flex py-[2rem] px-[6.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent hover:border-primary duration-300 max-lg:w-full text-center rounded-[0.6rem]"
+      >
+        View More
+      </Link>
       {/* Navigation Buttons */}
       <div className="flex print:hidden items-center justify-center w-full">
         <div className="flex items-center justify-center gap-[1.2rem]">

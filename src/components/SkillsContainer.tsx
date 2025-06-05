@@ -19,8 +19,8 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({ list }) => {
   const [showAll, setShowAll] = useState(false);
 
   // Number of items to display by default
-  const initialVisibleItemsLarge = 3 * 6; // 18 items (6 columns × 3 rows)
-  const initialVisibleItemsSmall = 3 * 3; // 9 items (3 columns × 3 rows)
+  const initialVisibleItemsLarge = 3 * 6;
+  const initialVisibleItemsSmall = 3 * 3;
 
   // Determine the skills to show based on screen size and showAll state
   const visibleSkills = showAll
@@ -38,7 +38,7 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({ list }) => {
   );
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center justify-center">
       {/* Normal View Grid */}
       <div className="grid grid-cols-3 lg:grid-cols-6 gap-[1.5rem] mt-[6rem] print:hidden">
         {Object.values(skills).map((group: SkillType[], groupIndex: number) => (
@@ -81,17 +81,15 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({ list }) => {
                     key={`print-${groupIndex}-${i}`}
                     className="mx-auto mb-[4rem] flex flex-col items-center justify-start gap-[0.8rem] max-w-[13rem] w-full print:opacity-100"
                   >
-                    {skill.icon && (
-                      <div className="flex items-center justify-center h-[6.4rem] w-[6.4rem]">
-                        <Image
-                          src={skill.icon}
-                          alt={skill.title}
-                          height={64}
-                          width={64}
-                          className="object-cover rounded-full h-[6rem] w-[6rem]"
-                        />
-                      </div>
-                    )}
+                    <div className="flex items-center justify-center h-[6.4rem] w-[6.4rem]">
+                      <Image
+                        src={skill.icon || "/images/placeholders/skill.png"}
+                        alt={skill.title}
+                        height={64}
+                        width={64}
+                        className="object-cover rounded-full h-[6rem] w-[6rem]"
+                      />
+                    </div>
                     <p className=" text-paragraph1 text-center text-[1.1rem] leading-[2.8rem] overflow-hidden text-ellipsis">
                       {skill.title}
                     </p>

@@ -99,7 +99,7 @@ const Home = ({ params }: { params: any }) => {
 
   return (
     <>
-      <main className="w-full">
+      <main className="w-full print:bg-[#a3ddd3]">
         <PageRendering
           props={{
             list: listOfdata,
@@ -110,16 +110,16 @@ const Home = ({ params }: { params: any }) => {
                 {/* <Welcome /> */}
 
                 {/* Hero Section */}
-                <div className="w-full overflow-hidden relative bg-bannerBG ">
+                <div className="w-full overflow-hidden relative bg-bannerBG  landscape_print_page_height ">
                   {/*Hero Section For Mobile and Tablet Devices*/}
-                  <div className="mainContainer relative xl:hidden print:w-full">
+                  <div className="mainContainer relative xl:hidden print:w-full ">
                     {/* Hero Section Mobile Content */}
                     <div className="text-center mt-[7.6rem] ">
                       <p className="text-heading text-[2rem] md:text-[3.66rem] font-normal">
                         Hello! I’m
                       </p>
-                      <div className="print:flex w-full print:mx-auto flex-row gap-8 items-center justify-center">
-                        <div className="mt-[0.5rem] print:flex items-center justify-center flex-col print:w-full font-bold text-[4rem] print:text-[4rem] md:text-[8rem] lg:text-[12rem] text-primary  gap-[1rem] relative inline-block">
+                      <div className="print:flex flex-col w-full print:mx-auto gap-8 items-center justify-center">
+                        <div className="mt-[0.5rem] print:flex items-center justify-center flex-col print:w-full font-bold text-[4rem] print:text-[10rem] md:text-[8rem] lg:text-[12rem] text-primary  gap-[1rem] relative inline-block">
                           {listOfdata?.name}
                           <Image
                             src={"/images/mobileStars.svg"}
@@ -131,7 +131,7 @@ const Home = ({ params }: { params: any }) => {
                         </div>
                         {/* Badge */}
                         <div className="flex  print:flex items-center  print:w-full  justify-center max-w-[88rem] mx-auto mb-[2rem]">
-                          <button className="px-[2rem] py-[1.5rem] print:px-[2rem] print:py-[.5rem] lg:py-[2rem] lg:px-[4rem] bg-primary rounded-[5rem] text-center text-[1.6rem] print:text-[1rem] lg:text-[2.4rem] font-bold text-white border-none outline-none my-[2rem] lg:mb-auto">
+                          <button className="px-[2rem] py-[1.5rem] print:px-[5rem] print:py-[1.4rem] lg:py-[2rem] lg:px-[4rem] bg-primary rounded-[5rem] text-center text-[1.6rem] print:text-[2.3rem] lg:text-[2.4rem] font-bold text-white border-none outline-none my-[2rem] lg:mb-auto">
                             {listOfdata?.designation
                               ?.split("|")
                               .map((item, index) => (
@@ -162,11 +162,10 @@ const Home = ({ params }: { params: any }) => {
                                   const groupIndex = Object.values(
                                     skills
                                   ).findIndex((group) => group.includes(skill));
-                                  const skillNumber = `${groupIndex + 1}.${
-                                    skills[
+                                  const skillNumber = `${groupIndex + 1}.${skills[
                                       Object.keys(skills)[groupIndex]
                                     ].indexOf(skill) + 1
-                                  }`;
+                                    }`;
 
                                   return (
                                     <Link
@@ -199,11 +198,10 @@ const Home = ({ params }: { params: any }) => {
                                     ).findIndex((group) =>
                                       group.includes(skill)
                                     );
-                                    const skillNumber = `${groupIndex + 1}.${
-                                      skills[
+                                    const skillNumber = `${groupIndex + 1}.${skills[
                                         Object.keys(skills)[groupIndex]
                                       ].indexOf(skill) + 1
-                                    }`;
+                                      }`;
 
                                     return (
                                       <Link
@@ -247,36 +245,96 @@ const Home = ({ params }: { params: any }) => {
                         )}
                     </div>
                     {/*Hero Section Developer Image */}
-                    <div className="relative mt-[-3rem]  md:flex justify-center">
-                      <Image
-                        width={731}
-                        height={707}
-                        alt=""
-                        src={listOfdata?.profile_photo_2}
-                      />
-                      {/* Positioned Elementes Price */}
-                      <div className="flex gap-[0.35rem] text-nowrap text-primary text-[1.4rem] font-medium rounded-[3.5rem] py-[0.69rem] bg-white shadow-lg px-[1.2rem] absolute top-[25%] left-[98%] translate-x-[-90%] md:left-[80%] md:translate-x-[-80%] animate-pulse min-w-max ">
+                    <div className="print:flex gap-3 print:w-full items-start justify-center ">
+                      <div className="relative  print:w-[50%] md:flex justify-center ">
                         <Image
-                          src={"/images/clock.svg"}
-                          height={14}
-                          width={14}
-                          alt="Clock"
-                          className="h-[2rem] w-[2rem]"
+                          width={731}
+                          height={907}
+                          alt=""
+                          src={listOfdata?.profile_photo_2}
+                          className="print:h-[700px] print-w-[640px]"
                         />
-                        <p>45 hr / Week </p>
-                      </div>
+                        {/* Positioned Elementes Price */}
+                        <div className="flex gap-[0.35rem] text-nowrap text-primary text-[1.4rem] font-medium rounded-[3.5rem] py-[0.69rem] bg-white shadow-lg px-[1.2rem] absolute top-[25%] left-[98%] translate-x-[-90%] md:left-[80%] md:translate-x-[-80%] animate-pulse min-w-max ">
+                          <Image
+                            src={"/images/clock.svg"}
+                            height={14}
+                            width={14}
+                            alt="Clock"
+                            className="h-[2rem] w-[2rem]"
+                          />
+                          <p>45 hr / Week </p>
+                        </div>
 
-                      {/* Positioned Elementes Availability */}
-                      <div className="flex gap-[0.35rem] text-nowrap text-primary text-[2rem] font-medium rounded-[3.5rem] py-[0.69rem] bg-white shadow-lg max-w-max px-[0.9rem] pr-[1.4rem] absolute bottom-[25%] left-[10%] translate-x-[-15%] md:left-[20%] md:translate-x-[-20%] animate-pulse">
-                        <Image
-                          src={"/images/dollar-symbol.svg"}
-                          height={14}
-                          width={14}
-                          alt="Dollar Symbol"
-                          className="h-[auto] w-[auto]"
-                        />
-                        <p>${listOfdata?.hourly_rate} / hour</p>
+                        {/* Positioned Elementes Availability */}
+                        <div className="flex gap-[0.35rem] text-nowrap text-primary text-[2rem] font-medium rounded-[3.5rem] py-[0.69rem] bg-white shadow-lg max-w-max px-[0.9rem] pr-[1.4rem] absolute bottom-[25%] left-[10%] translate-x-[-15%] md:left-[20%] md:translate-x-[-20%] animate-pulse">
+                          <Image
+                            src={"/images/dollar-symbol.svg"}
+                            height={14}
+                            width={14}
+                            alt="Dollar Symbol"
+                            className="h-[auto] w-[auto]"
+                          />
+                          <p>${listOfdata?.hourly_rate} / hour</p>
+                        </div>
                       </div>
+                      <div className="print:w-[50%] print:block hidden print:mt-[45px]">
+  <p
+                        dangerouslySetInnerHTML={{
+                          __html: listOfdata?.tag_line,
+                        }}
+                        className="mb-[2rem] text-primary  text-[2.6rem] leading-[40px] text-start "
+                      ></p>
+                      {listOfdata &&
+                        listOfdata.skills_ids &&
+                        listOfdata.skills_ids.length > 0 && (
+                          <div className="   ">
+                            <div className="flex justify-between bg-primary border-b border-border w-full py-[1rem] px-[2rem]">
+                              <div className="text-left text-white text-[1.8rem] font-medium">
+                                My Skills
+                              </div>
+                              
+                            </div>
+
+                            <div
+                              ref={skillsContainerRef}
+                              className="w-full p-[1.5rem] bg-white/70 backdrop-blur-xl justify-start items-center gap-[0.6rem] flex flex-wrap r"
+                              style={{ maxHeight: "46.3rem" }}
+                            >
+                              {Object?.values(skills)?.map(
+                                (group, groupIndex) => (
+                                  <React.Fragment key={groupIndex}>
+                                    {group.map((skill, i) => {
+                                      // Calculate the skill number (groupIndex+1).(i+1)
+                                      const skillNumber = `${groupIndex + 1}.${i + 1
+                                        }`;
+
+                                      return (
+                                        <Link
+                                          href={skill.url || "#"}
+                                          legacyBehavior
+                                          key={`${groupIndex}-${i}`}
+                                        >
+                                          <a
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            style={{
+                                              animationDelay: `${i * 0.1}s`,
+                                            }}
+                                            className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium px-[21px] py-[0.5rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
+                                          >
+                                            {skill?.title}
+                                          </a>
+                                        </Link>
+                                      );
+                                    })}
+                                  </React.Fragment>
+                                )
+                              )}
+                            </div>
+                          </div>
+                        )}
+                        </div>
                     </div>
                   </div>
                   {/* Hero Section For Desktop */}
@@ -367,9 +425,8 @@ const Home = ({ params }: { params: any }) => {
                                       <React.Fragment key={groupIndex}>
                                         {group.map((skill, i) => {
                                           // Calculate the skill number (groupIndex+1).(i+1)
-                                          const skillNumber = `${
-                                            groupIndex + 1
-                                          }.${i + 1}`;
+                                          const skillNumber = `${groupIndex + 1
+                                            }.${i + 1}`;
 
                                           return (
                                             <Link
@@ -420,9 +477,9 @@ const Home = ({ params }: { params: any }) => {
                 </div>
 
                 {/* About Section Completed*/}
-                <section className="w-full mb-[5rem]">
+                <section className="w-full mb-[5rem] landscape_print_page_height print:bg-[#a3ddd3] ">
                   {/* Container Div*/}
-                  <div className="mainContainer flex flex-col-reverse gap-[5rem] xl:gap-0 xl:flex-row items-center justify-center xl:justify-between">
+                  <div className="mainContainer flex flex-col-reverse gap-[5rem] xl:gap-0 xl:flex-row xl:justify-between print:flex items-center justify-center print:flex-col print:w-full ">
                     {/* Container For Image and Badges */}
                     <div className="w-full h-full xl:w-[67rem] xl:h-[64rem] flex-shrink-0 max-xl:flex  justify-center">
                       <div
@@ -484,7 +541,7 @@ const Home = ({ params }: { params: any }) => {
                       {/* About Context */}
                       <div className="w-full print:mb-4 print:flex items-center justify-center flex-col">
                         {/* Badge */}
-                        <div className="px-[2rem] mt-[3rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-[2rem] print:mt-0 print:border-black">
+                        <div className="px-[2rem] mt-[3rem] py-[0.4rem]  bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem]  font-medium font-Inter leading-[2rem] print:mt-0 print:border-black  print:py-[1.4rem]  print:px-[6rem] print:text-[3rem]">
                           About Me
                         </div>
                         {/* Heading */}
@@ -568,9 +625,8 @@ const Home = ({ params }: { params: any }) => {
                         <div className="my-[2rem] rounded-[0.8rem] print:w-full print:max-w-[50%] overflow-hidden w-full grid grid-cols-12 print:my-2 print:grid-cols-1 print:gap-4">
                           {/* Name */}
                           <div
-                            className={`w-full border border-border border-solid py-[3rem] px-[2rem] col-span-12 ${
-                              urlInfo?.u ? "md:col-span-12" : "md:col-span-6"
-                            } print:col-span-1 home_social_card `}
+                            className={`w-full border border-border border-solid py-[3rem] px-[2rem] col-span-12 ${urlInfo?.u ? "md:col-span-12" : "md:col-span-6"
+                              } print:col-span-1 home_social_card `}
                           >
                             <div className="w-full">
                               <h4 className="hover:font-bold text-[1.6rem] duration-300 font-normal text-primary print:text-black print:text-sm">
@@ -618,9 +674,8 @@ const Home = ({ params }: { params: any }) => {
 
                           {/* Address */}
                           <div
-                            className={`w-full border border-border border-solid py-[3rem] px-[2rem] col-span-12 ${
-                              urlInfo?.u ? "md:col-span-12" : "md:col-span-6"
-                            } print:col-span-1 home_social_card`}
+                            className={`w-full border border-border border-solid py-[3rem] px-[2rem] col-span-12 ${urlInfo?.u ? "md:col-span-12" : "md:col-span-6"
+                              } print:col-span-1 home_social_card`}
                           >
                             <Link
                               target="_blank"
@@ -638,22 +693,21 @@ const Home = ({ params }: { params: any }) => {
                               {listOfdata?.location?.includes(
                                 "Manchester, UK"
                               ) && (
-                                <Image
-                                  src={"/images/ukFlag.svg"}
-                                  height={35}
-                                  width={35}
-                                  className="h-[3rem] w-[3rem] rounded-full object-cover print:h-6 print:w-6"
-                                  alt="Uk Flag"
-                                />
-                              )}
+                                  <Image
+                                    src={"/images/ukFlag.svg"}
+                                    height={35}
+                                    width={35}
+                                    className="h-[3rem] w-[3rem] rounded-full object-cover print:h-6 print:w-6"
+                                    alt="Uk Flag"
+                                  />
+                                )}
                             </Link>
                           </div>
 
                           {/* Work Proof */}
                           <div
-                            className={`w-full border border-border border-solid py-[3rem] px-[2rem] col-span-12 ${
-                              urlInfo?.u ? "md:col-span-12" : "md:col-span-6"
-                            } print:col-span-1 home_social_card`}
+                            className={`w-full border border-border border-solid py-[3rem] px-[2rem] col-span-12 ${urlInfo?.u ? "md:col-span-12" : "md:col-span-6"
+                              } print:col-span-1 home_social_card`}
                           >
                             <div className="w-full flex items-center gap-[1.4rem] mb-[0.8rem] print:gap-2">
                               <WorkProofLinks
@@ -722,7 +776,7 @@ const Home = ({ params }: { params: any }) => {
 
                 {/* Custom Video Player Section */}
                 {listOfdata?.video_attached?.videoURL && (
-                  <div className="w-full mb-[10rem] xl:mb-[12rem] mainContainer">
+                  <div className="w-full mb-[10rem] xl:mb-[12rem] mainContainer print:hidden ">
                     <video
                       autoPlay
                       muted
@@ -742,11 +796,11 @@ const Home = ({ params }: { params: any }) => {
                 {listOfdata && listOfdata?.skills_ids?.length > 0 && (
                   <>
                     {/* Skills Section Completed */}
-                    <div className="mainContainer my-[5rem] print:break-before-page">
+                    <div className="mainContainer my-[5rem]  print:break-before-page print:pt-[56px]  landscape_print_page_height print:bg-[#a3ddd3]">
                       {/* Badge */}
                       <div
                         id="skills_ids"
-                        className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto"
+                        className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto print:px-[6rem] print:text-[3rem] "
                       >
                         Skills
                       </div>
@@ -767,10 +821,10 @@ const Home = ({ params }: { params: any }) => {
                 {listOfdata &&
                   listOfdata?.services &&
                   listOfdata?.services?.length > 0 && (
-                    <section className="w-full bg-sectionBG my-[5rem] print:break-before-page">
+                    <section className="w-full bg-sectionBG my-[5rem] print:m-0 landscape_print_page_pedding print:break-before-page landscape_print_page_height ">
                       <div className="mainContainer py-[5rem] xl:py-[10rem]">
                         {/* Badge */}
-                        <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto">
+                        <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto print:px-[6rem] print:text-[3rem] ">
                           My Services
                         </div>
                         {/* Heading */}
@@ -793,10 +847,10 @@ const Home = ({ params }: { params: any }) => {
                   listOfdata.portfolios_ids.length > 0 && (
                     <>
                       {/* My Work Section Slider  */}
-                      <section className="w-full mt-[8rem] mb-[7rem]">
-                        <div className="mainContainer my-[5rem] print:break-before-page">
+                      <section className="w-full mt-[8rem] mb-[7rem] landscape_print_page_pedding print:bg-[#a3ddd3]  ">
+                        <div className="mainContainer my-[5rem] ">
                           {/* Badge */}
-                          <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto">
+                          <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto print:px-[6rem] print:text-[3rem] ">
                             My Work
                           </div>
                           {/* Heading */}
@@ -819,10 +873,10 @@ const Home = ({ params }: { params: any }) => {
                   listOfdata.experiences_ids.length > 0 && (
                     <>
                       {/* Professional Experience Timeline Section Completed */}
-                      <section className="w-full">
+                      <section className="w-full landscape_print_page_height print:py-[3rem] print:bg-[#a3ddd3] landscape_print_page_height">
                         <div className="mainContainer print:break-before-page print:shadow-none ">
                           {/* Badge */}
-                          <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto">
+                          <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto print:px-[6rem] print:text-[3rem] ">
                             Professional Experience
                           </div>
                           {/* Heading */}
@@ -830,7 +884,7 @@ const Home = ({ params }: { params: any }) => {
                             My Professional Career Journey
                           </div>
                           {/* Timeline */}
-                          <div className="mainContainer flex items-center justify-center mt-[2rem] ">
+                          <div className="mainContainer flex items-center justify-center mt-[2rem] print:m-0 ">
                             <div className="relative  ">
                               {/* Vertical line */}
                               <div className="absolute print_hidden left-[10rem] top-[3rem] w-[0.4rem] h-[calc(100%-78px)] bg-border  mx-[2.1rem] hidden xl:block" />
@@ -894,9 +948,9 @@ const Home = ({ params }: { params: any }) => {
                                             )
                                               ? experience.ending_Date
                                               : formatDate(
-                                                  experience.ending_Date,
-                                                  dateFormatsOptions.shortMonthYear
-                                                )}
+                                                experience.ending_Date,
+                                                dateFormatsOptions.shortMonthYear
+                                              )}
                                           </div>
                                           {/* Timeline item */}
                                           <>
@@ -969,16 +1023,16 @@ const Home = ({ params }: { params: any }) => {
                                                       {experience.company_website.includes(
                                                         "upwork"
                                                       ) && (
-                                                        <Link
-                                                          href={
-                                                            experience.company_website
-                                                          }
-                                                          className="hover:bg-primary hover:text-white py-[0.4rem] px-[1rem] text-heading bg-[#A3DDD3] rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
-                                                        >
-                                                          View my upwork
-                                                          Freelance Profile
-                                                        </Link>
-                                                      )}{" "}
+                                                          <Link
+                                                            href={
+                                                              experience.company_website
+                                                            }
+                                                            className="hover:bg-primary hover:text-white py-[0.4rem] px-[1rem] text-heading bg-[#A3DDD3] rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
+                                                          >
+                                                            View my upwork
+                                                            Freelance Profile
+                                                          </Link>
+                                                        )}{" "}
                                                     </div>
                                                   </div>
                                                 </div>
@@ -1002,7 +1056,7 @@ const Home = ({ params }: { params: any }) => {
 
                                                 {experience?.skills &&
                                                   experience?.skills.length >
-                                                    0 && (
+                                                  0 && (
                                                     <div className="w-full">
                                                       <h4 className=" text-[1.5rem] text-primary font-medium my-[1.6rem] ">
                                                         AREAS OF EXPERTISE I'VE
@@ -1026,10 +1080,9 @@ const Home = ({ params }: { params: any }) => {
                                                                     i
                                                                   ) => {
                                                                     // Calculate the skill number (groupIndex+1).(i+1)
-                                                                    const skillNumber = `${
-                                                                      groupIndex +
+                                                                    const skillNumber = `${groupIndex +
                                                                       1
-                                                                    }.${i + 1}`;
+                                                                      }.${i + 1}`;
 
                                                                     return (
                                                                       <Link
@@ -1044,10 +1097,9 @@ const Home = ({ params }: { params: any }) => {
                                                                           target="_blank"
                                                                           rel="noopener noreferrer"
                                                                           style={{
-                                                                            animationDelay: `${
-                                                                              i *
+                                                                            animationDelay: `${i *
                                                                               0.1
-                                                                            }s`,
+                                                                              }s`,
                                                                           }}
                                                                           className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium py-[0.4rem] px-[2rem] bg-white flex items-center print:py-[0.2rem] print:px-[1.5rem] justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
                                                                         >
@@ -1088,7 +1140,7 @@ const Home = ({ params }: { params: any }) => {
                                       setShowAllExperiences(!showAllExperiences)
                                     }
                                     className="btn-primary text-white py-[1rem] px-[3.4rem] text-[1.8rem] font-medium"
-                                    // className="bg-primary  text-white py-[0.4rem] px-[2rem] border border-primary border-solid hover:text-primary hover:bg-white rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
+                                  // className="bg-primary  text-white py-[0.4rem] px-[2rem] border border-primary border-solid hover:text-primary hover:bg-white rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
                                   >
                                     {showAllExperiences
                                       ? "Show Less"
@@ -1106,7 +1158,7 @@ const Home = ({ params }: { params: any }) => {
                 {/* FAQ Section Completed */}
                 <Faqs urlInfo={urlInfo} companyType={listOfdata?.companytype} />
                 {/* Our Blogs */}
-                <div className="my-[5rem]">
+                <div className="my-[5rem] print:bg-[#a3ddd3] landscape_print_page_height">
                   <OurBlogs domain={listOfdata?.domain} />
                 </div>
                 {/* Newsletter */}
