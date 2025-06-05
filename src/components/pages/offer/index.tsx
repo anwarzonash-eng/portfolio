@@ -92,14 +92,18 @@ const Offer = ({ params }: { params: any }) => {
   }, [detailService]);
 
   useEffect(() => {
-    if (
-      serviceRefs?.current &&
-      serviceToScroll &&
-      serviceRefs?.current[serviceToScroll]
-    ) {
-      serviceRefs?.current[serviceToScroll]?.scrollIntoView({
-        behavior: "smooth",
-      });
+    if (serviceRefs?.current && serviceToScroll && detailService?.length) {
+      const indexToExpand = detailService.findIndex(
+        (service) => service.title === serviceToScroll
+      );
+
+      if (indexToExpand !== -1) {
+        setActiveDropdown(indexToExpand); 
+        serviceRefs.current[serviceToScroll]?.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+      }
     }
   }, [serviceToScroll, detailService]);
 
@@ -209,16 +213,20 @@ const Offer = ({ params }: { params: any }) => {
                       >
                         {/* Section where click to expand and collapse */}
                         <div
-                          className={`p-[1rem] lg:p-[3rem] print:p-[17px] mb-[5rem] print:!mb-[2rem] bg-primary bg-cvBoxDesktop bg-center bg-no-repeat bg-cover lg:bg-contain cursor-pointer print:bg-black print:text-white ${activeDropdown === index ? "bg-expanded" : ""
-                            }`}
+                          className={`p-[1rem] lg:p-[3rem] print:p-[17px] mb-[5rem] print:!mb-[2rem] bg-primary bg-cvBoxDesktop bg-center bg-no-repeat bg-cover lg:bg-contain cursor-pointer print:bg-black print:text-white ${
+                            activeDropdown === index ? "bg-expanded" : ""
+                          }`}
                           onClick={() => {
-                            toggleDropdown(index);
-                            serviceRefs.current[service?.title]?.scrollIntoView(
-                              {
+                            setActiveDropdown(index); // force expand the card
+
+                            const serviceRef =
+                              serviceRefs.current?.[service?.title];
+                            if (serviceRef) {
+                              serviceRef.scrollIntoView({
                                 behavior: "smooth",
                                 block: "center",
-                              }
-                            );
+                              });
+                            }
                           }}
                         >
                           <div className="flex flex-col md:flex-row items-start md:items-center gap-[2rem] mb-[2rem]">
@@ -244,14 +252,16 @@ const Offer = ({ params }: { params: any }) => {
                               <img
                                 src="/images/expand_icon.png"
                                 alt=""
-                                className={`w-[52px] print:hidden block ${activeDropdown === index ? "hidden" : "block"
-                                  }`}
+                                className={`w-[52px] print:hidden block ${
+                                  activeDropdown === index ? "hidden" : "block"
+                                }`}
                               />
                               <img
                                 src="/images/collaps_icon.png"
                                 alt=""
-                                className={`w-[52px] print:hidden block ${activeDropdown === index ? "block" : "hidden"
-                                  }`}
+                                className={`w-[52px] print:hidden block ${
+                                  activeDropdown === index ? "block" : "hidden"
+                                }`}
                               />
                             </div>
                           </div>
@@ -265,10 +275,11 @@ const Offer = ({ params }: { params: any }) => {
 
                         {/* Expandable content with smooth transitions */}
                         <div
-                          className={`transition-all duration-500 ease-in-out overflow-hidden ${activeDropdown === index
+                          className={`transition-all duration-500 ease-in-out overflow-hidden ${
+                            activeDropdown === index
                               ? "md:max-h-[950px] opacity-100"
                               : "max-h-0 opacity-0"
-                            } print-expanded`}
+                          } print-expanded`}
                         >
                           <div className="flex w-full flex-col items-start">
                             <div
@@ -356,14 +367,14 @@ const SkillsComponent = ({ service, skillsList, index = 0 }) => {
             <React.Fragment key={groupIndex}>
               {group.map((skill, i) => {
                 // Calculate the skill number (groupIndex+1).(i+1)
-                const skillNumber = `${groupIndex + 1
-                  }.${i + 1}`;
+                const skillNumber = `${groupIndex + 1}.${i + 1}`;
 
                 return (
-
-
-
-                  <Link href={skill.url || "#"} legacyBehavior key={`${groupIndex}-${i}`}>
+                  <Link
+                    href={skill.url || "#"}
+                    legacyBehavior
+                    key={`${groupIndex}-${i}`}
+                  >
                     <a
                       target="_blank"
                       rel="noopener noreferrer"
@@ -372,16 +383,12 @@ const SkillsComponent = ({ service, skillsList, index = 0 }) => {
                       }}
                       className="hover:bg-primary capitaliz  print:!py-[1px] hover:text-white text-center text-primary text-[1.3rem] font-medium  py-[0.4rem] px-[2rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
                     >
-
                       {skill?.title}
                     </a>
                   </Link>
-
-
-
-
                 );
-              })}</React.Fragment>
+              })}
+            </React.Fragment>
           ))}{" "}
         </div>
         <ShowmoreSkills
@@ -392,7 +399,6 @@ const SkillsComponent = ({ service, skillsList, index = 0 }) => {
             showMoreSkills,
           }}
         />
-
       </div>
     </div>
   );
