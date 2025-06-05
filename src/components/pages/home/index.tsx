@@ -492,11 +492,11 @@ const Home = ({ params }: { params: any }) => {
                           dangerouslySetInnerHTML={{
                             __html: listOfdata?.tag_line,
                           }}
-                          className="text-heading print:text-center text-[2.4rem] print:leading-[43px] mt-[2rem] mb-[1.2rem] font-medium leading-[2.8rem] lg:text-[3rem] lg:leading-[3.8rem] print:text-[32px] print:mt-[23px] print:mb-2"
+                          className="text-heading print:text-center text-[2.4rem] print:leading-[43px] mt-[2rem] mb-[1.2rem] font-medium leading-[2.8rem] lg:text-[3rem] lg:leading-[3.8rem] print:text-[24px] print:mt-[20px] print:mb-2"
                         ></div>
                         {/* Paragraph */}
                         {listOfdata?.designation && (
-                          <p className="text-[1.6rem] font-normal text-paragraph1 leading-[2.4rem] print:text-[22px] print:mb-[22px] print:mt-[18px]">
+                          <p className="text-[1.6rem] font-normal text-paragraph1 leading-[2.4rem] print:text-[18px] print:mb-[22px] print:mt-[16px]">
                             Currently Open for full time position as a{" "}
                             <span className="lowercase">
                               {listOfdata?.designation}
@@ -507,130 +507,188 @@ const Home = ({ params }: { params: any }) => {
                       </div>
 
                       {/* Info Cards - Adjusted for print */}
-                      <div className="my-[2rem] rounded-[0.8rem] overflow-hidden w-full grid grid-cols-12 print:my-2 print:grid-cols-1 print:gap-4">
-                        {/* Name */}
-                        <div
-                          className={`w-full border border-border border-solid py-[3rem] px-[2rem] col-span-12 ${
-                            urlInfo?.u ? "md:col-span-12" : "md:col-span-6"
-                          } print:col-span-1 home_social_card `}
-                        >
-                          <div className="w-full">
-                            <h4 className="hover:font-bold text-[1.6rem] duration-300 font-normal text-primary print:text-black print:text-sm">
-                              {listOfdata?.name}
-                            </h4>
-                            <p className="text-[1.4rem] font-normal text-paragraph1 print:text-xs">
-                              Name
-                            </p>
+                      <div className="print:flex flex-row gap-8 items-start justify-center print:w-full">
+                        <div className="print:flex  items-center print:w-full print:max-w-[50%] justify-center gap-14 flex-col hidden ">
+                          <div
+                            className="relative  h-[60rem]  bg-center bg-cover bg-no-repeat w-full rounded-[1rem]"
+                            style={{
+                              backgroundImage: `url('${listOfdata?.profile_photo_3}')`,
+                            }}
+                          ></div>
+                          <div className="flex items-center gap-8  justify-between  w-full">
+                            {/* Experience Badge */}
+                            <div className="bg-white w-full rounded-[0.8rem] p-[1.4rem]  flex items-center shadow-md gap-[2rem] ">
+                              {/* Badge SVG */}
+                              <div className="bg-[#2A97FC] rounded-[50%] flex items-center justify-center h-[4.9rem] w-[4.9rem] xl:h-[6.8rem] xl:w-[6.8rem]">
+                                <img
+                                  src="./images/experience.svg"
+                                  alt="Experience"
+                                  className="h-[2.4rem] w-[2.4rem] xl:h-[3.4rem] xl:w-[3.4rem]"
+                                />
+                              </div>
+                              {/* Badge Content */}
+                              <div className="flex flex-col justify-center">
+                                <h3 className="uppercase text-[1.4rem] xl:text-[1.8rem] font-semibold  text-heading leading-none mt-[1rem]">
+                                  Experience
+                                </h3>
+                                <p className="text-[2.4rem] xl:text-[3rem] font-bold text-primary">
+                                  {listOfdata?.no_of_experiences}+{" "}
+                                  <span className="text-[2rem]">
+                                    {listOfdata?.no_of_experiences === 1
+                                      ? "year"
+                                      : "years"}
+                                  </span>
+                                </p>
+                              </div>
+                            </div>
+
+                            {/* Projects Badge */}
+                            <div className="bg-white w-full rounded-[0.8rem]  p-[1.4rem] flex items-center shadow-md gap-[1rem]">
+                              {/* Badge SVG */}
+                              <div className="bg-[#FC822A] rounded-[50%] flex items-center justify-center h-[4.9rem] w-[4.9rem] xl:h-[6.8rem] xl:w-[6.8rem]">
+                                <img
+                                  src="./images/badge.svg"
+                                  alt="Experience"
+                                  className="h-[2.4rem] w-[2.4rem] xl:h-[3.4rem] xl:w-[3.4rem]"
+                                />
+                              </div>
+                              {/* Badge Content */}
+                              <div className="flex flex-col justify-center">
+                                <h3 className="uppercase text-[1.4rem] xl:text-[1.8rem] font-semibold  text-heading leading-none mt-[1rem]">
+                                  Projects Completed
+                                </h3>
+                                <p className="text-[2.4rem] xl:text-[3rem] font-bold text-primary">
+                                  {listOfdata?.projects_completed}+
+                                </p>
+                              </div>
+                            </div>
                           </div>
                         </div>
 
-                        {/* Email (if visible) */}
-                        {!urlInfo?.u && (
-                          <div className="md:col-span-6 col-span-12 w-full border border-border border-solid py-[3rem] px-[2rem] print:col-span-1 home_social_card">
-                            <div className="w-full text-wrap break-words">
-                              <Link
-                                href={`mailto:${listOfdata?.email}`}
-                                className="hover:font-bold text-[1.6rem] duration-300 font-normal text-primary print:text-black print:text-sm print:no-underline"
-                              >
-                                {listOfdata?.email}
-                              </Link>
-                              <p className="text-[1.4rem] font-normal text-paragraph1 print:text-xs">
-                                Email
-                              </p>
-                            </div>
-                          </div>
-                        )}
-
-                        {/* Contact (if visible) */}
-                        {!urlInfo?.u && (
-                          <div className="md:col-span-6 col-span-12 w-full border border-border border-solid py-[3rem] px-[2rem] print:col-span-1 home_social_card">
-                            <div className="w-full">
-                              <Link
-                                href={`tel:${listOfdata?.phone_no}`}
-                                className="hover:font-bold text-[1.6rem] duration-300 font-normal text-primary print:text-black print:text-sm print:no-underline"
-                              >
-                                {formatPhoneNumber(listOfdata?.phone_no)}
-                              </Link>
-                              <p className="text-[1.4rem] font-normal text-paragraph1 print:text-xs">
-                                Contact
-                              </p>
-                            </div>
-                          </div>
-                        )}
-
-                        {/* Address */}
-                        <div
-                          className={`w-full border border-border border-solid py-[3rem] px-[2rem] col-span-12 ${
-                            urlInfo?.u ? "md:col-span-12" : "md:col-span-6"
-                          } print:col-span-1 home_social_card`}
-                        >
-                          <Link
-                            target="_blank"
-                            href={`https://www.google.com/maps/place/${listOfdata?.location}`}
-                            className="w-full flex justify-between group print:no-underline"
+                        <div className="my-[2rem] rounded-[0.8rem] print:w-full print:max-w-[50%] overflow-hidden w-full grid grid-cols-12 print:my-2 print:grid-cols-1 print:gap-4">
+                          {/* Name */}
+                          <div
+                            className={`w-full border border-border border-solid py-[3rem] px-[2rem] col-span-12 ${
+                              urlInfo?.u ? "md:col-span-12" : "md:col-span-6"
+                            } print:col-span-1 home_social_card `}
                           >
-                            <div>
-                              <h4 className="group-hover:font-bold text-[1.6rem] duration-300 font-normal text-primary print:text-black print:text-sm">
-                                {listOfdata?.location}
+                            <div className="w-full">
+                              <h4 className="hover:font-bold text-[1.6rem] duration-300 font-normal text-primary print:text-black print:text-sm">
+                                {listOfdata?.name}
                               </h4>
                               <p className="text-[1.4rem] font-normal text-paragraph1 print:text-xs">
-                                Address
+                                Name
                               </p>
                             </div>
-                            {listOfdata?.location?.includes(
-                              "Manchester, UK"
-                            ) && (
-                              <Image
-                                src={"/images/ukFlag.svg"}
-                                height={35}
-                                width={35}
-                                className="h-[3rem] w-[3rem] rounded-full object-cover print:h-6 print:w-6"
-                                alt="Uk Flag"
-                              />
-                            )}
-                          </Link>
-                        </div>
-
-                        {/* Work Proof */}
-                        <div
-                          className={`w-full border border-border border-solid py-[3rem] px-[2rem] col-span-12 ${
-                            urlInfo?.u ? "md:col-span-12" : "md:col-span-6"
-                          } print:col-span-1 home_social_card`}
-                        >
-                          <div className="w-full flex items-center gap-[1.4rem] mb-[0.8rem] print:gap-2">
-                            <WorkProofLinks
-                              props={{
-                                upwork: listOfdata?.upwork,
-                                github: listOfdata?.github,
-                                linkedIn: listOfdata?.linkedIn,
-                                behance_link: listOfdata?.behance_link,
-                                u: urlInfo?.u,
-                              }}
-                            />
                           </div>
-                          <p className="text-[1.35rem] font-normal text-paragraph1 print:text-xs">
-                            My Work Proof
-                          </p>
-                        </div>
 
-                        {/* Contact Me (if visible) */}
-                        {!urlInfo?.u && (
-                          <div className="md:col-span-6 col-span-12 w-full border border-border border-solid py-[3rem] px-[2rem] print:col-span-1 home_social_card">
+                          {/* Email (if visible) */}
+                          {!urlInfo?.u && (
+                            <div className="md:col-span-6 col-span-12 w-full border border-border border-solid py-[3rem] px-[2rem] print:col-span-1 home_social_card">
+                              <div className="w-full text-wrap break-words">
+                                <Link
+                                  href={`mailto:${listOfdata?.email}`}
+                                  className="hover:font-bold text-[1.6rem] duration-300 font-normal text-primary print:text-black print:text-sm print:no-underline"
+                                >
+                                  {listOfdata?.email}
+                                </Link>
+                                <p className="text-[1.4rem] font-normal text-paragraph1 print:text-xs">
+                                  Email
+                                </p>
+                              </div>
+                            </div>
+                          )}
+
+                          {/* Contact (if visible) */}
+                          {!urlInfo?.u && (
+                            <div className="md:col-span-6 col-span-12 w-full border border-border border-solid py-[3rem] px-[2rem] print:col-span-1 home_social_card">
+                              <div className="w-full">
+                                <Link
+                                  href={`tel:${listOfdata?.phone_no}`}
+                                  className="hover:font-bold text-[1.6rem] duration-300 font-normal text-primary print:text-black print:text-sm print:no-underline"
+                                >
+                                  {formatPhoneNumber(listOfdata?.phone_no)}
+                                </Link>
+                                <p className="text-[1.4rem] font-normal text-paragraph1 print:text-xs">
+                                  Contact
+                                </p>
+                              </div>
+                            </div>
+                          )}
+
+                          {/* Address */}
+                          <div
+                            className={`w-full border border-border border-solid py-[3rem] px-[2rem] col-span-12 ${
+                              urlInfo?.u ? "md:col-span-12" : "md:col-span-6"
+                            } print:col-span-1 home_social_card`}
+                          >
+                            <Link
+                              target="_blank"
+                              href={`https://www.google.com/maps/place/${listOfdata?.location}`}
+                              className="w-full flex justify-between group print:no-underline"
+                            >
+                              <div>
+                                <h4 className="group-hover:font-bold text-[1.6rem] duration-300 font-normal text-primary print:text-black print:text-sm">
+                                  {listOfdata?.location}
+                                </h4>
+                                <p className="text-[1.4rem] font-normal text-paragraph1 print:text-xs">
+                                  Address
+                                </p>
+                              </div>
+                              {listOfdata?.location?.includes(
+                                "Manchester, UK"
+                              ) && (
+                                <Image
+                                  src={"/images/ukFlag.svg"}
+                                  height={35}
+                                  width={35}
+                                  className="h-[3rem] w-[3rem] rounded-full object-cover print:h-6 print:w-6"
+                                  alt="Uk Flag"
+                                />
+                              )}
+                            </Link>
+                          </div>
+
+                          {/* Work Proof */}
+                          <div
+                            className={`w-full border border-border border-solid py-[3rem] px-[2rem] col-span-12 ${
+                              urlInfo?.u ? "md:col-span-12" : "md:col-span-6"
+                            } print:col-span-1 home_social_card`}
+                          >
                             <div className="w-full flex items-center gap-[1.4rem] mb-[0.8rem] print:gap-2">
-                              <ContactMeLinks
+                              <WorkProofLinks
                                 props={{
-                                  email: listOfdata?.email,
-                                  phone_no: listOfdata?.phone_no,
+                                  upwork: listOfdata?.upwork,
+                                  github: listOfdata?.github,
+                                  linkedIn: listOfdata?.linkedIn,
+                                  behance_link: listOfdata?.behance_link,
+                                  u: urlInfo?.u,
                                 }}
                               />
                             </div>
                             <p className="text-[1.35rem] font-normal text-paragraph1 print:text-xs">
-                              Contact Me
+                              My Work Proof
                             </p>
                           </div>
-                        )}
-                      </div>
 
+                          {/* Contact Me (if visible) */}
+                          {!urlInfo?.u && (
+                            <div className="md:col-span-6 col-span-12 w-full border border-border border-solid py-[3rem] px-[2rem] print:col-span-1 home_social_card">
+                              <div className="w-full flex items-center gap-[1.4rem] mb-[0.8rem] print:gap-2">
+                                <ContactMeLinks
+                                  props={{
+                                    email: listOfdata?.email,
+                                    phone_no: listOfdata?.phone_no,
+                                  }}
+                                />
+                              </div>
+                              <p className="text-[1.35rem] font-normal text-paragraph1 print:text-xs">
+                                Contact Me
+                              </p>
+                            </div>
+                          )}
+                        </div>
+                      </div>
                       {/* Button Line - Hidden in print */}
                       <div className="md:space-x-5 py-[2rem] print:hidden">
                         <Link href={"/cv"}>
@@ -823,7 +881,7 @@ const Home = ({ params }: { params: any }) => {
                                         {/* Timeline items Container */}
                                         <div className="space-y-[1rem]  xl:space-y-[3rem] xl:space-x-[9rem] mt-10">
                                           {/* Date and divider */}
-                                          <div className="ml-[0.5rem] print_hidden xl:mb-auto xl:ml-auto xl:absolute left-[-7.6rem] z-10 text-[1.8rem] text-paragraph1 capitalize">
+                                          <div className="ml-[0.5rem]  xl:mb-auto xl:ml-auto xl:absolute left-[-7.6rem] z-10 text-[1.8rem] text-paragraph1 capitalize">
                                             {formatDate(
                                               experience.starting_date,
                                               dateFormatsOptions.shortMonthYear

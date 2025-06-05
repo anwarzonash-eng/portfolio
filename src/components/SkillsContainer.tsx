@@ -33,9 +33,7 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({ list }) => {
       );
 
   // Explicitly type the skills object
-  const skills: Record<string, SkillType[]> = skillsGrouping(
-    visibleSkills || []
-  );
+  const skills: Record<string, SkillType[]> = skillsGrouping(visibleSkills || []);
 
   return (
     <div className="flex flex-col items-center">
@@ -51,16 +49,17 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({ list }) => {
                 }}
                 className="mx-auto mb-[4rem] flex flex-col items-center justify-start gap-[0.8rem] max-w-[13rem] lg:max-w-[17rem] w-full animate-fadeIn opacity-0"
               >
-                <div className="flex items-center justify-center h-[6.4rem] w-[6.4rem]">
-                  <Image
-                    src={skill.icon || "/images/placeholders/skill.png"}
-                    alt={skill.title}
-                    height={64}
-                    width={64}
-                    className="object-cover rounded-full h-[6.4rem] w-[6.4rem]"
-                  />
-                </div>
-
+                {skill.icon && (
+                  <div className="flex items-center justify-center h-[6.4rem] w-[6.4rem]">
+                    <Image
+                      src={skill.icon}
+                      alt={skill.title}
+                      height={64}
+                      width={64}
+                      className="object-cover rounded-full h-[6.4rem] w-[6.4rem]"
+                    />
+                  </div>
+                )}
                 <p className="mt-[1.5rem] text-paragraph1 text-center text-[1.8rem] leading-[2.8rem] overflow-hidden text-ellipsis">
                   {skill.title}
                 </p>
@@ -72,34 +71,31 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({ list }) => {
 
       {/* Print View Grid - Always shows all skills in 3 columns */}
       <div className="hidden print:grid print:grid-cols-10 print:gap-[1.5rem] print:mt-[6rem]">
-        {list &&
-          Object.values(skillsGrouping(list)).map(
-            (group: SkillType[], groupIndex: number) => (
-              <React.Fragment key={`print-${groupIndex}`}>
-                {group.map((skill: SkillType, i: number) => (
-                  <div
-                    key={`print-${groupIndex}-${i}`}
-                    className="mx-auto mb-[4rem] flex flex-col items-center justify-start gap-[0.8rem] max-w-[13rem] w-full print:opacity-100"
-                  >
-                    {skill.icon && (
-                      <div className="flex items-center justify-center h-[6.4rem] w-[6.4rem]">
-                        <Image
-                          src={skill.icon}
-                          alt={skill.title}
-                          height={64}
-                          width={64}
-                          className="object-cover rounded-full h-[6.4rem] w-[6.4rem]"
-                        />
-                      </div>
-                    )}
-                    <p className="mt-[1.5rem] text-paragraph1 text-center text-[1.8rem] leading-[2.8rem] overflow-hidden text-ellipsis">
-                      {skill.title}
-                    </p>
+        {list && Object.values(skillsGrouping(list)).map((group: SkillType[], groupIndex: number) => (
+          <React.Fragment key={`print-${groupIndex}`}>
+            {group.map((skill: SkillType, i: number) => (
+              <div
+                key={`print-${groupIndex}-${i}`}
+                className="mx-auto mb-[4rem] flex flex-col items-center justify-start gap-[0.8rem] max-w-[13rem] w-full print:opacity-100"
+              >
+                {skill.icon && (
+                  <div className="flex items-center justify-center h-[6.4rem] w-[6.4rem]">
+                    <Image
+                      src={skill.icon}
+                      alt={skill.title}
+                      height={64}
+                      width={64}
+                      className="object-cover rounded-full h-[6rem] w-[6rem]"
+                    />
                   </div>
-                ))}
-              </React.Fragment>
-            )
-          )}
+                )}
+                <p className=" text-paragraph1 text-center text-[1.1rem] leading-[2.8rem] overflow-hidden text-ellipsis">
+                  {skill.title}
+                </p>
+              </div>
+            ))}
+          </React.Fragment>
+        ))}
       </div>
 
       {/* Show More/Show Less button - Hidden on print */}
