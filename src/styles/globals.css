@@ -396,7 +396,7 @@ body {
   @apply print:hidden
 }
 .home_social_card{
-  @apply  print:py-[3.2rem] print:px-[4rem]
+  @apply  print:py-[2.8rem] print:px-[4rem]
 }
 
 @media print {

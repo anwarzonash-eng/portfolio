@@ -85,11 +85,11 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({ list }) => {
                       alt={skill.title}
                       height={64}
                       width={64}
-                      className="object-cover rounded-full h-[6.4rem] w-[6.4rem]"
+                      className="object-cover rounded-full h-[6rem] w-[6rem]"
                     />
                   </div>
                 )}
-                <p className="mt-[1.5rem] text-paragraph1 text-center text-[1.8rem] leading-[2.8rem] overflow-hidden text-ellipsis">
+                <p className=" text-paragraph1 text-center text-[1.1rem] leading-[2.8rem] overflow-hidden text-ellipsis">
                   {skill.title}
                 </p>
               </div>

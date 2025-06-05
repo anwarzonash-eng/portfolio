@@ -297,7 +297,7 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
                             {isServicesOpen && (
                               <nav
                                 ref={servicesDivRef}
-                                className={`rounded-[0.8rem] duration-300 shadow-lg bg-white absolute top-[4rem] left-[-10rem] z-50
+                                className={`rounded-[0.8rem] duration-300 shadow-lg bg-white absolute top-[4rem] left-[-26rem] z-50
         ${isServicesOpen ? "opacity-100" : "opacity-0"}
         p-[2rem] w-[90rem]`}
                               >
