@@ -240,6 +240,7 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
         <>
           {!urlInfo?.u && <OfferBanner listOfdata={listOfdata} />}
           {/* {!pathname.includes('cv') && ( */}
+          {/* header for desktop */}
           <header
             className={`sticky top-0 left-0 w-full z-[100]  transition-colors duration-300 print:hidden block  ${bgColor}`}
           >
@@ -680,6 +681,70 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
                       )}
                     </div>
                   </div>
+                </div>
+              </div>
+            </div>
+          </header>
+
+
+          {/* header for print */}
+          <header
+            className={`sticky top-0 left-0 w-full z-[100]  transition-colors duration-300 print:block hidden  ${bgColor}`}
+          >
+            {/* Header Navbar */}
+            <div className="w-full  ">
+              {/* Desktop Header */}
+              <div className="max-[1100px]:hidden mainContainer h-[7.5rem] py-[2rem] border-b border-border flex justify-between items-center ">
+                {/* User Profile */}
+                <Link
+                  prefetch={true}
+                  href={"/"}
+                  className="flex justify-center items-center gap-[1.2rem] "
+                >
+                  <Image
+                    src={listOfdata?.profile_photo_1}
+                    height={48}
+                    width={48}
+                    alt="Profile Picture"
+                    className="rounded-[50%]"
+                  />
+
+                  <div className="text-heading text-[1.6rem] font-normal leading-tight break-all capitalize">
+                    {listOfdata?.name}
+                  </div>
+                </Link>
+                {/* NavLinks and Buttons */}
+                <div className="flex justify-center items-center">
+                  {/* Buttons */}
+                  {!urlInfo?.u && (
+                    <div className="flex items-center gap-[1rem]">
+                      <Link prefetch={true} href={"/contact-me"}>
+                        <button
+                          //  onClick={() => scrollToSection('contact')}
+                          className="btn-secondary  py-[1rem] px-[2.4rem] text-[1.6rem] font-medium rounded-[0.6rem]"
+                        >
+                          Contact Me
+                        </button>
+                      </Link>
+                      {listOfdata?.calendly_link ? (
+                        <Link
+                          target="_blank"
+                          prefetch={true}
+                          className="text-center btn-primary rounded-[0.6rem] border-2 border-border border-solid py-[1rem] px-[3.4rem] text-[1.6rem] font-medium text-white"
+                          href={listOfdata?.calendly_link || "#"}
+                        >
+                          Schedule Call
+                        </Link>
+                      ) : (
+                        <button
+                          className="btn-primary rounded-[0.6rem] border-2 border-border border-solid py-[1rem] px-[3.4rem] text-[1.6rem] font-medium text-white"
+                          onClick={() => scrollToSection("contact")}
+                        >
+                          Hire Me
+                        </button>
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

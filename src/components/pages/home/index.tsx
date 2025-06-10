@@ -110,9 +110,9 @@ const Home = ({ params }: { params: any }) => {
                 {/* <Welcome /> */}
 
                 {/* Hero Section */}
-                <div className="w-full overflow-hidden relative bg-bannerBG  landscape_print_page_height ">
+                <div className="w-full overflow-hidden relative bg-bannerBG print:break-before-page  print:h-[990.70px] print:m-0    ">
                   {/*Hero Section For Mobile and Tablet Devices*/}
-                  <div className="mainContainer relative xl:hidden print:w-full ">
+                  <div className="mainContainer relative xl:hidden print:hidden ">
                     {/* Hero Section Mobile Content */}
                     <div className="text-center mt-[7.6rem] ">
                       <p className="text-heading text-[2rem] md:text-[3.66rem] font-normal">
@@ -162,10 +162,11 @@ const Home = ({ params }: { params: any }) => {
                                   const groupIndex = Object.values(
                                     skills
                                   ).findIndex((group) => group.includes(skill));
-                                  const skillNumber = `${groupIndex + 1}.${skills[
+                                  const skillNumber = `${groupIndex + 1}.${
+                                    skills[
                                       Object.keys(skills)[groupIndex]
                                     ].indexOf(skill) + 1
-                                    }`;
+                                  }`;
 
                                   return (
                                     <Link
@@ -198,10 +199,11 @@ const Home = ({ params }: { params: any }) => {
                                     ).findIndex((group) =>
                                       group.includes(skill)
                                     );
-                                    const skillNumber = `${groupIndex + 1}.${skills[
+                                    const skillNumber = `${groupIndex + 1}.${
+                                      skills[
                                         Object.keys(skills)[groupIndex]
                                       ].indexOf(skill) + 1
-                                      }`;
+                                    }`;
 
                                     return (
                                       <Link
@@ -279,65 +281,65 @@ const Home = ({ params }: { params: any }) => {
                         </div>
                       </div>
                       <div className="print:w-[50%] print:block hidden print:mt-[45px]">
-  <p
-                        dangerouslySetInnerHTML={{
-                          __html: listOfdata?.tag_line,
-                        }}
-                        className="mb-[2rem] text-primary  text-[2.6rem] leading-[40px] text-start "
-                      ></p>
-                      {listOfdata &&
-                        listOfdata.skills_ids &&
-                        listOfdata.skills_ids.length > 0 && (
-                          <div className="   ">
-                            <div className="flex justify-between bg-primary border-b border-border w-full py-[1rem] px-[2rem]">
-                              <div className="text-left text-white text-[1.8rem] font-medium">
-                                My Skills
+                        <p
+                          dangerouslySetInnerHTML={{
+                            __html: listOfdata?.tag_line,
+                          }}
+                          className="mb-[2rem] text-primary  text-[2.6rem] leading-[40px] text-start "
+                        ></p>
+                        {listOfdata &&
+                          listOfdata.skills_ids &&
+                          listOfdata.skills_ids.length > 0 && (
+                            <div className="   ">
+                              <div className="flex justify-between bg-primary border-b border-border w-full py-[1rem] px-[2rem]">
+                                <div className="text-left text-white text-[1.8rem] font-medium">
+                                  My Skills
+                                </div>
                               </div>
-                              
-                            </div>
 
-                            <div
-                              ref={skillsContainerRef}
-                              className="w-full p-[1.5rem] bg-white/70 backdrop-blur-xl justify-start items-center gap-[0.6rem] flex flex-wrap r"
-                              style={{ maxHeight: "46.3rem" }}
-                            >
-                              {Object?.values(skills)?.map(
-                                (group, groupIndex) => (
-                                  <React.Fragment key={groupIndex}>
-                                    {group.map((skill, i) => {
-                                      // Calculate the skill number (groupIndex+1).(i+1)
-                                      const skillNumber = `${groupIndex + 1}.${i + 1
-                                        }`;
+                              <div
+                                ref={skillsContainerRef}
+                                className="w-full p-[1.5rem] bg-white/70 backdrop-blur-xl justify-start items-center gap-[0.6rem] flex flex-wrap r"
+                                style={{ maxHeight: "46.3rem" }}
+                              >
+                                {Object?.values(skills)?.map(
+                                  (group, groupIndex) => (
+                                    <React.Fragment key={groupIndex}>
+                                      {group.map((skill, i) => {
+                                        // Calculate the skill number (groupIndex+1).(i+1)
+                                        const skillNumber = `${
+                                          groupIndex + 1
+                                        }.${i + 1}`;
 
-                                      return (
-                                        <Link
-                                          href={skill.url || "#"}
-                                          legacyBehavior
-                                          key={`${groupIndex}-${i}`}
-                                        >
-                                          <a
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            style={{
-                                              animationDelay: `${i * 0.1}s`,
-                                            }}
-                                            className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium px-[21px] py-[0.5rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
+                                        return (
+                                          <Link
+                                            href={skill.url || "#"}
+                                            legacyBehavior
+                                            key={`${groupIndex}-${i}`}
                                           >
-                                            {skill?.title}
-                                          </a>
-                                        </Link>
-                                      );
-                                    })}
-                                  </React.Fragment>
-                                )
-                              )}
+                                            <a
+                                              target="_blank"
+                                              rel="noopener noreferrer"
+                                              style={{
+                                                animationDelay: `${i * 0.1}s`,
+                                              }}
+                                              className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium px-[21px] py-[0.5rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
+                                            >
+                                              {skill?.title}
+                                            </a>
+                                          </Link>
+                                        );
+                                      })}
+                                    </React.Fragment>
+                                  )
+                                )}
+                              </div>
                             </div>
-                          </div>
-                        )}
-                        </div>
+                          )}
+                      </div>
                     </div>
                   </div>
-                  {/* Hero Section For Desktop */}
+                  {/* Hero Section For Desktop  */}
                   <div className="mainContainer hidden xl:block print:hidden">
                     <div className="text-center mt-[3rem]">
                       <p className="text-heading text-[3.66rem] font-normal leading-normal mb-[1rem]">
@@ -425,8 +427,9 @@ const Home = ({ params }: { params: any }) => {
                                       <React.Fragment key={groupIndex}>
                                         {group.map((skill, i) => {
                                           // Calculate the skill number (groupIndex+1).(i+1)
-                                          const skillNumber = `${groupIndex + 1
-                                            }.${i + 1}`;
+                                          const skillNumber = `${
+                                            groupIndex + 1
+                                          }.${i + 1}`;
 
                                           return (
                                             <Link
@@ -460,6 +463,121 @@ const Home = ({ params }: { params: any }) => {
                       </div>
                     </div>
                   </div>
+
+                  {/* Hero Section For Print section  */}
+                  <div className="mainContainer hidden print:block">
+                    <div className="text-center mt-[3rem]">
+                      <p className="text-heading text-[4rem] font-normal leading-normal mb-[1rem]">
+                        Hello! I’m
+                      </p>
+                      <h1 className="font-bold text-[11rem] text-primary mt-[-3.5rem]">
+                        {listOfdata?.name}
+                      </h1>
+                      {/* Badge */}
+                      <div className="relative z-[50] mt-[1rem] flex items-center justify-start">
+                        <div className="inline-block px-[2rem] py-[1.5rem] lg:py-[1rem] lg:px-[4rem] bg-primary lg:max-w-[45rem] rounded-[5rem] text-center text-[1.6rem] lg:text-[2.4rem] font-bold text-white border-none outline-none mb-[2rem]">
+                          {listOfdata?.designation
+                            ?.split("|")
+                            .map((item, index) => (
+                              <div key={index} className="text-center">
+                                {item.trim()}
+                              </div>
+                            ))}
+                        </div>
+                      </div>
+                      <div className="mt-[-12rem] flex justify-center relative">
+                        {/* Center Dev Image */}
+                        <Image
+                          width={731}
+                          height={707}
+                          alt=""
+                          src={listOfdata?.profile_photo_2}
+                          className="mr-[12rem] w-[706px] h-[707px]"
+                        />
+
+                        {/* Left Pricing and Hours Badge Positoned */}
+                        <div className="absolute left-0 top-[24rem] w-[33.5rem] h-[18rem] inline-flex items-center justify-center bg-Circle bg-no-repeat bg-contain animate-bounce">
+                          <div className="h-[100px] p-5 rounded  justify-center items-center gap-5 inline-flex">
+                            <div className="text-primary">
+                              <h3 className="text-[4rem] font-medium leading-[4rem]">
+                                ${listOfdata?.hourly_rate}
+                              </h3>
+                              <p className="text-[2rem] font-normal">hour</p>
+                            </div>
+                            <hr className="h-[6rem] w-[0.1rem] bg-border" />
+                            <div className="text-primary">
+                              <h3 className="text-[4rem] font-medium leading-[4rem]">
+                                40hr
+                              </h3>
+                              <p className="text-[2rem] font-normal">week</p>
+                            </div>
+                          </div>
+                        </div>
+                        {/* Positioned Skills and Text Desktop */}
+                        <div className="max-w-[55rem] w-full absolute right-[-4rem] top-[7rem]">
+                          <p
+                            dangerouslySetInnerHTML={{
+                              __html: listOfdata?.tag_line,
+                            }}
+                            className="w-full text-primary text-[2.2rem] font-medium leading-[3rem] mb-[2rem] text-left"
+                          ></p>
+
+                          {listOfdata &&
+                            listOfdata.skills_ids &&
+                            listOfdata.skills_ids.length > 0 && (
+                              <div className="z-[50] absolute max-w-[49rem] w-full rounded-[0.6rem] border border-border border-solid overflow-hidden">
+                                <div className="flex justify-between bg-primary border-b border-border w-full py-[1rem] px-[2rem]">
+                                  <div className="text-left text-white text-[1.8rem] font-medium">
+                                    My Skills
+                                  </div>
+                                  
+                                </div>
+
+                                <div
+                                  ref={skillsContainerRef}
+                                  className="w-full p-[1.5rem] bg-white/70 backdrop-blur-xl justify-start items-center gap-[0.6rem] flex flex-wrap overflow-y-auto hide-scrollbar"
+                                  style={{ maxHeight: "46.3rem" }}
+                                >
+                                  {Object?.values(skills)?.map(
+                                    (group, groupIndex) => (
+                                      <React.Fragment key={groupIndex}>
+                                        {group.map((skill, i) => {
+                                          // Calculate the skill number (groupIndex+1).(i+1)
+                                          const skillNumber = `${
+                                            groupIndex + 1
+                                          }.${i + 1}`;
+
+                                          return (
+                                            <Link
+                                              href={skill.url || "#"}
+                                              legacyBehavior
+                                              key={`${groupIndex}-${i}`}
+                                            >
+                                              <a
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                style={{
+                                                  animationDelay: `${i * 0.1}s`,
+                                                }}
+                                                className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium px-[21px] py-[0.5rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
+                                              >
+                                               
+                                                {skill?.title}
+                                              </a>
+                                            </Link>
+                                          );
+                                        })}
+                                      </React.Fragment>
+                                    )
+                                  )}
+                                </div>
+                              </div>
+                            )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
                   {/* Custom Shape Divider */}
                   <div className="custom-shape-divider-bottom-1722849639 z-[10]">
                     <svg
@@ -625,8 +743,9 @@ const Home = ({ params }: { params: any }) => {
                         <div className="my-[2rem] rounded-[0.8rem] print:w-full print:max-w-[50%] overflow-hidden w-full grid grid-cols-12 print:my-2 print:grid-cols-1 print:gap-4">
                           {/* Name */}
                           <div
-                            className={`w-full border border-border border-solid py-[3rem] px-[2rem] col-span-12 ${urlInfo?.u ? "md:col-span-12" : "md:col-span-6"
-                              } print:col-span-1 home_social_card `}
+                            className={`w-full border border-border border-solid py-[3rem] px-[2rem] col-span-12 ${
+                              urlInfo?.u ? "md:col-span-12" : "md:col-span-6"
+                            } print:col-span-1 home_social_card `}
                           >
                             <div className="w-full">
                               <h4 className="hover:font-bold text-[1.6rem] duration-300 font-normal text-primary print:text-black print:text-sm">
@@ -674,8 +793,9 @@ const Home = ({ params }: { params: any }) => {
 
                           {/* Address */}
                           <div
-                            className={`w-full border border-border border-solid py-[3rem] px-[2rem] col-span-12 ${urlInfo?.u ? "md:col-span-12" : "md:col-span-6"
-                              } print:col-span-1 home_social_card`}
+                            className={`w-full border border-border border-solid py-[3rem] px-[2rem] col-span-12 ${
+                              urlInfo?.u ? "md:col-span-12" : "md:col-span-6"
+                            } print:col-span-1 home_social_card`}
                           >
                             <Link
                               target="_blank"
@@ -693,21 +813,22 @@ const Home = ({ params }: { params: any }) => {
                               {listOfdata?.location?.includes(
                                 "Manchester, UK"
                               ) && (
-                                  <Image
-                                    src={"/images/ukFlag.svg"}
-                                    height={35}
-                                    width={35}
-                                    className="h-[3rem] w-[3rem] rounded-full object-cover print:h-6 print:w-6"
-                                    alt="Uk Flag"
-                                  />
-                                )}
+                                <Image
+                                  src={"/images/ukFlag.svg"}
+                                  height={35}
+                                  width={35}
+                                  className="h-[3rem] w-[3rem] rounded-full object-cover print:h-6 print:w-6"
+                                  alt="Uk Flag"
+                                />
+                              )}
                             </Link>
                           </div>
 
                           {/* Work Proof */}
                           <div
-                            className={`w-full border border-border border-solid py-[3rem] px-[2rem] col-span-12 ${urlInfo?.u ? "md:col-span-12" : "md:col-span-6"
-                              } print:col-span-1 home_social_card`}
+                            className={`w-full border border-border border-solid py-[3rem] px-[2rem] col-span-12 ${
+                              urlInfo?.u ? "md:col-span-12" : "md:col-span-6"
+                            } print:col-span-1 home_social_card`}
                           >
                             <div className="w-full flex items-center gap-[1.4rem] mb-[0.8rem] print:gap-2">
                               <WorkProofLinks
@@ -948,9 +1069,9 @@ const Home = ({ params }: { params: any }) => {
                                             )
                                               ? experience.ending_Date
                                               : formatDate(
-                                                experience.ending_Date,
-                                                dateFormatsOptions.shortMonthYear
-                                              )}
+                                                  experience.ending_Date,
+                                                  dateFormatsOptions.shortMonthYear
+                                                )}
                                           </div>
                                           {/* Timeline item */}
                                           <>
@@ -1023,16 +1144,16 @@ const Home = ({ params }: { params: any }) => {
                                                       {experience.company_website.includes(
                                                         "upwork"
                                                       ) && (
-                                                          <Link
-                                                            href={
-                                                              experience.company_website
-                                                            }
-                                                            className="hover:bg-primary hover:text-white py-[0.4rem] px-[1rem] text-heading bg-[#A3DDD3] rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
-                                                          >
-                                                            View my upwork
-                                                            Freelance Profile
-                                                          </Link>
-                                                        )}{" "}
+                                                        <Link
+                                                          href={
+                                                            experience.company_website
+                                                          }
+                                                          className="hover:bg-primary hover:text-white py-[0.4rem] px-[1rem] text-heading bg-[#A3DDD3] rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
+                                                        >
+                                                          View my upwork
+                                                          Freelance Profile
+                                                        </Link>
+                                                      )}{" "}
                                                     </div>
                                                   </div>
                                                 </div>
@@ -1056,7 +1177,7 @@ const Home = ({ params }: { params: any }) => {
 
                                                 {experience?.skills &&
                                                   experience?.skills.length >
-                                                  0 && (
+                                                    0 && (
                                                     <div className="w-full">
                                                       <h4 className=" text-[1.5rem] text-primary font-medium my-[1.6rem] ">
                                                         AREAS OF EXPERTISE I'VE
@@ -1080,9 +1201,10 @@ const Home = ({ params }: { params: any }) => {
                                                                     i
                                                                   ) => {
                                                                     // Calculate the skill number (groupIndex+1).(i+1)
-                                                                    const skillNumber = `${groupIndex +
+                                                                    const skillNumber = `${
+                                                                      groupIndex +
                                                                       1
-                                                                      }.${i + 1}`;
+                                                                    }.${i + 1}`;
 
                                                                     return (
                                                                       <Link
@@ -1097,9 +1219,10 @@ const Home = ({ params }: { params: any }) => {
                                                                           target="_blank"
                                                                           rel="noopener noreferrer"
                                                                           style={{
-                                                                            animationDelay: `${i *
+                                                                            animationDelay: `${
+                                                                              i *
                                                                               0.1
-                                                                              }s`,
+                                                                            }s`,
                                                                           }}
                                                                           className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium py-[0.4rem] px-[2rem] bg-white flex items-center print:py-[0.2rem] print:px-[1.5rem] justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
                                                                         >
@@ -1140,7 +1263,7 @@ const Home = ({ params }: { params: any }) => {
                                       setShowAllExperiences(!showAllExperiences)
                                     }
                                     className="btn-primary text-white py-[1rem] px-[3.4rem] text-[1.8rem] font-medium"
-                                  // className="bg-primary  text-white py-[0.4rem] px-[2rem] border border-primary border-solid hover:text-primary hover:bg-white rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
+                                    // className="bg-primary  text-white py-[0.4rem] px-[2rem] border border-primary border-solid hover:text-primary hover:bg-white rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
                                   >
                                     {showAllExperiences
                                       ? "Show Less"
