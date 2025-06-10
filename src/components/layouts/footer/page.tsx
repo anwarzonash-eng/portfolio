@@ -52,7 +52,7 @@ const Footer = () => {
             <div
               className={`bg-footerBg ${
                 urlInfo?.u ? "" : ""
-              } w-full bg-center bg-cover bg-no-repeat flex print:hidden flex-col items-center justify-end`}
+              } w-full bg-center bg-cover bg-no-repeat flex print:bg-none print:bg-white flex-col items-center justify-end`}
             >
               <div className="mainContainer text-[1.8rem] font-medium flex items-center justify-center">
                 <div className="py-[3rem] w-full flex items-start justify-between flex-wrap gap-[4rem] text-heading text-[1.8rem] font-medium">

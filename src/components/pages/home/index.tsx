@@ -35,6 +35,7 @@ import { skillsGrouping } from "@/hooks/skillsGrouping";
 import ShowmoreSkills from "@/components/showmoreSkills";
 import { useRouter } from "next/router";
 import { useMediaQuery } from "react-responsive";
+import Header from "@/components/layouts/header/page";
 
 const Home = ({ params }: { params: any }) => {
   useBodyBackgroundColor("#f8f9fa");
@@ -463,9 +464,9 @@ const Home = ({ params }: { params: any }) => {
                       </div>
                     </div>
                   </div>
-
                   {/* Hero Section For Print section  */}
                   <div className="mainContainer hidden print:block">
+                    <Header/>
                     <div className="text-center mt-[3rem]">
                       <p className="text-heading text-[4rem] font-normal leading-normal mb-[1rem]">
                         Hello! I’m
