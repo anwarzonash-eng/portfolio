@@ -441,3 +441,6 @@ body {
 .landscape_print_page_pedding{
   @apply print:pt-[6rem]
 }
+.section_top_button{
+  @apply print:px-[6rem] print:text-[3rem]
+}
