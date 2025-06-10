@@ -111,7 +111,7 @@ const Home = ({ params }: { params: any }) => {
                 {/* <Welcome /> */}
 
                 {/* Hero Section */}
-                <div className="w-full overflow-hidden relative bg-bannerBG print:break-before-page  print:h-[990.70px] print:m-0    ">
+                <div className="w-full overflow-hidden relative bg-bannerBG print:break-before-page  print:h-[990.70px] print:m-0">
                   {/*Hero Section For Mobile and Tablet Devices*/}
                   <div className="mainContainer relative xl:hidden print:hidden ">
                     {/* Hero Section Mobile Content */}
@@ -465,9 +465,11 @@ const Home = ({ params }: { params: any }) => {
                     </div>
                   </div>
                   {/* Hero Section For Print section  */}
-                  <div className="mainContainer hidden print:block">
+                  <div className="!px-0 w-full !m-0 hidden print:block">
+                    <div className="relative print:block">
                     <Header/>
-                    <div className="text-center mt-[3rem]">
+                    </div>
+                    <div className="text-center mx-[3rem] mt-[3rem]">
                       <p className="text-heading text-[4rem] font-normal leading-normal mb-[1rem]">
                         Hello! I’m
                       </p>
@@ -597,8 +599,8 @@ const Home = ({ params }: { params: any }) => {
 
                 {/* About Section Completed*/}
                 <section className="w-full mb-[5rem]   print:bg-[#a3ddd3] ">
-                  {/* Container Div*/}
-                  <div className="mainContainer flex flex-col-reverse gap-[5rem] xl:gap-0 xl:flex-row xl:justify-between print:flex items-center justify-center print:flex-col print:w-full ">
+                  {/* Container Div for desktop*/}
+                  <div className="mainContainer flex flex-col-reverse gap-[5rem] xl:gap-0 xl:flex-row xl:justify-between items-center justify-center print:hidden ">
                     {/* Container For Image and Badges */}
                     <div className="w-full h-full xl:w-[67rem] xl:h-[64rem] flex-shrink-0 max-xl:flex  justify-center">
                       <div
@@ -684,69 +686,14 @@ const Home = ({ params }: { params: any }) => {
 
                       {/* Info Cards - Adjusted for print */}
                       <div className="print:flex flex-row gap-8 items-start justify-center print:w-full">
-                        <div className="print:flex  items-center print:w-full print:max-w-[50%] justify-center gap-14 flex-col hidden ">
-                          <div
-                            className="relative  h-[60rem]  bg-center bg-cover bg-no-repeat w-full rounded-[1rem]"
-                            style={{
-                              backgroundImage: `url('${listOfdata?.profile_photo_3}')`,
-                            }}
-                          ></div>
-                          <div className="flex items-center gap-8  justify-between  w-full">
-                            {/* Experience Badge */}
-                            <div className="bg-white w-full rounded-[0.8rem] p-[1.4rem]  flex items-center shadow-md gap-[2rem] ">
-                              {/* Badge SVG */}
-                              <div className="bg-[#2A97FC] rounded-[50%] flex items-center justify-center h-[4.9rem] w-[4.9rem] xl:h-[6.8rem] xl:w-[6.8rem]">
-                                <img
-                                  src="./images/experience.svg"
-                                  alt="Experience"
-                                  className="h-[2.4rem] w-[2.4rem] xl:h-[3.4rem] xl:w-[3.4rem]"
-                                />
-                              </div>
-                              {/* Badge Content */}
-                              <div className="flex flex-col justify-center">
-                                <h3 className="uppercase text-[1.4rem] xl:text-[1.8rem] font-semibold  text-heading leading-none mt-[1rem]">
-                                  Experience
-                                </h3>
-                                <p className="text-[2.4rem] xl:text-[3rem] font-bold text-primary">
-                                  {listOfdata?.no_of_experiences}+{" "}
-                                  <span className="text-[2rem]">
-                                    {listOfdata?.no_of_experiences === 1
-                                      ? "year"
-                                      : "years"}
-                                  </span>
-                                </p>
-                              </div>
-                            </div>
-
-                            {/* Projects Badge */}
-                            <div className="bg-white w-full rounded-[0.8rem]  p-[1.4rem] flex items-center shadow-md gap-[1rem]">
-                              {/* Badge SVG */}
-                              <div className="bg-[#FC822A] rounded-[50%] flex items-center justify-center h-[4.9rem] w-[4.9rem] xl:h-[6.8rem] xl:w-[6.8rem]">
-                                <img
-                                  src="./images/badge.svg"
-                                  alt="Experience"
-                                  className="h-[2.4rem] w-[2.4rem] xl:h-[3.4rem] xl:w-[3.4rem]"
-                                />
-                              </div>
-                              {/* Badge Content */}
-                              <div className="flex flex-col justify-center">
-                                <h3 className="uppercase text-[1.4rem] xl:text-[1.8rem] font-semibold  text-heading leading-none mt-[1rem]">
-                                  Projects Completed
-                                </h3>
-                                <p className="text-[2.4rem] xl:text-[3rem] font-bold text-primary">
-                                  {listOfdata?.projects_completed}+
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                      
 
                         <div className="my-[2rem] rounded-[0.8rem] print:w-full print:max-w-[50%] overflow-hidden w-full grid grid-cols-12 print:my-2 print:grid-cols-1 print:gap-4">
                           {/* Name */}
                           <div
                             className={`w-full border border-border border-solid py-[3rem] px-[2rem] col-span-12 ${
                               urlInfo?.u ? "md:col-span-12" : "md:col-span-6"
-                            } print:col-span-1 home_social_card `}
+                            }  home_social_card `}
                           >
                             <div className="w-full">
                               <h4 className="hover:font-bold text-[1.6rem] duration-300 font-normal text-primary print:text-black print:text-sm">
@@ -850,6 +797,305 @@ const Home = ({ params }: { params: any }) => {
                           {/* Contact Me (if visible) */}
                           {!urlInfo?.u && (
                             <div className="md:col-span-6 col-span-12 w-full border border-border border-solid py-[3rem] px-[2rem] print:col-span-1 home_social_card">
+                              <div className="w-full flex items-center gap-[1.4rem] mb-[0.8rem] print:gap-2">
+                                <ContactMeLinks
+                                  props={{
+                                    email: listOfdata?.email,
+                                    phone_no: listOfdata?.phone_no,
+                                  }}
+                                />
+                              </div>
+                              <p className="text-[1.35rem] font-normal text-paragraph1 print:text-xs">
+                                Contact Me
+                              </p>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                      {/* Button Line - Hidden in print */}
+                      <div className="md:space-x-5 py-[2rem] print:hidden">
+                        <Link href={"/cv"}>
+                          <button className="w-full md:max-w-max btn-primary rounded-[0.6rem] text-white py-[2rem] px-[5.6rem] text-[1.8rem] font-medium border border-solid border-custom">
+                            View CV Online
+                          </button>
+                        </Link>
+
+                        {listOfdata?.is_pdf_generated &&
+                          listOfdata?.pdf_download_links?.length > 0 &&
+                          listOfdata.pdf_download_links
+                            .filter((link) => link.type === "CV")
+                            .map((cvLink, index) => (
+                              <button
+                                key={index}
+                                onClick={() =>
+                                  downloadFile(
+                                    cvLink.cvFileUrl,
+                                    `${listOfdata?.name} - CV`
+                                  )
+                                }
+                                className="w-full md:max-w-max mt-5 md:mt-0 btn-primary rounded-[0.6rem] text-white py-[2rem] px-[5.6rem] text-[1.8rem] font-medium border border-solid border-custom"
+                              >
+                                Download CV
+                              </button>
+                            ))}
+                      </div>
+                    </div>
+                  </div>
+
+
+                  {/* Container Div for print*/}
+                  <div className="   gap-[5rem] print:flex  flex-row justify-between hidden items-center w-full ">
+                    {/* Container For Image and Badges */}
+                    <div className="w-full h-full xl:w-[67rem] xl:h-[64rem] flex-shrink-0 max-xl:flex  justify-center">
+                      <div
+                        className="relative h-[44rem] xl:h-[65rem]  max-w-[56rem] bg-center bg-cover bg-no-repeat w-full rounded-[1rem]"
+                        style={{
+                          backgroundImage: `url('${listOfdata?.profile_photo_3}')`,
+                        }}
+                      >
+                        {/* Experience Badge */}
+                        <div className="bg-white  rounded-[0.8rem] absolute   bottom-auto left-auto top-[-3rem] right-[3rem] xl:top-[7rem] xl:right-[-8rem] p-[1.4rem] xl:h-[12rem] xl:w-[26rem] xl:rounded-[2rem] flex items-center shadow-md gap-[1rem] xl:gap-[2rem] animate-bounce">
+                          {/* Badge SVG */}
+                          <div className="bg-[#2A97FC] rounded-[50%] flex items-center justify-center h-[4.9rem] w-[4.9rem] xl:h-[6.8rem] xl:w-[6.8rem]">
+                            <img
+                              src="./images/experience.svg"
+                              alt="Experience"
+                              className="h-[2.4rem] w-[2.4rem] xl:h-[3.4rem] xl:w-[3.4rem]"
+                            />
+                          </div>
+                          {/* Badge Content */}
+                          <div className="flex flex-col justify-center">
+                            <h3 className="uppercase text-[1.4rem] xl:text-[1.8rem] font-semibold  text-heading leading-none mt-[1rem]">
+                              Experience
+                            </h3>
+                            <p className="text-[2.4rem] xl:text-[3rem] font-bold text-primary">
+                              {listOfdata?.no_of_experiences}+{" "}
+                              <span className="text-[2rem]">
+                                {listOfdata?.no_of_experiences === 1
+                                  ? "year"
+                                  : "years"}
+                              </span>
+                            </p>
+                          </div>
+                        </div>
+
+                        {/* Projects Badge */}
+                        <div className="bg-white  mb-3 rounded-[0.8rem] absolute   top-auto right-auto bottom-[-4rem]   xl:bottom-[3rem] xl:left-[3rem] left-[3rem] p-[1.4rem] xl:h-[12rem] xl:rounded-[2rem] flex items-center shadow-md gap-[1rem] xl:gap-[2rem] animate-bounce xl:animate-none">
+                          {/* Badge SVG */}
+                          <div className="bg-[#FC822A] rounded-[50%] flex items-center justify-center h-[4.9rem] w-[4.9rem] xl:h-[6.8rem] xl:w-[6.8rem]">
+                            <img
+                              src="./images/badge.svg"
+                              alt="Experience"
+                              className="h-[2.4rem] w-[2.4rem] xl:h-[3.4rem] xl:w-[3.4rem]"
+                            />
+                          </div>
+                          {/* Badge Content */}
+                          <div className="flex flex-col justify-center">
+                            <h3 className="uppercase text-[1.4rem] xl:text-[1.8rem] font-semibold  text-heading leading-none mt-[1rem]">
+                              Projects Completed
+                            </h3>
+                            <p className="text-[2.4rem] xl:text-[3rem] font-bold text-primary">
+                              {listOfdata?.projects_completed}+
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {/* Contact Details */}
+                    <div className="w-full print:p-8 print:bg-white print:break-before-page">
+                      {/* About Context */}
+                      <div className="w-full print:mb-4 print:flex items-center justify-center flex-col">
+                        {/* Badge */}
+                        <div className="px-[2rem] mt-[3rem] py-[0.4rem]  bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem]  font-medium font-Inter leading-[2rem] ">
+                          About Me
+                        </div>
+                        {/* Heading */}
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html: listOfdata?.tag_line,
+                          }}
+                          className="text-heading print:text-center text-[2.4rem] print:leading-[43px] mt-[2rem] mb-[1.2rem] font-medium leading-[2.8rem] lg:text-[3rem] lg:leading-[3.8rem] print:text-[24px] print:mt-[20px] print:mb-2"
+                        ></div>
+                        {/* Paragraph */}
+                        {listOfdata?.designation && (
+                          <p className="text-[1.6rem] font-normal text-paragraph1 leading-[2.4rem] print:text-[18px] print:mb-[22px] print:mt-[16px]">
+                            Currently Open for full time position as a{" "}
+                            <span className="lowercase">
+                              {listOfdata?.designation}
+                            </span>
+                            .
+                          </p>
+                        )}
+                      </div>
+
+                      {/* Info Cards - Adjusted for print */}
+                      <div className="print:flex flex-row gap-8 items-start justify-center print:w-full">
+                        <div className="print:flex  items-center print:w-full print:max-w-[50%] justify-center gap-14 flex-col hidden ">
+                          <div
+                            className="relative  h-[60rem]  bg-center bg-cover bg-no-repeat w-full rounded-[1rem]"
+                            style={{
+                              backgroundImage: `url('${listOfdata?.profile_photo_3}')`,
+                            }}
+                          ></div>
+                          <div className="flex items-center gap-8  justify-between  w-full">
+                            {/* Experience Badge */}
+                            <div className="bg-white w-full rounded-[0.8rem] p-[1.4rem]  flex items-center shadow-md gap-[2rem] ">
+                              {/* Badge SVG */}
+                              <div className="bg-[#2A97FC] rounded-[50%] flex items-center justify-center h-[4.9rem] w-[4.9rem] xl:h-[6.8rem] xl:w-[6.8rem]">
+                                <img
+                                  src="./images/experience.svg"
+                                  alt="Experience"
+                                  className="h-[2.4rem] w-[2.4rem] xl:h-[3.4rem] xl:w-[3.4rem]"
+                                />
+                              </div>
+                              {/* Badge Content */}
+                              <div className="flex flex-col justify-center">
+                                <h3 className="uppercase text-[1.4rem] xl:text-[1.8rem] font-semibold  text-heading leading-none mt-[1rem]">
+                                  Experience
+                                </h3>
+                                <p className="text-[2.4rem] xl:text-[3rem] font-bold text-primary">
+                                  {listOfdata?.no_of_experiences}+{" "}
+                                  <span className="text-[2rem]">
+                                    {listOfdata?.no_of_experiences === 1
+                                      ? "year"
+                                      : "years"}
+                                  </span>
+                                </p>
+                              </div>
+                            </div>
+
+                            {/* Projects Badge */}
+                            <div className="bg-white w-full rounded-[0.8rem]  p-[1.4rem] flex items-center shadow-md gap-[1rem]">
+                              {/* Badge SVG */}
+                              <div className="bg-[#FC822A] rounded-[50%] flex items-center justify-center h-[4.9rem] w-[4.9rem] xl:h-[6.8rem] xl:w-[6.8rem]">
+                                <img
+                                  src="./images/badge.svg"
+                                  alt="Experience"
+                                  className="h-[2.4rem] w-[2.4rem] xl:h-[3.4rem] xl:w-[3.4rem]"
+                                />
+                              </div>
+                              {/* Badge Content */}
+                              <div className="flex flex-col justify-center">
+                                <h3 className="uppercase text-[1.4rem] xl:text-[1.8rem] font-semibold  text-heading leading-none mt-[1rem]">
+                                  Projects Completed
+                                </h3>
+                                <p className="text-[2.4rem] xl:text-[3rem] font-bold text-primary">
+                                  {listOfdata?.projects_completed}+
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="my-[2rem] rounded-[0.8rem]  overflow-hidden w-full grid grid-cols-12 ">
+                          {/* Name */}
+                          <div
+                            className={`w-full border border-border border-solid py-[3rem] px-[2rem] col-span-12 ${
+                              urlInfo?.u ? "md:col-span-12" : "md:col-span-6"
+                            }  home_social_card `}
+                          >
+                            <div className="w-full">
+                              <h4 className="hover:font-bold text-[1.6rem] duration-300 font-normal text-primary ">
+                                {listOfdata?.name}
+                              </h4>
+                              <p className="text-[1.4rem] font-normal text-paragraph1 ">
+                                Name
+                              </p>
+                            </div>
+                          </div>
+
+                          {/* Email (if visible) */}
+                          {!urlInfo?.u && (
+                            <div className="md:col-span-6 col-span-12 w-full border border-border border-solid py-[3rem] px-[2rem]  home_social_card">
+                              <div className="w-full text-wrap break-words">
+                                <Link
+                                  href={`mailto:${listOfdata?.email}`}
+                                  className="hover:font-bold text-[1.6rem] duration-300 font-normal text-primary print:text-black print:text-sm print:no-underline"
+                                >
+                                  {listOfdata?.email}
+                                </Link>
+                                <p className="text-[1.4rem] font-normal text-paragraph1 print:text-xs">
+                                  Email
+                                </p>
+                              </div>
+                            </div>
+                          )}
+
+                          {/* Contact (if visible) */}
+                          {!urlInfo?.u && (
+                            <div className="md:col-span-6 col-span-12 w-full border border-border border-solid py-[3rem] px-[2rem]  home_social_card">
+                              <div className="w-full">
+                                <Link
+                                  href={`tel:${listOfdata?.phone_no}`}
+                                  className="hover:font-bold text-[1.6rem] duration-300 font-normal text-primary print:text-black print:text-sm print:no-underline"
+                                >
+                                  {formatPhoneNumber(listOfdata?.phone_no)}
+                                </Link>
+                                <p className="text-[1.4rem] font-normal text-paragraph1 print:text-xs">
+                                  Contact
+                                </p>
+                              </div>
+                            </div>
+                          )}
+
+                          {/* Address */}
+                          <div
+                            className={`w-full border border-border border-solid py-[3rem] px-[2rem] col-span-12 ${
+                              urlInfo?.u ? "md:col-span-12" : "md:col-span-6"
+                            }  home_social_card`}
+                          >
+                            <Link
+                              target="_blank"
+                              href={`https://www.google.com/maps/place/${listOfdata?.location}`}
+                              className="w-full flex justify-between group print:no-underline"
+                            >
+                              <div>
+                                <h4 className="group-hover:font-bold text-[1.6rem] duration-300 font-normal text-primary print:text-black print:text-sm">
+                                  {listOfdata?.location}
+                                </h4>
+                                <p className="text-[1.4rem] font-normal text-paragraph1 print:text-xs">
+                                  Address
+                                </p>
+                              </div>
+                              {listOfdata?.location?.includes(
+                                "Manchester, UK"
+                              ) && (
+                                <Image
+                                  src={"/images/ukFlag.svg"}
+                                  height={35}
+                                  width={35}
+                                  className="h-[3rem] w-[3rem] rounded-full object-cover print:h-6 print:w-6"
+                                  alt="Uk Flag"
+                                />
+                              )}
+                            </Link>
+                          </div>
+
+                          {/* Work Proof */}
+                          <div
+                            className={`w-full border border-border border-solid py-[3rem] px-[2rem] col-span-12 ${
+                              urlInfo?.u ? "md:col-span-12" : "md:col-span-6"
+                            }  home_social_card`}
+                          >
+                            <div className="w-full flex items-center gap-[1.4rem] mb-[0.8rem] print:gap-2">
+                              <WorkProofLinks
+                                props={{
+                                  upwork: listOfdata?.upwork,
+                                  github: listOfdata?.github,
+                                  linkedIn: listOfdata?.linkedIn,
+                                  behance_link: listOfdata?.behance_link,
+                                  u: urlInfo?.u,
+                                }}
+                              />
+                            </div>
+                            <p className="text-[1.35rem] font-normal text-paragraph1 print:text-xs">
+                              My Work Proof
+                            </p>
+                          </div>
+
+                          {/* Contact Me (if visible) */}
+                          {!urlInfo?.u && (
+                            <div className="md:col-span-6 col-span-12 w-full border border-border border-solid py-[3rem] px-[2rem]  home_social_card">
                               <div className="w-full flex items-center gap-[1.4rem] mb-[0.8rem] print:gap-2">
                                 <ContactMeLinks
                                   props={{

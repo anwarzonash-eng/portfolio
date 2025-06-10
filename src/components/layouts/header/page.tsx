@@ -242,12 +242,12 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
           {/* {!pathname.includes('cv') && ( */}
           {/* header for desktop */}
           <header
-            className={`sticky top-0 left-0 w-full z-[100]  transition-colors duration-300 print:hidden block  ${bgColor}`}
+            className={`sticky top-0 left-0 w-full  z-[100]  transition-colors duration-300 print:hidden block  ${bgColor}`}
           >
             {/* Header Navbar */}
             <div className="w-full print:hidden block ">
               {/* Desktop Header */}
-              <div className="max-[1100px]:hidden mainContainer h-[7.5rem] py-[2rem] border-b border-border flex justify-between items-center ">
+              <div className="max-[1100px]:hidden  print:hidden  mainContainer h-[7.5rem] py-[2rem] border-b border-border flex justify-between items-center ">
                 {/* User Profile */}
                 <Link
                   prefetch={true}
@@ -469,7 +469,7 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
               </div>
 
               {/* Mobile Header  */}
-              <div className="min-[1100px]:hidden mainContainer flex items-center justify-between bg-white py-[1.2rem] relative z-[200]">
+              <div className="min-[1100px]:hidden mainContainer  print:hidden  flex items-center justify-between bg-white py-[1.2rem] relative z-[200]">
                 {/* User Profile  */}
                 <Link
                   prefetch={true}
@@ -689,12 +689,11 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
 
           {/* header for print */}
           <header
-            className={`sticky top-0 left-0 w-full z-[100]  transition-colors duration-300 print:block hidden  ${bgColor}`}
+            className={`print:block hidden w-full ${bgColor}`}
           >
             {/* Header Navbar */}
-            <div className="w-full  ">
               {/* Desktop Header */}
-              <div className="max-[1100px]:hidden mainContainer h-[7.5rem] py-[2rem] border-b border-border flex justify-between items-center ">
+              <div className=" print:block !w-full bg-white  h-[7.5rem] m-0 px-0 py-[2rem]  !flex !justify-between items-center !flex-row ">
                 {/* User Profile */}
                 <Link
                   prefetch={true}
@@ -747,7 +746,6 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
                   )}
                 </div>
               </div>
-            </div>
           </header>
           {/* )} */}
         </>
