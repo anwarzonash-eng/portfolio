@@ -55,7 +55,9 @@ export default function ChildWrapper({
         <Header />
       </div>
       {children}
+      <div className="print:hidden block ">
       <Footer />
+      </div>
     </>
   );
 }
