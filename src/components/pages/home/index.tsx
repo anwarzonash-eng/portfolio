@@ -35,6 +35,7 @@ import { skillsGrouping } from "@/hooks/skillsGrouping";
 import ShowmoreSkills from "@/components/showmoreSkills";
 import { useRouter } from "next/router";
 import { useMediaQuery } from "react-responsive";
+import Header from "@/components/layouts/header/page";
 
 const Home = ({ params }: { params: any }) => {
   useBodyBackgroundColor("#f8f9fa");
@@ -99,7 +100,7 @@ const Home = ({ params }: { params: any }) => {
 
   return (
     <>
-      <main className="w-full print:bg-bannerBG">
+      <main className="w-full print:bg-[#a3ddd3]">
         <PageRendering
           props={{
             list: listOfdata,
@@ -110,9 +111,9 @@ const Home = ({ params }: { params: any }) => {
                 {/* <Welcome /> */}
 
                 {/* Hero Section */}
-                <div className="w-full overflow-hidden relative bg-bannerBG  landscape_print_page_height ">
+                <div className="w-full overflow-hidden relative bg-bannerBG print:break-before-page  print:h-[990.70px] print:m-0">
                   {/*Hero Section For Mobile and Tablet Devices*/}
-                  <div className="mainContainer relative xl:hidden print:w-full ">
+                  <div className="mainContainer relative xl:hidden print:hidden ">
                     {/* Hero Section Mobile Content */}
                     <div className="text-center mt-[7.6rem] ">
                       <p className="text-heading text-[2rem] md:text-[3.66rem] font-normal">
@@ -162,10 +163,11 @@ const Home = ({ params }: { params: any }) => {
                                   const groupIndex = Object.values(
                                     skills
                                   ).findIndex((group) => group.includes(skill));
-                                  const skillNumber = `${groupIndex + 1}.${skills[
+                                  const skillNumber = `${groupIndex + 1}.${
+                                    skills[
                                       Object.keys(skills)[groupIndex]
                                     ].indexOf(skill) + 1
-                                    }`;
+                                  }`;
 
                                   return (
                                     <Link
@@ -198,10 +200,11 @@ const Home = ({ params }: { params: any }) => {
                                     ).findIndex((group) =>
                                       group.includes(skill)
                                     );
-                                    const skillNumber = `${groupIndex + 1}.${skills[
+                                    const skillNumber = `${groupIndex + 1}.${
+                                      skills[
                                         Object.keys(skills)[groupIndex]
                                       ].indexOf(skill) + 1
-                                      }`;
+                                    }`;
 
                                     return (
                                       <Link
@@ -279,65 +282,65 @@ const Home = ({ params }: { params: any }) => {
                         </div>
                       </div>
                       <div className="print:w-[50%] print:block hidden print:mt-[45px]">
-  <p
-                        dangerouslySetInnerHTML={{
-                          __html: listOfdata?.tag_line,
-                        }}
-                        className="mb-[2rem] text-primary  text-[2.6rem] leading-[40px] text-start "
-                      ></p>
-                      {listOfdata &&
-                        listOfdata.skills_ids &&
-                        listOfdata.skills_ids.length > 0 && (
-                          <div className="   ">
-                            <div className="flex justify-between bg-primary border-b border-border w-full py-[1rem] px-[2rem]">
-                              <div className="text-left text-white text-[1.8rem] font-medium">
-                                My Skills
+                        <p
+                          dangerouslySetInnerHTML={{
+                            __html: listOfdata?.tag_line,
+                          }}
+                          className="mb-[2rem] text-primary  text-[2.6rem] leading-[40px] text-start "
+                        ></p>
+                        {listOfdata &&
+                          listOfdata.skills_ids &&
+                          listOfdata.skills_ids.length > 0 && (
+                            <div className="   ">
+                              <div className="flex justify-between bg-primary border-b border-border w-full py-[1rem] px-[2rem]">
+                                <div className="text-left text-white text-[1.8rem] font-medium">
+                                  My Skills
+                                </div>
                               </div>
-                              
-                            </div>
 
-                            <div
-                              ref={skillsContainerRef}
-                              className="w-full p-[1.5rem] bg-white/70 backdrop-blur-xl justify-start items-center gap-[0.6rem] flex flex-wrap r"
-                              style={{ maxHeight: "46.3rem" }}
-                            >
-                              {Object?.values(skills)?.map(
-                                (group, groupIndex) => (
-                                  <React.Fragment key={groupIndex}>
-                                    {group.map((skill, i) => {
-                                      // Calculate the skill number (groupIndex+1).(i+1)
-                                      const skillNumber = `${groupIndex + 1}.${i + 1
-                                        }`;
+                              <div
+                                ref={skillsContainerRef}
+                                className="w-full p-[1.5rem] bg-white/70 backdrop-blur-xl justify-start items-center gap-[0.6rem] flex flex-wrap r"
+                                style={{ maxHeight: "46.3rem" }}
+                              >
+                                {Object?.values(skills)?.map(
+                                  (group, groupIndex) => (
+                                    <React.Fragment key={groupIndex}>
+                                      {group.map((skill, i) => {
+                                        // Calculate the skill number (groupIndex+1).(i+1)
+                                        const skillNumber = `${
+                                          groupIndex + 1
+                                        }.${i + 1}`;
 
-                                      return (
-                                        <Link
-                                          href={skill.url || "#"}
-                                          legacyBehavior
-                                          key={`${groupIndex}-${i}`}
-                                        >
-                                          <a
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            style={{
-                                              animationDelay: `${i * 0.1}s`,
-                                            }}
-                                            className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium px-[21px] py-[0.5rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
+                                        return (
+                                          <Link
+                                            href={skill.url || "#"}
+                                            legacyBehavior
+                                            key={`${groupIndex}-${i}`}
                                           >
-                                            {skill?.title}
-                                          </a>
-                                        </Link>
-                                      );
-                                    })}
-                                  </React.Fragment>
-                                )
-                              )}
+                                            <a
+                                              target="_blank"
+                                              rel="noopener noreferrer"
+                                              style={{
+                                                animationDelay: `${i * 0.1}s`,
+                                              }}
+                                              className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium px-[21px] py-[0.5rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
+                                            >
+                                              {skill?.title}
+                                            </a>
+                                          </Link>
+                                        );
+                                      })}
+                                    </React.Fragment>
+                                  )
+                                )}
+                              </div>
                             </div>
-                          </div>
-                        )}
-                        </div>
+                          )}
+                      </div>
                     </div>
                   </div>
-                  {/* Hero Section For Desktop */}
+                  {/* Hero Section For Desktop  */}
                   <div className="mainContainer hidden xl:block print:hidden">
                     <div className="text-center mt-[3rem]">
                       <p className="text-heading text-[3.66rem] font-normal leading-normal mb-[1rem]">
@@ -425,8 +428,9 @@ const Home = ({ params }: { params: any }) => {
                                       <React.Fragment key={groupIndex}>
                                         {group.map((skill, i) => {
                                           // Calculate the skill number (groupIndex+1).(i+1)
-                                          const skillNumber = `${groupIndex + 1
-                                            }.${i + 1}`;
+                                          const skillNumber = `${
+                                            groupIndex + 1
+                                          }.${i + 1}`;
 
                                           return (
                                             <Link
@@ -460,6 +464,121 @@ const Home = ({ params }: { params: any }) => {
                       </div>
                     </div>
                   </div>
+                  {/* Hero Section For Print section  */}
+                  <div className="!px-0 w-full !m-0 hidden print:block">
+                    <div className="relative print:block">
+                      <Header />
+                    </div>
+                    <div className="text-center mx-[3rem] mt-[3rem]">
+                      <p className="text-heading text-[4rem] font-normal leading-normal mb-[1rem]">
+                        Hello! I’m
+                      </p>
+                      <h1 className="font-bold text-[11rem] text-primary mt-[-3.5rem]">
+                        {listOfdata?.name}
+                      </h1>
+                      {/* Badge */}
+                      <div className="relative z-[50] mt-[1rem] flex items-center justify-start">
+                        <div className="inline-block px-[2rem] py-[1.5rem] lg:py-[1rem] lg:px-[4rem] bg-primary lg:max-w-[45rem] rounded-[5rem] text-center text-[1.6rem] lg:text-[2.4rem] font-bold text-white border-none outline-none mb-[2rem]">
+                          {listOfdata?.designation
+                            ?.split("|")
+                            .map((item, index) => (
+                              <div key={index} className="text-center">
+                                {item.trim()}
+                              </div>
+                            ))}
+                        </div>
+                      </div>
+                      <div className="mt-[-12rem] flex justify-center relative">
+                        {/* Center Dev Image */}
+                        <Image
+                          width={731}
+                          height={707}
+                          alt=""
+                          src={listOfdata?.profile_photo_2}
+                          className="mr-[12rem] w-[706px] h-[707px]"
+                        />
+
+                        {/* Left Pricing and Hours Badge Positoned */}
+                        <div className="absolute left-0 top-[24rem] w-[33.5rem] h-[18rem] inline-flex items-center justify-center bg-Circle bg-no-repeat bg-contain animate-bounce">
+                          <div className="h-[100px] p-5 rounded  justify-center items-center gap-5 inline-flex">
+                            <div className="text-primary">
+                              <h3 className="text-[4rem] font-medium leading-[4rem]">
+                                ${listOfdata?.hourly_rate}
+                              </h3>
+                              <p className="text-[2rem] font-normal">hour</p>
+                            </div>
+                            <hr className="h-[6rem] w-[0.1rem] bg-border" />
+                            <div className="text-primary">
+                              <h3 className="text-[4rem] font-medium leading-[4rem]">
+                                40hr
+                              </h3>
+                              <p className="text-[2rem] font-normal">week</p>
+                            </div>
+                          </div>
+                        </div>
+                        {/* Positioned Skills and Text Desktop */}
+                        <div className="max-w-[55rem] w-full absolute right-[-4rem] top-[7rem]">
+                          <p
+                            dangerouslySetInnerHTML={{
+                              __html: listOfdata?.tag_line,
+                            }}
+                            className="w-full text-primary text-[2.2rem] font-medium leading-[3rem] mb-[2rem] text-left"
+                          ></p>
+
+                          {listOfdata &&
+                            listOfdata.skills_ids &&
+                            listOfdata.skills_ids.length > 0 && (
+                              <div className="z-[50] absolute max-w-[49rem] w-full rounded-[0.6rem] border border-border border-solid overflow-hidden">
+                                <div className="flex justify-between bg-primary border-b border-border w-full py-[1rem] px-[2rem]">
+                                  <div className="text-left text-white text-[1.8rem] font-medium">
+                                    My Skills
+                                  </div>
+                                </div>
+
+                                <div
+                                  ref={skillsContainerRef}
+                                  className="w-full p-[1.5rem] bg-white/70 backdrop-blur-xl justify-start items-center gap-[0.6rem] flex flex-wrap overflow-y-auto hide-scrollbar"
+                                  style={{ maxHeight: "46.3rem" }}
+                                >
+                                  {Object?.values(skills)?.map(
+                                    (group, groupIndex) => (
+                                      <React.Fragment key={groupIndex}>
+                                        {group.map((skill, i) => {
+                                          // Calculate the skill number (groupIndex+1).(i+1)
+                                          const skillNumber = `${
+                                            groupIndex + 1
+                                          }.${i + 1}`;
+
+                                          return (
+                                            <Link
+                                              href={skill.url || "#"}
+                                              legacyBehavior
+                                              key={`${groupIndex}-${i}`}
+                                            >
+                                              <a
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                style={{
+                                                  animationDelay: `${i * 0.1}s`,
+                                                }}
+                                                className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium px-[21px] py-[0.5rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
+                                              >
+                                                {skill?.title}
+                                              </a>
+                                            </Link>
+                                          );
+                                        })}
+                                      </React.Fragment>
+                                    )
+                                  )}
+                                </div>
+                              </div>
+                            )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
                   {/* Custom Shape Divider */}
                   <div className="custom-shape-divider-bottom-1722849639 z-[10]">
                     <svg
@@ -477,19 +596,19 @@ const Home = ({ params }: { params: any }) => {
                 </div>
 
                 {/* About Section Completed*/}
-                <section className="w-full mb-[5rem] landscape_print_page_height print:bg-bannerBG ">
-                  {/* Container Div*/}
-                  <div className="mainContainer flex flex-col-reverse gap-[5rem] xl:gap-0 xl:flex-row xl:justify-between print:flex items-center justify-center print:flex-col print:w-full ">
+                <section className="w-full flex items-center justify-center mb-[5rem] print:break-before-page print:pt-[56px] print:mx-[4rem]">
+                  {/* Container Div for desktop*/}
+                  <div className="mainContainer flex flex-col-reverse gap-[5rem] print:hidden  xl:gap-0 xl:flex-row items-center justify-center xl:justify-between">
                     {/* Container For Image and Badges */}
                     <div className="w-full h-full xl:w-[67rem] xl:h-[64rem] flex-shrink-0 max-xl:flex  justify-center">
                       <div
-                        className="relative h-[44rem] xl:h-[65rem] print:hidden max-w-[56rem] bg-center bg-cover bg-no-repeat w-full rounded-[1rem]"
+                        className="relative h-[44rem] xl:h-[65rem] max-w-[56rem] bg-center bg-cover bg-no-repeat w-full rounded-[1rem]"
                         style={{
                           backgroundImage: `url('${listOfdata?.profile_photo_3}')`,
                         }}
                       >
                         {/* Experience Badge */}
-                        <div className="bg-white print:hidden rounded-[0.8rem] absolute   bottom-auto left-auto top-[-3rem] right-[3rem] xl:top-[7rem] xl:right-[-8rem] p-[1.4rem] xl:h-[12rem] xl:w-[26rem] xl:rounded-[2rem] flex items-center shadow-md gap-[1rem] xl:gap-[2rem] animate-bounce">
+                        <div className="bg-white rounded-[0.8rem] absolute   bottom-auto left-auto top-[-3rem] right-[3rem] xl:top-[7rem] xl:right-[-8rem] p-[1.4rem] xl:h-[12rem] xl:w-[26rem] xl:rounded-[2rem] flex items-center shadow-md gap-[1rem] xl:gap-[2rem] animate-bounce">
                           {/* Badge SVG */}
                           <div className="bg-[#2A97FC] rounded-[50%] flex items-center justify-center h-[4.9rem] w-[4.9rem] xl:h-[6.8rem] xl:w-[6.8rem]">
                             <img
@@ -515,7 +634,7 @@ const Home = ({ params }: { params: any }) => {
                         </div>
 
                         {/* Projects Badge */}
-                        <div className="bg-white print:hidden mb-3 rounded-[0.8rem] absolute   top-auto right-auto bottom-[-4rem]   xl:bottom-[3rem] xl:left-[3rem] left-[3rem] p-[1.4rem] xl:h-[12rem] xl:rounded-[2rem] flex items-center shadow-md gap-[1rem] xl:gap-[2rem] animate-bounce xl:animate-none">
+                        <div className="bg-white  mb-3 rounded-[0.8rem] absolute   top-auto right-auto bottom-[-4rem]   xl:bottom-[3rem] xl:left-[3rem] left-[3rem] p-[1.4rem] xl:h-[12rem] xl:rounded-[2rem] flex items-center shadow-md gap-[1rem] xl:gap-[2rem] animate-bounce xl:animate-none">
                           {/* Badge SVG */}
                           <div className="bg-[#FC822A] rounded-[50%] flex items-center justify-center h-[4.9rem] w-[4.9rem] xl:h-[6.8rem] xl:w-[6.8rem]">
                             <img
@@ -537,11 +656,11 @@ const Home = ({ params }: { params: any }) => {
                       </div>
                     </div>
                     {/* Contact Details */}
-                    <div className="w-full print:p-8 print:bg-white print:break-before-page">
+                    <div className="w-full">
                       {/* About Context */}
-                      <div className="w-full print:mb-4 print:flex items-center justify-center flex-col">
+                      <div className="w-full">
                         {/* Badge */}
-                        <div className="px-[2rem] mt-[3rem] py-[0.4rem]  bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem]  font-medium font-Inter leading-[2rem] print:mt-0 print:border-black  print:py-[1.4rem]  print:px-[6rem] print:text-[3rem]">
+                        <div className="px-[2rem] mt-[3rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium  font-Inter leading-[2rem]">
                           About Me
                         </div>
                         {/* Heading */}
@@ -549,11 +668,11 @@ const Home = ({ params }: { params: any }) => {
                           dangerouslySetInnerHTML={{
                             __html: listOfdata?.tag_line,
                           }}
-                          className="text-heading print:text-center text-[2.4rem] print:leading-[43px] mt-[2rem] mb-[1.2rem] font-medium leading-[2.8rem] lg:text-[3rem] lg:leading-[3.8rem] print:text-[24px] print:mt-[20px] print:mb-2"
+                          className="text-heading text-[2.4rem] mt-[2rem] mb-[1.2rem] font-medium leading-[2.8rem] lg:text-[3rem] lg:leading-[3.8rem]"
                         ></div>
                         {/* Paragraph */}
                         {listOfdata?.designation && (
-                          <p className="text-[1.6rem] font-normal text-paragraph1 leading-[2.4rem] print:text-[18px] print:mb-[22px] print:mt-[16px]">
+                          <p className="text-[1.6rem] font-normal text-paragraph1  leading-[2.4rem]">
                             Currently Open for full time position as a{" "}
                             <span className="lowercase">
                               {listOfdata?.designation}
@@ -562,191 +681,360 @@ const Home = ({ params }: { params: any }) => {
                           </p>
                         )}
                       </div>
-
-                      {/* Info Cards - Adjusted for print */}
-                      <div className="print:flex flex-row gap-8 items-start justify-center print:w-full">
-                        <div className="print:flex  items-center print:w-full print:max-w-[50%] justify-center gap-14 flex-col hidden ">
-                          <div
-                            className="relative  h-[60rem]  bg-center bg-cover bg-no-repeat w-full rounded-[1rem]"
-                            style={{
-                              backgroundImage: `url('${listOfdata?.profile_photo_3}')`,
-                            }}
-                          ></div>
-                          <div className="flex items-center gap-8  justify-between  w-full">
-                            {/* Experience Badge */}
-                            <div className="bg-white w-full rounded-[0.8rem] p-[1.4rem]  flex items-center shadow-md gap-[2rem] ">
-                              {/* Badge SVG */}
-                              <div className="bg-[#2A97FC] rounded-[50%] flex items-center justify-center h-[4.9rem] w-[4.9rem] xl:h-[6.8rem] xl:w-[6.8rem]">
-                                <img
-                                  src="./images/experience.svg"
-                                  alt="Experience"
-                                  className="h-[2.4rem] w-[2.4rem] xl:h-[3.4rem] xl:w-[3.4rem]"
-                                />
-                              </div>
-                              {/* Badge Content */}
-                              <div className="flex flex-col justify-center">
-                                <h3 className="uppercase text-[1.4rem] xl:text-[1.8rem] font-semibold  text-heading leading-none mt-[1rem]">
-                                  Experience
-                                </h3>
-                                <p className="text-[2.4rem] xl:text-[3rem] font-bold text-primary">
-                                  {listOfdata?.no_of_experiences}+{" "}
-                                  <span className="text-[2rem]">
-                                    {listOfdata?.no_of_experiences === 1
-                                      ? "year"
-                                      : "years"}
-                                  </span>
-                                </p>
-                              </div>
-                            </div>
-
-                            {/* Projects Badge */}
-                            <div className="bg-white w-full rounded-[0.8rem]  p-[1.4rem] flex items-center shadow-md gap-[1rem]">
-                              {/* Badge SVG */}
-                              <div className="bg-[#FC822A] rounded-[50%] flex items-center justify-center h-[4.9rem] w-[4.9rem] xl:h-[6.8rem] xl:w-[6.8rem]">
-                                <img
-                                  src="./images/badge.svg"
-                                  alt="Experience"
-                                  className="h-[2.4rem] w-[2.4rem] xl:h-[3.4rem] xl:w-[3.4rem]"
-                                />
-                              </div>
-                              {/* Badge Content */}
-                              <div className="flex flex-col justify-center">
-                                <h3 className="uppercase text-[1.4rem] xl:text-[1.8rem] font-semibold  text-heading leading-none mt-[1rem]">
-                                  Projects Completed
-                                </h3>
-                                <p className="text-[2.4rem] xl:text-[3rem] font-bold text-primary">
-                                  {listOfdata?.projects_completed}+
-                                </p>
-                              </div>
-                            </div>
+                      {/* Info Cards */}
+                      <div className="my-[2rem] rounded-[0.8rem] overflow-hidden  w-full grid grid-cols-12">
+                        <div
+                          className={`w-full border border-border border-solid py-[3rem] px-[2rem] col-span-12 ${
+                            urlInfo?.u ? "md:col-span-12" : "md:col-span-6"
+                          }`}
+                        >
+                          <div className="w-full">
+                            <h4 className="hover:font-bold  text-[1.6rem] duration-300 font-normal text-primary">
+                              {listOfdata?.name}
+                            </h4>
+                            <p className="text-[1.4rem] font-normal text-paragraph1">
+                              Name
+                            </p>
                           </div>
                         </div>
-
-                        <div className="my-[2rem] rounded-[0.8rem] print:w-full print:max-w-[50%] overflow-hidden w-full grid grid-cols-12 print:my-2 print:grid-cols-1 print:gap-4">
-                          {/* Name */}
-                          <div
-                            className={`w-full border border-border border-solid py-[3rem] px-[2rem] col-span-12 ${urlInfo?.u ? "md:col-span-12" : "md:col-span-6"
-                              } print:col-span-1 home_social_card `}
-                          >
-                            <div className="w-full">
-                              <h4 className="hover:font-bold text-[1.6rem] duration-300 font-normal text-primary print:text-black print:text-sm">
-                                {listOfdata?.name}
-                              </h4>
-                              <p className="text-[1.4rem] font-normal text-paragraph1 print:text-xs">
-                                Name
+                        {!urlInfo?.u && (
+                          <div className="md:col-span-6 col-span-12 w-full border border-border border-solid py-[3rem] px-[2rem]">
+                            <div className="w-full text-wrap break-words">
+                              <Link
+                                href={`mailto:${listOfdata?.email}`}
+                                className="hover:font-bold  text-[1.6rem] duration-300  font-normal text-primary "
+                              >
+                                {listOfdata?.email}
+                              </Link>
+                              <p className="text-[1.4rem] font-normal text-paragraph1">
+                                Email
                               </p>
                             </div>
                           </div>
+                        )}
 
-                          {/* Email (if visible) */}
-                          {!urlInfo?.u && (
-                            <div className="md:col-span-6 col-span-12 w-full border border-border border-solid py-[3rem] px-[2rem] print:col-span-1 home_social_card">
-                              <div className="w-full text-wrap break-words">
-                                <Link
-                                  href={`mailto:${listOfdata?.email}`}
-                                  className="hover:font-bold text-[1.6rem] duration-300 font-normal text-primary print:text-black print:text-sm print:no-underline"
-                                >
-                                  {listOfdata?.email}
-                                </Link>
-                                <p className="text-[1.4rem] font-normal text-paragraph1 print:text-xs">
-                                  Email
-                                </p>
-                              </div>
+                        {!urlInfo?.u && (
+                          <div className="md:col-span-6 col-span-12 w-full border border-border border-solid py-[3rem] px-[2rem]">
+                            <div className="w-full">
+                              <Link
+                                href={`tel:${listOfdata?.phone_no}`}
+                                className="hover:font-bold  text-[1.6rem] duration-300 font-normal text-primary"
+                              >
+                                {formatPhoneNumber(listOfdata?.phone_no)}
+                              </Link>
+                              <p className="text-[1.4rem] font-normal text-paragraph1">
+                                Contact
+                              </p>
                             </div>
-                          )}
-
-                          {/* Contact (if visible) */}
-                          {!urlInfo?.u && (
-                            <div className="md:col-span-6 col-span-12 w-full border border-border border-solid py-[3rem] px-[2rem] print:col-span-1 home_social_card">
-                              <div className="w-full">
-                                <Link
-                                  href={`tel:${listOfdata?.phone_no}`}
-                                  className="hover:font-bold text-[1.6rem] duration-300 font-normal text-primary print:text-black print:text-sm print:no-underline"
-                                >
-                                  {formatPhoneNumber(listOfdata?.phone_no)}
-                                </Link>
-                                <p className="text-[1.4rem] font-normal text-paragraph1 print:text-xs">
-                                  Contact
-                                </p>
-                              </div>
-                            </div>
-                          )}
-
-                          {/* Address */}
-                          <div
-                            className={`w-full border border-border border-solid py-[3rem] px-[2rem] col-span-12 ${urlInfo?.u ? "md:col-span-12" : "md:col-span-6"
-                              } print:col-span-1 home_social_card`}
-                          >
-                            <Link
-                              target="_blank"
-                              href={`https://www.google.com/maps/place/${listOfdata?.location}`}
-                              className="w-full flex justify-between group print:no-underline"
-                            >
-                              <div>
-                                <h4 className="group-hover:font-bold text-[1.6rem] duration-300 font-normal text-primary print:text-black print:text-sm">
-                                  {listOfdata?.location}
-                                </h4>
-                                <p className="text-[1.4rem] font-normal text-paragraph1 print:text-xs">
-                                  Address
-                                </p>
-                              </div>
-                              {listOfdata?.location?.includes(
-                                "Manchester, UK"
-                              ) && (
-                                  <Image
-                                    src={"/images/ukFlag.svg"}
-                                    height={35}
-                                    width={35}
-                                    className="h-[3rem] w-[3rem] rounded-full object-cover print:h-6 print:w-6"
-                                    alt="Uk Flag"
-                                  />
-                                )}
-                            </Link>
                           </div>
+                        )}
 
-                          {/* Work Proof */}
-                          <div
-                            className={`w-full border border-border border-solid py-[3rem] px-[2rem] col-span-12 ${urlInfo?.u ? "md:col-span-12" : "md:col-span-6"
-                              } print:col-span-1 home_social_card`}
-                          >
-                            <div className="w-full flex items-center gap-[1.4rem] mb-[0.8rem] print:gap-2">
-                              <WorkProofLinks
+                        <div
+                          className={`w-full border border-border border-solid py-[3rem] px-[2rem]  col-span-12 ${
+                            urlInfo?.u ? "md:col-span-12" : "md:col-span-6"
+                          }`}
+                        >
+                          <div className="w-full flex justify-between">
+                            <div>
+                              <Link
+                                target="_blank"
+                                href={`https://www.google.com/maps/place/${listOfdata?.location}
+                )}`}
+                                className="hover:font-bold  text-[1.6rem] duration-300 font-normal text-primary"
+                              >
+                                {listOfdata?.location}
+                              </Link>
+                              <p className="text-[1.4rem] font-normal text-paragraph1">
+                                Address
+                              </p>{" "}
+                            </div>
+                            {listOfdata?.location?.includes(
+                              "Manchester, UK"
+                            ) && (
+                              <Image
+                                src={"/images/ukFlag.svg"}
+                                height={35}
+                                width={35}
+                                className="h-[3rem] w-[3rem] rounded-full object-cover"
+                                alt="Uk Flag"
+                              />
+                            )}
+                          </div>
+                        </div>
+
+                        <div
+                          className={`w-full border border-border border-solid py-[3rem] px-[2rem]  col-span-12 ${
+                            urlInfo?.u ? "md:col-span-12" : "md:col-span-6"
+                          }`}
+                        >
+                          <div className="w-full flex items-center gap-[1.4rem] mb-[0.8rem]">
+                            <WorkProofLinks
+                              props={{
+                                upwork: listOfdata?.upwork,
+                                github: listOfdata?.github,
+                                linkedIn: listOfdata?.linkedIn,
+                                behance_link: listOfdata?.behance_link,
+                                u: urlInfo?.u,
+                              }}
+                            />
+                          </div>
+                          <p className="text-[1.35rem] font-normal text-paragraph1">
+                            My Work Proof
+                          </p>
+                        </div>
+                        {!urlInfo?.u && (
+                          <div className="md:col-span-6 col-span-12 w-full border border-border border-solid py-[3rem] px-[2rem]">
+                            <div className="w-full flex items-center  gap-[1.4rem] mb-[0.8rem]">
+                              <ContactMeLinks
                                 props={{
-                                  upwork: listOfdata?.upwork,
-                                  github: listOfdata?.github,
-                                  linkedIn: listOfdata?.linkedIn,
-                                  behance_link: listOfdata?.behance_link,
-                                  u: urlInfo?.u,
+                                  email: listOfdata?.email,
+                                  phone_no: listOfdata?.phone_no,
                                 }}
                               />
                             </div>
-                            <p className="text-[1.35rem] font-normal text-paragraph1 print:text-xs">
-                              My Work Proof
+                            <p className="text-[1.35rem] font-normal text-paragraph1">
+                              Contact Me
                             </p>
                           </div>
-
-                          {/* Contact Me (if visible) */}
-                          {!urlInfo?.u && (
-                            <div className="md:col-span-6 col-span-12 w-full border border-border border-solid py-[3rem] px-[2rem] print:col-span-1 home_social_card">
-                              <div className="w-full flex items-center gap-[1.4rem] mb-[0.8rem] print:gap-2">
-                                <ContactMeLinks
-                                  props={{
-                                    email: listOfdata?.email,
-                                    phone_no: listOfdata?.phone_no,
-                                  }}
-                                />
-                              </div>
-                              <p className="text-[1.35rem] font-normal text-paragraph1 print:text-xs">
-                                Contact Me
-                              </p>
-                            </div>
-                          )}
-                        </div>
+                        )}
                       </div>
-                      {/* Button Line - Hidden in print */}
-                      <div className="md:space-x-5 py-[2rem] print:hidden">
+                      {/* Button Line */}
+                      <div className="md:space-x-5 py-[2rem] ">
                         <Link href={"/cv"}>
                           <button className="w-full md:max-w-max btn-primary rounded-[0.6rem] text-white py-[2rem] px-[5.6rem] text-[1.8rem] font-medium border border-solid border-custom">
+                            {" "}
+                            View CV Online
+                          </button>
+                        </Link>
+
+                        {listOfdata?.is_pdf_generated &&
+                          listOfdata?.pdf_download_links?.length > 0 &&
+                          listOfdata.pdf_download_links
+                            .filter((link) => link.type === "CV")
+                            .map((cvLink, index) => (
+                              <button
+                                key={index}
+                                onClick={() =>
+                                  downloadFile(
+                                    cvLink.cvFileUrl,
+                                    `${listOfdata?.name} - CV`
+                                  )
+                                }
+                                className="w-full md:max-w-max mt-5 md:mt-0 btn-primary rounded-[0.6rem] text-white py-[2rem] px-[5.6rem] text-[1.8rem] font-medium border border-solid border-custom"
+                              >
+                                Download CV
+                              </button>
+                            ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Container Div for print*/}
+                  <div className="  w-full  px-0  gap-[2rem] flex-row items-center justify-center print:flex hidden">
+                    {/* Container For Image and Badges */}
+                    <div className="w-full max-w-[40%] flex  justify-center">
+                      <div
+                        className="relative h-[65rem] bg-center bg-cover bg-no-repeat w-full rounded-[1rem]"
+                        style={{
+                          backgroundImage: `url('${listOfdata?.profile_photo_3}')`,
+                        }}
+                      >
+                        {/* Experience Badge */}
+                        <div className="bg-white rounded-[0.8rem] absolute   bottom-auto left-auto top-[-3rem] right-[3rem] xl:top-[7rem] xl:right-[-8rem] p-[1.4rem] xl:h-[12rem] xl:w-[26rem] xl:rounded-[2rem] flex items-center shadow-md gap-[1rem] xl:gap-[2rem] animate-bounce">
+                          {/* Badge SVG */}
+                          <div className="bg-[#2A97FC] rounded-[50%] flex items-center justify-center h-[4.9rem] w-[4.9rem] xl:h-[6.8rem] xl:w-[6.8rem]">
+                            <img
+                              src="./images/experience.svg"
+                              alt="Experience"
+                              className="h-[2.4rem] w-[2.4rem] xl:h-[3.4rem] xl:w-[3.4rem]"
+                            />
+                          </div>
+                          {/* Badge Content */}
+                          <div className="flex flex-col justify-center">
+                            <h3 className="uppercase text-[1.4rem] xl:text-[1.8rem] font-semibold  text-heading leading-none mt-[1rem]">
+                              Experience
+                            </h3>
+                            <p className="text-[2.4rem] xl:text-[3rem] font-bold text-primary">
+                              {listOfdata?.no_of_experiences}+{" "}
+                              <span className="text-[2rem]">
+                                {listOfdata?.no_of_experiences === 1
+                                  ? "year"
+                                  : "years"}
+                              </span>
+                            </p>
+                          </div>
+                        </div>
+
+                        {/* Projects Badge */}
+                        <div className="bg-white  mb-3 rounded-[0.8rem] absolute   top-auto right-auto bottom-[-4rem]   xl:bottom-[3rem] xl:left-[3rem] left-[3rem] p-[1.4rem] xl:h-[12rem] xl:rounded-[2rem] flex items-center shadow-md gap-[1rem] xl:gap-[2rem] animate-bounce xl:animate-none">
+                          {/* Badge SVG */}
+                          <div className="bg-[#FC822A] rounded-[50%] flex items-center justify-center h-[4.9rem] w-[4.9rem] xl:h-[6.8rem] xl:w-[6.8rem]">
+                            <img
+                              src="./images/badge.svg"
+                              alt="Experience"
+                              className="h-[2.4rem] w-[2.4rem] xl:h-[3.4rem] xl:w-[3.4rem]"
+                            />
+                          </div>
+                          {/* Badge Content */}
+                          <div className="flex flex-col justify-center">
+                            <h3 className="uppercase text-[1.4rem] xl:text-[1.8rem] font-semibold  text-heading leading-none mt-[1rem]">
+                              Projects Completed
+                            </h3>
+                            <p className="text-[2.4rem] xl:text-[3rem] font-bold text-primary">
+                              {listOfdata?.projects_completed}+
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {/* Contact Details */}
+                    <div className="w-full max-w-[50%]">
+                      {/* About Context */}
+                      <div className="w-full">
+                        {/* Badge */}
+                        <div className="px-[6rem] mt-[3rem] py-[1.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[3rem] font-medium  font-Inter leading-[2rem] ">
+                          About Me
+                        </div>
+                        {/* Heading */}
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html: listOfdata?.tag_line,
+                          }}
+                          className="text-heading text-[2.4rem] mt-[2rem] mb-[1.2rem] font-medium leading-[2.8rem] lg:text-[3rem] lg:leading-[3.8rem]"
+                        ></div>
+                        {/* Paragraph */}
+                        {listOfdata?.designation && (
+                          <p className="text-[1.6rem] font-normal text-paragraph1  leading-[2.4rem]">
+                            Currently Open for full time position as a{" "}
+                            <span className="lowercase">
+                              {listOfdata?.designation}
+                            </span>
+                            .
+                          </p>
+                        )}
+                      </div>
+                      {/* Info Cards */}
+                      <div className="my-[2rem] rounded-[0.8rem] overflow-hidden  w-full grid grid-cols-12">
+                        <div
+                          className={`w-full border border-border border-solid py-[3rem] px-[2rem] col-span-12 ${
+                            urlInfo?.u ? "md:col-span-12" : "md:col-span-6"
+                          }`}
+                        >
+                          <div className="w-full">
+                            <h4 className="hover:font-bold  text-[1.6rem] duration-300 font-normal text-primary">
+                              {listOfdata?.name}
+                            </h4>
+                            <p className="text-[1.4rem] font-normal text-paragraph1">
+                              Name
+                            </p>
+                          </div>
+                        </div>
+                        {!urlInfo?.u && (
+                          <div className="md:col-span-6 col-span-12 w-full border border-border border-solid py-[3rem] px-[2rem]">
+                            <div className="w-full text-wrap break-words">
+                              <Link
+                                href={`mailto:${listOfdata?.email}`}
+                                className="hover:font-bold  text-[1.6rem] duration-300  font-normal text-primary "
+                              >
+                                {listOfdata?.email}
+                              </Link>
+                              <p className="text-[1.4rem] font-normal text-paragraph1">
+                                Email
+                              </p>
+                            </div>
+                          </div>
+                        )}
+
+                        {!urlInfo?.u && (
+                          <div className="md:col-span-6 col-span-12 w-full border border-border border-solid py-[3rem] px-[2rem]">
+                            <div className="w-full">
+                              <Link
+                                href={`tel:${listOfdata?.phone_no}`}
+                                className="hover:font-bold  text-[1.6rem] duration-300 font-normal text-primary"
+                              >
+                                {formatPhoneNumber(listOfdata?.phone_no)}
+                              </Link>
+                              <p className="text-[1.4rem] font-normal text-paragraph1">
+                                Contact
+                              </p>
+                            </div>
+                          </div>
+                        )}
+
+                        <div
+                          className={`w-full border border-border border-solid py-[3rem] px-[2rem]  col-span-12 ${
+                            urlInfo?.u ? "md:col-span-12" : "md:col-span-6"
+                          }`}
+                        >
+                          <div className="w-full flex justify-between">
+                            <div>
+                              <Link
+                                target="_blank"
+                                href={`https://www.google.com/maps/place/${listOfdata?.location}
+                )}`}
+                                className="hover:font-bold  text-[1.6rem] duration-300 font-normal text-primary"
+                              >
+                                {listOfdata?.location}
+                              </Link>
+                              <p className="text-[1.4rem] font-normal text-paragraph1">
+                                Address
+                              </p>{" "}
+                            </div>
+                            {listOfdata?.location?.includes(
+                              "Manchester, UK"
+                            ) && (
+                              <Image
+                                src={"/images/ukFlag.svg"}
+                                height={35}
+                                width={35}
+                                className="h-[3rem] w-[3rem] rounded-full object-cover"
+                                alt="Uk Flag"
+                              />
+                            )}
+                          </div>
+                        </div>
+
+                        <div
+                          className={`w-full border border-border border-solid py-[3rem] px-[2rem]  col-span-12 ${
+                            urlInfo?.u ? "md:col-span-12" : "md:col-span-6"
+                          }`}
+                        >
+                          <div className="w-full flex items-center gap-[1.4rem] mb-[0.8rem]">
+                            <WorkProofLinks
+                              props={{
+                                upwork: listOfdata?.upwork,
+                                github: listOfdata?.github,
+                                linkedIn: listOfdata?.linkedIn,
+                                behance_link: listOfdata?.behance_link,
+                                u: urlInfo?.u,
+                              }}
+                            />
+                          </div>
+                          <p className="text-[1.35rem] font-normal text-paragraph1">
+                            My Work Proof
+                          </p>
+                        </div>
+                        {!urlInfo?.u && (
+                          <div className="md:col-span-6 col-span-12 w-full border border-border border-solid py-[3rem] px-[2rem]">
+                            <div className="w-full flex items-center  gap-[1.4rem] mb-[0.8rem]">
+                              <ContactMeLinks
+                                props={{
+                                  email: listOfdata?.email,
+                                  phone_no: listOfdata?.phone_no,
+                                }}
+                              />
+                            </div>
+                            <p className="text-[1.35rem] font-normal text-paragraph1">
+                              Contact Me
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                      {/* Button Line */}
+                      <div className="md:space-x-5 py-[2rem] ">
+                        <Link href={"/cv"}>
+                          <button className="w-full md:max-w-max btn-primary rounded-[0.6rem] text-white py-[2rem] px-[5.6rem] text-[1.8rem] font-medium border border-solid border-custom">
+                            {" "}
                             View CV Online
                           </button>
                         </Link>
@@ -796,11 +1084,11 @@ const Home = ({ params }: { params: any }) => {
                 {listOfdata && listOfdata?.skills_ids?.length > 0 && (
                   <>
                     {/* Skills Section Completed */}
-                    <div className="mainContainer my-[5rem]  print:break-before-page print:pt-[56px]  landscape_print_page_height print:bg-bannerBG">
+                    <div className="mainContainer my-[5rem]  print:break-before-page print:pt-[56px]    print:bg-[#a3ddd3]">
                       {/* Badge */}
                       <div
                         id="skills_ids"
-                        className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto print:px-[6rem] print:text-[3rem] "
+                        className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto  section_top_button "
                       >
                         Skills
                       </div>
@@ -821,10 +1109,10 @@ const Home = ({ params }: { params: any }) => {
                 {listOfdata &&
                   listOfdata?.services &&
                   listOfdata?.services?.length > 0 && (
-                    <section className="w-full bg-sectionBG my-[5rem] print:m-0 landscape_print_page_pedding print:break-before-page landscape_print_page_height ">
+                    <section className="w-full bg-sectionBG my-[5rem] print:m-0 landscape_print_page_pedding print:break-before-page   ">
                       <div className="mainContainer py-[5rem] xl:py-[10rem]">
                         {/* Badge */}
-                        <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto print:px-[6rem] print:text-[3rem] ">
+                        <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto  section_top_button ">
                           My Services
                         </div>
                         {/* Heading */}
@@ -847,10 +1135,10 @@ const Home = ({ params }: { params: any }) => {
                   listOfdata.portfolios_ids.length > 0 && (
                     <>
                       {/* My Work Section Slider  */}
-                      <section className="w-full mt-[8rem] mb-[7rem] landscape_print_page_pedding print:bg-bannerBG  ">
+                      <section className="w-full mt-[8rem] mb-[7rem] landscape_print_page_pedding print:bg-[#a3ddd3]  ">
                         <div className="mainContainer my-[5rem] ">
                           {/* Badge */}
-                          <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto print:px-[6rem] print:text-[3rem] ">
+                          <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto  section_top_button ">
                             My Work
                           </div>
                           {/* Heading */}
@@ -873,10 +1161,10 @@ const Home = ({ params }: { params: any }) => {
                   listOfdata.experiences_ids.length > 0 && (
                     <>
                       {/* Professional Experience Timeline Section Completed */}
-                      <section className="w-full landscape_print_page_height print:py-[3rem] print:bg-bannerBG landscape_print_page_height">
+                      <section className="w-full   print:py-[3rem] print:bg-[#a3ddd3]  ">
                         <div className="mainContainer print:break-before-page print:shadow-none ">
                           {/* Badge */}
-                          <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto print:px-[6rem] print:text-[3rem] ">
+                          <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto  section_top_button ">
                             Professional Experience
                           </div>
                           {/* Heading */}
@@ -948,9 +1236,9 @@ const Home = ({ params }: { params: any }) => {
                                             )
                                               ? experience.ending_Date
                                               : formatDate(
-                                                experience.ending_Date,
-                                                dateFormatsOptions.shortMonthYear
-                                              )}
+                                                  experience.ending_Date,
+                                                  dateFormatsOptions.shortMonthYear
+                                                )}
                                           </div>
                                           {/* Timeline item */}
                                           <>
@@ -1023,16 +1311,16 @@ const Home = ({ params }: { params: any }) => {
                                                       {experience.company_website.includes(
                                                         "upwork"
                                                       ) && (
-                                                          <Link
-                                                            href={
-                                                              experience.company_website
-                                                            }
-                                                            className="hover:bg-primary hover:text-white py-[0.4rem] px-[1rem] text-heading bg-[#A3DDD3] rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
-                                                          >
-                                                            View my upwork
-                                                            Freelance Profile
-                                                          </Link>
-                                                        )}{" "}
+                                                        <Link
+                                                          href={
+                                                            experience.company_website
+                                                          }
+                                                          className="hover:bg-primary hover:text-white py-[0.4rem] px-[1rem] text-heading bg-[#A3DDD3] rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
+                                                        >
+                                                          View my upwork
+                                                          Freelance Profile
+                                                        </Link>
+                                                      )}{" "}
                                                     </div>
                                                   </div>
                                                 </div>
@@ -1056,7 +1344,7 @@ const Home = ({ params }: { params: any }) => {
 
                                                 {experience?.skills &&
                                                   experience?.skills.length >
-                                                  0 && (
+                                                    0 && (
                                                     <div className="w-full">
                                                       <h4 className=" text-[1.5rem] text-primary font-medium my-[1.6rem] ">
                                                         AREAS OF EXPERTISE I'VE
@@ -1080,9 +1368,10 @@ const Home = ({ params }: { params: any }) => {
                                                                     i
                                                                   ) => {
                                                                     // Calculate the skill number (groupIndex+1).(i+1)
-                                                                    const skillNumber = `${groupIndex +
+                                                                    const skillNumber = `${
+                                                                      groupIndex +
                                                                       1
-                                                                      }.${i + 1}`;
+                                                                    }.${i + 1}`;
 
                                                                     return (
                                                                       <Link
@@ -1097,9 +1386,10 @@ const Home = ({ params }: { params: any }) => {
                                                                           target="_blank"
                                                                           rel="noopener noreferrer"
                                                                           style={{
-                                                                            animationDelay: `${i *
+                                                                            animationDelay: `${
+                                                                              i *
                                                                               0.1
-                                                                              }s`,
+                                                                            }s`,
                                                                           }}
                                                                           className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium py-[0.4rem] px-[2rem] bg-white flex items-center print:py-[0.2rem] print:px-[1.5rem] justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
                                                                         >
@@ -1140,7 +1430,7 @@ const Home = ({ params }: { params: any }) => {
                                       setShowAllExperiences(!showAllExperiences)
                                     }
                                     className="btn-primary text-white py-[1rem] px-[3.4rem] text-[1.8rem] font-medium"
-                                  // className="bg-primary  text-white py-[0.4rem] px-[2rem] border border-primary border-solid hover:text-primary hover:bg-white rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
+                                    // className="bg-primary  text-white py-[0.4rem] px-[2rem] border border-primary border-solid hover:text-primary hover:bg-white rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
                                   >
                                     {showAllExperiences
                                       ? "Show Less"
@@ -1158,7 +1448,7 @@ const Home = ({ params }: { params: any }) => {
                 {/* FAQ Section Completed */}
                 <Faqs urlInfo={urlInfo} companyType={listOfdata?.companytype} />
                 {/* Our Blogs */}
-                <div className="my-[5rem] print:bg-bannerBG landscape_print_page_height">
+                <div className="my-[5rem] print:bg-[#a3ddd3]  ">
                   <OurBlogs domain={listOfdata?.domain} />
                 </div>
                 {/* Newsletter */}

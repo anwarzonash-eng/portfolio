@@ -5,14 +5,12 @@ import { useAppSelector } from '@/store';
 import dynamic from 'next/dynamic';
 import Tawkto from './Tawkto';
 import GoogleAnalytics from './GoogleAnalytics';
-import ContactMe from './ContactMe';
-// import { useAppSelector } from "@/store";
 
-const Header = dynamic(() => import('./layouts/header/page'), {
+const Header = dynamic(() => import("./layouts/header/page"), {
   ssr: false,
 });
 
-const Footer = dynamic(() => import('./layouts/footer/page'), {
+const Footer = dynamic(() => import("./layouts/footer/page"), {
   ssr: false,
 });
 
@@ -34,11 +32,11 @@ export default function ChildWrapper({
         'link[rel="icon"]'
       ) as HTMLLinkElement;
       if (!favicon) {
-        favicon = document.createElement('link');
-        favicon.rel = 'icon';
+        favicon = document.createElement("link");
+        favicon.rel = "icon";
         document.head.appendChild(favicon);
       }
-      favicon.href = url || '';
+      favicon.href = url || "";
     };
 
     // Update favicon based on listOfData
@@ -53,19 +51,11 @@ export default function ChildWrapper({
     <>
       <GoogleAnalytics scriptNumber={listOfdata?.googleAnalyticsScript} />
       <Tawkto />
-      <Header />
-
-      {children}
-      {/* {!urlInfo?.u && (
-            <section className="bg-transparent">
-              <div className="mainContainer">
-                <ContactMe listOfdata={listOfdata} />
-              </div>
-            </section>
-          )} */}
-      <div className="print:hidden block">
-      <Footer />
+      <div className="print:hidden block ">
+        <Header />
       </div>
+      {children}
+      <Footer />
     </>
   );
 }
