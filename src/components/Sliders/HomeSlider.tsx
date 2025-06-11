@@ -39,7 +39,7 @@ const HomeSlider: React.FC<HomeSliderProps> = ({ portfolios, companyType }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const sliderRef = useRef<HTMLDivElement>(null);
-  const slideInterval = 80000;
+  const slideInterval = 3000;
   const [
     selectedPorfolioPicturesforPopup,
     setSelectedPorfolioPicturesforPopup,
