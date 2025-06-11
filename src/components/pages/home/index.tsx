@@ -111,7 +111,7 @@ const Home = ({ params }: { params: any }) => {
                 {/* <Welcome /> */}
 
                 {/* Hero Section */}
-                <div className="w-full overflow-hidden relative bg-bannerBG print:break-before-page  print:h-[990.70px] print:m-0">
+                <div className="w-full overflow-hidden relative bg-bannerBG print:break-before-page  print:h-screen print:m-0">
                   {/*Hero Section For Mobile and Tablet Devices*/}
                   <div className="mainContainer relative xl:hidden print:hidden ">
                     {/* Hero Section Mobile Content */}
@@ -488,7 +488,7 @@ const Home = ({ params }: { params: any }) => {
                             ))}
                         </div>
                       </div>
-                      <div className="mt-[-12rem] flex justify-center relative">
+                      <div className="mt-[-4rem] flex justify-center relative">
                         {/* Center Dev Image */}
                         <Image
                           width={731}
@@ -537,8 +537,8 @@ const Home = ({ params }: { params: any }) => {
 
                                 <div
                                   ref={skillsContainerRef}
-                                  className="w-full p-[1.5rem] bg-white/70 backdrop-blur-xl justify-start items-center gap-[0.6rem] flex flex-wrap overflow-y-auto hide-scrollbar"
-                                  style={{ maxHeight: "46.3rem" }}
+                                  className="w-full p-[1.5rem] bg-white/70 backdrop-blur-xl justify-start items-center gap-[0.6rem] flex flex-wrap "
+                                  style={{ maxHeight: "45.3rem" }}
                                 >
                                   {Object?.values(skills)?.map(
                                     (group, groupIndex) => (
@@ -1087,7 +1087,7 @@ const Home = ({ params }: { params: any }) => {
                 {listOfdata && listOfdata?.skills_ids?.length > 0 && (
                   <>
                     {/* Skills Section Completed */}
-                    <div className="mainContainer print:!pt-[4rem] print_p_m my-[5rem]  print:h-screen print:break-before-page break-before-avoid print:bg-[#ffffff]">
+                    <div className="mainContainer print:!pt-[4rem] print:my-[0rem] my-[5rem]  print:h-screen print:break-before-page break-before-avoid print:bg-[#a3ddd3]">
                       {/* Badge */}
                       <div
                         id="skills_ids"
@@ -1139,7 +1139,7 @@ const Home = ({ params }: { params: any }) => {
                     <>
                       {/* My Work Section Slider  */}
                       <section className="w-full mt-[8rem] mb-[7rem] print_p_m print:!pt-[3rem] print:bg-[#a3ddd3] print:break-before-page print:h-screen ">
-                        <div className="mainContainer print_p_m  my-[5rem] ">
+                        <div className="mainContainer   my-[5rem] print:my-[1rem] ">
                           {/* Badge */}
                           <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto  section_top_button ">
                             My Work
@@ -1165,7 +1165,7 @@ const Home = ({ params }: { params: any }) => {
                     <>
                       {/* Professional Experience Timeline Section Completed */}
                       <section className="w-full   print_p_m print:h-screen print:break-before-page print:bg-[#a3ddd3]  ">
-                        <div className="mainContainer print_p_m  print:shadow-none print:!pt-[3rem] ">
+                        <div className="mainContainer   print:shadow-none print:!pt-[3rem] ">
                           {/* Badge */}
                           <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto  section_top_button ">
                             Professional Experience
