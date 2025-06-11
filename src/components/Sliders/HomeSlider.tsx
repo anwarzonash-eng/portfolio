@@ -39,7 +39,7 @@ const HomeSlider: React.FC<HomeSliderProps> = ({ portfolios, companyType }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const sliderRef = useRef<HTMLDivElement>(null);
-  const slideInterval = 80000;
+  const slideInterval = 3000;
   const [
     selectedPorfolioPicturesforPopup,
     setSelectedPorfolioPicturesforPopup,
@@ -143,7 +143,7 @@ const HomeSlider: React.FC<HomeSliderProps> = ({ portfolios, companyType }) => {
                 <div className="h-full flex items-center justify-center">
                   <div className="flex flex-col-reverse lg:flex-row items-stretch bg-white rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden h-full w-full">
                     {/* Content Section */}
-                    <div className="p-[2rem] lg:p-[3.5rem] w-full lg:w-1/2 print:w-full overflow-y-auto  flex items-start justify-between flex-col">
+                    <div className="p-[2rem] lg:p-[3.5rem] w-full lg:w-1/2 print:w-full  flex items-start justify-between flex-col">
                       <div className="flex items-start w-full flex-col justify-between h-full">
                         <div>
                           <div className="flex gap-[2rem] mb-[2rem]">
@@ -153,20 +153,21 @@ const HomeSlider: React.FC<HomeSliderProps> = ({ portfolios, companyType }) => {
                               </h1>
                             </Link>
                           </div>
+                          <div className="h-[234px] overflow-auto custom-scrollbar">
+                            <p
+                              dangerouslySetInnerHTML={{
+                                __html: portfolio.tagline_1,
+                              }}
+                              className="text-[1.6rem] lg:text-[1.8rem] leading-[2.4rem] font-normal text-paragraph1 mt-[1rem] line-clampforTagline1 basicLineClamp"
+                            ></p>
 
-                          <p
-                            dangerouslySetInnerHTML={{
-                              __html: portfolio.tagline_1,
-                            }}
-                            className="text-[1.6rem] lg:text-[1.8rem] leading-[2.4rem] font-normal text-paragraph1 mt-[1rem] line-clampforTagline1 basicLineClamp"
-                          ></p>
-
-                          <p
-                            dangerouslySetInnerHTML={{
-                              __html: portfolio.tagline_2,
-                            }}
-                            className="text-[1.6rem] lg:text-[1.8rem] leading-[2.4rem] font-normal text-primary mt-[1rem] line-clamp basicLineClamp"
-                          ></p>
+                            <p
+                              dangerouslySetInnerHTML={{
+                                __html: portfolio.tagline_2,
+                              }}
+                              className="text-[1.6rem] lg:text-[1.8rem] leading-[2.4rem] font-normal text-primary mt-[1rem] line-clamp basicLineClamp"
+                            ></p>
+                          </div>
                         </div>
 
                         <div className="text-black text-[1.6rem] leading-[2.4rem] sm:text-[1.8rem] sm:leading-[2.8rem] lg:text-[1.8rem] lg:leading-[2.9rem] font-normal lg:font-medium my-[2rem]">
