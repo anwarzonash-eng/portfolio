@@ -447,3 +447,22 @@ body {
 .print_p_m{
   @apply print:w-full print:p-0 print:m-0
 }
+/* Tailored slim scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 3px; /* Slim */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #aaa; /* Scroll thumb color */
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent; /* or light grey */
+}
+
+/* Firefox support */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #aaa transparent;
+}
