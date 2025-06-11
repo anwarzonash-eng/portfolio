@@ -31,7 +31,7 @@ const ContactMeLinks = ({ props }) => {
       {contactLinks.map(({ href, src, alt }) =>
         href ? (
           <Link href={href} key={alt} target='_blank'>
-            <Image src={src} height={45} width={45} alt={alt} />
+            <Image src={src} height={45} width={45} alt={alt} className='size-[50px] print:size-[80px]'/>
           </Link>
         ) : null
       )}

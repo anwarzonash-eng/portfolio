@@ -33,27 +33,27 @@ const OurBlogs = ({ domain }) => {
   return (
     <>
       {!urlInfo?.u && (
-            <section className="bg-transparent print:block hidden print:pt-[6rem]">
+            <section className="bg-transparent print:block hidden print:pt-[3rem] ">
               <div className="mainContainer">
                 <ContactMe listOfdata={listOfdata} />
               </div>
             </section>
           )}
-      <div className="print:flex flex-col print:break-before-page">
-        <section className="mainContainer w-full  print:pt-[6rem] ">
+      <div className="print:flex flex-col print:break-before-page ">
+        <section className="mainContainer w-full print:m-0  print:pt-[1.5rem] ">
           {/* Top Content */}
-          <div className="flex justify-between flex-wrap items-end sm:items-center gap-[2rem] mb-[4rem]">
+          <div className="flex justify-between flex-wrap items-end sm:items-center gap-[2rem] mb-[4rem] print:mb-[2rem] ">
             <div>
-              <p className="text-sectionBG text-[1.6rem] leading-[2.4rem] font-medium">
+              <p className="text-sectionBG print:hidden text-[1.6rem] leading-[2.4rem] font-medium">
                 Our blog
               </p>
-              <h3 className="text-heading text-[3.6rem] leading-[4.4rem] font-medium mt-[1.2rem]">
+              <h3 className="text-heading text-[3.6rem] print:text-[2rem]  leading-[4.4rem] font-medium mt-[1.2rem] print:m-0">
                 My Latest Blogs
               </h3>
             </div>
             <div className="w-full sm:w-auto flex justify-center ">
               <Link href={"/blog-listing"}>
-                <button className="btn-primary text-white py-[1rem] px-[3.4rem] text-[1.8rem] font-medium">
+                <button className="btn-primary text-white py-[1rem] px-[3.4rem] text-[1.8rem] print:py-[.7rem] print:px-[2.4rem] print:text-[1rem] font-medium">
                   View All Blogs
                 </button>
               </Link>
@@ -73,7 +73,7 @@ const OurBlogs = ({ domain }) => {
                       <Link
                         key={index}
                         href={`/blog-listing/${blog?.id}`}
-                        className="max-w-[41.8rem] w-full p-[2.4rem] bg-white shadow-lg mb-[1.6rem]"
+                        className="max-w-[41.8rem] w-full p-[2.4rem] print:!pt-[1rem] bg-white shadow-lg mb-[1.6rem]"
                       >
                         {blog?.featuredImage && (
                           <img

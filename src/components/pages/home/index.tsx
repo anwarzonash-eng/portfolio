@@ -23,7 +23,7 @@ import { skillsSyncApi } from "@/apiHandlers/skillsApi";
 import { reportsApiHandler } from "@/hooks/apihandlers/reportsApiHandlers";
 import { handleSkillsApiCall } from "@/hooks/apihandlers/skillsApiHandlers";
 import { getColors, updateCSSVariables } from "@/hooks/colors";
-import { store } from "@/store";
+import { store, useAppSelector } from "@/store";
 import { setProfileLoading, setProfileUrlInfo } from "@/store/profileSlice";
 import { downloadFile } from "@/hooks/downloadFile";
 import OurBlogs from "@/components/OurBlogs";
@@ -50,6 +50,9 @@ const Home = ({ params }: { params: any }) => {
   const isSmallScreen = useMediaQuery({ query: "(max-width: 768px)" });
   const [showAll, setShowAll] = useState(false);
   const [showAllExperiences, setShowAllExperiences] = useState(false);
+  const listOfdatas = useAppSelector(
+    (state) => state.profile.listOfProfileData
+  );
   useEffect(() => {
     setURLInfo(getRoutesDetails(params, searchParams));
   }, [params, searchParams]);
@@ -110,6 +113,56 @@ const Home = ({ params }: { params: any }) => {
                 <FreeTrialPopup listOfdata={listOfdata} urlInfo={urlInfo} />
                 {/* <Welcome /> */}
 
+                <section className="!w-full relative print:flex flex-col hidden h-screen print:bg-[#a3ddd3] print:break-before-page">
+                  <div className="relative print:block !w-full">
+                    <Header />
+                  </div>
+                  <div className="mainContainer w-full relative ">
+                    <div className="max-w-[1024px]  mx-auto text-center px-[2rem] pt-[8rem] relative z-20 print:mt-[20rem] ">
+                      <div className=" items-center justify-strat gap-[4rem] print:flex hidden  w-full  ">
+                        <img
+                          src={listOfdatas?.profile_photo_1}
+                          alt=""
+                          className="size-[245px] rounded-full"
+                        />
+                        <div className="flex items-start justify-start flex-col">
+                          <h2 className="text-[7rem] font-bold">
+                            {" "}
+                            {listOfdata?.name}
+                          </h2>
+                          <div className="text-[4rem] font-medium flex items-center justify-center flex-wrap gap-[3px]">
+                            {" "}
+                            {listOfdatas?.designation
+                              ?.split("|")
+                              .map((item, index) => (
+                                <div key={index} className="text-center">
+                                  {item.trim()}
+                                </div>
+                              ))}
+                          </div>
+                        </div>
+                      </div>
+                        <div className="flex items-center gap-[2.1rem] mt-[4rem] mb-[0.8rem]">
+                          <WorkProofLinks
+                            props={{
+                              upwork: listOfdata?.upwork,
+                              github: listOfdata?.github,
+                              linkedIn: listOfdata?.linkedIn,
+                              behance_link: listOfdata?.behance_link,
+                              u: urlInfo?.u,
+                            }}
+                          />
+                          <ContactMeLinks
+                              props={{
+                                email: listOfdata?.email,
+                                phone_no: listOfdata?.phone_no,
+                              }}
+                            />
+                        </div>
+                        
+                    </div>
+                  </div>
+                </section>
                 {/* Hero Section */}
                 <div className="w-full overflow-hidden relative bg-bannerBG print:break-before-page  print:h-screen print:m-0">
                   {/*Hero Section For Mobile and Tablet Devices*/}
@@ -466,9 +519,6 @@ const Home = ({ params }: { params: any }) => {
                   </div>
                   {/* Hero Section For Print section  */}
                   <div className="!px-0 w-full !m-0 hidden print:block">
-                    <div className="relative print:block">
-                      <Header />
-                    </div>
                     <div className="text-center mx-[3rem] mt-[3rem]">
                       <p className="text-heading text-[4rem] font-normal leading-normal mb-[1rem]">
                         Hello! I’m
@@ -1408,7 +1458,7 @@ const Home = ({ params }: { params: any }) => {
                                                             skillsforExpereince
                                                           )
                                                             .flat()
-                                                            .slice(0, 7) 
+                                                            .slice(0, 7)
                                                             .map((skill, i) => (
                                                               <span
                                                                 key={`print-skill-${i}`}
