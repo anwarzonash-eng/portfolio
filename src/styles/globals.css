@@ -444,3 +444,6 @@ body {
 .section_top_button{
   @apply print:px-[6rem] print:text-[3rem]
 }
+.print_p_m{
+  @apply print:w-full print:p-0 print:m-0
+}

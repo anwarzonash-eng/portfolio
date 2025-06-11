@@ -595,10 +595,10 @@ const Home = ({ params }: { params: any }) => {
                   </div>
                 </div>
 
-                {/* About Section Completed*/}
-                <section className="w-full flex items-center justify-center mb-[5rem] print:break-before-page print:pt-[56px] print:mx-[4rem]">
+                {/* About Section for desktop*/}
+                <section className="w-full flex items-center justify-center mb-[5rem] print:hidden">
                   {/* Container Div for desktop*/}
-                  <div className="mainContainer flex flex-col-reverse gap-[5rem] print:hidden  xl:gap-0 xl:flex-row items-center justify-center xl:justify-between">
+                  <div className="mainContainer flex flex-col-reverse gap-[5rem]   xl:gap-0 xl:flex-row items-center justify-center xl:justify-between">
                     {/* Container For Image and Badges */}
                     <div className="w-full h-full xl:w-[67rem] xl:h-[64rem] flex-shrink-0 max-xl:flex  justify-center">
                       <div
@@ -828,11 +828,14 @@ const Home = ({ params }: { params: any }) => {
                       </div>
                     </div>
                   </div>
+                </section>
 
+                {/* About Section for print*/}
+                <section className="w-full print:flex h-screen hidden items-center justify-center print:break-before-page pt-[56px] px-[4rem]">
                   {/* Container Div for print*/}
-                  <div className="  w-full  px-0  gap-[2rem] flex-row items-center justify-center print:flex hidden">
+                  <div className="  w-full  px-0  gap-[2rem] flex flex-row items-center justify-center">
                     {/* Container For Image and Badges */}
-                    <div className="w-full max-w-[40%] flex  justify-center">
+                    <div className="w-full max-w-[50%] flex items-center justify-center">
                       <div
                         className="relative h-[65rem] bg-center bg-cover bg-no-repeat w-full rounded-[1rem]"
                         style={{
@@ -1084,16 +1087,16 @@ const Home = ({ params }: { params: any }) => {
                 {listOfdata && listOfdata?.skills_ids?.length > 0 && (
                   <>
                     {/* Skills Section Completed */}
-                    <div className="mainContainer my-[5rem]  print:break-before-page print:pt-[56px]    print:bg-[#a3ddd3]">
+                    <div className="mainContainer print:!pt-[4rem] print_p_m my-[5rem]  print:h-screen print:break-before-page break-before-avoid print:bg-[#ffffff]">
                       {/* Badge */}
                       <div
                         id="skills_ids"
-                        className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto  section_top_button "
+                        className="px-[2rem]  py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto  section_top_button "
                       >
                         Skills
                       </div>
                       {/* Heading */}
-                      <div className="text-center text-heading text-[2.4rem] xl:text-[3rem] print:text-[3rem] font-medium leading-[2.8rem] mt-[2rem]">
+                      <div className="text-center text-heading text-[2.4rem] xl:text-[3rem] print:text-[3rem] print:mb-[1.5rem] font-medium leading-[2.8rem] mt-[2rem]">
                         {listOfdata?.companytype == "leewop"
                           ? "The skills & tools I am really good at:"
                           : " The skills, tools and technologies I am really good at:"}
@@ -1109,7 +1112,7 @@ const Home = ({ params }: { params: any }) => {
                 {listOfdata &&
                   listOfdata?.services &&
                   listOfdata?.services?.length > 0 && (
-                    <section className="w-full bg-sectionBG my-[5rem] print:m-0 landscape_print_page_pedding print:break-before-page   ">
+                    <section className="w-full bg-sectionBG my-[5rem] print:m-0  print:break-before-page print:h-screen ">
                       <div className="mainContainer py-[5rem] xl:py-[10rem]">
                         {/* Badge */}
                         <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto  section_top_button ">
@@ -1135,8 +1138,8 @@ const Home = ({ params }: { params: any }) => {
                   listOfdata.portfolios_ids.length > 0 && (
                     <>
                       {/* My Work Section Slider  */}
-                      <section className="w-full mt-[8rem] mb-[7rem] landscape_print_page_pedding print:bg-[#a3ddd3]  ">
-                        <div className="mainContainer my-[5rem] ">
+                      <section className="w-full mt-[8rem] mb-[7rem] print_p_m print:!pt-[3rem] print:bg-[#a3ddd3] print:break-before-page print:h-screen ">
+                        <div className="mainContainer print_p_m  my-[5rem] ">
                           {/* Badge */}
                           <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto  section_top_button ">
                             My Work
@@ -1161,8 +1164,8 @@ const Home = ({ params }: { params: any }) => {
                   listOfdata.experiences_ids.length > 0 && (
                     <>
                       {/* Professional Experience Timeline Section Completed */}
-                      <section className="w-full   print:py-[3rem] print:bg-[#a3ddd3]  ">
-                        <div className="mainContainer print:break-before-page print:shadow-none ">
+                      <section className="w-full   print_p_m print:h-screen print:break-before-page print:bg-[#a3ddd3]  ">
+                        <div className="mainContainer print_p_m  print:shadow-none print:!pt-[3rem] ">
                           {/* Badge */}
                           <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto  section_top_button ">
                             Professional Experience
@@ -1173,7 +1176,7 @@ const Home = ({ params }: { params: any }) => {
                           </div>
                           {/* Timeline */}
                           <div className="mainContainer flex items-center justify-center mt-[2rem] print:m-0 ">
-                            <div className="relative  ">
+                            <div className="relative print:flex flex-col gap-4">
                               {/* Vertical line */}
                               <div className="absolute print_hidden left-[10rem] top-[3rem] w-[0.4rem] h-[calc(100%-78px)] bg-border  mx-[2.1rem] hidden xl:block" />
                               {listOfdata?.experiences_ids &&
@@ -1221,7 +1224,7 @@ const Home = ({ params }: { params: any }) => {
                                     return (
                                       <>
                                         {/* Timeline items Container */}
-                                        <div className="space-y-[1rem]  xl:space-y-[3rem] xl:space-x-[9rem] mt-10">
+                                        <div className="space-y-[1rem]  xl:space-y-[3rem] xl:space-x-[9rem] mt-10 print_p_m">
                                           {/* Date and divider */}
                                           <div className="ml-[0.5rem]  xl:mb-auto xl:ml-auto xl:absolute left-[-7.6rem] z-10 text-[1.8rem] text-paragraph1 capitalize">
                                             {formatDate(
@@ -1335,12 +1338,6 @@ const Home = ({ params }: { params: any }) => {
                                                     ),
                                                   }}
                                                 ></p>
-                                                {/* <p
-                      className='my-[2rem] text-paragraph1 text-[1.4rem] list-disc pl-[2rem] flex flex-col gap-[0.8rem]'
-                      dangerouslySetInnerHTML={{
-                        __html: experience?.long_description,
-                      }}
-                    ></p> */}
 
                                                 {experience?.skills &&
                                                   experience?.skills.length >
@@ -1351,7 +1348,7 @@ const Home = ({ params }: { params: any }) => {
                                                         WORKED IN
                                                       </h4>
                                                       <div className="w-full flex-col items-start flex gap-5">
-                                                        <div className="flex items-center gap-[1rem] lg:gap-[0.7rem]   text-nowrap flex-wrap text-[1.2rem]">
+                                                        <div className="flex print:hidden items-center gap-[1rem] lg:gap-[0.7rem]   text-nowrap flex-wrap text-[1.2rem]">
                                                           {Object?.values(
                                                             skillsforExpereince
                                                           )?.map(
@@ -1405,6 +1402,23 @@ const Home = ({ params }: { params: any }) => {
                                                             )
                                                           )}
                                                         </div>
+
+                                                        <div className="hidden print:flex print:flex-wrap print:gap-[0.5rem]">
+                                                          {Object.values(
+                                                            skillsforExpereince
+                                                          )
+                                                            .flat()
+                                                            .slice(0, 7) 
+                                                            .map((skill, i) => (
+                                                              <span
+                                                                key={`print-skill-${i}`}
+                                                                className="capitalize text-primary text-[1.1rem] font-medium py-[0.2rem] px-[1.2rem] bg-white rounded-[5rem] border border-[#757575] print:border-gray-300 print:shadow-none"
+                                                              >
+                                                                {skill?.title}
+                                                              </span>
+                                                            ))}
+                                                        </div>
+
                                                         <ShowmoreSkills
                                                           props={{
                                                             list: experience?.skills,

@@ -5,6 +5,7 @@ import Link from "next/link";
 import PortfolioImagesLoader from "../PortfolioImagesLoader";
 import PortfolioPopUp from "../PortfolioPopUp";
 import { skillsGrouping } from "@/hooks/skillsGrouping";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 // Define types
 type SkillType = {
@@ -104,8 +105,8 @@ const HomeSlider: React.FC<HomeSliderProps> = ({ portfolios, companyType }) => {
   ];
 
   return (
-    <div className="w-full flex flex-col items-center gap-3 mt-[3rem]">
-      <div className="relative w-full overflow-x-hidden print:overflow-x-hidden lg:h-[610px] print:h-auto h-full">
+    <div className="w-full flex flex-col items-center gap-3 mt-[3rem] print:m-0">
+      <div className="relative w-full overflow-x-hidden print:overflow-x-hidden print:my-[4rem] lg:h-[610px] print:h-[610px] h-full">
         {isModalOpen && selectedPorfolioPicturesforPopup !== null && (
           <PortfolioPopUp
             isModalOpen={isModalOpen}
@@ -116,7 +117,7 @@ const HomeSlider: React.FC<HomeSliderProps> = ({ portfolios, companyType }) => {
 
         {/* Slider Container */}
         <div
-          className="flex items-center  transition-all duration-700 ease-in-out h-full print:h-auto"
+          className="flex items-center  transition-all duration-700 ease-in-out h-full print:h-full"
           style={{ transform: `translateX(-${adjustedCurrentSlide * 100}%)` }}
           ref={sliderRef}
           onMouseEnter={handleMouseEnter}
@@ -170,29 +171,29 @@ const HomeSlider: React.FC<HomeSliderProps> = ({ portfolios, companyType }) => {
 
                         <div className="text-black text-[1.6rem] leading-[2.4rem] sm:text-[1.8rem] sm:leading-[2.8rem] lg:text-[1.8rem] lg:leading-[2.9rem] font-normal lg:font-medium my-[2rem]">
                           AREAS OF EXPERTISE I'VE WORKED IN:
-                            <div className="flex items-center gap-[1rem] lg:gap-[0.7rem] my-[2rem] text-nowrap flex-wrap">
-                              {Object.values(skills)
-                                .flat()
-                                .slice(0, showAllSkills ? undefined : 8)
-                                .map((skill: SkillType, i: number) => (
-                                  <Link
-                                    href={skill.url || "#"}
-                                    legacyBehavior
-                                    key={`skill-${i}`}
+                          <div className="flex items-center gap-[1rem] lg:gap-[0.7rem] my-[2rem] text-nowrap flex-wrap">
+                            {Object.values(skills)
+                              .flat()
+                              .slice(0, showAllSkills ? undefined : 8)
+                              .map((skill: SkillType, i: number) => (
+                                <Link
+                                  href={skill.url || "#"}
+                                  legacyBehavior
+                                  key={`skill-${i}`}
+                                >
+                                  <a
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    style={{
+                                      animationDelay: `${i * 0.1}s`,
+                                    }}
+                                    className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium py-[0.4rem] px-[2rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
                                   >
-                                    <a
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      style={{
-                                        animationDelay: `${i * 0.1}s`,
-                                      }}
-                                      className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium py-[0.4rem] px-[2rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
-                                    >
-                                      {skill?.title}
-                                    </a>
-                                  </Link>
-                                ))}
-                                {Object.values(skills).flat().length > 8 && (
+                                    {skill?.title}
+                                  </a>
+                                </Link>
+                              ))}
+                            {Object.values(skills).flat().length > 8 && (
                               <button
                                 onClick={() => setShowAllSkills(!showAllSkills)}
                                 className="bg-primary text-white print:hidden border border-transparent py-[0.4rem] px-[2rem] hover:bg-white hover:text-primary hover:border-primary hover:border text-heading rounded-[1.2rem] text-[1.4rem] font-medium leading-[2rem]"
@@ -200,8 +201,7 @@ const HomeSlider: React.FC<HomeSliderProps> = ({ portfolios, companyType }) => {
                                 {showAllSkills ? "Show Less" : "See More"}
                               </button>
                             )}
-                            </div>
-                            
+                          </div>
                         </div>
                       </div>
 
@@ -300,58 +300,16 @@ const HomeSlider: React.FC<HomeSliderProps> = ({ portfolios, companyType }) => {
       <div className="flex print:hidden items-center justify-center w-full">
         <div className="flex items-center justify-center gap-[1.2rem]">
           <div
-            className="rounded-[50%] h-[5.6rem] w-[5.6rem] border-[0.2rem] border-primary border-solid flex items-center justify-center hover:bg-primary group duration-300 cursor-pointer"
+            className="rounded-[50%] h-[5.6rem] w-[5.6rem] border-[0.2rem] border-primary border-solid flex items-center justify-center hover:bg-primary hover:text-white text-primary group duration-300 cursor-pointer"
             onClick={prevSlide}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-            >
-              <path
-                d="M20.25 12H3.75"
-                className="stroke-primary group-hover:stroke-white"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M10.5 5.25L3.75 12L10.5 18.75"
-                className="stroke-primary group-hover:stroke-white"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <ChevronLeft className="w-8 h-8 " />
           </div>
           <div
-            className="rounded-[50%] h-[5.6rem] w-[5.6rem] border-[0.2rem] border-primary border-solid flex items-center justify-center hover:bg-primary group duration-300 cursor-pointer"
+            className="rounded-[50%] h-[5.6rem] w-[5.6rem] border-[0.2rem] border-primary border-solid flex items-center justify-center hover:bg-primary hover:text-white text-primary group duration-300 cursor-pointer"
             onClick={nextSlide}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-            >
-              <path
-                d="M3.75 12H20.25"
-                className="stroke-primary group-hover:stroke-white"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M13.5 5.25L20.25 12L13.5 18.75"
-                className="stroke-primary group-hover:stroke-white"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <ChevronRight className="w-8 h-8 " />
           </div>
         </div>
       </div>
