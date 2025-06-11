@@ -595,10 +595,10 @@ const Home = ({ params }: { params: any }) => {
                   </div>
                 </div>
 
-                {/* About Section Completed*/}
-                <section className="w-full flex items-center justify-center mb-[5rem] print:break-before-page print:pt-[56px] print:mx-[4rem]">
+                {/* About Section for desktop*/}
+                <section className="w-full flex items-center justify-center mb-[5rem] print:hidden">
                   {/* Container Div for desktop*/}
-                  <div className="mainContainer flex flex-col-reverse gap-[5rem] print:hidden  xl:gap-0 xl:flex-row items-center justify-center xl:justify-between">
+                  <div className="mainContainer flex flex-col-reverse gap-[5rem]   xl:gap-0 xl:flex-row items-center justify-center xl:justify-between">
                     {/* Container For Image and Badges */}
                     <div className="w-full h-full xl:w-[67rem] xl:h-[64rem] flex-shrink-0 max-xl:flex  justify-center">
                       <div
@@ -828,11 +828,14 @@ const Home = ({ params }: { params: any }) => {
                       </div>
                     </div>
                   </div>
+                </section>
 
+                {/* About Section for print*/}
+                <section className="w-full print:flex hidden items-center justify-center print:break-before-page pt-[56px] mx-[4rem]">
                   {/* Container Div for print*/}
-                  <div className="  w-full  px-0  gap-[2rem] flex-row items-center justify-center print:flex hidden">
+                  <div className="  w-full  px-0  gap-[2rem] flex-row items-center justify-center">
                     {/* Container For Image and Badges */}
-                    <div className="w-full max-w-[40%] flex  justify-center">
+                    <div className="w-full  flex items-center justify-center">
                       <div
                         className="relative h-[65rem] bg-center bg-cover bg-no-repeat w-full rounded-[1rem]"
                         style={{
@@ -888,7 +891,7 @@ const Home = ({ params }: { params: any }) => {
                       </div>
                     </div>
                     {/* Contact Details */}
-                    <div className="w-full max-w-[50%]">
+                    <div className="w-full ">
                       {/* About Context */}
                       <div className="w-full">
                         {/* Badge */}
@@ -1061,6 +1064,7 @@ const Home = ({ params }: { params: any }) => {
                     </div>
                   </div>
                 </section>
+
 
                 {/* Custom Video Player Section */}
                 {listOfdata?.video_attached?.videoURL && (
