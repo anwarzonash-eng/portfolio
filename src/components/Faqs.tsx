@@ -42,8 +42,8 @@ const Faqs = ({ urlInfo, companyType }) => {
   return (
     <>
       {/* FAQ Section Completed */}
-      <section className="w-full print:break-before-page print:bg-[#a3ddd3] landscape_print_page_height">
-        <div className="mainContainer mt-[10rem] mb-[5rem] flex flex-col md:flex-row gap-[4rem] lg:gap-[6rem] lg:justify-between print:mt-0">
+      <section className="w-full print:break-before-page print:bg-[#ffffff] print:h-screen">
+        <div className="mainContainer mt-[10rem] print_p_m mb-[5rem] flex flex-col md:flex-row gap-[4rem] lg:gap-[6rem] lg:justify-between print:mt-0">
           {/* Faq Bg - Hidden in print */}
           <div className="bg-primary rounded-[2rem] flex items-center justify-between flex-col overflow-hidden h-[27rem] lg:h-[40.7rem] md:max-w-[35.7rem] w-full relative print:hidden">
             {/* Top Content */}

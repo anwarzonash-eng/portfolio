@@ -105,8 +105,8 @@ const HomeSlider: React.FC<HomeSliderProps> = ({ portfolios, companyType }) => {
   ];
 
   return (
-    <div className="w-full flex flex-col items-center gap-3 mt-[3rem]">
-      <div className="relative w-full overflow-x-hidden print:overflow-x-hidden lg:h-[610px] print:h-auto h-full">
+    <div className="w-full flex flex-col items-center gap-3 mt-[3rem] print:m-0">
+      <div className="relative w-full overflow-x-hidden print:overflow-x-hidden print:my-[4rem] lg:h-[610px] print:h-[610px] h-full">
         {isModalOpen && selectedPorfolioPicturesforPopup !== null && (
           <PortfolioPopUp
             isModalOpen={isModalOpen}
@@ -117,7 +117,7 @@ const HomeSlider: React.FC<HomeSliderProps> = ({ portfolios, companyType }) => {
 
         {/* Slider Container */}
         <div
-          className="flex items-center  transition-all duration-700 ease-in-out h-full print:h-auto"
+          className="flex items-center  transition-all duration-700 ease-in-out h-full print:h-full"
           style={{ transform: `translateX(-${adjustedCurrentSlide * 100}%)` }}
           ref={sliderRef}
           onMouseEnter={handleMouseEnter}
