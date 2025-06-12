@@ -1,10 +1,11 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect ,useState} from "react";
 import { getColors, updateCSSVariables } from "@/hooks/colors";
 import { useAppSelector } from "@/store";
 import dynamic from "next/dynamic";
 import Tawkto from "./Tawkto";
 import GoogleAnalytics from "./GoogleAnalytics";
+import OfferBanner from "./OfferBanner";
 
 const Header = dynamic(() => import("./layouts/header/page"), {
   ssr: false,
@@ -19,9 +20,19 @@ export default function ChildWrapper({
 }: {
   children: React.ReactNode;
 }) {
-  const listOfdata = useAppSelector((state) => state.profile.listOfProfileData);
-
+const listOfdata = useAppSelector((state) => state.profile.listOfProfileData);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const urlInfo = useAppSelector((state) => state.profile.profileUrlInfo);
   const colors = getColors(listOfdata);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10); // Adjust threshold as needed
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     document.title = listOfdata?.name;
@@ -46,17 +57,34 @@ export default function ChildWrapper({
     updateCSSVariables(colors);
   }, [colors]);
 
+  
   return (
     <>
       <GoogleAnalytics scriptNumber={listOfdata?.googleAnalyticsScript} />
       <Tawkto />
-      <div className="print:hidden block relative ">
+      
+      
+      
+      {/* Offer Banner - conditionally shown */}
+      {!urlInfo?.u && !isScrolled && (
+        <div className="print:hidden">
+          <OfferBanner listOfdata={listOfdata} />
+        </div>
+      )}
+      {/* Header Wrapper */}
+      <div className="print:hidden block sticky top-0 z-[100]">
         <Header />
       </div>
-      {children}
+      {/* Content */}
+      <div className="relative">
+        {children}
+      </div>
+      
+      {/* Footer */}
       <div className="print:hidden block">
         <Footer />
       </div>
     </>
   );
+  
 }
