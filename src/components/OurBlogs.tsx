@@ -122,11 +122,11 @@ const OurBlogs = ({ domain }) => {
                               dangerouslySetInnerHTML={{
                                 __html: blog?.title,
                               }}
-                              className="text-[2.4rem] font-medium leading-[3.2rem] text-heading"
+                              className="text-[2.4rem] print:text-[2rem] font-medium leading-[3.2rem] text-heading"
                             ></h2>
                             <Link
                               href={`/blog-listing/${blog?.id}`}
-                              className="hover:rotate-90 duration-300"
+                              className="hover:rotate-90 duration-300 print:hidden"
                             >
                               {/* Arrow */}
                               <svg

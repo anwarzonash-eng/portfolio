@@ -401,7 +401,10 @@ body {
 
 @media print {
   .services_main ul li{
-    @apply hidden
+    @apply hidden print:!p-0
+  }
+   .services_main ul{
+    @apply  print:!p-[1rem]
   }
 
 .services_main ul li:nth-child(1),

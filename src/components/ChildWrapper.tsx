@@ -51,7 +51,7 @@ export default function ChildWrapper({
     <>
       <GoogleAnalytics scriptNumber={listOfdata?.googleAnalyticsScript} />
       <Tawkto />
-      <div className="print:hidden block ">
+      <div className="print:hidden block relative ">
         <Header />
       </div>
       {children}

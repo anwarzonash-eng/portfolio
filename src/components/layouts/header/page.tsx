@@ -242,7 +242,7 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
           {/* {!pathname.includes('cv') && ( */}
           {/* header for desktop */}
           <header
-            className={`sticky top-0 left-0 w-full  z-[100]  transition-colors duration-300 print:hidden block  ${bgColor}`}
+            className={`!sticky top-0 left-0 w-full  z-[100]  transition-colors duration-300 print:hidden block  ${bgColor}`}
           >
             {/* Header Navbar */}
             <div className="w-full print:hidden block ">

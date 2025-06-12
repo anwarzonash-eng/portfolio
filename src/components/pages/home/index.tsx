@@ -114,7 +114,7 @@ const Home = ({ params }: { params: any }) => {
                 {/* <Welcome /> */}
 
                 <section className="!w-full relative print:flex flex-col hidden h-screen print:bg-[#a3ddd3] print:break-before-page">
-                  <div className="relative print:block !w-full">
+                  <div className="relative print:block !w-full hidden">
                     <Header />
                   </div>
                   <div className="mainContainer w-full relative ">
