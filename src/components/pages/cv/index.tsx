@@ -31,6 +31,8 @@ import { skillsGrouping } from "@/hooks/skillsGrouping";
 import ShowmoreSkills from "@/components/showmoreSkills";
 import Background from "@/components/background";
 import { useAppSelector } from "@/store";
+import Footer from "@/components/layouts/footer/page";
+import Header from "@/components/layouts/header/page";
 type SkillType = {
   title: string;
   url?: string;
@@ -214,10 +216,13 @@ const CV = ({ params }: { params: any }) => {
               <div className="mt-[-40rem] print:mt-0 max-w-[1550px] print:max-w-[1550px] w-full mx-auto px-[1.5rem]">
                 <div className="bg-white flex flex-col lg:flex-row gap-[4rem] pb-[5rem] lg:pb-[7rem] px-[3rem] rounded-[1.4rem]  relative  mb-[10rem] lg:mb-[9.6rem]">
                   {/* Side Panel */}
+                  
                   <aside className="lg:max-w-[40rem] print:w-full print:break-before-page w-full  flex-shrink-0 bg-cvSideBg bg-no-repeat bg-cover pb-[2rem] pt-[5rem] print:pt-[2rem] px-[3rem]">
                     <div className="flex flex-col items-center">
                       {/* Profile Bg */}
+                      
                       <div className="print:flex flex flex-col items-center justify-center gap-4 print:w-full">
+                       
                         <div className="print:flex flex flex-col print:flex-row items-center justify-center gap-4 print:w-full">
                           <Link href="/" className=" block">
                             <Image
@@ -489,26 +494,26 @@ const CV = ({ params }: { params: any }) => {
                       <div className="flex items-center justify-center mt-[4rem] lg:mt-[6rem]">
                         <div className="relative">
                           {/* Vertical line */}
-                          <div className="absolute left-0 top-0 w-[1.5px] h-[100%] bg-border" />
+                          <div className="absolute left-0 top-0 w-[1.5px] h-[100%] bg-border print:hidden" />
                           {/* Timeline items Container */}
                           <div className="space-y-[1rem] lg:space-y-[2rem]">
                             {/* Overview & Skills Timeline item */}
                             {listOfdata?.skills && (
-                              <div className="relative flex items-start print:break-before-page">
+                              <div className="relative flex items-start  print:break-before-page">
                                 {/* Dot */}
                                 <div className="absolute top-0 left-[-1.3rem] block print:hidden">
                                   <div className="w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center">
                                     <div className="w-[0.8rem] h-[0.8rem] bg-sectionBG rounded-full"></div>
                                   </div>
                                 </div>
-                                <div className="ml-[2rem] md:ml-[3rem] lg:ml-[5rem] print:break-before-page">
+                                <div className="ml-[2rem] md:ml-[3rem] lg:ml-[5rem] print:break-before-page print_p_m">
                                   {/* Title */}
                                   <h2 className="text-heading leading-[3.56rem] text-[3.67rem] font-medium pl-[0.5rem] mb-[3rem]">
                                     Overview & Skills
                                   </h2>
 
                                   <div
-                                    className="text-heading services_main list-div text-[1.6rem] leading-[2.4rem] flex flex-col gap-[1rem] mb-[5rem] list-inside"
+                                    className="text-heading services_main list-div text-[1.6rem] leading-[2.4rem] flex flex-col gap-[1rem] mb-[5rem] list-inside print:p-0"
                                     dangerouslySetInnerHTML={{
                                       __html: modifiedContent(
                                         listOfdata?.skills,
@@ -593,7 +598,7 @@ const CV = ({ params }: { params: any }) => {
                                     </div>
                                   </div>
 
-                                  <div className="ml-[2rem] md:ml-[3rem] lg:ml-[5rem]">
+                                  <div className="ml-[2rem] md:ml-[3rem] lg:ml-[5rem] print_p_m">
                                     {/* Title - Hidden in print */}
                                     <div className="w-full mb-[3.5rem] print:hidden">
                                       <h2 className="text-heading leading-[3.56rem] text-[3.67rem] font-medium pl-[0.5rem] pt-[3rem] pb-[2rem]">
@@ -649,11 +654,11 @@ const CV = ({ params }: { params: any }) => {
                                               </div>
 
                                               <div className="w-full">
-                                                <h2 className="text-heading print:block hidden leading-[3.56rem] text-[3.67rem] font-medium pl-[0.5rem] pt-[3rem] pb-[2rem]">
+                                                <h2 className="text-heading print:block hidden leading-[3.56rem] text-[3.67rem] font-medium pl-[0.5rem] pt-[3rem] pb-[2rem] print_p_m print:!pt-[2rem]">
                                                   Experiences
                                                 </h2>
                                                 {/* Date */}
-                                                <h2 className="text-heading leading-[2.67rem] text-[2rem] font-bold pl-[0.5rem] mb-[3rem]">
+                                                <h2 className="text-heading leading-[2.67rem] text-[2rem] font-bold pl-[0.5rem]  print:!pt-[1.4rem] mb-[3rem]">
                                                   {formatDate(
                                                     experience?.starting_date,
                                                     dateFormatsOptions.shortMonthYear
@@ -671,7 +676,7 @@ const CV = ({ params }: { params: any }) => {
                                                       )}
                                                 </h2>
                                                 {/* Card */}
-                                                <div className="bg-[#F7F9FC] p-[1.5rem] lg:p-[2.4rem] rounded-[1rem] shadow mb-[2rem]">
+                                                <div className="bg-[#F7F9FC] p-[1.5rem] lg:p-[2.4rem]  rounded-[1rem] shadow mb-[2rem]">
                                                   <div className="flex items-center flex-wrap text-nowrap gap-[1.5rem] md:justify-between">
                                                     {/* About Content */}
                                                     <div className="flex align-middle justify-center items-center gap-[1rem]">
@@ -869,16 +874,16 @@ const CV = ({ params }: { params: any }) => {
                             {/* Portfolio Timeline item */}
                             {listOfdata &&
                               listOfdata?.portfolios_ids?.length > 0 && (
-                                <div className="relative flex items-start print:break-before-page">
+                                <div className="relative flex items-start print:break-before-page ">
                                   {/* Dot */}
                                   <div className="absolute top-0 left-[-1.3rem] block print:hidden ">
                                     <div className="w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center mt-[3rem] mb-[2rem]">
                                       <div className="w-[0.8rem] h-[0.8rem] bg-sectionBG rounded-full"></div>
                                     </div>
                                   </div>
-                                  <div className="ml-[2rem] md:ml-[3rem] lg:ml-[5rem] ">
+                                  <div className="ml-[2rem] md:ml-[3rem] lg:ml-[5rem] print_p_m print:!pt-[2rem] ">
                                     {/* Title */}
-                                    <div className="flex items-center print:hidden justify-between w-full mb-[3rem]">
+                                    <div className="flex items-center print:hidden justify-between w-full mb-[3rem] ">
                                       <h2 className="text-heading  leading-[3.56rem] text-[3.67rem] font-medium pl-[0.5rem] pt-[3rem] pb-[2rem]">
                                         Portfolios
                                       </h2>
@@ -938,13 +943,13 @@ const CV = ({ params }: { params: any }) => {
                                               </div>
                                             </div>
                                             <div className="w-full">
-                                              <h2 className="text-heading print:block hidden  leading-[3.56rem] text-[3.67rem] font-medium pl-[0.5rem] pt-[3rem] pb-[2rem]">
+                                              <h2 className="text-heading print:block hidden  leading-[3.56rem] text-[3.67rem] font-medium pl-[0.5rem] pt-[3rem] print:p-0 pb-[2rem]">
                                                 Portfolios
                                               </h2>
                                               {/* Date */}
                                               <h2
                                                 key={index}
-                                                className="text-heading leading-[2.67rem] text-[2rem] font-bold pl-[0.5rem] mb-[3rem] "
+                                                className="text-heading leading-[2.67rem] text-[2rem] font-bold pl-[0.5rem] print:mb-[0rem] print:!mt-[1.3rem] mb-[3rem] "
                                               >
                                                 {formatDate(
                                                   portfolio?.starting_date,
@@ -963,7 +968,7 @@ const CV = ({ params }: { params: any }) => {
                                                     )}
                                               </h2>
                                               {/* Card */}
-                                              <div className="max-lg:p-[1.5rem] bg-white shadow-testimonialeShadow relative rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden p-[2.4rem] gap-[2.4rem] mb-[2rem]">
+                                              <div className="max-lg:p-[1.5rem] print_p_m print:!mt-[2rem] bg-white shadow-testimonialeShadow relative rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden p-[2.4rem] gap-[2.4rem] mb-[2rem]">
                                                 {/* Content */}
                                                 <div className="w-full ">
                                                   <div className="">
@@ -1166,19 +1171,20 @@ const CV = ({ params }: { params: any }) => {
                             {/* Education Timeline item */}
                             {listOfdata &&
                               listOfdata?.education_ids?.length > 0 && (
-                                <div className="relative flex items-start print:break-before-page">
+                                <div className="relative flex items-start print:break-before-page print:w-full print:flex print:items-center print:justify-center ">
                                   {/* Dot */}
                                   <div className="absolute top-0 left-[-1.3rem] block print:hidden ">
                                     <div className="w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center my-[3rem] ">
                                       <div className="w-[0.8rem] h-[0.8rem] bg-sectionBG rounded-full"></div>
                                     </div>
                                   </div>
-                                  <div className="ml-[2rem] md:ml-[3rem] lg:ml-[5rem]">
+                                  <div className="ml-[2rem] md:ml-[3rem] lg:ml-[5rem] print_p_m print:flex print:flex-col items-start justify-center">
                                     {/* Title */}
                                     <h2 className="text-heading leading-[3.56rem] text-[3.67rem] font-medium pl-[0.5rem] py-[3rem]">
                                       Education
                                     </h2>
-                                    <div className="grid grid-cols-1  sm:grid-cols-2 md:grid-cols-3 gap-[1.2rem] w-full print:grid-cols-1 print:gap-4 print:w-full">
+                                    {/* for desktop */}
+                                    <div className="grid grid-cols-1  sm:grid-cols-2 md:grid-cols-3 gap-[1.2rem] w-full print:hidden">
                                       {listOfdata?.education_ids?.map((edu) => (
                                         <div
                                           key={edu.id}
@@ -1224,6 +1230,57 @@ const CV = ({ params }: { params: any }) => {
                                         </div>
                                       ))}
                                     </div>
+
+                                    {/* for print */}
+                                    <div className=" gap-[2.2rem] w-full print:flex flex-col items-center justify-center hidden ">
+                                      {listOfdata?.education_ids?.map((edu) => (
+                                        <div
+                                          key={edu.id}
+                                          className="p-[2rem] w-full max-w-[100%]  rounded-[0.8rem] border border-solid border-[#E2E6EE] bg-[#F7F9FC]"
+                                        >
+                                          <div className="flex items-center gap-[1.8rem] ">
+                                            {edu?.thumbnail && (
+                                              <Image
+                                                src={edu?.thumbnail}
+                                                height={34}
+                                                width={34}
+                                                alt={edu.university_name}
+                                              />
+                                            )}
+                                            <h3 className="text-[1.4rem] text-heading font-medium leading-[1.8rem]">
+                                              {edu.university_name}
+                                            </h3>
+                                          </div>
+                                          {/* Divider */}
+                                          <hr className="w-full h-[0.2rem] bg-[#E2E6EE] my-[2rem] inline-block" />
+                                          <div className="">
+                                            <h2 className="text-heading font-medium text-[1.6rem] leading-[2rem]">
+                                              {edu.degree_name}
+                                            </h2>
+                                            <p className="text-[1.2rem] font-normal text-[#3E3E3E]">
+                                              {formatDate(
+                                                edu.degree_start_date,
+                                                dateFormatsOptions.shortMonthYear
+                                              )}{" "}
+                                              -{" "}
+                                              {isNaN(
+                                                new Date(
+                                                  edu.degree_end_date
+                                                ).getFullYear()
+                                              )
+                                                ? edu.degree_end_date
+                                                : formatDate(
+                                                    edu.degree_end_date,
+                                                    dateFormatsOptions.shortMonthYear
+                                                  )}
+                                            </p>
+                                          </div>
+                                        </div>
+                                      ))}
+                                    </div>
+                                    {/* <div className=" hidden print:!block w-full ">
+                                      <Footer />
+                                    </div>  */}
                                   </div>
                                 </div>
                               )}

@@ -20,6 +20,8 @@ import { toggleShowMoreSkills } from "@/hooks/toggleShowMoreSkills";
 import ShowmoreSkills from "@/components/showmoreSkills";
 import Background from "@/components/background";
 import { useAppSelector } from "@/store";
+import WorkProofLinks from "@/components/WorkProofLinks";
+import ContactMeLinks from "@/components/ContactMeLinks";
 
 const PortfolioListing = ({ params }: { params: any }) => {
   const [
@@ -120,6 +122,23 @@ const PortfolioListing = ({ params }: { params: any }) => {
                 </div>
               </div>
             </div>
+            <div className="print:flex hidden items-center  gap-[2.1rem] mt-[4rem] mb-[0.8rem]">
+              <WorkProofLinks
+                props={{
+                  upwork: listOfdata?.upwork,
+                  github: listOfdata?.github,
+                  linkedIn: listOfdata?.linkedIn,
+                  behance_link: listOfdata?.behance_link,
+                  u: urlInfo?.u,
+                }}
+              />
+              <ContactMeLinks
+                props={{
+                  email: listOfdata?.email,
+                  phone_no: listOfdata?.phone_no,
+                }}
+              />
+            </div>{" "}
             {loading && <WebsiteLoader height="h-[30rem]" />}
           </div>
         </div>
@@ -167,9 +186,9 @@ const PortfolioListing = ({ params }: { params: any }) => {
                             <div className="w-[0.7rem] h-[0.7rem] bg-[#5531A7] rounded-full"></div>
                           </div>
                         </div>
-                        <div className="ml-[3rem] lg:ml-[6rem] print:m-auto  w-full">
+                        <div className="ml-[3rem] lg:ml-[6rem] print:m-auto print:!mt-[2rem]  w-full">
                           {/* Year */}
-                          <h1 className="mb-[3rem] text-heading text-[2rem] leading-[2.7rem] font-bold max-lg:ml-[0.5rem] print:hidden block">
+                          <h1 className="mb-[3rem] print:mb-[1rem]  text-heading text-[2rem] leading-[2.7rem] font-bold max-lg:ml-[0.5rem] block">
                             {new Date(portfolio.starting_date).getFullYear()} -{" "}
                             {isNaN(
                               new Date(portfolio.ending_Date).getFullYear()
@@ -178,7 +197,8 @@ const PortfolioListing = ({ params }: { params: any }) => {
                               : new Date(portfolio.ending_Date).getFullYear()}
                           </h1>
                           {/* Card */}
-                          <div className="flex flex-col-reverse lg:flex-row max-lg:p-[1.5rem] bg-white shadow-testimonialeShadow relative rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden p-[2.4rem] gap-[2.4rem] print:mt-[10rem] ">
+                          {/* for desktop */}
+                          <div className="flex print:hidden flex-col-reverse lg:flex-row max-lg:p-[1.5rem] bg-white shadow-testimonialeShadow relative rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden p-[2.4rem] gap-[2.4rem]">
                             {/* Content */}
                             <div className="w-full">
                               {" "}
@@ -306,6 +326,105 @@ const PortfolioListing = ({ params }: { params: any }) => {
                                     Check Client Testimonial
                                   </Link>
                                 )}
+                              </div>
+                            </div>
+                            {/* Image */}
+                          </div>
+
+                          {/* for print */}
+                          <div className="print:flex items-center justify-center hidden p-[1.5rem] bg-white shadow-testimonialeShadow ">
+                            {/* Content */} {/* Title and Description */}
+                            <div className="flex flex-col w-full gap-3 items-center justify-center ">
+                              {portfolio?.thumbnail && (
+                                <div className=" w-full  rounded-[1.2rem]  ">
+                                  <img
+                                    src={
+                                      portfolio?.thumbnail
+                                        ? portfolio.thumbnail
+                                        : "/images/project_img.png"
+                                    }
+                                    alt="Portfolio Image"
+                                    height={800}
+                                    width={800}
+                                    className="h-[300px]  w-full object-cover rounded-[1.2rem] border border-solid border-border cursor-pointer"
+                                  />
+                                </div>
+                              )}
+                              <div className="">
+                                <h1 className="text-[1.8rem] lg:text-[2rem] font-bold leading-[2.69rem]">
+                                  {portfolio?.title}
+                                </h1>
+                                <p
+                                  dangerouslySetInnerHTML={{
+                                    __html: portfolio.tagline_1,
+                                  }}
+                                  className="text-[1.9rem] leading-[150%] font-medium mt-[1rem] text-primary"
+                                ></p>
+
+                                <p
+                                  dangerouslySetInnerHTML={{
+                                    __html: modifiedContent(
+                                      portfolio.features_short,
+                                      listOfskills,
+                                      listOfdata
+                                    ),
+                                  }}
+                                  className="mt-[2rem] list-div-portfolio1 pl-[2rem]"
+                                ></p>
+                                <h4 className="text-heading text-[1.2rem] font-medium mb-[1.2rem] ml-[0.2rem]">
+                                  AREAS OF EXPERTISE I'VE WORKED IN
+                                </h4>
+                                <div className="flex items-center gap-[1rem] mt-3 lg:gap-[0.7rem] flex-wrap text-[1.2rem] w-full">
+                                  {Object?.values(skills)?.map(
+                                    (group, groupIndex) => (
+                                      <React.Fragment key={groupIndex}>
+                                        {group.map((skill, i) => (
+                                          <Link
+                                            key={i}
+                                            href={skill.url || "#"}
+                                            target="_blank"
+                                            className="hover:bg-primary hover:text-white py-[0.4rem] print:py-[0.1rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
+                                          >
+                                            {skill.title}
+                                          </Link>
+                                        ))}
+                                        {/* Line break after each group */}
+                                        {showMoreSkills[index] && (
+                                          <div className="w-full mb-[1px]" />
+                                        )}
+                                      </React.Fragment>
+                                    )
+                                  )}
+
+                                  <ShowmoreSkills
+                                    props={{
+                                      list: portfolio?.skills,
+                                      index,
+                                      setShowMoreSkills,
+                                      showMoreSkills,
+                                    }}
+                                  />
+                                </div>
+                                <hr className="w-full my-[2.4rem] h-px bg-border print:hidden" />
+                                {/* Links */}
+                                <div className="flex items-center flex-wrap max-sm:flex-col max-md:items-start gap-[1.4rem] print:hidden">
+                                  <Link
+                                    href={`/portfolio/${portfolio.id}`}
+                                    className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent print:!border-primary hover:border-primary duration-300 max-sm:w-full text-center rounded-[0.6rem] print:!text-primary"
+                                  >
+                                    View Details
+                                  </Link>
+
+                                  {listOfdata?.companytype !== "leewop" && (
+                                    <a
+                                      href={portfolio?.link}
+                                      target="_blank"
+                                      className="py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-primary border border-solid hover:border-transparent border-primary print:!text-primary duration-300 hover:bg-primary hover:text-white rounded-[0.6rem] max-sm:w-full text-center"
+                                    >
+                                      Launch Project - Live Preview
+                                    </a>
+                                  )}
+                                </div>
                               </div>
                             </div>
                             {/* Image */}
