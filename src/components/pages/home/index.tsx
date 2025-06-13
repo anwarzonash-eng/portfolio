@@ -112,7 +112,6 @@ const Home = ({ params }: { params: any }) => {
               <>
                 <FreeTrialPopup listOfdata={listOfdata} urlInfo={urlInfo} />
                 {/* <Welcome /> */}
-
                 <section className="!w-full relative print:flex flex-col hidden h-screen print:bg-[#a3ddd3] print:break-before-page">
                   <div className="relative print:block !w-full hidden">
                     <Header />
@@ -142,24 +141,23 @@ const Home = ({ params }: { params: any }) => {
                           </div>
                         </div>
                       </div>
-                        <div className="flex items-center gap-[2.1rem] mt-[4rem] mb-[0.8rem]">
-                          <WorkProofLinks
-                            props={{
-                              upwork: listOfdata?.upwork,
-                              github: listOfdata?.github,
-                              linkedIn: listOfdata?.linkedIn,
-                              behance_link: listOfdata?.behance_link,
-                              u: urlInfo?.u,
-                            }}
-                          />
-                          <ContactMeLinks
-                              props={{
-                                email: listOfdata?.email,
-                                phone_no: listOfdata?.phone_no,
-                              }}
-                            />
-                        </div>
-                        
+                      <div className="flex items-center gap-[2.1rem] mt-[4rem] mb-[0.8rem]">
+                        <WorkProofLinks
+                          props={{
+                            upwork: listOfdata?.upwork,
+                            github: listOfdata?.github,
+                            linkedIn: listOfdata?.linkedIn,
+                            behance_link: listOfdata?.behance_link,
+                            u: urlInfo?.u,
+                          }}
+                        />
+                        <ContactMeLinks
+                          props={{
+                            email: listOfdata?.email,
+                            phone_no: listOfdata?.phone_no,
+                          }}
+                        />
+                      </div>
                     </div>
                   </div>
                 </section>
