@@ -36,8 +36,9 @@ import ShowmoreSkills from "@/components/showmoreSkills";
 import { useRouter } from "next/router";
 import { useMediaQuery } from "react-responsive";
 import Header from "@/components/layouts/header/page";
+import test from "node:test";
 
-const Home = ({ params }: { params: any }) => {
+const home_p = ({ params }: { params: any }) => {
   useBodyBackgroundColor("#f8f9fa");
   const [showMoreSkills, setShowMoreSkills] = useState([]);
   const [urlInfo, setURLInfo] = useState(null);
@@ -1528,4 +1529,4 @@ const Home = ({ params }: { params: any }) => {
   );
 };
 
-export default Home;
+export default home_p;

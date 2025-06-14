@@ -64,7 +64,7 @@ const OfferBanner = ({ listOfdata }) => {
           <div className='relative'>
             {/* Positioned Text svg */}
             <div className='absolute left-[-26rem] top-[.8rem] '>
-              <img src='./images/limmitedOfferText.svg' alt='' />
+              {/* <img src='./images/limmitedOfferText.svg' alt='' /> */}
             </div>
             {/* Positioned Arrow Svg */}
             {/* <div className='absolute left-[-11rem] top-[-1rem]'>
