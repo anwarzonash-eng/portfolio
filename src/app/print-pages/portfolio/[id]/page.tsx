@@ -1,9 +1,9 @@
-'use client';
-import PortfolioDetails from '@/components/pages/print-pages/portfolio/portfolio-detail';
-import React from 'react';
+"use client";
+import PortfolioDetails_p from "@/components/pages/print-pages/portfolio/portfolio-detail";
+import React from "react";
 
 const portfolioDetails = ({ params }: { params: any }) => {
-  return <PortfolioDetails params={params} />;
+  return <PortfolioDetails_p params={params} />;
 };
 
 export default portfolioDetails;

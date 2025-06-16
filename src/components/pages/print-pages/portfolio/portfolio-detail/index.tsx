@@ -22,15 +22,14 @@ import PageRendering from "@/components/PageRendering";
 import SkillsContainer from "@/components/SkillsContainer";
 import { skillsGrouping } from "@/hooks/skillsGrouping";
 
-const PortfolioDetails = ({ params }: { params: any }) => {
+const PortfolioDetails_p = ({ params }: { params: any }) => {
   const searchParams = useSearchParams();
-
   const [portfolioDetails, setPortfolioDetails] = useState(null);
-
   const [urlInfo, setURLInfo] = useState(null);
   const [listOfdata, setListOfData] = useState(null);
   const [listOfskills, setListOfSkills] = useState([]);
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     console.log({ allparams: params.value });
 
@@ -115,7 +114,7 @@ const PortfolioDetails = ({ params }: { params: any }) => {
                 </div>
               </section>
               {/* Blog Content Section */}
-              <section className="mainContainer w-full relative top-0 lg:mt-[-55rem] ">
+              <section className="mainContainer w-full relative top-0 lg:mt-[-55rem]">
                 <div className="w-full mt-[1rem]">
                   {/* Blog Detail Pic Desktop*/}
                   <Image
@@ -368,4 +367,4 @@ const PortfolioDetails = ({ params }: { params: any }) => {
   );
 };
 
-export default PortfolioDetails;
+export default PortfolioDetails_p;
