@@ -28,7 +28,7 @@
     display: none; /* Hide headers and footers if not needed */
   }
   .break-before-page {
-    break-before: page;
+    break-before: auto !important;
   }
   .print-hidden {
     display: none !important;
@@ -61,4 +61,10 @@
 
 .tawk-icon-right {
   display: none !important;
+}
+
+.printFlex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

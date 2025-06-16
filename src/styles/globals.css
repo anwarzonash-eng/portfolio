@@ -369,10 +369,14 @@ body {
 }
 @media print {
   @keyframes fadeIn {
-    from { opacity: 1; }
-    to { opacity: 1; }
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 1;
+    }
   }
-  
+
   .animate-fadeIn {
     animation: none !important;
     opacity: 1 !important;
@@ -392,63 +396,60 @@ body {
   }
 }
 
-.print_hidden{
-  @apply print:hidden
+.print_hidden {
+  @apply print:hidden;
 }
-.home_social_card{
-  @apply  print:py-[2.8rem] print:px-[4rem]
+.home_social_card {
+  @apply print:py-[2.8rem] print:px-[4rem];
 }
 
 @media print {
-  .services_main ul li{
-    @apply hidden print:!p-0
+  .services_main ul li {
+    @apply hidden print:!p-0;
   }
-   .services_main ul{
-    @apply  print:!p-[1rem]
-  }
-
-.services_main ul li:nth-child(1),
-.services_main ul li:nth-child(2),
-.services_main ul li:nth-child(3),
-.services_main ul li:nth-child(4),
-.services_main ul li:nth-child(5),
-.services_main ul li:nth-child(6),
-.services_main ul li:nth-child(7),
-.services_main ul li:nth-child(8),
-.services_main ul li:nth-child(9) {
-  @apply block text-[13px] list-disc;
-}
-
- .offer_main ul li{
-    @apply hidden
+  .services_main ul {
+    @apply print:!p-[1rem];
   }
 
-.offer_main ul li:nth-child(1),
-.offer_main ul li:nth-child(2),
-.offer_main ul li:nth-child(3) {
-  @apply block text-[12px] !list-disc;
-}
+  .services_main ul li:nth-child(1),
+  .services_main ul li:nth-child(2),
+  .services_main ul li:nth-child(3),
+  .services_main ul li:nth-child(4),
+  .services_main ul li:nth-child(5),
+  .services_main ul li:nth-child(6),
+  .services_main ul li:nth-child(7),
+  .services_main ul li:nth-child(8),
+  .services_main ul li:nth-child(9) {
+    @apply block text-[13px] list-disc;
+  }
 
+  .offer_main ul li {
+    @apply hidden;
+  }
 
+  .offer_main ul li:nth-child(1),
+  .offer_main ul li:nth-child(2),
+  .offer_main ul li:nth-child(3) {
+    @apply block text-[12px] !list-disc;
+  }
 }
-.skill_print_pedd{
-  @apply print:py-[0.1rem]
+.skill_print_pedd {
+  @apply print:py-[0.1rem];
 }
-.print_AREAS_EXPERTISE{
-    @apply print:text-[1.1rem]
-
+.print_AREAS_EXPERTISE {
+  @apply print:text-[1.1rem];
 }
-.landscape_print_page_height{
-  @apply print:h-[1190.70px] print:m-0 
+.landscape_print_page_height {
+  @apply print:h-[1190.70px] print:m-0;
 }
-.landscape_print_page_pedding{
-  @apply print:pt-[6rem]
+.landscape_print_page_pedding {
+  @apply print:pt-[6rem];
 }
-.section_top_button{
-  @apply print:px-[6rem] print:text-[3rem]
+.section_top_button {
+  @apply print:px-[6rem] print:text-[3rem];
 }
-.print_p_m{
-  @apply print:w-full print:p-0 print:m-0
+.print_p_m {
+  @apply print:w-full print:p-0 print:m-0;
 }
 /* Tailored slim scrollbar */
 .custom-scrollbar::-webkit-scrollbar {

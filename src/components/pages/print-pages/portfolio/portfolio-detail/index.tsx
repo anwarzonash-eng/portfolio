@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import "@/styles/printStyles/portfolio_detail_p.css";
 import Newsletter from "@/components/Newsletter";
 import OurBlogs from "@/components/OurBlogs";
 import SliderXL from "@/components/Sliders/SliderXL";

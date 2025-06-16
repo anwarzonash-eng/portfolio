@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect } from "react";
 import { useState } from "react";
+import "@/styles/printStyles/portfolio_p.css";
 import Image from "next/image";
 import Link from "next/link";
 import Newsletter from "@/components/Newsletter";
@@ -85,7 +86,6 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
   return (
     <div className="bg-[#EFF5FD]">
       {/* Hero Banner */}
-
       <section className="w-full relative banner-section">
         <div className="mainContainer h-[60.7rem] lg:h-[65rem] print:h-auto w-full relative ">
           {/* Background SVG */}

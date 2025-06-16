@@ -1,0 +1,375 @@
+/* Custom Classes */
+.mainContainer {
+  @apply max-w-[1550px] w-full mx-auto px-[1.5rem] md:px-[2rem] lg:px-[3rem] xl:px-[5rem] 2xl:px-[11.5rem];
+}
+
+.primaryGradient {
+  background: radial-gradient(
+    100% 100% at 50% 0%,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  @apply bg-primary;
+}
+
+.border-test {
+  border: 4px solid black;
+}
+
+.footerLink {
+  @apply relative inline-block text-gray-900 duration-300 hover:text-primary;
+
+  &::before {
+    content: "";
+    @apply absolute bottom-0 left-0 h-[1px] bg-heading transition-all duration-300 ease-in-out;
+    width: 0;
+  }
+
+  &:hover::before {
+    width: 100%;
+  }
+}
+
+/* Header Curved Shape */
+.custom-shape-divider-bottom-1722849639 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.custom-shape-divider-bottom-1722849639 svg {
+  position: relative;
+  display: block;
+  width: calc(274% + 1.3px);
+  height: 220px;
+}
+
+@media screen and (max-width: 780px) {
+  .custom-shape-divider-bottom-1722849639 svg {
+    height: 100px;
+  }
+}
+
+.custom-shape-divider-bottom-1722849639 .shape-fill {
+  @apply fill-primary;
+}
+
+/* Cover Letter Lists Clsses */
+.coverCardsList {
+  @apply flex gap-[1.8rem] items-end;
+}
+
+.coverListBefore {
+  @apply h-[0.7rem] w-[0.7rem] bg-[#2E2E48] inline-block rounded-[50%] absolute top-0 left-0;
+}
+
+/* Primary Button */
+.btn-primary {
+  @apply duration-300 rounded-[6px] border border-white/[0.24] bg-gradient-to-b from-white/30 to-transparent bg-primary shadow-[0px_0px_0px_1px_#FFF] hover:bg-white hover:text-primary hover:border-primary;
+}
+
+.btn-secondary {
+  @apply duration-300 rounded-[6px] border border-primary text-primary bg-transparent hover:bg-gradient-to-b hover:from-white/30 hover:to-transparent hover:bg-primary hover:text-white hover:border-white/[0.24] hover:shadow-[0px_0px_0px_1px_#FFF];
+}
+.modifiedText a {
+  @apply text-primary font-medium relative inline-block underline; /* Set as inline-block to apply ::before properly */
+}
+
+.blogs-modified h1,
+.blogs-modified h2,
+.blogs-modified h3,
+.blogs-modified h4,
+.blogs-modified h5,
+.blogs-modified h6 {
+  @apply text-primary font-bold text-[2.5rem] py-6;
+}
+
+.blogs-modified a {
+  @apply break-all;
+}
+
+.list-div img {
+  @apply w-full rounded-[0.8rem] my-10;
+}
+
+.list-div table {
+  @apply w-full border-collapse border border-primary rounded-[0.8rem] my-8;
+}
+
+.list-div table th,
+.list-div table td {
+  @apply px-4 py-2 border border-primary text-left;
+}
+
+.list-div table thead {
+  @apply bg-primary text-white;
+}
+
+.list-div table tbody tr:nth-child(even) {
+  @apply bg-gray-100;
+}
+
+.list-div table tbody tr:hover {
+  @apply bg-gray-200;
+}
+
+.list-div ul,
+.list-div ol {
+  @apply text-heading text-[1.6rem] leading-[2.4rem] flex flex-col gap-[1rem] list-disc pl-[3rem];
+}
+.list-div li {
+  @apply pl-[1.3rem];
+}
+
+.list-div ul li::marker,
+.list-div ol li::marker {
+  @apply text-[1.7em] text-primary;
+}
+
+.list-div-portfolio ul {
+  @apply flex flex-col gap-[0.8rem] text-[1.6rem] leading-[150%] text-heading mb-[2rem] list-disc;
+}
+
+.list-div-portfolio1 ul {
+  @apply gap-[0.8rem] text-[1.6rem] leading-[150%] text-heading mb-[2rem] list-disc;
+}
+
+.list-div-portfolio1 ul li {
+  @apply mb-[1rem];
+}
+
+.line-clamp {
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+}
+
+.line-clampforTagline1 {
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+}
+
+.modalCloseButtonforCustomOffer button svg path {
+  color: black;
+}
+
+.modalCloseButtonforCustomOffer button svg {
+  font-size: 1.5rem;
+}
+.modalCloseButtonforCustomOffer:first-of-type > button:first-of-type,
+.modalCloseButtonforCustomOffer:first-of-type > button:first-of-type:hover {
+  background-color: #ffc300;
+  margin: 10px 10px 0px 0px;
+}
+#tawkchat-container .tawk-we-are-here {
+  display: none !important;
+}
+@media print {
+  .print-expanded {
+    max-height: none !important;
+    opacity: 1 !important;
+    display: block !important;
+  }
+}
+@media print {
+  .print-black-bg {
+    background: black !important;
+    background-image: none !important;
+    color: white !important; /* Ensure text is visible on black background */
+  }
+}
+@media print {
+  .print-section {
+    break-before: page; /* Ensures each section starts on a new page */
+  }
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+@media print {
+  @keyframes fadeIn {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .animate-fadeIn {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+}
+@media print {
+  @page {
+    size: auto;
+    margin: 10mm;
+  }
+  body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  a {
+    text-decoration: none !important;
+  }
+}
+
+.print_hidden {
+  @apply print:hidden;
+}
+.home_social_card {
+  @apply print:py-[2.8rem] print:px-[4rem];
+}
+
+@media print {
+  .services_main ul li {
+    @apply hidden print:!p-0;
+  }
+  .services_main ul {
+    @apply print:!p-[1rem];
+  }
+
+  .services_main ul li:nth-child(1),
+  .services_main ul li:nth-child(2),
+  .services_main ul li:nth-child(3),
+  .services_main ul li:nth-child(4),
+  .services_main ul li:nth-child(5),
+  .services_main ul li:nth-child(6),
+  .services_main ul li:nth-child(7),
+  .services_main ul li:nth-child(8),
+  .services_main ul li:nth-child(9) {
+    @apply block text-[13px] list-disc;
+  }
+
+  .offer_main ul li {
+    @apply hidden;
+  }
+
+  .offer_main ul li:nth-child(1),
+  .offer_main ul li:nth-child(2),
+  .offer_main ul li:nth-child(3) {
+    @apply block text-[12px] !list-disc;
+  }
+}
+.skill_print_pedd {
+  @apply print:py-[0.1rem];
+}
+.print_AREAS_EXPERTISE {
+  @apply print:text-[1.1rem];
+}
+.landscape_print_page_height {
+  @apply print:h-[1190.70px] print:m-0;
+}
+.landscape_print_page_pedding {
+  @apply print:pt-[6rem];
+}
+.section_top_button {
+  @apply print:px-[6rem] print:text-[3rem];
+}
+.print_p_m {
+  @apply print:w-full print:p-0 print:m-0;
+}
+/* Tailored slim scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 3px; /* Slim */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #aaa; /* Scroll thumb color */
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent; /* or light grey */
+}
+
+/* Firefox support */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #aaa transparent;
+}
+
+/* Print Styles */
+@media print {
+  @page {
+    size: landscape; /* Set the page orientation to portrait */
+    margin: none;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    font-size: 12pt; /* Adjust font size as needed */
+  }
+
+  .container {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Hide elements that you don't want to print */
+  .no-print {
+    display: none;
+  }
+
+  /* Ensure content fits within the page */
+  .content {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .printFlex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Adjust header and footer if necessary */
+  header,
+  footer {
+    display: none; /* Hide headers and footers if not needed */
+  }
+  .break-before-page {
+    break-before: page;
+  }
+  .print-hidden {
+    display: none !important;
+  }
+
+  /* Ensure the banner is only on the first page */
+  .banner-section {
+    page-break-after: always;
+  }
+
+  /* Add page breaks between portfolios and avoid splitting content */
+  .portfolio-item {
+    page-break-before: always;
+    page-break-inside: avoid; /* Prevent splitting within the portfolio */
+  }
+
+  /* Avoid splitting long text elements inside portfolio items */
+  .portfolio-item p,
+  .portfolio-item h1,
+  .portfolio-item h4 {
+    page-break-inside: avoid;
+  }
+}
+@media print {
+  a.no-print-decoration {
+    text-decoration: none;
+    color: blue;
+  }
+}
+
+.tawk-icon-right {
+  display: none !important;
+}

@@ -1,0 +1,76 @@
+@media print {
+  @page {
+    size: portrait; /* Set the page orientation to portrait */
+    margin: none;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    font-size: 12pt; /* Adjust font size as needed */
+  }
+
+  .container {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Hide elements that you don't want to print */
+  .no-print {
+    display: none;
+  }
+
+  /* Ensure content fits within the page */
+  .content {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .printFlex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Adjust header and footer if necessary */
+  header,
+  footer {
+    display: none; /* Hide headers and footers if not needed */
+  }
+  .break-before-page {
+    break-before: page;
+  }
+
+  .print-hidden {
+    display: none !important;
+  }
+
+  /* Ensure the banner is only on the first page */
+  .banner-section {
+    page-break-after: always;
+  }
+
+  /* Add page breaks between portfolios and avoid splitting content */
+  .portfolio-item {
+    page-break-before: always;
+    page-break-inside: avoid; /* Prevent splitting within the portfolio */
+  }
+
+  /* Avoid splitting long text elements inside portfolio items */
+  .portfolio-item p,
+  .portfolio-item h1,
+  .portfolio-item h4 {
+    page-break-inside: avoid;
+  }
+}
+@media print {
+  a.no-print-decoration {
+    text-decoration: none;
+    color: blue;
+  }
+}
+
+.tawk-icon-right {
+  display: none !important;
+}

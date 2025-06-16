@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import "@/styles/printStyles/cv_p.css";
 import Image from "next/image";
 import Link from "next/link";
 import useBodyBackgroundColor from "@/hooks/useBodyBackgroundColor";
@@ -158,7 +159,7 @@ const CV_p = ({ params }: { params: any }) => {
           list: listOfdata,
           loading: loading,
           actualPage: (
-            <div className="bg-[#EFF5FD]">
+            <div className="bg-[#EFF5FD] cv-print">
               <section className="w-full relative print:hidden">
                 <div className="mainContainer h-[60.7rem] lg:h-[65rem] print:h-auto  w-full relative ">
                   {/* Background SVG */}
@@ -207,14 +208,15 @@ const CV_p = ({ params }: { params: any }) => {
               )}
 
               <div className="mt-[-40rem] print:mt-0 max-w-[1550px] print:max-w-[1550px] w-full mx-auto px-[1.5rem]">
-                <div className="bg-white flex flex-col lg:flex-row gap-[4rem] pb-[5rem] lg:pb-[7rem] px-[3rem] rounded-[1.4rem]  relative  mb-[10rem] lg:mb-[9.6rem]">
-                  {/* Side Panel */}
-
-                  <aside className="lg:max-w-[40rem] print:w-full print:break-before-page w-full  flex-shrink-0 bg-cvSideBg bg-no-repeat bg-cover pb-[2rem] pt-[5rem] print:pt-[2rem] px-[3rem]">
-                    <div className="flex flex-col items-center">
+                <div className="bg-white flex flex-col gap-[4rem] pb-[5rem]  px-[3rem] rounded-[1.4rem] relative mb-[10rem] ">
+                  {/* Info Panel Section */}
+                  <section
+                    className="print:w-full print:break-before-page w-full 
+                  flex-shrink-0 bg-cvSideBg bg-no-repeat bg-cover pb-[2rem] pt-[5rem] print:pt-[2rem] px-[3rem]"
+                  >
+                    <div className="printFlex flex-col print:h-screen">
                       {/* Profile Bg */}
-
-                      <div className="print:flex flex flex-col items-center justify-center gap-4 print:w-full">
+                      <div className="printFlex flex-col gap-4 print:w-full">
                         <div className="print:flex flex flex-col print:flex-row items-center justify-center gap-4 print:w-full">
                           <Link href="/" className=" block">
                             <Image
@@ -299,96 +301,10 @@ const CV_p = ({ params }: { params: any }) => {
                           </>
                         )}
                       </div>
-                      {/* Email, Website, Phone, Location */}
-                      <div className="mb-[4rem] w-full flex sm:hidden lg:flex flex-col gap-[2.6rem]">
-                        {/* Iterate through the contact details array */}
-                        {contactDetails(listOfdata)
-                          .filter(({ alt }) =>
-                            urlInfo?.u ? alt === "Location" : true
-                          )
-                          .map((contact, index) => (
-                            <div
-                              key={index}
-                              className="flex items-center gap-[1.78rem]"
-                            >
-                              {contact?.iconSrc && (
-                                <div className="h-[3.5rem] w-[3.5rem] bg-[#E2E6EE] rounded-[50%] flex items-center justify-center">
-                                  <Image
-                                    src={contact?.iconSrc}
-                                    height={24}
-                                    width={24}
-                                    alt={contact.alt}
-                                  />
-                                </div>
-                              )}
-                              <div className="flex flex-col gap-[0.45rem]">
-                                <p className="text-[1.33rem] leading-[1.77rem] text-[#3E3E3E]">
-                                  {contact.type}
-                                </p>
-
-                                <Link
-                                  target="_blank"
-                                  href={contact.href || "#"}
-                                  className="hover:text-primary text-[1.55rem] font-medium leading-[2rem] text-heading"
-                                >
-                                  {contact.value}
-                                </Link>
-                              </div>
-                            </div>
-                          ))}
-                      </div>
-
                       {/* Divider */}
                       <hr className="w-full h-[0.2rem] bg-[#E2E6EE] mb-[4rem] sm:hidden lg:inline-block" />
-
-                      {/* Work Proof */}
-                      <div className="mb-[4rem] w-full flex sm:hidden lg:flex flex-col gap-[2.6rem]">
-                        {/* Title */}
-                        <h3 className="text-heading text-[1.33rem] font-medium leading-[1.77rem]">
-                          Work Proof
-                        </h3>
-                        {/* Iterating on Icons */}
-                        {socialLinks(listOfdata)
-                          .filter(({ alt }) =>
-                            urlInfo?.u
-                              ? alt === "Github" ||
-                                alt === "Linkedin" ||
-                                alt === "Upwork"
-                              : true
-                          )
-                          .map((social, index) => (
-                            <>
-                              {social?.href && (
-                                <Link
-                                  target="_blank"
-                                  href={social.href || "#"}
-                                  key={index}
-                                  className="flex items-center gap-[1.78rem]"
-                                >
-                                  {social?.iconSrc && (
-                                    <Image
-                                      src={social?.iconSrc}
-                                      height={35}
-                                      width={35}
-                                      alt={social.alt}
-                                    />
-                                  )}
-                                  <div className="flex flex-col gap-[0.45rem]">
-                                    <p className="text-[1.33rem] leading-[1.77rem] text-[#3E3E3E]">
-                                      {social.platform}
-                                    </p>
-                                    <div className="break-all hover:text-primary text-[1.55rem] font-medium leading-[2rem] text-heading">
-                                      {social.username}
-                                    </div>
-                                  </div>
-                                </Link>
-                              )}
-                            </>
-                          ))}
-                      </div>
-
-                      {/* Only Display on The Devices Between Small To Large */}
-                      <div className="hidden sm:flex lg:hidden w-full gap-[2rem] items-start">
+                      {/* Contact Info & Work Proof Section */}
+                      <div className="flex w-full gap-[2rem] items-start">
                         {/* Email, Website, Phone, Location */}
                         <div className="mb-[4rem] w-full flex flex-col gap-[2.6rem]">
                           {contactDetails(listOfdata)
@@ -471,15 +387,16 @@ const CV_p = ({ params }: { params: any }) => {
                         </div>
                       </div>
                     </div>
-                  </aside>
+                  </section>
+
                   {/* Right Content Section */}
-                  <section className="w-full md:pt-[7rem] ">
+                  <section className="w-full">
                     {/* 10 Years Experience */}
                     <div
                       dangerouslySetInnerHTML={{ __html: listOfdata?.tag_line }}
                       className="py-[5rem] px-[3.4rem] print:hidden block primaryGradient text-white text-[2.2rem] leading-[3.1rem] font-bold rounded-[1rem] text-center"
                     ></div>
-
+                    {/* !Importent: De-bugging for the print Screens */}
                     {/* Timeline Section */}
                     <div className=" w-full print:mt-[5rem] print:pt-[5rem]">
                       {/* Timeline */}
@@ -488,10 +405,10 @@ const CV_p = ({ params }: { params: any }) => {
                           {/* Vertical line */}
                           <div className="absolute left-0 top-0 w-[1.5px] h-[100%] bg-border print:hidden" />
                           {/* Timeline items Container */}
-                          <div className="space-y-[1rem] lg:space-y-[2rem]">
+                          <div className="space-y-[1rem]">
                             {/* Overview & Skills Timeline item */}
                             {listOfdata?.skills && (
-                              <div className="relative flex items-start  print:break-before-page">
+                              <section className="relative printFlex print:h-screen">
                                 {/* Dot */}
                                 <div className="absolute top-0 left-[-1.3rem] block print:hidden">
                                   <div className="w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center">
@@ -515,12 +432,12 @@ const CV_p = ({ params }: { params: any }) => {
                                     }}
                                   ></div>
                                 </div>
-                              </div>
+                              </section>
                             )}
 
                             {/* Skills Timeline item */}
                             {listOfdata?.skills_ids && (
-                              <div className="relative flex items-start  print:break-before-page ">
+                              <section className="relative printFlex print:h-screen">
                                 {/* Dot */}
                                 <div className="absolute top-0 left-[-1.3rem] block print:hidden ">
                                   <div className="w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center">
@@ -576,13 +493,13 @@ const CV_p = ({ params }: { params: any }) => {
                                     )}
                                   </div>
                                 </div>
-                              </div>
+                              </section>
                             )}
 
                             {/* {Experience} */}
                             {listOfdata &&
                               listOfdata?.experiences_ids?.length > 0 && (
-                                <div className="relative flex items-start print:break-before-page">
+                                <section className="relative printFlex print:h-screen">
                                   {/* Dot - Hidden in print */}
                                   <div className="absolute top-0 left-[-1.3rem] block print:hidden">
                                     <div className="w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center mt-[3rem] mb-[2rem]">
@@ -860,13 +777,13 @@ const CV_p = ({ params }: { params: any }) => {
                                           );
                                         })}
                                   </div>
-                                </div>
+                                </section>
                               )}
 
                             {/* Portfolio Timeline item */}
                             {listOfdata &&
                               listOfdata?.portfolios_ids?.length > 0 && (
-                                <div className="relative flex items-start print:break-before-page ">
+                                <section className="relative printFlex print:h-screen">
                                   {/* Dot */}
                                   <div className="absolute top-0 left-[-1.3rem] block print:hidden ">
                                     <div className="w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center mt-[3rem] mb-[2rem]">
@@ -1157,13 +1074,13 @@ const CV_p = ({ params }: { params: any }) => {
                                       }
                                     )}
                                   </div>
-                                </div>
+                                </section>
                               )}
 
                             {/* Education Timeline item */}
                             {listOfdata &&
                               listOfdata?.education_ids?.length > 0 && (
-                                <div className="relative flex items-start print:break-before-page print:w-full print:flex print:items-center print:justify-center ">
+                                <section className="relative flex items-start print:break-before-page print:w-full print:flex print:items-center print:justify-center ">
                                   {/* Dot */}
                                   <div className="absolute top-0 left-[-1.3rem] block print:hidden ">
                                     <div className="w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center my-[3rem] ">
@@ -1274,7 +1191,7 @@ const CV_p = ({ params }: { params: any }) => {
                                       <Footer />
                                     </div>  */}
                                   </div>
-                                </div>
+                                </section>
                               )}
 
                             {/* Blogs Timeline item */}
