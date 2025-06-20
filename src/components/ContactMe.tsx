@@ -195,7 +195,7 @@ const ContactMe = ({ listOfdata }) => {
     <>
       <div
         id="contact"
-        className="flex print:break-before-page items-center justify-center flex-wrap lg:flex-nowrap bg-footerMobile md:bg-footerDesktop bg-no-repeat print:max-w-[60%] bg-left-top print:mx-auto ultra2x:border-[1.5rem] ultra2x:border-white bg-cover rounded-[1rem] relative  p-[1rem] sm:p-[2rem] gap-[2.4rem] shadow-lg"
+        className="flex print:break-before-page items-center justify-center flex-wrap lg:flex-nowrap bg-footerMobile md:bg-footerDesktop bg-no-repeat print:w-full bg-left-top ultra2x:border-[1.5rem] ultra2x:border-white bg-cover rounded-[1rem] relative  p-[1rem] sm:p-[2rem] gap-[2.4rem] shadow-lg"
       >
         {/* Contact Form */}
         <Formik

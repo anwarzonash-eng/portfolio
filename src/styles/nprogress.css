@@ -2,7 +2,6 @@
 #nprogress {
   pointer-events: none;
 }
-
 #nprogress .bar {
   background: var(--primary-color);
   position: fixed;
@@ -12,7 +11,6 @@
   width: 100%;
   height: 6px;
 }
-
 /* Fancy blur effect */
 #nprogress .peg {
   display: block;
@@ -27,7 +25,6 @@
   -ms-transform: rotate(3deg) translate(0px, -4px);
   transform: rotate(3deg) translate(0px, -4px);
 }
-
 /* Center the spinner */
 #nprogress .spinner {
   display: none;
@@ -37,7 +34,6 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
-
 #nprogress .spinner-icon {
   width: 130px;
   height: 130px;
@@ -51,17 +47,14 @@
   -webkit-animation: nprogress-spinner 400ms linear infinite;
   animation: nprogress-spinner 400ms linear infinite;
 }
-
 .nprogress-custom-parent {
   overflow: hidden;
   position: relative;
 }
-
 .nprogress-custom-parent #nprogress .spinner,
 .nprogress-custom-parent #nprogress .bar {
   position: absolute;
 }
-
 @-webkit-keyframes nprogress-spinner {
   0% {
     -webkit-transform: rotate(0deg);

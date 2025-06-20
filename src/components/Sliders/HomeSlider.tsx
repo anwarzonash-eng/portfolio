@@ -291,12 +291,12 @@ const HomeSlider: React.FC<HomeSliderProps> = ({ portfolios, companyType }) => {
           })}
         </div>
       </div>
-      <Link
+      {/* <Link
         href="/"
-        className="text-white hidden print:flex py-[2rem] px-[6.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent hover:border-primary duration-300 max-lg:w-full text-center rounded-[0.6rem]"
+        className="text-white hidden  py-[2rem] px-[6.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent hover:border-primary duration-300 max-lg:w-full text-center rounded-[0.6rem]"
       >
         View More
-      </Link>
+      </Link> */}
       {/* Navigation Buttons */}
       <div className="flex print:hidden items-center justify-center w-full">
         <div className="flex items-center justify-center gap-[1.2rem]">

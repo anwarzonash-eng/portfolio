@@ -287,7 +287,7 @@ body {
 
 .list-div ul,
 .list-div ol {
-  @apply text-heading text-[1.6rem] leading-[2.4rem] flex flex-col gap-[1rem] list-disc pl-[3rem];
+  @apply text-heading text-[1.6rem] print:text-[1.8rem] leading-[2.4rem] flex flex-col gap-[1rem] list-disc pl-[3rem];
 }
 .list-div li {
   @apply pl-[1.3rem];
