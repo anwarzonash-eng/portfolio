@@ -23,6 +23,7 @@ import Background from "@/components/background";
 import { useAppSelector } from "@/store";
 import WorkProofLinks from "@/components/WorkProofLinks";
 import ContactMeLinks from "@/components/ContactMeLinks";
+import OurBlogsPortrait from "@/components/OurBlogsPortrait";
 
 const PortfolioListing_p = ({ params }: { params: any }) => {
   const [
@@ -87,8 +88,10 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
     <div className="bg-[#EFF5FD]">
       {/* Hero Banner */}
 
-      <section className="w-full relative banner-section">
-        <div className="mainContainer h-[60.7rem] lg:h-[65rem] print:h-auto w-full relative ">
+      {/* <Welcome /> */}
+      <section className="!w-full h-full relative flex flex-col print:bg-[#a3ddd3] print:break-before-page">
+        {/* Hero Section */}
+        <div className="max-w-[1550px] w-full mx-auto px-[4rem] h-[65rem] print:hidden relative">
           {/* Background SVG */}
           <Background />
           {/* Badge Heading and Paara Text */}
@@ -101,19 +104,21 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
             <div className="text-center print:hidden  text-primary text-[4rem] lg:text-[6rem] font-medium  leading-[5rem] lg:leading-[6rem] mt-[1.6rem] mb-[2.4rem]">
               My Recent Work
             </div>
-            {/* Pars Text */}
-            <p className="text-[2rem] leading-[3rem] font-normal text-heading print:hidden">
-              Check out some of the best work I have done.
-            </p>
-            <div className=" items-start justify-strat gap-[4rem] print:flex hidden  w-full  ">
+            {loading && <WebsiteLoader height="h-[30rem]" />}
+          </div>
+        </div>
+        {/* Welcome Card */}
+        <div className="w-full relative hidden print:!block h-screen">
+          <div className="max-w-[1024px] mx-auto text-center px-[2rem] pt-[8rem] relative z-20 print:mt-[5rem]">
+            <div className="items-center justify-strat gap-[4rem] print:flex flex-col hidden w-full">
               <img
                 src={listOfdatas?.profile_photo_1}
                 alt=""
-                className="w-[145px] h-[143px] rounded-full"
+                className="size-[245px] rounded-full"
               />
               <div className="flex items-start justify-start flex-col">
-                <h2 className="text-[5rem] font-bold"> {listOfdata?.name}</h2>
-                <div className="text-[3rem] font-medium flex items-center justify-center flex-wrap gap-[3px]">
+                <h2 className="text-[7rem] font-bold"> {listOfdata?.name}</h2>
+                <div className="text-[4rem] font-medium flex items-center justify-center flex-wrap gap-[3px] w-full">
                   {" "}
                   {listOfdatas?.designation?.split("|").map((item, index) => (
                     <div key={index} className="text-center">
@@ -123,7 +128,7 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
                 </div>
               </div>
             </div>
-            <div className="print:flex hidden items-center  gap-[2.1rem] mt-[4rem] mb-[0.8rem]">
+            <div className="flex items-center justify-center gap-[2.1rem] mt-[4rem] mb-[0.8rem] ">
               <WorkProofLinks
                 props={{
                   upwork: listOfdata?.upwork,
@@ -139,8 +144,7 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
                   phone_no: listOfdata?.phone_no,
                 }}
               />
-            </div>{" "}
-            {loading && <WebsiteLoader height="h-[30rem]" />}
+            </div>
           </div>
         </div>
       </section>
@@ -156,7 +160,7 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
       {listOfdata && listOfdata?.portfolios_ids?.length > 0 && (
         <>
           {/* Portfolio Timeline Section */}
-          <div className="mainContainer mt-[-30rem] lg:mt-[-40rem] xl:mt-[-36rem] print:mt-0  w-full ">
+          <div className="max-w-[1550px] w-full mx-auto px-[4rem] mt-[-30rem] lg:mt-[-40rem] xl:mt-[-36rem] print:mt-0">
             {/* Timeline */}
             <div className="flex items-center justify-center mt-[2rem]">
               <div className="relative">
@@ -440,7 +444,7 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
           </div>
           {/* Our Blogs Section */}
           <div className="w-full my-[10rem] lg:my-[12rem] print:my-1">
-            <OurBlogs domain={listOfdata?.domain} />
+            <OurBlogsPortrait domain={listOfdata?.domain} />
           </div>
           {/* Newsletter */}
           {!urlInfo?.u && (

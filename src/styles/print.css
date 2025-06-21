@@ -39,6 +39,15 @@
     page-break-after: always;
   }
 
+  /* Class For Making Potrait Section Fix */
+  .print-section {
+    height: 297mm;
+    width: 210mm;
+    overflow: hidden;
+    box-sizing: border-box;
+    page-break-after: always;
+  }
+
   /* Add page breaks between portfolios and avoid splitting content */
   .portfolio-item {
     page-break-before: always;

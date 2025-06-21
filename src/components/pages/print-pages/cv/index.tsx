@@ -168,7 +168,7 @@ const CV_p = ({ params }: { params: any }) => {
           actualPage: (
             <div className="bg-[#EFF5FD]">
               <section className="w-full relative print:hidden">
-                <div className="mainContainer h-[60.7rem] lg:h-[65rem] print:h-auto  w-full relative ">
+                <div className="max-w-[1550px] w-full mx-auto px-[4rem] h-[60.7rem] lg:h-[65rem] print:h-auto  relative ">
                   {/* Background SVG */}
                   <Background />
                   {/* Badge Heading and Paara Text */}

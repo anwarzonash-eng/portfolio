@@ -1,29 +1,23 @@
 "use client";
 import Image from "next/image";
 import "@/styles/printStyles/home_p.css";
-import VideoPlayer from "@/components/VideoPlayer";
 import useBodyBackgroundColor from "@/hooks/useBodyBackgroundColor";
 import HomeSlider from "@/components/Sliders/HomeSlider";
 import Faqs from "@/components/Faqs";
 import WorkProofLinks from "@/components/WorkProofLinks";
 import ContactMeLinks from "@/components/ContactMeLinks";
 import MyServices from "@/components/MyServicesCards";
-import TestimonialSlider from "@/components/Sliders/TestimonialSlider";
 import FreeTrialPopup from "@/components/FreeTrialPopup";
-import Welcome from "@/components/Welcome";
 import React, { useEffect, useRef, useState } from "react";
 import { formatPhoneNumber } from "@/hooks/formatPhoneNumber";
 import Link from "next/link";
 import { formatDate } from "@/hooks/formatdate";
 import { modifiedContent } from "@/hooks/modifiedContent";
 import { dateFormatsOptions } from "@/data/JsonData";
-import WebsiteLoader from "@/components/WebsiteLoader";
 import { useSearchParams } from "next/navigation";
 import { getRoutesDetails } from "@/hooks/url";
-import { skillsSyncApi } from "@/apiHandlers/skillsApi";
 import { reportsApiHandler } from "@/hooks/apihandlers/reportsApiHandlers";
 import { handleSkillsApiCall } from "@/hooks/apihandlers/skillsApiHandlers";
-import { getColors, updateCSSVariables } from "@/hooks/colors";
 import { store, useAppSelector } from "@/store";
 import { setProfileLoading, setProfileUrlInfo } from "@/store/profileSlice";
 import { downloadFile } from "@/hooks/downloadFile";
@@ -34,7 +28,6 @@ import { scrollToSection } from "@/hooks/scrollToSection";
 import SkillsContainer from "@/components/SkillsContainer";
 import { skillsGrouping } from "@/hooks/skillsGrouping";
 import ShowmoreSkills from "@/components/showmoreSkills";
-import { useRouter } from "next/router";
 import { useMediaQuery } from "react-responsive";
 import Header from "@/components/layouts/header/page";
 
@@ -117,7 +110,7 @@ const Home_p = ({ params }: { params: any }) => {
                   <div className="relative print:block !w-full hidden">
                     <Header />
                   </div>
-                  <div className="mainContainer w-full relative ">
+                  <div className="max-w-[1550px] w-full mx-auto px-[4rem]  relative ">
                     <div className="max-w-[1024px]  mx-auto text-center px-[2rem] pt-[8rem] relative z-20 print:mt-[20rem] ">
                       <div className=" items-center justify-strat gap-[4rem] print:flex hidden  w-full  ">
                         <img
@@ -164,236 +157,8 @@ const Home_p = ({ params }: { params: any }) => {
                 </section>
                 {/* Hero Section */}
                 <div className="w-full overflow-hidden relative bg-bannerBG print:break-before-page  print:h-screen print:m-0">
-                  {/*Hero Section For Mobile and Tablet Devices*/}
-                  <div className="mainContainer relative xl:hidden print:hidden ">
-                    {/* Hero Section Mobile Content */}
-                    <div className="text-center mt-[7.6rem] ">
-                      <p className="text-heading text-[3.66rem] font-normal">
-                        Hello! I’m
-                      </p>
-                      <div className="print:flex flex-col w-full print:mx-auto gap-8 items-center justify-center">
-                        <div className="mt-[0.5rem] print:flex items-center justify-center flex-col print:w-full font-bold text-[4rem] print:text-[10rem] md:text-[8rem] lg:text-[12rem] text-primary  gap-[1rem] relative inline-block">
-                          {listOfdata?.name}
-                          <Image
-                            src={"/images/mobileStars.svg"}
-                            height={45}
-                            width={45}
-                            alt="Mobile Stars"
-                            className="max-[365px]:hidden print:hidden block mt-[1rem] h-[4.5rem] w-[4.5rem] absolute top-0 right-[-4.5rem]"
-                          />
-                        </div>
-                        {/* Badge */}
-                        <div className="flex  print:flex items-center  print:w-full  justify-center max-w-[88rem] mx-auto mb-[2rem]">
-                          <button className="px-[2rem] py-[1.5rem] print:px-[5rem] print:py-[1.4rem] lg:py-[2rem] lg:px-[4rem] bg-primary rounded-[5rem] text-center text-[1.6rem] print:text-[2.3rem] lg:text-[2.4rem] font-bold text-white border-none outline-none my-[2rem] lg:mb-auto">
-                            {listOfdata?.designation
-                              ?.split("|")
-                              .map((item, index) => (
-                                <div key={index} className="text-center">
-                                  {item.trim()}
-                                </div>
-                              ))}
-                          </button>
-                        </div>
-                      </div>
-                      <p
-                        dangerouslySetInnerHTML={{
-                          __html: listOfdata?.tag_line,
-                        }}
-                        className="mb-[2rem] text-primary leading-[2rem] text-[1.6rem] text-center lg:hidden"
-                      ></p>
-                      {/* for small screen */}
-                      {listOfdata &&
-                        listOfdata.skills_ids &&
-                        listOfdata.skills_ids.length > 0 && (
-                          <div className="w-full p-[1.5rem] flex justify-center items-center flex-col gap-[1rem] lg:hidden">
-                            <div className="w-full flex justify-center items-center gap-[0.6rem] flex-wrap">
-                              {/* Normal view (shows limited skills) */}
-                              {Object.values(skills)
-                                .flat()
-                                .slice(0, !showAll ? 10 : undefined)
-                                .map((skill, i) => {
-                                  const groupIndex = Object.values(
-                                    skills
-                                  ).findIndex((group) => group.includes(skill));
-                                  const skillNumber = `${groupIndex + 1}.${
-                                    skills[
-                                      Object.keys(skills)[groupIndex]
-                                    ].indexOf(skill) + 1
-                                  }`;
-
-                                  return (
-                                    <Link
-                                      href={skill.url || "#"}
-                                      legacyBehavior
-                                      key={`${groupIndex}-${i}`}
-                                    >
-                                      <a
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        style={{
-                                          animationDelay: `${i * 0.1}s`,
-                                        }}
-                                        className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium px-[21px] py-[0.5rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group print:opacity-100"
-                                      >
-                                        {skill?.title}
-                                      </a>
-                                    </Link>
-                                  );
-                                })}
-
-                              {/* Print view (shows all skills) */}
-                              <div className="hidden print:flex print:flex-wrap  print:justify-center print:items-center print:gap-[18px] print:w-full">
-                                {Object.values(skills)
-                                  .flat()
-                                  .slice(0, !showAll ? 12 : undefined)
-                                  .map((skill, i) => {
-                                    const groupIndex = Object.values(
-                                      skills
-                                    ).findIndex((group) =>
-                                      group.includes(skill)
-                                    );
-                                    const skillNumber = `${groupIndex + 1}.${
-                                      skills[
-                                        Object.keys(skills)[groupIndex]
-                                      ].indexOf(skill) + 1
-                                    }`;
-
-                                    return (
-                                      <Link
-                                        href={skill.url || "#"}
-                                        legacyBehavior
-                                        key={`print-${groupIndex}-${i}`}
-                                      >
-                                        <a
-                                          target="_blank"
-                                          rel="noopener noreferrer"
-                                          className="capitalize text-center text-primary text-[1.3rem] font-medium px-[21px] py-[0.5rem] bg-white flex items-center justify-center  rounded-[5rem] shadow border border-[#757575]"
-                                        >
-                                          {skill?.title}
-                                        </a>
-                                      </Link>
-                                    );
-                                  })}
-                              </div>
-                            </div>
-
-                            {/* Buttons hidden on print */}
-                            {!showAll &&
-                              Object.values(skills).flat().length > 10 && (
-                                <button
-                                  onClick={() => setShowAll(true)}
-                                  className="mt-4 bg-primary text-white px-4 py-2 mb-[15px] rounded hover:bg-primary-dark transition-colors print:hidden"
-                                >
-                                  Show More Skills
-                                </button>
-                              )}
-
-                            {showAll && (
-                              <button
-                                onClick={() => setShowAll(false)}
-                                className="mt-4 bg-primary text-white px-4 py-2 mb-[15px] rounded hover:bg-primary-dark transition-colors print:hidden"
-                              >
-                                Show Less
-                              </button>
-                            )}
-                          </div>
-                        )}
-                    </div>
-                    {/*Hero Section Developer Image */}
-                    <div className="print:flex gap-3 print:w-full items-start justify-center ">
-                      <div className="relative  print:w-[50%] md:flex justify-center ">
-                        <Image
-                          width={731}
-                          height={907}
-                          alt=""
-                          src={listOfdata?.profile_photo_2}
-                          className="print:h-[700px] print-w-[640px]"
-                        />
-                        {/* Positioned Elementes Price */}
-                        <div className="flex gap-[0.35rem] text-nowrap text-primary text-[1.4rem] font-medium rounded-[3.5rem] py-[0.69rem] bg-white shadow-lg px-[1.2rem] absolute top-[25%] left-[98%] translate-x-[-90%] md:left-[80%] md:translate-x-[-80%] animate-pulse min-w-max ">
-                          <Image
-                            src={"/images/clock.svg"}
-                            height={14}
-                            width={14}
-                            alt="Clock"
-                            className="h-[2rem] w-[2rem]"
-                          />
-                          <p>45 hr / Week </p>
-                        </div>
-
-                        {/* Positioned Elementes Availability */}
-                        <div className="flex gap-[0.35rem] text-nowrap text-primary text-[2rem] font-medium rounded-[3.5rem] py-[0.69rem] bg-white shadow-lg max-w-max px-[0.9rem] pr-[1.4rem] absolute bottom-[25%] left-[10%] translate-x-[-15%] md:left-[20%] md:translate-x-[-20%] animate-pulse">
-                          <Image
-                            src={"/images/dollar-symbol.svg"}
-                            height={14}
-                            width={14}
-                            alt="Dollar Symbol"
-                            className="h-[auto] w-[auto]"
-                          />
-                          <p>${listOfdata?.hourly_rate} / hour</p>
-                        </div>
-                      </div>
-                      <div className="print:w-[50%] print:block hidden print:mt-[45px]">
-                        <p
-                          dangerouslySetInnerHTML={{
-                            __html: listOfdata?.tag_line,
-                          }}
-                          className="mb-[2rem] text-primary  text-[2.6rem] leading-[40px] text-start "
-                        ></p>
-                        {listOfdata &&
-                          listOfdata.skills_ids &&
-                          listOfdata.skills_ids.length > 0 && (
-                            <div className="   ">
-                              <div className="flex justify-between bg-primary border-b border-border w-full py-[1rem] px-[2rem]">
-                                <div className="text-left text-white text-[1.8rem] font-medium">
-                                  My Skills
-                                </div>
-                              </div>
-
-                              <div
-                                ref={skillsContainerRef}
-                                className="w-full p-[1.5rem] bg-white/70 backdrop-blur-xl justify-start items-center gap-[0.6rem] flex flex-wrap r"
-                                style={{ maxHeight: "46.3rem" }}
-                              >
-                                {Object?.values(skills)?.map(
-                                  (group, groupIndex) => (
-                                    <React.Fragment key={groupIndex}>
-                                      {group.map((skill, i) => {
-                                        // Calculate the skill number (groupIndex+1).(i+1)
-                                        const skillNumber = `${
-                                          groupIndex + 1
-                                        }.${i + 1}`;
-
-                                        return (
-                                          <Link
-                                            href={skill.url || "#"}
-                                            legacyBehavior
-                                            key={`${groupIndex}-${i}`}
-                                          >
-                                            <a
-                                              target="_blank"
-                                              rel="noopener noreferrer"
-                                              style={{
-                                                animationDelay: `${i * 0.1}s`,
-                                              }}
-                                              className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium px-[21px] py-[0.5rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
-                                            >
-                                              {skill?.title}
-                                            </a>
-                                          </Link>
-                                        );
-                                      })}
-                                    </React.Fragment>
-                                  )
-                                )}
-                              </div>
-                            </div>
-                          )}
-                      </div>
-                    </div>
-                  </div>
                   {/* Hero Section For Desktop  */}
-                  <div className="mainContainer hidden xl:block print:hidden">
+                  <div className="max-w-[1550px] w-full mx-auto px-[4rem] hidden xl:block print:hidden">
                     <div className="text-center mt-[3rem]">
                       <p className="text-heading text-[3.66rem] font-normal leading-normal mb-[1rem]">
                         Hello! I’m
@@ -647,7 +412,7 @@ const Home_p = ({ params }: { params: any }) => {
                 {/* About Section for desktop*/}
                 <section className="w-full flex items-center justify-center mb-[5rem] print:hidden">
                   {/* Container Div for desktop*/}
-                  <div className="mainContainer flex flex-col-reverse gap-[5rem]   xl:gap-0 xl:flex-row items-center justify-center xl:justify-between">
+                  <div className="max-w-[1550px] w-full mx-auto px-[4rem] flex flex-col-reverse gap-[5rem]   xl:gap-0 xl:flex-row items-center justify-center xl:justify-between">
                     {/* Container For Image and Badges */}
                     <div className="w-full h-full xl:w-[67rem] xl:h-[64rem] flex-shrink-0 max-xl:flex  justify-center">
                       <div
@@ -1114,29 +879,10 @@ const Home_p = ({ params }: { params: any }) => {
                   </div>
                 </section>
 
-                {/* Custom Video Player Section */}
-                {listOfdata?.video_attached?.videoURL && (
-                  <div className="w-full mb-[10rem] xl:mb-[12rem] mainContainer print:hidden ">
-                    <video
-                      autoPlay
-                      muted
-                      loop
-                      controls
-                      className="rounded-xl h-[40rem] lg:h-[70rem] w-full object-cover"
-                    >
-                      <source
-                        src={listOfdata?.video_attached?.videoURL}
-                        type="video/mp4"
-                      />
-                      Your browser does not support the video tag.
-                    </video>
-                  </div>
-                )}
-
                 {listOfdata && listOfdata?.skills_ids?.length > 0 && (
                   <>
                     {/* Skills Section Completed */}
-                    <div className="mainContainer print:!pt-[4rem] print:my-[0rem] my-[5rem]  print:h-screen print:break-before-page break-before-avoid print:bg-[#a3ddd3]">
+                    <div className="max-w-[1550px] w-full mx-auto px-[4rem] print:!pt-[4rem] print:my-[0rem] my-[5rem]  print:h-screen print:break-before-page break-before-avoid print:bg-[#a3ddd3]">
                       {/* Badge */}
                       <div
                         id="skills_ids"
@@ -1162,7 +908,7 @@ const Home_p = ({ params }: { params: any }) => {
                   listOfdata?.services &&
                   listOfdata?.services?.length > 0 && (
                     <section className="w-full bg-sectionBG my-[5rem] print:m-0  print:break-before-page print:h-screen ">
-                      <div className="mainContainer py-[5rem] xl:py-[10rem]">
+                      <div className="max-w-[1550px] w-full mx-auto px-[4rem] py-[5rem] xl:py-[10rem]">
                         {/* Badge */}
                         <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto  section_top_button ">
                           My Services
@@ -1188,7 +934,7 @@ const Home_p = ({ params }: { params: any }) => {
                     <>
                       {/* My Work Section Slider  */}
                       <section className="w-full mt-[8rem] mb-[7rem] print_p_m print:!pt-[3rem] print:bg-[#a3ddd3] print:break-before-page print:h-screen ">
-                        <div className="mainContainer   my-[5rem] print:my-[1rem] ">
+                        <div className="max-w-[1550px] w-full mx-auto px-[4rem]   my-[5rem] print:my-[1rem] ">
                           {/* Badge */}
                           <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto  section_top_button ">
                             My Work
@@ -1213,8 +959,8 @@ const Home_p = ({ params }: { params: any }) => {
                   listOfdata.experiences_ids.length > 0 && (
                     <>
                       {/* Professional Experience Timeline Section Completed */}
-                      <section className="w-full   print_p_m print:h-screen print:break-before-page print:bg-[#a3ddd3]  ">
-                        <div className="mainContainer   print:shadow-none print:!pt-[3rem] ">
+                      <section className="w-full print_p_m print:h-screen print:break-before-page print:bg-[#a3ddd3]">
+                        <div className="max-w-[1550px] w-full mx-auto px-[4rem]   print:shadow-none print:!pt-[3rem] ">
                           {/* Badge */}
                           <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto  section_top_button ">
                             Professional Experience
@@ -1224,7 +970,7 @@ const Home_p = ({ params }: { params: any }) => {
                             My Professional Career Journey
                           </div>
                           {/* Timeline */}
-                          <div className="mainContainer flex items-center justify-center mt-[2rem] print:m-0 ">
+                          <div className="max-w-[1550px] w-full mx-auto px-[4rem] flex items-center justify-center mt-[2rem] print:m-0 ">
                             <div className="relative print:flex flex-col gap-4">
                               {/* Vertical line */}
                               <div className="absolute print_hidden left-[10rem] top-[3rem] w-[0.4rem] h-[calc(100%-78px)] bg-border  mx-[2.1rem] hidden xl:block" />

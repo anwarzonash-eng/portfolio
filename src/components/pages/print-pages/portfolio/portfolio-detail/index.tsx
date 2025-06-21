@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import "@/styles/printStyles/portfolio_detail_p.css";
 import Newsletter from "@/components/Newsletter";
-import OurBlogs from "@/components/OurBlogs";
 import SliderXL from "@/components/Sliders/SliderXL";
 import useBodyBackgroundColor from "@/hooks/useBodyBackgroundColor";
 import { useSearchParams } from "next/navigation";
@@ -25,6 +24,7 @@ import { skillsGrouping } from "@/hooks/skillsGrouping";
 import WorkProofLinks from "@/components/WorkProofLinks";
 import ContactMeLinks from "@/components/ContactMeLinks";
 import Header from "@/components/layouts/header/page";
+import OurBlogsPortrait from "@/components/OurBlogsPortrait";
 
 const PortfolioDetails_p = ({ params }: { params: any }) => {
   const searchParams = useSearchParams();
@@ -102,11 +102,11 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
               {/* <Welcome /> */}
               <section className="!w-full h-full relative flex flex-col print:bg-[#a3ddd3] print:break-before-page">
                 {/* Hero Section */}
-                <div className="mainContainer w-full relative overflow-hidden">
+                <div className="max-w-[1550px] w-full mx-auto px-[4rem]  relative overflow-hidden">
                   {/* Background SVG */}
                   <Portfoliodetailbg />
                   {/* Hero Top Content */}
-                  <div className="mainContainer w-full flex items-center justify-center flex-col text-center pt-[6.5rem] pb-[8rem] relative z-20">
+                  <div className="max-w-[1550px] w-full mx-auto px-[4rem] flex items-center justify-center flex-col text-center pt-[6.5rem] pb-[8rem] relative z-20">
                     {/* info */}
                     <div className="flex items-center text-white text-[1.4rem] print:text-[2.4rem] leading-[2rem] font-medium">
                       <p className="">
@@ -170,7 +170,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
               </section>
 
               {/* Blog Content Section */}
-              <section className="mainContainer w-full relative top-[20px] print:top-0 print:p-6 print:break-before-page">
+              <section className="max-w-[1550px] w-full mx-auto px-[4rem]  relative top-[20px] print:top-0 print:p-6 print:break-before-page">
                 {/* Blog Detail Pic*/}
                 <Image
                   src={portfolioDetails?.thumbnail}
@@ -257,7 +257,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
               </section>
 
               {/* Blog Detail Content */}
-              <section className="mainContainer w-full relative top-[20px] print:top-0 print:p-6 print:break-before-page mt-10 print:mt-8">
+              <section className="max-w-[1550px] w-full mx-auto px-[4rem] relative top-[20px] print:top-0 print:p-6 print:break-before-page mt-10 print:mt-8">
                 {/* Content */}
                 <div className="w-full ">
                   {/* Heading and Para */}
@@ -355,7 +355,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
               </section>
 
               {/* Key Modules and Contributions */}
-              <section className="mainContainer w-full print:p-6 print:break-before-page mt-10 print:mt-8">
+              <section className="max-w-[1550px] w-full mx-auto px-[4rem] print:p-6 print-section mt-10 print:mt-8">
                 <div
                   className="text-[1.8rem] print:text-[2.1rem]"
                   dangerouslySetInnerHTML={{
@@ -369,7 +369,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
               </section>
 
               {/* Skills & Tool Chain Section */}
-              <section className="mainContainer w-full print:p-6 print:break-before-page mt-10 print:mt-8">
+              <section className="max-w-[1550px] w-full mx-auto px-[4rem] print:p-6 print:break-before-page mt-10 print:mt-8">
                 <Image
                   src={portfolioDetails?.thumbnail}
                   height={1500}
@@ -380,7 +380,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
                 {/* My Tools and Technologies */}
                 <article className="mt-[3rem]">
                   {/* Heading */}
-                  <div className="text-heading text-[2.4rem] xl:text-[3rem] font-medium leading-[2.8rem] ">
+                  <div className="text-heading text-[3rem] font-medium leading-[2.8rem] text-center">
                     The skills, tools and technologies I used in this project:
                   </div>
                   {/* Skills Container */}
@@ -388,23 +388,17 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
                 </article>
               </section>
 
-              <section className="mainContainer w-full print:p-6 print:break-before-page mt-10 print:mt-8">
+              {/* Slider Contact Form and Blog Sections */}
+              <section className="max-w-[1550px] w-full mx-auto px-[4rem] print:p-6 print:break-before-page mt-10 print:mt-8">
                 {/* SliderXL */}
                 {portfolioDetails !== null && (
                   <SliderXL portfolioPictures={portfolioDetails?.pictures} />
                 )}
                 {/* Our Blogs Section */}
-                <div className="w-full my-[10rem] lg:my-[12rem]">
-                  <OurBlogs domain={listOfdata?.domain} />
+                <div className="w-full my-8">
+                  <OurBlogsPortrait domain={listOfdata?.domain} />
                 </div>
               </section>
-
-              {/* Newsletter */}
-              {!urlInfo?.u && (
-                <section className="w-full mb-[5rem]">
-                  <Newsletter listOfdata={listOfdata} />
-                </section>
-              )}
             </>
           ),
         }}
