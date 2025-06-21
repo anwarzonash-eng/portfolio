@@ -310,7 +310,7 @@ const ContactMe = ({ listOfdata }) => {
         {/* Contact Details */}
         <div className="w-full ">
           {/* Badge */}
-          <div className="px-[2rem] py-[0.4rem] rounded-[2.2rem] bg-white border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-[2rem] mb-[2rem] print:px-[6rem] print:text-[2rem] print:py-[2rem]">
+          <div className="px-[2rem] py-[0.4rem] rounded-[2.2rem] bg-white border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-[2rem] mb-[2rem] print:px-[3rem] print:text-[1.6rem] print:py-[1rem]">
             Stay In Touch
           </div>
           {/* Heading */}

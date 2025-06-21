@@ -19,8 +19,8 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({ list }) => {
   const [showAll, setShowAll] = useState(false);
 
   // Number of items to display by default
-  const initialVisibleItemsLarge = 3 * 6; 
-  const initialVisibleItemsSmall = 3 * 3; 
+  const initialVisibleItemsLarge = 3 * 6;
+  const initialVisibleItemsSmall = 3 * 3;
 
   // Determine the skills to show based on screen size and showAll state
   const visibleSkills = showAll
@@ -33,7 +33,9 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({ list }) => {
       );
 
   // Explicitly type the skills object
-  const skills: Record<string, SkillType[]> = skillsGrouping(visibleSkills || []);
+  const skills: Record<string, SkillType[]> = skillsGrouping(
+    visibleSkills || []
+  );
 
   return (
     <div className="flex flex-col print:w-full items-center justify-center">
@@ -71,31 +73,34 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({ list }) => {
 
       {/* Print View Grid - Always shows all skills in 3 columns */}
       <div className="hidden w-full print:grid print:grid-cols-10 items-center justify-center print:gap-[1.5rem] print:mt-[2rem]">
-        {list && Object.values(skillsGrouping(list)).map((group: SkillType[], groupIndex: number) => (
-          <React.Fragment key={`print-${groupIndex}`}>
-            {group.map((skill: SkillType, i: number) => (
-              <div
-                key={`print-${groupIndex}-${i}`}
-                className="mx-auto mb-[4rem] flex flex-col items-center justify-start gap-[0.8rem] print:gap-0 max-w-[13rem] w-full print:opacity-100"
-              >
-                {skill.icon && (
-                  <div className="flex items-center justify-center h-[6.4rem] w-[6.4rem]">
-                    <Image
-                      src={skill.icon}
-                      alt={skill.title}
-                      height={64}
-                      width={64}
-                      className="object-cover rounded-full h-[6rem] w-[6rem]"
-                    />
+        {list &&
+          Object.values(skillsGrouping(list)).map(
+            (group: SkillType[], groupIndex: number) => (
+              <React.Fragment key={`print-${groupIndex}`}>
+                {group.map((skill: SkillType, i: number) => (
+                  <div
+                    key={`print-${groupIndex}-${i}`}
+                    className="mx-auto mb-[4rem] flex flex-col items-center justify-start gap-[0.8rem] print:gap-0 max-w-[13rem] w-full print:opacity-100"
+                  >
+                    {skill.icon && (
+                      <div className="flex items-center justify-center h-[6.4rem] w-[6.4rem]">
+                        <Image
+                          src={skill.icon}
+                          alt={skill.title}
+                          height={64}
+                          width={64}
+                          className="object-cover rounded-full h-[6rem] w-[6rem]"
+                        />
+                      </div>
+                    )}
+                    <p className=" text-paragraph1 text-center text-[1.1rem] leading-[2.8rem] overflow-hidden text-ellipsis">
+                      {skill.title}
+                    </p>
                   </div>
-                )}
-                <p className=" text-paragraph1 text-center text-[1.1rem] leading-[2.8rem] overflow-hidden text-ellipsis">
-                  {skill.title}
-                </p>
-              </div>
-            ))}
-          </React.Fragment>
-        ))}
+                ))}
+              </React.Fragment>
+            )
+          )}
       </div>
 
       {/* Show More/Show Less button - Hidden on print */}

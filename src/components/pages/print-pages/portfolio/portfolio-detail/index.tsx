@@ -4,14 +4,11 @@ import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import "@/styles/printStyles/portfolio_detail_p.css";
-import Newsletter from "@/components/Newsletter";
-import SliderXL from "@/components/Sliders/SliderXL";
 import useBodyBackgroundColor from "@/hooks/useBodyBackgroundColor";
 import { useSearchParams } from "next/navigation";
 import { formatDate } from "@/hooks/formatdate";
 import Portfoliodetailbg from "@/components/portfoliodetailbg";
 import { dateFormatsOptions } from "@/data/JsonData";
-import WebsiteLoader from "@/components/WebsiteLoader";
 import { modifiedContent } from "@/hooks/modifiedContent";
 import { reportsApiHandler } from "@/hooks/apihandlers/reportsApiHandlers";
 import { getRoutesDetails } from "@/hooks/url";
@@ -23,8 +20,9 @@ import SkillsContainer from "@/components/SkillsContainer";
 import { skillsGrouping } from "@/hooks/skillsGrouping";
 import WorkProofLinks from "@/components/WorkProofLinks";
 import ContactMeLinks from "@/components/ContactMeLinks";
-import Header from "@/components/layouts/header/page";
 import OurBlogsPortrait from "@/components/OurBlogsPortrait";
+import SliderXLPrint from "@/components/Sliders/SliderXLPrint";
+import SkillsContainerPrint from "@/components/SkillsContainerPrint";
 
 const PortfolioDetails_p = ({ params }: { params: any }) => {
   const searchParams = useSearchParams();
@@ -170,14 +168,14 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
               </section>
 
               {/* Blog Content Section */}
-              <section className="max-w-[1550px] w-full mx-auto px-[4rem]  relative top-[20px] print:top-0 print:p-6 print:break-before-page">
+              <section className="max-w-[1550px] w-full mx-auto px-[4rem] relative top-[20px] print:top-0 print:p-12 print:break-before-page print-section">
                 {/* Blog Detail Pic*/}
                 <Image
                   src={portfolioDetails?.thumbnail}
                   height={1500}
                   width={3000}
                   alt="Banner"
-                  className="w-full object-contain rounded-[1rem] print:h-[725px] print:object-cover print:mt-5"
+                  className="w-full object-contain rounded-[1rem] print:h-[700px] print:object-cover print:mt-5"
                 />
                 {/* Aside */}
                 <div
@@ -257,7 +255,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
               </section>
 
               {/* Blog Detail Content */}
-              <section className="max-w-[1550px] w-full mx-auto px-[4rem] relative top-[20px] print:top-0 print:p-6 print:break-before-page mt-10 print:mt-8">
+              <section className="max-w-[1550px] w-full mx-auto relative print:flex items-center justify-center flex-col px-12 print:break-before-page mt-10 print:mt-0 print:h-[297mm] ">
                 {/* Content */}
                 <div className="w-full ">
                   {/* Heading and Para */}
@@ -355,7 +353,14 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
               </section>
 
               {/* Key Modules and Contributions */}
-              <section className="max-w-[1550px] w-full mx-auto px-[4rem] print:p-6 print-section mt-10 print:mt-8">
+              <section className="max-w-[1550px] w-full mx-auto px-[4rem] print:p-12 print-section mt-10 print:mt-8">
+                <Image
+                  src={portfolioDetails?.thumbnail}
+                  height={1500}
+                  width={1500}
+                  alt="Banner"
+                  className="object-contain rounded-[1rem] print:h-[500px] print:object-cover mb-[6rem]"
+                />
                 <div
                   className="text-[1.8rem] print:text-[2.1rem]"
                   dangerouslySetInnerHTML={{
@@ -369,33 +374,31 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
               </section>
 
               {/* Skills & Tool Chain Section */}
-              <section className="max-w-[1550px] w-full mx-auto px-[4rem] print:p-6 print:break-before-page mt-10 print:mt-8">
-                <Image
-                  src={portfolioDetails?.thumbnail}
-                  height={1500}
-                  width={1500}
-                  alt="Banner"
-                  className="object-contain rounded-[1rem] print:h-[500px] print:object-cover"
-                />
+              <section className="max-w-[1550px] w-full mx-auto px-[4rem] print:p-6 print:break-before-page mt-10 print:mt-8 print:h-[297mm] print:flex items-center justify-center">
                 {/* My Tools and Technologies */}
                 <article className="mt-[3rem]">
                   {/* Heading */}
-                  <div className="text-heading text-[3rem] font-medium leading-[2.8rem] text-center">
+                  <div className="text-heading text-[3rem] font-medium leading-[2.8rem]">
                     The skills, tools and technologies I used in this project:
                   </div>
                   {/* Skills Container */}
-                  <SkillsContainer list={portfolioDetails?.skills} />
+                  <SkillsContainerPrint list={portfolioDetails?.skills} />
                 </article>
               </section>
 
-              {/* Slider Contact Form and Blog Sections */}
-              <section className="max-w-[1550px] w-full mx-auto px-[4rem] print:p-6 print:break-before-page mt-10 print:mt-8">
+              {/* Slider  Sections */}
+              <section className="max-w-[1550px] w-full mx-auto px-[4rem] print:p-12 print:break-before-page mt-10 print:mt-8 print:h-[297mm] print:flex items-center justify-center">
                 {/* SliderXL */}
                 {portfolioDetails !== null && (
-                  <SliderXL portfolioPictures={portfolioDetails?.pictures} />
+                  <SliderXLPrint
+                    portfolioPictures={portfolioDetails?.pictures}
+                  />
                 )}
-                {/* Our Blogs Section */}
-                  <OurBlogsPortrait domain={listOfdata?.domain} />
+              </section>
+
+              {/* Our Blogs Section */}
+              <section className="max-w-[1550px] w-full mx-auto">
+                <OurBlogsPortrait domain={listOfdata?.domain} />
               </section>
             </>
           ),

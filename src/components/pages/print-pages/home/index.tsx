@@ -30,6 +30,8 @@ import { skillsGrouping } from "@/hooks/skillsGrouping";
 import ShowmoreSkills from "@/components/showmoreSkills";
 import { useMediaQuery } from "react-responsive";
 import Header from "@/components/layouts/header/page";
+import SkillsContainerPrint from "@/components/SkillsContainerPrint";
+import HomeSliderPrint from "@/components/Sliders/HomeSliderPrint";
 
 const Home_p = ({ params }: { params: any }) => {
   useBodyBackgroundColor("#f8f9fa");
@@ -97,7 +99,7 @@ const Home_p = ({ params }: { params: any }) => {
 
   return (
     <>
-      <main className="w-full print:bg-[#a3ddd3]">
+      <main className="w-full bg-[#EFF5FD]">
         <PageRendering
           props={{
             list: listOfdata,
@@ -106,7 +108,7 @@ const Home_p = ({ params }: { params: any }) => {
               <>
                 <FreeTrialPopup listOfdata={listOfdata} urlInfo={urlInfo} />
                 {/* <Welcome /> */}
-                <section className="!w-full relative print:flex flex-col hidden h-screen print:bg-[#a3ddd3] print:break-before-page">
+                <section className="!w-full relative print:flex flex-col hidden print:h-screen print:bg-[#a3ddd3] print:break-before-page">
                   <div className="relative print:block !w-full hidden">
                     <Header />
                   </div>
@@ -156,7 +158,7 @@ const Home_p = ({ params }: { params: any }) => {
                   </div>
                 </section>
                 {/* Hero Section */}
-                <div className="w-full overflow-hidden relative bg-bannerBG print:break-before-page  print:h-screen print:m-0">
+                <div className="w-full overflow-hidden relative bg-bannerBG print:break-before-page print:h-screen print:m-0">
                   {/* Hero Section For Desktop  */}
                   <div className="max-w-[1550px] w-full mx-auto px-[4rem] hidden xl:block print:hidden">
                     <div className="text-center mt-[3rem]">
@@ -282,7 +284,7 @@ const Home_p = ({ params }: { params: any }) => {
                     </div>
                   </div>
                   {/* Hero Section For Print section  */}
-                  <div className="!px-0 w-full !m-0 hidden print:block">
+                  <div className="!px-0 w-full !m-0 hidden">
                     <div className="text-center mx-[3rem] mt-[3rem]">
                       <p className="text-heading text-[4rem] font-normal leading-normal mb-[1rem]">
                         Hello! I’m
@@ -409,255 +411,20 @@ const Home_p = ({ params }: { params: any }) => {
                   </div>
                 </div>
 
-                {/* About Section for desktop*/}
-                <section className="w-full flex items-center justify-center mb-[5rem] print:hidden">
-                  {/* Container Div for desktop*/}
-                  <div className="max-w-[1550px] w-full mx-auto px-[4rem] flex flex-col-reverse gap-[5rem]   xl:gap-0 xl:flex-row items-center justify-center xl:justify-between">
-                    {/* Container For Image and Badges */}
-                    <div className="w-full h-full xl:w-[67rem] xl:h-[64rem] flex-shrink-0 max-xl:flex  justify-center">
-                      <div
-                        className="relative h-[44rem] xl:h-[65rem] max-w-[56rem] bg-center bg-cover bg-no-repeat w-full rounded-[1rem]"
-                        style={{
-                          backgroundImage: `url('${listOfdata?.profile_photo_3}')`,
-                        }}
-                      >
-                        {/* Experience Badge */}
-                        <div className="bg-white rounded-[0.8rem] absolute   bottom-auto left-auto top-[-3rem] right-[3rem] xl:top-[7rem] xl:right-[-8rem] p-[1.4rem] xl:h-[12rem] xl:w-[26rem] xl:rounded-[2rem] flex items-center shadow-md gap-[1rem] xl:gap-[2rem] animate-bounce">
-                          {/* Badge SVG */}
-                          <div className="bg-[#2A97FC] rounded-[50%] flex items-center justify-center h-[4.9rem] w-[4.9rem] xl:h-[6.8rem] xl:w-[6.8rem]">
-                            <img
-                              src="./images/experience.svg"
-                              alt="Experience"
-                              className="h-[2.4rem] w-[2.4rem] xl:h-[3.4rem] xl:w-[3.4rem]"
-                            />
-                          </div>
-                          {/* Badge Content */}
-                          <div className="flex flex-col justify-center">
-                            <h3 className="uppercase text-[1.4rem] xl:text-[1.8rem] font-semibold  text-heading leading-none mt-[1rem]">
-                              Experience
-                            </h3>
-                            <p className="text-[2.4rem] xl:text-[3rem] font-bold text-primary">
-                              {listOfdata?.no_of_experiences}+{" "}
-                              <span className="text-[2rem]">
-                                {listOfdata?.no_of_experiences === 1
-                                  ? "year"
-                                  : "years"}
-                              </span>
-                            </p>
-                          </div>
-                        </div>
-
-                        {/* Projects Badge */}
-                        <div className="bg-white  mb-3 rounded-[0.8rem] absolute   top-auto right-auto bottom-[-4rem]   xl:bottom-[3rem] xl:left-[3rem] left-[3rem] p-[1.4rem] xl:h-[12rem] xl:rounded-[2rem] flex items-center shadow-md gap-[1rem] xl:gap-[2rem] animate-bounce xl:animate-none">
-                          {/* Badge SVG */}
-                          <div className="bg-[#FC822A] rounded-[50%] flex items-center justify-center h-[4.9rem] w-[4.9rem] xl:h-[6.8rem] xl:w-[6.8rem]">
-                            <img
-                              src="./images/badge.svg"
-                              alt="Experience"
-                              className="h-[2.4rem] w-[2.4rem] xl:h-[3.4rem] xl:w-[3.4rem]"
-                            />
-                          </div>
-                          {/* Badge Content */}
-                          <div className="flex flex-col justify-center">
-                            <h3 className="uppercase text-[1.4rem] xl:text-[1.8rem] font-semibold  text-heading leading-none mt-[1rem]">
-                              Projects Completed
-                            </h3>
-                            <p className="text-[2.4rem] xl:text-[3rem] font-bold text-primary">
-                              {listOfdata?.projects_completed}+
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    {/* Contact Details */}
-                    <div className="w-full">
-                      {/* About Context */}
-                      <div className="w-full">
-                        {/* Badge */}
-                        <div className="px-[2rem] mt-[3rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium  font-Inter leading-[2rem]">
-                          About Me
-                        </div>
-                        {/* Heading */}
-                        <div
-                          dangerouslySetInnerHTML={{
-                            __html: listOfdata?.tag_line,
-                          }}
-                          className="text-heading text-[2.4rem] mt-[2rem] mb-[1.2rem] font-medium leading-[2.8rem] lg:text-[3rem] lg:leading-[3.8rem]"
-                        ></div>
-                        {/* Paragraph */}
-                        {listOfdata?.designation && (
-                          <p className="text-[1.6rem] font-normal text-paragraph1  leading-[2.4rem]">
-                            Currently Open for full time position as a{" "}
-                            <span className="lowercase">
-                              {listOfdata?.designation}
-                            </span>
-                            .
-                          </p>
-                        )}
-                      </div>
-                      {/* Info Cards */}
-                      <div className="my-[2rem] rounded-[0.8rem] overflow-hidden  w-full grid grid-cols-12">
-                        <div
-                          className={`w-full border border-border border-solid py-[3rem] px-[2rem] col-span-12 ${
-                            urlInfo?.u ? "md:col-span-12" : "md:col-span-6"
-                          }`}
-                        >
-                          <div className="w-full">
-                            <h4 className="hover:font-bold  text-[1.6rem] duration-300 font-normal text-primary">
-                              {listOfdata?.name}
-                            </h4>
-                            <p className="text-[1.4rem] font-normal text-paragraph1">
-                              Name
-                            </p>
-                          </div>
-                        </div>
-                        {!urlInfo?.u && (
-                          <div className="md:col-span-6 col-span-12 w-full border border-border border-solid py-[3rem] px-[2rem]">
-                            <div className="w-full text-wrap break-words">
-                              <Link
-                                href={`mailto:${listOfdata?.email}`}
-                                className="hover:font-bold  text-[1.6rem] duration-300  font-normal text-primary "
-                              >
-                                {listOfdata?.email}
-                              </Link>
-                              <p className="text-[1.4rem] font-normal text-paragraph1">
-                                Email
-                              </p>
-                            </div>
-                          </div>
-                        )}
-
-                        {!urlInfo?.u && (
-                          <div className="md:col-span-6 col-span-12 w-full border border-border border-solid py-[3rem] px-[2rem]">
-                            <div className="w-full">
-                              <Link
-                                href={`tel:${listOfdata?.phone_no}`}
-                                className="hover:font-bold  text-[1.6rem] duration-300 font-normal text-primary"
-                              >
-                                {formatPhoneNumber(listOfdata?.phone_no)}
-                              </Link>
-                              <p className="text-[1.4rem] font-normal text-paragraph1">
-                                Contact
-                              </p>
-                            </div>
-                          </div>
-                        )}
-
-                        <div
-                          className={`w-full border border-border border-solid py-[3rem] px-[2rem]  col-span-12 ${
-                            urlInfo?.u ? "md:col-span-12" : "md:col-span-6"
-                          }`}
-                        >
-                          <div className="w-full flex justify-between">
-                            <div>
-                              <Link
-                                target="_blank"
-                                href={`https://www.google.com/maps/place/${listOfdata?.location}
-                )}`}
-                                className="hover:font-bold  text-[1.6rem] duration-300 font-normal text-primary"
-                              >
-                                {listOfdata?.location}
-                              </Link>
-                              <p className="text-[1.4rem] font-normal text-paragraph1">
-                                Address
-                              </p>{" "}
-                            </div>
-                            {listOfdata?.location?.includes(
-                              "Manchester, UK"
-                            ) && (
-                              <Image
-                                src={"/images/ukFlag.svg"}
-                                height={35}
-                                width={35}
-                                className="h-[3rem] w-[3rem] rounded-full object-cover"
-                                alt="Uk Flag"
-                              />
-                            )}
-                          </div>
-                        </div>
-
-                        <div
-                          className={`w-full border border-border border-solid py-[3rem] px-[2rem]  col-span-12 ${
-                            urlInfo?.u ? "md:col-span-12" : "md:col-span-6"
-                          }`}
-                        >
-                          <div className="w-full flex items-center gap-[1.4rem] mb-[0.8rem]">
-                            <WorkProofLinks
-                              props={{
-                                upwork: listOfdata?.upwork,
-                                github: listOfdata?.github,
-                                linkedIn: listOfdata?.linkedIn,
-                                behance_link: listOfdata?.behance_link,
-                                u: urlInfo?.u,
-                              }}
-                            />
-                          </div>
-                          <p className="text-[1.35rem] font-normal text-paragraph1">
-                            My Work Proof
-                          </p>
-                        </div>
-                        {!urlInfo?.u && (
-                          <div className="md:col-span-6 col-span-12 w-full border border-border border-solid py-[3rem] px-[2rem]">
-                            <div className="w-full flex items-center  gap-[1.4rem] mb-[0.8rem]">
-                              <ContactMeLinks
-                                props={{
-                                  email: listOfdata?.email,
-                                  phone_no: listOfdata?.phone_no,
-                                }}
-                              />
-                            </div>
-                            <p className="text-[1.35rem] font-normal text-paragraph1">
-                              Contact Me
-                            </p>
-                          </div>
-                        )}
-                      </div>
-                      {/* Button Line */}
-                      <div className="md:space-x-5 py-[2rem] ">
-                        <Link href={"/cv"}>
-                          <button className="w-full md:max-w-max btn-primary rounded-[0.6rem] text-white py-[2rem] px-[5.6rem] text-[1.8rem] font-medium border border-solid border-custom">
-                            {" "}
-                            View CV Online
-                          </button>
-                        </Link>
-
-                        {listOfdata?.is_pdf_generated &&
-                          listOfdata?.pdf_download_links?.length > 0 &&
-                          listOfdata.pdf_download_links
-                            .filter((link) => link.type === "CV")
-                            .map((cvLink, index) => (
-                              <button
-                                key={index}
-                                onClick={() =>
-                                  downloadFile(
-                                    cvLink.cvFileUrl,
-                                    `${listOfdata?.name} - CV`
-                                  )
-                                }
-                                className="w-full md:max-w-max mt-5 md:mt-0 btn-primary rounded-[0.6rem] text-white py-[2rem] px-[5.6rem] text-[1.8rem] font-medium border border-solid border-custom"
-                              >
-                                Download CV
-                              </button>
-                            ))}
-                      </div>
-                    </div>
-                  </div>
-                </section>
-
                 {/* About Section for print*/}
-                <section className="w-full print:flex h-screen hidden items-center justify-center print:break-before-page pt-[56px] px-[4rem]">
+                <section className="w-full flex print:h-[210mm] print:w-[297mm] items-center justify-center print:break-before-page pt-[56px] px-[4rem]">
                   {/* Container Div for print*/}
-                  <div className="  w-full  px-0  gap-[2rem] flex flex-row items-center justify-center">
+                  <div className="w-full px-0 gap-[2rem] flex flex-row items-center justify-center">
                     {/* Container For Image and Badges */}
                     <div className="w-full max-w-[50%] flex items-center justify-center">
                       <div
-                        className="relative h-[65rem] bg-center bg-cover bg-no-repeat w-full rounded-[1rem]"
+                        className="relative h-[65rem] bg-top bg-cover bg-no-repeat w-full rounded-[1rem]"
                         style={{
                           backgroundImage: `url('${listOfdata?.profile_photo_3}')`,
                         }}
                       >
                         {/* Experience Badge */}
-                        <div className="bg-white rounded-[0.8rem] absolute   bottom-auto left-auto top-[-3rem] right-[3rem] xl:top-[7rem] xl:right-[-8rem] p-[1.4rem] xl:h-[12rem] xl:w-[26rem] xl:rounded-[2rem] flex items-center shadow-md gap-[1rem] xl:gap-[2rem] animate-bounce">
+                        <div className="bg-white rounded-[0.8rem] absolute bottom-auto left-auto top-[-3rem] right-[3rem] p-[1.4rem] flex items-center shadow-md gap-[1rem]  animate-bounce">
                           {/* Badge SVG */}
                           <div className="bg-[#2A97FC] rounded-[50%] flex items-center justify-center h-[4.9rem] w-[4.9rem] xl:h-[6.8rem] xl:w-[6.8rem]">
                             <img
@@ -683,7 +450,7 @@ const Home_p = ({ params }: { params: any }) => {
                         </div>
 
                         {/* Projects Badge */}
-                        <div className="bg-white  mb-3 rounded-[0.8rem] absolute   top-auto right-auto bottom-[-4rem]   xl:bottom-[3rem] xl:left-[3rem] left-[3rem] p-[1.4rem] xl:h-[12rem] xl:rounded-[2rem] flex items-center shadow-md gap-[1rem] xl:gap-[2rem] animate-bounce xl:animate-none">
+                        <div className="bg-white mb-3 rounded-[0.8rem] absolute top-auto right-auto bottom-[-4rem] left-[3rem] p-[1.4rem] xl:rounded-[2rem] flex items-center shadow-md gap-[1rem] animate-bounce">
                           {/* Badge SVG */}
                           <div className="bg-[#FC822A] rounded-[50%] flex items-center justify-center h-[4.9rem] w-[4.9rem] xl:h-[6.8rem] xl:w-[6.8rem]">
                             <img
@@ -847,34 +614,6 @@ const Home_p = ({ params }: { params: any }) => {
                           </div>
                         )}
                       </div>
-                      {/* Button Line */}
-                      <div className="md:space-x-5 py-[2rem] ">
-                        <Link href={"/cv"}>
-                          <button className="w-full md:max-w-max btn-primary rounded-[0.6rem] text-white py-[2rem] px-[5.6rem] text-[1.8rem] font-medium border border-solid border-custom">
-                            {" "}
-                            View CV Online
-                          </button>
-                        </Link>
-
-                        {listOfdata?.is_pdf_generated &&
-                          listOfdata?.pdf_download_links?.length > 0 &&
-                          listOfdata.pdf_download_links
-                            .filter((link) => link.type === "CV")
-                            .map((cvLink, index) => (
-                              <button
-                                key={index}
-                                onClick={() =>
-                                  downloadFile(
-                                    cvLink.cvFileUrl,
-                                    `${listOfdata?.name} - CV`
-                                  )
-                                }
-                                className="w-full md:max-w-max mt-5 md:mt-0 btn-primary rounded-[0.6rem] text-white py-[2rem] px-[5.6rem] text-[1.8rem] font-medium border border-solid border-custom"
-                              >
-                                Download CV
-                              </button>
-                            ))}
-                      </div>
                     </div>
                   </div>
                 </section>
@@ -882,24 +621,25 @@ const Home_p = ({ params }: { params: any }) => {
                 {listOfdata && listOfdata?.skills_ids?.length > 0 && (
                   <>
                     {/* Skills Section Completed */}
-                    <div className="max-w-[1550px] w-full mx-auto px-[4rem] print:!pt-[4rem] print:my-[0rem] my-[5rem]  print:h-screen print:break-before-page break-before-avoid print:bg-[#a3ddd3]">
-                      {/* Badge */}
-                      <div
-                        id="skills_ids"
-                        className="px-[2rem]  py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto  section_top_button "
-                      >
-                        Skills
+                    <section className="max-w-[1550px] w-full mx-auto px-[4rem] my-[5rem] print:h-screen flex items-center justify-center">
+                      <div className="w-full">
+                        {/* Badge */}
+                        <div
+                          id="skills_ids"
+                          className="px-[2rem]  py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto  section_top_button "
+                        >
+                          Skills
+                        </div>
+                        {/* Heading */}
+                        <div className="text-center text-heading text-[2.4rem] xl:text-[3rem] print:text-[3rem] print:mb-[1.5rem] font-medium leading-[2.8rem] mt-[2rem]">
+                          {listOfdata?.companytype == "leewop"
+                            ? "The skills & tools I am really good at:"
+                            : " The skills, tools and technologies I am really good at:"}
+                        </div>
+                        {/* Skills Container */}
+                        <SkillsContainerPrint list={listOfdata?.skills_ids} />
                       </div>
-                      {/* Heading */}
-                      <div className="text-center text-heading text-[2.4rem] xl:text-[3rem] print:text-[3rem] print:mb-[1.5rem] font-medium leading-[2.8rem] mt-[2rem]">
-                        {listOfdata?.companytype == "leewop"
-                          ? "The skills & tools I am really good at:"
-                          : " The skills, tools and technologies I am really good at:"}
-                      </div>
-                      {/* Skills Container */}
-
-                      <SkillsContainer list={listOfdata?.skills_ids} />
-                    </div>{" "}
+                    </section>
                   </>
                 )}
 
@@ -907,8 +647,8 @@ const Home_p = ({ params }: { params: any }) => {
                 {listOfdata &&
                   listOfdata?.services &&
                   listOfdata?.services?.length > 0 && (
-                    <section className="w-full bg-sectionBG my-[5rem] print:m-0  print:break-before-page print:h-screen ">
-                      <div className="max-w-[1550px] w-full mx-auto px-[4rem] py-[5rem] xl:py-[10rem]">
+                    <section className="w-full bg-sectionBG my-[5rem] print:m-0  print:break-before-page print:h-screen flex items-center justify-center">
+                      <div className="max-w-[1550px] w-full mx-auto px-[4rem] py-[5rem]">
                         {/* Badge */}
                         <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto  section_top_button ">
                           My Services
@@ -933,10 +673,10 @@ const Home_p = ({ params }: { params: any }) => {
                   listOfdata.portfolios_ids.length > 0 && (
                     <>
                       {/* My Work Section Slider  */}
-                      <section className="w-full mt-[8rem] mb-[7rem] print_p_m print:!pt-[3rem] print:bg-[#a3ddd3] print:break-before-page print:h-screen ">
-                        <div className="max-w-[1550px] w-full mx-auto px-[4rem]   my-[5rem] print:my-[1rem] ">
+                      <section className="max-w-[1550px] w-full mx-auto mt-[8rem] mb-[7rem] print:p-0 print:m-0 print:break-before-page print:h-screen hidden  items-center justify-center">
+                        <div className="w-full">
                           {/* Badge */}
-                          <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto  section_top_button ">
+                          <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto">
                             My Work
                           </div>
                           {/* Heading */}
@@ -945,7 +685,7 @@ const Home_p = ({ params }: { params: any }) => {
                           </div>
 
                           {/* Home Page Slider */}
-                          <HomeSlider
+                          <HomeSliderPrint
                             portfolios={listOfdata?.portfolios_ids}
                             companyType={listOfdata?.companytype}
                           />
@@ -959,8 +699,8 @@ const Home_p = ({ params }: { params: any }) => {
                   listOfdata.experiences_ids.length > 0 && (
                     <>
                       {/* Professional Experience Timeline Section Completed */}
-                      <section className="flex items-center justify-center print:h-[210mm] w-full">
-                        <div className="w-full print_p_m  print:break-before-page print:bg-[#a3ddd3]">
+                      <section className="flex items-center justify-center print:h-screen w-full">
+                        <div className="w-full print_p_m  print:break-before-page">
                           <div className="max-w-[1550px] w-full mx-auto px-[4rem]   print:shadow-none print:!pt-[3rem] ">
                             {/* Badge */}
                             <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto  section_top_button ">
@@ -974,7 +714,7 @@ const Home_p = ({ params }: { params: any }) => {
                             <div className="max-w-[1550px] w-full mx-auto px-[4rem] flex items-center justify-center mt-[2rem] print:m-0 ">
                               <div className="relative print:flex flex-col gap-4">
                                 {/* Vertical line */}
-                                <div className="absolute print_hidden left-[10rem] top-[3rem] w-[0.4rem] h-[calc(100%-78px)] bg-border  mx-[2.1rem] hidden xl:block" />
+                                <div className="absolute left-[10rem] top-[3rem] print:top-[5rem] w-[0.4rem] h-[calc(100%-78px)] bg-primary mx-[2.1rem]" />
                                 {listOfdata?.experiences_ids &&
                                   [...listOfdata.experiences_ids]
                                     ?.sort((a, b) => {
@@ -1020,9 +760,9 @@ const Home_p = ({ params }: { params: any }) => {
                                       return (
                                         <>
                                           {/* Timeline items Container */}
-                                          <div className="space-y-[1rem]  xl:space-y-[3rem] xl:space-x-[9rem] mt-10 print_p_m">
+                                          <div className="space-y-[3rem] space-x-[9rem]">
                                             {/* Date and divider */}
-                                            <div className="ml-[0.5rem]  xl:mb-auto xl:ml-auto xl:absolute left-[-7.6rem] z-10 text-[1.8rem] text-paragraph1 capitalize">
+                                            <div className="mb-auto print:mb-0 ml-auto absolute left-[-7.6rem] z-10 text-[1.8rem] text-paragraph1 capitalize">
                                               {formatDate(
                                                 experience.starting_date,
                                                 dateFormatsOptions.shortMonthYear
@@ -1041,15 +781,15 @@ const Home_p = ({ params }: { params: any }) => {
                                             </div>
                                             {/* Timeline item */}
                                             <>
-                                              <div className="relative  flex items-start">
+                                              <div className="relative flex items-start">
                                                 {/* Dot */}
-                                                <div className="absolute print_hidden top-0 left-[2rem] hidden xl:block">
+                                                <div className="absolute top-0 left-[2rem] block">
                                                   <div className="w-[2.6rem] h-[2.6rem] bg-white rounded-full flex items-center shadow-md justify-center">
                                                     <div className="w-[0.7rem] h-[0.7rem] bg-heading rounded-full"></div>
                                                   </div>
                                                 </div>
                                                 {/* Card */}
-                                                <div className="bg-white  p-[1.5rem] lg:p-[2.4rem] rounded-[1rem] shadow xl:ml-[6rem] w-full">
+                                                <div className="bg-white p-[2.4rem] rounded-[1rem] shadow ml-[6rem] w-full">
                                                   <div className="flex items-center flex-wrap text-nowrap gap-[1.5rem] md:justify-between">
                                                     {/* About Content */}
                                                     <div className="flex gap-[1rem]">
@@ -1078,7 +818,7 @@ const Home_p = ({ params }: { params: any }) => {
                                                     </div>
 
                                                     {/* Link */}
-                                                    <div className="flex justify-center md:justify-end w-full md:w-auto">
+                                                    {/* <div className=" justify-center md:justify-end hidden w-full md:w-auto">
                                                       <div className="flex flex-col-reverse gap-[1rem] max-w-max">
                                                         <div className=" py-[0.4rem] px-[2rem] bg-white border border-[#E2E6EE] border-solid text-[#47516B] rounded-[2rem] text-[1.5rem] font-medium leading-[0.8rem] hover:bg-primary hover:text-white ">
                                                           <Link
@@ -1120,7 +860,7 @@ const Home_p = ({ params }: { params: any }) => {
                                                           </Link>
                                                         )}{" "}
                                                       </div>
-                                                    </div>
+                                                    </div> */}
                                                   </div>
 
                                                   <p
@@ -1161,14 +901,12 @@ const Home_p = ({ params }: { params: any }) => {
                                                                       skill,
                                                                       i
                                                                     ) => {
-                                                                      // Calculate the skill number (groupIndex+1).(i+1)
                                                                       const skillNumber = `${
                                                                         groupIndex +
                                                                         1
                                                                       }.${
                                                                         i + 1
                                                                       }`;
-
                                                                       return (
                                                                         <Link
                                                                           href={
@@ -1222,14 +960,14 @@ const Home_p = ({ params }: { params: any }) => {
                                                               )}
                                                           </div>
 
-                                                          <ShowmoreSkills
+                                                          {/* <ShowmoreSkills
                                                             props={{
                                                               list: experience?.skills,
                                                               index,
                                                               setShowMoreSkills,
                                                               showMoreSkills,
                                                             }}
-                                                          />
+                                                          /> */}
                                                         </div>
                                                       </div>
                                                     )}
@@ -1240,7 +978,7 @@ const Home_p = ({ params }: { params: any }) => {
                                         </>
                                       );
                                     })}{" "}
-                                {listOfdata.experiences_ids.length > 3 && (
+                                {/* {listOfdata.experiences_ids.length > 3 && (
                                   <div className="flex justify-center mt-8 print_hidden">
                                     <button
                                       onClick={() =>
@@ -1249,14 +987,13 @@ const Home_p = ({ params }: { params: any }) => {
                                         )
                                       }
                                       className="btn-primary text-white py-[1rem] px-[3.4rem] text-[1.8rem] font-medium"
-                                      // className="bg-primary  text-white py-[0.4rem] px-[2rem] border border-primary border-solid hover:text-primary hover:bg-white rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
                                     >
                                       {showAllExperiences
-                                        ? "Show Less"
+                                        ? "Show Less" 
                                         : "View Full Career Timeline"}
                                     </button>
                                   </div>
-                                )}
+                                )} */}
                               </div>
                             </div>
                           </div>
@@ -1268,7 +1005,7 @@ const Home_p = ({ params }: { params: any }) => {
                 {/* FAQ Section Completed */}
                 <Faqs urlInfo={urlInfo} companyType={listOfdata?.companytype} />
                 {/* Our Blogs */}
-                <div className="my-[5rem] print:bg-[#a3ddd3]">
+                <div className="my-[5rem] print:my-0">
                   <OurBlogs domain={listOfdata?.domain} />
                 </div>
               </>

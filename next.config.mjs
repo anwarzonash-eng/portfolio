@@ -6,20 +6,24 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'personalimagelist.s3.eu-north-1.amazonaws.com',
+        protocol: "https",
+        hostname: "personalimagelist.s3.eu-north-1.amazonaws.com",
       },
       {
-        protocol: 'https',
-        hostname: 'blog.cypexsoft.com',
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
+      {
+        protocol: "https",
+        hostname: "blog.cypexsoft.com",
       },
       // {
       //   protocol: 'http',
       //   hostname: 'blog.cypexsoft.com',
       // },
       {
-        protocol: 'https',
-        hostname: 'leewopbookkeeping.com',
+        protocol: "https",
+        hostname: "leewopbookkeeping.com",
       },
     ],
   },

@@ -33,13 +33,13 @@ const OurBlogs = ({ domain }) => {
   return (
     <>
       {!urlInfo?.u && (
-        <section className="bg-transparent print:block hidden print:pt-[3rem] ">
+        <section className="bg-transparent print:flex hidden  print:h-screen items-center justify-center">
           <div className="mainContainer">
             <ContactMe listOfdata={listOfdata} />
           </div>
         </section>
       )}
-      <div className="print:flex flex-col print:break-before-page ">
+      <div className="print:flex flex-col print:break-before-page">
         <section className="mainContainer print:mx-auto w-full print:m-0  print:pt-[1.5rem]">
           {/* Top Content */}
           <div className="flex justify-between flex-wrap items-end sm:items-center gap-[2rem] mb-[4rem] print:mb-[2rem] ">
@@ -167,7 +167,7 @@ const OurBlogs = ({ domain }) => {
             }}
           />
         </section>
-        <div className="hidden print:!block ">
+        <div className="hidden print:!block">
           <Footer />
         </div>
       </div>
