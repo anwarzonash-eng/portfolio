@@ -1,18 +1,18 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import CharacterAnimation from './CharacterAnimation';
-import { addLeadsApi } from '@/apiHandlers/leadsApi';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
-import { formikEnums } from '@/enums/formikEnums';
-import ThankyouPopup from './ThankyouPopup';
+import React, { useState } from "react";
+import CharacterAnimation from "./CharacterAnimation";
+import { addLeadsApi } from "@/apiHandlers/leadsApi";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
+import { formikEnums } from "@/enums/formikEnums";
+import ThankyouPopup from "./ThankyouPopup";
 
 const OfferBanner = ({ listOfdata }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const initialValues = {
-    email: '',
+    email: "",
   };
 
   const validationSchema = Yup.object().shape({
@@ -23,7 +23,7 @@ const OfferBanner = ({ listOfdata }) => {
   const handleContactFormSubmit = async (values, { resetForm }) => {
     const payload = {
       email: values.email,
-      source_category: 'subscribe',
+      source_category: "subscribe",
     };
 
     const res = await addLeadsApi(payload);
@@ -41,29 +41,30 @@ const OfferBanner = ({ listOfdata }) => {
           listOfdata={listOfdata}
         />
       )}
-      <div className='max-[1100px]:hidden bg-[#FCDC2A] w-full print:hidden block '>
-        <div className='mainContainer px-[2rem] h-[3.4rem] w-full flex items-center justify-between gap-[1.6rem]'>
+      <div className="max-[1100px]:hidden bg-[#FCDC2A] w-full print:hidden block ">
+        <div className="mainContainer px-[2rem] py-[0.5rem] w-full flex items-center justify-between gap-[1.6rem]">
           {/* I Place it in Div BCZ later i will animate this */}
-          <div className='flex items-center gap-1'>
-            <div className='text-heading text-[1.8rem] hidden min-[1122px]:block'>
+          <div className="flex items-center gap-1">
+            <div className="text-heading text-[1.8rem] hidden min-[1122px]:block">
               <CharacterAnimation
-                text={`${listOfdata?.companytype == 'leewop'
-                  ? ' FREE 2-Week Bookkeeping Service TRIAL!'
-                  : ' FREE 2-Week Development TRIAL!'
-                  } `}
+                text={`${
+                  listOfdata?.companytype == "leewop"
+                    ? " FREE 2-Week Bookkeeping Service TRIAL!"
+                    : " FREE 2-Week Development TRIAL!"
+                } `}
               />
             </div>
             {/* <div className='text-heading text-[1.8rem] min-[1122px]:hidden'>
             <CharacterAnimation text='Get Free Development Trial!' />
           </div> */}
-            <div className='mb-2'>
-              <img src='/images/offerBannerStars.svg' />
+            <div className="mb-2">
+              <img src="/images/offerBannerStars.svg" />
             </div>
           </div>
 
-          <div className='relative'>
+          <div className="relative">
             {/* Positioned Text svg */}
-            <div className='absolute left-[-26rem] top-[.8rem] '>
+            <div className="absolute left-[-26rem] top-[.8rem] ">
               {/* <img src='./images/limmitedOfferText.svg' alt='' /> */}
             </div>
             {/* Positioned Arrow Svg */}
@@ -76,35 +77,37 @@ const OfferBanner = ({ listOfdata }) => {
               onSubmit={handleContactFormSubmit}
             >
               {({ isSubmitting, errors, touched }) => (
-                <Form className='w-[380px] h-[4.5rem] rounded-[0.6rem] bg-white/50 flex items-center'>
-                  {' '}
+                <Form className="w-[380px] h-[4.5rem] rounded-[0.6rem] bg-white/50 flex items-center overflow-hidden">
+                  {" "}
                   <Field
-                    type='email'
-                    name='email'
+                    type="email"
+                    name="email"
                     placeholder={
                       touched.email && errors.email
                         ? errors.email
-                        : 'Enter Email'
+                        : "Enter Email"
                     }
-                    className={`bg-transparent w-full rounded-[0.6rem]  px-[1.8rem] text-[1.3rem] outline-none text-heading placeholder:text-heading ${touched.email &&
+                    className={`bg-transparent w-full rounded-[0.6rem]  px-[1.8rem] text-[1.3rem] outline-none text-heading placeholder:text-heading ${
+                      touched.email &&
                       errors.email &&
-                      'text-red-500 placeholder:text-red-500'
-                      }`}
-                  />{' '}
+                      "text-red-500 placeholder:text-red-500"
+                    }`}
+                  />{" "}
                   <button
-                    className={`w-full max-w-[148px] px-[3rem] py-[.5rem] font-medium text-[1.3rem] primaryGradient rounded-[0.6rem] text-white ${isSubmitting && 'cursor-not-allowed'
-                      }`}
-                    type='submit'
+                    className={`w-full max-w-[148px] h-full font-medium text-[1.3rem] primaryGradient text-white ${
+                      isSubmitting && "cursor-not-allowed"
+                    }`}
+                    type="submit"
                     disabled={isSubmitting}
                   >
-                    {isSubmitting ? 'Start...' : 'Start Your Trial'}
+                    {isSubmitting ? "Start..." : "Start Your Trial"}
                   </button>
                 </Form>
               )}
             </Formik>
           </div>
         </div>
-      </div>{' '}
+      </div>{" "}
     </>
   );
 };

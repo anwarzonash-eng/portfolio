@@ -12,12 +12,12 @@ const Faqs = ({ urlInfo, companyType }) => {
     const handleBeforePrint = () => setIsPrinting(true);
     const handleAfterPrint = () => setIsPrinting(false);
 
-    window.addEventListener('beforeprint', handleBeforePrint);
-    window.addEventListener('afterprint', handleAfterPrint);
+    window.addEventListener("beforeprint", handleBeforePrint);
+    window.addEventListener("afterprint", handleAfterPrint);
 
     return () => {
-      window.removeEventListener('beforeprint', handleBeforePrint);
-      window.removeEventListener('afterprint', handleAfterPrint);
+      window.removeEventListener("beforeprint", handleBeforePrint);
+      window.removeEventListener("afterprint", handleAfterPrint);
     };
   }, []);
 
@@ -66,14 +66,16 @@ const Faqs = ({ urlInfo, companyType }) => {
               </button>
             )}
           </div>
-          
+
           {/* Faq Container */}
           <div className="w-full print:w-full print:space-y-12 print:mt-[93px] ">
-            <h2 className="text-[4rem] font-medium text-heading print:text-3xl print:mb-4">FAQ</h2>
+            <h2 className="text-[4rem] font-medium text-heading print:text-3xl print:mb-4">
+              FAQ
+            </h2>
 
             {faqsToDisplay.map((faq, index) => (
-              <div 
-                key={index} 
+              <div
+                key={index}
                 className="border-b border-solid border-border print:border-black print:mb-[12rem]"
               >
                 {/* Always show question in print mode */}
@@ -99,8 +101,8 @@ const Faqs = ({ urlInfo, companyType }) => {
                 {/* Always expanded in print mode */}
                 <div
                   className={`overflow-hidden transition-all duration-300 ease-out ${
-                    isPrinting || activeFaq === index 
-                      ? "max-h-[500px] pt-4 pb-4 print:max-h-none" 
+                    isPrinting || activeFaq === index
+                      ? "max-h-[500px] pt-4 pb-4 print:max-h-none"
                       : "max-h-0"
                   }`}
                 >
@@ -112,7 +114,6 @@ const Faqs = ({ urlInfo, companyType }) => {
             ))}
 
             {/* Print notice */}
-           
           </div>
         </div>
       </section>

@@ -51,9 +51,12 @@ const OurBlogs = ({ domain }) => {
                 My Latest Blogs
               </h3>
             </div>
-            <div className="w-full sm:w-auto flex justify-center ">
+            <div className="w-full sm:w-auto flex justify-center print:hidden">
               <Link href={"/blog-listing"}>
-                <button className="btn-primary text-white py-[1rem] px-[3.4rem] text-[1.8rem] print:py-[.7rem] print:px-[2.4rem] print:text-[1rem] font-medium">
+                <button
+                  className="btn-primary text-white py-[1rem] 
+                px-[3.4rem] text-[1.8rem] font-medium"
+                >
                   View All Blogs
                 </button>
               </Link>
@@ -77,7 +80,10 @@ const OurBlogs = ({ domain }) => {
                       >
                         {blog?.featuredImage && (
                           <img
-                            src={blog?.featuredImage}
+                            // src={blog?.featuredImage}
+                            src={
+                              "https://images.unsplash.com/photo-1638886715703-46b0f794c687?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTAxfHxkaWdpdGFsfGVufDB8fDB8fHww"
+                            }
                             height={240}
                             width={370}
                             alt="blog"

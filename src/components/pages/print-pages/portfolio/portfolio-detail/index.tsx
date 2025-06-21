@@ -395,9 +395,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
                   <SliderXL portfolioPictures={portfolioDetails?.pictures} />
                 )}
                 {/* Our Blogs Section */}
-                <div className="w-full my-8">
                   <OurBlogsPortrait domain={listOfdata?.domain} />
-                </div>
               </section>
             </>
           ),
