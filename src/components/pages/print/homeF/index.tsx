@@ -2,7 +2,6 @@
 import Image from "next/image";
 import "@/styles/printStyles/home_p.css";
 import useBodyBackgroundColor from "@/hooks/useBodyBackgroundColor";
-import HomeSlider from "@/components/Sliders/HomeSlider";
 import Faqs from "@/components/Faqs";
 import WorkProofLinks from "@/components/WorkProofLinks";
 import ContactMeLinks from "@/components/ContactMeLinks";
@@ -107,14 +106,11 @@ const Home_p = ({ params }: { params: any }) => {
             actualPage: (
               <>
                 <FreeTrialPopup listOfdata={listOfdata} urlInfo={urlInfo} />
-                {/* <Welcome /> */}
-                <section className="!w-full relative print:flex flex-col hidden print:h-screen print:bg-[#a3ddd3] print:break-before-page">
-                  <div className="relative print:block !w-full hidden">
-                    <Header />
-                  </div>
-                  <div className="max-w-[1550px] w-full mx-auto px-[4rem]  relative ">
-                    <div className="max-w-[1024px]  mx-auto text-center px-[2rem] pt-[8rem] relative z-20 print:mt-[20rem] ">
-                      <div className=" items-center justify-strat gap-[4rem] print:flex hidden  w-full  ">
+                {/* <Welcome ✅ /> */}
+                <section className="h-screen print:section bg-bannerBG !w-full print:FlexWrapContainer flex items-center justify-center">
+                  <div className="max-w-[1550px] w-full mx-auto flex items-center justify-center">
+                    <div className="text-center">
+                      <div className="items-center justify-strat gap-[4rem] flex w-full">
                         <img
                           src={listOfdatas?.profile_photo_1}
                           alt=""
@@ -157,11 +153,12 @@ const Home_p = ({ params }: { params: any }) => {
                     </div>
                   </div>
                 </section>
-                {/* Hero Section */}
-                <div className="w-full overflow-hidden relative bg-bannerBG print:break-before-page print:h-screen print:m-0">
-                  {/* Hero Section For Desktop  */}
-                  <div className="max-w-[1550px] w-full mx-auto px-[4rem] hidden xl:block print:hidden">
-                    <div className="text-center mt-[3rem]">
+
+                {/* Hero Section ✅ */}
+                <div className="print:h-screen print:section bg-bannerBG !w-full overflow-hidden relative">
+                  {/* Hero Section  */}
+                  <div className="max-w-[1550px] w-full mx-auto px-[4rem] border-2 border-solid border-black">
+                    <div className="text-center mt-[3rem] print:mt-0 print:pt-[3rem]">
                       <p className="text-heading text-[3.66rem] font-normal leading-normal mb-[1rem]">
                         Hello! I’m
                       </p>
@@ -209,12 +206,12 @@ const Home_p = ({ params }: { params: any }) => {
                           </div>
                         </div>
                         {/* Positioned Skills and Text Desktop */}
-                        <div className="max-w-[55rem] w-full absolute right-[-4rem] top-[7rem]">
+                        <div className="max-w-[55rem] print:max-w-[42rem] w-full absolute right-[-4rem] print:right-[-2rem] top-[7rem]">
                           <p
                             dangerouslySetInnerHTML={{
                               __html: listOfdata?.tag_line,
                             }}
-                            className="w-full text-primary text-[2.2rem] font-medium leading-[3rem] mb-[2rem] text-left"
+                            className="w-full text-primary text-[2.2rem] print:text-[1.8rem] font-medium leading-[3rem] mb-[2rem] text-left"
                           ></p>
 
                           {listOfdata &&
@@ -242,151 +239,29 @@ const Home_p = ({ params }: { params: any }) => {
                                   className="w-full p-[1.5rem] bg-white/70 backdrop-blur-xl justify-start items-center gap-[0.6rem] flex flex-wrap overflow-y-auto hide-scrollbar"
                                   style={{ maxHeight: "46.3rem" }}
                                 >
-                                  {Object?.values(skills)?.map(
-                                    (group, groupIndex) => (
-                                      <React.Fragment key={groupIndex}>
-                                        {group.map((skill, i) => {
-                                          // Calculate the skill number (groupIndex+1).(i+1)
-                                          const skillNumber = `${
-                                            groupIndex + 1
-                                          }.${i + 1}`;
-
-                                          return (
-                                            <Link
-                                              href={skill.url || "#"}
-                                              legacyBehavior
-                                              key={`${groupIndex}-${i}`}
-                                            >
-                                              <a
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                style={{
-                                                  animationDelay: `${i * 0.1}s`,
-                                                }}
-                                                className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium px-[21px] py-[0.5rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
-                                              >
-                                                {/* <span className=" bg-primary text-white group-hover:bg-white group-hover:text-primary text-[0.8rem] pt-[1.5px] font-bold rounded-full size-[21px] flex items-center justify-center">
-      {skillNumber}
-    </span> */}
-                                                {skill?.title}
-                                              </a>
-                                            </Link>
-                                          );
-                                        })}
-                                      </React.Fragment>
-                                    )
-                                  )}
-                                </div>
-                              </div>
-                            )}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  {/* Hero Section For Print section  */}
-                  <div className="!px-0 w-full !m-0 hidden">
-                    <div className="text-center mx-[3rem] mt-[3rem]">
-                      <p className="text-heading text-[4rem] font-normal leading-normal mb-[1rem]">
-                        Hello! I’m
-                      </p>
-                      <h1 className="font-bold text-[11rem] text-primary mt-[-3.5rem]">
-                        {listOfdata?.name}
-                      </h1>
-                      {/* Badge */}
-                      <div className="relative z-[50] mt-[1rem] flex items-center justify-start">
-                        <div className="inline-block px-[2rem] py-[1.5rem] lg:py-[1rem] lg:px-[4rem] bg-primary lg:max-w-[45rem] rounded-[5rem] text-center text-[1.6rem] lg:text-[2.4rem] font-bold text-white border-none outline-none mb-[2rem]">
-                          {listOfdata?.designation
-                            ?.split("|")
-                            .map((item, index) => (
-                              <div key={index} className="text-center">
-                                {item.trim()}
-                              </div>
-                            ))}
-                        </div>
-                      </div>
-                      <div className="mt-[-4rem] flex justify-center relative">
-                        {/* Center Dev Image */}
-                        <Image
-                          width={731}
-                          height={707}
-                          alt=""
-                          src={listOfdata?.profile_photo_2}
-                          className="mr-[12rem] w-[706px] h-[707px]"
-                        />
-
-                        {/* Left Pricing and Hours Badge Positoned */}
-                        <div className="absolute left-0 top-[24rem] w-[33.5rem] h-[18rem] inline-flex items-center justify-center bg-Circle bg-no-repeat bg-contain animate-bounce">
-                          <div className="h-[100px] p-5 rounded  justify-center items-center gap-5 inline-flex">
-                            <div className="text-primary">
-                              <h3 className="text-[4rem] font-medium leading-[4rem]">
-                                ${listOfdata?.hourly_rate}
-                              </h3>
-                              <p className="text-[2rem] font-normal">hour</p>
-                            </div>
-                            <hr className="h-[6rem] w-[0.1rem] bg-border" />
-                            <div className="text-primary">
-                              <h3 className="text-[4rem] font-medium leading-[4rem]">
-                                40hr
-                              </h3>
-                              <p className="text-[2rem] font-normal">week</p>
-                            </div>
-                          </div>
-                        </div>
-                        {/* Positioned Skills and Text Desktop */}
-                        <div className="max-w-[55rem] w-full absolute right-[-4rem] top-[7rem]">
-                          <p
-                            dangerouslySetInnerHTML={{
-                              __html: listOfdata?.tag_line,
-                            }}
-                            className="w-full text-primary text-[2.2rem] font-medium leading-[3rem] mb-[2rem] text-left"
-                          ></p>
-
-                          {listOfdata &&
-                            listOfdata.skills_ids &&
-                            listOfdata.skills_ids.length > 0 && (
-                              <div className="z-[50] absolute max-w-[49rem] w-full rounded-[0.6rem] border border-border border-solid overflow-hidden">
-                                <div className="flex justify-between bg-primary border-b border-border w-full py-[1rem] px-[2rem]">
-                                  <div className="text-left text-white text-[1.8rem] font-medium">
-                                    My Skills
-                                  </div>
-                                </div>
-
-                                <div
-                                  ref={skillsContainerRef}
-                                  className="w-full p-[1.5rem] bg-white/70 backdrop-blur-xl justify-start items-center gap-[0.6rem] flex flex-wrap "
-                                  style={{ maxHeight: "45.3rem" }}
-                                >
-                                  {Object?.values(skills)?.map(
-                                    (group, groupIndex) => (
-                                      <React.Fragment key={groupIndex}>
-                                        {group.map((skill, i) => {
-                                          // Calculate the skill number (groupIndex+1).(i+1)
-                                          const skillNumber = `${
-                                            groupIndex + 1
-                                          }.${i + 1}`;
-
-                                          return (
-                                            <Link
-                                              href={skill.url || "#"}
-                                              legacyBehavior
-                                              key={`${groupIndex}-${i}`}
-                                            >
-                                              <a
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                style={{
-                                                  animationDelay: `${i * 0.1}s`,
-                                                }}
-                                                className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium px-[21px] py-[0.5rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
-                                              >
-                                                {skill?.title}
-                                              </a>
-                                            </Link>
-                                          );
-                                        })}
-                                      </React.Fragment>
-                                    )
-                                  )}
+                                  {Object.values(skills)
+                                    .flat()
+                                    .slice(0, 15)
+                                    .map((skill, i) => {
+                                      return (
+                                        <Link
+                                          href={skill.url || "#"}
+                                          legacyBehavior
+                                          key={i}
+                                        >
+                                          <a
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            style={{
+                                              animationDelay: `${i * 0.1}s`,
+                                            }}
+                                            className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium px-[21px] py-[0.5rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
+                                          >
+                                            {skill?.title}
+                                          </a>
+                                        </Link>
+                                      );
+                                    })}
                                 </div>
                               </div>
                             )}
@@ -412,9 +287,9 @@ const Home_p = ({ params }: { params: any }) => {
                 </div>
 
                 {/* About Section for print*/}
-                <section className="w-full flex print:h-[210mm] print:w-[297mm] items-center justify-center print:break-before-page pt-[56px] px-[4rem]">
+                <section className="h-screen print:section !w-full print:FlexWrapContainer p-[6rem] print:break-after-page">
                   {/* Container Div for print*/}
-                  <div className="w-full px-0 gap-[2rem] flex flex-row items-center justify-center">
+                  <div className="gap-[2rem] max-w-[1550px] w-full mx-auto flex items-center justify-center">
                     {/* Container For Image and Badges */}
                     <div className="w-full max-w-[50%] flex items-center justify-center">
                       <div
@@ -621,8 +496,8 @@ const Home_p = ({ params }: { params: any }) => {
                 {listOfdata && listOfdata?.skills_ids?.length > 0 && (
                   <>
                     {/* Skills Section Completed */}
-                    <section className="max-w-[1550px] w-full mx-auto px-[4rem] my-[5rem] print:h-screen flex items-center justify-center">
-                      <div className="w-full">
+                    <section className="px-[4rem] my-[5rem] print:h-screen hidden items-center justify-center">
+                      <div className="max-w-[1550px] w-full mx-auto">
                         {/* Badge */}
                         <div
                           id="skills_ids"
@@ -647,7 +522,7 @@ const Home_p = ({ params }: { params: any }) => {
                 {listOfdata &&
                   listOfdata?.services &&
                   listOfdata?.services?.length > 0 && (
-                    <section className="w-full bg-sectionBG my-[5rem] print:m-0  print:break-before-page print:h-screen flex items-center justify-center">
+                    <section className="w-full bg-sectionBG my-[5rem] print:m-0  print:break-before-page print:h-screen items-center justify-center hidden">
                       <div className="max-w-[1550px] w-full mx-auto px-[4rem] py-[5rem]">
                         {/* Badge */}
                         <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto  section_top_button ">
@@ -673,7 +548,7 @@ const Home_p = ({ params }: { params: any }) => {
                   listOfdata.portfolios_ids.length > 0 && (
                     <>
                       {/* My Work Section Slider  */}
-                      <section className="max-w-[1550px] w-full mx-auto mt-[8rem] mb-[7rem] print:p-0 print:m-0 print:break-before-page print:h-screen hidden  items-center justify-center">
+                      <section className="max-w-[1550px] w-full mx-auto mt-[8rem] mb-[7rem] print:p-0 print:m-0 print:break-before-page print:h-screen items-center justify-center hidden">
                         <div className="w-full">
                           {/* Badge */}
                           <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto">

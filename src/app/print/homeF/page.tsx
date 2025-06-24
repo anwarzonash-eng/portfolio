@@ -1,5 +1,5 @@
 "use client";
-import Home_p from "@/components/pages/print-pages/home";
+import Home_p from "@/components/pages/print/homeF";
 import React from "react";
 
 const home_p = ({ params }: { params: any }) => {

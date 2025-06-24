@@ -1,5 +1,5 @@
 "use client";
-import PortfolioDetails_p from "@/components/pages/print-pages/portfolio/portfolio-detail";
+import PortfolioDetails_p from "@/components/pages/print/portfolioF/portfolio-detail";
 import React from "react";
 
 const portfolioDetails = ({ params }: { params: any }) => {

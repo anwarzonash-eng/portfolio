@@ -114,6 +114,10 @@ const config: Config = {
   variants: {
     extend: {
       display: ["print"],
+      margin: ["print"],
+      padding: ["print"],
+      textColor: ["print"],
+      backgroundColor: ["print"],
     },
   },
   plugins: [],

@@ -1,6 +1,18 @@
 @media print {
   @page {
-    size: portrait;
+    size: A4 portrait;
     margin: 0;
   }
+}
+
+.section {
+  width: 210mm;
+  height: 297mm;
+  overflow: hidden;
+  box-sizing: border-box;
+  page-break-after: always;
+}
+
+.section:last-of-type {
+  page-break-after: auto;
 }

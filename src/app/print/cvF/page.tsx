@@ -1,5 +1,5 @@
 "use client";
-import CV_p from "@/components/pages/print-pages/cv";
+import CV_p from "@/components/pages/print/cvF";
 import React from "react";
 
 const cv = ({ params }: { params: any }) => {

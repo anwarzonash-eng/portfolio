@@ -184,6 +184,10 @@ body {
   }
 }
 
+.tawk-icon-right {
+  display: none !important;
+}
+
 /* Header Curved Shape */
 .custom-shape-divider-bottom-1722849639 {
   position: absolute;
@@ -340,6 +344,7 @@ body {
 #tawkchat-container .tawk-we-are-here {
   display: none !important;
 }
+
 @media print {
   .print-expanded {
     max-height: none !important;

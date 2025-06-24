@@ -1440,11 +1440,6 @@ const CV_p = ({ params }: { params: any }) => {
                   </section>
                 </div>
               </div>
-              {!urlInfo?.u && (
-                <div className="w-full mb-[5rem]">
-                  <Newsletter listOfdata={listOfdata} />
-                </div>
-              )}
             </div>
           ),
         }}

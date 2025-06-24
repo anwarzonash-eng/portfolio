@@ -65,15 +65,15 @@ export default function ChildWrapper({
   const [isScrolled, setIsScrolled] = useState(false);
   const colors = getColors(listOfdata);
 
-  const hideFooterPaths = [
-    "/print-pages/home",
-    "/print-pages/portfolio",
-    "/print-pages/cv",
+  const hideHeaderFooterPaths = [
+    "/print/homeF",
+    "/print/portfolioF",
+    "/print/cvF",
   ];
 
-  const isFooterHidden =
-    hideFooterPaths.includes(pathname) ||
-    pathname.startsWith("/print-pages/portfolio/");
+  const isHeaderFooterHidden =
+    hideHeaderFooterPaths.includes(pathname) ||
+    pathname.startsWith("/print/portfolio/");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -111,18 +111,24 @@ export default function ChildWrapper({
       {/* Offer Banner - conditionally shown */}
       {!urlInfo?.u && !isScrolled && (
         <div className="print:hidden">
-          <OfferBanner listOfdata={listOfdata} />
+          {isHeaderFooterHidden ? (
+            false
+          ) : (
+            <OfferBanner listOfdata={listOfdata} />
+          )}
         </div>
       )}
       {/* Header Wrapper */}
-      <div className="print:hidden block sticky top-0 z-[100]">
-        <Header />
-      </div>
+      {!isHeaderFooterHidden && (
+        <div className="print:hidden block sticky top-0 z-[100]">
+          <Header />
+        </div>
+      )}
       {/* Content */}
       <div className="relative">{children}</div>
 
       {/* Footer */}
-      {!isFooterHidden && (
+      {!isHeaderFooterHidden && (
         <div className="print:hidden block">
           <Footer />
         </div>
