@@ -48,7 +48,7 @@ const Footer = () => {
             </section>
           )}
           {/* Footer */}
-          <footer className="print:block print:mt-[2rem]">
+          <footer className="print:block mt-[2rem]">
             <div
               className={`bg-footerBg print:bg-none print:!bg-white  ${
                 urlInfo?.u ? "" : ""

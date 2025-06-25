@@ -308,7 +308,7 @@ const ContactMe = ({ listOfdata }) => {
           )}
         </Formik>
         {/* Contact Details */}
-        <div className="w-full ">
+        <div className="w-full">
           {/* Badge */}
           <div className="px-[2rem] py-[0.4rem] rounded-[2.2rem] bg-white border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-[2rem] mb-[2rem] print:px-[3rem] print:text-[1.6rem] print:py-[1rem]">
             Stay In Touch
@@ -329,6 +329,7 @@ const ContactMe = ({ listOfdata }) => {
                 height={40}
                 width={40}
                 alt="envelop"
+                className="print:h-[4rem] print:w-[4rem]"
               />
               <div className="overflow-hidden text-wrap break-words">
                 <div className="w-full font-medium">
@@ -350,6 +351,7 @@ const ContactMe = ({ listOfdata }) => {
                 height={40}
                 width={40}
                 alt="phone"
+                className="print:h-[4rem] print:w-[4rem]"
               />
               <Link href={`tel:${listOfdata?.phone_no}`}>
                 <div className="w-full font-medium">
@@ -368,6 +370,7 @@ const ContactMe = ({ listOfdata }) => {
                 height={40}
                 width={40}
                 alt="location"
+                className="print:h-[4rem] print:w-[4rem]"
               />
               <div className="w-full flex justify-between print:justify-start print:gap-8">
                 <div>
@@ -391,7 +394,7 @@ const ContactMe = ({ listOfdata }) => {
                     src={"/images/ukFlag.svg"}
                     height={35}
                     width={35}
-                    className="h-[3rem] w-[3rem] rounded-full object-cover"
+                    className="h-[3rem] w-[3rem] rounded-full object-cover print:h-[4rem] print:w-[4rem]"
                     alt="Uk Flag"
                   />
                 )}

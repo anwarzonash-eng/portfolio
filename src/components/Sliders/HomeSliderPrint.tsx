@@ -69,7 +69,7 @@ const HomeSliderPrint: React.FC<HomeSliderPrintProps> = ({
                   </h1>
                 </Link>
 
-                <div className="h-[120px] overflow-auto custom-scrollbar">
+                <div className="h-[100px] overflow-auto custom-scrollbar">
                   <p
                     dangerouslySetInnerHTML={{ __html: portfolio.tagline_1 }}
                     className="text-[1.8rem] text-paragraph1"
@@ -86,7 +86,7 @@ const HomeSliderPrint: React.FC<HomeSliderPrintProps> = ({
                 <div className="flex flex-wrap gap-[1rem] mt-[1.5rem]">
                   {Object.values(skills)
                     .flat()
-                    .slice(0, showAllSkills ? undefined : 5)
+                    .slice(0, showAllSkills ? undefined : 4)
                     .map((skill, i) => (
                       <Link
                         key={i}

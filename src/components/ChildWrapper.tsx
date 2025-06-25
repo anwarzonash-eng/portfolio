@@ -71,7 +71,7 @@ export default function ChildWrapper({
     "/print/cvF",
   ];
 
-  const isHeaderFooterHidden =
+  const isHiddenPaths =
     hideHeaderFooterPaths.includes(pathname) ||
     pathname.startsWith("/print/portfolio/");
 
@@ -111,15 +111,11 @@ export default function ChildWrapper({
       {/* Offer Banner - conditionally shown */}
       {!urlInfo?.u && !isScrolled && (
         <div className="print:hidden">
-          {isHeaderFooterHidden ? (
-            false
-          ) : (
-            <OfferBanner listOfdata={listOfdata} />
-          )}
+          {isHiddenPaths ? false : <OfferBanner listOfdata={listOfdata} />}
         </div>
       )}
       {/* Header Wrapper */}
-      {!isHeaderFooterHidden && (
+      {!isHiddenPaths && (
         <div className="print:hidden block sticky top-0 z-[100]">
           <Header />
         </div>
@@ -128,7 +124,7 @@ export default function ChildWrapper({
       <div className="relative">{children}</div>
 
       {/* Footer */}
-      {!isHeaderFooterHidden && (
+      {!isHiddenPaths && (
         <div className="print:hidden block">
           <Footer />
         </div>

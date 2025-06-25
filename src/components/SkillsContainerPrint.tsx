@@ -1,6 +1,6 @@
 import { skillsGrouping } from "@/hooks/skillsGrouping";
 import Image from "next/image";
-import React, { useState } from "react";
+import React from "react";
 
 // Define the skill type
 type SkillType = {
@@ -18,42 +18,30 @@ interface SkillsContainerPrintProps {
 const SkillsContainerPrint: React.FC<SkillsContainerPrintProps> = ({
   list,
 }) => {
-  const [showAll, setShowAll] = useState(false);
+  // Show only a fixed number of items for large/print screen
+  const initialVisibleItems = 3 * 6;
 
-  // Number of items to display by default
-  const initialVisibleItemsLarge = 3 * 6;
-  const initialVisibleItemsSmall = 3 * 3;
+  // Slice the list to show only the relevant skills
+  const visibleSkills = list?.slice(0, initialVisibleItems) || [];
 
-  // Determine the skills to show based on screen size and showAll state
-  const visibleSkills = showAll
-    ? list
-    : list?.slice(
-        0,
-        typeof window !== "undefined" && window.innerWidth >= 1024
-          ? initialVisibleItemsLarge
-          : initialVisibleItemsSmall
-      );
-
-  // Explicitly type the skills object
-  const skills: Record<string, SkillType[]> = skillsGrouping(
-    visibleSkills || []
-  );
+  // Group the skills for display
+  const skills: Record<string, SkillType[]> = skillsGrouping(visibleSkills);
 
   return (
-    <div className="flex flex-col print:w-full items-center justify-center ">
-      <div className="gap-[2rem] mt-[6rem] grid grid-cols-4 items-center place-items-center w-full">
-        {Object.values(skills).map((group: SkillType[], groupIndex: number) => (
+    <div className="flex flex-col print:w-full items-center justify-center">
+      <div className="w-full grid grid-cols-6 content-center place-items-center">
+        {Object.values(skills).map((group, groupIndex) => (
           <React.Fragment key={groupIndex}>
-            {group.map((skill: SkillType, i: number) => (
+            {group.map((skill, i) => (
               <div
                 key={`${groupIndex}-${i}`}
                 style={{
                   animationDelay: `${i * 0.03}s`,
                 }}
-                className="mx-auto mb-[4rem] flex items-center justify-center flex-col gap-[0.8rem] max-w-[24rem] print:max-w-[20rem] w-full animate-fadeIn opacity-0"
+                className="mx-auto mb-[4rem] flex items-center justify-center flex-col gap-[0.8rem] max-w-[12rem] w-full animate-fadeIn opacity-0"
               >
                 {skill.icon && (
-                  <div className="flex items-center justify-center rounded-full h-[10rem] w-[10rem] print:h-[7rem] print:w-[7rem]">
+                  <div className="flex items-center justify-center rounded-full h-[8rem] w-[8rem] print:h-[7rem] print:w-[7rem]">
                     <Image
                       src={skill.icon}
                       alt={skill.title}

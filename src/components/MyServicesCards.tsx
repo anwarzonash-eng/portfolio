@@ -5,7 +5,7 @@ import Link from "next/link";
 const MyServicesCards = ({ services }) => {
   return (
     <div className="w-full flex items-center justify-center gap-10 flex-col">
-      <div className="grid grid-cols-1  sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mt-12 px-4  print:grid-cols-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mt-12 px-4  print:grid-cols-4">
         {services.map((service, index) => {
           const truncatedTagline =
             service?.tagline?.split(" ")?.slice(0, 12)?.join(" ") +
@@ -18,7 +18,7 @@ const MyServicesCards = ({ services }) => {
             >
               {/* Image Container with Hover Effect - Fixed */}
               {service.picture && (
-                <div className="relative h-[17rem] w-full flex items-center justify-center overflow-hidden group">
+                <div className="relative h-[17rem] print:h-auto w-full flex items-center justify-center overflow-hidden group">
                   <Image
                     src={service.picture}
                     alt={service.title || "Service image"}
@@ -39,7 +39,7 @@ const MyServicesCards = ({ services }) => {
               )}
 
               {/* Rest of your content remains the same */}
-              <div className="p-6">
+              <div className="p-6 print:p-3">
                 {/* Title */}
                 <h3 className="font-bold text-[2rem] text-white mb-3 line-clamp-2">
                   {service?.title}
@@ -48,7 +48,7 @@ const MyServicesCards = ({ services }) => {
                 {/* Tagline */}
                 <p
                   dangerouslySetInnerHTML={{ __html: truncatedTagline }}
-                  className="text-gray-300 text-[1.3rem] mb-6 line-clamp-3 leading-relaxed"
+                  className="text-gray-300 text-[1.3rem] mb-6 print:mb-3 line-clamp-3 print:line-clamp-2 leading-relaxed"
                 />
 
                 {/* CTA Button */}
