@@ -515,7 +515,10 @@ const Home_p = ({ params }: { params: any }) => {
                             : " The skills, tools and technologies I am really good at:"}
                         </div>
                         {/* Skills Container */}
-                        <SkillsContainerPrint list={listOfdata?.skills_ids} />
+                        <SkillsContainerPrint
+                          list={listOfdata?.skills_ids}
+                          layoutType={false}
+                        />
                       </div>
                     </section>
                   </>

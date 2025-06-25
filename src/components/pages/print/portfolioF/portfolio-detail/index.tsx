@@ -144,15 +144,36 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
               </section>
 
               {/* Blog Content Section ✅ */}
-              <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative">
-                <div className="max-w-[1550px] w-full mx-auto px-[4rem]">
+              <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative flex-col">
+                {/* Portfolio Detail Container */}
+                <div className="w-full h-[30rem] overflow-hidden  absolute top-0 left-0">
+                  {/* Background SVG */}
+                  <Portfoliodetailbg />
+                  {/* Hero Top Content */}
+                  <div className="absolute z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white font-medium ">
+                    {/* info */}
+                    <div className="text-center text-[1.4rem] leading-[2rem]">
+                      <p className="">
+                        {formatDate(
+                          portfolioDetails?.updated_date,
+                          dateFormatsOptions.dayMonthYear
+                        )}
+                      </p>
+                    </div>
+                    {/* Heading */}
+                    <h1 className="text-[6rem] leading-[5rem] mt-[1.6rem]">
+                      {portfolioDetails?.title}
+                    </h1>
+                  </div>
+                </div>
+                <div className="max-w-[1550px] w-full mx-auto px-[4rem] mt-[34rem] print:mt-[30rem]">
                   {/* Blog Detail Pic*/}
                   <Image
                     src={portfolioDetails?.thumbnail}
                     height={1500}
                     width={3000}
                     alt="Banner"
-                    className="w-full object-contain rounded-[1rem] print:h-[700px] print:object-cover print:mt-5"
+                    className="w-full object-contain rounded-[1rem] print:h-[40rem] print:object-cover print:mt-5"
                   />
                   {/* Aside */}
                   <div
@@ -294,27 +315,6 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
                             )
                           )}
                         </>
-                      )}
-                    </div>
-
-                    {/* Links */}
-                    <div className="flex flex-col text-nowrap  gap-[1.4rem] ">
-                      {portfolioDetails?.link &&
-                        listOfdata?.companytype !== "leewop" && (
-                          <Link
-                            href={portfolioDetails?.link || "#"}
-                            className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-center btn-primary inline-block max-w-max"
-                          >
-                            Launch Project - Live Preview
-                          </Link>
-                        )}
-                      {portfolioDetails?.has_testimonial && (
-                        <Link
-                          href={"/"}
-                          className="text-primary  max-w-max text-[1.6rem] leading-[2.4rem] font-medium inline-block text-center"
-                        >
-                          Check Client Testimonial
-                        </Link>
                       )}
                     </div>
                   </div>
