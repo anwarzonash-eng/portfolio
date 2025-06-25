@@ -96,10 +96,10 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
           loading: loading,
           actualPage: (
             <>
-              {/* <Welcome /> */}
+              {/* Welcome ✅ */}
               <section className="print:h-screen print:section bg-bannerBG !w-full  print:FlexWrapContainer flex items-center justify-center">
                 {/* Welcome Card */}
-                <div className="text-center">
+                <div className="text-center p-[4rem] print:p-0">
                   <div className="items-center justify-strat gap-[4rem] flex flex-col w-full">
                     <img
                       src={listOfdatas?.profile_photo_1}
@@ -143,236 +143,264 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
                 </div>
               </section>
 
-              {/* Blog Content Section */}
-              <section className="max-w-[1550px] w-full mx-auto px-[4rem] relative top-[20px] print:top-0 print:p-12 print:break-before-page print-section">
-                {/* Blog Detail Pic*/}
-                <Image
-                  src={portfolioDetails?.thumbnail}
-                  height={1500}
-                  width={3000}
-                  alt="Banner"
-                  className="w-full object-contain rounded-[1rem] print:h-[700px] print:object-cover print:mt-5"
-                />
-                {/* Aside */}
-                <div
-                  className="rounded-[1rem] grid grid-cols-2 print:grid-cols-1 bg-white p-[1.6rem] w-full 
+              {/* Blog Content Section ✅ */}
+              <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative">
+                <div className="max-w-[1550px] w-full mx-auto px-[4rem]">
+                  {/* Blog Detail Pic*/}
+                  <Image
+                    src={portfolioDetails?.thumbnail}
+                    height={1500}
+                    width={3000}
+                    alt="Banner"
+                    className="w-full object-contain rounded-[1rem] print:h-[700px] print:object-cover print:mt-5"
+                  />
+                  {/* Aside */}
+                  <div
+                    className="rounded-[1rem] grid grid-cols-2 print:grid-cols-1 bg-white p-[1.6rem] w-full 
                      gap-[3.2rem] mt-6"
-                >
-                  {/* Aside Child */}
-                  {portfolioDetails?.my_role && (
-                    <div className="">
-                      <p className="text-[1.4rem] font-normal text-paragraph1 leading-[2rem] mb-[0.8rem]">
-                        MY ROLE
-                      </p>
-                      <ul className="text-[1.8rem] text-heading font-medium leading-[2.6rem] list-inside list-disc">
-                        {portfolioDetails?.my_role}
-                      </ul>
-                    </div>
-                  )}
-                  {/* Aside Child */}
-                  {portfolioDetails?.services_i_provide && (
-                    <div className="">
+                  >
+                    {/* Aside Child */}
+                    {portfolioDetails?.my_role && (
+                      <div className="">
+                        <p className="text-[1.4rem] font-normal text-paragraph1 leading-[2rem] mb-[0.8rem]">
+                          MY ROLE
+                        </p>
+                        <ul className="text-[1.8rem] text-heading font-medium leading-[2.6rem] list-inside list-disc">
+                          {portfolioDetails?.my_role}
+                        </ul>
+                      </div>
+                    )}
+                    {/* Aside Child */}
+                    {portfolioDetails?.services_i_provide && (
+                      <div className="">
+                        <p className="text-[1.8rem] font-normal text-paragraph1 leading-[2rem] mb-[0.8rem]">
+                          SERVICE I PROVIDE
+                        </p>
+                        <div
+                          className="text-[2rem] text-heading font-medium leading-[2.6rem] list-inside list-disc"
+                          dangerouslySetInnerHTML={{
+                            __html: portfolioDetails?.services_i_provide,
+                          }}
+                        ></div>
+                      </div>
+                    )}
+                    {/* Aside Child */}
+                    <div className="print:border-l-[5px] border-primary print:pl-5">
                       <p className="text-[1.8rem] font-normal text-paragraph1 leading-[2rem] mb-[0.8rem]">
-                        SERVICE I PROVIDE
+                        PROJECT DURATION
                       </p>
-                      <div
-                        className="text-[2rem] text-heading font-medium leading-[2.6rem] list-inside list-disc"
-                        dangerouslySetInnerHTML={{
-                          __html: portfolioDetails?.services_i_provide,
-                        }}
-                      ></div>
-                    </div>
-                  )}
-                  {/* Aside Child */}
-                  <div className="print:border-l-[5px] border-primary print:pl-5">
-                    <p className="text-[1.8rem] font-normal text-paragraph1 leading-[2rem] mb-[0.8rem]">
-                      PROJECT DURATION
-                    </p>
-                    <ul className="text-[2rem] text-heading font-medium leading-[2.6rem]">
-                      <li>
-                        {formatDate(
-                          portfolioDetails?.starting_date,
-                          dateFormatsOptions.shortMonthYear
-                        )}{" "}
-                        -{" "}
-                        {formatDate(
-                          portfolioDetails?.ending_Date,
-                          dateFormatsOptions.shortMonthYear
-                        )}
-                      </li>
-                    </ul>
-                  </div>
-                  {/* Aside Child */}
-                  {portfolioDetails?.client_name && (
-                    <div className="">
-                      <p className="text-[1.4rem] font-normal text-paragraph1 leading-[2rem] mb-[0.8rem]">
-                        Client
-                      </p>
-                      <ul className="text-[1.8rem] text-heading font-medium leading-[2.6rem]">
-                        <li>{portfolioDetails?.client_name}</li>
-                      </ul>
-                    </div>
-                  )}
-                  {/* Aside Child */}
-                  {portfolioDetails?.has_testimonial && (
-                    <div className="">
-                      <p className="text-[1.4rem] font-normal text-paragraph1 leading-[2rem] mb-[0.8rem]">
-                        CLIENT DESIGNATION
-                      </p>
-                      <ul className="text-[1.8rem] text-heading font-medium leading-[2.6rem]">
+                      <ul className="text-[2rem] text-heading font-medium leading-[2.6rem]">
                         <li>
-                          This slide is 100% editable. Adapt it to your needs
-                          and capture your audience’s attention.
+                          {formatDate(
+                            portfolioDetails?.starting_date,
+                            dateFormatsOptions.shortMonthYear
+                          )}{" "}
+                          -{" "}
+                          {formatDate(
+                            portfolioDetails?.ending_Date,
+                            dateFormatsOptions.shortMonthYear
+                          )}
                         </li>
                       </ul>
                     </div>
+                    {/* Aside Child */}
+                    {portfolioDetails?.client_name && (
+                      <div className="">
+                        <p className="text-[1.4rem] font-normal text-paragraph1 leading-[2rem] mb-[0.8rem]">
+                          Client
+                        </p>
+                        <ul className="text-[1.8rem] text-heading font-medium leading-[2.6rem]">
+                          <li>{portfolioDetails?.client_name}</li>
+                        </ul>
+                      </div>
+                    )}
+                    {/* Aside Child */}
+                    {portfolioDetails?.has_testimonial && (
+                      <div className="">
+                        <p className="text-[1.4rem] font-normal text-paragraph1 leading-[2rem] mb-[0.8rem]">
+                          CLIENT DESIGNATION
+                        </p>
+                        <ul className="text-[1.8rem] text-heading font-medium leading-[2.6rem]">
+                          <li>
+                            This slide is 100% editable. Adapt it to your needs
+                            and capture your audience’s attention.
+                          </li>
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </section>
+
+              {/* Blog Detail Content ✅ */}
+              <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative">
+                <div className="max-w-[1550px] w-full mx-auto px-[4rem]">
+                  {/* Content */}
+                  <div className="w-full ">
+                    {/* Heading and Para */}
+                    <div className="text-heading">
+                      <Link
+                        href={portfolioDetails?.link || "#"}
+                        className="text-primary text-[2.5rem] leading-[2.4rem] font-medium w-full text-left mb-[2rem] inline-block"
+                      >
+                        {portfolioDetails?.title}
+                      </Link>
+                      {/* Heading */}
+                      <h1 className="text-[3.2rem] font-medium leading-[4rem]">
+                        Client/Project Brief Description
+                      </h1>
+                      {/* Para */}
+                      <p
+                        dangerouslySetInnerHTML={{
+                          __html: modifiedContent(
+                            portfolioDetails?.tagline_1,
+                            listOfskills,
+                            listOfdata
+                          ),
+                        }}
+                        className="text-[2.4rem] leading-[3.2rem] font-normal mt-[1rem] text-paragraph1 my-[3.2rem]"
+                      ></p>
+                      {/* Para */}
+                      <p
+                        ref={skillsRef}
+                        className="text-[2rem] list-div leading-[3.2rem] font-normal  text-paragraph1"
+                        dangerouslySetInnerHTML={{
+                          __html: modifiedContent(
+                            portfolioDetails?.tagline_2,
+                            listOfskills,
+                            listOfdata
+                          ),
+                        }}
+                      ></p>
+                    </div>
+
+                    {/* Skills Badges */}
+                    <div className="flex items-center gap-[1rem] lg:gap-[0.7rem] text-nowrap flex-wrap my-[3.2rem] ">
+                      {skillsforDetailPortfolio && (
+                        <>
+                          {Object?.values(skillsforDetailPortfolio)?.map(
+                            (group, groupIndex) => (
+                              <React.Fragment key={groupIndex}>
+                                {group.map((skill, i) => (
+                                  <Link
+                                    href={skill?.url || "#"}
+                                    className="hover:bg-primary hover:text-white py-[0.4rem] px-[2rem] text-heading bg-[#A3DDD3] rounded-[1.8rem] text-[1.6rem] font-medium leading-normal"
+                                  >
+                                    {skill.title}
+                                  </Link>
+                                ))}
+                                {/* Line break after each group */}
+                              </React.Fragment>
+                            )
+                          )}
+                        </>
+                      )}
+                    </div>
+
+                    {/* Links */}
+                    <div className="flex flex-col text-nowrap  gap-[1.4rem] ">
+                      {portfolioDetails?.link &&
+                        listOfdata?.companytype !== "leewop" && (
+                          <Link
+                            href={portfolioDetails?.link || "#"}
+                            className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-center btn-primary inline-block max-w-max"
+                          >
+                            Launch Project - Live Preview
+                          </Link>
+                        )}
+                      {portfolioDetails?.has_testimonial && (
+                        <Link
+                          href={"/"}
+                          className="text-primary  max-w-max text-[1.6rem] leading-[2.4rem] font-medium inline-block text-center"
+                        >
+                          Check Client Testimonial
+                        </Link>
+                      )}
+                    </div>
+                  </div>
+                  {/* Paragraph Text */}
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: modifiedContent(
+                        portfolioDetails?.features_short,
+                        listOfskills,
+                        listOfdata
+                      ),
+                    }}
+                    className="w-full list-div my-[6.4rem] leading-[3.2rem] font-normal"
+                  ></div>
+                </div>
+              </section>
+
+              {/* Key Modules and Contributions ✅ */}
+              <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative">
+                <div className="max-w-[1550px] w-full mx-auto px-[4rem]">
+                  {/* <Image
+                    src={portfolioDetails?.thumbnail}
+                    height={1500}
+                    width={1500}
+                    alt="Banner"
+                    className="object-contain rounded-[1rem] print:h-[500px] print:object-cover 
+                    mb-[6rem]"
+                  /> */}
+                  <div
+                    className="text-[1.8rem]"
+                    dangerouslySetInnerHTML={{
+                      __html: modifiedContent(
+                        portfolioDetails?.features_long,
+                        listOfskills,
+                        listOfdata
+                      ),
+                    }}
+                  ></div>
+                </div>
+              </section>
+
+              {/* Skills & Tool Chain Section ✅ */}
+              <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative">
+                {/* My Tools and Technologies */}
+                <div className="max-w-[1550px] w-full mx-auto px-[4rem] ">
+                  {/* Badge */}
+                  <div
+                    className="px-[4rem] mt-[3rem] py-[1.4rem] bg-white rounded-[100px] border border-border border-solid text-center max-w-max text-heading
+                    text-[2rem] font-medium font-Inter leading-[2rem] mx-auto"
+                  >
+                    Skills
+                  </div>
+                  {/* Heading */}
+                  <div
+                    className="text-center text-heading text-[2.4rem] print:text-[3rem] 
+                    font-medium leading-[2.8rem] my-[2rem]"
+                  >
+                    {listOfdata?.companytype == "leewop" ? (
+                      <span>The skills & tools I am really good at</span>
+                    ) : (
+                      <span>
+                        The skills, tools and technologies <br /> I am really
+                        good at
+                      </span>
+                    )}
+                  </div>
+                  {/* Skills Container */}
+                  <SkillsContainerPrint
+                    list={portfolioDetails?.skills}
+                    layoutType={true}
+                  />
+                </div>
+              </section>
+
+              {/* Slider  Sections ✅ */}
+              <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative">
+                <div className="max-w-[1550px] w-full mx-auto px-[4rem]">
+                  {portfolioDetails !== null && (
+                    <SliderXLPrint
+                      portfolioPictures={portfolioDetails?.pictures}
+                    />
                   )}
                 </div>
               </section>
 
-              {/* Blog Detail Content */}
-              <section className="max-w-[1550px] w-full mx-auto relative print:flex items-center justify-center flex-col px-12 print:break-before-page mt-10 print:mt-0 print:h-[297mm] ">
-                {/* Content */}
-                <div className="w-full ">
-                  {/* Heading and Para */}
-                  <div className="text-heading">
-                    <Link
-                      href={portfolioDetails?.link || "#"}
-                      className="text-primary text-[2.5rem] leading-[2.4rem] font-medium w-full text-left mb-[2rem] inline-block"
-                    >
-                      {portfolioDetails?.title}
-                    </Link>
-                    {/* Heading */}
-                    <h1 className="text-[3.2rem] font-medium leading-[4rem]">
-                      Client/Project Brief Description
-                    </h1>
-                    {/* Para */}
-                    <p
-                      dangerouslySetInnerHTML={{
-                        __html: modifiedContent(
-                          portfolioDetails?.tagline_1,
-                          listOfskills,
-                          listOfdata
-                        ),
-                      }}
-                      className="text-[2.4rem] leading-[3.2rem] font-normal mt-[1rem] text-paragraph1 my-[3.2rem]"
-                    ></p>
-                    {/* Para */}
-                    <p
-                      ref={skillsRef}
-                      className="text-[2rem] list-div leading-[3.2rem] font-normal  text-paragraph1"
-                      dangerouslySetInnerHTML={{
-                        __html: modifiedContent(
-                          portfolioDetails?.tagline_2,
-                          listOfskills,
-                          listOfdata
-                        ),
-                      }}
-                    ></p>
-                  </div>
-
-                  {/* Skills Badges */}
-                  <div className="flex items-center gap-[1rem] lg:gap-[0.7rem] text-nowrap flex-wrap my-[3.2rem] ">
-                    {skillsforDetailPortfolio && (
-                      <>
-                        {Object?.values(skillsforDetailPortfolio)?.map(
-                          (group, groupIndex) => (
-                            <React.Fragment key={groupIndex}>
-                              {group.map((skill, i) => (
-                                <Link
-                                  href={skill?.url || "#"}
-                                  className="hover:bg-primary hover:text-white py-[0.4rem] px-[2rem] text-heading bg-[#A3DDD3] rounded-[1.8rem] text-[1.6rem] font-medium leading-normal"
-                                >
-                                  {skill.title}
-                                </Link>
-                              ))}
-                              {/* Line break after each group */}
-                            </React.Fragment>
-                          )
-                        )}
-                      </>
-                    )}
-                  </div>
-
-                  {/* Links */}
-                  <div className="flex flex-col text-nowrap  gap-[1.4rem] ">
-                    {portfolioDetails?.link &&
-                      listOfdata?.companytype !== "leewop" && (
-                        <Link
-                          href={portfolioDetails?.link || "#"}
-                          className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-center btn-primary inline-block max-w-max"
-                        >
-                          Launch Project - Live Preview
-                        </Link>
-                      )}
-                    {portfolioDetails?.has_testimonial && (
-                      <Link
-                        href={"/"}
-                        className="text-primary  max-w-max text-[1.6rem] leading-[2.4rem] font-medium inline-block text-center"
-                      >
-                        Check Client Testimonial
-                      </Link>
-                    )}
-                  </div>
-                </div>
-                {/* Paragraph Text */}
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: modifiedContent(
-                      portfolioDetails?.features_short,
-                      listOfskills,
-                      listOfdata
-                    ),
-                  }}
-                  className="w-full list-div my-[6.4rem] leading-[3.2rem] font-normal"
-                ></div>
-              </section>
-
-              {/* Key Modules and Contributions */}
-              <section className="max-w-[1550px] w-full mx-auto px-[4rem] print:p-12 print-section mt-10 print:mt-8">
-                <Image
-                  src={portfolioDetails?.thumbnail}
-                  height={1500}
-                  width={1500}
-                  alt="Banner"
-                  className="object-contain rounded-[1rem] print:h-[500px] print:object-cover mb-[6rem]"
-                />
-                <div
-                  className="text-[1.8rem] print:text-[2.1rem]"
-                  dangerouslySetInnerHTML={{
-                    __html: modifiedContent(
-                      portfolioDetails?.features_long,
-                      listOfskills,
-                      listOfdata
-                    ),
-                  }}
-                ></div>
-              </section>
-
-              {/* Skills & Tool Chain Section */}
-              <section className="max-w-[1550px] w-full mx-auto px-[4rem] print:p-6 print:break-before-page mt-10 print:mt-8 print:h-[297mm] print:flex items-center justify-center">
-                {/* My Tools and Technologies */}
-                <article className="mt-[3rem]">
-                  {/* Heading */}
-                  <div className="text-heading text-[3rem] font-medium leading-[2.8rem]">
-                    The skills, tools and technologies I used in this project:
-                  </div>
-                  {/* Skills Container */}
-                  <SkillsContainerPrint list={portfolioDetails?.skills} />
-                </article>
-              </section>
-
-              {/* Slider  Sections */}
-              <section className="max-w-[1550px] w-full mx-auto px-[4rem] print:p-12 print:break-before-page mt-10 print:mt-8 print:h-[297mm] print:flex items-center justify-center">
-                {/* SliderXL */}
-                {portfolioDetails !== null && (
-                  <SliderXLPrint
-                    portfolioPictures={portfolioDetails?.pictures}
-                  />
-                )}
-              </section>
-
-              {/* Our Blogs Section */}
+              {/* Our Blogs Section ✅ */}
               <section className="max-w-[1550px] w-full mx-auto">
                 <OurBlogsPortrait domain={listOfdata?.domain} />
               </section>

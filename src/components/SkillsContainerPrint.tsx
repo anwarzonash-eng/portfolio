@@ -13,10 +13,12 @@ type SkillType = {
 // Define the props type for the component
 interface SkillsContainerPrintProps {
   list: SkillType[] | undefined | null;
+  layoutType: any | undefined | null;
 }
 
 const SkillsContainerPrint: React.FC<SkillsContainerPrintProps> = ({
   list,
+  layoutType = false,
 }) => {
   // Show only a fixed number of items for large/print screen
   const initialVisibleItems = 3 * 6;
@@ -29,7 +31,11 @@ const SkillsContainerPrint: React.FC<SkillsContainerPrintProps> = ({
 
   return (
     <div className="flex flex-col print:w-full items-center justify-center">
-      <div className="w-full grid grid-cols-6 content-center place-items-center">
+      <div
+        className={`w-full grid ${
+          layoutType ? "grid-cols-4" : "grid-cols-6"
+        } content-center place-items-center justify-between`}
+      >
         {Object.values(skills).map((group, groupIndex) => (
           <React.Fragment key={groupIndex}>
             {group.map((skill, i) => (
@@ -38,7 +44,7 @@ const SkillsContainerPrint: React.FC<SkillsContainerPrintProps> = ({
                 style={{
                   animationDelay: `${i * 0.03}s`,
                 }}
-                className="mx-auto mb-[4rem] flex items-center justify-center flex-col gap-[0.8rem] max-w-[12rem] w-full animate-fadeIn opacity-0"
+                className="mx-auto mb-[4rem] flex items-center justify-center flex-col gap-[0.8rem] max-w-[12rem] w-full animate-fadeIn opacity-0 bg-red500"
               >
                 {skill.icon && (
                   <div className="flex items-center justify-center rounded-full h-[8rem] w-[8rem] print:h-[7rem] print:w-[7rem]">
