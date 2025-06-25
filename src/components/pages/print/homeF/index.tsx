@@ -106,7 +106,7 @@ const Home_p = ({ params }: { params: any }) => {
             actualPage: (
               <>
                 <FreeTrialPopup listOfdata={listOfdata} urlInfo={urlInfo} />
-                {/* <Welcome ✅ /> */}
+                {/* Welcome ✅ */}
                 <section className="h-screen print:section bg-bannerBG !w-full  print:FlexWrapContainer flex items-center justify-center">
                   <div className="max-w-[1550px] w-full mx-auto flex items-center justify-center">
                     <div className="text-center">

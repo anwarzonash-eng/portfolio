@@ -97,71 +97,48 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
           actualPage: (
             <>
               {/* <Welcome /> */}
-              <section className="!w-full h-full relative flex flex-col print:bg-[#a3ddd3] print:break-before-page">
-                {/* Hero Section */}
-                <div className="max-w-[1550px] w-full mx-auto px-[4rem]  relative overflow-hidden">
-                  {/* Background SVG */}
-                  <Portfoliodetailbg />
-                  {/* Hero Top Content */}
-                  <div className="max-w-[1550px] w-full mx-auto px-[4rem] flex items-center justify-center flex-col text-center pt-[6.5rem] pb-[8rem] relative z-20">
-                    {/* info */}
-                    <div className="flex items-center text-white text-[1.4rem] print:text-[2.4rem] leading-[2rem] font-medium">
-                      <p className="">
-                        {formatDate(
-                          portfolioDetails?.updated_date,
-                          dateFormatsOptions.dayMonthYear
-                        )}
-                      </p>
-                    </div>
-                    {/* Heading */}
-                    <h1 className="text-[4rem] print:text-[6rem] print:mt-10 leading-[5rem] font-medium break-all text-white mt-[1.6rem] mb-[2.4rem]">
-                      {portfolioDetails?.title}
-                    </h1>
-                  </div>
-                </div>
+              <section className="print:h-screen print:section bg-bannerBG !w-full  print:FlexWrapContainer flex items-center justify-center">
                 {/* Welcome Card */}
-                <div className="w-full relative hidden print:!block h-[858px]">
-                  <div className="max-w-[1024px] mx-auto text-center px-[2rem] pt-[8rem] relative z-20 print:mt-[5rem]">
-                    <div className="items-center justify-strat gap-[4rem] print:flex flex-col hidden w-full">
-                      <img
-                        src={listOfdatas?.profile_photo_1}
-                        alt=""
-                        className="size-[245px] rounded-full"
-                      />
-                      <div className="flex items-start justify-start flex-col">
-                        <h2 className="text-[7rem] font-bold">
-                          {" "}
-                          {listOfdata?.name}
-                        </h2>
-                        <div className="text-[4rem] font-medium flex items-center justify-center flex-wrap gap-[3px] w-full">
-                          {" "}
-                          {listOfdatas?.designation
-                            ?.split("|")
-                            .map((item, index) => (
-                              <div key={index} className="text-center">
-                                {item.trim()}
-                              </div>
-                            ))}
-                        </div>
+                <div className="text-center">
+                  <div className="items-center justify-strat gap-[4rem] flex flex-col w-full">
+                    <img
+                      src={listOfdatas?.profile_photo_1}
+                      alt=""
+                      className="size-[245px] rounded-full"
+                    />
+                    <div className="flex items-start justify-start flex-col">
+                      <h2 className="text-[7rem] font-bold">
+                        {" "}
+                        {listOfdata?.name}
+                      </h2>
+                      <div className="text-[4rem] font-medium flex items-center justify-center flex-wrap gap-[3px] w-full">
+                        {" "}
+                        {listOfdatas?.designation
+                          ?.split("|")
+                          .map((item, index) => (
+                            <div key={index} className="text-center">
+                              {item.trim()}
+                            </div>
+                          ))}
                       </div>
                     </div>
-                    <div className="flex items-center justify-center gap-[2.1rem] mt-[4rem] mb-[0.8rem] ">
-                      <WorkProofLinks
-                        props={{
-                          upwork: listOfdata?.upwork,
-                          github: listOfdata?.github,
-                          linkedIn: listOfdata?.linkedIn,
-                          behance_link: listOfdata?.behance_link,
-                          u: urlInfo?.u,
-                        }}
-                      />
-                      <ContactMeLinks
-                        props={{
-                          email: listOfdata?.email,
-                          phone_no: listOfdata?.phone_no,
-                        }}
-                      />
-                    </div>
+                  </div>
+                  <div className="flex items-center justify-center gap-[2.1rem] mt-[4rem] mb-[0.8rem] ">
+                    <WorkProofLinks
+                      props={{
+                        upwork: listOfdata?.upwork,
+                        github: listOfdata?.github,
+                        linkedIn: listOfdata?.linkedIn,
+                        behance_link: listOfdata?.behance_link,
+                        u: urlInfo?.u,
+                      }}
+                    />
+                    <ContactMeLinks
+                      props={{
+                        email: listOfdata?.email,
+                        phone_no: listOfdata?.phone_no,
+                      }}
+                    />
                   </div>
                 </div>
               </section>

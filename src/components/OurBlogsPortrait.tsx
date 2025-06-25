@@ -33,8 +33,8 @@ const OurBlogsPortrait = ({ domain }) => {
   return (
     <>
       {/* Blog Section */}
-      <section className="bg-transparent max-w-[1550px] py-6 w-full mx-auto print-section print:h-[297mm] flex items-center justify-center px-14">
-        <div className="w-full">
+      <section className="bg-transparent print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center">
+        <div className="w-full px-[4rem]">
           {/* Top Content */}
           <div className="flex justify-between flex-wrap items-end sm:items-center gap-[2rem] mb-[4rem] print:mb-[2rem]">
             <h3 className="text-heading text-[3.6rem] print:text-[2rem]  leading-[4.4rem] font-medium mt-[1.2rem] print:m-0">
@@ -147,8 +147,8 @@ const OurBlogsPortrait = ({ domain }) => {
       </section>
       {/* Contact Form Section */}
       {!urlInfo?.u && (
-        <section className="bg-transparent max-w-[1550px] w-full mx-auto break-before-page print:h-[297mm] flex items-center justify-center px-14 py-6">
-          <div className="w-full ">
+        <section className="bg-transparent print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center">
+          <div className="w-full px-[4rem]">
             <ContactMe listOfdata={listOfdata} />
           </div>
         </section>

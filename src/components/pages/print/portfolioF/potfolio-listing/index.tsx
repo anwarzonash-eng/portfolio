@@ -4,22 +4,17 @@ import { useState } from "react";
 import Image from "next/image";
 import "@/styles/printStyles/portfolio_p.css";
 import Link from "next/link";
-import Newsletter from "@/components/Newsletter";
 import useBodyBackgroundColor from "@/hooks/useBodyBackgroundColor";
 import PortfolioPopUp from "@/components/PortfolioPopUp";
-import WebsiteLoader from "@/components/WebsiteLoader";
 import { useSearchParams } from "next/navigation";
 import { getRoutesDetails } from "@/hooks/url";
 import { reportsApiHandler } from "@/hooks/apihandlers/reportsApiHandlers";
 import { store } from "@/store";
 import { setProfileLoading, setProfileUrlInfo } from "@/store/profileSlice";
-import OurBlogs from "@/components/OurBlogs";
 import { modifiedContent } from "@/hooks/modifiedContent";
 import { handleSkillsApiCall } from "@/hooks/apihandlers/skillsApiHandlers";
 import { skillsGrouping } from "@/hooks/skillsGrouping";
-import { toggleShowMoreSkills } from "@/hooks/toggleShowMoreSkills";
 import ShowmoreSkills from "@/components/showmoreSkills";
-import Background from "@/components/background";
 import { useAppSelector } from "@/store";
 import WorkProofLinks from "@/components/WorkProofLinks";
 import ContactMeLinks from "@/components/ContactMeLinks";
@@ -86,46 +81,44 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
 
   return (
     <div className="bg-[#EFF5FD]">
-      {/* <Welcome /> */}
-      <section className="!w-full h-full relative flex flex-col bg-[#a3ddd3] print:break-before-page">
+      {/* Welcome ✅ */}
+      <section className="print:h-screen print:section bg-bannerBG !w-full  print:FlexWrapContainer flex items-center justify-center">
         {/* Welcome Card */}
-        <div className="w-full relative block print:flex items-center justify-center print:h-[297mm]">
-          <div className="max-w-[1024px] mx-auto text-center px-[2rem] py-[8rem] print:py-0 relative z-20 mt-[5rem] print:mt-0">
-            <div className="items-center justify-strat gap-[4rem] flex flex-col w-full">
-              <img
-                src={listOfdatas?.profile_photo_1}
-                alt=""
-                className="size-[245px] rounded-full"
-              />
-              <div className="flex items-start justify-start flex-col">
-                <h2 className="text-[7rem] font-bold"> {listOfdata?.name}</h2>
-                <div className="text-[4rem] font-medium flex items-center justify-center flex-wrap gap-[3px] w-full">
-                  {" "}
-                  {listOfdatas?.designation?.split("|").map((item, index) => (
-                    <div key={index} className="text-center">
-                      {item.trim()}
-                    </div>
-                  ))}
-                </div>
+        <div className="text-center p-[4rem] print:p-0">
+          <div className="items-center justify-strat gap-[4rem] flex flex-col w-full">
+            <img
+              src={listOfdatas?.profile_photo_1}
+              alt=""
+              className="size-[245px] rounded-full"
+            />
+            <div className="flex items-start justify-start flex-col">
+              <h2 className="text-[7rem] font-bold"> {listOfdata?.name}</h2>
+              <div className="text-[4rem] font-medium flex items-center justify-center flex-wrap gap-[3px] w-full">
+                {" "}
+                {listOfdatas?.designation?.split("|").map((item, index) => (
+                  <div key={index} className="text-center">
+                    {item.trim()}
+                  </div>
+                ))}
               </div>
             </div>
-            <div className="flex items-center justify-center gap-[2.1rem] mt-[4rem] mb-[0.8rem] ">
-              <WorkProofLinks
-                props={{
-                  upwork: listOfdata?.upwork,
-                  github: listOfdata?.github,
-                  linkedIn: listOfdata?.linkedIn,
-                  behance_link: listOfdata?.behance_link,
-                  u: urlInfo?.u,
-                }}
-              />
-              <ContactMeLinks
-                props={{
-                  email: listOfdata?.email,
-                  phone_no: listOfdata?.phone_no,
-                }}
-              />
-            </div>
+          </div>
+          <div className="flex items-center justify-center gap-[2.1rem] mt-[4rem] mb-[0.8rem] ">
+            <WorkProofLinks
+              props={{
+                upwork: listOfdata?.upwork,
+                github: listOfdata?.github,
+                linkedIn: listOfdata?.linkedIn,
+                behance_link: listOfdata?.behance_link,
+                u: urlInfo?.u,
+              }}
+            />
+            <ContactMeLinks
+              props={{
+                email: listOfdata?.email,
+                phone_no: listOfdata?.phone_no,
+              }}
+            />
           </div>
         </div>
       </section>
@@ -158,115 +151,112 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
                 );
                 return (
                   <section
-                    className="relative flex items-start portfolio-item w-full print:h-[297mm] px-14"
+                    className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative"
                     key={index}
                   >
-                    <div className="print:m-auto print:!mt-[2rem] flex items-center justify-center h-full w-full">
-                      <div className="w-full">
-                        {/* Year */}
-                        <h1 className="mb-[3rem] print:mb-[1rem]  text-heading text-[2rem] leading-[2.7rem] font-bold max-lg:ml-[0.5rem] block">
-                          {new Date(portfolio.starting_date).getFullYear()} -{" "}
-                          {isNaN(new Date(portfolio.ending_Date).getFullYear())
-                            ? portfolio.ending_Date
-                            : new Date(portfolio.ending_Date).getFullYear()}
-                        </h1>
-                        {/* Card */}
-                        <div className="flex items-center justify-center p-[1.5rem] bg-white shadow-testimonialeShadow ">
-                          {/* Content */} {/* Title and Description */}
-                          <div className="flex flex-col w-full gap-3 items-center justify-center ">
-                            {portfolio?.thumbnail && (
-                              <div className=" w-full  rounded-[1.2rem]  ">
-                                <img
-                                  src={
-                                    portfolio?.thumbnail
-                                      ? portfolio.thumbnail
-                                      : "/images/project_img.png"
-                                  }
-                                  alt="Portfolio Image"
-                                  height={800}
-                                  width={800}
-                                  className="h-[300px]  w-full object-cover rounded-[1.2rem] border border-solid border-border cursor-pointer"
-                                />
-                              </div>
-                            )}
-                            <div className="">
-                              <h1 className="text-[1.8rem] lg:text-[2rem] font-bold leading-[2.69rem]">
-                                {portfolio?.title}
-                              </h1>
-                              <p
-                                dangerouslySetInnerHTML={{
-                                  __html: portfolio.tagline_1,
-                                }}
-                                className="text-[1.9rem] leading-[150%] font-medium mt-[1rem] text-primary"
-                              ></p>
+                    <div className="max-w-[1550px] w-full mx-auto px-[4rem]">
+                      {/* Year */}
+                      <h1 className="mb-[3rem] print:mb-[1rem]  text-heading text-[2rem] leading-[2.7rem] font-bold max-lg:ml-[0.5rem] block">
+                        {new Date(portfolio.starting_date).getFullYear()} -{" "}
+                        {isNaN(new Date(portfolio.ending_Date).getFullYear())
+                          ? portfolio.ending_Date
+                          : new Date(portfolio.ending_Date).getFullYear()}
+                      </h1>
+                      {/* Card */}
+                      <div className="flex items-center justify-center p-[1.5rem] bg-white shadow-testimonialeShadow ">
+                        {/* Content */} {/* Title and Description */}
+                        <div className="flex flex-col w-full gap-3 items-center justify-center ">
+                          {portfolio?.thumbnail && (
+                            <div className=" w-full  rounded-[1.2rem]  ">
+                              <img
+                                src={
+                                  portfolio?.thumbnail
+                                    ? portfolio.thumbnail
+                                    : "/images/project_img.png"
+                                }
+                                alt="Portfolio Image"
+                                height={800}
+                                width={800}
+                                className="h-[300px]  w-full object-cover rounded-[1.2rem] border border-solid border-border cursor-pointer"
+                              />
+                            </div>
+                          )}
+                          <div className="">
+                            <h1 className="text-[1.8rem] lg:text-[2rem] font-bold leading-[2.69rem]">
+                              {portfolio?.title}
+                            </h1>
+                            <p
+                              dangerouslySetInnerHTML={{
+                                __html: portfolio.tagline_1,
+                              }}
+                              className="text-[1.9rem] leading-[150%] font-medium mt-[1rem] text-primary"
+                            ></p>
 
-                              <p
-                                dangerouslySetInnerHTML={{
-                                  __html: modifiedContent(
-                                    portfolio.features_short,
-                                    listOfskills,
-                                    listOfdata
-                                  ),
-                                }}
-                                className="mt-[2rem] list-div-portfolio1 pl-[2rem]"
-                              ></p>
-                              <h4 className="text-heading text-[1.2rem] font-medium mb-[1.2rem] ml-[0.2rem]">
-                                AREAS OF EXPERTISE I'VE WORKED IN
-                              </h4>
-                              <div className="flex items-center gap-[1rem] mt-3 lg:gap-[0.7rem] flex-wrap text-[1.2rem] w-full">
-                                {Object?.values(skills)?.map(
-                                  (group, groupIndex) => (
-                                    <React.Fragment key={groupIndex}>
-                                      {group.map((skill, i) => (
-                                        <Link
-                                          key={i}
-                                          href={skill.url || "#"}
-                                          target="_blank"
-                                          className="hover:bg-primary hover:text-white py-[0.4rem] print:py-[0.1rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
-                                        >
-                                          {skill.title}
-                                        </Link>
-                                      ))}
-                                      {/* Line break after each group */}
-                                      {showMoreSkills[index] && (
-                                        <div className="w-full mb-[1px]" />
-                                      )}
-                                    </React.Fragment>
-                                  )
-                                )}
+                            <p
+                              dangerouslySetInnerHTML={{
+                                __html: modifiedContent(
+                                  portfolio.features_short,
+                                  listOfskills,
+                                  listOfdata
+                                ),
+                              }}
+                              className="mt-[2rem] list-div-portfolio1 pl-[2rem]"
+                            ></p>
+                            <h4 className="text-heading text-[1.2rem] font-medium mb-[1.2rem] ml-[0.2rem]">
+                              AREAS OF EXPERTISE I'VE WORKED IN
+                            </h4>
+                            <div className="flex items-center gap-[1rem] mt-3 lg:gap-[0.7rem] flex-wrap text-[1.2rem] w-full">
+                              {Object?.values(skills)?.map(
+                                (group, groupIndex) => (
+                                  <React.Fragment key={groupIndex}>
+                                    {group.map((skill, i) => (
+                                      <Link
+                                        key={i}
+                                        href={skill.url || "#"}
+                                        target="_blank"
+                                        className="hover:bg-primary hover:text-white py-[0.4rem] print:py-[0.1rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
+                                      >
+                                        {skill.title}
+                                      </Link>
+                                    ))}
+                                    {/* Line break after each group */}
+                                    {showMoreSkills[index] && (
+                                      <div className="w-full mb-[1px]" />
+                                    )}
+                                  </React.Fragment>
+                                )
+                              )}
 
-                                <ShowmoreSkills
-                                  props={{
-                                    list: portfolio?.skills,
-                                    index,
-                                    setShowMoreSkills,
-                                    showMoreSkills,
-                                  }}
-                                />
-                              </div>
-                              <hr className="w-full my-[2.4rem] h-px bg-border print:hidden" />
-                              {/* Links */}
-                              <div className="flex items-center flex-wrap max-sm:flex-col max-md:items-start gap-[1.4rem] print:hidden">
-                                <Link
-                                  href={`/print/portfolio/${portfolio.id}`}
-                                  className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent print:!border-primary hover:border-primary duration-300 max-sm:w-full text-center rounded-[0.6rem] print:!text-primary"
+                              <ShowmoreSkills
+                                props={{
+                                  list: portfolio?.skills,
+                                  index,
+                                  setShowMoreSkills,
+                                  showMoreSkills,
+                                }}
+                              />
+                            </div>
+                            <hr className="w-full my-[2.4rem] h-px bg-border print:hidden" />
+                            {/* Links */}
+                            <div className="flex items-center flex-wrap max-sm:flex-col max-md:items-start gap-[1.4rem] print:hidden">
+                              <Link
+                                href={`/print/portfolioF/${portfolio.id}`}
+                                className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent print:!border-primary hover:border-primary duration-300 max-sm:w-full text-center rounded-[0.6rem] print:!text-primary"
+                              >
+                                View Details
+                              </Link>
+
+                              {listOfdata?.companytype !== "leewop" && (
+                                <a
+                                  href={portfolio?.link}
+                                  target="_blank"
+                                  className="py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-primary border border-solid hover:border-transparent border-primary print:!text-primary duration-300 hover:bg-primary hover:text-white rounded-[0.6rem] max-sm:w-full text-center"
                                 >
-                                  View Details
-                                </Link>
-
-                                {listOfdata?.companytype !== "leewop" && (
-                                  <a
-                                    href={portfolio?.link}
-                                    target="_blank"
-                                    className="py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-primary border border-solid hover:border-transparent border-primary print:!text-primary duration-300 hover:bg-primary hover:text-white rounded-[0.6rem] max-sm:w-full text-center"
-                                  >
-                                    Launch Project - Live Preview
-                                  </a>
-                                )}
-                              </div>
+                                  Launch Project - Live Preview
+                                </a>
+                              )}
                             </div>
                           </div>
-                          {/* Image */}
                         </div>
                       </div>
                     </div>

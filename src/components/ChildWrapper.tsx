@@ -73,7 +73,7 @@ export default function ChildWrapper({
 
   const isHiddenPaths =
     hideHeaderFooterPaths.includes(pathname) ||
-    pathname.startsWith("/print/portfolio/");
+    pathname.startsWith("/print/portfolioF");
 
   useEffect(() => {
     const handleScroll = () => {
