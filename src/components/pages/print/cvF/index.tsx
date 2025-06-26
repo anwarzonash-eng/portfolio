@@ -681,7 +681,7 @@ const CV_p = ({ params }: { params: any }) => {
                                     }}
                                   ></p>
                                   <p
-                                    className="text-primary text-[1.6rem] leading-[150%] font-normal mt-[1rem] "
+                                    className="text-primary text-[1.6rem] leading-[150%] font-normal mt-[1rem] line-clamp-3"
                                     dangerouslySetInnerHTML={{
                                       __html: modifiedContent(
                                         portfolio?.tagline_2,
@@ -698,7 +698,7 @@ const CV_p = ({ params }: { params: any }) => {
                                         listOfdata
                                       ),
                                     }}
-                                    className="mt-[2rem] list-div-portfolio1 pl-[2rem]"
+                                    className="mt-[2rem] list-div-portfolio1 pl-[2rem] mb-[2rem] line-clamp-3"
                                   ></p>
                                   {/* Skills Badges */}
                                   <h4 className="text-heading text-[1.2rem] font-medium mb-[1.2rem] ml-[0.2rem]">
