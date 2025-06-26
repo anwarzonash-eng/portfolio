@@ -15,7 +15,6 @@ import { handleSkillsApiCall } from "@/hooks/apihandlers/skillsApiHandlers";
 import { store, useAppSelector } from "@/store";
 import { setProfileLoading, setProfileUrlInfo } from "@/store/profileSlice";
 import PageRendering from "@/components/PageRendering";
-import SkillsContainer from "@/components/SkillsContainer";
 import { skillsGrouping } from "@/hooks/skillsGrouping";
 import WorkProofLinks from "@/components/WorkProofLinks";
 import ContactMeLinks from "@/components/ContactMeLinks";

@@ -26,14 +26,11 @@ import {
   blogsListing,
   loadBlogs,
 } from "@/hooks/apihandlers/blogListingApiHandler";
-import Newsletter from "@/components/Newsletter";
 import PageRendering from "@/components/PageRendering";
 import { skillsGrouping } from "@/hooks/skillsGrouping";
 import ShowmoreSkills from "@/components/showmoreSkills";
 import Background from "@/components/background";
 import { useAppSelector } from "@/store";
-import Footer from "@/components/layouts/footer/page";
-import Header from "@/components/layouts/header/page";
 import WorkProofLinks from "@/components/WorkProofLinks";
 import ContactMeLinks from "@/components/ContactMeLinks";
 type SkillType = {
@@ -96,12 +93,6 @@ const CV_p = ({ params }: { params: any }) => {
     handleSkillsApiCall({ setListOfSkills });
   }, []);
 
-  // useEffect(() => {
-  //   if (listOfdata) {
-  //     blogsListing(setLoadingBlogs, listOfdata, setBlogsList);
-  //   }
-  // }, [listOfdata]);
-
   useEffect(() => {
     if (listOfdata) {
       loadBlogs({
@@ -146,6 +137,7 @@ const CV_p = ({ params }: { params: any }) => {
       [index]: !prev[index], // Toggle the specific item
     }));
   };
+
   const [isPrinting, setIsPrinting] = useState(false);
 
   useEffect(() => {
@@ -170,7 +162,7 @@ const CV_p = ({ params }: { params: any }) => {
           actualPage: (
             <div className="bg-[#EFF5FD]">
               {/* <Welcome /> */}
-              <section className="print:h-screen print:section bg-bannerBG !w-full  print:FlexWrapContainer flex items-center justify-center">
+              <section className="hidden items-center justify-center print:h-screen print:section bg-bannerBG !w-full print:FlexWrapContainer  ">
                 {/* Welcome Card */}
                 <div className="text-center">
                   <div className="items-center justify-strat gap-[4rem] flex flex-col w-full">
@@ -255,13 +247,6 @@ const CV_p = ({ params }: { params: any }) => {
                   </div>
                 </div>
               </section>
-              {isModalOpen && selectedPorfolioPicturesforPopup !== null && (
-                <PortfolioPopUp
-                  isModalOpen={isModalOpen}
-                  closeModal={closeModal}
-                  portfolioImages={selectedPorfolioPicturesforPopup}
-                />
-              )}
 
               <div className="mt-[-40rem] print:mt-0 max-w-[1550px] print:max-w-[1550px] w-full mx-auto px-[1.5rem]">
                 <div className="bg-white flex flex-col lg:flex-row gap-[4rem] pb-[5rem] lg:pb-[7rem] px-[3rem] rounded-[1.4rem]  relative  mb-[10rem] lg:mb-[9.6rem]">

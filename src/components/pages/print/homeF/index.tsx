@@ -553,9 +553,9 @@ const Home_p = ({ params }: { params: any }) => {
                         </div>
                         {/* Services Cards */}
                         <MyServices
-                          services={listOfdata?.services?.filter(
-                            (service) => service?.type !== "main"
-                          )}
+                          services={listOfdata?.services
+                            ?.filter((service) => service?.type !== "main")
+                            ?.slice(0, 8)}
                         />
                       </div>
                     </section>
