@@ -72,11 +72,11 @@ const HomeSliderPrint: React.FC<HomeSliderPrintProps> = ({
                 <div className="h-[100px] overflow-auto custom-scrollbar">
                   <p
                     dangerouslySetInnerHTML={{ __html: portfolio.tagline_1 }}
-                    className="text-[1.8rem] text-paragraph1"
+                    className="text-[1.8rem] text-paragraph1 line-clamp-1"
                   />
                   <p
                     dangerouslySetInnerHTML={{ __html: portfolio.tagline_2 }}
-                    className="text-[1.6rem] text-primary mt-[1rem]"
+                    className="text-[1.6rem] text-primary mt-[1rem] line-clamp-2"
                   />
                 </div>
               </div>

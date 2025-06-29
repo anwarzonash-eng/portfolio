@@ -303,7 +303,7 @@ const Home_p = ({ params }: { params: any }) => {
                           {/* Badge SVG */}
                           <div className="bg-[#2A97FC] rounded-[50%] flex items-center justify-center h-[4.9rem] w-[4.9rem] xl:h-[6.8rem] xl:w-[6.8rem]">
                             <img
-                              src="./images/experience.svg"
+                              src="/images/experience.svg"
                               alt="Experience"
                               className="h-[2.4rem] w-[2.4rem] xl:h-[3.4rem] xl:w-[3.4rem]"
                             />
@@ -329,7 +329,7 @@ const Home_p = ({ params }: { params: any }) => {
                           {/* Badge SVG */}
                           <div className="bg-[#FC822A] rounded-[50%] flex items-center justify-center h-[4.9rem] w-[4.9rem] xl:h-[6.8rem] xl:w-[6.8rem]">
                             <img
-                              src="./images/badge.svg"
+                              src="/images/badge.svg"
                               alt="Experience"
                               className="h-[2.4rem] w-[2.4rem] xl:h-[3.4rem] xl:w-[3.4rem]"
                             />
