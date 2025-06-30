@@ -301,11 +301,11 @@ const Home_p = ({ params }: { params: any }) => {
                         {/* Experience Badge */}
                         <div className="bg-white rounded-[0.8rem] absolute bottom-auto left-auto top-[-3rem] right-[3rem] p-[1.4rem] flex items-center shadow-md gap-[1rem]  animate-bounce">
                           {/* Badge SVG */}
-                          <div className="bg-[#2A97FC] rounded-[50%] flex items-center justify-center h-[4.9rem] w-[4.9rem] xl:h-[6.8rem] xl:w-[6.8rem]">
+                          <div className="bg-[#2A97FC] rounded-[50%] h-[6.8rem] w-[6.8rem] relative">
                             <img
                               src="/images/experience.svg"
                               alt="Experience"
-                              className="h-[2.4rem] w-[2.4rem] xl:h-[3.4rem] xl:w-[3.4rem]"
+                              className="h-[3.4rem] w-[3.4rem] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
                             />
                           </div>
                           {/* Badge Content */}
@@ -327,11 +327,11 @@ const Home_p = ({ params }: { params: any }) => {
                         {/* Projects Badge */}
                         <div className="bg-white mb-3 rounded-[0.8rem] absolute top-auto right-auto bottom-[-4rem] left-[3rem] p-[1.4rem] xl:rounded-[2rem] flex items-center shadow-md gap-[1rem] animate-bounce">
                           {/* Badge SVG */}
-                          <div className="bg-[#FC822A] rounded-[50%] flex items-center justify-center h-[4.9rem] w-[4.9rem] xl:h-[6.8rem] xl:w-[6.8rem]">
+                          <div className="bg-[#FC822A] rounded-[50%] h-[6.8rem] w-[6.8rem] relative">
                             <img
                               src="/images/badge.svg"
                               alt="Experience"
-                              className="h-[2.4rem] w-[2.4rem] xl:h-[3.4rem] xl:w-[3.4rem]"
+                              className="h-[3.4rem] w-[3.4rem] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
                             />
                           </div>
                           {/* Badge Content */}

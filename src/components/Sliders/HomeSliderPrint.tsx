@@ -58,7 +58,7 @@ const HomeSliderPrint: React.FC<HomeSliderPrintProps> = ({
         return (
           <div
             key={index}
-            className="flex flex-row rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden w-full"
+            className="flex flex-row rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden w-full bg-white"
           >
             {/* Left Content */}
             <div className="p-[2rem] w-1/2 flex flex-col justify-between">
