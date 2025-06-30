@@ -295,24 +295,21 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
                     </div>
 
                     {/* Skills Badges */}
-                    <div className="flex items-center gap-[1rem] lg:gap-[0.7rem] text-nowrap flex-wrap my-[3.2rem] ">
+                    <div className="flex items-center gap-[1rem] lg:gap-[0.7rem] text-nowrap flex-wrap my-[3.2rem]">
                       {skillsforDetailPortfolio && (
                         <>
-                          {Object?.values(skillsforDetailPortfolio)?.map(
-                            (group, groupIndex) => (
-                              <React.Fragment key={groupIndex}>
-                                {group.map((skill, i) => (
-                                  <Link
-                                    href={skill?.url || "#"}
-                                    className="hover:bg-primary hover:text-white py-[0.4rem] px-[2rem] text-heading bg-[#A3DDD3] rounded-[1.8rem] text-[1.6rem] font-medium leading-normal"
-                                  >
-                                    {skill.title}
-                                  </Link>
-                                ))}
-                                {/* Line break after each group */}
-                              </React.Fragment>
-                            )
-                          )}
+                          {Object.values(skillsforDetailPortfolio)
+                            .flat()
+                            .slice(0, 10)
+                            .map((skill, i) => (
+                              <Link
+                                key={skill?.id || i}
+                                href={skill?.url || "#"}
+                                className="hover:bg-primary hover:text-white py-[0.4rem] px-[2rem] text-heading bg-[#A3DDD3] rounded-[1.8rem] text-[1.6rem] font-medium leading-normal"
+                              >
+                                {skill.title}
+                              </Link>
+                            ))}
                         </>
                       )}
                     </div>
@@ -334,16 +331,15 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
               {/* Key Modules and Contributions ✅ */}
               <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative">
                 <div className="max-w-[1550px] w-full mx-auto px-[4rem]">
-                  {/* <Image
+                  <Image
                     src={portfolioDetails?.thumbnail}
                     height={1500}
                     width={1500}
                     alt="Banner"
-                    className="object-contain rounded-[1rem] print:h-[500px] print:object-cover 
-                    mb-[6rem]"
-                  /> */}
+                    className="rounded-[1rem] h-[500px] object-cover mb-[6rem]"
+                  />
                   <div
-                    className="text-[1.8rem]"
+                    className="text-[1.8rem] line-clamp-[8]"
                     dangerouslySetInnerHTML={{
                       __html: modifiedContent(
                         portfolioDetails?.features_long,
