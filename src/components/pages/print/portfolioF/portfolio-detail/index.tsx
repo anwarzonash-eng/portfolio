@@ -303,7 +303,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
                             .slice(0, 10)
                             .map((skill, i) => (
                               <Link
-                                key={skill?.id || i}
+                                key={i}
                                 href={skill?.url || "#"}
                                 className="hover:bg-primary hover:text-white py-[0.4rem] px-[2rem] text-heading bg-[#A3DDD3] rounded-[1.8rem] text-[1.6rem] font-medium leading-normal"
                               >
