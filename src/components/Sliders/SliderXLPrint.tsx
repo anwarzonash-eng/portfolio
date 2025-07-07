@@ -3,7 +3,7 @@ import React from "react";
 
 const SliderXLPrint = ({ portfolioPictures }) => {
   const images = JSON.parse(portfolioPictures);
-  const visibleImages = images.slice(0, 3);
+  const visibleImages = images.slice(0, 2);
 
   return (
     <>

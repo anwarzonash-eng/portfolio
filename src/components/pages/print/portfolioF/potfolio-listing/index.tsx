@@ -19,6 +19,7 @@ import { useAppSelector } from "@/store";
 import WorkProofLinks from "@/components/WorkProofLinks";
 import ContactMeLinks from "@/components/ContactMeLinks";
 import OurBlogsPortrait from "@/components/OurBlogsPortrait";
+import NoteDomainForPint from "@/components/NoteDomainForPint";
 
 const PortfolioListing_p = ({ params }: { params: any }) => {
   const [
@@ -82,7 +83,9 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
   return (
     <div className="bg-[#EFF5FD]">
       {/* Welcome ✅ */}
-      <section className="print:h-screen print:section bg-bannerBG !w-full  print:FlexWrapContainer flex items-center justify-center">
+      <section className="print:h-screen print:section bg-bannerBG !w-full print:FlexWrapContainer flex items-center justify-center relative">
+        {/* Note and Domain For Each Page */}
+        <NoteDomainForPint direction={"hidden print:left-0 print:block"} />
         {/* Welcome Card */}
         <div className="text-center p-[4rem] print:p-0">
           <div className="items-center justify-strat gap-[4rem] flex flex-col w-full">
@@ -123,14 +126,6 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
         </div>
       </section>
 
-      {isModalOpen && selectedPorfolioPicturesforPopup !== null && (
-        <PortfolioPopUp
-          isModalOpen={isModalOpen}
-          closeModal={closeModal}
-          portfolioImages={selectedPorfolioPicturesforPopup}
-        />
-      )}
-
       {listOfdata && listOfdata?.portfolios_ids?.length > 0 && (
         <>
           {/* Portfolio Timeline Section */}
@@ -154,6 +149,10 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
                     className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative"
                     key={index}
                   >
+                    <NoteDomainForPint
+                      direction={"hidden print:left-0 print:block"}
+                    />
+
                     <div className="max-w-[1550px] w-full mx-auto px-[4rem]">
                       {/* Year */}
                       <h1 className="mb-[3rem] print:mb-[1rem]  text-heading text-[2rem] leading-[2.7rem] font-bold max-lg:ml-[0.5rem] block">
@@ -165,22 +164,24 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
                       {/* Card */}
                       <div className="flex items-center justify-center p-[1.5rem] bg-white shadow-testimonialeShadow ">
                         {/* Content */} {/* Title and Description */}
-                        <div className="flex flex-col w-full gap-3 items-center justify-center ">
+                        <div className="flex flex-col w-full gap-3 items-center justify-center">
                           {portfolio?.thumbnail && (
-                            <div className=" w-full  rounded-[1.2rem]  ">
+                            <div className="w-full rounded-[1.2rem]">
                               <img
-                                src={
-                                  portfolio?.thumbnail
-                                    ? portfolio.thumbnail
-                                    : "/images/project_img.png"
-                                }
+                                src={portfolio.thumbnail}
                                 alt="Portfolio Image"
                                 height={800}
                                 width={800}
-                                className="h-[300px]  w-full object-cover rounded-[1.2rem] border border-solid border-border cursor-pointer"
+                                className="h-[300px] w-full object-cover rounded-[1.2rem] border border-solid border-border cursor-pointer"
+                                onError={(e) => {
+                                  e.target.onerror = null; // prevent infinite loop if fallback fails
+                                  e.target.src =
+                                    "https://images.unsplash.com/photo-1542393545-10f5cde2c810?q=80&w=465&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
+                                }}
                               />
                             </div>
                           )}
+
                           <div className="">
                             <h1 className="text-[1.8rem] lg:text-[2rem] font-bold leading-[2.69rem]">
                               {portfolio?.title}

@@ -16,6 +16,7 @@ import Footer from "./layouts/footer/page";
 import ContactMe from "./ContactMe";
 import { useAppSelector } from "@/store";
 import { usePathname } from "next/navigation";
+import NoteDomainForPint from "./NoteDomainForPint";
 
 const OurBlogs = ({ domain }) => {
   const [blogsList, setBlogs] = useState([]);
@@ -47,13 +48,18 @@ const OurBlogs = ({ domain }) => {
   return (
     <>
       {!urlInfo?.u && forcePrintStyles && (
-        <section className="bg-transparent h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center p-[4rem]">
+        <section className="bg-transparent h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center p-[4rem] relative">
+          <NoteDomainForPint direction={"hidden print:right-0 print:block"} />
           <div className="max-w-[1550px] w-full mx-auto flex items-center justify-center">
             <ContactMe listOfdata={listOfdata} />
           </div>
         </section>
       )}
       <section className="mainContainer print:m-0  print:pt-[1.5rem] h-screen print:section !w-full print:FlexWrapContainer flex justify-center flex-col">
+        <div className="hidden print:block relative mb-20">
+          <NoteDomainForPint direction={"hidden print:right-0 print:block"} />
+        </div>
+
         {/* Top Content */}
         <div className="flex justify-between flex-wrap items-end sm:items-center gap-[2rem] mb-[4rem] print:mb-[2rem] ">
           <div>

@@ -21,6 +21,7 @@ import ContactMeLinks from "@/components/ContactMeLinks";
 import OurBlogsPortrait from "@/components/OurBlogsPortrait";
 import SliderXLPrint from "@/components/Sliders/SliderXLPrint";
 import SkillsContainerPrint from "@/components/SkillsContainerPrint";
+import NoteDomainForPint from "@/components/NoteDomainForPint";
 
 const PortfolioDetails_p = ({ params }: { params: any }) => {
   const searchParams = useSearchParams();
@@ -96,7 +97,11 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
           actualPage: (
             <>
               {/* Welcome ✅ */}
-              <section className="print:h-screen print:section bg-bannerBG !w-full  print:FlexWrapContainer flex items-center justify-center">
+              <section className="print:h-screen print:section bg-bannerBG !w-full  print:FlexWrapContainer flex items-center justify-center relative">
+                {/* Note and Domain For Each Page */}
+                <NoteDomainForPint
+                  direction={"hidden print:left-0 print:block"}
+                />
                 {/* Welcome Card */}
                 <div className="text-center p-[4rem] print:p-0">
                   <div className="items-center justify-strat gap-[4rem] flex flex-col w-full">
@@ -144,6 +149,19 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
 
               {/* Blog Content Section ✅ */}
               <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative flex-col">
+                <div
+                  className={`absolute z-[1000] top-10 hidden print:left-0 print:block px-20`}
+                >
+                  <Link
+                    className="text-white font-medium text-[2rem] underline ml-2"
+                    href={`https://www.${listOfdatas.domain}`}
+                  >
+                    {listOfdatas.domain}
+                  </Link>
+                  <p className="text-primary font-medium px-4 py-1 text-[1.6rem] rounded-[100px] bg-white">
+                    Note: All The Buttons are Clickable
+                  </p>
+                </div>
                 {/* Portfolio Detail Container */}
                 <div className="w-full h-[30rem] overflow-hidden  absolute top-0 left-0">
                   {/* Background SVG */}
@@ -160,7 +178,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
                       </p>
                     </div>
                     {/* Heading */}
-                    <h1 className="text-[6rem] leading-[5rem] mt-[1.6rem]">
+                    <h1 className="text-[6rem] leading-[5rem] mt-[1.6rem] text-nowrap text-center">
                       {portfolioDetails?.title}
                     </h1>
                   </div>
@@ -253,7 +271,11 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
               </section>
 
               {/* Blog Detail Content ✅ */}
-              <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative">
+              <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative mt-10 print:m-0">
+                {/* Note and Domain For Each Page */}
+                <NoteDomainForPint
+                  direction={"hidden print:left-0 print:block"}
+                />
                 <div className="max-w-[1550px] w-full mx-auto px-[4rem]">
                   {/* Content */}
                   <div className="w-full ">
@@ -330,6 +352,10 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
 
               {/* Key Modules and Contributions ✅ */}
               <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative">
+                {/* Note and Domain For Each Page */}
+                <NoteDomainForPint
+                  direction={"hidden print:left-0 print:block"}
+                />
                 <div className="max-w-[1550px] w-full mx-auto px-[4rem]">
                   <Image
                     src={portfolioDetails?.thumbnail}
@@ -352,7 +378,11 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
               </section>
 
               {/* Skills & Tool Chain Section ✅ */}
-              <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative">
+              <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative flex-col">
+                {/* Note and Domain For Each Page */}
+                <NoteDomainForPint
+                  direction={"hidden print:left-0 print:block"}
+                />
                 {/* My Tools and Technologies */}
                 <div className="max-w-[1550px] w-full mx-auto px-[4rem] ">
                   {/* Badge */}
@@ -371,8 +401,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
                       <span>The skills & tools I am really good at</span>
                     ) : (
                       <span>
-                        The skills, tools and technologies <br /> I am really
-                        good at
+                        The skills, tools and technologies I am good at
                       </span>
                     )}
                   </div>
@@ -382,10 +411,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
                     layoutType={true}
                   />
                 </div>
-              </section>
-
-              {/* Slider  Sections ✅ */}
-              <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative">
+                {/* Slider  Sections ✅ */}
                 <div className="max-w-[1550px] w-full mx-auto px-[4rem]">
                   {portfolioDetails !== null && (
                     <SliderXLPrint
@@ -394,6 +420,8 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
                   )}
                 </div>
               </section>
+
+              {/* <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative"></section> */}
 
               {/* Our Blogs Section ✅ */}
               <section className="max-w-[1550px] w-full mx-auto">

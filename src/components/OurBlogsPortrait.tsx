@@ -15,6 +15,7 @@ import PageRendering from "./PageRendering";
 import Footer from "./layouts/footer/page";
 import ContactMe from "./ContactMe";
 import { useAppSelector } from "@/store";
+import NoteDomainForPint from "./NoteDomainForPint";
 
 const OurBlogsPortrait = ({ domain }) => {
   const [blogsList, setBlogs] = useState([]);
@@ -39,7 +40,9 @@ const OurBlogsPortrait = ({ domain }) => {
   return (
     <>
       {/* Blog Section */}
-      <section className="bg-transparent print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center">
+      <section className="bg-transparent print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center relative">
+        {/* Note and Domain For Each Page */}
+        <NoteDomainForPint direction={"hidden print:left-0 print:block"} />
         <div className="w-full px-[4rem]">
           {/* Top Content */}
           <div className="flex justify-between flex-wrap items-end sm:items-center gap-[2rem] mb-[4rem] print:mb-[2rem]">
@@ -165,7 +168,9 @@ const OurBlogsPortrait = ({ domain }) => {
       </section>
       {/* Contact Form Section */}
       {!urlInfo?.u && (
-        <section className="bg-transparent print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center">
+        <section className="bg-transparent print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center mt-20 print:m-0 relative">
+          {/* Note and Domain For Each Page */}
+          <NoteDomainForPint direction={"hidden print:left-0 print:block"} />
           <div className="w-full px-[4rem]">
             <ContactMe listOfdata={listOfdata} />
           </div>

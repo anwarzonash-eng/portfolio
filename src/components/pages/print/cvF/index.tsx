@@ -32,6 +32,7 @@ import Background from "@/components/background";
 import { useAppSelector } from "@/store";
 import WorkProofLinks from "@/components/WorkProofLinks";
 import ContactMeLinks from "@/components/ContactMeLinks";
+import NoteDomainForPint from "@/components/NoteDomainForPint";
 type SkillType = {
   title: string;
   url?: string;
@@ -148,8 +149,12 @@ const CV_p = ({ params }: { params: any }) => {
           actualPage: (
             <div className="bg-[#EFF5FD]">
               {/* Intoduction Section ✅ */}
-              <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative">
-                <div className="max-w-[1550px] w-full mx-auto flex flex-col items-center bg-cvSideBg bg-no-repeat bg-cover p-[4rem]">
+              <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative print:bg-cvSideBg print:bg-no-repeat print:bg-cover">
+                {/* Note and Domain For Each Page */}
+                <NoteDomainForPint
+                  direction={"hidden print:left-0 print:block"}
+                />
+                <div className="max-w-[1550px] w-full mx-auto flex flex-col items-center print:bg-none bg-cvSideBg bg-no-repeat bg-cover p-[4rem]">
                   {/* Profile Bg */}
                   <div className="print:flex flex flex-col items-center justify-center gap-4 print:w-full">
                     <div className="print:flex flex flex-col print:flex-row items-center justify-center gap-4 print:w-full">
@@ -187,11 +192,11 @@ const CV_p = ({ params }: { params: any }) => {
                       {/* Info */}
                       <p className="my-[4rem] text-[2rem] leading-[2.6rem] text-heading font-normal text-center">
                         Reach out today and I'll provide you with my
-                        comprehensive onboarding package designed for full-time
-                        employment or Contract Based Jobs. This package covers
-                        various aspects that potential employers often inquire
-                        about, such as my salary expectations and the seamless
-                        integration process into your company.
+                        comprehensive full-time employment or Contract Based
+                        Jobs. This package covers various aspects that potential
+                        employers often inquire about, such as my salary
+                        expectations and the seamless integration process into
+                        your company.
                       </p>
                     </div>
                   </div>
@@ -273,6 +278,7 @@ const CV_p = ({ params }: { params: any }) => {
                               alt === "Linkedin"
                             : true
                         )
+                        .slice(0, 3)
                         .map((social, index) => (
                           <div
                             key={index}
@@ -306,11 +312,15 @@ const CV_p = ({ params }: { params: any }) => {
               </section>
 
               {/* Vertical line */}
-              {/* <div className="absolute left-0 top-0 w-[1.5px] h-[100%] bg-border" /> */}
+              {/* <div className="absolute left-0 top-0 w-[1.5px] h-[100%] bg-primary" /> */}
 
               {/* Overview Section ✅ */}
               {listOfdata?.skills && (
                 <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative my-[4rem] print:m-0">
+                  {/* Note and Domain For Each Page */}
+                  <NoteDomainForPint
+                    direction={"hidden print:left-0 print:block"}
+                  />
                   <div className="relative flex items-start max-w-[1550px] w-full mx-auto px-[4rem]">
                     {/* Dot */}
                     <div className="absolute left-[2.5rem] top-0  block z-20">
@@ -319,7 +329,7 @@ const CV_p = ({ params }: { params: any }) => {
                       </div>
                     </div>
                     {/* Vertical line */}
-                    <div className="absolute left-[4rem] top-0 w-[1.5px] h-[100%] bg-border" />
+                    <div className="absolute left-[4rem] top-0 w-[1.5px] h-[100%] bg-primary" />
 
                     <div className="ml-[2rem] md:ml-[3rem] lg:ml-[5rem] print:break-before-page print_p_m">
                       {/* Title */}
@@ -345,6 +355,10 @@ const CV_p = ({ params }: { params: any }) => {
               {/* Skills Section ✅ */}
               {listOfdata?.skills_ids && (
                 <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative my-[4rem] print:m-0">
+                  {/* Note and Domain For Each Page */}
+                  <NoteDomainForPint
+                    direction={"hidden print:left-0 print:block"}
+                  />
                   <div className="relative flex items-start max-w-[1550px] w-full mx-auto px-[4rem] ">
                     {/* Dot */}
                     <div className="absolute left-[2.5rem] top-0  block z-20">
@@ -353,7 +367,7 @@ const CV_p = ({ params }: { params: any }) => {
                       </div>
                     </div>
                     {/* Vertical line */}
-                    <div className="absolute left-[4rem] top-0 w-[1.5px] h-[100%] bg-border" />
+                    <div className="absolute left-[4rem] top-0 w-[1.5px] h-[100%] bg-primary" />
                     <div className="print:mt-[4rem]">
                       {/* Title */}
                       <h2 className="ml-[2rem] md:ml-[3rem] lg:ml-[5rem] text-heading leading-[3.56rem] text-[3.67rem] font-medium pl-[0.5rem] mb-[3rem]">
@@ -401,28 +415,38 @@ const CV_p = ({ params }: { params: any }) => {
               {/* Experience Section ✅ */}
               {listOfdata && listOfdata?.experiences_ids?.length > 0 && (
                 <>
-                  {listOfdata?.experiences_ids &&
-                    [...listOfdata.experiences_ids]
-                      ?.sort((a, b) => {
-                        const yearA = new Date(a.ending_Date).getFullYear();
-                        const yearB = new Date(b.ending_Date).getFullYear();
-                        if (yearA !== yearB) return yearB - yearA;
-                        const monthA = new Date(a.ending_Date).getMonth();
-                        const monthB = new Date(b.ending_Date).getMonth();
-                        return monthB - monthA;
-                      })
-                      ?.map((experience, index) => {
-                        if (index >= 3) {
-                          return null;
-                        }
+                  <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center flex-col overflow-hidden relative my-[4rem] print:m-0">
+                    {/* Note and Domain For Each Page */}
+                    <NoteDomainForPint
+                      direction={"hidden print:left-0 print:block"}
+                    />
+                    <h2
+                      className="text-heading  leading-[3.56rem] text-[3.67rem] font-medium 
+                      pt-[3rem] pb-[1rem]  pl-[5rem] self-start"
+                    >
+                      Experiences
+                    </h2>
+                    {listOfdata?.experiences_ids &&
+                      [...listOfdata.experiences_ids]
+                        ?.sort((a, b) => {
+                          const yearA = new Date(a.ending_Date).getFullYear();
+                          const yearB = new Date(b.ending_Date).getFullYear();
+                          if (yearA !== yearB) return yearB - yearA;
+                          const monthA = new Date(a.ending_Date).getMonth();
+                          const monthB = new Date(b.ending_Date).getMonth();
+                          return monthB - monthA;
+                        })
+                        ?.map((experience, index) => {
+                          if (index >= 2) {
+                            return null;
+                          }
 
-                        const skillsforExpereinces = skillsGrouping(
-                          showMoreSkillsForExperiences[index]
-                            ? experience?.skills
-                            : experience?.skills?.slice(0, 15)
-                        );
-                        return (
-                          <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative my-[4rem] print:m-0">
+                          const skillsforExpereinces = skillsGrouping(
+                            showMoreSkillsForExperiences[index]
+                              ? experience?.skills
+                              : experience?.skills?.slice(0, 15)
+                          );
+                          return (
                             <div
                               className="relative flex items-start max-w-[1550px] w-full mx-auto px-[4rem]"
                               key={index}
@@ -434,12 +458,12 @@ const CV_p = ({ params }: { params: any }) => {
                                 </div>
                               </div>
                               {/* Vertical line */}
-                              <div className="absolute left-[4rem] top-0 w-[1.5px] h-[100%] bg-border" />
+                              <div className="absolute left-[4rem] top-0 w-[1.5px] h-[100%] bg-primary" />
 
                               <div className="w-full ml-10">
-                                <h2 className="text-heading block leading-[3.56rem] text-[3.67rem] font-medium pl-[0.5rem] pt-[3rem] pb-[2rem] print_p_m print:!pt-[2rem]">
+                                {/* <h2 className="text-heading block leading-[3.56rem] text-[3.67rem] font-medium pl-[0.5rem] pt-[3rem] pb-[2rem] print_p_m print:!pt-[2rem]">
                                   Experience
-                                </h2>
+                                </h2> */}
                                 {/* Date */}
                                 <h2 className="text-heading leading-[2.67rem] text-[2rem] font-bold pl-[0.5rem]  print:!pt-[1.4rem] mb-[3rem]">
                                   {formatDate(
@@ -475,9 +499,9 @@ const CV_p = ({ params }: { params: any }) => {
                                       )}
 
                                       <div>
-                                        <p className="text-[1.4rem] lg:text-[1.6rem] font-normal text-paragraph1">
+                                        {/* <p className="text-[1.4rem] lg:text-[1.6rem] font-normal text-paragraph1">
                                           {experience.company_name}
-                                        </p>
+                                        </p> */}
                                         <h3 className="text-[1.6rem] lg:text-[1.8rem] font-medium text-heading">
                                           {experience.title}
                                         </h3>
@@ -545,7 +569,7 @@ const CV_p = ({ params }: { params: any }) => {
                                     }}
                                     className="mt-[2rem] list-div text-[1.6rem] font-medium text-paragraph1"
                                   ></p>
-                                  <div
+                                  {/* <div
                                     dangerouslySetInnerHTML={{
                                       __html: modifiedContent(
                                         experience?.long_description,
@@ -558,23 +582,23 @@ const CV_p = ({ params }: { params: any }) => {
                                         ? "max-h-[100rem]"
                                         : "max-h-[19rem]"
                                     } print:max-h-none`}
-                                  ></div>
+                                  ></div> */}
 
                                   {/* Skills Badges */}
                                   <div className="mt-[2.2rem]">
-                                    <h4 className="text-heading text-[1.2rem] font-medium mb-[1.2rem] ml-[0.2rem]">
+                                    <h4 className="mb-[1.2rem] ml-[0.2rem] text-[1.5rem] text-primary font-medium my-[1.6rem] ">
                                       AREAS OF EXPERTISE I'VE WORKED IN
                                     </h4>
 
                                     <div className="flex items-center gap-[1rem] lg:gap-[0.7rem] text-nowrap flex-wrap text-[1.2rem]">
                                       {Object.values(skillsforExpereinces)
                                         .flat()
-                                        .slice(0, 6)
+                                        .slice(0, 10)
                                         .map((skill: SkillType, i: number) => (
                                           <Link
                                             href={skill?.url || "#"}
                                             key={i}
-                                            className="hover:bg-primary py-[0.4rem] px-[2rem] hover:text-white bg-white border border-[#E2E6EE] border-solid text-heading rounded-[1.2rem] text-[1.2rem] font-medium leading-normal"
+                                            className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium py-[0.4rem] px-[2rem] bg-white flex items-center print:py-[0.2rem] print:px-[1.5rem] justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
                                           >
                                             {skill.title}
                                           </Link>
@@ -584,9 +608,199 @@ const CV_p = ({ params }: { params: any }) => {
                                 </div>
                               </div>
                             </div>
-                          </section>
-                        );
-                      })}
+                          );
+                        })}
+                  </section>
+                </>
+              )}
+              {listOfdata && listOfdata?.experiences_ids?.length > 0 && (
+                <>
+                  <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center flex-col overflow-hidden relative my-[4rem] print:m-0">
+                    {listOfdata?.experiences_ids &&
+                      [...listOfdata.experiences_ids]
+                        ?.sort((a, b) => {
+                          const yearA = new Date(a.ending_Date).getFullYear();
+                          const yearB = new Date(b.ending_Date).getFullYear();
+                          if (yearA !== yearB) return yearB - yearA;
+                          const monthA = new Date(a.ending_Date).getMonth();
+                          const monthB = new Date(b.ending_Date).getMonth();
+                          return monthB - monthA;
+                        })
+                        ?.map((experience, index) => {
+                          if (index < 2 || index >= 4) {
+                            return null;
+                          }
+
+                          const skillsforExpereinces = skillsGrouping(
+                            showMoreSkillsForExperiences[index]
+                              ? experience?.skills
+                              : experience?.skills?.slice(0, 15)
+                          );
+                          return (
+                            <div
+                              className="relative flex items-start max-w-[1550px] w-full mx-auto px-[4rem]"
+                              key={index}
+                            >
+                              {/* Dot */}
+                              <div className="absolute left-[2.5rem] top-0  block z-20">
+                                <div className="w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center">
+                                  <div className="w-[0.8rem] h-[0.8rem] bg-sectionBG rounded-full"></div>
+                                </div>
+                              </div>
+                              {/* Vertical line */}
+                              <div className="absolute left-[4rem] top-0 w-[1.5px] h-[100%] bg-primary" />
+
+                              <div className="w-full ml-10">
+                                {/* <h2 className="text-heading block leading-[3.56rem] text-[3.67rem] font-medium pl-[0.5rem] pt-[3rem] pb-[2rem] print_p_m print:!pt-[2rem]">
+                                  Experience
+                                </h2> */}
+                                {/* Date */}
+                                <h2 className="text-heading leading-[2.67rem] text-[2rem] font-bold pl-[0.5rem]  print:!pt-[1.4rem] mb-[3rem]">
+                                  {formatDate(
+                                    experience?.starting_date,
+                                    dateFormatsOptions.shortMonthYear
+                                  )}{" "}
+                                  -{" "}
+                                  {isNaN(
+                                    new Date(
+                                      experience.ending_Date
+                                    ).getFullYear()
+                                  )
+                                    ? experience.ending_Date
+                                    : formatDate(
+                                        experience.ending_Date,
+                                        dateFormatsOptions.shortMonthYear
+                                      )}
+                                </h2>
+                                {/* Card */}
+                                <div className="bg-[#F7F9FC] p-[1.5rem] lg:p-[2.4rem]  rounded-[1rem] shadow mb-[2rem]">
+                                  <div className="flex items-center flex-wrap text-nowrap gap-[1.5rem] md:justify-between">
+                                    {/* About Content */}
+                                    <div className="flex align-middle justify-center items-center gap-[1rem]">
+                                      {experience?.thumbnail && (
+                                        <div className="h-[4.2rem] w-[4.2rem] lg:h-[4.9rem] lg:w-[4.9rem] bg-[#D1E9FF] rounded-[0.4rem] flex items-center justify-center">
+                                          <Image
+                                            src={experience?.thumbnail}
+                                            height={32}
+                                            width={32}
+                                            alt="Logo Mark"
+                                          />
+                                        </div>
+                                      )}
+
+                                      <div>
+                                        {/* <p className="text-[1.4rem] lg:text-[1.6rem] font-normal text-paragraph1">
+                                          {experience.company_name}
+                                        </p> */}
+                                        <h3 className="text-[1.6rem] lg:text-[1.8rem] font-medium text-heading">
+                                          {experience.title}
+                                        </h3>
+                                        {experience?.company_website && (
+                                          <div className="flex items-center gap-[0.52rem]">
+                                            <Image
+                                              src={"/images/link.svg"}
+                                              height={18}
+                                              width={18}
+                                              alt="Link"
+                                              className="h-[18px] w-[18px]"
+                                            />
+                                            <Link
+                                              href={
+                                                experience?.company_website ||
+                                                "#"
+                                              }
+                                              className="text-[#1F4FE1] break-all text-[1.6rem] lg:text-[1.8rem] font-normal leading-normal"
+                                            >
+                                              {
+                                                experience.company_website
+                                                  .replace(
+                                                    /^(https?:\/\/)?(www\.)?/,
+                                                    ""
+                                                  )
+                                                  .split("/")[0]
+                                              }{" "}
+                                            </Link>
+                                          </div>
+                                        )}
+                                      </div>
+                                    </div>
+
+                                    {/* Link */}
+                                    <div className="flex justify-center md:justify-end w-full md:w-auto print:hidden">
+                                      <div className="flex flex-col-reverse gap-[1rem] max-w-max">
+                                        <div className="py-[1rem] px-[2rem] bg-white border border-[#E2E6EE] border-solid text-[#47516B] rounded-[2rem] text-[1.5rem] font-medium leading-[0.8rem]">
+                                          {formatDate(
+                                            experience?.starting_date,
+                                            dateFormatsOptions.shortMonthYear
+                                          )}{" "}
+                                          -{" "}
+                                          {isNaN(
+                                            new Date(
+                                              experience.ending_Date
+                                            ).getFullYear()
+                                          )
+                                            ? experience.ending_Date
+                                            : formatDate(
+                                                experience.ending_Date,
+                                                dateFormatsOptions.shortMonthYear
+                                              )}
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <p
+                                    dangerouslySetInnerHTML={{
+                                      __html: modifiedContent(
+                                        experience?.short_description,
+                                        listOfskills,
+                                        listOfdata
+                                      ),
+                                    }}
+                                    className="mt-[2rem] list-div text-[1.6rem] font-medium text-paragraph1"
+                                  ></p>
+                                  {/* <div
+                                    dangerouslySetInnerHTML={{
+                                      __html: modifiedContent(
+                                        experience?.long_description,
+                                        listOfskills,
+                                        listOfdata
+                                      ),
+                                    }}
+                                    className={`mt-[2rem] offer_main list-div-portfolio text-heading text-[1.4rem] font-normal leading-[150%] list-disc pl-[2rem] flex flex-col gap-[0.8rem] overflow-hidden transition-[max-height] duration-200 ease-in-out ${
+                                      expandedItems[index]
+                                        ? "max-h-[100rem]"
+                                        : "max-h-[19rem]"
+                                    } print:max-h-none`}
+                                  ></div> */}
+
+                                  {/* Skills Badges */}
+                                  <div className="mt-[2.2rem]">
+                                    <h4 className="mb-[1.2rem] ml-[0.2rem] text-[1.5rem] text-primary font-medium my-[1.6rem] ">
+                                      AREAS OF EXPERTISE I'VE WORKED IN
+                                    </h4>
+
+                                    <div className="flex items-center gap-[1rem] lg:gap-[0.7rem] text-nowrap flex-wrap text-[1.2rem]">
+                                      {Object.values(skillsforExpereinces)
+                                        .flat()
+                                        .slice(0, 10)
+                                        .map((skill: SkillType, i: number) => (
+                                          <Link
+                                            href={skill?.url || "#"}
+                                            key={i}
+                                            className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium py-[0.4rem] px-[2rem] bg-white flex items-center print:py-[0.2rem] print:px-[1.5rem] justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
+                                          >
+                                            {skill.title}
+                                          </Link>
+                                        ))}
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        })}
+                  </section>
                 </>
               )}
 
@@ -612,6 +826,10 @@ const CV_p = ({ params }: { params: any }) => {
 
                     return (
                       <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative my-[4rem] print:m-0">
+                        {/* Note and Domain For Each Page */}
+                        <NoteDomainForPint
+                          direction={"hidden print:left-0 print:block"}
+                        />
                         <div
                           className="relative max-w-[1550px] w-full mx-auto px-[4rem]"
                           key={index}
@@ -623,7 +841,7 @@ const CV_p = ({ params }: { params: any }) => {
                             </div>
                           </div>
                           {/* Vertical line */}
-                          <div className="absolute left-[4rem] top-0 w-[1.5px] h-[100%] bg-border" />
+                          <div className="absolute left-[4rem] top-0 w-[1.5px] h-[100%] bg-primary" />
                           <div className="w-full ml-10">
                             <h2 className="text-heading block leading-[3.56rem] text-[3.67rem] font-medium pl-[0.5rem] pt-[3rem] print:p-0 pb-[2rem]">
                               Portfolio
@@ -708,7 +926,7 @@ const CV_p = ({ params }: { params: any }) => {
                                   <div className="flex items-center gap-[1rem] lg:gap-[0.7rem] text-nowrap flex-wrap text-[1.2rem]">
                                     {Object.values(skillsForPortfolios)
                                       .flat()
-                                      .slice(0, 6)
+                                      .slice(0, 5)
                                       .map((skill: SkillType, i: number) => (
                                         <Link
                                           key={i}
@@ -732,6 +950,10 @@ const CV_p = ({ params }: { params: any }) => {
 
               {/* Education and Blog Section Section ✅ */}
               <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative my-[4rem] print:m-0">
+                {/* Note and Domain For Each Page */}
+                <NoteDomainForPint
+                  direction={"hidden print:left-0 print:block"}
+                />
                 <div className="max-w-[1550px] w-full mx-auto px-[4rem]">
                   {/* Education Section */}
                   {listOfdata && listOfdata?.education_ids?.length > 0 && (
@@ -743,7 +965,7 @@ const CV_p = ({ params }: { params: any }) => {
                         </div>
                       </div>
                       {/* Vertical line */}
-                      <div className="absolute left-0 top-0 w-[1.5px] h-[100%] bg-border" />
+                      <div className="absolute left-0 top-0 w-[1.5px] h-[100%] bg-primary" />
                       <div className="w-full ml-10">
                         {/* Title */}
                         <h2 className="text-heading leading-[3.56rem] text-[3.67rem] font-medium pl-[0.5rem] py-[3rem]">
@@ -808,7 +1030,7 @@ const CV_p = ({ params }: { params: any }) => {
                       </div>
                     </div>
                     {/* Vertical line */}
-                    <div className="absolute left-0 top-0 w-[1.5px] h-[100%] bg-border" />
+                    <div className="absolute left-0 top-0 w-[1.5px] h-[100%] bg-primary" />
                     <div className="w-full ml-10">
                       {/* Title */}
                       <h2 className="text-heading leading-[3.56rem] text-[3.67rem] font-medium pl-[0.5rem] py-[3rem]">

@@ -1135,7 +1135,10 @@ const Home = ({ params }: { params: any }) => {
                 {listOfdata && listOfdata?.skills_ids?.length > 0 && (
                   <>
                     {/* Skills Section Completed */}
-                    <div className="mainContainer print:!pt-[4rem] print:my-[0rem] my-[5rem]  print:h-screen print:break-before-page break-before-avoid print:bg-[#a3ddd3]">
+                    <div
+                      id="skillsSection"
+                      className="mainContainer print:!pt-[4rem] print:my-[0rem] my-[5rem]  print:h-screen print:break-before-page break-before-avoid print:bg-[#a3ddd3]"
+                    >
                       {/* Badge */}
                       <div
                         id="skills_ids"

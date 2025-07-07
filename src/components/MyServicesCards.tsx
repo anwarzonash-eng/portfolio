@@ -18,13 +18,13 @@ const MyServicesCards = ({ services }) => {
             >
               {/* Image Container with Hover Effect - Fixed */}
               {service.picture && (
-                <div className="relative h-[17rem] print:h-auto w-full flex items-center justify-center overflow-hidden group">
+                <div className="relative h-[17rem] print:h-[14rem] w-full flex items-center justify-center overflow-hidden group">
                   <Image
                     src={service.picture}
                     alt={service.title || "Service image"}
                     height={150}
                     width={150}
-                    className="object-cover transition-transform duration-500 z-10 group-hover:scale-110 w-[9.8rem] h-[9.8rem] rounded-full"
+                    className="object-cover transition-transform duration-500 z-10 group-hover:scale-110 w-[9.8rem] h-[9.8rem] print:object-center rounded-full"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
                       target.style.display = "none";
@@ -41,14 +41,14 @@ const MyServicesCards = ({ services }) => {
               {/* Rest of your content remains the same */}
               <div className="p-6 print:p-3">
                 {/* Title */}
-                <h3 className="font-bold text-[2rem] text-white mb-3 line-clamp-2">
+                <h3 className="font-bold text-[2rem] print:font-semibold print:text-[1.3rem] text-white mb-3 line-clamp-2 print:text-nowrap">
                   {service?.title}
                 </h3>
 
                 {/* Tagline */}
                 <p
                   dangerouslySetInnerHTML={{ __html: truncatedTagline }}
-                  className="text-gray-300 text-[1.3rem] mb-6 print:mb-3 line-clamp-3 print:line-clamp-2 leading-relaxed"
+                  className="text-gray-300 text-[1.3rem] mb-6 print:mb-3 line-clamp-3 print:line-clamp-2 leading-relaxed print:text-[1.2rem]"
                 />
 
                 {/* CTA Button */}

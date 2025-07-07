@@ -20,8 +20,10 @@ const SkillsContainerPrint: React.FC<SkillsContainerPrintProps> = ({
   list,
   layoutType = false,
 }) => {
+  console.log("List", list);
+
   // Show only a fixed number of items for large/print screen
-  const initialVisibleItems = 3 * 6;
+  const initialVisibleItems = 4 * 2;
 
   // Slice the list to show only the relevant skills
   const visibleSkills = list?.slice(0, initialVisibleItems) || [];
@@ -47,7 +49,7 @@ const SkillsContainerPrint: React.FC<SkillsContainerPrintProps> = ({
                 className="mx-auto mb-[4rem] flex items-center justify-center flex-col gap-[0.8rem] max-w-[12rem] w-full animate-fadeIn opacity-0 bg-red500"
               >
                 {skill.icon && (
-                  <div className="flex items-center justify-center rounded-full h-[8rem] w-[8rem] print:h-[7rem] print:w-[7rem]">
+                  <div className="flex items-center justify-center rounded-full h-[8rem] w-[8rem] print:h-[5rem] print:w-[5rem]">
                     <Image
                       src={skill.icon}
                       alt={skill.title}

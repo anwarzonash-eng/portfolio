@@ -19,18 +19,14 @@ import { reportsApiHandler } from "@/hooks/apihandlers/reportsApiHandlers";
 import { handleSkillsApiCall } from "@/hooks/apihandlers/skillsApiHandlers";
 import { store, useAppSelector } from "@/store";
 import { setProfileLoading, setProfileUrlInfo } from "@/store/profileSlice";
-import { downloadFile } from "@/hooks/downloadFile";
 import OurBlogs from "@/components/OurBlogs";
-import Newsletter from "@/components/Newsletter";
 import PageRendering from "@/components/PageRendering";
 import { scrollToSection } from "@/hooks/scrollToSection";
-import SkillsContainer from "@/components/SkillsContainer";
 import { skillsGrouping } from "@/hooks/skillsGrouping";
-import ShowmoreSkills from "@/components/showmoreSkills";
 import { useMediaQuery } from "react-responsive";
-import Header from "@/components/layouts/header/page";
 import SkillsContainerPrint from "@/components/SkillsContainerPrint";
 import HomeSliderPrint from "@/components/Sliders/HomeSliderPrint";
+import NoteDomainForPint from "../../../NoteDomainForPint";
 
 const Home_p = ({ params }: { params: any }) => {
   useBodyBackgroundColor("#f8f9fa");
@@ -43,7 +39,6 @@ const Home_p = ({ params }: { params: any }) => {
   const skillsContainerRef = useRef(null);
   const [isOverflowing, setIsOverflowing] = useState(false);
   const isSmallScreen = useMediaQuery({ query: "(max-width: 768px)" });
-  const [showAll, setShowAll] = useState(false);
   const [showAllExperiences, setShowAllExperiences] = useState(false);
   const listOfdatas = useAppSelector(
     (state) => state.profile.listOfProfileData
@@ -107,7 +102,11 @@ const Home_p = ({ params }: { params: any }) => {
               <>
                 <FreeTrialPopup listOfdata={listOfdata} urlInfo={urlInfo} />
                 {/* Welcome ✅ */}
-                <section className="h-screen print:section bg-bannerBG !w-full  print:FlexWrapContainer flex items-center justify-center">
+                <section className="h-screen print:section bg-bannerBG !w-full  print:FlexWrapContainer flex items-center justify-center relative">
+                  {/* Note and Domain For Each Page */}
+                  <NoteDomainForPint
+                    direction={"hidden print:left-0 print:block"}
+                  />
                   <div className="max-w-[1550px] w-full mx-auto flex items-center justify-center">
                     <div className="text-center">
                       <div className="items-center justify-strat gap-[4rem] flex w-full">
@@ -133,7 +132,7 @@ const Home_p = ({ params }: { params: any }) => {
                           </div>
                         </div>
                       </div>
-                      <div className="flex items-center gap-[2.1rem] mt-[4rem] mb-[0.8rem]">
+                      <div className="flex items-center gap-[2rem] mt-[2rem] mb-[0.8rem] justify-center">
                         <WorkProofLinks
                           props={{
                             upwork: listOfdata?.upwork,
@@ -156,6 +155,10 @@ const Home_p = ({ params }: { params: any }) => {
 
                 {/* Hero Section ✅ */}
                 <div className="print:h-screen print:section bg-bannerBG !w-full overflow-hidden relative">
+                  {/* Note and Domain For Each Page */}
+                  <NoteDomainForPint
+                    direction={"hidden print:left-0 print:block"}
+                  />
                   {/* Hero Section  */}
                   <div className="max-w-[1550px] w-full mx-auto px-[4rem]">
                     <div className="text-center mt-[3rem] print:mt-0 print:pt-[3rem]">
@@ -287,7 +290,11 @@ const Home_p = ({ params }: { params: any }) => {
                 </div>
 
                 {/* About Section for print ✅ */}
-                <section className="h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center p-[4rem] mt-20 print:mt-0">
+                <section className="h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center p-[4rem] mt-20 print:mt-0 relative">
+                  {/* Note and Domain For Each Page */}
+                  <NoteDomainForPint
+                    direction={"hidden print:right-0 print:block"}
+                  />
                   {/* Container Div for print*/}
                   <div className="max-w-[1550px] w-full mx-auto flex items-center justify-center gap-[2rem]">
                     {/* Container For Image and Badges */}
@@ -499,7 +506,11 @@ const Home_p = ({ params }: { params: any }) => {
                 {listOfdata && listOfdata?.skills_ids?.length > 0 && (
                   <>
                     {/* Skills Section Completed ✅ */}
-                    <section className="px-[4rem] my-[5rem] print:h-screen print:section flex items-center justify-center">
+                    <section className="px-[4rem] my-[5rem] print:h-screen print:section flex items-center justify-center relative">
+                      {/* Note and Domain For Each Page */}
+                      <NoteDomainForPint
+                        direction={"hidden print:left-0 print:block"}
+                      />
                       <div className="max-w-[1550px] w-full mx-auto">
                         {/* Badge */}
                         <div
@@ -519,6 +530,18 @@ const Home_p = ({ params }: { params: any }) => {
                           list={listOfdata?.skills_ids}
                           layoutType={false}
                         />
+                        <div className="flex items-center justify-center">
+                          <Link
+                            // href={`https://www.${listOfdatas.domain}/#skillsSection`}
+                            href="/#skillsSection"
+                            target="_blank"
+                            className={
+                              "bg-primary text-white py-[0.4rem] px-[2rem] border border-primary border-solid hover:text-primary hover:bg-white rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
+                            }
+                          >
+                            Show More Skills
+                          </Link>
+                        </div>
                       </div>
                     </section>
                   </>
@@ -532,9 +555,20 @@ const Home_p = ({ params }: { params: any }) => {
                       className="
                       w-full bg-sectionBG my-[5rem] print:m-0
                       print:break-before-page flex items-center justify-center
-                      print:h-screen print:section print:FlexWrapContainer
-                    "
+                      print:h-screen print:section print:FlexWrapContainer relative"
                     >
+                      {/* Note and Domain For Each Page */}
+                      <div className="absolute hidden print:block top-10 px-10  print:left-0">
+                        <Link
+                          className="text-white font-medium text-[2rem] underline ml-2"
+                          href={`https://www.${listOfdatas.domain}`}
+                        >
+                          {listOfdatas.domain}
+                        </Link>
+                        <p className="text-primary font-medium px-4 py-1 text-[1.6rem] rounded-[100px] bg-white">
+                          Note: All The Buttons are Clickable
+                        </p>
+                      </div>
                       <div
                         className="max-w-[1550px] w-full mx-auto 
                         px-[4rem] py-[5rem] print:py-0"
@@ -566,7 +600,11 @@ const Home_p = ({ params }: { params: any }) => {
                   listOfdata.portfolios_ids.length > 0 && (
                     <>
                       {/* My Work Section Slider ✅ */}
-                      <section className="h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center p-[4rem]">
+                      <section className="h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center p-[4rem] relative">
+                        {/* Note and Domain For Each Page */}
+                        <NoteDomainForPint
+                          direction={"hidden print:left-0 print:block"}
+                        />
                         <div className="max-w-[1550px] w-full mx-auto">
                           {/* Badge */}
                           <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto">
@@ -592,7 +630,11 @@ const Home_p = ({ params }: { params: any }) => {
                   listOfdata.experiences_ids.length > 0 && (
                     <>
                       {/* Professional Experience Timeline Section ✅ */}
-                      <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center p-[4rem]">
+                      <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center p-[4rem] relative">
+                        {/* Note and Domain For Each Page */}
+                        <NoteDomainForPint
+                          direction={"hidden print:left-0 print:block"}
+                        />
                         <div className="max-w-[1550px] w-full mx-auto">
                           {/* Badge */}
                           <div
@@ -811,15 +853,6 @@ const Home_p = ({ params }: { params: any }) => {
                                                               </span>
                                                             ))}
                                                         </div>
-
-                                                        {/* <ShowmoreSkills
-                                                            props={{
-                                                              list: experience?.skills,
-                                                              index,
-                                                              setShowMoreSkills,
-                                                              showMoreSkills,
-                                                            }}
-                                                          /> */}
                                                       </div>
                                                     </div>
                                                   )}
@@ -830,22 +863,244 @@ const Home_p = ({ params }: { params: any }) => {
                                       </>
                                     );
                                   })}{" "}
-                              {/* {listOfdata.experiences_ids.length > 3 && (
-                                  <div className="flex justify-center mt-8 print_hidden">
-                                    <button
-                                      onClick={() =>
-                                        setShowAllExperiences(
-                                          !showAllExperiences
-                                        )
-                                      }
-                                      className="btn-primary text-white py-[1rem] px-[3.4rem] text-[1.8rem] font-medium"
-                                    >
-                                      {showAllExperiences
-                                        ? "Show Less" 
-                                        : "View Full Career Timeline"}
-                                    </button>
-                                  </div>
-                                )} */}
+                            </div>
+                          </div>
+                        </div>
+                      </section>
+
+                      <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center p-[4rem] relative">
+                        {/* Note and Domain For Each Page */}
+                        <NoteDomainForPint
+                          direction={"hidden print:left-0 print:block"}
+                        />
+                        <div className="max-w-[1550px] w-full mx-auto">
+                          {/* Timeline */}
+                          <div className="max-w-[1550px] w-full mx-auto px-[4rem] flex items-center justify-center mt-[2rem] print:m-0 ">
+                            <div className="relative print:flex flex-col gap-4">
+                              {/* Vertical line */}
+                              <div className="absolute left-[10rem] top-[3rem] print:top-[5rem] w-[0.4rem] h-[calc(100%-78px)] bg-primary mx-[2.1rem]" />
+                              {listOfdata?.experiences_ids &&
+                                [...listOfdata.experiences_ids]
+                                  ?.sort((a, b) => {
+                                    const yearA = new Date(
+                                      a.ending_Date
+                                    ).getFullYear();
+                                    const yearB = new Date(
+                                      b.ending_Date
+                                    ).getFullYear();
+
+                                    if (yearA !== yearB) {
+                                      return yearB - yearA;
+                                    }
+
+                                    const monthA = new Date(
+                                      a.ending_Date
+                                    ).getMonth();
+                                    const monthB = new Date(
+                                      b.ending_Date
+                                    ).getMonth();
+
+                                    return monthB - monthA;
+                                  })
+                                  ?.slice(
+                                    2,
+                                    showAllExperiences
+                                      ? listOfdata.experiences_ids.length
+                                      : 4
+                                  )
+                                  ?.map((experience, index) => {
+                                    const skillsforExpereince: {
+                                      [key: string]: {
+                                        title: string;
+                                        url?: string;
+                                        order?: string;
+                                        icon?: string;
+                                      }[];
+                                    } = skillsGrouping(
+                                      showMoreSkills[index]
+                                        ? experience?.skills
+                                        : experience?.skills?.slice(0, 15)
+                                    );
+                                    return (
+                                      <>
+                                        {/* Timeline items Container */}
+                                        <div className="space-y-[3rem] space-x-[9rem]">
+                                          {/* Date and divider */}
+                                          <div
+                                            className="mb-auto ml-auto print:mt-[3rem] absolute left-[-1.5rem]
+                                           z-10 text-[1.6rem] text-paragraph1 capitalize 
+                                           flex-col flex gap-1"
+                                          >
+                                            <span>
+                                              From:{" "}
+                                              {formatDate(
+                                                experience.starting_date,
+                                                dateFormatsOptions.shortMonthYear
+                                              )}
+                                            </span>
+
+                                            <span>
+                                              To:{" "}
+                                              {isNaN(
+                                                new Date(
+                                                  experience.ending_Date
+                                                ).getFullYear()
+                                              )
+                                                ? experience.ending_Date
+                                                : formatDate(
+                                                    experience.ending_Date,
+                                                    dateFormatsOptions.shortMonthYear
+                                                  )}
+                                            </span>
+                                          </div>
+                                          {/* Timeline item */}
+                                          <>
+                                            <div className="relative flex items-start">
+                                              {/* Dot */}
+                                              <div className="absolute top-0 left-[2rem] block">
+                                                <div className="w-[2.6rem] h-[2.6rem] bg-white rounded-full flex items-center shadow-md justify-center">
+                                                  <div className="w-[0.7rem] h-[0.7rem] bg-heading rounded-full"></div>
+                                                </div>
+                                              </div>
+                                              {/* Card */}
+                                              <div className="bg-white p-[2.4rem] rounded-[1rem] shadow ml-[6rem] w-full">
+                                                <div className="flex items-center flex-wrap text-nowrap gap-[1.5rem] md:justify-between">
+                                                  {/* About Content */}
+                                                  <div className="flex gap-[1rem]">
+                                                    {experience?.thumbnail && (
+                                                      <div className="h-[4.2rem] w-[4.2rem] lg:h-[4.9rem] lg:w-[4.9rem] bg-[#D1E9FF] rounded-[0.4rem] flex items-center justify-center">
+                                                        <Image
+                                                          src={
+                                                            experience?.thumbnail
+                                                          }
+                                                          height={32}
+                                                          width={32}
+                                                          alt="Logo Mark"
+                                                        />
+                                                      </div>
+                                                    )}
+                                                    <div>
+                                                      <p className="text-[1.4rem] lg:text-[1.6rem] font-normal text-paragraph1">
+                                                        {
+                                                          experience?.company_name
+                                                        }
+                                                      </p>
+                                                      <h3 className="text-[1.6rem] lg:text-[1.8rem] font-medium text-heading">
+                                                        {experience?.title}
+                                                      </h3>
+                                                    </div>
+                                                  </div>
+                                                </div>
+
+                                                <p
+                                                  className="mt-[2rem] list-div text-[1.6rem] font-medium text-paragraph1 line-clamp-3"
+                                                  dangerouslySetInnerHTML={{
+                                                    __html: modifiedContent(
+                                                      experience?.short_description,
+                                                      listOfskills,
+                                                      listOfdata
+                                                    ),
+                                                  }}
+                                                ></p>
+
+                                                {experience?.skills &&
+                                                  experience?.skills.length >
+                                                    0 && (
+                                                    <div className="w-full">
+                                                      <h4 className=" text-[1.5rem] text-primary font-medium my-[1.6rem] ">
+                                                        AREAS OF EXPERTISE I'VE
+                                                        WORKED IN
+                                                      </h4>
+                                                      <div className="w-full flex-col items-start flex gap-5">
+                                                        <div className="flex print:hidden items-center gap-[1rem] lg:gap-[0.7rem]   text-nowrap flex-wrap text-[1.2rem]">
+                                                          {Object?.values(
+                                                            skillsforExpereince
+                                                          )?.map(
+                                                            (
+                                                              group,
+                                                              groupIndex
+                                                            ) => (
+                                                              <React.Fragment
+                                                                key={groupIndex}
+                                                              >
+                                                                {group.map(
+                                                                  (
+                                                                    skill,
+                                                                    i
+                                                                  ) => {
+                                                                    const skillNumber = `${
+                                                                      groupIndex +
+                                                                      1
+                                                                    }.${i + 1}`;
+                                                                    return (
+                                                                      <Link
+                                                                        href={
+                                                                          skill.url ||
+                                                                          "#"
+                                                                        }
+                                                                        legacyBehavior
+                                                                        key={`${groupIndex}-${i}`}
+                                                                      >
+                                                                        <a
+                                                                          target="_blank"
+                                                                          rel="noopener noreferrer"
+                                                                          style={{
+                                                                            animationDelay: `${
+                                                                              i *
+                                                                              0.1
+                                                                            }s`,
+                                                                          }}
+                                                                          className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium py-[0.4rem] px-[2rem] bg-white flex items-center print:py-[0.2rem] print:px-[1.5rem] justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
+                                                                        >
+                                                                          {
+                                                                            skill?.title
+                                                                          }
+                                                                        </a>
+                                                                      </Link>
+                                                                    );
+                                                                  }
+                                                                )}
+                                                              </React.Fragment>
+                                                            )
+                                                          )}
+                                                        </div>
+
+                                                        <div className="hidden print:flex print:flex-wrap print:gap-[0.5rem]">
+                                                          {Object.values(
+                                                            skillsforExpereince
+                                                          )
+                                                            .flat()
+                                                            .slice(0, 6)
+                                                            .map((skill, i) => (
+                                                              <span
+                                                                key={`print-skill-${i}`}
+                                                                className="capitalize text-primary text-[1.1rem] font-medium py-[0.2rem] px-[1.2rem] bg-white rounded-[5rem] border border-[#757575] print:border-gray-300 print:shadow-none"
+                                                              >
+                                                                {skill?.title}
+                                                              </span>
+                                                            ))}
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                  )}
+                                              </div>
+                                            </div>
+                                          </>
+                                        </div>{" "}
+                                      </>
+                                    );
+                                  })}{" "}
+                              <div className="flex items-center justify-center mt-5">
+                                <Link
+                                  href={`https://www.${listOfdatas.domain}/#skillsSection`}
+                                  target="_blank"
+                                  className={
+                                    "bg-primary text-white py-[0.4rem] px-[2rem] border border-primary border-solid hover:text-primary hover:bg-white rounded-[0.5rem] text-[1.8rem] font-medium leading-normal"
+                                  }
+                                >
+                                  View Full Career Timeline
+                                </Link>
+                              </div>
                             </div>
                           </div>
                         </div>

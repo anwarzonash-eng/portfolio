@@ -3,6 +3,7 @@ import { scrollToSection } from "@/hooks/scrollToSection";
 import { usePathname } from "next/navigation";
 import React from "react";
 import { useState, useEffect } from "react";
+import NoteDomainForPint from "./NoteDomainForPint";
 
 const Faqs = ({ urlInfo, companyType }) => {
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
@@ -51,7 +52,9 @@ const Faqs = ({ urlInfo, companyType }) => {
     <>
       {forcePrintStyles ? (
         <>
-          <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center p-[4rem]">
+          <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center p-[4rem] relative">
+            {/* Note and Domain For Each Page */}
+            <NoteDomainForPint direction={"hidden print:right-0 print:block"} />
             {/* Faq Container */}
             <div className="max-w-[1550px] w-full mx-auto">
               <h2 className="text-[4rem] font-medium text-heading print:mb-4">
