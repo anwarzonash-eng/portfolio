@@ -174,8 +174,9 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
                                 width={800}
                                 className="h-[300px] w-full object-cover rounded-[1.2rem] border border-solid border-border cursor-pointer"
                                 onError={(e) => {
-                                  e.target.onerror = null; // prevent infinite loop if fallback fails
-                                  e.target.src =
+                                  const target = e.target as HTMLImageElement;
+                                  target.onerror = null; // prevent infinite loop if fallback fails
+                                  target.src =
                                     "https://images.unsplash.com/photo-1542393545-10f5cde2c810?q=80&w=465&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
                                 }}
                               />
