@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import "@/styles/printStyles/cv_p.css";
+import "@/styles/printStyles/cvPortrait.css";
 import useBodyBackgroundColor from "@/hooks/useBodyBackgroundColor";
 import { formatDate } from "@/hooks/formatdate";
 import { modifiedContent } from "@/hooks/modifiedContent";
@@ -38,7 +38,7 @@ type SkillType = {
   url?: string;
   // add other properties if they exist
 };
-const CV_p = ({ params }: { params: any }) => {
+const CV_Portrait = ({ params }: { params: any }) => {
   const searchParams = useSearchParams();
   const [urlInfo, setURLInfo] = useState(null);
   const [listOfdata, setListOfData] = useState(null);
@@ -1122,4 +1122,4 @@ const CV_p = ({ params }: { params: any }) => {
     </>
   );
 };
-export default CV_p;
+export default CV_Portrait;

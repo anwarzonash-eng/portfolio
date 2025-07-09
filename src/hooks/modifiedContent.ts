@@ -1,4 +1,4 @@
-import { getColors } from './colors';
+import { getColors } from "./colors";
 
 export function modifiedContent(content, skillsList, listOfdata) {
   const colors = getColors(listOfdata);
@@ -24,7 +24,7 @@ export function modifiedContent(content, skillsList, listOfdata) {
       } else {
         modifiedText = `<span class="modifiedText">${cleanedMatch}</span>`;
       }
-      if (match.startsWith(' ') || match.endsWith(' ')) {
+      if (match.startsWith(" ") || match.endsWith(" ")) {
         modifiedText = ` ${modifiedText} `;
       }
 

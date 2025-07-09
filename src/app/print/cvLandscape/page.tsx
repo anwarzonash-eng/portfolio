@@ -1,9 +1,9 @@
 "use client";
-import CV_p from "@/components/pages/print/cvF";
+import CV_Landscape from "@/components/pages/print/cvLandscape";
 import React from "react";
 
 const cv = ({ params }: { params: any }) => {
-  return <CV_p params={params} />;
+  return <CV_Landscape params={params} />;
 };
 
 export default cv;

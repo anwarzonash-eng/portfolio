@@ -68,7 +68,8 @@ export default function ChildWrapper({
   const hideHeaderFooterPaths = [
     "/print/homeF",
     "/print/portfolioF",
-    "/print/cvF",
+    "/print/cvPortrait",
+    "/print/cvLandscape",
   ];
 
   const isHiddenPaths =

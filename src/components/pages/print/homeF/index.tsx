@@ -530,17 +530,19 @@ const Home_p = ({ params }: { params: any }) => {
                           list={listOfdata?.skills_ids}
                           layoutType={false}
                         />
+
                         <div className="flex items-center justify-center">
-                          <Link
-                            // href={`https://www.${listOfdatas.domain}/#skillsSection`}
-                            href="/#skillsSection"
+                          {/* href={`https://www.${listOfdatas.domain}/#skillsSection`} */}
+                          {/* href="/#skillsSection" */}
+                          <a
+                            href="https://www.youtube.com/"
                             target="_blank"
                             className={
                               "bg-primary text-white py-[0.4rem] px-[2rem] border border-primary border-solid hover:text-primary hover:bg-white rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
                             }
                           >
                             Show More Skills
-                          </Link>
+                          </a>
                         </div>
                       </div>
                     </section>
