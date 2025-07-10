@@ -323,10 +323,12 @@ body {
 
 .line-clamp {
   -webkit-line-clamp: 1;
+  line-clamp: 1;
 }
 
 .line-clampforTagline1 {
   -webkit-line-clamp: 1;
+  line-clamp: 1;
 }
 
 .modalCloseButtonforCustomOffer button svg path {

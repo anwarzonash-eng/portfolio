@@ -312,9 +312,6 @@ const CV_Portrait = ({ params }: { params: any }) => {
                 </div>
               </section>
 
-              {/* Vertical line */}
-              {/* <div className="absolute left-0 top-0 w-[1.5px] h-[100%] bg-primary" /> */}
-
               {/* Overview Section ✅ */}
               {listOfdata?.skills && (
                 <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative my-[4rem] print:m-0">
@@ -615,6 +612,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
                   </section>
                 </>
               )}
+
               {listOfdata && listOfdata?.experiences_ids?.length > 0 && (
                 <>
                   <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center flex-col overflow-hidden relative my-[4rem] print:m-0">
