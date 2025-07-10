@@ -427,7 +427,7 @@ const CV_Landscape = ({ params }: { params: any }) => {
                                                       alt={skill?.title}
                                                       height={64}
                                                       width={64}
-                                                      className="object-contain rounded-full 
+                                                      className="object-contain rounded-full
                                                       h-[6.4rem] w-[6.4rem]"
                                                     />
                                                   </div>

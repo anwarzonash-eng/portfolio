@@ -195,7 +195,7 @@ const ContactMe = ({ listOfdata }) => {
     <>
       <div
         id="contact"
-        className="flex print:break-before-page items-center justify-center flex-wrap lg:flex-nowrap bg-footerMobile md:bg-footerDesktop bg-no-repeat print:w-full bg-left-top ultra2x:border-[1.5rem] ultra2x:border-white bg-cover rounded-[1rem] relative  p-[1rem] sm:p-[2rem] gap-[2.4rem] shadow-lg"
+        className="flex print:break-before-page items-center justify-center flex-wrap lg:flex-nowrap bg-footerMobile md:bg-footerDesktop bg-no-repeat print:bg-none print:w-full bg-left-top ultra2x:border-[1.5rem] ultra2x:border-white print:border-none bg-cover rounded-[1rem] relative  p-[1rem] sm:p-[2rem] gap-[2.4rem] shadow-lg print:shadow-none"
       >
         {/* Contact Form */}
         <Formik
@@ -484,13 +484,13 @@ const ContactMe = ({ listOfdata }) => {
                         onClick={(e) => openChat(e)}
                         className="text-primary font-bold text-lg"
                       >
-                        <div className="h-[4rem] w-[4rem] bg-[#22357b] rounded-lg flex items-center justify-center">
+                        <div className="h-[4rem] w-[4rem] bg-[#22357b] rounded-lg relative">
                           <Image
                             alt=""
                             src="/images/chatNowIcon.svg"
                             width={100}
                             height={100}
-                            className="h-[3rem] w-[3rem] "
+                            className="h-[3rem] w-[3rem] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
                           />
                         </div>
                       </button>

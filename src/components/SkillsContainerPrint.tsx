@@ -14,16 +14,18 @@ type SkillType = {
 interface SkillsContainerPrintProps {
   list: SkillType[] | undefined | null;
   layoutType: any | undefined | null;
+  initialVisibleItems: any | undefined | null;
 }
 
 const SkillsContainerPrint: React.FC<SkillsContainerPrintProps> = ({
   list,
   layoutType = false,
+  initialVisibleItems,
 }) => {
   console.log("List", list);
 
   // Show only a fixed number of items for large/print screen
-  const initialVisibleItems = 4 * 2;
+  // const initialVisibleItems = 4 * 2;
 
   // Slice the list to show only the relevant skills
   const visibleSkills = list?.slice(0, initialVisibleItems) || [];

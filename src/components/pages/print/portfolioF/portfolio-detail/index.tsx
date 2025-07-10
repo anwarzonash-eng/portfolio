@@ -178,7 +178,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
                       </p>
                     </div>
                     {/* Heading */}
-                    <h1 className="text-[6rem] leading-[5rem] mt-[1.6rem] text-nowrap text-center">
+                    <h1 className="text-[5rem] leading-[5rem] mt-[1.6rem] text-center">
                       {portfolioDetails?.title}
                     </h1>
                   </div>
@@ -409,6 +409,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
                   <SkillsContainerPrint
                     list={portfolioDetails?.skills}
                     layoutType={true}
+                    initialVisibleItems={8}
                   />
                 </div>
                 {/* Slider  Sections ✅ */}

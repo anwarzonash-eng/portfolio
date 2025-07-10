@@ -164,7 +164,7 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
                       {/* Card */}
                       <div className="flex items-center justify-center p-[1.5rem] bg-white shadow-testimonialeShadow ">
                         {/* Content */} {/* Title and Description */}
-                        <div className="flex flex-col w-full gap-3 items-center justify-center">
+                        <div className="flex flex-col w-full gap-3">
                           {portfolio?.thumbnail && (
                             <div className="w-full rounded-[1.2rem]">
                               <img
@@ -202,41 +202,28 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
                                   listOfdata
                                 ),
                               }}
-                              className="mt-[2rem] list-div-portfolio1 pl-[2rem]"
+                              className="mt-[2rem] list-div-portfolio1 pl-[2rem] line-clamp-5"
                             ></p>
                             <h4 className="text-heading text-[1.2rem] font-medium mb-[1.2rem] ml-[0.2rem]">
                               AREAS OF EXPERTISE I'VE WORKED IN
                             </h4>
                             <div className="flex items-center gap-[1rem] mt-3 lg:gap-[0.7rem] flex-wrap text-[1.2rem] w-full">
-                              {Object?.values(skills)?.map(
-                                (group, groupIndex) => (
-                                  <React.Fragment key={groupIndex}>
-                                    {group.map((skill, i) => (
-                                      <Link
-                                        key={i}
-                                        href={skill.url || "#"}
-                                        target="_blank"
-                                        className="hover:bg-primary hover:text-white py-[0.4rem] print:py-[0.1rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
-                                      >
-                                        {skill.title}
-                                      </Link>
-                                    ))}
-                                    {/* Line break after each group */}
-                                    {showMoreSkills[index] && (
-                                      <div className="w-full mb-[1px]" />
-                                    )}
-                                  </React.Fragment>
-                                )
-                              )}
-
-                              <ShowmoreSkills
-                                props={{
-                                  list: portfolio?.skills,
-                                  index,
-                                  setShowMoreSkills,
-                                  showMoreSkills,
-                                }}
-                              />
+                              {Object.values(skills)
+                                .flat()
+                                .slice(0, 9)
+                                .map((skill, index) => (
+                                  <Link
+                                    key={index}
+                                    href={skill.url || "#"}
+                                    target="_blank"
+                                    className="hover:bg-primary hover:text-white py-[0.4rem] print:py-[0.1rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
+                                  >
+                                    {skill.title}
+                                  </Link>
+                                ))}
+                              <button className="bg-primary text-white py-[0.4rem] px-[2rem] border border-primary border-solid hover:text-primary hover:bg-white rounded-[1.8rem] text-[1.4rem] font-medium leading-normal">
+                                Show More Skills
+                              </button>
                             </div>
                             <hr className="w-full my-[2.4rem] h-px bg-border print:hidden" />
                             {/* Links */}

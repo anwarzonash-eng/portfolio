@@ -48,7 +48,7 @@ const OurBlogs = ({ domain }) => {
   return (
     <>
       {!urlInfo?.u && forcePrintStyles && (
-        <section className="bg-transparent h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center p-[4rem] relative">
+        <section className="bg-transparent h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center p-[4rem] relative print:bg-footerDesktop bg-center bg-cover ">
           <NoteDomainForPint direction={"hidden print:right-0 print:block"} />
           <div className="max-w-[1550px] w-full mx-auto flex items-center justify-center">
             <ContactMe listOfdata={listOfdata} />
@@ -56,8 +56,8 @@ const OurBlogs = ({ domain }) => {
         </section>
       )}
       <section className="mainContainer print:m-0  print:pt-[1.5rem] h-screen print:section !w-full print:FlexWrapContainer flex justify-center flex-col">
-        <div className="hidden print:block relative mb-20">
-          <NoteDomainForPint direction={"hidden print:right-0 print:block"} />
+        <div className="hidden print:block relative mb-36">
+          <NoteDomainForPint direction={"left-0"} />
         </div>
 
         {/* Top Content */}
@@ -66,11 +66,11 @@ const OurBlogs = ({ domain }) => {
             <p className="text-sectionBG print:hidden text-[1.6rem] leading-[2.4rem] font-medium">
               Our blog
             </p>
-            <h3 className="text-heading text-[3.6rem] print:text-[2rem]  leading-[4.4rem] font-medium mt-[1.2rem] print:m-0">
+            <h3 className="text-heading text-[3.6rem] leading-[4.4rem] font-medium mt-[1.2rem] print:m-0">
               My Latest Blogs
             </h3>
           </div>
-          <div className="w-full sm:w-auto flex justify-center print:hidden">
+          <div className="w-full sm:w-auto flex justify-center">
             <Link href={"/blog-listing"}>
               <button
                 className="btn-primary text-white py-[1rem] 

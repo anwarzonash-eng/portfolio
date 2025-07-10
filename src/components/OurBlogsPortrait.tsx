@@ -45,10 +45,20 @@ const OurBlogsPortrait = ({ domain }) => {
         <NoteDomainForPint direction={"hidden print:left-0 print:block"} />
         <div className="w-full px-[4rem]">
           {/* Top Content */}
-          <div className="flex justify-between flex-wrap items-end sm:items-center gap-[2rem] mb-[4rem] print:mb-[2rem]">
+          <div className="flex justify-between flex-wrap items-end sm:items-center gap-[2rem] my-[4rem] print:my-[2rem]">
             <h3 className="text-heading text-[3.6rem] print:text-[2rem]  leading-[4.4rem] font-medium mt-[1.2rem] print:m-0">
               My Latest Blogs
             </h3>
+            <div className="w-full sm:w-auto flex justify-center">
+              <Link href={"/blog-listing"}>
+                <button
+                  className="btn-primary text-white py-[1rem] 
+                px-[3.4rem] text-[1.8rem] font-medium"
+                >
+                  View All Blogs
+                </button>
+              </Link>
+            </div>
           </div>
 
           <PageRendering
@@ -168,7 +178,7 @@ const OurBlogsPortrait = ({ domain }) => {
       </section>
       {/* Contact Form Section */}
       {!urlInfo?.u && (
-        <section className="bg-transparent print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center mt-20 print:m-0 relative">
+        <section className="bg-transparent print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center mt-20 print:m-0 relative print:bg-footerDesktop bg-cover bg-center">
           {/* Note and Domain For Each Page */}
           <NoteDomainForPint direction={"hidden print:left-0 print:block"} />
           <div className="w-full px-[4rem]">

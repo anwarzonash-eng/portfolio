@@ -499,6 +499,12 @@ const Home_p = ({ params }: { params: any }) => {
                           </div>
                         )}
                       </div>
+                      <Link href={"/cv"}>
+                        <button className="w-full md:max-w-max btn-primary rounded-[0.6rem] text-white py-[2rem] px-[5.6rem] text-[1.8rem] font-medium border border-solid border-custom">
+                          {" "}
+                          View CV Online
+                        </button>
+                      </Link>
                     </div>
                   </div>
                 </section>
@@ -529,20 +535,22 @@ const Home_p = ({ params }: { params: any }) => {
                         <SkillsContainerPrint
                           list={listOfdata?.skills_ids}
                           layoutType={false}
+                          initialVisibleItems={12}
                         />
 
                         <div className="flex items-center justify-center">
                           {/* href={`https://www.${listOfdatas.domain}/#skillsSection`} */}
                           {/* href="/#skillsSection" */}
-                          <a
+                          {/* <a
                             href="https://www.youtube.com/"
                             target="_blank"
-                            className={
-                              "bg-primary text-white py-[0.4rem] px-[2rem] border border-primary border-solid hover:text-primary hover:bg-white rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
-                            }
+                            
                           >
                             Show More Skills
-                          </a>
+                          </a> */}
+                          <button className="px-[4rem] py-[1.4rem]  bg-primary rounded-[2.2rem] hover:bg-white hover:text-primary hover:border-primary border border-border border-solid text-center max-w-max text-white text-[1.4rem] font-medium font-Inter leading-tight mx-auto">
+                            See More Skills
+                          </button>
                         </div>
                       </div>
                     </section>
@@ -741,34 +749,83 @@ const Home_p = ({ params }: { params: any }) => {
                                               <div className="bg-white p-[2.4rem] rounded-[1rem] shadow ml-[6rem] w-full">
                                                 <div className="flex items-center flex-wrap text-nowrap gap-[1.5rem] md:justify-between">
                                                   {/* About Content */}
-                                                  <div className="flex gap-[1rem]">
-                                                    {experience?.thumbnail && (
-                                                      <div className="h-[4.2rem] w-[4.2rem] lg:h-[4.9rem] lg:w-[4.9rem] bg-[#D1E9FF] rounded-[0.4rem] flex items-center justify-center">
-                                                        <Image
-                                                          src={
-                                                            experience?.thumbnail
+                                                  <div className="flex gap-[1rem] items-center  w-full justify-between">
+                                                    <div className="flex items-center gap-2">
+                                                      {experience?.thumbnail && (
+                                                        <div className="h-[4.9rem] w-[4.9rem] bg-[#D1E9FF] rounded-[0.4rem] relative">
+                                                          <Image
+                                                            src={
+                                                              experience?.thumbnail
+                                                            }
+                                                            height={32}
+                                                            width={32}
+                                                            alt="Logo Mark"
+                                                            className="h-[3.2rem] w-[3.2rem] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                                                          />
+                                                        </div>
+                                                      )}
+                                                      <div>
+                                                        <p className="text-[1.4rem] lg:text-[1.6rem] font-normal text-paragraph1">
+                                                          {
+                                                            experience?.company_name
                                                           }
-                                                          height={32}
-                                                          width={32}
-                                                          alt="Logo Mark"
-                                                        />
+                                                        </p>
+                                                        <h3 className="text-[1.6rem] lg:text-[1.8rem] font-medium text-heading">
+                                                          {experience?.title}
+                                                        </h3>
                                                       </div>
-                                                    )}
-                                                    <div>
-                                                      <p className="text-[1.4rem] lg:text-[1.6rem] font-normal text-paragraph1">
-                                                        {
-                                                          experience?.company_name
-                                                        }
-                                                      </p>
-                                                      <h3 className="text-[1.6rem] lg:text-[1.8rem] font-medium text-heading">
-                                                        {experience?.title}
-                                                      </h3>
+                                                    </div>
+
+                                                    {/* Link */}
+                                                    <div className="flex justify-end w-auto">
+                                                      <div className="flex flex-col-reverse gap-[1rem] max-w-max">
+                                                        <div className=" py-[0.4rem] px-[2rem] bg-white border border-[#E2E6EE] border-solid text-[#47516B] rounded-[2rem] text-[1.5rem] font-medium leading-[0.8rem] hover:bg-primary hover:text-white ">
+                                                          <Link
+                                                            href={
+                                                              experience?.company_website ||
+                                                              "#"
+                                                            }
+                                                            className="flex gap-2 justify-center align-middle items-center hover:text-white hover:text-semibold relative py-2 pl-[1rem]"
+                                                          >
+                                                            <Image
+                                                              src={
+                                                                "/images/link.svg"
+                                                              }
+                                                              height={18}
+                                                              width={18}
+                                                              className="h-[1.8rem] w-[1.8rem] absolute top-1/2 left-[-1rem] -translate-y-1/2"
+                                                              alt="Link"
+                                                            />{" "}
+                                                            {
+                                                              experience.company_website
+                                                                .replace(
+                                                                  /^(https?:\/\/)?(www\.)?/,
+                                                                  ""
+                                                                )
+                                                                .split("/")[0]
+                                                            }{" "}
+                                                          </Link>
+                                                        </div>
+                                                        {experience.company_website.includes(
+                                                          "upwork"
+                                                        ) && (
+                                                          <Link
+                                                            href={
+                                                              experience.company_website
+                                                            }
+                                                            className="hover:bg-primary hover:text-white py-[0.4rem] px-[1rem] text-heading bg-[#A3DDD3] rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
+                                                          >
+                                                            View my upwork
+                                                            Freelance Profile
+                                                          </Link>
+                                                        )}{" "}
+                                                      </div>
                                                     </div>
                                                   </div>
                                                 </div>
 
                                                 <p
-                                                  className="mt-[2rem] list-div text-[1.6rem] font-medium text-paragraph1 line-clamp-3"
+                                                  className="mt-[2rem] list-div text-[1.6rem] font-medium text-paragraph1 line-clamp-2"
                                                   dangerouslySetInnerHTML={{
                                                     __html: modifiedContent(
                                                       experience?.short_description,
@@ -782,78 +839,52 @@ const Home_p = ({ params }: { params: any }) => {
                                                   experience?.skills.length >
                                                     0 && (
                                                     <div className="w-full">
-                                                      <h4 className=" text-[1.5rem] text-primary font-medium my-[1.6rem] ">
+                                                      <h4 className="text-[1.5rem] text-primary font-medium my-[1.6rem]">
                                                         AREAS OF EXPERTISE I'VE
                                                         WORKED IN
                                                       </h4>
                                                       <div className="w-full flex-col items-start flex gap-5">
-                                                        <div className="flex print:hidden items-center gap-[1rem] lg:gap-[0.7rem]   text-nowrap flex-wrap text-[1.2rem]">
+                                                        <div className="flex items-center gap-[1rem] lg:gap-[0.7rem] text-nowrap flex-wrap text-[1.2rem]">
                                                           {Object?.values(
-                                                            skillsforExpereince
-                                                          )?.map(
-                                                            (
-                                                              group,
-                                                              groupIndex
-                                                            ) => (
-                                                              <React.Fragment
-                                                                key={groupIndex}
-                                                              >
-                                                                {group.map(
-                                                                  (
-                                                                    skill,
-                                                                    i
-                                                                  ) => {
-                                                                    const skillNumber = `${
-                                                                      groupIndex +
-                                                                      1
-                                                                    }.${i + 1}`;
-                                                                    return (
-                                                                      <Link
-                                                                        href={
-                                                                          skill.url ||
-                                                                          "#"
-                                                                        }
-                                                                        legacyBehavior
-                                                                        key={`${groupIndex}-${i}`}
-                                                                      >
-                                                                        <a
-                                                                          target="_blank"
-                                                                          rel="noopener noreferrer"
-                                                                          style={{
-                                                                            animationDelay: `${
-                                                                              i *
-                                                                              0.1
-                                                                            }s`,
-                                                                          }}
-                                                                          className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium py-[0.4rem] px-[2rem] bg-white flex items-center print:py-[0.2rem] print:px-[1.5rem] justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
-                                                                        >
-                                                                          {
-                                                                            skill?.title
-                                                                          }
-                                                                        </a>
-                                                                      </Link>
-                                                                    );
-                                                                  }
-                                                                )}
-                                                              </React.Fragment>
-                                                            )
-                                                          )}
-                                                        </div>
-
-                                                        <div className="hidden print:flex print:flex-wrap print:gap-[0.5rem]">
-                                                          {Object.values(
                                                             skillsforExpereince
                                                           )
                                                             .flat()
                                                             .slice(0, 6)
-                                                            .map((skill, i) => (
-                                                              <span
-                                                                key={`print-skill-${i}`}
-                                                                className="capitalize text-primary text-[1.1rem] font-medium py-[0.2rem] px-[1.2rem] bg-white rounded-[5rem] border border-[#757575] print:border-gray-300 print:shadow-none"
-                                                              >
-                                                                {skill?.title}
-                                                              </span>
-                                                            ))}
+                                                            .map(
+                                                              (
+                                                                skill,
+                                                                index
+                                                              ) => (
+                                                                <Link
+                                                                  href={
+                                                                    skill.url ||
+                                                                    "#"
+                                                                  }
+                                                                  legacyBehavior
+                                                                  key={index}
+                                                                >
+                                                                  <a
+                                                                    target="_blank"
+                                                                    rel="noopener noreferrer"
+                                                                    style={{
+                                                                      animationDelay: `${
+                                                                        index *
+                                                                        0.1
+                                                                      }s`,
+                                                                    }}
+                                                                    className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium py-[0.4rem] px-[2rem] bg-white flex items-center print:py-[0.2rem] print:px-[1.5rem] justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
+                                                                  >
+                                                                    {
+                                                                      skill?.title
+                                                                    }
+                                                                  </a>
+                                                                </Link>
+                                                              )
+                                                            )}
+
+                                                          <button className="bg-primary text-white py-[0.4rem] px-[2rem] border border-primary border-solid hover:text-primary hover:bg-white rounded-[1.8rem] text-[1.4rem] font-medium leading-normal">
+                                                            Show More Skills
+                                                          </button>
                                                         </div>
                                                       </div>
                                                     </div>
@@ -968,34 +999,83 @@ const Home_p = ({ params }: { params: any }) => {
                                               <div className="bg-white p-[2.4rem] rounded-[1rem] shadow ml-[6rem] w-full">
                                                 <div className="flex items-center flex-wrap text-nowrap gap-[1.5rem] md:justify-between">
                                                   {/* About Content */}
-                                                  <div className="flex gap-[1rem]">
-                                                    {experience?.thumbnail && (
-                                                      <div className="h-[4.2rem] w-[4.2rem] lg:h-[4.9rem] lg:w-[4.9rem] bg-[#D1E9FF] rounded-[0.4rem] flex items-center justify-center">
-                                                        <Image
-                                                          src={
-                                                            experience?.thumbnail
+                                                  <div className="flex gap-[1rem] items-center  w-full justify-between">
+                                                    <div className="flex items-center gap-2">
+                                                      {experience?.thumbnail && (
+                                                        <div className="h-[4.9rem] w-[4.9rem] bg-[#D1E9FF] rounded-[0.4rem] relative">
+                                                          <Image
+                                                            src={
+                                                              experience?.thumbnail
+                                                            }
+                                                            height={32}
+                                                            width={32}
+                                                            alt="Logo Mark"
+                                                            className="h-[3.2rem] w-[3.2rem] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                                                          />
+                                                        </div>
+                                                      )}
+                                                      <div>
+                                                        <p className="text-[1.4rem] lg:text-[1.6rem] font-normal text-paragraph1">
+                                                          {
+                                                            experience?.company_name
                                                           }
-                                                          height={32}
-                                                          width={32}
-                                                          alt="Logo Mark"
-                                                        />
+                                                        </p>
+                                                        <h3 className="text-[1.6rem] lg:text-[1.8rem] font-medium text-heading">
+                                                          {experience?.title}
+                                                        </h3>
                                                       </div>
-                                                    )}
-                                                    <div>
-                                                      <p className="text-[1.4rem] lg:text-[1.6rem] font-normal text-paragraph1">
-                                                        {
-                                                          experience?.company_name
-                                                        }
-                                                      </p>
-                                                      <h3 className="text-[1.6rem] lg:text-[1.8rem] font-medium text-heading">
-                                                        {experience?.title}
-                                                      </h3>
+                                                    </div>
+
+                                                    {/* Link */}
+                                                    <div className="flex justify-end w-auto">
+                                                      <div className="flex flex-col-reverse gap-[1rem] max-w-max">
+                                                        <div className=" py-[0.4rem] px-[2rem] bg-white border border-[#E2E6EE] border-solid text-[#47516B] rounded-[2rem] text-[1.5rem] font-medium leading-[0.8rem] hover:bg-primary hover:text-white ">
+                                                          <Link
+                                                            href={
+                                                              experience?.company_website ||
+                                                              "#"
+                                                            }
+                                                            className="flex gap-2 justify-center align-middle items-center hover:text-white hover:text-semibold relative py-2 pl-[1rem]"
+                                                          >
+                                                            <Image
+                                                              src={
+                                                                "/images/link.svg"
+                                                              }
+                                                              height={18}
+                                                              width={18}
+                                                              className="h-[1.8rem] w-[1.8rem] absolute top-1/2 left-[-1rem] -translate-y-1/2"
+                                                              alt="Link"
+                                                            />{" "}
+                                                            {
+                                                              experience.company_website
+                                                                .replace(
+                                                                  /^(https?:\/\/)?(www\.)?/,
+                                                                  ""
+                                                                )
+                                                                .split("/")[0]
+                                                            }{" "}
+                                                          </Link>
+                                                        </div>
+                                                        {experience.company_website.includes(
+                                                          "upwork"
+                                                        ) && (
+                                                          <Link
+                                                            href={
+                                                              experience.company_website
+                                                            }
+                                                            className="hover:bg-primary hover:text-white py-[0.4rem] px-[1rem] text-heading bg-[#A3DDD3] rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
+                                                          >
+                                                            View my upwork
+                                                            Freelance Profile
+                                                          </Link>
+                                                        )}{" "}
+                                                      </div>
                                                     </div>
                                                   </div>
                                                 </div>
 
                                                 <p
-                                                  className="mt-[2rem] list-div text-[1.6rem] font-medium text-paragraph1 line-clamp-3"
+                                                  className="mt-[2rem] list-div text-[1.6rem] font-medium text-paragraph1 line-clamp-2"
                                                   dangerouslySetInnerHTML={{
                                                     __html: modifiedContent(
                                                       experience?.short_description,
@@ -1009,78 +1089,52 @@ const Home_p = ({ params }: { params: any }) => {
                                                   experience?.skills.length >
                                                     0 && (
                                                     <div className="w-full">
-                                                      <h4 className=" text-[1.5rem] text-primary font-medium my-[1.6rem] ">
+                                                      <h4 className="text-[1.5rem] text-primary font-medium my-[1.6rem]">
                                                         AREAS OF EXPERTISE I'VE
                                                         WORKED IN
                                                       </h4>
                                                       <div className="w-full flex-col items-start flex gap-5">
-                                                        <div className="flex print:hidden items-center gap-[1rem] lg:gap-[0.7rem]   text-nowrap flex-wrap text-[1.2rem]">
+                                                        <div className="flex items-center gap-[1rem] lg:gap-[0.7rem] text-nowrap flex-wrap text-[1.2rem]">
                                                           {Object?.values(
-                                                            skillsforExpereince
-                                                          )?.map(
-                                                            (
-                                                              group,
-                                                              groupIndex
-                                                            ) => (
-                                                              <React.Fragment
-                                                                key={groupIndex}
-                                                              >
-                                                                {group.map(
-                                                                  (
-                                                                    skill,
-                                                                    i
-                                                                  ) => {
-                                                                    const skillNumber = `${
-                                                                      groupIndex +
-                                                                      1
-                                                                    }.${i + 1}`;
-                                                                    return (
-                                                                      <Link
-                                                                        href={
-                                                                          skill.url ||
-                                                                          "#"
-                                                                        }
-                                                                        legacyBehavior
-                                                                        key={`${groupIndex}-${i}`}
-                                                                      >
-                                                                        <a
-                                                                          target="_blank"
-                                                                          rel="noopener noreferrer"
-                                                                          style={{
-                                                                            animationDelay: `${
-                                                                              i *
-                                                                              0.1
-                                                                            }s`,
-                                                                          }}
-                                                                          className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium py-[0.4rem] px-[2rem] bg-white flex items-center print:py-[0.2rem] print:px-[1.5rem] justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
-                                                                        >
-                                                                          {
-                                                                            skill?.title
-                                                                          }
-                                                                        </a>
-                                                                      </Link>
-                                                                    );
-                                                                  }
-                                                                )}
-                                                              </React.Fragment>
-                                                            )
-                                                          )}
-                                                        </div>
-
-                                                        <div className="hidden print:flex print:flex-wrap print:gap-[0.5rem]">
-                                                          {Object.values(
                                                             skillsforExpereince
                                                           )
                                                             .flat()
                                                             .slice(0, 6)
-                                                            .map((skill, i) => (
-                                                              <span
-                                                                key={`print-skill-${i}`}
-                                                                className="capitalize text-primary text-[1.1rem] font-medium py-[0.2rem] px-[1.2rem] bg-white rounded-[5rem] border border-[#757575] print:border-gray-300 print:shadow-none"
-                                                              >
-                                                                {skill?.title}
-                                                              </span>
-                                                            ))}
+                                                            .map(
+                                                              (
+                                                                skill,
+                                                                index
+                                                              ) => (
+                                                                <Link
+                                                                  href={
+                                                                    skill.url ||
+                                                                    "#"
+                                                                  }
+                                                                  legacyBehavior
+                                                                  key={index}
+                                                                >
+                                                                  <a
+                                                                    target="_blank"
+                                                                    rel="noopener noreferrer"
+                                                                    style={{
+                                                                      animationDelay: `${
+                                                                        index *
+                                                                        0.1
+                                                                      }s`,
+                                                                    }}
+                                                                    className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium py-[0.4rem] px-[2rem] bg-white flex items-center print:py-[0.2rem] print:px-[1.5rem] justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
+                                                                  >
+                                                                    {
+                                                                      skill?.title
+                                                                    }
+                                                                  </a>
+                                                                </Link>
+                                                              )
+                                                            )}
+
+                                                          <button className="bg-primary text-white py-[0.4rem] px-[2rem] border border-primary border-solid hover:text-primary hover:bg-white rounded-[1.8rem] text-[1.4rem] font-medium leading-normal">
+                                                            Show More Skills
+                                                          </button>
                                                         </div>
                                                       </div>
                                                     </div>
