@@ -15,9 +15,6 @@ function NoteDomainForPint({ direction }) {
       >
         {listOfdatas.domain}
       </Link>
-      <p className="text-white font-medium px-4 py-1 text-[1.6rem] rounded-[100px] bg-primary">
-        Note: All The Buttons are Clickable
-      </p>
     </div>
   );
 }

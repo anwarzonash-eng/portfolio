@@ -130,6 +130,9 @@ const Home_p = ({ params }: { params: any }) => {
                                 </div>
                               ))}
                           </div>
+                          <p className="text-white font-medium px-4 py-1 text-[1.6rem] rounded-[100px] bg-primary">
+                            Note: All The Buttons are Clickable
+                          </p>
                         </div>
                       </div>
                       <div className="flex items-center gap-[2rem] mt-[2rem] mb-[0.8rem] justify-center">
@@ -526,7 +529,10 @@ const Home_p = ({ params }: { params: any }) => {
                           Skills
                         </div>
                         {/* Heading */}
-                        <div className="text-center text-heading text-[2.4rem] xl:text-[3rem] print:text-[3rem] print:mb-[1.5rem] font-medium leading-[2.8rem] mt-[2rem]">
+                        <div
+                          className="text-center text-heading text-[3rem] font-medium 
+                        leading-[2.8rem] my-[3rem]"
+                        >
                           {listOfdata?.companytype == "leewop"
                             ? "The skills & tools I am really good at:"
                             : " The skills, tools and technologies I am really good at:"}
@@ -575,9 +581,6 @@ const Home_p = ({ params }: { params: any }) => {
                         >
                           {listOfdatas.domain}
                         </Link>
-                        <p className="text-primary font-medium px-4 py-1 text-[1.6rem] rounded-[100px] bg-white">
-                          Note: All The Buttons are Clickable
-                        </p>
                       </div>
                       <div
                         className="max-w-[1550px] w-full mx-auto 

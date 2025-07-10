@@ -640,8 +640,8 @@ const CV_Landscape = ({ params }: { params: any }) => {
                         direction={"hidden print:right-0 print:block"}
                       />
                       <h2
-                        className="text-heading  leading-[3.56rem] text-[3.67rem] font-medium 
-                         pt-[3rem] pb-[1rem]  pl-[5rem] self-start"
+                        className="text-heading leading-[3.56rem] text-[3.67rem] font-medium 
+                         pt-[3rem] pb-[1rem] pl-[5rem] self-start"
                       >
                         Experiences
                       </h2>
@@ -699,21 +699,13 @@ const CV_Landscape = ({ params }: { params: any }) => {
                                         )}
                                   </h2>
                                   {/* Card */}
-                                  <div className="bg-[#F7F9FC] p-[1.5rem] lg:p-[2.4rem]  rounded-[1rem] shadow mb-[2rem] ">
+                                  <div
+                                    className="bg-[#F7F9FC] p-[2.4rem] rounded-[1rem] 
+                                  shadow mb-[2rem]"
+                                  >
                                     <div className="flex items-center flex-wrap text-nowrap gap-[1.5rem] md:justify-between">
                                       {/* About Content */}
                                       <div className="flex align-middle justify-center items-center gap-[1rem]">
-                                        {experience?.thumbnail && (
-                                          <div className="h-[4.2rem] w-[4.2rem] lg:h-[4.9rem] lg:w-[4.9rem] bg-[#D1E9FF] rounded-[0.4rem] flex items-center justify-center">
-                                            <Image
-                                              src={experience?.thumbnail}
-                                              height={32}
-                                              width={32}
-                                              alt="Logo Mark"
-                                            />
-                                          </div>
-                                        )}
-
                                         <div>
                                           <h3 className="text-[1.6rem] lg:text-[1.8rem] font-medium text-heading">
                                             {experience.title}
@@ -875,7 +867,7 @@ const CV_Landscape = ({ params }: { params: any }) => {
                       </Link>
                     </div>
                     {listOfdata?.portfolios_ids?.map((portfolio, index) => {
-                      if (index >= 2) {
+                      if (index >= 1) {
                         return null;
                       }
 
@@ -908,7 +900,8 @@ const CV_Landscape = ({ params }: { params: any }) => {
                             {/* Date */}
                             <h2
                               key={index}
-                              className="text-heading leading-[2.67rem] text-[2rem] font-bold pl-[0.5rem] print:mb-[0rem] print:!mt-[1.3rem] mb-[3rem] "
+                              className="text-heading leading-[2.67rem] text-[2rem] font-bold 
+                              pl-[0.5rem] mb-[3rem]"
                             >
                               {formatDate(
                                 portfolio?.starting_date,
@@ -927,138 +920,303 @@ const CV_Landscape = ({ params }: { params: any }) => {
                             {/* Card */}
                             <div className="p-[2rem] bg-white shadow-testimonialeShadow relative rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden  gap-[2.4rem] mb-[2rem]">
                               {/* Content */}
-                              <div className="w-full">
+                              <div className="flex w-full">
                                 <div className="">
-                                  <div className="">
-                                    {portfolio?.company_icon && (
-                                      <div className="bg-[#1B6393] p-[1.46rem] rounded-[1rem] inline-block mb-[1rem]">
-                                        <Image
-                                          src={portfolio?.company_icon}
-                                          alt="Case"
-                                          height={34}
-                                          width={34}
-                                          className="h-[2rem] w-[2rem]"
-                                        />
-                                      </div>
-                                    )}
-                                    {/* Heading and Para */}
-                                    <div className="text-heading">
-                                      {/* Para */}
-                                      {/* slider image */}
-                                      {portfolio?.thumbnail && (
-                                        <div className="md:ms-[2rem] flex items-center gap-2 flex-col lg:w-[30rem] float-right w-full rounded-[1.2rem] print:hidden relative">
-                                          {/* Container with fixed aspect ratio (16:9 example) */}
-                                          <div className="relative pt-[56.25%] w-full">
-                                            {" "}
-                                            {/* 16:9 aspect ratio */}
-                                            <Image
-                                              src={portfolio.thumbnail}
-                                              alt="Project Image"
-                                              fill
-                                              sizes="(max-width: 768px) 100vw, 30rem"
-                                              className="rounded-[1.2rem] object-cover absolute top-0 left-0 w-full h-full"
-                                              priority={index === 0} // Only prioritize first image
-                                            />
-                                          </div>
-                                          {/* Button remains the same */}
-                                          <button className="my-[1rem] py-[1rem] px-[2rem] rounded-[0.7rem] border-2 border-solid border-[#fff] text-[1.2rem] font-medium max-w-max backdrop-blur-[0.8rem] duration-300 bg-primary hover:bg-opacity-80 text-white hover:bg-white hover:text-primary hover:border-1 hover:border-primary">
-                                            Explore the Gallery
-                                          </button>
-                                        </div>
+                                  {/* Heading and Para */}
+                                  <div className="text-heading">
+                                    {/* Heading */}
+                                    <h1 className="text-[2rem] font-bold leading-[2.69rem]">
+                                      {portfolio?.title}
+                                    </h1>
+                                    <p
+                                      className=" text-[1.6rem] leading-[150%] font-normal mt-[1rem] line-clamp-2"
+                                      dangerouslySetInnerHTML={{
+                                        __html: modifiedContent(
+                                          portfolio?.tagline_1,
+                                          listOfskills,
+                                          listOfdata
+                                        ),
+                                      }}
+                                    ></p>
+                                    <p
+                                      className="text-primary text-[1.6rem] leading-[150%] font-normal mt-[1rem] line-clamp-1"
+                                      dangerouslySetInnerHTML={{
+                                        __html: modifiedContent(
+                                          portfolio?.tagline_2,
+                                          listOfskills,
+                                          listOfdata
+                                        ),
+                                      }}
+                                    ></p>
+                                    <p
+                                      dangerouslySetInnerHTML={{
+                                        __html: modifiedContent(
+                                          portfolio.features_short,
+                                          listOfskills,
+                                          listOfdata
+                                        ),
+                                      }}
+                                      className="mt-[2rem] list-div-portfolio1 pl-[2rem] line-clamp-5"
+                                    ></p>
+                                  </div>
+                                  <div>
+                                    <h4 className="text-primary text-[1.6rem] font-medium my-[1rem]">
+                                      AREAS OF EXPERTISE I'VE WORKED IN
+                                    </h4>
+                                    <div className="flex items-center gap-[1rem] text-nowrap flex-wrap text-[1.2rem]">
+                                      {Object?.values(skillsForPortfolios)?.map(
+                                        (group, groupIndex) => (
+                                          <React.Fragment key={groupIndex}>
+                                            {group.map((skill, i) => (
+                                              <Link
+                                                href={skill?.url || "#"}
+                                                className="hover:text-white hover:bg-primary py-[0.4rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
+                                              >
+                                                {skill?.title}
+                                              </Link>
+                                            ))}
+                                            {/* Line break after each group */}
+                                            {showMoreSkillsForPortfolios[
+                                              index
+                                            ] && (
+                                              <div className="w-full mb-[1px]" />
+                                            )}
+                                          </React.Fragment>
+                                        )
                                       )}
-
-                                      {/* Heading */}
-                                      <h1 className="text-[2rem] font-bold leading-[2.69rem]">
-                                        {portfolio?.title}
-                                      </h1>
-                                      <p
-                                        className=" text-[1.6rem] leading-[150%] font-normal mt-[1rem] line-clamp-2"
-                                        dangerouslySetInnerHTML={{
-                                          __html: modifiedContent(
-                                            portfolio?.tagline_1,
-                                            listOfskills,
-                                            listOfdata
-                                          ),
-                                        }}
-                                      ></p>
-                                      <p
-                                        className="text-primary text-[1.6rem] leading-[150%] font-normal mt-[1rem] line-clamp-1"
-                                        dangerouslySetInnerHTML={{
-                                          __html: modifiedContent(
-                                            portfolio?.tagline_2,
-                                            listOfskills,
-                                            listOfdata
-                                          ),
-                                        }}
-                                      ></p>
-                                      <p
-                                        dangerouslySetInnerHTML={{
-                                          __html: modifiedContent(
-                                            portfolio.features_short,
-                                            listOfskills,
-                                            listOfdata
-                                          ),
-                                        }}
-                                        className="mt-[2rem] list-div-portfolio1 pl-[2rem] line-clamp-3"
-                                      ></p>
+                                      <button className="bg-primary text-white py-[0.4rem] px-[2rem] border border-primary border-solid hover:text-primary hover:bg-white rounded-[1.8rem] text-[1.4rem] font-medium leading-normal">
+                                        Show More Skills
+                                      </button>
                                     </div>
                                   </div>
-                                  {/* Image */}
-                                </div>
-
-                                <div>
-                                  <h4 className="text-primary text-[1.6rem] font-medium my-[1rem]">
-                                    AREAS OF EXPERTISE I'VE WORKED IN
-                                  </h4>
-                                  <div className="flex items-center gap-[1rem] text-nowrap flex-wrap text-[1.2rem]">
-                                    {Object?.values(skillsForPortfolios)?.map(
-                                      (group, groupIndex) => (
-                                        <React.Fragment key={groupIndex}>
-                                          {group.map((skill, i) => (
-                                            <Link
-                                              href={skill?.url || "#"}
-                                              className="hover:text-white hover:bg-primary py-[0.4rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
-                                            >
-                                              {skill?.title}
-                                            </Link>
-                                          ))}
-                                          {/* Line break after each group */}
-                                          {showMoreSkillsForPortfolios[
-                                            index
-                                          ] && (
-                                            <div className="w-full mb-[1px]" />
-                                          )}
-                                        </React.Fragment>
-                                      )
+                                  <hr className="w-full my-[2.4rem] h-px bg-border" />
+                                  <div className="flex flex-wrap items-start gap-[1.4rem]">
+                                    <Link
+                                      href={`/portfolio/${portfolio.id}`}
+                                      className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent hover:border-primary duration-300 w-full md:max-w-max text-center rounded-[0.6rem]"
+                                    >
+                                      View Details
+                                    </Link>
+                                    {listOfdata?.companytype !== "leewop" && (
+                                      <Link
+                                        href={portfolio?.link}
+                                        className="py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-primary border border-solid hover:border-transparent border-primary duration-300 hover:bg-primary hover:text-white rounded-[0.6rem] w-full md:max-w-max text-center"
+                                      >
+                                        Launch Project - Live Preview
+                                      </Link>
                                     )}
-                                    <button className="bg-primary text-white py-[0.4rem] px-[2rem] border border-primary border-solid hover:text-primary hover:bg-white rounded-[1.8rem] text-[1.4rem] font-medium leading-normal">
-                                      Show More Skills
-                                    </button>
+                                    {portfolio?.has_testimonial == true && (
+                                      <Link
+                                        href={"#"}
+                                        className="text-primary  text-[1.6rem] leading-[2.4rem] font-medium max-sm:w-full text-center"
+                                      >
+                                        Check Client Testimonial
+                                      </Link>
+                                    )}
                                   </div>
                                 </div>
-                                <hr className="w-full my-[2.4rem] h-px bg-border" />
-                                <div className="flex items-center flex-wrap max-sm:flex-col print:hidden max-md:items-start gap-[1.4rem]">
-                                  <Link
-                                    href={`/portfolio/${portfolio.id}`}
-                                    className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent hover:border-primary duration-300 w-full md:max-w-max text-center rounded-[0.6rem]"
-                                  >
-                                    View Details
-                                  </Link>
-                                  {listOfdata?.companytype !== "leewop" && (
-                                    <Link
-                                      href={portfolio?.link}
-                                      className="py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-primary border border-solid hover:border-transparent border-primary duration-300 hover:bg-primary hover:text-white rounded-[0.6rem] w-full md:max-w-max text-center"
-                                    >
-                                      Launch Project - Live Preview
-                                    </Link>
+                                {/* Side Image Container */}
+                                <div>
+                                  {portfolio?.thumbnail && (
+                                    <div className="w-full min-w-[45rem] flex items-center justify-center flex-col p-[2rem]">
+                                      <div className="relative h-[30rem] w-[40rem]">
+                                        <Image
+                                          src={portfolio.thumbnail}
+                                          alt="Project Image"
+                                          fill
+                                          className="rounded-[1.2rem] object-cover w-full h-full"
+                                          priority={index === 0} // Only prioritize first image
+                                        />
+                                      </div>
+                                      {/* Button remains the same */}
+                                      <button className="my-[1rem] py-[1rem] px-[2rem] rounded-[0.7rem] border-2 border-solid border-[#fff] text-[1.2rem] font-medium max-w-max backdrop-blur-[0.8rem] duration-300 bg-primary hover:bg-opacity-80 text-white hover:bg-white hover:text-primary hover:border-1 hover:border-primary">
+                                        Explore the Gallery
+                                      </button>
+                                    </div>
                                   )}
-                                  {portfolio?.has_testimonial == true && (
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </section>
+                )}
+
+                {listOfdata && listOfdata?.portfolios_ids?.length > 0 && (
+                  <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center flex-col overflow-hidden relative my-[4rem] print:m-0">
+                    {/* Note and Domain For Each Page */}
+                    <NoteDomainForPint
+                      direction={"hidden print:right-0 print:block"}
+                    />
+                    {listOfdata?.portfolios_ids?.map((portfolio, index) => {
+                      if (index !== 1) {
+                        return null;
+                      }
+
+                      const skillsForPortfolios: {
+                        [key: string]: {
+                          title: string;
+                          url?: string;
+                          order?: string;
+                        }[];
+                      } = skillsGrouping(
+                        showMoreSkillsForPortfolios[index]
+                          ? portfolio?.skills
+                          : portfolio?.skills?.slice(0, 6)
+                      );
+
+                      return (
+                        <div
+                          className="max-w-[1550px] mx-auto w-full relative"
+                          key={index}
+                        >
+                          {/* Dot */}
+                          <div className="absolute left-[2.5rem] top-0  block z-20">
+                            <div className="w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center">
+                              <div className="w-[0.8rem] h-[0.8rem] bg-sectionBG rounded-full"></div>
+                            </div>
+                          </div>
+                          {/* Vertical line */}
+                          <div className="absolute left-[4rem] top-0 w-[1.5px] h-[100%] bg-primary" />
+                          <div className="w-full px-[6rem]">
+                            {/* Date */}
+                            <h2
+                              key={index}
+                              className="text-heading leading-[2.67rem] text-[2rem] font-bold 
+                              pl-[0.5rem] mb-[3rem]"
+                            >
+                              {formatDate(
+                                portfolio?.starting_date,
+                                dateFormatsOptions.onlyYear
+                              )}{" "}
+                              -{" "}
+                              {isNaN(
+                                new Date(portfolio.ending_Date).getFullYear()
+                              )
+                                ? portfolio.ending_Date
+                                : formatDate(
+                                    portfolio.ending_Date,
+                                    dateFormatsOptions.onlyYear
+                                  )}
+                            </h2>
+                            {/* Card */}
+                            <div className="p-[2rem] bg-white shadow-testimonialeShadow relative rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden  gap-[2.4rem] mb-[2rem]">
+                              {/* Content */}
+                              <div className="flex w-full">
+                                <div className="">
+                                  {/* Heading and Para */}
+                                  <div className="text-heading">
+                                    {/* Heading */}
+                                    <h1 className="text-[2rem] font-bold leading-[2.69rem]">
+                                      {portfolio?.title}
+                                    </h1>
+                                    <p
+                                      className=" text-[1.6rem] leading-[150%] font-normal mt-[1rem] line-clamp-2"
+                                      dangerouslySetInnerHTML={{
+                                        __html: modifiedContent(
+                                          portfolio?.tagline_1,
+                                          listOfskills,
+                                          listOfdata
+                                        ),
+                                      }}
+                                    ></p>
+                                    <p
+                                      className="text-primary text-[1.6rem] leading-[150%] font-normal mt-[1rem] line-clamp-1"
+                                      dangerouslySetInnerHTML={{
+                                        __html: modifiedContent(
+                                          portfolio?.tagline_2,
+                                          listOfskills,
+                                          listOfdata
+                                        ),
+                                      }}
+                                    ></p>
+                                    <p
+                                      dangerouslySetInnerHTML={{
+                                        __html: modifiedContent(
+                                          portfolio.features_short,
+                                          listOfskills,
+                                          listOfdata
+                                        ),
+                                      }}
+                                      className="mt-[2rem] list-div-portfolio1 pl-[2rem] line-clamp-5"
+                                    ></p>
+                                  </div>
+                                  <div>
+                                    <h4 className="text-primary text-[1.6rem] font-medium my-[1rem]">
+                                      AREAS OF EXPERTISE I'VE WORKED IN
+                                    </h4>
+                                    <div className="flex items-center gap-[1rem] text-nowrap flex-wrap text-[1.2rem]">
+                                      {Object?.values(skillsForPortfolios)?.map(
+                                        (group, groupIndex) => (
+                                          <React.Fragment key={groupIndex}>
+                                            {group.map((skill, i) => (
+                                              <Link
+                                                href={skill?.url || "#"}
+                                                className="hover:text-white hover:bg-primary py-[0.4rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
+                                              >
+                                                {skill?.title}
+                                              </Link>
+                                            ))}
+                                            {/* Line break after each group */}
+                                            {showMoreSkillsForPortfolios[
+                                              index
+                                            ] && (
+                                              <div className="w-full mb-[1px]" />
+                                            )}
+                                          </React.Fragment>
+                                        )
+                                      )}
+                                      <button className="bg-primary text-white py-[0.4rem] px-[2rem] border border-primary border-solid hover:text-primary hover:bg-white rounded-[1.8rem] text-[1.4rem] font-medium leading-normal">
+                                        Show More Skills
+                                      </button>
+                                    </div>
+                                  </div>
+                                  <hr className="w-full my-[2.4rem] h-px bg-border" />
+                                  <div className="flex flex-wrap items-start gap-[1.4rem]">
                                     <Link
-                                      href={"#"}
-                                      className="text-primary  text-[1.6rem] leading-[2.4rem] font-medium max-sm:w-full text-center"
+                                      href={`/portfolio/${portfolio.id}`}
+                                      className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent hover:border-primary duration-300 w-full md:max-w-max text-center rounded-[0.6rem]"
                                     >
-                                      Check Client Testimonial
+                                      View Details
                                     </Link>
+                                    {listOfdata?.companytype !== "leewop" && (
+                                      <Link
+                                        href={portfolio?.link}
+                                        className="py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-primary border border-solid hover:border-transparent border-primary duration-300 hover:bg-primary hover:text-white rounded-[0.6rem] w-full md:max-w-max text-center"
+                                      >
+                                        Launch Project - Live Preview
+                                      </Link>
+                                    )}
+                                    {portfolio?.has_testimonial == true && (
+                                      <Link
+                                        href={"#"}
+                                        className="text-primary  text-[1.6rem] leading-[2.4rem] font-medium max-sm:w-full text-center"
+                                      >
+                                        Check Client Testimonial
+                                      </Link>
+                                    )}
+                                  </div>
+                                </div>
+                                {/* Side Image Container */}
+                                <div>
+                                  {portfolio?.thumbnail && (
+                                    <div className="w-full min-w-[45rem] flex items-center justify-center flex-col p-[2rem]">
+                                      <div className="relative h-[30rem] w-[40rem]">
+                                        <Image
+                                          src={portfolio.thumbnail}
+                                          alt="Project Image"
+                                          fill
+                                          className="rounded-[1.2rem] object-cover w-full h-full"
+                                          priority={index === 0} // Only prioritize first image
+                                        />
+                                      </div>
+                                      {/* Button remains the same */}
+                                      <button className="my-[1rem] py-[1rem] px-[2rem] rounded-[0.7rem] border-2 border-solid border-[#fff] text-[1.2rem] font-medium max-w-max backdrop-blur-[0.8rem] duration-300 bg-primary hover:bg-opacity-80 text-white hover:bg-white hover:text-primary hover:border-1 hover:border-primary">
+                                        Explore the Gallery
+                                      </button>
+                                    </div>
                                   )}
                                 </div>
                               </div>
