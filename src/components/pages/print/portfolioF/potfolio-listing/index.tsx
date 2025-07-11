@@ -85,7 +85,7 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
       {/* Welcome ✅ */}
       <section className="print:h-screen print:section bg-bannerBG !w-full print:FlexWrapContainer flex items-center justify-center relative">
         {/* Note and Domain For Each Page */}
-        <NoteDomainForPint direction={"hidden print:left-0 print:block"} />
+        <NoteDomainForPint direction={"hidden print:right-0 print:block"} />
         {/* Welcome Card */}
         <div className="text-center p-[4rem] print:p-0">
           <div className="items-center justify-strat gap-[4rem] flex flex-col w-full">
@@ -103,6 +103,11 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
                     {item.trim()}
                   </div>
                 ))}
+              </div>
+              <div className="flex items-center justify-center w-full">
+                <p className="text-white font-medium px-4 py-1 text-[1.6rem] rounded-[100px] bg-primary">
+                  Note: All The Buttons are Clickable
+                </p>
               </div>
             </div>
           </div>
@@ -150,7 +155,7 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
                     key={index}
                   >
                     <NoteDomainForPint
-                      direction={"hidden print:left-0 print:block"}
+                      direction={"hidden print:right-0 print:block"}
                     />
 
                     <div className="max-w-[1550px] w-full mx-auto px-[4rem]">
@@ -221,9 +226,11 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
                                     {skill.title}
                                   </Link>
                                 ))}
-                              <button className="bg-primary text-white py-[0.4rem] px-[2rem] border border-primary border-solid hover:text-primary hover:bg-white rounded-[1.8rem] text-[1.4rem] font-medium leading-normal">
-                                Show More Skills
-                              </button>
+                              <Link href={`/portfolio`}>
+                                <button className="bg-primary text-white py-[0.4rem] px-[2rem] border border-primary border-solid hover:text-primary hover:bg-white rounded-[1.8rem] text-[1.4rem] font-medium leading-normal">
+                                  Show More Skills
+                                </button>
+                              </Link>
                             </div>
                             <hr className="w-full my-[2.4rem] h-px bg-border print:hidden" />
                             {/* Links */}
@@ -237,7 +244,7 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
 
                               {listOfdata?.companytype !== "leewop" && (
                                 <a
-                                  href={portfolio?.link}
+                                  href={`/portfolio`}
                                   target="_blank"
                                   className="py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-primary border border-solid hover:border-transparent border-primary print:!text-primary duration-300 hover:bg-primary hover:text-white rounded-[0.6rem] max-sm:w-full text-center"
                                 >
@@ -255,7 +262,10 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
             </div>
           </div>
           {/* Our Blogs Section */}
-          <OurBlogsPortrait domain={listOfdata?.domain} />
+          <OurBlogsPortrait
+            locationLink={`/portfolio/?sectionId=blogsSection`}
+            domain={listOfdata?.domain}
+          />
         </>
       )}
     </div>

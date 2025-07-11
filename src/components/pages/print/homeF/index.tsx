@@ -27,6 +27,7 @@ import { useMediaQuery } from "react-responsive";
 import SkillsContainerPrint from "@/components/SkillsContainerPrint";
 import HomeSliderPrint from "@/components/Sliders/HomeSliderPrint";
 import NoteDomainForPint from "../../../NoteDomainForPint";
+import OurBlogsLandscape from "@/components/OurBlogsLandscape";
 
 const Home_p = ({ params }: { params: any }) => {
   useBodyBackgroundColor("#f8f9fa");
@@ -105,7 +106,7 @@ const Home_p = ({ params }: { params: any }) => {
                 <section className="h-screen print:section bg-bannerBG !w-full  print:FlexWrapContainer flex items-center justify-center relative">
                   {/* Note and Domain For Each Page */}
                   <NoteDomainForPint
-                    direction={"hidden print:left-0 print:block"}
+                    direction={"hidden print:right-0 print:block"}
                   />
                   <div className="max-w-[1550px] w-full mx-auto flex items-center justify-center">
                     <div className="text-center">
@@ -160,7 +161,7 @@ const Home_p = ({ params }: { params: any }) => {
                 <div className="print:h-screen print:section bg-bannerBG !w-full overflow-hidden relative">
                   {/* Note and Domain For Each Page */}
                   <NoteDomainForPint
-                    direction={"hidden print:left-0 print:block"}
+                    direction={"hidden print:right-0 print:block"}
                   />
                   {/* Hero Section  */}
                   <div className="max-w-[1550px] w-full mx-auto px-[4rem]">
@@ -502,9 +503,8 @@ const Home_p = ({ params }: { params: any }) => {
                           </div>
                         )}
                       </div>
-                      <Link href={"/cv"}>
+                      <Link href={"/?sectionId=about"}>
                         <button className="w-full md:max-w-max btn-primary rounded-[0.6rem] text-white py-[2rem] px-[5.6rem] text-[1.8rem] font-medium border border-solid border-custom">
-                          {" "}
                           View CV Online
                         </button>
                       </Link>
@@ -518,7 +518,7 @@ const Home_p = ({ params }: { params: any }) => {
                     <section className="px-[4rem] my-[5rem] print:h-screen print:section flex items-center justify-center relative">
                       {/* Note and Domain For Each Page */}
                       <NoteDomainForPint
-                        direction={"hidden print:left-0 print:block"}
+                        direction={"hidden print:right-0 print:block"}
                       />
                       <div className="max-w-[1550px] w-full mx-auto">
                         {/* Badge */}
@@ -554,9 +554,11 @@ const Home_p = ({ params }: { params: any }) => {
                           >
                             Show More Skills
                           </a> */}
-                          <button className="px-[4rem] py-[1.4rem]  bg-primary rounded-[2.2rem] hover:bg-white hover:text-primary hover:border-primary border border-border border-solid text-center max-w-max text-white text-[1.4rem] font-medium font-Inter leading-tight mx-auto">
-                            See More Skills
-                          </button>
+                          <Link href={"/?sectionId=skillSection"}>
+                            <button className="px-[4rem] py-[1.4rem]  bg-primary rounded-[2.2rem] hover:bg-white hover:text-primary hover:border-primary border border-border border-solid text-center max-w-max text-white text-[1.4rem] font-medium font-Inter leading-tight mx-auto">
+                              See More Skills
+                            </button>
+                          </Link>
                         </div>
                       </div>
                     </section>
@@ -574,7 +576,7 @@ const Home_p = ({ params }: { params: any }) => {
                       print:h-screen print:section print:FlexWrapContainer relative"
                     >
                       {/* Note and Domain For Each Page */}
-                      <div className="absolute hidden print:block top-10 px-10  print:left-0">
+                      <div className="absolute hidden print:block top-10 px-10  print:right-0">
                         <Link
                           className="text-white font-medium text-[2rem] underline ml-2"
                           href={`https://www.${listOfdatas.domain}`}
@@ -616,7 +618,7 @@ const Home_p = ({ params }: { params: any }) => {
                       <section className="h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center p-[4rem] relative">
                         {/* Note and Domain For Each Page */}
                         <NoteDomainForPint
-                          direction={"hidden print:left-0 print:block"}
+                          direction={"hidden print:right-0 print:block"}
                         />
                         <div className="max-w-[1550px] w-full mx-auto">
                           {/* Badge */}
@@ -632,6 +634,7 @@ const Home_p = ({ params }: { params: any }) => {
                           <HomeSliderPrint
                             portfolios={listOfdata?.portfolios_ids}
                             companyType={listOfdata?.companytype}
+                            locationLink={`/?sectionId=myWork`}
                           />
                         </div>
                       </section>
@@ -646,7 +649,7 @@ const Home_p = ({ params }: { params: any }) => {
                       <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center p-[4rem] relative">
                         {/* Note and Domain For Each Page */}
                         <NoteDomainForPint
-                          direction={"hidden print:left-0 print:block"}
+                          direction={"hidden print:right-0 print:block"}
                         />
                         <div className="max-w-[1550px] w-full mx-auto">
                           {/* Badge */}
@@ -784,10 +787,7 @@ const Home_p = ({ params }: { params: any }) => {
                                                       <div className="flex flex-col-reverse gap-[1rem] max-w-max">
                                                         <div className=" py-[0.4rem] px-[2rem] bg-white border border-[#E2E6EE] border-solid text-[#47516B] rounded-[2rem] text-[1.5rem] font-medium leading-[0.8rem] hover:bg-primary hover:text-white ">
                                                           <Link
-                                                            href={
-                                                              experience?.company_website ||
-                                                              "#"
-                                                            }
+                                                            href={`/?sectionId=workExperiences`}
                                                             className="flex gap-2 justify-center align-middle items-center hover:text-white hover:text-semibold relative py-2 pl-[1rem]"
                                                           >
                                                             <Image
@@ -813,9 +813,7 @@ const Home_p = ({ params }: { params: any }) => {
                                                           "upwork"
                                                         ) && (
                                                           <Link
-                                                            href={
-                                                              experience.company_website
-                                                            }
+                                                            href={`/?sectionId=workExperiences`}
                                                             className="hover:bg-primary hover:text-white py-[0.4rem] px-[1rem] text-heading bg-[#A3DDD3] rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
                                                           >
                                                             View my upwork
@@ -859,10 +857,7 @@ const Home_p = ({ params }: { params: any }) => {
                                                                 index
                                                               ) => (
                                                                 <Link
-                                                                  href={
-                                                                    skill.url ||
-                                                                    "#"
-                                                                  }
+                                                                  href={`/?sectionId=workExperiences`}
                                                                   legacyBehavior
                                                                   key={index}
                                                                 >
@@ -907,7 +902,7 @@ const Home_p = ({ params }: { params: any }) => {
                       <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center p-[4rem] relative">
                         {/* Note and Domain For Each Page */}
                         <NoteDomainForPint
-                          direction={"hidden print:left-0 print:block"}
+                          direction={"hidden print:right-0 print:block"}
                         />
                         <div className="max-w-[1550px] w-full mx-auto">
                           {/* Timeline */}
@@ -1034,10 +1029,7 @@ const Home_p = ({ params }: { params: any }) => {
                                                       <div className="flex flex-col-reverse gap-[1rem] max-w-max">
                                                         <div className=" py-[0.4rem] px-[2rem] bg-white border border-[#E2E6EE] border-solid text-[#47516B] rounded-[2rem] text-[1.5rem] font-medium leading-[0.8rem] hover:bg-primary hover:text-white ">
                                                           <Link
-                                                            href={
-                                                              experience?.company_website ||
-                                                              "#"
-                                                            }
+                                                            href={`/?sectionId=workExperiences`}
                                                             className="flex gap-2 justify-center align-middle items-center hover:text-white hover:text-semibold relative py-2 pl-[1rem]"
                                                           >
                                                             <Image
@@ -1063,9 +1055,7 @@ const Home_p = ({ params }: { params: any }) => {
                                                           "upwork"
                                                         ) && (
                                                           <Link
-                                                            href={
-                                                              experience.company_website
-                                                            }
+                                                            href={`/?sectionId=workExperiences`}
                                                             className="hover:bg-primary hover:text-white py-[0.4rem] px-[1rem] text-heading bg-[#A3DDD3] rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
                                                           >
                                                             View my upwork
@@ -1109,10 +1099,7 @@ const Home_p = ({ params }: { params: any }) => {
                                                                 index
                                                               ) => (
                                                                 <Link
-                                                                  href={
-                                                                    skill.url ||
-                                                                    "#"
-                                                                  }
+                                                                  href={`/?sectionId=workExperiences`}
                                                                   legacyBehavior
                                                                   key={index}
                                                                 >
@@ -1135,9 +1122,13 @@ const Home_p = ({ params }: { params: any }) => {
                                                               )
                                                             )}
 
-                                                          <button className="bg-primary text-white py-[0.4rem] px-[2rem] border border-primary border-solid hover:text-primary hover:bg-white rounded-[1.8rem] text-[1.4rem] font-medium leading-normal">
-                                                            Show More Skills
-                                                          </button>
+                                                          <Link
+                                                            href={`/?sectionId=workExperiences`}
+                                                          >
+                                                            <button className="bg-primary text-white py-[0.4rem] px-[2rem] border border-primary border-solid hover:text-primary hover:bg-white rounded-[1.8rem] text-[1.4rem] font-medium leading-normal">
+                                                              Show More Skills
+                                                            </button>
+                                                          </Link>
                                                         </div>
                                                       </div>
                                                     </div>
@@ -1151,7 +1142,7 @@ const Home_p = ({ params }: { params: any }) => {
                                   })}{" "}
                               <div className="flex items-center justify-center mt-5">
                                 <Link
-                                  href={`https://www.${listOfdatas.domain}/#skillsSection`}
+                                  href={`/?sectionId=workExperiences`}
                                   target="_blank"
                                   className={
                                     "bg-primary text-white py-[0.4rem] px-[2rem] border border-primary border-solid hover:text-primary hover:bg-white rounded-[0.5rem] text-[1.8rem] font-medium leading-normal"
@@ -1172,7 +1163,10 @@ const Home_p = ({ params }: { params: any }) => {
 
                 {/* Our Blogs ✅ */}
                 <div className="my-[5rem] print:my-0">
-                  <OurBlogs domain={listOfdata?.domain} />
+                  <OurBlogsLandscape
+                    domain={listOfdata?.domain}
+                    locationLink={`/?sectionId=ourBlogs`}
+                  />
                 </div>
               </>
             ),

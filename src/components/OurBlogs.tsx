@@ -56,8 +56,8 @@ const OurBlogs = ({ domain }) => {
         </section>
       )}
       <section className="mainContainer print:m-0  print:pt-[1.5rem] h-screen print:section !w-full print:FlexWrapContainer flex justify-center flex-col">
-        <div className="hidden print:block relative mb-36">
-          <NoteDomainForPint direction={"left-0"} />
+        <div className="hidden print:block relative top-[-120px]">
+          <NoteDomainForPint direction={"right-0 "} />
         </div>
 
         {/* Top Content */}

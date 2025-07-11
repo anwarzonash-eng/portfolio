@@ -36,6 +36,7 @@ import ShowmoreSkills from "@/components/showmoreSkills";
 import { useRouter } from "next/router";
 import { useMediaQuery } from "react-responsive";
 import Header from "@/components/layouts/header/page";
+import { SmoothScroll } from "@/hooks/SmoothScroll";
 
 const Home = ({ params }: { params: any }) => {
   useBodyBackgroundColor("#f8f9fa");
@@ -53,6 +54,16 @@ const Home = ({ params }: { params: any }) => {
   const listOfdatas = useAppSelector(
     (state) => state.profile.listOfProfileData
   );
+
+  useEffect(() => {
+    const sectionID = searchParams.get("sectionId");
+    if (!sectionID) return;
+    // Example: URL query ya koi condition ke basis par scroll karo
+    console.log("Section ID:", sectionID);
+    const targetId = "about";
+    SmoothScroll(sectionID);
+  }, [listOfdata]);
+
   useEffect(() => {
     setURLInfo(getRoutesDetails(params, searchParams));
   }, [params, searchParams]);
@@ -644,7 +655,10 @@ const Home = ({ params }: { params: any }) => {
                 </div>
 
                 {/* About Section for desktop*/}
-                <section className="w-full flex items-center justify-center mb-[5rem] print:hidden">
+                <section
+                  id="about"
+                  className="w-full flex items-center justify-center mb-[5rem] print:hidden"
+                >
                   {/* Container Div for desktop*/}
                   <div className="mainContainer flex flex-col-reverse gap-[5rem]   xl:gap-0 xl:flex-row items-center justify-center xl:justify-between">
                     {/* Container For Image and Badges */}
@@ -847,7 +861,7 @@ const Home = ({ params }: { params: any }) => {
                         )}
                       </div>
                       {/* Button Line */}
-                      <div className="md:space-x-5 py-[2rem] ">
+                      <div className="md:space-x-5 py-[2rem]">
                         <Link href={"/cv"}>
                           <button className="w-full md:max-w-max btn-primary rounded-[0.6rem] text-white py-[2rem] px-[5.6rem] text-[1.8rem] font-medium border border-solid border-custom">
                             {" "}
@@ -1136,7 +1150,7 @@ const Home = ({ params }: { params: any }) => {
                   <>
                     {/* Skills Section Completed */}
                     <div
-                      id="skillsSection"
+                      id="skillSection"
                       className="mainContainer print:!pt-[4rem] print:my-[0rem] my-[5rem]  print:h-screen print:break-before-page break-before-avoid print:bg-[#a3ddd3]"
                     >
                       {/* Badge */}
@@ -1189,7 +1203,10 @@ const Home = ({ params }: { params: any }) => {
                   listOfdata.portfolios_ids.length > 0 && (
                     <>
                       {/* My Work Section Slider  */}
-                      <section className="w-full mt-[8rem] mb-[7rem] print_p_m print:!pt-[3rem] print:bg-[#a3ddd3] print:break-before-page print:h-screen ">
+                      <section
+                        id="myWork"
+                        className="w-full mt-[8rem] mb-[7rem] print_p_m print:!pt-[3rem] print:bg-[#a3ddd3] print:break-before-page print:h-screen "
+                      >
                         <div className="mainContainer   my-[5rem] print:my-[1rem] ">
                           {/* Badge */}
                           <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto  section_top_button ">
@@ -1215,7 +1232,10 @@ const Home = ({ params }: { params: any }) => {
                   listOfdata.experiences_ids.length > 0 && (
                     <>
                       {/* Professional Experience Timeline Section Completed */}
-                      <section className="w-full   print_p_m print:h-screen print:break-before-page print:bg-[#a3ddd3]  ">
+                      <section
+                        id="workExperiences"
+                        className="w-full   print_p_m print:h-screen print:break-before-page print:bg-[#a3ddd3]  "
+                      >
                         <div className="mainContainer   print:shadow-none print:!pt-[3rem] ">
                           {/* Badge */}
                           <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto  section_top_button ">
@@ -1513,7 +1533,7 @@ const Home = ({ params }: { params: any }) => {
                 {/* FAQ Section Completed */}
                 <Faqs urlInfo={urlInfo} companyType={listOfdata?.companytype} />
                 {/* Our Blogs */}
-                <div className="my-[5rem] print:bg-[#a3ddd3]  ">
+                <div id="ourBlogs" className="my-[5rem] print:bg-[#a3ddd3]">
                   <OurBlogs domain={listOfdata?.domain} />
                 </div>
                 {/* Newsletter */}

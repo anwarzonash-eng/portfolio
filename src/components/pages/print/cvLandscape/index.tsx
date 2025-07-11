@@ -403,15 +403,13 @@ const CV_Landscape = ({ params }: { params: any }) => {
                                               </div>
                                             ))}
                                         </div>
-                                        {listOfdata?.skills_ids?.length >
-                                          initialVisibleItems && (
-                                          <button
-                                            onClick={() => setShowAll(!showAll)}
-                                            className="px-[4rem] py-[1.4rem] bg-primary rounded-[2.2rem] hover:bg-white hover:text-primary hover:border-primary border border-border border-solid text-center max-w-max text-white text-[1.4rem] font-medium font-Inter leading-tight mx-auto"
-                                          >
+                                        <Link
+                                          href={`/cv/?sectionId=skillsSection`}
+                                        >
+                                          <button className="px-[4rem] py-[1.4rem] bg-primary rounded-[2.2rem] hover:bg-white hover:text-primary hover:border-primary border border-border border-solid text-center max-w-max text-white text-[1.4rem] font-medium font-Inter leading-tight mx-auto">
                                             Show More
                                           </button>
-                                        )}
+                                        </Link>
                                       </div>
                                     </div>
                                   </div>
@@ -524,10 +522,7 @@ const CV_Landscape = ({ params }: { params: any }) => {
                                                 className="h-[18px] w-[18px]"
                                               />
                                               <Link
-                                                href={
-                                                  experience?.company_website ||
-                                                  "#"
-                                                }
+                                                href={`/cv/?sectionId=expericeSection`}
                                                 className="text-[#1F4FE1] break-all text-[1.6rem] lg:text-[1.8rem] font-normal leading-normal"
                                               >
                                                 {
@@ -549,10 +544,7 @@ const CV_Landscape = ({ params }: { params: any }) => {
                                         <div className="flex flex-col-reverse gap-[1rem] max-w-max">
                                           <div className=" py-[0.4rem] px-[2rem] bg-white border border-[#E2E6EE] border-solid text-[#47516B] rounded-[2rem] text-[1.5rem] font-medium leading-[0.8rem] hover:bg-primary hover:text-white ">
                                             <Link
-                                              href={
-                                                experience?.company_website ||
-                                                "#"
-                                              }
+                                              href={`/cv/?sectionId=expericeSection`}
                                               className="flex gap-2 justify-center align-middle items-center hover:text-white hover:text-semibold relative py-2 pl-[1rem]"
                                             >
                                               <Image
@@ -576,7 +568,7 @@ const CV_Landscape = ({ params }: { params: any }) => {
                                             "upwork"
                                           ) && (
                                             <Link
-                                              href={experience.company_website}
+                                              href={`/cv/?sectionId=expericeSection`}
                                               className="hover:bg-primary hover:text-white py-[0.4rem] px-[1rem] text-heading bg-[#A3DDD3] rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
                                             >
                                               View my upwork Freelance Profile
@@ -610,7 +602,7 @@ const CV_Landscape = ({ params }: { params: any }) => {
                                           .map(
                                             (skill: SkillType, i: number) => (
                                               <Link
-                                                href={skill?.url || "#"}
+                                                href={`/cv/?sectionId=expericeSection`}
                                                 key={i}
                                                 className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium py-[0.4rem] px-[2rem] bg-white flex items-center print:py-[0.2rem] print:px-[1.5rem] justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
                                               >
@@ -720,10 +712,7 @@ const CV_Landscape = ({ params }: { params: any }) => {
                                                 className="h-[18px] w-[18px]"
                                               />
                                               <Link
-                                                href={
-                                                  experience?.company_website ||
-                                                  "#"
-                                                }
+                                                href={`/cv/?sectionId=expericeSection`}
                                                 className="text-[#1F4FE1] break-all text-[1.6rem] lg:text-[1.8rem] font-normal leading-normal"
                                               >
                                                 {
@@ -745,10 +734,7 @@ const CV_Landscape = ({ params }: { params: any }) => {
                                         <div className="flex flex-col-reverse gap-[1rem] max-w-max">
                                           <div className=" py-[0.4rem] px-[2rem] bg-white border border-[#E2E6EE] border-solid text-[#47516B] rounded-[2rem] text-[1.5rem] font-medium leading-[0.8rem] hover:bg-primary hover:text-white ">
                                             <Link
-                                              href={
-                                                experience?.company_website ||
-                                                "#"
-                                              }
+                                              href={`/cv/?sectionId=expericeSection`}
                                               className="flex gap-2 justify-center align-middle items-center hover:text-white hover:text-semibold relative py-2 pl-[1rem]"
                                             >
                                               <Image
@@ -772,7 +758,7 @@ const CV_Landscape = ({ params }: { params: any }) => {
                                             "upwork"
                                           ) && (
                                             <Link
-                                              href={experience.company_website}
+                                              href={`/cv/?sectionId=expericeSection`}
                                               className="hover:bg-primary hover:text-white py-[0.4rem] px-[1rem] text-heading bg-[#A3DDD3] rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
                                             >
                                               View my upwork Freelance Profile
@@ -806,7 +792,7 @@ const CV_Landscape = ({ params }: { params: any }) => {
                                           .map(
                                             (skill: SkillType, i: number) => (
                                               <Link
-                                                href={skill?.url || "#"}
+                                                href={`/cv/?sectionId=expericeSection`}
                                                 key={i}
                                                 className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium py-[0.4rem] px-[2rem] bg-white flex items-center print:py-[0.2rem] print:px-[1.5rem] justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
                                               >
@@ -841,7 +827,7 @@ const CV_Landscape = ({ params }: { params: any }) => {
                         Portfolios
                       </h2>
                       <Link
-                        href={"/portfolio"}
+                        href={`/cv/?sectionId=portfolioSection`}
                         className=" flex items-center gap-[0.6rem] group cursor-pointer"
                       >
                         <div className="hover:font-bold hover:text-primary text-[1.4rem] text-heading font-medium">
@@ -969,7 +955,7 @@ const CV_Landscape = ({ params }: { params: any }) => {
                                           <React.Fragment key={groupIndex}>
                                             {group.map((skill, i) => (
                                               <Link
-                                                href={skill?.url || "#"}
+                                                href={`/cv/?sectionId=portfolioSection`}
                                                 className="hover:text-white hover:bg-primary py-[0.4rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
                                               >
                                                 {skill?.title}
@@ -984,22 +970,26 @@ const CV_Landscape = ({ params }: { params: any }) => {
                                           </React.Fragment>
                                         )
                                       )}
-                                      <button className="bg-primary text-white py-[0.4rem] px-[2rem] border border-primary border-solid hover:text-primary hover:bg-white rounded-[1.8rem] text-[1.4rem] font-medium leading-normal">
-                                        Show More Skills
-                                      </button>
+                                      <Link
+                                        href={`/cv/?sectionId=portfolioSection`}
+                                      >
+                                        <button className="bg-primary text-white py-[0.4rem] px-[2rem] border border-primary border-solid hover:text-primary hover:bg-white rounded-[1.8rem] text-[1.4rem] font-medium leading-normal">
+                                          Show More Skills
+                                        </button>
+                                      </Link>
                                     </div>
                                   </div>
                                   <hr className="w-full my-[2.4rem] h-px bg-border" />
                                   <div className="flex flex-wrap items-start gap-[1.4rem]">
                                     <Link
-                                      href={`/portfolio/${portfolio.id}`}
+                                      href={`/cv/?sectionId=portfolioSection`}
                                       className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent hover:border-primary duration-300 w-full md:max-w-max text-center rounded-[0.6rem]"
                                     >
                                       View Details
                                     </Link>
                                     {listOfdata?.companytype !== "leewop" && (
                                       <Link
-                                        href={portfolio?.link}
+                                        href={`/cv/?sectionId=portfolioSection`}
                                         className="py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-primary border border-solid hover:border-transparent border-primary duration-300 hover:bg-primary hover:text-white rounded-[0.6rem] w-full md:max-w-max text-center"
                                       >
                                         Launch Project - Live Preview
@@ -1007,7 +997,7 @@ const CV_Landscape = ({ params }: { params: any }) => {
                                     )}
                                     {portfolio?.has_testimonial == true && (
                                       <Link
-                                        href={"#"}
+                                        href={`/cv/?sectionId=portfolioSection`}
                                         className="text-primary  text-[1.6rem] leading-[2.4rem] font-medium max-sm:w-full text-center"
                                       >
                                         Check Client Testimonial
@@ -1029,9 +1019,13 @@ const CV_Landscape = ({ params }: { params: any }) => {
                                         />
                                       </div>
                                       {/* Button remains the same */}
-                                      <button className="my-[1rem] py-[1rem] px-[2rem] rounded-[0.7rem] border-2 border-solid border-[#fff] text-[1.2rem] font-medium max-w-max backdrop-blur-[0.8rem] duration-300 bg-primary hover:bg-opacity-80 text-white hover:bg-white hover:text-primary hover:border-1 hover:border-primary">
-                                        Explore the Gallery
-                                      </button>
+                                      <Link
+                                        href={`/cv/?sectionId=portfolioSection`}
+                                      >
+                                        <button className="my-[1rem] py-[1rem] px-[2rem] rounded-[0.7rem] border-2 border-solid border-[#fff] text-[1.2rem] font-medium max-w-max backdrop-blur-[0.8rem] duration-300 bg-primary hover:bg-opacity-80 text-white hover:bg-white hover:text-primary hover:border-1 hover:border-primary">
+                                          Explore the Gallery
+                                        </button>
+                                      </Link>
                                     </div>
                                   )}
                                 </div>
@@ -1153,7 +1147,7 @@ const CV_Landscape = ({ params }: { params: any }) => {
                                           <React.Fragment key={groupIndex}>
                                             {group.map((skill, i) => (
                                               <Link
-                                                href={skill?.url || "#"}
+                                                href={`/cv/?sectionId=portfolioSection`}
                                                 className="hover:text-white hover:bg-primary py-[0.4rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
                                               >
                                                 {skill?.title}
@@ -1168,22 +1162,26 @@ const CV_Landscape = ({ params }: { params: any }) => {
                                           </React.Fragment>
                                         )
                                       )}
-                                      <button className="bg-primary text-white py-[0.4rem] px-[2rem] border border-primary border-solid hover:text-primary hover:bg-white rounded-[1.8rem] text-[1.4rem] font-medium leading-normal">
-                                        Show More Skills
-                                      </button>
+                                      <Link
+                                        href={`/cv/?sectionId=portfolioSection`}
+                                      >
+                                        <button className="bg-primary text-white py-[0.4rem] px-[2rem] border border-primary border-solid hover:text-primary hover:bg-white rounded-[1.8rem] text-[1.4rem] font-medium leading-normal">
+                                          Show More Skills
+                                        </button>
+                                      </Link>
                                     </div>
                                   </div>
                                   <hr className="w-full my-[2.4rem] h-px bg-border" />
                                   <div className="flex flex-wrap items-start gap-[1.4rem]">
                                     <Link
-                                      href={`/portfolio/${portfolio.id}`}
+                                      href={`/cv/?sectionId=portfolioSection`}
                                       className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent hover:border-primary duration-300 w-full md:max-w-max text-center rounded-[0.6rem]"
                                     >
                                       View Details
                                     </Link>
                                     {listOfdata?.companytype !== "leewop" && (
                                       <Link
-                                        href={portfolio?.link}
+                                        href={`/cv/?sectionId=portfolioSection`}
                                         className="py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-primary border border-solid hover:border-transparent border-primary duration-300 hover:bg-primary hover:text-white rounded-[0.6rem] w-full md:max-w-max text-center"
                                       >
                                         Launch Project - Live Preview
@@ -1191,7 +1189,7 @@ const CV_Landscape = ({ params }: { params: any }) => {
                                     )}
                                     {portfolio?.has_testimonial == true && (
                                       <Link
-                                        href={"#"}
+                                        href={`/cv/?sectionId=portfolioSection`}
                                         className="text-primary  text-[1.6rem] leading-[2.4rem] font-medium max-sm:w-full text-center"
                                       >
                                         Check Client Testimonial
@@ -1213,9 +1211,13 @@ const CV_Landscape = ({ params }: { params: any }) => {
                                         />
                                       </div>
                                       {/* Button remains the same */}
-                                      <button className="my-[1rem] py-[1rem] px-[2rem] rounded-[0.7rem] border-2 border-solid border-[#fff] text-[1.2rem] font-medium max-w-max backdrop-blur-[0.8rem] duration-300 bg-primary hover:bg-opacity-80 text-white hover:bg-white hover:text-primary hover:border-1 hover:border-primary">
-                                        Explore the Gallery
-                                      </button>
+                                      <Link
+                                        href={`/cv/?sectionId=portfolioSection`}
+                                      >
+                                        <button className="my-[1rem] py-[1rem] px-[2rem] rounded-[0.7rem] border-2 border-solid border-[#fff] text-[1.2rem] font-medium max-w-max backdrop-blur-[0.8rem] duration-300 bg-primary hover:bg-opacity-80 text-white hover:bg-white hover:text-primary hover:border-1 hover:border-primary">
+                                          Explore the Gallery
+                                        </button>
+                                      </Link>
                                     </div>
                                   )}
                                 </div>
@@ -1323,7 +1325,7 @@ const CV_Landscape = ({ params }: { params: any }) => {
                             Blogs
                           </h2>
                           <div className="w-full sm:w-auto flex justify-center">
-                            <Link href={"/blog-listing"}>
+                            <Link href={`/cv/?sectionId=blogsSection`}>
                               <button
                                 className="btn-primary text-white py-[1rem] 
                                 px-[3.4rem] text-[1.8rem] font-medium"

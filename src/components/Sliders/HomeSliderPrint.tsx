@@ -29,11 +29,13 @@ type PortfolioType = {
 interface HomeSliderPrintProps {
   portfolios: PortfolioType[];
   companyType: string;
+  locationLink: string;
 }
 
 const HomeSliderPrint: React.FC<HomeSliderPrintProps> = ({
   portfolios,
   companyType,
+  locationLink,
 }) => {
   const [showAllSkills, setShowAllSkills] = useState(false);
   const [
@@ -113,13 +115,16 @@ const HomeSliderPrint: React.FC<HomeSliderPrintProps> = ({
                             </a>
                           </Link>
                         ))}
+
                       {Object.values(skills).flat().length > 8 && (
-                        <button
-                          onClick={() => setShowAllSkills(!showAllSkills)}
-                          className="bg-primary text-white border border-transparent py-[0.4rem] px-[2rem] hover:bg-white hover:text-primary hover:border-primary hover:border text-heading rounded-[1.2rem] text-[1.4rem] font-medium leading-[2rem]"
-                        >
-                          {showAllSkills ? "Show Less" : "See More"}
-                        </button>
+                        <Link href={locationLink}>
+                          <button
+                            onClick={() => setShowAllSkills(!showAllSkills)}
+                            className="bg-primary text-white border border-transparent py-[0.4rem] px-[2rem] hover:bg-white hover:text-primary hover:border-primary hover:border text-heading rounded-[1.2rem] text-[1.4rem] font-medium leading-[2rem]"
+                          >
+                            {showAllSkills ? "Show Less" : "See More"}
+                          </button>
+                        </Link>
                       )}
                     </div>
                   </div>
@@ -127,14 +132,14 @@ const HomeSliderPrint: React.FC<HomeSliderPrintProps> = ({
 
                 <div className="flex items-center gap-[1.4rem]">
                   <Link
-                    href={`/portfolio/${portfolio.id}`}
+                    href={locationLink}
                     className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent hover:border-primary duration-300 text-center rounded-[0.6rem] max-w-max text-nowrap"
                   >
                     View Details
                   </Link>
                   {companyType !== "leewop" && (
                     <Link
-                      href={portfolio?.link}
+                      href={locationLink}
                       className="py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-primary border border-solid hover:border-transparent border-primary duration-300 hover:bg-primary hover:text-white rounded-[0.6rem] text-center max-w-max text-nowrap"
                     >
                       Launch Project - Live Preview
@@ -142,7 +147,7 @@ const HomeSliderPrint: React.FC<HomeSliderPrintProps> = ({
                   )}
                   {portfolio?.has_testimonial == true && (
                     <Link
-                      href={"#"}
+                      href={locationLink}
                       className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent hover:border-primary duration-300 text-center rounded-[0.6rem] max-w-max text-nowrap"
                     >
                       Check Client Testimonial
@@ -168,24 +173,26 @@ const HomeSliderPrint: React.FC<HomeSliderPrintProps> = ({
                     />
                   </div>
                 )}
-                <button className="text-white py-[6px] mt-[17px] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent hover:border-primary duration-300 max-lg:w-full text-center rounded-[0.6rem] relative max-w-max text-nowrap">
-                  <span className="relative z-10 flex items-center justify-center gap-2">
-                    Explore the Gallery
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </span>
-                  <span className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                </button>
+                <Link href={locationLink}>
+                  <button className="text-white py-[6px] mt-[17px] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent hover:border-primary duration-300 max-lg:w-full text-center rounded-[0.6rem] relative max-w-max text-nowrap">
+                    <span className="relative z-10 flex items-center justify-center gap-2">
+                      Explore the Gallery
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                    <span className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                  </button>
+                </Link>
               </div>
             </div>
           </div>

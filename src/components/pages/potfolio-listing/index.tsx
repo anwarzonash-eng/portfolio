@@ -22,6 +22,7 @@ import Background from "@/components/background";
 import { useAppSelector } from "@/store";
 import WorkProofLinks from "@/components/WorkProofLinks";
 import ContactMeLinks from "@/components/ContactMeLinks";
+import { SmoothScroll } from "@/hooks/SmoothScroll";
 
 const PortfolioListing = ({ params }: { params: any }) => {
   const [
@@ -36,6 +37,15 @@ const PortfolioListing = ({ params }: { params: any }) => {
   const listOfdatas = useAppSelector(
     (state) => state.profile.listOfProfileData
   );
+
+  useEffect(() => {
+    const sectionID = searchParams.get("sectionId");
+    if (!sectionID) return;
+    // Example: URL query ya koi condition ke basis par scroll karo
+    console.log("Section ID:", sectionID);
+    SmoothScroll(sectionID);
+  }, [listOfdata]);
+
   const [loading, setLoading] = useState(true);
   const searchParams = useSearchParams();
 
@@ -438,7 +448,10 @@ const PortfolioListing = ({ params }: { params: any }) => {
             </div>
           </div>
           {/* Our Blogs Section */}
-          <div className="w-full my-[10rem] lg:my-[12rem] print:my-1">
+          <div
+            className="w-full my-[10rem] lg:my-[12rem] print:my-1"
+            id="blogsSection"
+          >
             <OurBlogs domain={listOfdata?.domain} />
           </div>
           {/* Newsletter */}

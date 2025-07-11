@@ -153,7 +153,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
               <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative print:bg-cvSideBg print:bg-no-repeat print:bg-cover">
                 {/* Note and Domain For Each Page */}
                 <NoteDomainForPint
-                  direction={"hidden print:left-0 print:block"}
+                  direction={"hidden print:right-0 print:block"}
                 />
                 <div className="max-w-[1550px] w-full mx-auto flex flex-col items-center print:bg-none bg-cvSideBg bg-no-repeat bg-cover p-[4rem]">
                   {/* Profile Bg */}
@@ -317,7 +317,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
                 <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative my-[4rem] print:m-0">
                   {/* Note and Domain For Each Page */}
                   <NoteDomainForPint
-                    direction={"hidden print:left-0 print:block"}
+                    direction={"hidden print:right-0 print:block"}
                   />
                   <div className="relative flex items-start max-w-[1550px] w-full mx-auto px-[4rem]">
                     {/* Dot */}
@@ -353,10 +353,10 @@ const CV_Portrait = ({ params }: { params: any }) => {
 
               {/* Skills Section ✅ */}
               {listOfdata?.skills_ids && (
-                <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative my-[4rem] print:m-0">
+                <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center flex-col overflow-hidden relative my-[4rem] print:m-0">
                   {/* Note and Domain For Each Page */}
                   <NoteDomainForPint
-                    direction={"hidden print:left-0 print:block"}
+                    direction={"hidden print:right-0 print:block"}
                   />
                   <div className="relative flex items-start max-w-[1550px] w-full mx-auto px-[4rem] ">
                     {/* Dot */}
@@ -373,7 +373,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
                         Skills
                       </h2>
                       <div className="flex flex-col items-center">
-                        <div className="grid  grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-4 print:grid-cols-5 xl:grid-cols-6 gap-[1.5rem] ml-[2rem] ">
+                        <div className="grid  grid-cols-5  xl:grid-cols-6 gap-[1.5rem] ml-[2rem] ">
                           {Object.values(skillsforCV)
                             .flat()
                             .slice(0, 20)
@@ -405,6 +405,13 @@ const CV_Portrait = ({ params }: { params: any }) => {
                       </div>
                     </div>
                   </div>
+                  <div className="">
+                    <Link href={`/cv/?sectionId=skillsSection`}>
+                      <button className="bg-primary text-white py-[0.4rem] px-[2rem] border border-primary border-solid hover:text-primary hover:bg-white rounded-[1.8rem] text-[1.4rem] font-medium leading-normal">
+                        Show More Skills
+                      </button>
+                    </Link>
+                  </div>
                 </section>
               )}
 
@@ -414,7 +421,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
                   <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center flex-col overflow-hidden relative my-[4rem] print:m-0">
                     {/* Note and Domain For Each Page */}
                     <NoteDomainForPint
-                      direction={"hidden print:left-0 print:block"}
+                      direction={"hidden print:right-0 print:block"}
                     />
                     <h2
                       className="text-heading  leading-[3.56rem] text-[3.67rem] font-medium 
@@ -508,10 +515,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
                                               className="h-[18px] w-[18px]"
                                             />
                                             <Link
-                                              href={
-                                                experience?.company_website ||
-                                                "#"
-                                              }
+                                              href={`/cv/?sectionId=expericeSection`}
                                               className="text-[#1F4FE1] break-all text-[1.6rem] lg:text-[1.8rem] font-normal leading-normal"
                                             >
                                               {
@@ -533,9 +537,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
                                       <div className="flex flex-col-reverse gap-[1rem] max-w-max">
                                         <div className=" py-[0.4rem] px-[2rem] bg-white border border-[#E2E6EE] border-solid text-[#47516B] rounded-[2rem] text-[1.5rem] font-medium leading-[0.8rem] hover:bg-primary hover:text-white ">
                                           <Link
-                                            href={
-                                              experience?.company_website || "#"
-                                            }
+                                            href={`/cv/?sectionId=expericeSection`}
                                             className="flex gap-2 justify-center align-middle items-center hover:text-white hover:text-semibold relative py-2 pl-[1rem]"
                                           >
                                             <Image
@@ -559,7 +561,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
                                           "upwork"
                                         ) && (
                                           <Link
-                                            href={experience.company_website}
+                                            href={`/cv/?sectionId=expericeSection`}
                                             className="hover:bg-primary hover:text-white py-[0.4rem] px-[1rem] text-heading bg-[#A3DDD3] rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
                                           >
                                             View my upwork Freelance Profile
@@ -592,16 +594,20 @@ const CV_Portrait = ({ params }: { params: any }) => {
                                         .slice(0, 8)
                                         .map((skill: SkillType, i: number) => (
                                           <Link
-                                            href={skill?.url || "#"}
+                                            href={`/cv/?sectionId=expericeSection`}
                                             key={i}
                                             className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium py-[0.4rem] px-[2rem] bg-white flex items-center print:py-[0.2rem] print:px-[1.5rem] justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
                                           >
                                             {skill.title}
                                           </Link>
                                         ))}
-                                      <button className="bg-primary text-white py-[0.4rem] px-[2rem] border border-primary border-solid hover:text-primary hover:bg-white rounded-[1.8rem] text-[1.4rem] font-medium leading-normal">
-                                        Show More Skills
-                                      </button>
+                                      <Link
+                                        href={`/cv/?sectionId=expericeSection`}
+                                      >
+                                        <button className="bg-primary text-white py-[0.4rem] px-[2rem] border border-primary border-solid hover:text-primary hover:bg-white rounded-[1.8rem] text-[1.4rem] font-medium leading-normal">
+                                          Show More Skills
+                                        </button>
+                                      </Link>
                                     </div>
                                   </div>
                                 </div>
@@ -616,6 +622,10 @@ const CV_Portrait = ({ params }: { params: any }) => {
               {listOfdata && listOfdata?.experiences_ids?.length > 0 && (
                 <>
                   <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center flex-col overflow-hidden relative my-[4rem] print:m-0">
+                    {/* Note and Domain For Each Page */}
+                    <NoteDomainForPint
+                      direction={"hidden print:right-0 print:block"}
+                    />
                     {listOfdata?.experiences_ids &&
                       [...listOfdata.experiences_ids]
                         ?.sort((a, b) => {
@@ -699,10 +709,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
                                               className="h-[18px] w-[18px]"
                                             />
                                             <Link
-                                              href={
-                                                experience?.company_website ||
-                                                "#"
-                                              }
+                                              href={`/cv/?sectionId=expericeSection`}
                                               className="text-[#1F4FE1] break-all text-[1.6rem] lg:text-[1.8rem] font-normal leading-normal"
                                             >
                                               {
@@ -724,9 +731,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
                                       <div className="flex flex-col-reverse gap-[1rem] max-w-max">
                                         <div className=" py-[0.4rem] px-[2rem] bg-white border border-[#E2E6EE] border-solid text-[#47516B] rounded-[2rem] text-[1.5rem] font-medium leading-[0.8rem] hover:bg-primary hover:text-white ">
                                           <Link
-                                            href={
-                                              experience?.company_website || "#"
-                                            }
+                                            href={`/cv/?sectionId=expericeSection`}
                                             className="flex gap-2 justify-center align-middle items-center hover:text-white hover:text-semibold relative py-2 pl-[1rem]"
                                           >
                                             <Image
@@ -750,7 +755,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
                                           "upwork"
                                         ) && (
                                           <Link
-                                            href={experience.company_website}
+                                            href={`/cv/?sectionId=expericeSection`}
                                             className="hover:bg-primary hover:text-white py-[0.4rem] px-[1rem] text-heading bg-[#A3DDD3] rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
                                           >
                                             View my upwork Freelance Profile
@@ -783,16 +788,21 @@ const CV_Portrait = ({ params }: { params: any }) => {
                                         .slice(0, 8)
                                         .map((skill: SkillType, i: number) => (
                                           <Link
-                                            href={skill?.url || "#"}
+                                            href={`/cv/?sectionId=expericeSection`}
                                             key={i}
                                             className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium py-[0.4rem] px-[2rem] bg-white flex items-center print:py-[0.2rem] print:px-[1.5rem] justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
                                           >
                                             {skill.title}
                                           </Link>
                                         ))}
-                                      <button className="bg-primary text-white py-[0.4rem] px-[2rem] border border-primary border-solid hover:text-primary hover:bg-white rounded-[1.8rem] text-[1.4rem] font-medium leading-normal">
-                                        Show More Skills
-                                      </button>
+
+                                      <Link
+                                        href={`/cv/?sectionId=expericeSection`}
+                                      >
+                                        <button className="bg-primary text-white py-[0.4rem] px-[2rem] border border-primary border-solid hover:text-primary hover:bg-white rounded-[1.8rem] text-[1.4rem] font-medium leading-normal">
+                                          Show More Skills
+                                        </button>
+                                      </Link>
                                     </div>
                                   </div>
                                 </div>
@@ -828,7 +838,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
                       <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative my-[4rem] print:m-0 pr-[2rem]">
                         {/* Note and Domain For Each Page */}
                         <NoteDomainForPint
-                          direction={"hidden print:left-0 print:block"}
+                          direction={"hidden print:right-0 print:block"}
                         />
                         <div
                           className="relative max-w-[1550px] w-full mx-auto px-[4rem]"
@@ -884,24 +894,28 @@ const CV_Portrait = ({ params }: { params: any }) => {
                                   )}
                                   {/* Explore Galary Button */}
                                   <div className="flex items-center justify-center w-full">
-                                    <button className="text-white py-[6px] mt-[17px] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent hover:border-primary duration-300 max-lg:w-full text-center rounded-[0.6rem] relative max-w-max text-nowrap">
-                                      <span className="relative z-10 flex items-center justify-center gap-2">
-                                        Explore the Gallery
-                                        <svg
-                                          xmlns="http://www.w3.org/2000/svg"
-                                          className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1"
-                                          viewBox="0 0 20 20"
-                                          fill="currentColor"
-                                        >
-                                          <path
-                                            fillRule="evenodd"
-                                            d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
-                                            clipRule="evenodd"
-                                          />
-                                        </svg>
-                                      </span>
-                                      <span className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                                    </button>
+                                    <Link
+                                      href={`/cv/?sectionId=portfolioSection`}
+                                    >
+                                      <button className="text-white py-[6px] mt-[17px] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent hover:border-primary duration-300 max-lg:w-full text-center rounded-[0.6rem] relative max-w-max text-nowrap">
+                                        <span className="relative z-10 flex items-center justify-center gap-2">
+                                          Explore the Gallery
+                                          <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1"
+                                            viewBox="0 0 20 20"
+                                            fill="currentColor"
+                                          >
+                                            <path
+                                              fillRule="evenodd"
+                                              d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
+                                              clipRule="evenodd"
+                                            />
+                                          </svg>
+                                        </span>
+                                        <span className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                                      </button>
+                                    </Link>
                                   </div>
                                 </div>
                                 <div className="mt-[1rem]">
@@ -951,7 +965,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
                                       .map((skill: SkillType, i: number) => (
                                         <Link
                                           key={i}
-                                          href={skill?.url || "#"}
+                                          href={`/cv/?sectionId=portfolioSection`}
                                           className="hover:text-white hover:bg-primary py-[0.4rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
                                         >
                                           {skill?.title}
@@ -961,13 +975,13 @@ const CV_Portrait = ({ params }: { params: any }) => {
                                 </div>
                                 <div className="flex items-center print:grid grid-cols-1 gap-[1.4rem] py-[1rem]">
                                   <Link
-                                    href={`/portfolio/${portfolio.id}`}
+                                    href={`/cv/?sectionId=portfolioSection`}
                                     className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent hover:border-primary duration-300 text-center rounded-[0.6rem]  text-nowrap print:w-full"
                                   >
                                     View Details
                                   </Link>
                                   <Link
-                                    href={portfolio?.link}
+                                    href={`/cv/?sectionId=portfolioSection`}
                                     className="py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-primary border border-solid hover:border-transparent border-primary duration-300 hover:bg-primary hover:text-white rounded-[0.6rem] text-center text-nowrap print:w-full"
                                   >
                                     Launch Project - Live Preview
@@ -987,7 +1001,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
               <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative my-[4rem] print:m-0 pr-[2rem]">
                 {/* Note and Domain For Each Page */}
                 <NoteDomainForPint
-                  direction={"hidden print:left-0 print:block"}
+                  direction={"hidden print:right-0 print:block"}
                 />
                 <div className="max-w-[1550px] w-full mx-auto px-[4rem]">
                   {/* Education Section */}
@@ -1073,7 +1087,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
                           Blogs
                         </h2>
                         <div className="w-full sm:w-auto flex justify-center">
-                          <Link href={"/blog-listing"}>
+                          <Link href={`/cv/?sectionId=blogsSection`}>
                             <button
                               className="btn-primary text-white py-[1rem] 
                                       px-[3.4rem] text-[1.8rem] font-medium"

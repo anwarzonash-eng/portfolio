@@ -100,7 +100,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
               <section className="print:h-screen print:section bg-bannerBG !w-full  print:FlexWrapContainer flex items-center justify-center relative">
                 {/* Note and Domain For Each Page */}
                 <NoteDomainForPint
-                  direction={"hidden print:left-0 print:block"}
+                  direction={"hidden print:right-0 print:block"}
                 />
                 {/* Welcome Card */}
                 <div className="text-center p-[4rem] print:p-0">
@@ -124,6 +124,11 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
                               {item.trim()}
                             </div>
                           ))}
+                      </div>
+                      <div className="flex items-center justify-center w-full">
+                        <p className="text-white font-medium px-4 py-1 text-[1.6rem] rounded-[100px] bg-primary">
+                          Note: All The Buttons are Clickable
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -150,7 +155,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
               {/* Blog Content Section ✅ */}
               <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative flex-col">
                 <div
-                  className={`absolute z-[1000] top-10 hidden print:left-0 print:block px-20`}
+                  className={`absolute z-[1000] top-10 hidden print:right-0 print:block px-20`}
                 >
                   <Link
                     className="text-white font-medium text-[2rem] underline ml-2"
@@ -158,9 +163,6 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
                   >
                     {listOfdatas.domain}
                   </Link>
-                  <p className="text-primary font-medium px-4 py-1 text-[1.6rem] rounded-[100px] bg-white">
-                    Note: All The Buttons are Clickable
-                  </p>
                 </div>
                 {/* Portfolio Detail Container */}
                 <div className="w-full h-[30rem] overflow-hidden  absolute top-0 left-0">
@@ -274,7 +276,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
               <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative mt-10 print:m-0">
                 {/* Note and Domain For Each Page */}
                 <NoteDomainForPint
-                  direction={"hidden print:left-0 print:block"}
+                  direction={"hidden print:right-0 print:block"}
                 />
                 <div className="max-w-[1550px] w-full mx-auto px-[4rem]">
                   {/* Content */}
@@ -354,7 +356,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
               <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative">
                 {/* Note and Domain For Each Page */}
                 <NoteDomainForPint
-                  direction={"hidden print:left-0 print:block"}
+                  direction={"hidden print:right-0 print:block"}
                 />
                 <div className="max-w-[1550px] w-full mx-auto px-[4rem]">
                   <Image
@@ -381,7 +383,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
               <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative flex-col">
                 {/* Note and Domain For Each Page */}
                 <NoteDomainForPint
-                  direction={"hidden print:left-0 print:block"}
+                  direction={"hidden print:right-0 print:block"}
                 />
                 {/* My Tools and Technologies */}
                 <div className="max-w-[1550px] w-full mx-auto px-[4rem] ">
@@ -422,11 +424,12 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
                 </div>
               </section>
 
-              {/* <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative"></section> */}
-
               {/* Our Blogs Section ✅ */}
               <section className="max-w-[1550px] w-full mx-auto">
-                <OurBlogsPortrait domain={listOfdata?.domain} />
+                <OurBlogsPortrait
+                  domain={listOfdata?.domain}
+                  locationLink={`/portfolio/?sectionId=blogsSection`}
+                />
               </section>
             </>
           ),

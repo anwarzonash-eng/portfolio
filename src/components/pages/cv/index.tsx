@@ -33,6 +33,7 @@ import Background from "@/components/background";
 import { useAppSelector } from "@/store";
 import Footer from "@/components/layouts/footer/page";
 import Header from "@/components/layouts/header/page";
+import { SmoothScroll } from "@/hooks/SmoothScroll";
 type SkillType = {
   title: string;
   url?: string;
@@ -43,6 +44,15 @@ const CV = ({ params }: { params: any }) => {
   const [urlInfo, setURLInfo] = useState(null);
   const [listOfdata, setListOfData] = useState(null);
   const [listOfskills, setListOfSkills] = useState([]);
+
+  useEffect(() => {
+    const sectionID = searchParams.get("sectionId");
+    if (!sectionID) return;
+    // Example: URL query ya koi condition ke basis par scroll karo
+    console.log("Section ID:", sectionID);
+    SmoothScroll(sectionID);
+  }, [listOfdata]);
+
   const [loading, setLoading] = useState(true);
 
   const [
@@ -216,13 +226,12 @@ const CV = ({ params }: { params: any }) => {
               <div className="mt-[-40rem] print:mt-0 max-w-[1550px] print:max-w-[1550px] w-full mx-auto px-[1.5rem]">
                 <div className="bg-white flex flex-col lg:flex-row gap-[4rem] pb-[5rem] lg:pb-[7rem] px-[3rem] rounded-[1.4rem]  relative  mb-[10rem] lg:mb-[9.6rem]">
                   {/* Side Panel */}
-                  
+
                   <aside className="lg:max-w-[40rem] print:w-full print:break-before-page w-full  flex-shrink-0 bg-cvSideBg bg-no-repeat bg-cover pb-[2rem] pt-[5rem] print:pt-[2rem] px-[3rem]">
                     <div className="flex flex-col items-center">
                       {/* Profile Bg */}
-                      
+
                       <div className="print:flex flex flex-col items-center justify-center gap-4 print:w-full">
-                       
                         <div className="print:flex flex flex-col print:flex-row items-center justify-center gap-4 print:w-full">
                           <Link href="/" className=" block">
                             <Image
@@ -528,7 +537,10 @@ const CV = ({ params }: { params: any }) => {
 
                             {/* Skills Timeline item */}
                             {listOfdata?.skills_ids && (
-                              <div className="relative flex items-start  print:break-before-page ">
+                              <div
+                                id="skillsSection"
+                                className="relative flex items-start  print:break-before-page "
+                              >
                                 {/* Dot */}
                                 <div className="absolute top-0 left-[-1.3rem] block print:hidden ">
                                   <div className="w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center">
@@ -590,7 +602,10 @@ const CV = ({ params }: { params: any }) => {
                             {/* {Experience} */}
                             {listOfdata &&
                               listOfdata?.experiences_ids?.length > 0 && (
-                                <div className="relative flex items-start print:break-before-page">
+                                <div
+                                  id="expericeSection"
+                                  className="relative flex items-start print:break-before-page"
+                                >
                                   {/* Dot - Hidden in print */}
                                   <div className="absolute top-0 left-[-1.3rem] block print:hidden">
                                     <div className="w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center mt-[3rem] mb-[2rem]">
@@ -874,7 +889,10 @@ const CV = ({ params }: { params: any }) => {
                             {/* Portfolio Timeline item */}
                             {listOfdata &&
                               listOfdata?.portfolios_ids?.length > 0 && (
-                                <div className="relative flex items-start print:break-before-page ">
+                                <div
+                                  id="portfolioSection"
+                                  className="relative flex items-start print:break-before-page "
+                                >
                                   {/* Dot */}
                                   <div className="absolute top-0 left-[-1.3rem] block print:hidden ">
                                     <div className="w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center mt-[3rem] mb-[2rem]">
@@ -1286,7 +1304,10 @@ const CV = ({ params }: { params: any }) => {
                               )}
 
                             {/* Blogs Timeline item */}
-                            <div className="relative flex items-start print:hidden">
+                            <div
+                              id="blogsSection"
+                              className="relative flex items-start print:hidden"
+                            >
                               {/* Dot */}
                               <div className="absolute top-0 left-[-1.3rem] block print:hidden ">
                                 <div className="w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center my-[3rem]">

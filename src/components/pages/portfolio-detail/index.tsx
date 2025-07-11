@@ -21,6 +21,7 @@ import { setProfileLoading, setProfileUrlInfo } from "@/store/profileSlice";
 import PageRendering from "@/components/PageRendering";
 import SkillsContainer from "@/components/SkillsContainer";
 import { skillsGrouping } from "@/hooks/skillsGrouping";
+import { SmoothScroll } from "@/hooks/SmoothScroll";
 
 const PortfolioDetails = ({ params }: { params: any }) => {
   const searchParams = useSearchParams();
@@ -30,7 +31,17 @@ const PortfolioDetails = ({ params }: { params: any }) => {
   const [urlInfo, setURLInfo] = useState(null);
   const [listOfdata, setListOfData] = useState(null);
   const [listOfskills, setListOfSkills] = useState([]);
+
+  useEffect(() => {
+    const sectionID = searchParams.get("sectionId");
+    if (!sectionID) return;
+    // Example: URL query ya koi condition ke basis par scroll karo
+    console.log("Section ID:", sectionID);
+    SmoothScroll(sectionID);
+  }, [listOfdata]);
+
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     console.log({ allparams: params.value });
 
@@ -350,7 +361,10 @@ const PortfolioDetails = ({ params }: { params: any }) => {
                 </div>
               </section>
               {/* Our Blogs Section */}
-              <div className="w-full my-[10rem] lg:my-[12rem]">
+              <div
+                className="w-full my-[10rem] lg:my-[12rem]"
+                id="blogsSection"
+              >
                 <OurBlogs domain={listOfdata?.domain} />
               </div>
               {/* Newsletter */}

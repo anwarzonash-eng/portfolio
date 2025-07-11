@@ -17,7 +17,7 @@ import ContactMe from "./ContactMe";
 import { useAppSelector } from "@/store";
 import NoteDomainForPint from "./NoteDomainForPint";
 
-const OurBlogsPortrait = ({ domain }) => {
+const OurBlogsPortrait = ({ domain, locationLink }) => {
   const [blogsList, setBlogs] = useState([]);
   const [loadingblogs, setLoadingBlogs] = useState(false);
   const listOfdata = useAppSelector((state) => state.profile.listOfProfileData);
@@ -42,7 +42,7 @@ const OurBlogsPortrait = ({ domain }) => {
       {/* Blog Section */}
       <section className="bg-transparent print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center relative">
         {/* Note and Domain For Each Page */}
-        <NoteDomainForPint direction={"hidden print:left-0 print:block"} />
+        <NoteDomainForPint direction={"hidden print:right-0 print:block"} />
         <div className="w-full px-[4rem]">
           {/* Top Content */}
           <div className="flex justify-between flex-wrap items-end sm:items-center gap-[2rem] my-[4rem] print:my-[2rem]">
@@ -50,7 +50,7 @@ const OurBlogsPortrait = ({ domain }) => {
               My Latest Blogs
             </h3>
             <div className="w-full sm:w-auto flex justify-center">
-              <Link href={"/blog-listing"}>
+              <Link href={locationLink}>
                 <button
                   className="btn-primary text-white py-[1rem] 
                 px-[3.4rem] text-[1.8rem] font-medium"
@@ -180,7 +180,7 @@ const OurBlogsPortrait = ({ domain }) => {
       {!urlInfo?.u && (
         <section className="bg-transparent print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center mt-20 print:m-0 relative print:bg-footerDesktop bg-cover bg-center">
           {/* Note and Domain For Each Page */}
-          <NoteDomainForPint direction={"hidden print:left-0 print:block"} />
+          <NoteDomainForPint direction={"hidden print:right-0 print:block"} />
           <div className="w-full px-[4rem]">
             <ContactMe listOfdata={listOfdata} />
           </div>
