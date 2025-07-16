@@ -4,6 +4,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import ContactMe from "@/components/ContactMe";
+import FooterNewsLetter from "@/components/FooterNewsLetter";
 import { useAppSelector } from "@/store";
 
 const Footer = () => {
@@ -48,17 +49,29 @@ const Footer = () => {
             </section>
           )}
           {/* Footer */}
-          <footer className="print:block mt-[2rem]">
+          <footer className="print:block mt-[2rem] bg-primary">
             <div
-              className={`bg-footerBg print:bg-none print:!bg-white  ${
+              className={`${
                 urlInfo?.u ? "" : ""
-              } w-full bg-center print:block bg-cover bg-no-repeat flex flex-col items-center justify-end`}
+              } w-full mainContainer text-[1.8rem] font-medium bg-sectionBG bg-Newslatter bg-no-repeat bg-contain bg-right`}
             >
-              <div className="mainContainer text-[1.8rem] font-medium flex items-center justify-center">
-                <div className="py-[3rem] w-full flex items-start justify-between flex-wrap gap-[4rem] text-heading text-[1.8rem] font-medium">
+              <div className="py-[3rem] w-full text-[1.8rem] flex justify-between flex-col sm:flex-row">
+                {/* CTA Section */}
+                <div className="mr-10 lg:min-w-[450px]">
+                  <FooterNewsLetter />
+                  <p className="print:hidden text-pageBG text-[1.4rem] font-normal py-[1.5rem]">
+                    All Rights Reserved ©{" "}
+                    <span className="uppercase">
+                      {listOfdata?.name || "Cypexsoft"}
+                    </span>{" "}
+                    2025
+                  </p>
+                </div>
+                {/* Links Section  */}
+                <div className="flex  justify-between flex-wrap gap-[4rem] w-full">
                   {/* Pages Column */}
                   <div className="flex flex-col items-start gap-4">
-                    <h4 className="text-[2.5rem] font-bold text-heading footerLink">
+                    <h4 className="text-[2.5rem] font-bold text-pageBG">
                       Pages
                     </h4>
                     {footerLinks
@@ -88,7 +101,7 @@ const Footer = () => {
 
                   {/* Social Links Column */}
                   <div className="flex flex-col items-start gap-4">
-                    <h4 className="text-[2.5rem] font-bold text-heading footerLink">
+                    <h4 className="text-[2.5rem] font-bold text-pageBG ">
                       Contacts
                     </h4>
                     {footerLinks
@@ -118,10 +131,10 @@ const Footer = () => {
                   {/* Services Column */}
                   {services.length > 0 && (
                     <div className="flex flex-col items-start gap-4">
-                      <h4 className="text-[2.5rem] font-bold text-heading footerLink">
+                      <h4 className="text-[2.5rem] font-bold text-pageBG">
                         Servises
                       </h4>
-                      {services.map((service, index) => (
+                      {services.slice(0, 6).map((service, index) => (
                         <Link
                           href={`/offer?service=${service?.title}`}
                           key={index}
@@ -135,13 +148,6 @@ const Footer = () => {
                 </div>
               </div>
             </div>
-            <p className="text-center print:hidden  text-heading text-[1.8rem] font-normal py-[1.5rem] px-[2rem] bg-white">
-              All Rights Reserved ©{" "}
-              <span className="capitalize">
-                {listOfdata?.name || "Cypexsoft"}
-              </span>{" "}
-              2025
-            </p>
           </footer>
         </>
       )}
