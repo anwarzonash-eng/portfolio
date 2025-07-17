@@ -9,7 +9,6 @@ import { getRoutesDetails } from "@/hooks/url";
 import { store } from "@/store";
 import { setProfileLoading, setProfileUrlInfo } from "@/store/profileSlice";
 import { dateFormatsOptions } from "@/data/JsonData";
-import axios from "axios";
 import WebsiteLoader from "@/components/WebsiteLoader";
 import { reportsApiHandler } from "@/hooks/apihandlers/reportsApiHandlers";
 import DomainImageMap from "@/data/DomainImageMap.json";
@@ -45,6 +44,8 @@ const BlogListing = ({ params }: { params: any }) => {
         setListOfData,
       });
   }, [urlInfo]);
+
+  const domain = listOfdata?.domain || "default";
 
   useBodyBackgroundColor("#EFF5FD");
 
@@ -323,18 +324,14 @@ const BlogListing = ({ params }: { params: any }) => {
               className="max-w-[41.8rem] w-full p-[2.4rem] bg-white shadow-lg mb-[1.6rem]"
             >
               {/* Card Image */}
-              {blog?.featuredImage && (
+              {blog && (
                 <Image
                   // src={blog?.featuredImage}
-                  src={
-                    blog?.featuredImage &&
-                    blog?.featuredImage.startsWith("http")
-                      ? blog.featuredImage
-                      : getImageForIndex(listOfdata?.domain, index)
-                  }
+                  src={getImageForIndex(domain, index)}
                   height={240}
                   width={370}
                   alt="blog"
+                  className="h-[240px] w-[370px]"
                 />
               )}
 

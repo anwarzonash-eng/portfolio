@@ -17,6 +17,7 @@ import ContactMe from "./ContactMe";
 import { useAppSelector } from "@/store";
 import { usePathname } from "next/navigation";
 import NoteDomainForPint from "./NoteDomainForPint";
+import { getImageForIndex } from "@/utils/getImageForIndex";
 
 const OurBlogs = ({ domain }) => {
   const [blogsList, setBlogs] = useState([]);
@@ -38,12 +39,6 @@ const OurBlogs = ({ domain }) => {
       setLoading: setLoadingBlogs,
     });
   }, [domain]);
-
-  const fallbackImages = [
-    "https://images.unsplash.com/photo-1573495627361-d9b87960b12d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aXR8ZW58MHx8MHx8fDA%3D",
-    "https://images.unsplash.com/photo-1554306274-f23873d9a26c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c29mdHdhcmUlMjBkZXZlbG9wbmVudHxlbnwwfHwwfHx8MA%3D%3D",
-    "https://images.unsplash.com/photo-1591439657848-9f4b9ce436b9?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8c29mdHdhcmUlMjBkZXZlbG9wbmVudHxlbnwwfHwwfHx8MA%3D%3D",
-  ];
 
   return (
     <>
@@ -97,10 +92,11 @@ const OurBlogs = ({ domain }) => {
                       href={`/blog-listing/${blog?.id}`}
                       className="max-w-[41.8rem] w-full p-[2.4rem] print:!pt-[1rem] bg-white shadow-lg mb-[1.6rem]"
                     >
-                      {blog?.featuredImage && (
+                      {blog && (
                         <Image
                           // src={blog?.featuredImage}
-                          src={fallbackImages[index % fallbackImages.length]}
+                          src={getImageForIndex(domain, index)}
+                          // src={getImageForIndex(blog.domain, index)}
                           height={250}
                           width={370}
                           className="h-[200px]"
@@ -112,8 +108,8 @@ const OurBlogs = ({ domain }) => {
                         {/* Date */}
                         <div className="mb-[1.2rem] flex items-center">
                           {/* <h4 className="text-heading text-[1.4rem] leading-[2rem] font-medium">
-       {category}
-     </h4> */}
+                          {category}
+                          </h4> */}
                           <div className="flex items-center">
                             {/* SVG Dot */}
                             <div className="mx-[0.6rem]">

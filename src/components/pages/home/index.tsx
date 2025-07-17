@@ -1536,6 +1536,7 @@ const Home = ({ params }: { params: any }) => {
                 <div id="ourBlogs" className="my-[5rem] print:bg-[#a3ddd3]">
                   <OurBlogs domain={listOfdata?.domain} />
                 </div>
+
                 {/* Newsletter */}
                 {!urlInfo?.u && (
                   <div className="w-full mb-[5rem]">
