@@ -58,7 +58,7 @@ const Footer = () => {
               <div className="py-[3rem] w-full text-[1.8rem] flex justify-between flex-col sm:flex-row">
                 {/* CTA Section */}
                 <div className="mr-10 lg:min-w-[450px]">
-                  <FooterNewsLetter />
+                  <FooterNewsLetter listOfdata={listOfdata} />
                   <p className="print:hidden text-pageBG text-[1.4rem] font-normal py-[1.5rem]">
                     All Rights Reserved ©{" "}
                     <span className="uppercase">

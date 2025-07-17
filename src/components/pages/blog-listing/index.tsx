@@ -1,24 +1,25 @@
-'use client';
+"use client";
 
-import React, { useEffect, useState } from 'react';
-import BlogCard from '@/components/BlogCard';
-import Newsletter from '@/components/Newsletter';
-import useBodyBackgroundColor from '@/hooks/useBodyBackgroundColor';
-import { useSearchParams } from 'next/navigation';
-import { getRoutesDetails } from '@/hooks/url';
-import { store } from '@/store';
-import { setProfileLoading, setProfileUrlInfo } from '@/store/profileSlice';
-import { dateFormatsOptions } from '@/data/JsonData';
-import axios from 'axios';
-import WebsiteLoader from '@/components/WebsiteLoader';
-import { reportsApiHandler } from '@/hooks/apihandlers/reportsApiHandlers';
-import Image from 'next/image';
-import Link from 'next/link';
-import { formatDate } from '@/hooks/formatdate';
+import React, { useEffect, useState } from "react";
+import BlogCard from "@/components/BlogCard";
+import Newsletter from "@/components/Newsletter";
+import useBodyBackgroundColor from "@/hooks/useBodyBackgroundColor";
+import { useSearchParams } from "next/navigation";
+import { getRoutesDetails } from "@/hooks/url";
+import { store } from "@/store";
+import { setProfileLoading, setProfileUrlInfo } from "@/store/profileSlice";
+import { dateFormatsOptions } from "@/data/JsonData";
+import axios from "axios";
+import WebsiteLoader from "@/components/WebsiteLoader";
+import { reportsApiHandler } from "@/hooks/apihandlers/reportsApiHandlers";
+import DomainImageMap from "@/data/DomainImageMap.json";
+import Image from "next/image";
+import Link from "next/link";
+import { formatDate } from "@/hooks/formatdate";
 import {
   blogsListing,
   loadBlogs,
-} from '@/hooks/apihandlers/blogListingApiHandler';
+} from "@/hooks/apihandlers/blogListingApiHandler";
 
 const BlogListing = ({ params }: { params: any }) => {
   const [urlInfo, setURLInfo] = useState(null);
@@ -29,6 +30,8 @@ const BlogListing = ({ params }: { params: any }) => {
 
   const searchParams = useSearchParams();
 
+  console.log("DomainImageMap", DomainImageMap);
+
   useEffect(() => {
     setURLInfo(getRoutesDetails(params, searchParams));
   }, [params, searchParams]);
@@ -36,14 +39,14 @@ const BlogListing = ({ params }: { params: any }) => {
   useEffect(() => {
     urlInfo &&
       reportsApiHandler({
-        actionType: 'home',
+        actionType: "home",
         urlInfo,
         setLoading,
         setListOfData,
       });
   }, [urlInfo]);
 
-  useBodyBackgroundColor('#EFF5FD');
+  useBodyBackgroundColor("#EFF5FD");
 
   useEffect(() => {
     store.dispatch(setProfileUrlInfo(urlInfo));
@@ -55,6 +58,9 @@ const BlogListing = ({ params }: { params: any }) => {
   //   }
   // }, [listOfdata]);
 
+  console.log("Blogs List", blogsList);
+  console.log("Domain", listOfdata?.domain);
+
   useEffect(() => {
     if (listOfdata) {
       loadBlogs({
@@ -65,312 +71,324 @@ const BlogListing = ({ params }: { params: any }) => {
     }
   }, [listOfdata]);
 
+  // 🔁 Get domain-based image
+  const getImageForIndex = (domain, index) => {
+    const images = DomainImageMap[domain] || DomainImageMap["default"];
+    return images[index % images.length];
+  };
+
   return (
-    <div className='bg-[#EFF5FD]'>
+    <div className="bg-[#EFF5FD]">
       {/* Hero Banner */}
-      <section className='w-full relative'>
+      <section className="w-full relative">
         <div
           className={`mainContainer ${
-            !loading && 'h-[60.7rem] lg:h-[77rem]'
+            !loading && "h-[60.7rem] lg:h-[77rem]"
           } w-full relative`}
         >
           {/* Background SVG */}
-          <div className='absolute top-0 left-0 w-full h-auto'>
+          <div className="absolute top-0 left-0 w-full h-auto">
             {/* Desktop */}
             <svg
-              viewBox='0 0 1550 770'
-              fill='none'
-              xmlns='http://www.w3.org/2000/svg'
-              className='h-full w-full hidden md:block'
+              viewBox="0 0 1550 770"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-full w-full hidden md:block"
             >
-              <g clip-path='url(#clip0_411_2212)'>
+              <g clip-path="url(#clip0_411_2212)">
                 <path
-                  d='M-480 -11H1920V458.556L-480 758.555V-11Z'
-                  className='fill-bannerBG'
+                  d="M-480 -11H1920V458.556L-480 758.555V-11Z"
+                  className="fill-bannerBG"
                 />
                 <path
-                  d='M1375 526.006L1841.67 467.653V538.764L1375 597.117V526.006Z'
-                  className='fill-primary'
-                  fill-opacity='0.4'
+                  d="M1375 526.006L1841.67 467.653V538.764L1375 597.117V526.006Z"
+                  className="fill-primary"
+                  fill-opacity="0.4"
                 />
                 <path
-                  d='M1375 526.006L1841.67 467.653V538.764L1375 597.117V526.006Z'
-                  fill='url(#paint0_radial_411_2212)'
+                  d="M1375 526.006L1841.67 467.653V538.764L1375 597.117V526.006Z"
+                  fill="url(#paint0_radial_411_2212)"
                 />
                 <path
-                  d='M895 515.787L1575 430.444V501.555L895 586.898V515.787Z'
-                  className='fill-bannerBG'
+                  d="M895 515.787L1575 430.444V501.555L895 586.898V515.787Z"
+                  className="fill-bannerBG"
                 />
                 <path
-                  d='M1088 421.352L1554.67 363V434.111L1088 492.463V421.352Z'
-                  className='fill-primary'
+                  d="M1088 421.352L1554.67 363V434.111L1088 492.463V421.352Z"
+                  className="fill-primary"
                 />
                 <path
-                  d='M1088 421.352L1554.67 363V434.111L1088 492.463V421.352Z'
-                  fill='url(#paint1_radial_411_2212)'
+                  d="M1088 421.352L1554.67 363V434.111L1088 492.463V421.352Z"
+                  fill="url(#paint1_radial_411_2212)"
                 />
                 <path
-                  d='M-25 630.463L441.667 572.11V643.221L-25 701.574V630.463Z'
-                  className='fill-primary'
-                  fill-opacity='0.4'
+                  d="M-25 630.463L441.667 572.11V643.221L-25 701.574V630.463Z"
+                  className="fill-primary"
+                  fill-opacity="0.4"
                 />
                 <path
-                  d='M-25 630.463L441.667 572.11V643.221L-25 701.574V630.463Z'
-                  fill='url(#paint2_radial_411_2212)'
+                  d="M-25 630.463L441.667 572.11V643.221L-25 701.574V630.463Z"
+                  fill="url(#paint2_radial_411_2212)"
                 />
                 <path
-                  d='M-193.889 722.673L272.778 664.32V735.431L-193.889 793.784V722.673Z'
-                  className='fill-primary'
+                  d="M-193.889 722.673L272.778 664.32V735.431L-193.889 793.784V722.673Z"
+                  className="fill-primary"
                 />
                 <path
-                  d='M-193.889 722.673L272.778 664.32V735.431L-193.889 793.784V722.673Z'
-                  fill='url(#paint3_radial_411_2212)'
+                  d="M-193.889 722.673L272.778 664.32V735.431L-193.889 793.784V722.673Z"
+                  fill="url(#paint3_radial_411_2212)"
                 />
               </g>
               <defs>
                 <radialGradient
-                  id='paint0_radial_411_2212'
-                  cx='0'
-                  cy='0'
-                  r='1'
-                  gradientUnits='userSpaceOnUse'
-                  gradientTransform='translate(1608.33 467.653) rotate(90) scale(129.463 466.667)'
+                  id="paint0_radial_411_2212"
+                  cx="0"
+                  cy="0"
+                  r="1"
+                  gradientUnits="userSpaceOnUse"
+                  gradientTransform="translate(1608.33 467.653) rotate(90) scale(129.463 466.667)"
                 >
-                  <stop stop-color='white' stop-opacity='0.3' />
-                  <stop offset='1' stop-color='white' stop-opacity='0' />
+                  <stop stop-color="white" stop-opacity="0.3" />
+                  <stop offset="1" stop-color="white" stop-opacity="0" />
                 </radialGradient>
                 <radialGradient
-                  id='paint1_radial_411_2212'
-                  cx='0'
-                  cy='0'
-                  r='1'
-                  gradientUnits='userSpaceOnUse'
-                  gradientTransform='translate(1321.33 363) rotate(90) scale(129.463 466.667)'
+                  id="paint1_radial_411_2212"
+                  cx="0"
+                  cy="0"
+                  r="1"
+                  gradientUnits="userSpaceOnUse"
+                  gradientTransform="translate(1321.33 363) rotate(90) scale(129.463 466.667)"
                 >
-                  <stop stop-color='white' stop-opacity='0.3' />
-                  <stop offset='1' stop-color='white' stop-opacity='0' />
+                  <stop stop-color="white" stop-opacity="0.3" />
+                  <stop offset="1" stop-color="white" stop-opacity="0" />
                 </radialGradient>
                 <radialGradient
-                  id='paint2_radial_411_2212'
-                  cx='0'
-                  cy='0'
-                  r='1'
-                  gradientUnits='userSpaceOnUse'
-                  gradientTransform='translate(208.333 572.11) rotate(90) scale(129.463 466.667)'
+                  id="paint2_radial_411_2212"
+                  cx="0"
+                  cy="0"
+                  r="1"
+                  gradientUnits="userSpaceOnUse"
+                  gradientTransform="translate(208.333 572.11) rotate(90) scale(129.463 466.667)"
                 >
-                  <stop stop-color='white' stop-opacity='0.3' />
-                  <stop offset='1' stop-color='white' stop-opacity='0' />
+                  <stop stop-color="white" stop-opacity="0.3" />
+                  <stop offset="1" stop-color="white" stop-opacity="0" />
                 </radialGradient>
                 <radialGradient
-                  id='paint3_radial_411_2212'
-                  cx='0'
-                  cy='0'
-                  r='1'
-                  gradientUnits='userSpaceOnUse'
-                  gradientTransform='translate(39.4447 664.32) rotate(90) scale(129.463 466.667)'
+                  id="paint3_radial_411_2212"
+                  cx="0"
+                  cy="0"
+                  r="1"
+                  gradientUnits="userSpaceOnUse"
+                  gradientTransform="translate(39.4447 664.32) rotate(90) scale(129.463 466.667)"
                 >
-                  <stop stop-color='white' stop-opacity='0.3' />
-                  <stop offset='1' stop-color='white' stop-opacity='0' />
+                  <stop stop-color="white" stop-opacity="0.3" />
+                  <stop offset="1" stop-color="white" stop-opacity="0" />
                 </radialGradient>
-                <clipPath id='clip0_411_2212'>
-                  <rect width='1550' height='770' fill='white' />
+                <clipPath id="clip0_411_2212">
+                  <rect width="1550" height="770" fill="white" />
                 </clipPath>
               </defs>
             </svg>
             {/* Mobile */}
             <svg
-              xmlns='http://www.w3.org/2000/svg'
-              width='393'
-              height='770'
-              viewBox='0 0 393 770'
-              fill='none'
-              className='h-full w-full md:hidden'
+              xmlns="http://www.w3.org/2000/svg"
+              width="393"
+              height="770"
+              viewBox="0 0 393 770"
+              fill="none"
+              className="h-full w-full md:hidden"
             >
-              <g clip-path='url(#clip0_411_2212)'>
+              <g clip-path="url(#clip0_411_2212)">
                 <path
-                  d='M-480 -11H1920V458.556L-480 758.555V-11Z'
-                  className='fill-bannerBG'
+                  d="M-480 -11H1920V458.556L-480 758.555V-11Z"
+                  className="fill-bannerBG"
                 />
                 <path
-                  d='M342.3 548.79L606 515.816V555.999L342.3 588.972V548.79Z'
-                  className='fill-primary'
-                  fill-opacity='0.4'
+                  d="M342.3 548.79L606 515.816V555.999L342.3 588.972V548.79Z"
+                  className="fill-primary"
+                  fill-opacity="0.4"
                 />
                 <path
-                  d='M342.3 548.79L606 515.816V555.999L342.3 588.972V548.79Z'
-                  fill='url(#paint0_radial_411_2212)'
+                  d="M342.3 548.79L606 515.816V555.999L342.3 588.972V548.79Z"
+                  fill="url(#paint0_radial_411_2212)"
                 />
                 <path
-                  d='M71.0664 543.016L455.314 494.791V534.974L71.0664 583.198V543.016Z'
-                  className='fill-bannerBG'
+                  d="M71.0664 543.016L455.314 494.791V534.974L71.0664 583.198V543.016Z"
+                  className="fill-bannerBG"
                 />
                 <path
-                  d='M180.125 489.654L443.825 456.681V496.863L180.125 529.837V489.654Z'
-                  className='fill-primary'
+                  d="M180.125 489.654L443.825 456.681V496.863L180.125 529.837V489.654Z"
+                  className="fill-primary"
                 />
                 <path
-                  d='M180.125 489.654L443.825 456.681V496.863L180.125 529.837V489.654Z'
-                  fill='url(#paint1_radial_411_2212)'
+                  d="M180.125 489.654L443.825 456.681V496.863L180.125 529.837V489.654Z"
+                  fill="url(#paint1_radial_411_2212)"
                 />
                 <path
-                  d='M-98.4546 607.816L165.245 574.843V615.026L-98.4546 647.999V607.816Z'
-                  className='fill-primary'
-                  fill-opacity='0.4'
+                  d="M-98.4546 607.816L165.245 574.843V615.026L-98.4546 647.999V607.816Z"
+                  className="fill-primary"
+                  fill-opacity="0.4"
                 />
                 <path
-                  d='M-98.4546 607.816L165.245 574.843V615.026L-98.4546 647.999V607.816Z'
-                  fill='url(#paint2_radial_411_2212)'
+                  d="M-98.4546 607.816L165.245 574.843V615.026L-98.4546 647.999V607.816Z"
+                  fill="url(#paint2_radial_411_2212)"
                 />
                 <path
-                  d='M-193.889 659.92L69.8109 626.947V667.13L-193.889 700.103V659.92Z'
-                  className='fill-primary'
+                  d="M-193.889 659.92L69.8109 626.947V667.13L-193.889 700.103V659.92Z"
+                  className="fill-primary"
                 />
                 <path
-                  d='M-193.889 659.92L69.8109 626.947V667.13L-193.889 700.103V659.92Z'
-                  fill='url(#paint3_radial_411_2212)'
+                  d="M-193.889 659.92L69.8109 626.947V667.13L-193.889 700.103V659.92Z"
+                  fill="url(#paint3_radial_411_2212)"
                 />
               </g>
               <defs>
                 <radialGradient
-                  id='paint0_radial_411_2212'
-                  cx='0'
-                  cy='0'
-                  r='1'
-                  gradientUnits='userSpaceOnUse'
-                  gradientTransform='translate(474.15 515.816) rotate(90) scale(73.1559 263.7)'
+                  id="paint0_radial_411_2212"
+                  cx="0"
+                  cy="0"
+                  r="1"
+                  gradientUnits="userSpaceOnUse"
+                  gradientTransform="translate(474.15 515.816) rotate(90) scale(73.1559 263.7)"
                 >
-                  <stop stop-color='white' stop-opacity='0.3' />
-                  <stop offset='1' stop-color='white' stop-opacity='0' />
+                  <stop stop-color="white" stop-opacity="0.3" />
+                  <stop offset="1" stop-color="white" stop-opacity="0" />
                 </radialGradient>
                 <radialGradient
-                  id='paint1_radial_411_2212'
-                  cx='0'
-                  cy='0'
-                  r='1'
-                  gradientUnits='userSpaceOnUse'
-                  gradientTransform='translate(311.975 456.681) rotate(90) scale(73.1559 263.7)'
+                  id="paint1_radial_411_2212"
+                  cx="0"
+                  cy="0"
+                  r="1"
+                  gradientUnits="userSpaceOnUse"
+                  gradientTransform="translate(311.975 456.681) rotate(90) scale(73.1559 263.7)"
                 >
-                  <stop stop-color='white' stop-opacity='0.3' />
-                  <stop offset='1' stop-color='white' stop-opacity='0' />
+                  <stop stop-color="white" stop-opacity="0.3" />
+                  <stop offset="1" stop-color="white" stop-opacity="0" />
                 </radialGradient>
                 <radialGradient
-                  id='paint2_radial_411_2212'
-                  cx='0'
-                  cy='0'
-                  r='1'
-                  gradientUnits='userSpaceOnUse'
-                  gradientTransform='translate(33.3952 574.843) rotate(90) scale(73.1559 263.7)'
+                  id="paint2_radial_411_2212"
+                  cx="0"
+                  cy="0"
+                  r="1"
+                  gradientUnits="userSpaceOnUse"
+                  gradientTransform="translate(33.3952 574.843) rotate(90) scale(73.1559 263.7)"
                 >
-                  <stop stop-color='white' stop-opacity='0.3' />
-                  <stop offset='1' stop-color='white' stop-opacity='0' />
+                  <stop stop-color="white" stop-opacity="0.3" />
+                  <stop offset="1" stop-color="white" stop-opacity="0" />
                 </radialGradient>
                 <radialGradient
-                  id='paint3_radial_411_2212'
-                  cx='0'
-                  cy='0'
-                  r='1'
-                  gradientUnits='userSpaceOnUse'
-                  gradientTransform='translate(-62.0389 626.947) rotate(90) scale(73.1559 263.7)'
+                  id="paint3_radial_411_2212"
+                  cx="0"
+                  cy="0"
+                  r="1"
+                  gradientUnits="userSpaceOnUse"
+                  gradientTransform="translate(-62.0389 626.947) rotate(90) scale(73.1559 263.7)"
                 >
-                  <stop stop-color='white' stop-opacity='0.3' />
-                  <stop offset='1' stop-color='white' stop-opacity='0' />
+                  <stop stop-color="white" stop-opacity="0.3" />
+                  <stop offset="1" stop-color="white" stop-opacity="0" />
                 </radialGradient>
-                <clipPath id='clip0_411_2212'>
-                  <rect width='393' height='770' fill='white' />
+                <clipPath id="clip0_411_2212">
+                  <rect width="393" height="770" fill="white" />
                 </clipPath>
               </defs>
             </svg>
           </div>
           {/* Badge Heading and Paara Text */}
-          <div className='max-w-[1024px] mx-auto text-center px-[2rem] pt-[8rem] lg:pt-[12.5rem] relative z-20'>
+          <div className="max-w-[1024px] mx-auto text-center px-[2rem] pt-[8rem] lg:pt-[12.5rem] relative z-20">
             {/* Badge */}
-            <div className='px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto mb-[1.6rem]'>
+            <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto mb-[1.6rem]">
               Our blog
             </div>
 
             {/* Heading */}
-            <div className='text-center text-primary text-[4rem] lg:text-[6rem] font-medium  leading-[5rem] lg:leading-[6rem] mt-[2rem] mb-[2.5rem] sm:mb-[4rem]'>
+            <div className="text-center text-primary text-[4rem] lg:text-[6rem] font-medium  leading-[5rem] lg:leading-[6rem] mt-[2rem] mb-[2.5rem] sm:mb-[4rem]">
               Resources and insights
             </div>
             {/* Pars Text */}
-            <p className='text-[2rem] leading-[3rem] font-normal text-heading'>
+            <p className="text-[2rem] leading-[3rem] font-normal text-heading">
               The latest industry news, interviews, technologies, and resources.
             </p>
 
-            {loadingblogs && <WebsiteLoader height='h-[30rem]' />}
+            {loadingblogs && <WebsiteLoader height="h-[30rem]" />}
           </div>
         </div>
       </section>
       {/* Blog Cards */}
       {blogsList && blogsList.length > 0 && (
-        <div className='mainContainer  mt-[-26rem]  lg:mt-[-40rem] relative w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 lg:grid-rows-3 justify-items-center gap-[3.2rem]'>
+        <div className="mainContainer  mt-[-26rem]  lg:mt-[-40rem] relative w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 lg:grid-rows-3 justify-items-center gap-[3.2rem]">
           {blogsList.map((blog, index) => (
             <Link
               href={`/blog-listing/${blog?.id}`}
               key={index}
-              className='max-w-[41.8rem] w-full p-[2.4rem] bg-white shadow-lg mb-[1.6rem]'
+              className="max-w-[41.8rem] w-full p-[2.4rem] bg-white shadow-lg mb-[1.6rem]"
             >
               {/* Card Image */}
               {blog?.featuredImage && (
                 <Image
-                  src={blog?.featuredImage}
+                  // src={blog?.featuredImage}
+                  src={
+                    blog?.featuredImage &&
+                    blog?.featuredImage.startsWith("http")
+                      ? blog.featuredImage
+                      : getImageForIndex(listOfdata?.domain, index)
+                  }
                   height={240}
                   width={370}
-                  alt='blog'
+                  alt="blog"
                 />
               )}
 
               {/* Card Content */}
-              <div className='mt-[3.2rem]'>
+              <div className="mt-[3.2rem]">
                 {/* Date */}
-                <div className='mb-[1.2rem] flex items-center'>
+                <div className="mb-[1.2rem] flex items-center">
                   {/* <h4 className="text-heading text-[1.4rem] leading-[2rem] font-medium">
                   {category}
                 </h4> */}
-                  <div className='flex items-center'>
+                  <div className="flex items-center">
                     {/* SVG Dot */}
-                    <div className='mx-[0.6rem]'>
+                    <div className="mx-[0.6rem]">
                       <svg
-                        xmlns='http://www.w3.org/2000/svg'
-                        width='5'
-                        height='6'
-                        viewBox='0 0 5 6'
-                        fill='none'
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="5"
+                        height="6"
+                        viewBox="0 0 5 6"
+                        fill="none"
                       >
-                        <circle cx='2.5' cy='3' r='2.5' fill='#C6CBD8' />
+                        <circle cx="2.5" cy="3" r="2.5" fill="#C6CBD8" />
                       </svg>
                     </div>
-                    <p className='text-paragraph1 text-[1.4rem] leading-[2rem] font-normal'>
+                    <p className="text-paragraph1 text-[1.4rem] leading-[2rem] font-normal">
                       {formatDate(blog?.date, dateFormatsOptions.dayMonthYear)}
                     </p>
                   </div>
                 </div>
                 {/* Title */}
-                <div className='w-full flex items-center justify-between mb-[1.2rem]'>
+                <div className="w-full flex items-center justify-between mb-[1.2rem]">
                   <h2
                     dangerouslySetInnerHTML={{
                       __html: blog?.title,
                     }}
-                    className='text-[2.4rem] font-medium leading-[3.2rem] text-heading'
+                    className="text-[2.4rem] font-medium leading-[3.2rem] text-heading"
                   ></h2>
                   <Link
                     href={`/blog-listing/${blog?.id}`}
-                    className='hover:rotate-90 duration-300'
+                    className="hover:rotate-90 duration-300"
                   >
                     {/* Arrow */}
                     <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      width='25'
-                      height='24'
-                      viewBox='0 0 25 24'
-                      fill='none'
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="25"
+                      height="24"
+                      viewBox="0 0 25 24"
+                      fill="none"
                     >
                       <path
-                        d='M7.66675 17L17.6667 7M17.6667 7H7.66675M17.6667 7V17'
-                        className='stroke-heading'
-                        strokeWidth='2'
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
+                        d="M7.66675 17L17.6667 7M17.6667 7H7.66675M17.6667 7V17"
+                        className="stroke-heading"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       />
                     </svg>
                   </Link>
@@ -380,7 +398,7 @@ const BlogListing = ({ params }: { params: any }) => {
                   dangerouslySetInnerHTML={{
                     __html: blog?.excerpt,
                   }}
-                  className='text-[1.6rem] leading-[2.4rem] text-paragraph1'
+                  className="text-[1.6rem] leading-[2.4rem] text-paragraph1"
                 ></p>
               </div>
             </Link>
@@ -390,7 +408,7 @@ const BlogListing = ({ params }: { params: any }) => {
       )}
 
       {!urlInfo?.u && (
-        <div className='w-full my-[5rem]'>
+        <div className="w-full my-[5rem]">
           <Newsletter listOfdata={listOfdata} />
         </div>
       )}
