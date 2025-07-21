@@ -16,6 +16,7 @@ import Footer from "./layouts/footer/page";
 import ContactMe from "./ContactMe";
 import { useAppSelector } from "@/store";
 import NoteDomainForPint from "./NoteDomainForPint";
+import { getImageForIndex } from "@/utils/getImageForIndex";
 
 const OurBlogsPortrait = ({ domain, locationLink }) => {
   const [blogsList, setBlogs] = useState([]);
@@ -30,12 +31,6 @@ const OurBlogsPortrait = ({ domain, locationLink }) => {
       setLoading: setLoadingBlogs,
     });
   }, [domain]);
-
-  const fallbackImages = [
-    "https://images.unsplash.com/photo-1573495627361-d9b87960b12d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aXR8ZW58MHx8MHx8fDA%3D",
-    "https://images.unsplash.com/photo-1554306274-f23873d9a26c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c29mdHdhcmUlMjBkZXZlbG9wbmVudHxlbnwwfHwwfHx8MA%3D%3D",
-    "https://images.unsplash.com/photo-1591439657848-9f4b9ce436b9?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8c29mdHdhcmUlMjBkZXZlbG9wbmVudHxlbnwwfHwwfHx8MA%3D%3D",
-  ];
 
   return (
     <>
@@ -77,22 +72,10 @@ const OurBlogsPortrait = ({ domain, locationLink }) => {
                         className="w-full p-[2.4rem] print:!pt-[1rem] bg-white shadow-lg  grid grid-cols-2"
                       >
                         <div className="h-[250px] w-full pr-5">
-                          {/* {blog?.featuredImage && (
-                            <img
-                              // src={blog?.featuredImage}
-                              src={
-                                "https://images.unsplash.com/photo-1638886715703-46b0f794c687?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTAxfHxkaWdpdGFsfGVufDB8fDB8fHww"
-                              }
-                              alt="blog"
-                              className="h-full w-full object-cover"
-                            />
-                          )} */}
                           {blog?.featuredImage && (
                             <Image
                               // src={blog?.featuredImage}
-                              src={
-                                fallbackImages[index % fallbackImages.length]
-                              }
+                              src={getImageForIndex(domain, index)}
                               height={250}
                               width={370}
                               className="h-full w-full object-cover"

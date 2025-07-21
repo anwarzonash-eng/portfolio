@@ -171,7 +171,7 @@ body {
 } */
 
 .footerLink {
-  @apply relative inline-block text-white duration-300 text-opacity-80 hover:text-opacity-100;
+  @apply relative inline-block text-white duration-300 text-opacity-80 hover:text-opacity-100 font-light text-[1.6rem];
 
   &::before {
     content: "";

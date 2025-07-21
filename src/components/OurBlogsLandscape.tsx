@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import BlogCard from "./BlogCard";
 import Link from "next/link";
 import { dateFormatsOptions } from "@/data/JsonData";
 import {
@@ -10,13 +9,12 @@ import {
 } from "@/hooks/apihandlers/blogListingApiHandler";
 import { formatDate } from "@/hooks/formatdate";
 import Image from "next/image";
-import WebsiteLoader from "./WebsiteLoader";
 import PageRendering from "./PageRendering";
-import Footer from "./layouts/footer/page";
 import ContactMe from "./ContactMe";
 import { useAppSelector } from "@/store";
 import { usePathname } from "next/navigation";
 import NoteDomainForPint from "./NoteDomainForPint";
+import { getImageForIndex } from "@/utils/getImageForIndex";
 
 const OurBlogsLandscape = ({ domain, locationLink }) => {
   const [blogsList, setBlogs] = useState([]);
@@ -38,12 +36,6 @@ const OurBlogsLandscape = ({ domain, locationLink }) => {
       setLoading: setLoadingBlogs,
     });
   }, [domain]);
-
-  const fallbackImages = [
-    "https://images.unsplash.com/photo-1573495627361-d9b87960b12d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aXR8ZW58MHx8MHx8fDA%3D",
-    "https://images.unsplash.com/photo-1554306274-f23873d9a26c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c29mdHdhcmUlMjBkZXZlbG9wbmVudHxlbnwwfHwwfHx8MA%3D%3D",
-    "https://images.unsplash.com/photo-1591439657848-9f4b9ce436b9?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8c29mdHdhcmUlMjBkZXZlbG9wbmVudHxlbnwwfHwwfHx8MA%3D%3D",
-  ];
 
   return (
     <>
@@ -100,7 +92,7 @@ const OurBlogsLandscape = ({ domain, locationLink }) => {
                       {blog?.featuredImage && (
                         <Image
                           // src={blog?.featuredImage}
-                          src={fallbackImages[index % fallbackImages.length]}
+                          src={getImageForIndex(domain, index)}
                           height={250}
                           width={370}
                           className="h-[200px]"

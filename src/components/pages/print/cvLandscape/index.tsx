@@ -27,6 +27,8 @@ import ShowmoreSkills from "@/components/showmoreSkills";
 import { useAppSelector } from "@/store";
 import { modifiedContentPrint } from "@/hooks/modifiedContentPrint";
 import NoteDomainForPint from "@/components/NoteDomainForPint";
+import { getImageForIndex } from "@/utils/getImageForIndex";
+import DesignationDomain from "@/components/DesignationDomain";
 type SkillType = {
   title: string;
   url?: string;
@@ -101,6 +103,8 @@ const CV_Landscape = ({ params }: { params: any }) => {
     store.dispatch(setProfileLoading(loading));
   }, [loading]);
 
+  const domain = listOfdata?.domain;
+
   return (
     <>
       <PageRendering
@@ -143,6 +147,9 @@ const CV_Landscape = ({ params }: { params: any }) => {
                               </div>
                             ))}
                         </h3>
+                        <div className="flex items-center justify-center">
+                          <DesignationDomain />
+                        </div>
                         {/* Info Description*/}
                         <p className="my-[2rem] text-[1.6rem] leading-[2.6rem] text-heading font-normal text-center">
                           Reach out today and I'll provide you with my
@@ -1353,7 +1360,7 @@ const CV_Landscape = ({ params }: { params: any }) => {
                                     <div className="w-[20rem] h-[16rem] flex-shrink-0">
                                       <Image
                                         // src={blog?.featuredImage}
-                                        src={`https://images.unsplash.com/photo-1640161339445-bea762c57ac4?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aXQlMjBibG9nc3xlbnwwfHwwfHx8MA%3D%3D`}
+                                        src={getImageForIndex(domain, index)}
                                         height={300}
                                         width={300}
                                         alt={`Blog ${index + 1}`}

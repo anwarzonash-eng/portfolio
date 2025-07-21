@@ -22,6 +22,8 @@ import OurBlogsPortrait from "@/components/OurBlogsPortrait";
 import SliderXLPrint from "@/components/Sliders/SliderXLPrint";
 import SkillsContainerPrint from "@/components/SkillsContainerPrint";
 import NoteDomainForPint from "@/components/NoteDomainForPint";
+import DesignationDomain from "@/components/DesignationDomain";
+import NoteClickable from "@/components/NoteClickable";
 
 const PortfolioDetails_p = ({ params }: { params: any }) => {
   const searchParams = useSearchParams();
@@ -97,11 +99,9 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
           actualPage: (
             <>
               {/* Welcome ✅ */}
-              <section className="print:h-screen print:section bg-bannerBG !w-full  print:FlexWrapContainer flex items-center justify-center relative">
-                {/* Note and Domain For Each Page */}
-                <NoteDomainForPint
-                  direction={"hidden print:right-0 print:block"}
-                />
+              <section className="print:h-screen print:section bg-bannerBG !w-full print:FlexWrapContainer flex items-center justify-center relative">
+                {/* Note For BTN */}
+                <NoteClickable />
                 {/* Welcome Card */}
                 <div className="text-center p-[4rem] print:p-0">
                   <div className="items-center justify-strat gap-[4rem] flex flex-col w-full">
@@ -126,28 +126,40 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
                           ))}
                       </div>
                       <div className="flex items-center justify-center w-full">
-                        <p className="text-white font-medium px-4 py-1 text-[1.6rem] rounded-[100px] bg-primary">
-                          Note: All The Buttons are Clickable
-                        </p>
+                        <DesignationDomain />
                       </div>
                     </div>
                   </div>
                   <div className="flex items-center justify-center gap-[2.1rem] mt-[4rem] mb-[0.8rem] ">
-                    <WorkProofLinks
-                      props={{
-                        upwork: listOfdata?.upwork,
-                        github: listOfdata?.github,
-                        linkedIn: listOfdata?.linkedIn,
-                        behance_link: listOfdata?.behance_link,
-                        u: urlInfo?.u,
-                      }}
-                    />
-                    <ContactMeLinks
-                      props={{
-                        email: listOfdata?.email,
-                        phone_no: listOfdata?.phone_no,
-                      }}
-                    />
+                    {urlInfo?.u ? (
+                      <WorkProofLinks
+                        props={{
+                          upwork: listOfdata?.upwork,
+                          github: listOfdata?.github,
+                          linkedIn: listOfdata?.linkedIn,
+                          behance_link: listOfdata?.behance_link,
+                          u: urlInfo?.u,
+                        }}
+                      />
+                    ) : (
+                      <>
+                        <WorkProofLinks
+                          props={{
+                            upwork: listOfdata?.upwork,
+                            github: listOfdata?.github,
+                            linkedIn: listOfdata?.linkedIn,
+                            behance_link: listOfdata?.behance_link,
+                            u: urlInfo?.u,
+                          }}
+                        />
+                        <ContactMeLinks
+                          props={{
+                            email: listOfdata?.email,
+                            phone_no: listOfdata?.phone_no,
+                          }}
+                        />
+                      </>
+                    )}
                   </div>
                 </div>
               </section>

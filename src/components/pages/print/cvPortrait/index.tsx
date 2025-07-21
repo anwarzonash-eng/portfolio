@@ -34,6 +34,9 @@ import WorkProofLinks from "@/components/WorkProofLinks";
 import ContactMeLinks from "@/components/ContactMeLinks";
 import NoteDomainForPint from "@/components/NoteDomainForPint";
 import { modifiedContentPrint } from "@/hooks/modifiedContentPrint";
+import { getImageForIndex } from "@/utils/getImageForIndex";
+import DesignationDomain from "@/components/DesignationDomain";
+import NoteClickable from "@/components/NoteClickable";
 type SkillType = {
   title: string;
   url?: string;
@@ -104,6 +107,8 @@ const CV_Portrait = ({ params }: { params: any }) => {
     }
   }, [listOfdata]);
 
+  const domain = listOfdata?.domain;
+
   useBodyBackgroundColor("#EFF5FD");
 
   useEffect(() => {
@@ -151,10 +156,8 @@ const CV_Portrait = ({ params }: { params: any }) => {
             <div className="bg-[#EFF5FD]">
               {/* Intoduction Section ✅ */}
               <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative print:bg-cvSideBg print:bg-no-repeat print:bg-cover">
-                {/* Note and Domain For Each Page */}
-                <NoteDomainForPint
-                  direction={"hidden print:right-0 print:block"}
-                />
+                {/* Note For BTN's */}
+                <NoteClickable />
                 <div className="max-w-[1550px] w-full mx-auto flex flex-col items-center print:bg-none bg-cvSideBg bg-no-repeat bg-cover p-[4rem]">
                   {/* Profile Bg */}
                   <div className="print:flex flex flex-col items-center justify-center gap-4 print:w-full">
@@ -187,6 +190,9 @@ const CV_Portrait = ({ params }: { params: any }) => {
                               </div>
                             ))}
                         </h3>
+                        <div className="flex items-center justify-center">
+                          <DesignationDomain />
+                        </div>
                       </div>
                     </div>
                     <div className="flex flex-col items-center justify-center print:w-full">
@@ -314,7 +320,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
 
               {/* Overview Section ✅ */}
               {listOfdata?.skills && (
-                <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative my-[4rem] print:m-0">
+                <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative my-[4rem] print:m-0 bg-cvSideBg bg-no-repeat bg-cover">
                   {/* Note and Domain For Each Page */}
                   <NoteDomainForPint
                     direction={"hidden print:right-0 print:block"}
@@ -353,7 +359,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
 
               {/* Skills Section ✅ */}
               {listOfdata?.skills_ids && (
-                <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center flex-col overflow-hidden relative my-[4rem] print:m-0">
+                <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center flex-col overflow-hidden relative my-[4rem] print:m-0 bg-cvSideBg bg-no-repeat bg-cover">
                   {/* Note and Domain For Each Page */}
                   <NoteDomainForPint
                     direction={"hidden print:right-0 print:block"}
@@ -418,7 +424,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
               {/* Experience Section ✅ */}
               {listOfdata && listOfdata?.experiences_ids?.length > 0 && (
                 <>
-                  <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center flex-col overflow-hidden relative my-[4rem] print:m-0">
+                  <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center flex-col overflow-hidden relative my-[4rem] print:m-0 bg-cvSideBg bg-no-repeat bg-cover">
                     {/* Note and Domain For Each Page */}
                     <NoteDomainForPint
                       direction={"hidden print:right-0 print:block"}
@@ -621,7 +627,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
 
               {listOfdata && listOfdata?.experiences_ids?.length > 0 && (
                 <>
-                  <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center flex-col overflow-hidden relative my-[4rem] print:m-0">
+                  <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center flex-col overflow-hidden relative my-[4rem] print:m-0 bg-cvSideBg bg-no-repeat bg-cover">
                     {/* Note and Domain For Each Page */}
                     <NoteDomainForPint
                       direction={"hidden print:right-0 print:block"}
@@ -835,7 +841,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
                     );
 
                     return (
-                      <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative my-[4rem] print:m-0 pr-[2rem]">
+                      <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative my-[4rem] print:m-0 pr-[2rem] bg-cvSideBg bg-no-repeat bg-cover">
                         {/* Note and Domain For Each Page */}
                         <NoteDomainForPint
                           direction={"hidden print:right-0 print:block"}
@@ -998,7 +1004,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
               )}
 
               {/* Education and Blog Section Section ✅ */}
-              <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative my-[4rem] print:m-0 pr-[2rem]">
+              <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative my-[4rem] print:m-0 pr-[2rem] bg-cvSideBg bg-no-repeat bg-cover">
                 {/* Note and Domain For Each Page */}
                 <NoteDomainForPint
                   direction={"hidden print:right-0 print:block"}
@@ -1115,7 +1121,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
                                   <div className="sm:w-[20rem] h-[19rem] w-full flex-shrink-0">
                                     <Image
                                       // src={blog?.featuredImage}
-                                      src={`https://images.unsplash.com/photo-1640161339445-bea762c57ac4?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aXQlMjBibG9nc3xlbnwwfHwwfHx8MA%3D%3D`}
+                                      src={getImageForIndex(domain, index)}
                                       height={300}
                                       width={300}
                                       alt={`Blog ${index + 1}`}

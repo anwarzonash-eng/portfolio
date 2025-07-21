@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import BlogCard from "./BlogCard";
 import Link from "next/link";
 import { dateFormatsOptions } from "@/data/JsonData";
 import {
@@ -10,9 +9,7 @@ import {
 } from "@/hooks/apihandlers/blogListingApiHandler";
 import { formatDate } from "@/hooks/formatdate";
 import Image from "next/image";
-import WebsiteLoader from "./WebsiteLoader";
 import PageRendering from "./PageRendering";
-import Footer from "./layouts/footer/page";
 import ContactMe from "./ContactMe";
 import { useAppSelector } from "@/store";
 import { usePathname } from "next/navigation";
@@ -50,13 +47,13 @@ const OurBlogs = ({ domain }) => {
           </div>
         </section>
       )}
-      <section className="mainContainer print:m-0  print:pt-[1.5rem] h-screen print:section !w-full print:FlexWrapContainer flex justify-center flex-col">
+      <section className="mainContainer print:m-0  print:pt-[1.5rem]  print:section !w-full print:FlexWrapContainer flex justify-center flex-col">
         <div className="hidden print:block relative top-[-120px]">
           <NoteDomainForPint direction={"right-0 "} />
         </div>
 
         {/* Top Content */}
-        <div className="flex justify-between flex-wrap items-end sm:items-center gap-[2rem] mb-[4rem] print:mb-[2rem] ">
+        <div className="flex justify-between flex-wrap items-end sm:items-center gap-[2rem] mb-[4rem] print:mb-[2rem]">
           <div>
             <p className="text-sectionBG print:hidden text-[1.6rem] leading-[2.4rem] font-medium">
               Our blog
@@ -96,7 +93,6 @@ const OurBlogs = ({ domain }) => {
                         <Image
                           // src={blog?.featuredImage}
                           src={getImageForIndex(domain, index)}
-                          // src={getImageForIndex(blog.domain, index)}
                           height={250}
                           width={370}
                           className="h-[200px]"

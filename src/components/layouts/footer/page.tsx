@@ -49,15 +49,15 @@ const Footer = () => {
             </section>
           )}
           {/* Footer */}
-          <footer className="print:block mt-[2rem] bg-primary">
+          <footer className="print:block mt-[2rem] bg-sectionBG ">
             <div
               className={`${
                 urlInfo?.u ? "" : ""
               } w-full mainContainer text-[1.8rem] font-medium bg-sectionBG bg-Newslatter bg-no-repeat bg-contain bg-right`}
             >
-              <div className="py-[3rem] w-full text-[1.8rem] flex justify-between flex-col sm:flex-row">
+              <div className="py-[3rem] w-full flex justify-between flex-col sm:flex-row">
                 {/* CTA Section */}
-                <div className="mr-10 lg:min-w-[450px]">
+                <div className="mr-10 lg:min-w-[550px]">
                   <FooterNewsLetter listOfdata={listOfdata} />
                   <p className="print:hidden text-pageBG text-[1.4rem] font-normal py-[1.5rem]">
                     All Rights Reserved ©{" "}
@@ -68,10 +68,10 @@ const Footer = () => {
                   </p>
                 </div>
                 {/* Links Section  */}
-                <div className="flex  justify-between flex-wrap gap-[4rem] w-full">
+                <div className="flex  justify-between lg:justify-end flex-wrap gap-[4rem] lg:gap-[8rem] w-full">
                   {/* Pages Column */}
                   <div className="flex flex-col items-start gap-4">
-                    <h4 className="text-[2.5rem] font-bold text-pageBG">
+                    <h4 className="text-[2rem] font-medium text-pageBG">
                       Pages
                     </h4>
                     {footerLinks
@@ -101,7 +101,7 @@ const Footer = () => {
 
                   {/* Social Links Column */}
                   <div className="flex flex-col items-start gap-4">
-                    <h4 className="text-[2.5rem] font-bold text-pageBG ">
+                    <h4 className="text-[2rem] font-medium text-pageBG">
                       Contacts
                     </h4>
                     {footerLinks
@@ -131,7 +131,7 @@ const Footer = () => {
                   {/* Services Column */}
                   {services.length > 0 && (
                     <div className="flex flex-col items-start gap-4">
-                      <h4 className="text-[2.5rem] font-bold text-pageBG">
+                      <h4 className="text-[2rem] font-medium text-pageBG">
                         Servises
                       </h4>
                       {services.slice(0, 6).map((service, index) => (

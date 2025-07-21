@@ -98,7 +98,7 @@ const Offer = ({ params }: { params: any }) => {
       );
 
       if (indexToExpand !== -1) {
-        setActiveDropdown(indexToExpand); 
+        setActiveDropdown(indexToExpand);
         serviceRefs.current[serviceToScroll]?.scrollIntoView({
           behavior: "smooth",
           block: "center",
@@ -190,7 +190,7 @@ const Offer = ({ params }: { params: any }) => {
                           listOfdata
                         ),
                       }}
-                      className=" p-[1rem] list-div text-[1.6rem] lg:p-[3rem] rounded-[1rem] bg-white services_main"
+                      className=" p-[1rem] list-div text-[1.6rem] lg:p-[3rem] rounded-[1rem] bg-white services_main "
                     ></div>
                     {mainService?.skills && mainService?.skills.length > 0 && (
                       <SkillsComponent

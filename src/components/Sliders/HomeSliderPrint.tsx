@@ -30,12 +30,16 @@ interface HomeSliderPrintProps {
   portfolios: PortfolioType[];
   companyType: string;
   locationLink: string;
+  from: number;
+  max?: number;
 }
 
 const HomeSliderPrint: React.FC<HomeSliderPrintProps> = ({
   portfolios,
   companyType,
   locationLink,
+  from,
+  max,
 }) => {
   const [showAllSkills, setShowAllSkills] = useState(false);
   const [
@@ -46,7 +50,7 @@ const HomeSliderPrint: React.FC<HomeSliderPrintProps> = ({
 
   if (!portfolios || portfolios.length === 0) return null;
 
-  const topTwoPortfolios = portfolios.slice(0, 1);
+  const topTwoPortfolios = portfolios.slice(from, max);
 
   return (
     <div className="w-full flex flex-col items-center gap-6 mt-[2rem]">
