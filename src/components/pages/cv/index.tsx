@@ -34,6 +34,7 @@ import { useAppSelector } from "@/store";
 import Footer from "@/components/layouts/footer/page";
 import Header from "@/components/layouts/header/page";
 import { SmoothScroll } from "@/hooks/SmoothScroll";
+import { getImageForIndex } from "@/utils/getImageForIndex";
 type SkillType = {
   title: string;
   url?: string;
@@ -54,6 +55,7 @@ const CV = ({ params }: { params: any }) => {
   }, [listOfdata]);
 
   const [loading, setLoading] = useState(true);
+  const domain = listOfdata?.domain || "default-domain";
 
   const [
     selectedPorfolioPicturesforPopup,
@@ -1022,7 +1024,7 @@ const CV = ({ params }: { params: any }) => {
                                                                 alt="Project Image"
                                                                 fill
                                                                 sizes="(max-width: 768px) 100vw, 30rem"
-                                                                className="rounded-[1.2rem] object-cover absolute top-0 left-0 w-full h-full"
+                                                                className="rounded-[1.2rem] object-fill absolute top-0 left-0 w-full h-full"
                                                                 priority={
                                                                   index === 0
                                                                 } // Only prioritize first image
@@ -1363,7 +1365,11 @@ const CV = ({ params }: { params: any }) => {
                                           {blog?.featuredImage && (
                                             <div className="sm:w-[20rem] h-[19rem] w-full flex-shrink-0">
                                               <Image
-                                                src={blog?.featuredImage}
+                                                // src={blog?.featuredImage}
+                                                src={getImageForIndex(
+                                                  domain,
+                                                  index
+                                                )}
                                                 height={300}
                                                 width={300}
                                                 alt={`Blog ${index + 1}`}

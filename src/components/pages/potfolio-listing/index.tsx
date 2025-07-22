@@ -65,6 +65,8 @@ const PortfolioListing = ({ params }: { params: any }) => {
 
   useBodyBackgroundColor("#EFF5FD");
 
+  console.log("Portfolio Listing Data:", listOfdata?.portfolio);
+
   useEffect(() => {
     handleSkillsApiCall({ setListOfSkills });
   }, []);
@@ -215,28 +217,35 @@ const PortfolioListing = ({ params }: { params: any }) => {
                               {/* Title and Description */}
                               <div className="print:flex flex-row print:w-full gap-3 items-center justify-center print:flex-row-reverse">
                                 {portfolio?.thumbnail && (
-                                  <div className="ms-0 lg:ms-5 lg:w-[50rem]  float-right w-full  rounded-[1.2rem] relative align-middle justify-center flex-col flex  items-center ">
-                                    <img
-                                      src={
-                                        portfolio?.thumbnail
-                                          ? portfolio.thumbnail
-                                          : "/images/project_img.png"
-                                      }
-                                      onClick={() => {
-                                        openModal(
-                                          portfolio?.pictures,
-                                          portfolio?.thumbnail,
-                                          portfolio?.child_hero_banner
-                                        );
-                                      }}
-                                      alt="Portfolio Image"
-                                      height={800}
-                                      width={800}
-                                      className="lg:h-[300px] lg:w-[800px] w-full object-cover rounded-[1.2rem] border border-solid border-border cursor-pointer"
-                                    />
+                                  <div className="ms-0 lg:ms-5 lg:w-[50rem] float-right w-full rounded-[1.2rem] relative align-middle justify-center flex-col items-center">
+                                    <div
+                                      className="h-[200px] lg:h-[300px] lg:w-[500px] w-full 
+                                    rounded-[1.2rem] border border-solid border-border cursor-pointer overflow-hidden"
+                                    >
+                                      <Image
+                                        src={
+                                          portfolio?.thumbnail
+                                            ? portfolio.thumbnail
+                                            : "/images/project_img.png"
+                                        }
+                                        onClick={() => {
+                                          openModal(
+                                            portfolio?.pictures,
+                                            portfolio?.thumbnail,
+                                            portfolio?.child_hero_banner
+                                          );
+                                        }}
+                                        fill
+                                        sizes=" 100vw, 30rem"
+                                        className="rounded-[1.2rem] object-fill 
+                                        w-full !h-[200px] lg:!h-[300px]"
+                                        alt="Portfolio Image"
+                                        // className="max-w-full max-h-full object-fill"
+                                      />
+                                    </div>
 
                                     <button
-                                      className="mb-3 print:hidden min-w-[137px] lg:min-w-[220px] text-white py-[6px] mt-[17px] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent hover:border-primary duration-300 max-lg:w-full text-center rounded-[0.6rem] relative "
+                                      className="mb-3 print:hidden min-w-[137px] lg:min-w-[220px] text-white py-[6px] mt-[17px] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent hover:border-primary duration-300 max-lg:w-full text-center rounded-[0.6rem] relative"
                                       onClick={() =>
                                         openModal(
                                           portfolio?.pictures,

@@ -244,8 +244,10 @@ const HomeSlider: React.FC<HomeSliderProps> = ({ portfolios, companyType }) => {
                             }
                             alt="Project Image"
                             fill
-                            style={{ objectFit: "cover" }}
-                            className="rounded-[1.2rem] cursor-pointer"
+                            // style={{ objectFit: "contain" }}
+                            // className="rounded-[1.2rem] cursor-pointer"
+                            sizes=" 100vw, 30rem"
+                            className="rounded-[1.2rem] object-fill w-full !h-[300px] lg:!h-[400px]"
                             onClick={() =>
                               openModal(
                                 portfolio?.pictures,
