@@ -165,7 +165,6 @@ const PortfolioListing = ({ params }: { params: any }) => {
       )}
 
       {/* Maped Code */}
-
       {listOfdata && listOfdata?.portfolios_ids?.length > 0 && (
         <>
           {/* Portfolio Timeline Section */}

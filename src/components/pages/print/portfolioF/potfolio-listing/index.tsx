@@ -191,7 +191,7 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
                                 alt="Portfolio Image"
                                 height={800}
                                 width={800}
-                                className="h-[300px] w-full object-cover rounded-[1.2rem] border border-solid border-border cursor-pointer"
+                                className="print:h-[300px] h-[600px] w-full object-fill rounded-[1.2rem] border border-solid border-border cursor-pointer"
                                 onError={(e) => {
                                   const target = e.target as HTMLImageElement;
                                   target.onerror = null; // prevent infinite loop if fallback fails

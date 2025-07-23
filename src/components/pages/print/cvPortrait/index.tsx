@@ -887,13 +887,13 @@ const CV_Portrait = ({ params }: { params: any }) => {
                               <div className="w-full ">
                                 <div className="text-heading">
                                   {portfolio?.thumbnail && (
-                                    <div className="relative w-full h-[300px]">
+                                    <div className="relative w-full print:h-[300px] h-[600px]">
                                       <Image
                                         src={portfolio.thumbnail}
                                         alt="Project Image"
                                         fill
                                         sizes="100vw"
-                                        className="rounded-[1.2rem] object-cover absolute top-0 left-0 w-full h-full"
+                                        className="rounded-[1.2rem] object-fill absolute top-0 left-0 w-full h-full"
                                         priority={index === 0}
                                       />
                                     </div>

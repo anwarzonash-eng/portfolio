@@ -163,20 +163,26 @@ const HomeSliderPrint: React.FC<HomeSliderPrintProps> = ({
               {/* Image Section */}
               <div className="w-1/2 flex flex-col items-center justify-center">
                 {portfolio?.thumbnail && (
-                  <div className="relative w-full h-[400px] rounded-[1.2rem] overflow-hidden">
+                  <div className="relative w-full h-[300px] lg:h-[400px] rounded-[1.2rem] overflow-hidden">
                     <Image
                       src={
-                        portfolio?.thumbnail
-                          ? portfolio?.thumbnail
-                          : "/images/dummy_port_img.webp"
+                        portfolio?.title === "Velzon"
+                          ? "/VelzonThumbnail.PNG"
+                          : portfolio?.title === "Beyond Competitions"
+                          ? "/BeyondCompetetionThumbnail.webp"
+                          : portfolio?.thumbnail ||
+                            "/images/dummy_port_img.webp"
                       }
                       alt="Project Image"
                       fill
-                      style={{ objectFit: "cover" }}
-                      className="rounded-[1.2rem] cursor-pointer"
+                      // style={{ objectFit: "contain" }}
+                      // className="rounded-[1.2rem] cursor-pointer"
+                      sizes=" 100vw, 30rem"
+                      className="rounded-[1.2rem] object-fill w-full !h-[300px] lg:!h-[400px]"
                     />
                   </div>
                 )}
+
                 <Link href={locationLink}>
                   <button className="text-white py-[6px] mt-[17px] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent hover:border-primary duration-300 max-lg:w-full text-center rounded-[0.6rem] relative max-w-max text-nowrap">
                     <span className="relative z-10 flex items-center justify-center gap-2">
