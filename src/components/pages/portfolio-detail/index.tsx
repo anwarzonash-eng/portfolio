@@ -96,6 +96,8 @@ const PortfolioDetails = ({ params }: { params: any }) => {
     }[];
   } = skillsGrouping(portfolioDetails?.skills);
 
+  console.log("portfolioDetails", portfolioDetails);
+
   return (
     <div className="bg-[#EFF5FD]">
       <PageRendering
@@ -130,7 +132,11 @@ const PortfolioDetails = ({ params }: { params: any }) => {
                 <div className="w-full mt-[1rem]">
                   {/* Blog Detail Pic Desktop*/}
                   <Image
-                    src={portfolioDetails?.thumbnail}
+                    src={
+                      portfolioDetails?.title === "Velzon"
+                        ? "/VelzonThumbnail.PNG"
+                        : portfolioDetails?.thumbnail
+                    }
                     height={1500}
                     width={3000}
                     alt="Banner"
@@ -138,7 +144,11 @@ const PortfolioDetails = ({ params }: { params: any }) => {
                   />
                   {/* Mobile */}
                   <Image
-                    src={portfolioDetails?.thumbnail}
+                    src={
+                      portfolioDetails?.title === "Velzon"
+                        ? "/VelzonThumbnail.PNG"
+                        : portfolioDetails?.thumbnail
+                    }
                     height={410}
                     width={800}
                     alt="Banner"
@@ -324,7 +334,11 @@ const PortfolioDetails = ({ params }: { params: any }) => {
                   {/* Detiald Banner 2 */}
                   <div className="w-full h-auto">
                     <Image
-                      src={portfolioDetails?.thumbnail}
+                      src={
+                        portfolioDetails?.title === "Velzon"
+                          ? "/VelzonThumbnail.PNG"
+                          : portfolioDetails?.thumbnail
+                      }
                       height={1500}
                       width={1500}
                       alt="Banner"
