@@ -33,9 +33,13 @@ const ServiceDetail = ({ params }: { params: any }) => {
     setActiveDropdown((prev) => (prev === index ? null : index));
   };
 
+  // useEffect(() => {
+  //   setURLInfo(getRoutesDetails(params, searchParams));
+  // }, [searchParams]);
+
   useEffect(() => {
     setURLInfo(getRoutesDetails(params, searchParams));
-  }, [searchParams]);
+  }, [params, searchParams]);
 
   useEffect(() => {
     if (urlInfo) {
