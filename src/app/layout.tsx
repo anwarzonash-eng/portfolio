@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@/styles/globals.css";
 import ChildWrapperContainer from "@/components/ChildWrapperContainer";
+import LinkInterceptor from "@/components/LinkInterceptor";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,6 +16,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
+        <LinkInterceptor />
         <ChildWrapperContainer>{children}</ChildWrapperContainer>
       </body>
     </html>

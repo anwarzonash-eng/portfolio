@@ -37,7 +37,6 @@ import { useRouter } from "next/router";
 import { useMediaQuery } from "react-responsive";
 import Header from "@/components/layouts/header/page";
 import { SmoothScroll } from "@/hooks/SmoothScroll";
-import DomainLink from "@/components/DomainLink";
 
 const Home = ({ params }: { params: any }) => {
   useBodyBackgroundColor("#f8f9fa");
@@ -863,21 +862,12 @@ const Home = ({ params }: { params: any }) => {
                       </div>
                       {/* Button Line */}
                       <div className="md:space-x-5 py-[2rem]">
-                        {/* <Link href={"/cv"}>
+                        <Link href={"/cv"}>
                           <button className="w-full md:max-w-max btn-primary rounded-[0.6rem] text-white py-[2rem] px-[5.6rem] text-[1.8rem] font-medium border border-solid border-custom">
                             {" "}
                             View CV Online
                           </button>
-                        </Link> */}
-                        <DomainLink
-                          href={"/cv"}
-                          child={
-                            <button className="w-full md:max-w-max btn-primary rounded-[0.6rem] text-white py-[2rem] px-[5.6rem] text-[1.8rem] font-medium border border-solid border-custom">
-                              {" "}
-                              View CV Online
-                            </button>
-                          }
-                        />
+                        </Link>
 
                         {listOfdata?.is_pdf_generated &&
                           listOfdata?.pdf_download_links?.length > 0 &&
