@@ -26,7 +26,7 @@ export const apigateway = async ({
     },
     ...(payload && { data: payload }),
   };
-
+ console.log(config.url, "this is api url")
   try {
     const response = await axios(config);
 
