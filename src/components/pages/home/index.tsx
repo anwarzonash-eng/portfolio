@@ -140,7 +140,7 @@ const Home = ({ params }: { params: any }) => {
                             {" "}
                             {listOfdata?.name}
                           </h2>
-                          <div className="text-[4rem] font-medium flex items-center justify-center flex-wrap gap-[3px]">
+                          <div className="text-[2rem] font-medium flex items-center justify-center flex-wrap gap-[3px]">
                             {" "}
                             {listOfdatas?.designation
                               ?.split("|")
