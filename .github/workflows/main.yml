@@ -22,7 +22,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Clear Next.js Cache
         run: rm -rf .next
-      - run: cp .env.development .env
+      - run: cp .env.production .env
       - name: Install Dependencies
         run: npm install
       - name: Build
