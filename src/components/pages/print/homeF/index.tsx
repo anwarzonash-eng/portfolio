@@ -31,6 +31,7 @@ import NoteDomainForPint from "../../../NoteDomainForPint";
 import OurBlogsLandscape from "@/components/OurBlogsLandscape";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import DesignationDomain from "@/components/DesignationDomain";
+import ShowmoreSkills from "@/components/showmoreSkills";
 
 const Home_p = ({ params }: { params: any }) => {
   useBodyBackgroundColor("#f8f9fa");
@@ -524,7 +525,12 @@ const Home_p = ({ params }: { params: any }) => {
                           </div>
                         )}
                       </div>
-                      <Link href={"/?sectionId=about"}>
+                      {/* <Link href={"/?sectionId=about"}>
+                        <button className="w-full md:max-w-max btn-primary rounded-[0.6rem] text-white py-[2rem] px-[5.6rem] text-[1.8rem] font-medium border border-solid border-custom">
+                          View CV Online
+                        </button>
+                      </Link> */}
+                      <Link href={"/cv"}>
                         <button className="w-full md:max-w-max btn-primary rounded-[0.6rem] text-white py-[2rem] px-[5.6rem] text-[1.8rem] font-medium border border-solid border-custom">
                           View CV Online
                         </button>
@@ -564,23 +570,6 @@ const Home_p = ({ params }: { params: any }) => {
                           layoutType={false}
                           initialVisibleItems={12}
                         />
-
-                        <div className="flex items-center justify-center">
-                          {/* href={`https://www.${listOfdatas.domain}/#skillsSection`} */}
-                          {/* href="/#skillsSection" */}
-                          {/* <a
-                            href="https://www.youtube.com/"
-                            target="_blank"
-                            
-                          >
-                            Show More Skills
-                          </a> */}
-                          <Link href={"/?sectionId=skillSection"}>
-                            <button className="px-[4rem] py-[1.4rem]  bg-primary rounded-[2.2rem] hover:bg-white hover:text-primary hover:border-primary border border-border border-solid text-center max-w-max text-white text-[1.4rem] font-medium font-Inter leading-tight mx-auto">
-                              See More Skills
-                            </button>
-                          </Link>
-                        </div>
                       </div>
                     </section>
                   </>
@@ -783,7 +772,7 @@ const Home_p = ({ params }: { params: any }) => {
                                     } = skillsGrouping(
                                       showMoreSkills[index]
                                         ? experience?.skills
-                                        : experience?.skills?.slice(0, 15)
+                                        : experience?.skills?.slice(0, 5)
                                     );
                                     return (
                                       <>
@@ -920,44 +909,67 @@ const Home_p = ({ params }: { params: any }) => {
                                                         WORKED IN
                                                       </h4>
                                                       <div className="w-full flex-col items-start flex gap-5">
-                                                        <div className="flex items-center gap-[1rem] lg:gap-[0.7rem] text-nowrap flex-wrap text-[1.2rem]">
+                                                        <div className="flex print:hidden items-center gap-[1rem] lg:gap-[0.7rem] text-nowrap flex-wrap text-[1.2rem]">
                                                           {Object?.values(
                                                             skillsforExpereince
-                                                          )
-                                                            .flat()
-                                                            .slice(0, 6)
-                                                            .map(
-                                                              (
-                                                                skill,
-                                                                index
-                                                              ) => (
-                                                                <Link
-                                                                  href={`/?sectionId=workExperiences`}
-                                                                  legacyBehavior
-                                                                  key={index}
-                                                                >
-                                                                  <a
-                                                                    target="_blank"
-                                                                    rel="noopener noreferrer"
-                                                                    style={{
-                                                                      animationDelay: `${
-                                                                        index *
-                                                                        0.1
-                                                                      }s`,
-                                                                    }}
-                                                                    className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium py-[0.4rem] px-[2rem] bg-white flex items-center print:py-[0.2rem] print:px-[1.5rem] justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
-                                                                  >
-                                                                    {
-                                                                      skill?.title
-                                                                    }
-                                                                  </a>
-                                                                </Link>
-                                                              )
-                                                            )}
+                                                          )?.map(
+                                                            (
+                                                              group,
+                                                              groupIndex
+                                                            ) => (
+                                                              <React.Fragment
+                                                                key={groupIndex}
+                                                              >
+                                                                {group.map(
+                                                                  (
+                                                                    skill,
+                                                                    i
+                                                                  ) => {
+                                                                    // Calculate the skill number (groupIndex+1).(i+1)
+                                                                    const skillNumber = `${
+                                                                      groupIndex +
+                                                                      1
+                                                                    }.${i + 1}`;
 
-                                                          <button className="bg-primary text-white py-[0.4rem] px-[2rem] border border-primary border-solid hover:text-primary hover:bg-white rounded-[1.8rem] text-[1.4rem] font-medium leading-normal">
-                                                            Show More Skills
-                                                          </button>
+                                                                    return (
+                                                                      <Link
+                                                                        href={
+                                                                          skill.url ||
+                                                                          "#"
+                                                                        }
+                                                                        legacyBehavior
+                                                                        key={`${groupIndex}-${i}`}
+                                                                      >
+                                                                        <a
+                                                                          target="_blank"
+                                                                          rel="noopener noreferrer"
+                                                                          style={{
+                                                                            animationDelay: `${
+                                                                              i *
+                                                                              0.1
+                                                                            }s`,
+                                                                          }}
+                                                                          className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium py-[0.4rem] px-[2rem] bg-white flex items-center print:py-[0.2rem] print:px-[1.5rem] justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
+                                                                        >
+                                                                          {
+                                                                            skill?.title
+                                                                          }
+                                                                        </a>
+                                                                      </Link>
+                                                                    );
+                                                                  }
+                                                                )}
+                                                              </React.Fragment>
+                                                            )
+                                                          )}
+                                                          <ShowmoreSkills
+                                                            props={{
+                                                              list: experience?.skills,
+                                                              index,
+                                                              setShowMoreSkills,
+                                                              showMoreSkills,
+                                                            }}
+                                                          />
                                                         </div>
                                                       </div>
                                                     </div>
@@ -1025,7 +1037,7 @@ const Home_p = ({ params }: { params: any }) => {
                                     } = skillsGrouping(
                                       showMoreSkills[index]
                                         ? experience?.skills
-                                        : experience?.skills?.slice(0, 15)
+                                        : experience?.skills?.slice(0, 5)
                                     );
                                     return (
                                       <>
@@ -1162,44 +1174,67 @@ const Home_p = ({ params }: { params: any }) => {
                                                         WORKED IN
                                                       </h4>
                                                       <div className="w-full flex-col items-start flex gap-5">
-                                                        <div className="flex items-center gap-[1rem] lg:gap-[0.7rem] text-nowrap flex-wrap text-[1.2rem]">
+                                                        <div className="flex print:hidden items-center gap-[1rem] lg:gap-[0.7rem] text-nowrap flex-wrap text-[1.2rem]">
                                                           {Object?.values(
                                                             skillsforExpereince
-                                                          )
-                                                            .flat()
-                                                            .slice(0, 6)
-                                                            .map(
-                                                              (
-                                                                skill,
-                                                                index
-                                                              ) => (
-                                                                <Link
-                                                                  href={`/?sectionId=workExperiences`}
-                                                                  legacyBehavior
-                                                                  key={index}
-                                                                >
-                                                                  <a
-                                                                    target="_blank"
-                                                                    rel="noopener noreferrer"
-                                                                    style={{
-                                                                      animationDelay: `${
-                                                                        index *
-                                                                        0.1
-                                                                      }s`,
-                                                                    }}
-                                                                    className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium py-[0.4rem] px-[2rem] bg-white flex items-center print:py-[0.2rem] print:px-[1.5rem] justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
-                                                                  >
-                                                                    {
-                                                                      skill?.title
-                                                                    }
-                                                                  </a>
-                                                                </Link>
-                                                              )
-                                                            )}
+                                                          )?.map(
+                                                            (
+                                                              group,
+                                                              groupIndex
+                                                            ) => (
+                                                              <React.Fragment
+                                                                key={groupIndex}
+                                                              >
+                                                                {group.map(
+                                                                  (
+                                                                    skill,
+                                                                    i
+                                                                  ) => {
+                                                                    // Calculate the skill number (groupIndex+1).(i+1)
+                                                                    const skillNumber = `${
+                                                                      groupIndex +
+                                                                      1
+                                                                    }.${i + 1}`;
 
-                                                          <button className="bg-primary text-white py-[0.4rem] px-[2rem] border border-primary border-solid hover:text-primary hover:bg-white rounded-[1.8rem] text-[1.4rem] font-medium leading-normal">
-                                                            Show More Skills
-                                                          </button>
+                                                                    return (
+                                                                      <Link
+                                                                        href={
+                                                                          skill.url ||
+                                                                          "#"
+                                                                        }
+                                                                        legacyBehavior
+                                                                        key={`${groupIndex}-${i}`}
+                                                                      >
+                                                                        <a
+                                                                          target="_blank"
+                                                                          rel="noopener noreferrer"
+                                                                          style={{
+                                                                            animationDelay: `${
+                                                                              i *
+                                                                              0.1
+                                                                            }s`,
+                                                                          }}
+                                                                          className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium py-[0.4rem] px-[2rem] bg-white flex items-center print:py-[0.2rem] print:px-[1.5rem] justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
+                                                                        >
+                                                                          {
+                                                                            skill?.title
+                                                                          }
+                                                                        </a>
+                                                                      </Link>
+                                                                    );
+                                                                  }
+                                                                )}
+                                                              </React.Fragment>
+                                                            )
+                                                          )}
+                                                          <ShowmoreSkills
+                                                            props={{
+                                                              list: experience?.skills,
+                                                              index,
+                                                              setShowMoreSkills,
+                                                              showMoreSkills,
+                                                            }}
+                                                          />
                                                         </div>
                                                       </div>
                                                     </div>
@@ -1267,7 +1302,7 @@ const Home_p = ({ params }: { params: any }) => {
                                     } = skillsGrouping(
                                       showMoreSkills[index]
                                         ? experience?.skills
-                                        : experience?.skills?.slice(0, 15)
+                                        : experience?.skills?.slice(0, 5)
                                     );
                                     return (
                                       <>
@@ -1404,48 +1439,67 @@ const Home_p = ({ params }: { params: any }) => {
                                                         WORKED IN
                                                       </h4>
                                                       <div className="w-full flex-col items-start flex gap-5">
-                                                        <div className="flex items-center gap-[1rem] lg:gap-[0.7rem] text-nowrap flex-wrap text-[1.2rem]">
+                                                        <div className="flex print:hidden items-center gap-[1rem] lg:gap-[0.7rem] text-nowrap flex-wrap text-[1.2rem]">
                                                           {Object?.values(
                                                             skillsforExpereince
-                                                          )
-                                                            .flat()
-                                                            .slice(0, 6)
-                                                            .map(
-                                                              (
-                                                                skill,
-                                                                index
-                                                              ) => (
-                                                                <Link
-                                                                  href={`/?sectionId=workExperiences`}
-                                                                  legacyBehavior
-                                                                  key={index}
-                                                                >
-                                                                  <a
-                                                                    target="_blank"
-                                                                    rel="noopener noreferrer"
-                                                                    style={{
-                                                                      animationDelay: `${
-                                                                        index *
-                                                                        0.1
-                                                                      }s`,
-                                                                    }}
-                                                                    className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium py-[0.4rem] px-[2rem] bg-white flex items-center print:py-[0.2rem] print:px-[1.5rem] justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
-                                                                  >
-                                                                    {
-                                                                      skill?.title
-                                                                    }
-                                                                  </a>
-                                                                </Link>
-                                                              )
-                                                            )}
+                                                          )?.map(
+                                                            (
+                                                              group,
+                                                              groupIndex
+                                                            ) => (
+                                                              <React.Fragment
+                                                                key={groupIndex}
+                                                              >
+                                                                {group.map(
+                                                                  (
+                                                                    skill,
+                                                                    i
+                                                                  ) => {
+                                                                    // Calculate the skill number (groupIndex+1).(i+1)
+                                                                    const skillNumber = `${
+                                                                      groupIndex +
+                                                                      1
+                                                                    }.${i + 1}`;
 
-                                                          <Link
-                                                            href={`/?sectionId=workExperiences`}
-                                                          >
-                                                            <button className="bg-primary text-white py-[0.4rem] px-[2rem] border border-primary border-solid hover:text-primary hover:bg-white rounded-[1.8rem] text-[1.4rem] font-medium leading-normal">
-                                                              Show More Skills
-                                                            </button>
-                                                          </Link>
+                                                                    return (
+                                                                      <Link
+                                                                        href={
+                                                                          skill.url ||
+                                                                          "#"
+                                                                        }
+                                                                        legacyBehavior
+                                                                        key={`${groupIndex}-${i}`}
+                                                                      >
+                                                                        <a
+                                                                          target="_blank"
+                                                                          rel="noopener noreferrer"
+                                                                          style={{
+                                                                            animationDelay: `${
+                                                                              i *
+                                                                              0.1
+                                                                            }s`,
+                                                                          }}
+                                                                          className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium py-[0.4rem] px-[2rem] bg-white flex items-center print:py-[0.2rem] print:px-[1.5rem] justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
+                                                                        >
+                                                                          {
+                                                                            skill?.title
+                                                                          }
+                                                                        </a>
+                                                                      </Link>
+                                                                    );
+                                                                  }
+                                                                )}
+                                                              </React.Fragment>
+                                                            )
+                                                          )}
+                                                          <ShowmoreSkills
+                                                            props={{
+                                                              list: experience?.skills,
+                                                              index,
+                                                              setShowMoreSkills,
+                                                              showMoreSkills,
+                                                            }}
+                                                          />
                                                         </div>
                                                       </div>
                                                     </div>
@@ -1457,7 +1511,7 @@ const Home_p = ({ params }: { params: any }) => {
                                       </>
                                     );
                                   })}{" "}
-                              <div className="flex items-center justify-center mt-5">
+                              {/* <div className="flex items-center justify-center mt-5">
                                 <Link
                                   href={`/?sectionId=workExperiences`}
                                   target="_blank"
@@ -1467,7 +1521,21 @@ const Home_p = ({ params }: { params: any }) => {
                                 >
                                   View Full Career Timeline
                                 </Link>
-                              </div>
+                              </div> */}
+                              {listOfdata.experiences_ids.length > 3 && (
+                                <div className="flex justify-center mt-8">
+                                  <button
+                                    onClick={() =>
+                                      setShowAllExperiences(!showAllExperiences)
+                                    }
+                                    className="btn-primary text-white py-[1rem] px-[3.4rem] text-[1.8rem] font-medium"
+                                  >
+                                    {showAllExperiences
+                                      ? "Show Less"
+                                      : "View Full Career Timeline"}
+                                  </button>
+                                </div>
+                              )}
                             </div>
                           </div>
                         </div>

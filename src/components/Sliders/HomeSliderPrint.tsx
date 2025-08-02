@@ -41,6 +41,21 @@ const HomeSliderPrint: React.FC<HomeSliderPrintProps> = ({
   from,
   max,
 }) => {
+  const openModal = (
+    pictures: string,
+    thumbnail: string,
+    child_hero_banner: string
+  ) => {
+    const portfolioImages = JSON.parse(pictures) as string[];
+    const allImages = [thumbnail, child_hero_banner, ...portfolioImages];
+    setSelectedPorfolioPicturesforPopup(allImages);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setSelectedPorfolioPicturesforPopup(null);
+    setIsModalOpen(false);
+  };
   const [showAllSkills, setShowAllSkills] = useState(false);
   const [
     selectedPorfolioPicturesforPopup,
@@ -136,14 +151,14 @@ const HomeSliderPrint: React.FC<HomeSliderPrintProps> = ({
 
                 <div className="flex items-center gap-[1.4rem]">
                   <Link
-                    href={locationLink}
+                    href={`/portfolio/${portfolio.id}`}
                     className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent hover:border-primary duration-300 text-center rounded-[0.6rem] max-w-max text-nowrap"
                   >
                     View Details
                   </Link>
                   {companyType !== "leewop" && (
                     <Link
-                      href={locationLink}
+                      href={portfolio?.link}
                       className="py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-primary border border-solid hover:border-transparent border-primary duration-300 hover:bg-primary hover:text-white rounded-[0.6rem] text-center max-w-max text-nowrap"
                     >
                       Launch Project - Live Preview
@@ -183,26 +198,33 @@ const HomeSliderPrint: React.FC<HomeSliderPrintProps> = ({
                   </div>
                 )}
 
-                <Link href={locationLink}>
-                  <button className="text-white py-[6px] mt-[17px] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent hover:border-primary duration-300 max-lg:w-full text-center rounded-[0.6rem] relative max-w-max text-nowrap">
-                    <span className="relative z-10 flex items-center justify-center gap-2">
-                      Explore the Gallery
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </span>
-                    <span className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                  </button>
-                </Link>
+                <button
+                  className="text-white py-[6px] mt-[17px] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent hover:border-primary duration-300 max-lg:w-full text-center rounded-[0.6rem] relative max-w-max text-nowrap"
+                  onClick={() =>
+                    openModal(
+                      portfolio?.pictures,
+                      portfolio?.thumbnail,
+                      portfolio?.child_hero_banner
+                    )
+                  }
+                >
+                  <span className="relative z-10 flex items-center justify-center gap-2">
+                    Explore the Gallery
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                  <span className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                </button>
               </div>
             </div>
           </div>

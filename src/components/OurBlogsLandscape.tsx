@@ -63,7 +63,7 @@ const OurBlogsLandscape = ({ domain, locationLink }) => {
             </h3>
           </div>
           <div className="w-full sm:w-auto flex justify-center">
-            <Link href={locationLink}>
+            <Link href={"/blog-listing"}>
               <button
                 className="btn-primary text-white py-[1rem] 
                 px-[3.4rem] text-[1.8rem] font-medium"

@@ -56,6 +56,7 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
     { title: "Blogs", src: "/blog-listing" },
     { title: "CV", src: "/cv" },
   ];
+
   const serviceContentMap = {
     "Database Development": {
       image: "/images/my_services/db.jpg",
@@ -298,9 +299,13 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
                             {isServicesOpen && (
                               <nav
                                 ref={servicesDivRef}
-                                className={`rounded-[0.8rem] duration-300 shadow-lg bg-white absolute top-[4rem] left-[-26rem] z-50
-        ${isServicesOpen ? "opacity-100" : "opacity-0"}
-        p-[2rem] w-[90rem]`}
+                                className={`rounded-[0.8rem] duration-300 shadow-lg bg-white absolute top-[4rem] left-[50%] ${
+                                  urlInfo?.u
+                                    ? "translate-x-[-70%]"
+                                    : "translate-x-[-50%]"
+                                } z-50
+                                ${isServicesOpen ? "opacity-100" : "opacity-0"}
+                                p-[2rem] w-[90rem]`}
                               >
                                 {/* Services Grid - 3 columns */}
                                 <div className="grid grid-cols-3 gap-6">
@@ -395,7 +400,11 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
                       {isResourceOpen && (
                         <nav
                           ref={resourcesDivRef}
-                          className={`rounded-[0.8rem] duration-300 shadow-md bg-white absolute top-[4rem] left-[-10rem] z-50
+                          className={`rounded-[0.8rem] duration-300 shadow-md bg-white absolute top-[4rem] left-[50%] ${
+                            urlInfo?.u
+                              ? "translate-x-[-70%]"
+                              : "translate-x-[-50%]"
+                          } z-50
                          ${isResourceOpen ? "opacity-100" : "opacity-0"}
                          p-[2rem] text-primary text-[1.6rem] font-normal leading-normal flex flex-col gap-[1.5rem] w-[29.6rem] text-nowrap`}
                         >
