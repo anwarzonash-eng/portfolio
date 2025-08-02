@@ -59,6 +59,8 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
     handleSkillsApiCall({ setListOfSkills });
   }, []);
 
+  const uniqueID = localStorage.getItem("uniqueID");
+
   // Function to open the modal
   const openModal = (pictures, thumbnail, child_hero_banner) => {
     const portfolioImages = JSON.parse(pictures);
@@ -240,11 +242,11 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
                                     {skill.title}
                                   </Link>
                                 ))}
-                              <Link href={`/portfolio`}>
+                              {/* <Link href={`/portfolio`}>
                                 <button className="bg-primary text-white py-[0.4rem] px-[2rem] border border-primary border-solid hover:text-primary hover:bg-white rounded-[1.8rem] text-[1.4rem] font-medium leading-normal">
                                   Show More Skills
                                 </button>
-                              </Link>
+                              </Link> */}
                             </div>
                             <hr className="w-full my-[2.4rem] h-px bg-border" />
                             {/* Links */}

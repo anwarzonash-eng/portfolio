@@ -115,7 +115,7 @@ const HomeSliderPrint: React.FC<HomeSliderPrintProps> = ({
                     <div className="flex items-center gap-[0.7rem] my-[2rem] text-nowrap flex-wrap">
                       {Object.values(skills)
                         .flat()
-                        .slice(0, showAllSkills ? undefined : 6)
+                        .slice(0, showAllSkills ? undefined : 5)
                         .map((skill: SkillType, i: number) => (
                           <Link
                             href={skill.url || "#"}
@@ -136,14 +136,12 @@ const HomeSliderPrint: React.FC<HomeSliderPrintProps> = ({
                         ))}
 
                       {Object.values(skills).flat().length > 8 && (
-                        <Link href={locationLink}>
-                          <button
-                            onClick={() => setShowAllSkills(!showAllSkills)}
-                            className="bg-primary text-white border border-transparent py-[0.4rem] px-[2rem] hover:bg-white hover:text-primary hover:border-primary hover:border text-heading rounded-[1.2rem] text-[1.4rem] font-medium leading-[2rem]"
-                          >
-                            {showAllSkills ? "Show Less" : "See More"}
-                          </button>
-                        </Link>
+                        <button
+                          onClick={() => setShowAllSkills(!showAllSkills)}
+                          className="bg-primary text-white border border-transparent py-[0.4rem] px-[2rem] hover:bg-white hover:text-primary hover:border-primary hover:border text-heading rounded-[1.2rem] text-[1.4rem] font-medium leading-[2rem]"
+                        >
+                          {showAllSkills ? "Show Less" : "See More"}
+                        </button>
                       )}
                     </div>
                   </div>
@@ -230,6 +228,13 @@ const HomeSliderPrint: React.FC<HomeSliderPrintProps> = ({
           </div>
         );
       })}
+      {isModalOpen && selectedPorfolioPicturesforPopup !== null && (
+        <PortfolioPopUp
+          isModalOpen={isModalOpen}
+          closeModal={closeModal}
+          portfolioImages={selectedPorfolioPicturesforPopup}
+        />
+      )}
     </div>
   );
 };

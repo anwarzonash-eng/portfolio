@@ -37,6 +37,7 @@ import { modifiedContentPrint } from "@/hooks/modifiedContentPrint";
 import { getImageForIndex } from "@/utils/getImageForIndex";
 import DesignationDomain from "@/components/DesignationDomain";
 import NoteClickable from "@/components/NoteClickable";
+import PortfolioPopUp from "@/components/PortfolioPopUp";
 type SkillType = {
   title: string;
   url?: string;
@@ -54,6 +55,23 @@ const CV_Portrait = ({ params }: { params: any }) => {
     setSelectedPorfolioPicturesforPopup,
   ] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = (
+    pictures: string,
+    thumbnail: string,
+    child_hero_banner: string
+  ) => {
+    const portfolioImages = JSON.parse(pictures) as string[];
+    const allImages = [thumbnail, child_hero_banner, ...portfolioImages];
+    setSelectedPorfolioPicturesforPopup(allImages);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setSelectedPorfolioPicturesforPopup(null);
+    setIsModalOpen(false);
+  };
+
   const [blogsList, setBlogsList] = useState([]);
   const [loadingblogs, setLoadingBlogs] = useState(false);
   const [showAll, setShowAll] = useState(false);
@@ -932,28 +950,33 @@ const CV_Portrait = ({ params }: { params: any }) => {
                                   )}
                                   {/* Explore Galary Button */}
                                   <div className="flex items-center justify-center w-full">
-                                    <Link
-                                      href={`/cv/?sectionId=portfolioSection`}
+                                    <button
+                                      className="text-white py-[6px] mt-[17px] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent hover:border-primary duration-300 max-lg:w-full text-center rounded-[0.6rem] relative max-w-max text-nowrap"
+                                      onClick={() =>
+                                        openModal(
+                                          portfolio?.pictures,
+                                          portfolio?.thumbnail,
+                                          portfolio?.child_hero_banner
+                                        )
+                                      }
                                     >
-                                      <button className="text-white py-[6px] mt-[17px] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent hover:border-primary duration-300 max-lg:w-full text-center rounded-[0.6rem] relative max-w-max text-nowrap">
-                                        <span className="relative z-10 flex items-center justify-center gap-2">
-                                          Explore the Gallery
-                                          <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1"
-                                            viewBox="0 0 20 20"
-                                            fill="currentColor"
-                                          >
-                                            <path
-                                              fillRule="evenodd"
-                                              d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
-                                              clipRule="evenodd"
-                                            />
-                                          </svg>
-                                        </span>
-                                        <span className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                                      </button>
-                                    </Link>
+                                      <span className="relative z-10 flex items-center justify-center gap-2">
+                                        Explore the Gallery
+                                        <svg
+                                          xmlns="http://www.w3.org/2000/svg"
+                                          className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1"
+                                          viewBox="0 0 20 20"
+                                          fill="currentColor"
+                                        >
+                                          <path
+                                            fillRule="evenodd"
+                                            d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
+                                            clipRule="evenodd"
+                                          />
+                                        </svg>
+                                      </span>
+                                      <span className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                                    </button>
                                   </div>
                                 </div>
                                 <div className="mt-[1rem]">
@@ -1009,17 +1032,28 @@ const CV_Portrait = ({ params }: { params: any }) => {
                                           {skill?.title}
                                         </Link>
                                       ))}
+                                    {isModalOpen &&
+                                      selectedPorfolioPicturesforPopup !==
+                                        null && (
+                                        <PortfolioPopUp
+                                          isModalOpen={isModalOpen}
+                                          closeModal={closeModal}
+                                          portfolioImages={
+                                            selectedPorfolioPicturesforPopup
+                                          }
+                                        />
+                                      )}
                                   </div>
                                 </div>
                                 <div className="flex items-center print:grid grid-cols-1 gap-[1.4rem] py-[1rem]">
                                   <Link
-                                    href={`/cv/?sectionId=portfolioSection`}
+                                    href={`/portfolio/${portfolio.id}`}
                                     className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent hover:border-primary duration-300 text-center rounded-[0.6rem]  text-nowrap print:w-full"
                                   >
                                     View Details
                                   </Link>
                                   <Link
-                                    href={`/cv/?sectionId=portfolioSection`}
+                                    href={portfolio?.link}
                                     className="py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-primary border border-solid hover:border-transparent border-primary duration-300 hover:bg-primary hover:text-white rounded-[0.6rem] text-center text-nowrap print:w-full"
                                   >
                                     Launch Project - Live Preview

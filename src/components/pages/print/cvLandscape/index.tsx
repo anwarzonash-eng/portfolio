@@ -29,6 +29,7 @@ import { modifiedContentPrint } from "@/hooks/modifiedContentPrint";
 import NoteDomainForPint from "@/components/NoteDomainForPint";
 import { getImageForIndex } from "@/utils/getImageForIndex";
 import DesignationDomain from "@/components/DesignationDomain";
+import PortfolioPopUp from "@/components/PortfolioPopUp";
 type SkillType = {
   title: string;
   url?: string;
@@ -92,6 +93,28 @@ const CV_Landscape = ({ params }: { params: any }) => {
       });
     }
   }, [listOfdata]);
+
+  const [
+    selectedPorfolioPicturesforPopup,
+    setSelectedPorfolioPicturesforPopup,
+  ] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = (
+    pictures: string,
+    thumbnail: string,
+    child_hero_banner: string
+  ) => {
+    const portfolioImages = JSON.parse(pictures) as string[];
+    const allImages = [thumbnail, child_hero_banner, ...portfolioImages];
+    setSelectedPorfolioPicturesforPopup(allImages);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setSelectedPorfolioPicturesforPopup(null);
+    setIsModalOpen(false);
+  };
 
   useBodyBackgroundColor("#EFF5FD");
 
@@ -890,7 +913,7 @@ const CV_Landscape = ({ params }: { params: any }) => {
                         Portfolios
                       </h2>
                       <Link
-                        href={`/cv/?sectionId=portfolioSection`}
+                        href={"/portfolio"}
                         className=" flex items-center gap-[0.6rem] group cursor-pointer"
                       >
                         <div className="hover:font-bold hover:text-primary text-[1.4rem] text-heading font-medium">
@@ -1024,6 +1047,17 @@ const CV_Landscape = ({ params }: { params: any }) => {
                                                 {skill?.title}
                                               </Link>
                                             ))}
+                                            {isModalOpen &&
+                                              selectedPorfolioPicturesforPopup !==
+                                                null && (
+                                                <PortfolioPopUp
+                                                  isModalOpen={isModalOpen}
+                                                  closeModal={closeModal}
+                                                  portfolioImages={
+                                                    selectedPorfolioPicturesforPopup
+                                                  }
+                                                />
+                                              )}
                                             {/* Line break after each group */}
                                             {showMoreSkillsForPortfolios[
                                               index
@@ -1033,26 +1067,26 @@ const CV_Landscape = ({ params }: { params: any }) => {
                                           </React.Fragment>
                                         )
                                       )}
-                                      <Link
+                                      {/* <Link
                                         href={`/cv/?sectionId=portfolioSection`}
                                       >
                                         <button className="bg-primary text-white py-[0.4rem] px-[2rem] border border-primary border-solid hover:text-primary hover:bg-white rounded-[1.8rem] text-[1.4rem] font-medium leading-normal">
                                           Show More Skills
                                         </button>
-                                      </Link>
+                                      </Link> */}
                                     </div>
                                   </div>
                                   <hr className="w-full my-[2.4rem] h-px bg-border" />
                                   <div className="flex flex-wrap items-start gap-[1.4rem]">
                                     <Link
-                                      href={`/cv/?sectionId=portfolioSection`}
+                                      href={`/portfolio/${portfolio.id}`}
                                       className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent hover:border-primary duration-300 w-full md:max-w-max text-center rounded-[0.6rem]"
                                     >
                                       View Details
                                     </Link>
                                     {listOfdata?.companytype !== "leewop" && (
                                       <Link
-                                        href={`/cv/?sectionId=portfolioSection`}
+                                        href={portfolio?.link}
                                         className="py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-primary border border-solid hover:border-transparent border-primary duration-300 hover:bg-primary hover:text-white rounded-[0.6rem] w-full md:max-w-max text-center"
                                       >
                                         Launch Project - Live Preview
@@ -1082,13 +1116,19 @@ const CV_Landscape = ({ params }: { params: any }) => {
                                         />
                                       </div>
                                       {/* Button remains the same */}
-                                      <Link
-                                        href={`/cv/?sectionId=portfolioSection`}
+
+                                      <button
+                                        className="my-[1rem] py-[1rem] px-[2rem] rounded-[0.7rem] border-2 border-solid border-[#fff] text-[1.2rem] font-medium max-w-max backdrop-blur-[0.8rem] duration-300 bg-primary hover:bg-opacity-80 text-white hover:bg-white hover:text-primary hover:border-1 hover:border-primary"
+                                        onClick={() =>
+                                          openModal(
+                                            portfolio?.pictures,
+                                            portfolio?.thumbnail,
+                                            portfolio?.child_hero_banner
+                                          )
+                                        }
                                       >
-                                        <button className="my-[1rem] py-[1rem] px-[2rem] rounded-[0.7rem] border-2 border-solid border-[#fff] text-[1.2rem] font-medium max-w-max backdrop-blur-[0.8rem] duration-300 bg-primary hover:bg-opacity-80 text-white hover:bg-white hover:text-primary hover:border-1 hover:border-primary">
-                                          Explore the Gallery
-                                        </button>
-                                      </Link>
+                                        Explore the Gallery
+                                      </button>
                                     </div>
                                   )}
                                 </div>
@@ -1216,6 +1256,17 @@ const CV_Landscape = ({ params }: { params: any }) => {
                                                 {skill?.title}
                                               </Link>
                                             ))}
+                                            {isModalOpen &&
+                                              selectedPorfolioPicturesforPopup !==
+                                                null && (
+                                                <PortfolioPopUp
+                                                  isModalOpen={isModalOpen}
+                                                  closeModal={closeModal}
+                                                  portfolioImages={
+                                                    selectedPorfolioPicturesforPopup
+                                                  }
+                                                />
+                                              )}
                                             {/* Line break after each group */}
                                             {showMoreSkillsForPortfolios[
                                               index
@@ -1225,26 +1276,26 @@ const CV_Landscape = ({ params }: { params: any }) => {
                                           </React.Fragment>
                                         )
                                       )}
-                                      <Link
+                                      {/* <Link
                                         href={`/cv/?sectionId=portfolioSection`}
                                       >
                                         <button className="bg-primary text-white py-[0.4rem] px-[2rem] border border-primary border-solid hover:text-primary hover:bg-white rounded-[1.8rem] text-[1.4rem] font-medium leading-normal">
                                           Show More Skills
                                         </button>
-                                      </Link>
+                                      </Link> */}
                                     </div>
                                   </div>
                                   <hr className="w-full my-[2.4rem] h-px bg-border" />
                                   <div className="flex flex-wrap items-start gap-[1.4rem]">
                                     <Link
-                                      href={`/cv/?sectionId=portfolioSection`}
+                                      href={`/portfolio/${portfolio.id}`}
                                       className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent hover:border-primary duration-300 w-full md:max-w-max text-center rounded-[0.6rem]"
                                     >
                                       View Details
                                     </Link>
                                     {listOfdata?.companytype !== "leewop" && (
                                       <Link
-                                        href={`/cv/?sectionId=portfolioSection`}
+                                        href={portfolio?.link}
                                         className="py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-primary border border-solid hover:border-transparent border-primary duration-300 hover:bg-primary hover:text-white rounded-[0.6rem] w-full md:max-w-max text-center"
                                       >
                                         Launch Project - Live Preview
@@ -1274,13 +1325,19 @@ const CV_Landscape = ({ params }: { params: any }) => {
                                         />
                                       </div>
                                       {/* Button remains the same */}
-                                      <Link
-                                        href={`/cv/?sectionId=portfolioSection`}
+
+                                      <button
+                                        className="my-[1rem] py-[1rem] px-[2rem] rounded-[0.7rem] border-2 border-solid border-[#fff] text-[1.2rem] font-medium max-w-max backdrop-blur-[0.8rem] duration-300 bg-primary hover:bg-opacity-80 text-white hover:bg-white hover:text-primary hover:border-1 hover:border-primary"
+                                        onClick={() =>
+                                          openModal(
+                                            portfolio?.pictures,
+                                            portfolio?.thumbnail,
+                                            portfolio?.child_hero_banner
+                                          )
+                                        }
                                       >
-                                        <button className="my-[1rem] py-[1rem] px-[2rem] rounded-[0.7rem] border-2 border-solid border-[#fff] text-[1.2rem] font-medium max-w-max backdrop-blur-[0.8rem] duration-300 bg-primary hover:bg-opacity-80 text-white hover:bg-white hover:text-primary hover:border-1 hover:border-primary">
-                                          Explore the Gallery
-                                        </button>
-                                      </Link>
+                                        Explore the Gallery
+                                      </button>
                                     </div>
                                   )}
                                 </div>
