@@ -530,7 +530,7 @@ const Home_p = ({ params }: { params: any }) => {
                           View CV Online
                         </button>
                       </Link> */}
-                      <Link href={"/cv"}>
+                      <Link href={"/cv"} target="_blank">
                         <button className="w-full md:max-w-max btn-primary rounded-[0.6rem] text-white py-[2rem] px-[5.6rem] text-[1.8rem] font-medium border border-solid border-custom">
                           View CV Online
                         </button>
@@ -851,7 +851,9 @@ const Home_p = ({ params }: { params: any }) => {
                                                       <div className="flex flex-col-reverse gap-[1rem] max-w-max">
                                                         <div className=" py-[0.4rem] px-[2rem] bg-white border border-[#E2E6EE] border-solid text-[#47516B] rounded-[2rem] text-[1.5rem] font-medium leading-[0.8rem] hover:bg-primary hover:text-white ">
                                                           <Link
-                                                            href={`/?sectionId=workExperiences`}
+                                                            href={
+                                                              experience.company_website
+                                                            }
                                                             className="flex gap-2 justify-center align-middle items-center hover:text-white hover:text-semibold relative py-2 pl-[1rem]"
                                                           >
                                                             <Image
@@ -877,7 +879,9 @@ const Home_p = ({ params }: { params: any }) => {
                                                           "upwork"
                                                         ) && (
                                                           <Link
-                                                            href={`/?sectionId=workExperiences`}
+                                                            href={
+                                                              experience.company_website
+                                                            }
                                                             className="hover:bg-primary hover:text-white py-[0.4rem] px-[1rem] text-heading bg-[#A3DDD3] rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
                                                           >
                                                             View my upwork
@@ -1116,7 +1120,9 @@ const Home_p = ({ params }: { params: any }) => {
                                                       <div className="flex flex-col-reverse gap-[1rem] max-w-max">
                                                         <div className=" py-[0.4rem] px-[2rem] bg-white border border-[#E2E6EE] border-solid text-[#47516B] rounded-[2rem] text-[1.5rem] font-medium leading-[0.8rem] hover:bg-primary hover:text-white ">
                                                           <Link
-                                                            href={`/?sectionId=workExperiences`}
+                                                            href={
+                                                              experience.company_website
+                                                            }
                                                             className="flex gap-2 justify-center align-middle items-center hover:text-white hover:text-semibold relative py-2 pl-[1rem]"
                                                           >
                                                             <Image
@@ -1142,7 +1148,9 @@ const Home_p = ({ params }: { params: any }) => {
                                                           "upwork"
                                                         ) && (
                                                           <Link
-                                                            href={`/?sectionId=workExperiences`}
+                                                            href={
+                                                              experience.company_website
+                                                            }
                                                             className="hover:bg-primary hover:text-white py-[0.4rem] px-[1rem] text-heading bg-[#A3DDD3] rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
                                                           >
                                                             View my upwork
@@ -1381,7 +1389,9 @@ const Home_p = ({ params }: { params: any }) => {
                                                       <div className="flex flex-col-reverse gap-[1rem] max-w-max">
                                                         <div className=" py-[0.4rem] px-[2rem] bg-white border border-[#E2E6EE] border-solid text-[#47516B] rounded-[2rem] text-[1.5rem] font-medium leading-[0.8rem] hover:bg-primary hover:text-white ">
                                                           <Link
-                                                            href={`/?sectionId=workExperiences`}
+                                                            href={
+                                                              experience.company_website
+                                                            }
                                                             className="flex gap-2 justify-center align-middle items-center hover:text-white hover:text-semibold relative py-2 pl-[1rem]"
                                                           >
                                                             <Image
@@ -1407,7 +1417,9 @@ const Home_p = ({ params }: { params: any }) => {
                                                           "upwork"
                                                         ) && (
                                                           <Link
-                                                            href={`/?sectionId=workExperiences`}
+                                                            href={
+                                                              experience.company_website
+                                                            }
                                                             className="hover:bg-primary hover:text-white py-[0.4rem] px-[1rem] text-heading bg-[#A3DDD3] rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
                                                           >
                                                             View my upwork

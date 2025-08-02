@@ -148,7 +148,7 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
       {listOfdata && listOfdata?.portfolios_ids?.length > 0 && (
         <>
           {/* Portfolio Timeline Section */}
-          <div className="bg-transparent max-w-[1550px] w-full mx-auto flex items-center justify-center">
+          <div className="bg-transparent max-w-[1550px] w-full mx-auto flex items-center justify-center bg-blue-500">
             {/* Timeline items Container */}
             <div className="space-y-[3.5rem] print:space-y-0">
               {listOfdata?.portfolios_ids?.map((portfolio, index) => {
