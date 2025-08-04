@@ -7,11 +7,9 @@ import Newsletter from "@/components/Newsletter";
 import OurBlogs from "@/components/OurBlogs";
 import HomeSlider from "@/components/Sliders/HomeSlider";
 import useBodyBackgroundColor from "@/hooks/useBodyBackgroundColor";
-import { cardData } from "@/data/JsonData";
 import { useSearchParams } from "next/navigation";
 import { getRoutesDetails } from "@/hooks/url";
 import { reportsApiHandler } from "@/hooks/apihandlers/reportsApiHandlers";
-import WebsiteLoader from "@/components/WebsiteLoader";
 import { handleSkillsApiCall } from "@/hooks/apihandlers/skillsApiHandlers";
 import { modifiedContent } from "@/hooks/modifiedContent";
 import { handleCategoryPicture } from "@/hooks/apihandlers/categoryApiHandler";
@@ -20,7 +18,6 @@ import { skillsGrouping } from "@/hooks/skillsGrouping";
 import ShowmoreSkills from "@/components/showmoreSkills";
 import Background from "@/components/background";
 import { useAppSelector } from "@/store";
-import PrintBannerSection from "@/components/PrintBannerSection";
 
 const Offer = ({ params }: { params: any }) => {
   // This is the Custom Hook That

@@ -1,5 +1,4 @@
 import { getTargetURLFromTinyURL } from "@/apiHandlers/tinyURLApi";
-import { NextRouter } from "next/router";
 
 export const getRoutesDetails = (dynamicRoutes, routeParams) => {
   const routesInfo = {
@@ -61,20 +60,6 @@ async function tinyURLNivation(routesInfo) {
     window.location.href = "https://www.cypexsoft.com";
   }
 }
-
-// This was the Old Version of adjustWithLocalStorage
-// it was just adding the uniqueID to localStorage without checking its validity.
-// function adjustWithLocalStorage(routesInfo, routeParams) {
-//   if (!routeParams.get('a')) {
-//     if (localStorage.getItem('uniqueID'))
-//       routesInfo.uniqueID = localStorage.getItem('uniqueID');
-//   }
-
-//   localStorage.setItem('uniqueID', routesInfo.uniqueID);
-//   localStorage.setItem('u', routesInfo.u);
-//   localStorage.setItem('a', routesInfo.a);
-//   localStorage.setItem('domain', routesInfo.domain);
-// }
 
 // This is the new version that will epxire the uniqueID after 15 days
 function adjustWithLocalStorage(routesInfo, routeParams) {
