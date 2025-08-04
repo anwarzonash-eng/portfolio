@@ -400,12 +400,12 @@ const CV_Portrait = ({ params }: { params: any }) => {
                         <div className="grid  grid-cols-5  xl:grid-cols-6 gap-[1.5rem] ml-[2rem] ">
                           {Object.values(skillsforCV)
                             .flat()
-                            .slice(0, 20)
+                            ?.slice(0, showAll ? undefined : 20)
                             .map((skill, i) => (
                               <div
                                 key={i}
                                 style={{
-                                  animationDelay: `${i * 0.2}s`,
+                                  animationDelay: `${0.3}s`,
                                 }}
                                 className="mx-auto mb-[4rem] flex flex-col items-center justify-start gap-[0.8rem] max-w-[15rem] lg:max-w-[19rem] w-full animate-fadeIn opacity-0"
                               >
