@@ -67,6 +67,17 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
     };
   }, [open]);
 
+  // ✅ Hide/show chat button when popup is toggled
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.Tawk_API) {
+      if (open) {
+        window.Tawk_API.hideWidget();
+      } else {
+        window.Tawk_API.showWidget();
+      }
+    }
+  }, [open]);
+
   if (!open) return null;
 
   const skills: {
