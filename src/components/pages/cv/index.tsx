@@ -1039,7 +1039,8 @@ const CV = ({ params }: { params: any }) => {
                                                                   portfolio?.child_hero_banner
                                                                 )
                                                               }
-                                                              className="my-[1rem] py-[1rem] px-[2rem] rounded-[0.7rem] border-2 border-solid border-[#fff] text-[1.2rem] font-medium max-w-max backdrop-blur-[0.8rem] duration-300 bg-primary hover:bg-opacity-80 text-white hover:bg-white hover:text-primary hover:border-1 hover:border-primary"
+                                                              className="my-[1rem]
+                                                              py-[1rem] px-[2.5rem] rounded-[0.7rem] border-2 border-solid border-[#fff] text-[1.6rem] font-medium max-w-max backdrop-blur-[0.8rem] duration-300 bg-primary hover:bg-opacity-80 text-white hover:bg-white hover:text-primary hover:border-1 hover:border-primary"
                                                             >
                                                               Explore the
                                                               Gallery
@@ -1161,7 +1162,7 @@ const CV = ({ params }: { params: any }) => {
                                                       "leewop" && (
                                                       <Link
                                                         href={portfolio?.link}
-                                                        className="py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-primary border border-solid hover:border-transparent border-primary duration-300 hover:bg-primary hover:text-white rounded-[0.6rem] w-full md:max-w-max text-center"
+                                                        className="py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-primary border border-solid hover:border-transparent border-primary duration-300 hover:bg-primary hover:text-white rounded-[0.6rem] w-full md:max-w-max text-center whitespace-nowrap"
                                                       >
                                                         Launch Project - Live
                                                         Preview
