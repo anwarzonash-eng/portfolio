@@ -151,7 +151,7 @@ const HomeSlider: React.FC<HomeSliderProps> = ({ portfolios, companyType }) => {
                   <div className="h-full flex items-center justify-center">
                     <div className="flex flex-col-reverse lg:flex-row items-stretch bg-white rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden h-full w-full">
                       {/* Content Section */}
-                      <div className="p-[2rem] lg:p-[3.5rem] w-full lg:w-1/2 print:w-full  flex items-start justify-between flex-col">
+                      <div className="p-[2rem] lg:p-[3.5rem] w-full lg:w-1/2 print:w-full flex  items-start justify-between flex-col">
                         <div className="flex items-start w-full flex-col justify-between h-full">
                           <div>
                             <div className="flex gap-[2rem] mb-[2rem]">
@@ -169,13 +169,7 @@ const HomeSlider: React.FC<HomeSliderProps> = ({ portfolios, companyType }) => {
                                 className="text-[1.6rem] lg:text-[1.8rem] leading-[2.4rem] font-normal text-paragraph1 mt-[1rem] line-clampforTagline1 basicLineClamp"
                               ></p>
 
-                              {/* <p
-                                dangerouslySetInnerHTML={{
-                                  __html: portfolio.tagline_2,
-                                }}
-                                className="text-[1.6rem] lg:text-[1.8rem] leading-[2.4rem] font-normal text-primary mt-[1rem] line-clamp basicLineClamp"
-                              ></p> */}
-                              {/* New */}
+                              {/* Description */}
                               <div>
                                 <p
                                   dangerouslySetInnerHTML={{
@@ -188,8 +182,13 @@ const HomeSlider: React.FC<HomeSliderProps> = ({ portfolios, companyType }) => {
                                 {/* Toggle button */}
                                 <button
                                   onClick={() => setIsExpanded(!isExpanded)}
-                                  // className="text-primary font-medium mt-2 underline"
-                                  className="bg-primary text-white print:hidden border border-transparent py-[0.4rem] px-[2rem] hover:bg-white hover:text-primary hover:border-primary hover:border text-heading rounded-[1.2rem] text-[1.4rem] font-medium leading-[2rem] mt-2"
+                                  className={`bg-primary text-white print:hidden border border-transparent py-[0.4rem] px-[2rem] hover:bg-white hover:text-primary hover:border-primary hover:border text-heading
+                                    ${
+                                      portfolio.tagline_2.length <= 300
+                                        ? "hidden"
+                                        : "block"
+                                    }
+                                  rounded-[1.2rem] text-[1.4rem] font-medium leading-[2rem] mt-2`}
                                 >
                                   {isExpanded ? "Read less" : "Read more"}
                                 </button>
