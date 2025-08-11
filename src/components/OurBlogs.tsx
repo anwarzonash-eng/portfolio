@@ -55,9 +55,9 @@ const OurBlogs = ({ domain }) => {
         {/* Top Content */}
         <div className="flex justify-between flex-wrap items-end sm:items-center gap-[2rem] mb-[4rem] print:mb-[2rem]">
           <div>
-            <p className="text-sectionBG print:hidden text-[1.6rem] leading-[2.4rem] font-medium">
+            {/* <p className="text-sectionBG print:hidden text-[2rem] leading-[2.4rem] font-medium">
               Our blog
-            </p>
+            </p> */}
             <h3 className="text-heading text-[3.6rem] leading-[4.4rem] font-medium mt-[1.2rem] print:m-0">
               My Latest Blogs
             </h3>

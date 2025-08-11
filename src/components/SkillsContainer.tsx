@@ -63,7 +63,7 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({ list }) => {
                   </div>
                 )}
                 <p className="mt-[1.5rem] text-paragraph1 text-center text-[1.8rem] leading-[2.8rem] overflow-hidden text-ellipsis">
-                  {skill.title}
+                  {skill.title == "Nest.js" ? "NestJs" : skill.title}
                 </p>
               </div>
             ))}
@@ -107,7 +107,7 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({ list }) => {
       {list && list.length > initialVisibleItemsSmall && (
         <button
           onClick={() => setShowAll(!showAll)}
-          className="px-[4rem] py-[1.4rem]  bg-primary rounded-[2.2rem] hover:bg-white hover:text-primary hover:border-primary border border-border border-solid text-center max-w-max text-white text-[1.4rem] font-medium font-Inter leading-tight mx-auto"
+          className="px-[4rem] py-[1.6rem] bg-primary hover:bg-white hover:text-primary hover:border-primary border border-border border-solid text-center max-w-max text-white rounded-[2.2rem] text-[2rem] font-semibold font-Inter leading-tight mx-auto"
         >
           {showAll ? "See Less" : "See More Skills"}
         </button>

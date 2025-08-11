@@ -565,11 +565,11 @@ const Home_p = ({ params }: { params: any }) => {
                             : " The skills, tools and technologies I am really good at:"}
                         </div>
                         {/* Skills Container */}
-                        <SkillsContainerPrint
+                        {/* <SkillsContainerPrint
                           list={listOfdata?.skills_ids}
                           layoutType={false}
                           initialVisibleItems={12}
-                        />
+                        /> */}
                       </div>
                     </section>
                   </>

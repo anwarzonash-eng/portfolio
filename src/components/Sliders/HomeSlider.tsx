@@ -38,6 +38,7 @@ interface HomeSliderProps {
 const HomeSlider: React.FC<HomeSliderProps> = ({ portfolios, companyType }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
   const sliderRef = useRef<HTMLDivElement>(null);
   const slideInterval = 3000;
   const [
@@ -168,12 +169,31 @@ const HomeSlider: React.FC<HomeSliderProps> = ({ portfolios, companyType }) => {
                                 className="text-[1.6rem] lg:text-[1.8rem] leading-[2.4rem] font-normal text-paragraph1 mt-[1rem] line-clampforTagline1 basicLineClamp"
                               ></p>
 
-                              <p
+                              {/* <p
                                 dangerouslySetInnerHTML={{
                                   __html: portfolio.tagline_2,
                                 }}
                                 className="text-[1.6rem] lg:text-[1.8rem] leading-[2.4rem] font-normal text-primary mt-[1rem] line-clamp basicLineClamp"
-                              ></p>
+                              ></p> */}
+                              {/* New */}
+                              <div>
+                                <p
+                                  dangerouslySetInnerHTML={{
+                                    __html: portfolio.tagline_2,
+                                  }}
+                                  className={`text-[1.6rem] lg:text-[1.8rem] leading-[2.4rem] font-normal text-primary mt-[1rem] basicLineClamp transition-all duration-300 ${
+                                    isExpanded ? "" : "line-clamp-4"
+                                  }`}
+                                ></p>
+                                {/* Toggle button */}
+                                <button
+                                  onClick={() => setIsExpanded(!isExpanded)}
+                                  // className="text-primary font-medium mt-2 underline"
+                                  className="bg-primary text-white print:hidden border border-transparent py-[0.4rem] px-[2rem] hover:bg-white hover:text-primary hover:border-primary hover:border text-heading rounded-[1.2rem] text-[1.4rem] font-medium leading-[2rem] mt-2"
+                                >
+                                  {isExpanded ? "Read less" : "Read more"}
+                                </button>
+                              </div>
                             </div>
                           </div>
 

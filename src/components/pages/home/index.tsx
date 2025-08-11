@@ -435,7 +435,8 @@ const Home = ({ params }: { params: any }) => {
 
                         {/* Left Pricing and Hours Badge Positoned */}
                         <div className="absolute left-0 top-[24rem] w-[33.5rem] h-[18rem] inline-flex items-center justify-center bg-Circle bg-no-repeat bg-contain animate-bounce">
-                          <div className="h-[100px] p-5 rounded  justify-center items-center gap-5 inline-flex">
+                          {/* Prev Code For Pricing */}
+                          {/* <div className="h-[100px] p-5 rounded  justify-center items-center gap-5 inline-flex ">
                             <div className="text-primary">
                               <h3 className="text-[4rem] font-medium leading-[4rem]">
                                 ${listOfdata?.hourly_rate}
@@ -448,6 +449,27 @@ const Home = ({ params }: { params: any }) => {
                                 40hr
                               </h3>
                               <p className="text-[2rem] font-normal">week</p>
+                            </div>
+                          </div> */}
+
+                          {/* New Code For Pricing */}
+                          <div className="h-[100px] p-5 rounded flex justify-center items-center gap-5">
+                            {/* Hourly rate */}
+                            <div className="text-primary text-center">
+                              <h3 className="text-[4rem] font-medium leading-[4rem]">
+                                ${listOfdata?.hourly_rate}
+                              </h3>
+                              <p className="text-[4rem] font-normal">hour</p>
+                            </div>
+
+                            <hr className="h-[6rem] w-[0.1rem] bg-border" />
+
+                            {/* Number of hours */}
+                            <div className="text-primary text-center">
+                              <h3 className="text-[4rem] font-medium leading-[4rem]">
+                                40hr
+                              </h3>
+                              <p className="text-[4rem] font-normal">week</p>
                             </div>
                           </div>
                         </div>
@@ -722,7 +744,11 @@ const Home = ({ params }: { params: any }) => {
                       {/* About Context */}
                       <div className="w-full">
                         {/* Badge */}
-                        <div className="px-[2rem] mt-[3rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium  font-Inter leading-[2rem]">
+                        <div
+                          className="px-[2rem] mt-[3rem] py-[1rem] bg-white 
+                        rounded-[2.2rem] border border-border border-solid text-center
+                        max-w-max text-heading text-[2rem] font-medium font-Inter leading-[2rem]"
+                        >
                           About Me
                         </div>
                         {/* Heading */}
@@ -1156,7 +1182,9 @@ const Home = ({ params }: { params: any }) => {
                       {/* Badge */}
                       <div
                         id="skills_ids"
-                        className="px-[2rem]  py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto  section_top_button "
+                        className="px-[2rem] mt-[3rem] py-[1rem] bg-white 
+                        rounded-[2.2rem] border border-border border-solid text-center
+                        max-w-max text-heading text-[2rem] font-medium font-Inter leading-[2rem] mx-auto  section_top_button"
                       >
                         Skills
                       </div>
@@ -1180,7 +1208,10 @@ const Home = ({ params }: { params: any }) => {
                     <section className="w-full bg-sectionBG my-[5rem] print:m-0  print:break-before-page print:h-screen ">
                       <div className="mainContainer py-[5rem] xl:py-[10rem]">
                         {/* Badge */}
-                        <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto  section_top_button ">
+                        <div
+                          className="px-[2rem] py-[1rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading 
+                        text-[2rem] font-medium font-Inter leading-tight mx-auto  section_top_button "
+                        >
                           My Services
                         </div>
                         {/* Heading */}
@@ -1209,7 +1240,7 @@ const Home = ({ params }: { params: any }) => {
                       >
                         <div className="mainContainer   my-[5rem] print:my-[1rem] ">
                           {/* Badge */}
-                          <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto  section_top_button ">
+                          <div className="px-[2rem] py-[1rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[2rem] font-medium font-Inter leading-tight mx-auto  section_top_button ">
                             My Work
                           </div>
                           {/* Heading */}
