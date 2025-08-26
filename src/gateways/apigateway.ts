@@ -1,8 +1,8 @@
 // import { logoutFunction } from '@/utils/logoutFunction';
-import { swalPopupEnums } from '@/enums/app.enums';
-import axios from 'axios';
-import { useRouter } from 'next/router';
-import Swal, { SweetAlertIcon } from 'sweetalert2';
+import { swalPopupEnums } from "@/enums/app.enums";
+import axios from "axios";
+import { useRouter } from "next/router";
+import Swal, { SweetAlertIcon } from "sweetalert2";
 // import { redirect } from 'next/navigation';
 
 export const apigateway = async ({
@@ -21,12 +21,12 @@ export const apigateway = async ({
     method: method,
     url: `${process.env.API_BASE_URL}${endpoint}`,
     headers: {
-      'Content-Type': contentType ? contentType : 'application/json',
+      "Content-Type": contentType ? contentType : "application/json",
       // ...(token && { Authorization: `Bearer ${token}` }),
     },
     ...(payload && { data: payload }),
   };
- console.log(config.url, "this is api url")
+  console.log(config.url, "this is api url");
   try {
     const response = await axios(config);
 
@@ -37,7 +37,7 @@ export const apigateway = async ({
         text: successPlainText,
       }).then((result) => {
         if (result.isConfirmed || result.isDismissed) {
-          if (successCallback && typeof successCallback === 'function') {
+          if (successCallback && typeof successCallback === "function") {
             successCallback();
           }
         }
@@ -58,7 +58,7 @@ export const apigateway = async ({
         title: errorMessage || `There's an unknown error. Try again later.`,
       }).then((result) => {
         if (result.isConfirmed || result.isDismissed) {
-          if (errorCallback && typeof errorCallback === 'function') {
+          if (errorCallback && typeof errorCallback === "function") {
             errorCallback();
           }
         }
