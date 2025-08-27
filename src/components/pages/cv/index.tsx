@@ -1052,7 +1052,7 @@ const CV = ({ params }: { params: any }) => {
                                                         <h1 className="text-[1.8rem] lg:text-[2rem] font-bold leading-[2.69rem]">
                                                           {portfolio?.title}
                                                         </h1>
-                                                        <p
+                                                        {/* <p
                                                           className=" text-[1.6rem] leading-[150%] font-normal mt-[1rem]"
                                                           dangerouslySetInnerHTML={{
                                                             __html:
@@ -1062,7 +1062,7 @@ const CV = ({ params }: { params: any }) => {
                                                                 listOfdata
                                                               ),
                                                           }}
-                                                        ></p>
+                                                        ></p> */}
                                                         <p
                                                           className="text-primary text-[1.6rem] leading-[150%] font-normal mt-[1rem] "
                                                           dangerouslySetInnerHTML={{
@@ -1129,7 +1129,7 @@ const CV = ({ params }: { params: any }) => {
                                                                 </Link>
                                                               )
                                                             )}
-                                                            {/* Line break after each group */}
+
                                                             {showMoreSkillsForPortfolios[
                                                               index
                                                             ] && (
