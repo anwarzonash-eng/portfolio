@@ -1,69 +1,98 @@
 import { getTargetURLFromTinyURL } from "@/apiHandlers/tinyURLApi";
 
-export const getRoutesDetails = (dynamicRoutes, routeParams) => {
-  const routesInfo = {
+// Type definitions
+interface RoutesInfo {
+  uniqueID: string;
+  u: string | false; // "_" ya false
+  a: string | false; // "_" ya false
+  domain: string;
+}
+
+export const getRoutesDetails = (
+  dynamicRoutes: { unique_id?: string } | null,
+  routeParams: URLSearchParams | null
+): RoutesInfo => {
+  const routesInfo: RoutesInfo = {
     uniqueID: "",
-    u: false, // u means is_u
-    a: false, // a means admin
+    u: false,
+    a: false,
     domain: getDomainName(routeParams),
   };
 
-  if (dynamicRoutes && dynamicRoutes.unique_id)
+  // Unique ID handling
+  if (dynamicRoutes?.unique_id) {
     routesInfo.uniqueID = dynamicRoutes.unique_id;
-  else routesInfo.uniqueID = "a";
+  } else {
+    routesInfo.uniqueID = "a";
+  }
 
-  const routeIsU = routeParams && routeParams.get("u");
+  // "u" flag handling
+  const routeIsU = routeParams?.get("u");
   if (routeIsU) {
-    routesInfo.u = true;
+    routesInfo.u = "_";
   } else {
     const storedIsU = localStorage.getItem("u");
-    if (storedIsU === "true") {
-      routesInfo.u = true;
+    if (storedIsU === "_") {
+      routesInfo.u = "_";
     }
   }
 
-  const routeIsA = routeParams && routeParams.get("a");
+  // "a" flag handling
+  const routeIsA = routeParams?.get("a");
   if (routeIsA) {
-    routesInfo.a = true;
-    // routesInfo.u = false;
+    routesInfo.a = "_";
   } else {
     const storedIsA = localStorage.getItem("a");
-    if (storedIsA === "true") {
-      routesInfo.a = true;
-      // routesInfo.u = false;
+    if (storedIsA === "_") {
+      routesInfo.a = "_";
     }
   }
 
-  if (routesInfo.domain == "gourls.link") {
-    tinyURLNivation(routesInfo);
-    // console.log('results', results);
-
-    // window.location.href = 'https://www.google.com';
-  } else adjustWithLocalStorage(routesInfo, routeParams);
+  // Domain based handling
+  if (routesInfo.domain === "gourls.link") {
+    tinyURLNavigation(routesInfo);
+  } else {
+    adjustWithLocalStorage(routesInfo, routeParams);
+  }
 
   return routesInfo;
 };
 
-async function tinyURLNivation(routesInfo) {
+// Handle tiny URL redirection
+async function tinyURLNavigation(routesInfo: RoutesInfo) {
   try {
     const payload = {
       uniqueId: decodeURIComponent(routesInfo.uniqueID),
     };
 
     const results = await getTargetURLFromTinyURL(payload);
-    if (results?.data?.status == "Error")
+
+    if (results?.data?.status === "Error") {
       window.location.href = "https://www.cypexsoft.com";
-    else
-      results?.data?.data.target_link &&
-        (window.location.href = "https://" + results?.data?.data.target_link);
+    } else if (results?.data?.data?.target_link) {
+      window.location.href = "https://" + results.data.data.target_link;
+    }
   } catch (error) {
     window.location.href = "https://www.cypexsoft.com";
   }
 }
 
-// This is the new version that will epxire the uniqueID after 15 days
-function adjustWithLocalStorage(routesInfo, routeParams) {
-  // Check for existing uniqueID and its timestamp
+// LocalStorage handler (with expiry)
+function adjustWithLocalStorage(
+  routesInfo: RoutesInfo,
+  routeParams: URLSearchParams | null
+) {
+  const urlUniqueId = routesInfo.uniqueID;
+
+  // ✅ Immediately overwrite
+  localStorage.setItem("uniqueID", urlUniqueId);
+  localStorage.setItem("uniqueID_timestamp", Date.now().toString());
+
+  localStorage.setItem("u", routesInfo.u ? "_" : "");
+  localStorage.setItem("a", routesInfo.a ? "_" : "");
+  localStorage.setItem("domain", routesInfo.domain);
+
+  // Expiry check
   const storedUniqueID = localStorage.getItem("uniqueID");
   const uniqueIDTimestamp = localStorage.getItem("uniqueID_timestamp");
 
@@ -77,35 +106,31 @@ function adjustWithLocalStorage(routesInfo, routeParams) {
       localStorage.removeItem("uniqueID_timestamp");
     } else {
       // Still valid, use it
-      if (!routeParams.get("a")) {
+      if (!routeParams?.get("a")) {
         routesInfo.uniqueID = storedUniqueID;
       }
     }
   }
 
-  // Save the new uniqueID and timestamp
+  // ✅ Always re-save after validation
   localStorage.setItem("uniqueID", routesInfo.uniqueID);
   localStorage.setItem("uniqueID_timestamp", Date.now().toString());
-
-  localStorage.setItem("u", routesInfo.u);
-  localStorage.setItem("a", routesInfo.a);
+  localStorage.setItem("u", routesInfo.u ? "_" : "");
+  localStorage.setItem("a", routesInfo.a ? "_" : "");
   localStorage.setItem("domain", routesInfo.domain);
 }
 
-const getDomainName = (routeParams) => {
+// Get domain name
+const getDomainName = (routeParams: URLSearchParams | null): string => {
   let domain = "";
 
-  if (
-    routeParams &&
-    routeParams.get("d") &&
-    localStorage.getItem("a") == "true"
-  ) {
-    domain = routeParams.get("d");
+  if (routeParams?.get("d") && localStorage.getItem("a") === "_") {
+    domain = routeParams.get("d") as string;
   } else if (
-    localStorage.getItem("a") == "true" &&
+    localStorage.getItem("a") === "_" &&
     localStorage.getItem("domain")
   ) {
-    domain = localStorage.getItem("domain");
+    domain = localStorage.getItem("domain") as string;
   } else {
     const url = new URL(window.location.href);
     domain = url.host;
