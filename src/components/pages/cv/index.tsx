@@ -57,6 +57,8 @@ const CV = ({ params }: { params: any }) => {
   const [loading, setLoading] = useState(true);
   const domain = listOfdata?.domain || "default-domain";
 
+  console.log("Rpeorts API Data: ", listOfdata);
+
   const [
     selectedPorfolioPicturesforPopup,
     setSelectedPorfolioPicturesforPopup,
@@ -74,9 +76,15 @@ const CV = ({ params }: { params: any }) => {
   );
   const initialVisibleItems = 3 * 6;
 
+  // Old Code
+  // const visibleSkills = showAll
+  //   ? listOfdata?.skills_ids
+  //   : listOfdata?.skills_ids.slice(0, initialVisibleItems);
+
+  // New Code
   const visibleSkills = showAll
-    ? listOfdata?.skills_ids
-    : listOfdata?.skills_ids.slice(0, initialVisibleItems);
+    ? listOfdata?.skills_ids ?? []
+    : (listOfdata?.skills_ids ?? []).slice(0, initialVisibleItems);
 
   const skillsforCV: {
     [key: string]: {
