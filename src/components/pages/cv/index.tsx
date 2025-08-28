@@ -1005,27 +1005,32 @@ const CV = ({ params }: { params: any }) => {
                                               {/* Card */}
                                               <div className="max-lg:p-[1.5rem] print_p_m print:!mt-[2rem] bg-white shadow-testimonialeShadow relative rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden p-[2.4rem] gap-[2.4rem] mb-[2rem]">
                                                 {/* Content */}
-                                                <div className="w-full ">
+                                                <div className="w-full">
                                                   <div className="">
                                                     <div className="">
-                                                      {portfolio?.company_icon && (
-                                                        <div className="bg-[#1B6393] p-[1.46rem] rounded-[1rem] inline-block mb-[1rem]">
-                                                          <Image
-                                                            src={
-                                                              portfolio?.company_icon
-                                                            }
-                                                            alt="Case"
-                                                            height={34}
-                                                            width={34}
-                                                            className="h-[2rem] w-[2rem]"
-                                                          />
-                                                        </div>
-                                                      )}
+                                                      <div className="flex items-center gap-2">
+                                                        {portfolio?.company_icon && (
+                                                          <div className="bg-[#1B6393] p-[1.46rem] rounded-[1rem] inline-block ">
+                                                            <Image
+                                                              src={
+                                                                portfolio?.company_icon
+                                                              }
+                                                              alt="Case"
+                                                              height={34}
+                                                              width={34}
+                                                              className="h-[2rem] w-[2rem]"
+                                                            />
+                                                          </div>
+                                                        )}
+                                                        {/* Heading */}
+                                                        <h1 className="text-[1.8rem] lg:text-[2rem] font-bold leading-[2.69rem]">
+                                                          {portfolio?.title}
+                                                        </h1>
+                                                      </div>
                                                       {/* Heading and Para */}
                                                       <div className="text-heading">
                                                         {/* Para */}
                                                         {/* slider image */}
-
                                                         {portfolio?.thumbnail && (
                                                           <div className="md:ms-[2rem] flex items-center gap-2 flex-col lg:w-[30rem] float-right w-full rounded-[1.2rem] print:hidden relative">
                                                             {/* Container with fixed aspect ratio (16:9 example) */}
@@ -1063,10 +1068,6 @@ const CV = ({ params }: { params: any }) => {
                                                           </div>
                                                         )}
 
-                                                        {/* Heading */}
-                                                        <h1 className="text-[1.8rem] lg:text-[2rem] font-bold leading-[2.69rem]">
-                                                          {portfolio?.title}
-                                                        </h1>
                                                         {/* <p
                                                           className=" text-[1.6rem] leading-[150%] font-normal mt-[1rem]"
                                                           dangerouslySetInnerHTML={{

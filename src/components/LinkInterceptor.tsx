@@ -83,6 +83,7 @@
 
 // export default LinkInterceptor;
 
+// Correct Code Logic.
 "use client";
 
 import { useEffect } from "react";
@@ -96,23 +97,20 @@ const LinkInterceptor = () => {
       const currentUrl = new URL(window.location.href);
       const searchParams = currentUrl.searchParams;
 
-      // ✅ detect admin
+      // ✅ detect admin from URL only
       const isAdmin = searchParams.get("a") === "_";
 
       let uniqueID: string | null = null;
       let isU = false;
-      let isA = false;
 
       if (isAdmin) {
         // ---------------- ADMIN MODE ----------------
-        uniqueID = currentUrl.pathname.split("/")[1] || "a"; // if missing, default "a"
+        uniqueID = currentUrl.pathname.split("/")[1] || "a";
         isU = searchParams.get("u") === "_";
-        isA = true; // because we are in admin mode
       } else {
         // ---------------- NON-ADMIN MODE ----------------
         uniqueID = localStorage.getItem("uniqueID") || "a";
         isU = localStorage.getItem("u") === "_";
-        isA = localStorage.getItem("a") === "_";
       }
 
       if (!uniqueID) return;
@@ -127,10 +125,11 @@ const LinkInterceptor = () => {
         const url = new URL(originalHref, window.location.origin);
         const sp = url.searchParams;
 
+        // add flags if needed
         if (isU && !sp.has("u")) {
           sp.append("u", "_");
         }
-        if (isA && !sp.has("a")) {
+        if (isAdmin && !sp.has("a")) {
           sp.append("a", "_");
         }
 
@@ -141,7 +140,7 @@ const LinkInterceptor = () => {
         }`;
 
         anchor.setAttribute("href", finalHref);
-        anchor.setAttribute("data-original-href", originalHref); // keep backup
+        anchor.setAttribute("data-original-href", originalHref);
       });
     };
 
