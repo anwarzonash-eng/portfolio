@@ -563,7 +563,7 @@ const CV = ({ params }: { params: any }) => {
                                     Skills
                                   </h2>
                                   <div className="flex flex-col items-center">
-                                    <div className="grid  grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-4 print:grid-cols-5 xl:grid-cols-6 gap-[1.5rem] ml-[2rem] ">
+                                    <div className="grid grid-cols-2 min-[500px]:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-4 min-[1220px]:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 print:grid-cols-5 gap-[1.5rem] ml-[2rem]">
                                       {Object?.values(skillsforCV)?.map(
                                         (group, groupIndex) => (
                                           <>
@@ -704,7 +704,14 @@ const CV = ({ params }: { params: any }) => {
                                                 <div className="bg-[#F7F9FC] p-[1.5rem] lg:p-[2.4rem]  rounded-[1rem] shadow mb-[2rem]">
                                                   <div className="flex items-center flex-wrap text-nowrap gap-[1.5rem] md:justify-between">
                                                     {/* About Content */}
-                                                    <div className="flex align-middle justify-center items-center gap-[1rem]">
+                                                    <Link
+                                                      href={
+                                                        experience?.company_website ||
+                                                        "#"
+                                                      }
+                                                      target="_blank"
+                                                      className="flex gap-[1rem] p-2 hover:bg-[#D1E9FF] hover:scale-[98%] transition-all duration-300 cursor-pointer rounded-[6px] drop-shadow-2xl"
+                                                    >
                                                       {experience?.thumbnail && (
                                                         <div className="h-[4.2rem] w-[4.2rem] lg:h-[4.9rem] lg:w-[4.9rem] bg-[#D1E9FF] rounded-[0.4rem] flex items-center justify-center">
                                                           <Image
@@ -729,14 +736,14 @@ const CV = ({ params }: { params: any }) => {
                                                         </h3>
                                                         {experience?.company_website && (
                                                           <div className="flex items-center gap-[0.52rem]">
-                                                            <Image
+                                                            {/* <Image
                                                               src={
                                                                 "/images/link.svg"
                                                               }
                                                               height={18}
                                                               width={18}
                                                               alt="Link"
-                                                            />
+                                                            /> */}
                                                             <Link
                                                               href={
                                                                 experience?.company_website ||
@@ -756,7 +763,7 @@ const CV = ({ params }: { params: any }) => {
                                                           </div>
                                                         )}
                                                       </div>
-                                                    </div>
+                                                    </Link>
 
                                                     {/* Link */}
                                                     <div className="flex justify-center md:justify-end w-full md:w-auto print:hidden">
@@ -832,8 +839,8 @@ const CV = ({ params }: { params: any }) => {
                                                         className="bg-primary print:hidden block py-[0.4rem] px-[2rem] text-white hover:bg-white border border-[#E2E6EE] border-solid hover:border hover:border-primary hover:border-solid hover:text-primary mt-[1rem] rounded-[1.2rem] text-[1.2rem] font-medium leading-normal"
                                                       >
                                                         {expandedItems[index]
-                                                          ? "Show Less"
-                                                          : "Show More"}
+                                                          ? "Read Less"
+                                                          : "Read More"}
                                                       </button>
                                                     )}
                                                   {/* Skills Badges */}
