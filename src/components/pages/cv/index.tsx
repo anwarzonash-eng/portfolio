@@ -1195,7 +1195,7 @@ const CV = ({ params }: { params: any }) => {
                                                             }
                                                             className={`${expandedPortfolio
                                                               ? "mt-[-3rem]"
-                                                              : "mt-[1rem]"}  bg-blue-500 print:hidden flex items-center justify-center leading-none py-[0.5rem] px-[2rem] text-white hover:bg-white border border-[#E2E6EE] border-solid hover:border hover:border-primary hover:border-solid hover:text-primary  rounded-[1.2rem] text-[1.2rem] font-medium`}
+                                                              : "mt-[1rem]"}  bg-blue-500 print:hidden block leading-none text-center align-middle py-[0.4rem] px-[2rem] text-white hover:bg-white border border-[#E2E6EE] border-solid hover:border hover:border-primary hover:border-solid hover:text-primary  rounded-[1.2rem] text-[1.2rem] font-medium`}
                                                           >
                                                             {expandedPortfolio
                                                               ? "Read Less"
