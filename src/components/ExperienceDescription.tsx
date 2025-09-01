@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function ExperienceDescription({
@@ -45,12 +46,13 @@ export default function ExperienceDescription({
 
       {itemsExp.length > (isMobile ? 0 : 3) && (
         <div className="flex items-center ml-[-2rem]">
-          <button
+          <Link
+          href={"#"}
             onClick={() => setExpandedExp((prev) => !prev)}
-            className="bg-primary print:hidden block py-[0.4rem] px-[2rem] text-white hover:bg-white border border-[#E2E6EE] border-solid hover:border hover:border-primary hover:border-solid hover:text-primary rounded-[1.2rem] text-[1.2rem] font-medium mt-[-2rem] leading-normal"
+            className="bg-primary print:hidden inline-block py-[0.4rem] px-[2rem] text-white hover:bg-white border border-[#E2E6EE] border-solid hover:border hover:border-primary hover:border-solid hover:text-primary rounded-[1.2rem] text-[1.2rem] font-medium mt-[-2rem] leading-normal"
           >
             {expandedExp ? "Read Less" : "Read More"}
-          </button>
+          </Link>
         </div>
       )}
     </div>
