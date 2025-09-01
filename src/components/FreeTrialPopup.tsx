@@ -105,7 +105,7 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
               {/* Close Icon */}
               <div
                 //  className="absolute top-[-1rem] right-[-1rem] cursor-pointer z-[60]"
-                className="absolute top-[-2rem] lg:top-[-3rem] right-[15rem] lg:right-[-3rem] text-black bg-border text-[1.2rem] h-[3rem] w-[3rem] rounded-full"
+                className="absolute top-[-2rem] lg:top-[-3rem] right-[45%] max-lg:translate-x-[-45%] lg:right-[-3rem] text-black bg-border text-[1.2rem] h-[3rem] w-[3rem] rounded-full"
               >
                 <Image
                   src="/images/close-icon.svg"
