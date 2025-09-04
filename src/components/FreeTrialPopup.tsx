@@ -62,6 +62,7 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
       title: string;
       url?: string;
       order?: string;
+      id?: string;
     }[];
   } = skillsGrouping(
     listOfdata?.skills_ids && listOfdata?.skills_ids.length > 6
