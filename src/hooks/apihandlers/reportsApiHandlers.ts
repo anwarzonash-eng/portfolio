@@ -29,17 +29,9 @@ export const reportsApiHandler = async ({
     let data = await adjustDynamicContent(results?.data?.data[0]);
 
     console.log("success", data);
-    // console.log({
-    //   type: actionType,
-    //   dataloaded: true,
-    //   data: results?.data?.data[0],
-    // });
     setLoading(false);
     setListOfData(data);
     store.dispatch(setListOfProfileData(data));
-
-    // setListOfData(results?.data?.data[0]);
-    // store.dispatch(setListOfProfileData(results?.data?.data[0]));
   }
 };
 
@@ -65,20 +57,6 @@ const adjustSkillsDescriptionForCV = async (data) => {
   return data;
 };
 
-// Old Code
-// const adjustSkillsIDsInExperiencesAndPortflios = async (data) => {
-//   // Adjust the dynamic content based on the received data
-//   const dataToShuffle = data.skills_ids;
-//   data.experiences_ids?.map((experience) => {
-//     experience.skills = shuffleArray(dataToShuffle);
-//   });
-//   data.portfolios_ids?.map((portfolio) => {
-//     portfolio.skills = shuffleArray(dataToShuffle);
-//   });
-//   return data;
-// };
-
-// New Code
 const adjustSkillsIDsInExperiencesAndPortflios = async (data) => {
   // Ensure data.skills_ids is an array
   const dataToShuffle = Array.isArray(data.skills_ids) ? data.skills_ids : [];
@@ -123,10 +101,6 @@ const adjustSkillsDescriptionInExperiences = async (data) => {
           (exp.long_description || "");
       }
     }
-    // Concatenate all variations to long_description
-    // if (variations.length > 0) {
-    //   exp.long_description = (exp.long_description || '') + variations.join('');
-    // }
   });
   // Adjust the dynamic content based on the received data
   return data;
@@ -222,8 +196,6 @@ const adjustSkilledDescriptionInServices = async (data) => {
         `${skills}` +
         matchedCategory.intro?.slice(ulOpenEnd);
 
-      // service.intro_detail = ulOpenEnd// matchedCategory.intro;
-      // service.intro_detail = service.intro_detail?.replace('${Skills}', skillsString);
       service.intro_main = matchedCategory.intro_heading;
       service.intro_main = service.intro_main?.replace(
         "${Skills}",
@@ -239,17 +211,6 @@ const adjustSkilledDescriptionInServices = async (data) => {
   return data;
 };
 
-// Old Code
-// const shuffleArray = (array) => {
-//   const arr = [...array];
-//   for (let i = arr.length - 1; i > 0; i--) {
-//     const j = Math.floor(Math.random() * (i + 1));
-//     [arr[i], arr[j]] = [arr[j], arr[i]];
-//   }
-//   return arr;
-// };
-
-// New Code
 const shuffleArray = (array: any) => {
   if (!Array.isArray(array)) return []; // ✅ prevent crash
   const arr = [...array];
