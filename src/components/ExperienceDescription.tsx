@@ -46,10 +46,11 @@ export default function ExperienceDescription({
 
       {itemsExp.length > (isMobile ? 0 : 3) && (
         <div className="flex items-center ml-[-2rem]">
-          <Link 
-          href={"#"}
+          <Link
+            href={"#"}
             onClick={() => setExpandedExp((prev) => !prev)}
-            className="bg-primary print:hidden py-[0.4rem] px-[2rem] text-white hover:bg-white border border-[#E2E6EE] border-solid hover:border hover:border-primary hover:border-solid hover:text-primary rounded-[1.2rem] text-[1.2rem] font-medium mt-[-2rem] leading-normal"
+            className="bg-primary py-[0.6rem] px-[2rem] text-white hover:bg-white border border-[#E2E6EE] border-solid hover:border-primary hover:text-primary rounded-[2rem]
+            text-[1.4rem] font-medium mt-[-2rem] leading-normal"
           >
             {expandedExp ? "Read Less" : "Read More"}
           </Link>

@@ -11,29 +11,6 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
   const [open, setOpen] = useState(false);
   const [showAll, setShowAll] = useState(false);
 
-  // Prev Logic For 1 Day
-  // useEffect(() => {
-  //   const introPopupViewed = localStorage.getItem("IntropopupViewed");
-
-  //   if (!introPopupViewed || introPopupViewed !== "true") {
-  //     const timer = setTimeout(() => {
-  //       setOpen(true);
-  //     }, 1000);
-
-  //     const removeIntroPopupViewed = setTimeout(() => {
-  //       localStorage.removeItem("IntropopupViewed");
-  //       setOpen(true);
-  //     }, 24 * 60 * 60 * 1000); // 1 day
-
-  //     return () => clearTimeout(removeIntroPopupViewed);
-  //   }
-  // }, []);
-
-  // const handleClose = () => {
-  //   localStorage.setItem("IntropopupViewed", "true");
-  //   setOpen(false);
-  // };
-
   useEffect(() => {
     const lastShown = localStorage.getItem("introPopupLastShown");
 
@@ -92,29 +69,28 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
       : listOfdata?.skills_ids
   );
 
+  console.log("PopUp API RES:", listOfdata);
+
   return (
     <>
       <div className="fixed top-0 left-0 w-full h-full bg-opacity-50 backdrop-blur-2xl z-[500]">
-        {/* <div className="rounded-[1.2rem] relative w-full h-full overflow-y-auto  py-[10rem]"> */}
-        <div className="relative max-h-[90vh] overflow-y-auto w-full h-auto py-[4rem]">
+        <div className="relative max-h-[90vh] overflow-y-auto w-full h-auto top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
           <Confetti />
           {/* Free Trial PopUp */}
           <div className="mx-6">
             <div className="rounded-[1.2rem] max-w-[102.4rem] w-full mx-auto bg-primary relative">
-              {" "}
               {/* Close Icon */}
-              <div
-                //  className="absolute top-[-1rem] right-[-1rem] cursor-pointer z-[60]"
-                className="absolute top-[-2rem] lg:top-[-3rem] right-[15rem] lg:right-[-3rem] text-black bg-border text-[1.2rem] h-[3rem] w-[3rem] rounded-full"
-              >
-                <Image
-                  src="/images/close-icon.svg"
-                  height={50}
-                  width={50}
-                  className="h-[3rem] w-[3rem]"
-                  alt="Close Icon"
-                  onClick={handleClose} // Close popup on click
-                />
+              <div className="flex items-center lg:justify-end p-2  max-lg:absolute top-0 left-1/2 max-lg:-translate-x-1/2 z-[1000]">
+                <div className="text-black bg-border text-[1.2rem] h-[3rem] w-[3rem] rounded-full cursor-pointer">
+                  <Image
+                    src="/images/close-icon.svg"
+                    height={50}
+                    width={50}
+                    className="h-[3rem] w-[3rem]"
+                    alt="Close Icon"
+                    onClick={handleClose} // Close popup on click
+                  />
+                </div>
               </div>
               {/* Top Content */}
               <div
@@ -171,10 +147,10 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
                 {/* Heading and Button */}
                 <div className="flex flex-wrap justify-center lg:justify-between lg:flex-nowrap lg:items-center gap-[2rem] py-[2rem] px-[3rem] border-b border-solid border-border">
                   <div className="max-w-[614px] w-full flex-shrink-0">
-                    <p className="text-primary text-[3rem] font-bold font-['Helvetica Neue'] leading-[45px]">
+                    <p className="text-primary text-[3rem] font-bold font-['Helvetica Neue']">
                       {listOfdata?.name}
                     </p>
-                    <p className="text-primary text-[2.5rem] font-bold font-['Helvetica Neue'] leading-[45px]">
+                    <p className="text-primary text-[1.8rem] font-bold font-['Helvetica Neue']">
                       {listOfdata?.designation}
                     </p>
                     <p
@@ -185,7 +161,7 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
                   <div>
                     <button
                       onClick={handleClose}
-                      className="btn-primary px-[3.4rem] py-[1.5rem] rounded-[0.4rem] text-[2rem] text-white"
+                      className="btn-primary px-[3.4rem] py-[1.5rem] rounded-[0.4rem] text-[1.4rem] lg:text-[2rem] text-white"
                     >
                       Keep Exploring My Website
                     </button>
@@ -326,76 +302,42 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
                   </div>
                   {/* Skills */}
                   {listOfdata && listOfdata?.skills_ids?.length > 0 && (
-                    <div className="md:max-w-[62rem] w-full overflow-hidden max-md:p-[1rem] md:py-[2rem] md:pr-[3rem] md:pl-[1rem] ">
-                      <div className="flex justify-between mb-[1rem]">
+                    <div className="md:max-w-[62rem] w-full overflow-hidden max-md:p-[1rem] md:py-[2rem] md:pr-[3rem] md:pl-[1rem]">
+                      <div className="flex items-center justify-center mb-[1rem]">
                         <h3 className="flex items-center align-middle justify-center text-[1.8rem] font-bold text-primary mb-[1.2rem]">
                           My Skills
                         </h3>
-
-                        {listOfdata?.skills_ids.length > 6 && (
-                          <button
-                            onClick={() => {
-                              handleClose(), scrollToSection("skills_ids");
-                            }}
-                            className=" text-center hover:text-white text-primary text-[1.8rem] font-medium hover:bg-primary px-[1.5rem] md:px-[2.1rem]  bg-white rounded-[5rem] shadow-skillShadow border-[1.5px] flex-shrink-0 border-solid border-[#DDD] justify-center items-center gap-[1rem] flex"
-                          >
-                            See More
-                          </button>
-                        )}
                       </div>
-                      <div className="w-full p-[1rem] md:p-[2rem] flex items-center justify-center border border-border border-solid gap-[1rem] flex-wrap flex-shrink-0 rounded-[1rem]">
-                        <div className="md:max-w-[536px] w-full bg-white/70 backdrop-blur-[1.2rem] hidden flex-wrap gap-[1rem]">
-                          {Object?.values(skills)?.map((group, groupIndex) => (
-                            <React.Fragment key={groupIndex}>
-                              {group.map((skill, i) => (
+                      <div className="w-full p-[1rem] md:p-[2rem] flex items-center border border-border border-solid gap-[1rem] flex-wrap flex-shrink-0 rounded-[1rem]">
+                        {/* New Code More Good */}
+                        <div className="flex flex-col items-center gap-[1.5rem] overflow-hidden w-full">
+                          {/* SKILLS DISPLAY */}
+                          <div className="md:max-w-[536px] w-full bg-white/70 backdrop-blur-[1.2rem] flex flex-wrap gap-[1rem] overflow-hidden transition-all duration-500">
+                            {(showAll
+                              ? Object.values(skills).flat() // all groups merged into one array
+                              : Object.values(skills).flat().slice(0, 4)
+                            ) // only 4 total
+                              .map((skill, i) => (
                                 <Link
                                   href={skill?.url || "#"}
-                                  key={i}
-                                  className="text-center hover:text-white text-primary text-[1.8rem] font-medium hover:bg-primary px-[1.5rem] md:px-[2.1rem] py-[0.4rem] md:py-[0.8rem] bg-white rounded-[5rem] shadow-skillShadow border-[1.5px] flex-shrink-0 border-solid border-[#DDD] justify-center items-center gap-[1rem]"
+                                  key={skill.id}
+                                  className="text-center hover:text-white text-primary text-[1.8rem] font-semibold hover:bg-primary px-[1.8rem] md:px-[2.2rem] py-[0.5rem] md:py-[1rem] bg-white rounded-[5rem] shadow-skillShadow border-[1.5px] flex-shrink-0 border-solid border-[#DDD] justify-center items-center"
                                   style={{ animationDelay: `${i * 0.3}s` }}
                                 >
                                   {skill.title}
                                 </Link>
                               ))}
-                              {/* Line break after each group */}
-                              <div className="w-full mb-[1px]" />
-                            </React.Fragment>
-                          ))}
-                        </div>
-
-                        {/* New Code */}
-                        <div className="flex flex-col items-center gap-[1.5rem]">
-                          {/* SKILLS DISPLAY */}
-                          <div
-                            className={`md:max-w-[536px] w-full bg-white/70 backdrop-blur-[1.2rem] flex flex-wrap gap-[1rem] justify-center overflow-hidden transition-all duration-500 ${
-                              showAll ? "max-h-[1000px]" : "max-h-[12rem]" // 3 lines approx
-                            }`}
-                          >
-                            {Object?.values(skills)?.map(
-                              (group, groupIndex) => (
-                                <div className="p-2.5" key={groupIndex}>
-                                  {group.map((skill, i) => (
-                                    <Link
-                                      href={skill?.url || "#"}
-                                      key={i}
-                                      className="text-center hover:text-white text-primary text-[1.8rem] font-semibold hover:bg-primary px-[1.8rem] md:px-[2.2rem] py-[0.5rem] md:py-[1rem] bg-white rounded-[5rem] shadow-skillShadow border-[1.5px] flex-shrink-0 border-solid border-[#DDD] justify-center items-center"
-                                      style={{ animationDelay: `${i * 0.3}s` }}
-                                    >
-                                      {skill.title}
-                                    </Link>
-                                  ))}
-                                </div>
-                              )
-                            )}
                           </div>
 
                           {/* SHOW MORE / SHOW LESS BUTTON */}
-                          <button
-                            onClick={() => setShowAll(!showAll)}
-                            className="btn-primary px-[3rem] py-[1rem] rounded-[100px] text-[2rem] text-white"
-                          >
-                            {showAll ? "Show Less" : "Show All Skills"}
-                          </button>
+                          {Object.values(skills).flat().length > 4 && (
+                            <button
+                              onClick={() => setShowAll(!showAll)}
+                              className="btn-primary px-[3rem] py-[1rem] rounded-[100px] text-[2rem] text-white"
+                            >
+                              {showAll ? "Show Less" : "Show All Skills"}
+                            </button>
+                          )}
                         </div>
                       </div>
                     </div>
