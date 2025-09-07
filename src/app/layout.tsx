@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "@/styles/globals.css";
 import ChildWrapperContainer from "@/components/ChildWrapperContainer";
 import LinkInterceptor from "@/components/LinkInterceptor";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -69,6 +70,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <LinkInterceptor />
         <ChildWrapperContainer>{children}</ChildWrapperContainer>
+        <GoogleAnalytics gaId="G-DPWJX7YHZH" />
       </body>
     </html>
   );

@@ -93,8 +93,10 @@ const CV = ({ params }: { params: any }) => {
   const [blogsList, setBlogsList] = useState([]);
   const [loadingblogs, setLoadingBlogs] = useState(false);
   const [showAll, setShowAll] = useState(false);
+  // Replace your state with this:
   const [showMoreSkillsForExperiences, setShowMoreSkillsForExperiences] =
-    useState([]);
+    useState<{ [key: number]: boolean }>({});
+
   const [showMoreSkillsForPortfolios, setShowMoreSkillsForPortfolios] =
     useState([]);
   const listOfdatas = useAppSelector(
@@ -725,6 +727,7 @@ const CV = ({ params }: { params: any }) => {
                                                     15
                                                   )
                                             );
+
                                           return (
                                             <div
                                               className="relative flex items-start mt-[2rem] print-section"

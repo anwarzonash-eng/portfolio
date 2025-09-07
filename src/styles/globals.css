@@ -166,6 +166,11 @@ body {
   border: 4px solid black;
 }
 
+.badge {
+  @apply px-[2rem] py-[1rem] bg-white  rounded-[2.2rem] border border-border border-solid 
+  text-center max-w-max text-heading text-[2rem] font-medium font-Inter leading-[2rem];
+}
+
 /* .footerLink {
   @apply relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1px] after:bg-heading duration-300 hover:text-primary hover:after:hidden;
 } */

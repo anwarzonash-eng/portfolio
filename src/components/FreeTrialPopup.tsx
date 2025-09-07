@@ -62,6 +62,7 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
       title: string;
       url?: string;
       order?: string;
+      id?: string;
     }[];
   } = skillsGrouping(
     listOfdata?.skills_ids && listOfdata?.skills_ids.length > 6
@@ -145,7 +146,7 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
               {/* Bottom Content */}
               <div className="bg-white rounded-[1.2rem]">
                 {/* Heading and Button */}
-                <div className="flex flex-wrap justify-center lg:justify-between lg:flex-nowrap lg:items-center gap-[2rem] py-[2rem] px-[3rem] border-b border-solid border-border">
+                <div className="flex flex-wrap justify-center lg:justify-between lg:flex-nowrap gap-[2rem] lg:items-end py-[2rem] px-[3rem] border-b border-solid border-border">
                   <div className="max-w-[614px] w-full flex-shrink-0">
                     <p className="text-primary text-[3rem] font-bold font-['Helvetica Neue']">
                       {listOfdata?.name}
@@ -158,155 +159,159 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
                       className="text-black text-[1.8rem] font-normal leading-[150%]"
                     ></p>
                   </div>
-                  <div>
                     <button
                       onClick={handleClose}
-                      className="btn-primary px-[3.4rem] py-[1.5rem] rounded-[0.4rem] text-[1.4rem] lg:text-[2rem] text-white"
+                      className="btn-primary px-[3rem] py-[1.2rem] rounded-[0.4rem] text-[1.4rem] lg:text-[2rem] text-white"
                     >
                       Keep Exploring My Website
                     </button>
-                  </div>
+                  {/* <div>
+                  </div> */}
                 </div>
                 {/* Social Profiles and Skills */}
                 <div className="flex flex-wrap md:flex-nowrap">
                   {/* Social links */}
                   <div className="md:max-w-[40.8rem] w-full rounded-[0.8rem] overflow-hidden flex flex-col gap-[1.2rem] py-[2rem] md:pl-[3rem] max-md:px-[1rem] md:pr-[1rem]">
-                    <div className="w-full flex flex-col md:flex-row gap-[1.2rem]">
-                      {/* Pricing and Availability */}
-                      <div className="bg-[#F7F9FC] border border-solid border-[#E2E6EE] w-full px-[2rem] rounded-[0.8rem] h-[9.4rem] flex items-center justify-between gap-[1rem]">
-                        <div className="text-primary font-medium flex items-center px-[2rem] justify-between w-full">
-                          <p>
-                            <span className="text-[2rem]">
-                              ${listOfdata?.hourly_rate}
-                            </span>
-                            <span className="text-[1.6rem]">/ hour</span>
-                          </p>
-                          {/* Divider Visible only Up to Medium Devices */}
-                          <div className="h-[5.2rem] w-[3px] bg-border" />
-                          <p className="">
-                            <span className="text-[2rem]">45 hr</span>{" "}
-                            <span className="text-[1.6rem]">/ week</span>
-                          </p>
+                    {/* Pricing and Availability */}
+                    <div className="w-full flex gap-[1.2rem]">
+                      {/* Pricing */}
+                      <div className="bg-[#F7F9FC] border border-solid border-[#E2E6EE] w-full px-[2rem] rounded-[0.8rem] h-[9.4rem] flex items-center justify-center text-primary font-medium">
+                        <div>
+                          <span className="text-[2.5rem]">
+                            ${listOfdata?.hourly_rate}
+                          </span>
+                          <span className="text-[1.6rem]">/ hour</span>
+                        </div>
+                      </div>
+                      {/* Availability */}
+                      <div className="bg-[#F7F9FC] border border-solid border-[#E2E6EE] w-full px-[2rem] rounded-[0.8rem] h-[9.4rem] flex items-center justify-center text-primary font-medium">
+                        <div>
+                          <span className="text-[2.5rem]">45 hr</span>{" "}
+                          <span className="text-[1.6rem]">/ week</span>
                         </div>
                       </div>
                     </div>
-                    <div className="bg-[#F7F9FC] border border-solid border-[#E2E6EE] w-full px-[2rem] rounded-[0.8rem] h-[9.4rem] flex items-center justify-between gap-[1rem]">
+                    {/* Contact & Work Proof */}
+                    <div className="w-full flex gap-[1.2rem]">
                       {/* Contact */}
                       {!urlInfo?.u && (
-                        <div>
-                          <div className="w-full flex items-center gap-[1.4rem] mb-[0.5rem]">
-                            <Link href={`mailto:${listOfdata?.email}`}>
-                              <Image
-                                src="/images/gmail.svg"
-                                height={45}
-                                width={45}
-                                alt="Gmail"
-                                className="h-[3.4rem] w-[3.4rem] md:h-[4.5rem] md:w-[4.5rem]"
-                              />
-                            </Link>
-                            <Link
-                              target="_blank"
-                              href={`https://wa.me/${listOfdata?.phone_no}`}
-                            >
-                              <Image
-                                src="/images/whatsapp.svg"
-                                height={45}
-                                width={45}
-                                alt="WhatsApp"
-                                className="h-[3.4rem] w-[3.4rem] md:h-[4.5rem] md:w-[4.5rem]"
-                              />
-                            </Link>
-                            <Link href={`tel:${listOfdata?.phone_no}`}>
-                              <Image
-                                src="/images/number.svg"
-                                height={45}
-                                width={45}
-                                alt="Phone Number"
-                                className="h-[3.4rem] w-[3.4rem] md:h-[4.5rem] md:w-[4.5rem]"
-                              />
-                            </Link>
+                        <div className="bg-[#F7F9FC] border border-solid border-[#E2E6EE] w-full px-[2rem] rounded-[0.8rem] h-[9.4rem] flex items-center justify-between gap-[1rem]">
+                          <div>
+                            <div className="w-full flex items-center gap-[1.4rem] mb-[0.5rem]">
+                              <Link href={`mailto:${listOfdata?.email}`}>
+                                <Image
+                                  src="/images/gmail.svg"
+                                  height={45}
+                                  width={45}
+                                  alt="Gmail"
+                                  className="h-[3.4rem] w-[3.4rem] md:h-[4.5rem] md:w-[4.5rem]"
+                                />
+                              </Link>
+                              <Link
+                                target="_blank"
+                                href={`https://wa.me/${listOfdata?.phone_no}`}
+                              >
+                                <Image
+                                  src="/images/whatsapp.svg"
+                                  height={45}
+                                  width={45}
+                                  alt="WhatsApp"
+                                  className="h-[3.4rem] w-[3.4rem] md:h-[4.5rem] md:w-[4.5rem]"
+                                />
+                              </Link>
+                              <Link href={`tel:${listOfdata?.phone_no}`}>
+                                <Image
+                                  src="/images/number.svg"
+                                  height={45}
+                                  width={45}
+                                  alt="Phone Number"
+                                  className="h-[3.4rem] w-[3.4rem] md:h-[4.5rem] md:w-[4.5rem]"
+                                />
+                              </Link>
+                            </div>
+                            <p className="text-[1.2rem] font-normal text-paragraph1 text-center">
+                              Contact Me
+                            </p>
                           </div>
-                          <p className="text-[1.2rem] font-normal text-paragraph1 text-center">
-                            Contact Me
-                          </p>
                         </div>
                       )}
                       {/* Divider */}
-                      <div className="h-[5.2rem] w-[3px] bg-border" />
-                      {/* Work Proof */}
-                      <div>
-                        <div className="w-full flex items-center gap-[1.4rem] mb-[0.5rem]">
-                          {listOfdata?.upwork && (
-                            <Link
-                              target="_blank"
-                              href={listOfdata?.upwork || "#"}
-                            >
-                              <Image
-                                src="/images/upwork.svg"
-                                height={100}
-                                width={100}
-                                alt="Upwork"
-                                className="h-[3.4rem] w-[3.4rem] md:h-[4.5rem] md:w-[4.5rem]"
-                              />
-                            </Link>
-                          )}
-                          {listOfdata?.github && (
-                            <Link
-                              target="_blank"
-                              href={listOfdata?.github || "#"}
-                            >
-                              <Image
-                                src="/images/github.svg"
-                                height={100}
-                                width={100}
-                                alt="GitHub"
-                                className="h-[3.4rem] w-[3.4rem] md:h-[4.5rem] md:w-[4.5rem]"
-                              />
-                            </Link>
-                          )}
-                          {listOfdata?.linkedIn && (
-                            <Link
-                              target="_blank"
-                              href={listOfdata?.linkedIn || "#"}
-                            >
-                              <Image
-                                src="/images/linkedin.svg"
-                                height={100}
-                                width={100}
-                                alt="LinkedIn"
-                                className="h-[3.4rem] w-[3.4rem] md:h-[4.5rem] md:w-[4.5rem]"
-                              />
-                            </Link>
-                          )}
+                      {/* <div className="h-[5.2rem] w-[3px] bg-border " /> */}
 
-                          {listOfdata?.behance_link && !urlInfo?.u && (
-                            <Link
-                              target="_blank"
-                              href={listOfdata?.behance_link || "#"}
-                            >
-                              <Image
-                                src="/images/behance.svg"
-                                height={100}
-                                width={100}
-                                alt="Behance"
-                                className="h-[3.4rem] w-[3.4rem] md:h-[4.5rem] md:w-[4.5rem]"
-                              />
-                            </Link>
-                          )}
+                      {/* Work Proof */}
+                      <div className="bg-[#F7F9FC] border border-solid border-[#E2E6EE] w-full px-[2rem] rounded-[0.8rem] h-[9.4rem] flex items-center justify-between gap-[1rem]">
+                        <div>
+                          <div className="w-full flex items-center gap-[1.4rem] mb-[0.5rem]">
+                            {listOfdata?.upwork && (
+                              <Link
+                                target="_blank"
+                                href={listOfdata?.upwork || "#"}
+                              >
+                                <Image
+                                  src="/images/upwork.svg"
+                                  height={100}
+                                  width={100}
+                                  alt="Upwork"
+                                  className="h-[3.4rem] w-[3.4rem] md:h-[4.5rem] md:w-[4.5rem]"
+                                />
+                              </Link>
+                            )}
+                            {listOfdata?.github && (
+                              <Link
+                                target="_blank"
+                                href={listOfdata?.github || "#"}
+                              >
+                                <Image
+                                  src="/images/github.svg"
+                                  height={100}
+                                  width={100}
+                                  alt="GitHub"
+                                  className="h-[3.4rem] w-[3.4rem] md:h-[4.5rem] md:w-[4.5rem]"
+                                />
+                              </Link>
+                            )}
+                            {listOfdata?.linkedIn && (
+                              <Link
+                                target="_blank"
+                                href={listOfdata?.linkedIn || "#"}
+                              >
+                                <Image
+                                  src="/images/linkedin.svg"
+                                  height={100}
+                                  width={100}
+                                  alt="LinkedIn"
+                                  className="h-[3.4rem] w-[3.4rem] md:h-[4.5rem] md:w-[4.5rem]"
+                                />
+                              </Link>
+                            )}
+
+                            {listOfdata?.behance_link && !urlInfo?.u && (
+                              <Link
+                                target="_blank"
+                                href={listOfdata?.behance_link || "#"}
+                              >
+                                <Image
+                                  src="/images/behance.svg"
+                                  height={100}
+                                  width={100}
+                                  alt="Behance"
+                                  className="h-[3.4rem] w-[3.4rem] md:h-[4.5rem] md:w-[4.5rem]"
+                                />
+                              </Link>
+                            )}
+                          </div>
+                          <p className="text-[1.2rem] font-normal text-paragraph1 text-center">
+                            My Work Proof
+                          </p>
                         </div>
-                        <p className="text-[1.2rem] font-normal text-paragraph1 text-center">
-                          My Work Proof
-                        </p>
                       </div>
                     </div>
                   </div>
                   {/* Skills */}
                   {listOfdata && listOfdata?.skills_ids?.length > 0 && (
-                    <div className="md:max-w-[62rem] w-full overflow-hidden max-md:p-[1rem] md:py-[2rem] md:pr-[3rem] md:pl-[1rem]">
+                    <div className="md:max-w-[62rem] w-full overflow-hidden p-[1rem]">
                       <div className="flex items-center justify-center mb-[1rem]">
-                        <h3 className="flex items-center align-middle justify-center text-[1.8rem] font-bold text-primary mb-[1.2rem]">
-                          My Skills
-                        </h3>
+                        <h3 className="badge">My Skills</h3>
                       </div>
                       <div className="w-full p-[1rem] md:p-[2rem] flex items-center border border-border border-solid gap-[1rem] flex-wrap flex-shrink-0 rounded-[1rem]">
                         {/* New Code More Good */}
@@ -327,6 +332,9 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
                                   {skill.title}
                                 </Link>
                               ))}
+
+                              
+                              
                           </div>
 
                           {/* SHOW MORE / SHOW LESS BUTTON */}

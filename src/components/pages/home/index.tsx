@@ -744,13 +744,7 @@ const Home = ({ params }: { params: any }) => {
                       {/* About Context */}
                       <div className="w-full">
                         {/* Badge */}
-                        <div
-                          className="px-[2rem] mt-[3rem] py-[1rem] bg-white 
-                        rounded-[2.2rem] border border-border border-solid text-center
-                        max-w-max text-heading text-[2rem] font-medium font-Inter leading-[2rem]"
-                        >
-                          About Me
-                        </div>
+                        <div className="badge">About Me</div>
                         {/* Heading */}
                         <div
                           dangerouslySetInnerHTML={{
@@ -1240,7 +1234,7 @@ const Home = ({ params }: { params: any }) => {
                       >
                         <div className="mainContainer   my-[5rem] print:my-[1rem] ">
                           {/* Badge */}
-                          <div className="px-[2rem] py-[1rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[2rem] font-medium font-Inter leading-tight mx-auto  section_top_button ">
+                          <div className="px-[2rem] py-[1rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[2rem] font-medium font-Inter leading-tight mx-auto  section_top_button">
                             My Work
                           </div>
                           {/* Heading */}
