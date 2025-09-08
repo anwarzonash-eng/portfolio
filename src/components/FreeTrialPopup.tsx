@@ -4,8 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import Confetti from "./Confetti";
 import VideoPlayer from "./VideoPlayer";
-import { scrollToSection } from "@/hooks/scrollToSection";
 import { skillsGrouping } from "@/hooks/skillsGrouping";
+import Tooltip from "./Tooltip";
 
 const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
   const [open, setOpen] = useState(false);
@@ -64,13 +64,9 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
       order?: string;
       id?: string;
     }[];
-  } = skillsGrouping(
-    listOfdata?.skills_ids && listOfdata?.skills_ids.length > 6
-      ? listOfdata.skills_ids.slice(0, 6)
-      : listOfdata?.skills_ids
-  );
+  } = skillsGrouping(listOfdata?.skills_ids);
 
-  console.log("PopUp API RES:", listOfdata);
+  // console.log("PopUp API RES:", listOfdata);
 
   return (
     <>
@@ -81,7 +77,7 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
           <div className="mx-6">
             <div className="rounded-[1.2rem] max-w-[102.4rem] w-full mx-auto bg-primary relative">
               {/* Close Icon */}
-              <div className="flex items-center lg:justify-end p-2  max-lg:absolute top-0 left-1/2 max-lg:-translate-x-1/2 z-[1000]">
+              <div className="flex items-center justify-center lg:justify-end pt-3 lg:p-2">
                 <div className="text-black bg-border text-[1.2rem] h-[3rem] w-[3rem] rounded-full cursor-pointer">
                   <Image
                     src="/images/close-icon.svg"
@@ -159,12 +155,12 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
                       className="text-black text-[1.8rem] font-normal leading-[150%]"
                     ></p>
                   </div>
-                    <button
-                      onClick={handleClose}
-                      className="btn-primary px-[3rem] py-[1.2rem] rounded-[0.4rem] text-[1.4rem] lg:text-[2rem] text-white"
-                    >
-                      Keep Exploring My Website
-                    </button>
+                  <button
+                    onClick={handleClose}
+                    className="btn-primary px-[3rem] py-[1.2rem] rounded-[0.4rem] text-[1.4rem] lg:text-[2rem] text-white"
+                  >
+                    Keep Exploring My Website
+                  </button>
                   {/* <div>
                   </div> */}
                 </div>
@@ -198,15 +194,17 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
                         <div className="bg-[#F7F9FC] border border-solid border-[#E2E6EE] w-full px-[2rem] rounded-[0.8rem] h-[9.4rem] flex items-center justify-between gap-[1rem]">
                           <div>
                             <div className="w-full flex items-center gap-[1.4rem] mb-[0.5rem]">
-                              <Link href={`mailto:${listOfdata?.email}`}>
-                                <Image
-                                  src="/images/gmail.svg"
-                                  height={45}
-                                  width={45}
-                                  alt="Gmail"
-                                  className="h-[3.4rem] w-[3.4rem] md:h-[4.5rem] md:w-[4.5rem]"
-                                />
-                              </Link>
+                              <Tooltip text="My Gmail">
+                                <Link href={`mailto:${listOfdata?.email}`}>
+                                  <Image
+                                    src="/images/gmail.svg"
+                                    height={45}
+                                    width={45}
+                                    alt="Gmail"
+                                    className="h-[3.4rem] w-[3.4rem] md:h-[4.5rem] md:w-[4.5rem]"
+                                  />
+                                </Link>
+                              </Tooltip>
                               <Link
                                 target="_blank"
                                 href={`https://wa.me/${listOfdata?.phone_no}`}
@@ -240,8 +238,12 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
 
                       {/* Work Proof */}
                       <div className="bg-[#F7F9FC] border border-solid border-[#E2E6EE] w-full px-[2rem] rounded-[0.8rem] h-[9.4rem] flex items-center justify-between gap-[1rem]">
-                        <div>
-                          <div className="w-full flex items-center gap-[1.4rem] mb-[0.5rem]">
+                        <div className="w-full">
+                          <div
+                            className={`w-full flex items-center ${
+                              urlInfo?.u ? "justify-center" : ""
+                            }  gap-[1.4rem] mb-[0.5rem]`}
+                          >
                             {listOfdata?.upwork && (
                               <Link
                                 target="_blank"
@@ -300,6 +302,7 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
                               </Link>
                             )}
                           </div>
+
                           <p className="text-[1.2rem] font-normal text-paragraph1 text-center">
                             My Work Proof
                           </p>
@@ -317,11 +320,11 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
                         {/* New Code More Good */}
                         <div className="flex flex-col items-center gap-[1.5rem] overflow-hidden w-full">
                           {/* SKILLS DISPLAY */}
-                          <div className="md:max-w-[536px] w-full bg-white/70 backdrop-blur-[1.2rem] flex flex-wrap gap-[1rem] overflow-hidden transition-all duration-500">
+                          <div className="md:max-w-[536px] w-full bg-white/70 backdrop-blur-[1.2rem] flex flex-wrap gap-[1rem] max-h-[160px] overflow-y-auto transition-all duration-500 p-2 rounded-lg">
                             {(showAll
-                              ? Object.values(skills).flat() // all groups merged into one array
-                              : Object.values(skills).flat().slice(0, 4)
-                            ) // only 4 total
+                              ? Object.values(skills).flat() // all skills
+                              : Object.values(skills).flat().slice(0, 6)
+                            ) // only 6 initially
                               .map((skill, i) => (
                                 <Link
                                   href={skill?.url || "#"}
@@ -332,13 +335,10 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
                                   {skill.title}
                                 </Link>
                               ))}
-
-                              
-                              
                           </div>
 
                           {/* SHOW MORE / SHOW LESS BUTTON */}
-                          {Object.values(skills).flat().length > 4 && (
+                          {Object.values(skills).flat().length > 6 && (
                             <button
                               onClick={() => setShowAll(!showAll)}
                               className="btn-primary px-[3rem] py-[1rem] rounded-[100px] text-[2rem] text-white"

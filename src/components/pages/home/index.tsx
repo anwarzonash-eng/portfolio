@@ -250,41 +250,6 @@ const Home = ({ params }: { params: any }) => {
                                     </Link>
                                   );
                                 })}
-
-                              {/* Print view (shows all skills) */}
-                              <div className="hidden print:flex print:flex-wrap  print:justify-center print:items-center print:gap-[18px] print:w-full">
-                                {Object.values(skills)
-                                  .flat()
-                                  .slice(0, !showAll ? 12 : undefined)
-                                  .map((skill, i) => {
-                                    const groupIndex = Object.values(
-                                      skills
-                                    ).findIndex((group) =>
-                                      group.includes(skill)
-                                    );
-                                    const skillNumber = `${groupIndex + 1}.${
-                                      skills[
-                                        Object.keys(skills)[groupIndex]
-                                      ].indexOf(skill) + 1
-                                    }`;
-
-                                    return (
-                                      <Link
-                                        href={skill.url || "#"}
-                                        legacyBehavior
-                                        key={`print-${groupIndex}-${i}`}
-                                      >
-                                        <a
-                                          target="_blank"
-                                          rel="noopener noreferrer"
-                                          className="capitalize text-center text-primary text-[1.3rem] font-medium px-[21px] py-[0.5rem] bg-white flex items-center justify-center  rounded-[5rem] shadow border border-[#757575]"
-                                        >
-                                          {skill?.title}
-                                        </a>
-                                      </Link>
-                                    );
-                                  })}
-                              </div>
                             </div>
 
                             {/* Buttons hidden on print */}
