@@ -193,11 +193,19 @@ const ContactMe = ({ listOfdata }) => {
 
   return (
     <>
+      <h3 className="text-heading text-[3.6rem] leading-[4.4rem] font-medium mt-[1.2rem] print:m-0 mb-4 text-center hidden lg:block">
+        Contact Me
+      </h3>
+      {/* Badge */}
+      <div className="flex items-center justify-center lg:hidden my-[2rem]">
+        <div className="badge">Contact Me</div>
+      </div>
       <div
         id="contact"
         className="flex print:break-before-page items-center justify-center flex-wrap lg:flex-nowrap bg-footerMobile md:bg-footerDesktop bg-no-repeat print:bg-none print:w-full bg-left-top ultra2x:border-[1.5rem] ultra2x:border-white print:border-none bg-cover rounded-[1rem] relative  p-[1rem] sm:p-[2rem] gap-[2.4rem] shadow-lg print:shadow-none"
       >
         {/* Contact Form */}
+
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
@@ -310,8 +318,8 @@ const ContactMe = ({ listOfdata }) => {
         {/* Contact Details */}
         <div className="w-full">
           {/* Badge */}
-          <div className="px-[2rem] py-[1rem] rounded-[2.2rem] bg-white border border-border border-solid text-center max-w-max text-heading text-[2rem] font-medium font-Inter leading-[2rem] mb-[2rem] print:px-[3rem] print:text-[1.6rem] print:py-[1rem]">
-            Stay In Touch
+          <div className="flex items-center justify-center">
+            <div className="badge">Stay In Touch</div>
           </div>
           {/* Heading */}
           <div className="text-heading text-[3rem] lg:text-[4rem] p-[0.8rem] font-medium leading-[3.2rem] lg:leading-[4.8rem]">

@@ -127,9 +127,9 @@ const Home = ({ params }: { params: any }) => {
                   <div className="relative print:block !w-full hidden">
                     <Header />
                   </div>
-                  <div className="mainContainer w-full relative ">
+                  <div className="mainContainer w-full relative">
                     <div className="max-w-[1024px]  mx-auto text-center px-[2rem] pt-[8rem] relative z-20 print:mt-[20rem] ">
-                      <div className=" items-center justify-strat gap-[4rem] print:flex hidden  w-full  ">
+                      <div className=" items-center justify-strat gap-[4rem] print:flex hidden  w-full">
                         <img
                           src={listOfdatas?.profile_photo_1}
                           alt=""
@@ -175,26 +175,26 @@ const Home = ({ params }: { params: any }) => {
                 {/* Hero Section */}
                 <div className="w-full overflow-hidden relative bg-bannerBG print:break-before-page  print:h-screen print:m-0">
                   {/*Hero Section For Mobile and Tablet Devices*/}
-                  <div className="mainContainer relative xl:hidden print:hidden ">
+                  <div className="mainContainer relative xl:hidden print:hidden">
                     {/* Hero Section Mobile Content */}
-                    <div className="text-center mt-[7.6rem] ">
+                    <div className="text-center mt-[3rem]">
                       <p className="text-heading text-[2rem] md:text-[3.66rem] font-normal">
                         Hello! I’m
                       </p>
                       <div className="print:flex flex-col w-full print:mx-auto gap-8 items-center justify-center">
-                        <div className="mt-[0.5rem] print:flex items-center justify-center flex-col print:w-full font-bold text-[4rem] print:text-[10rem] md:text-[8rem] lg:text-[12rem] text-primary  gap-[1rem] relative inline-block">
+                        <div className="mt-[1rem] font-bold text-[4rem] md:text-[8rem] lg:text-[12rem] text-primary  gap-[1rem] relative inline-block">
                           {listOfdata?.name}
-                          <Image
+                          {/* <Image
                             src={"/images/mobileStars.svg"}
-                            height={45}
-                            width={45}
+                            height={35}
+                            width={35}
                             alt="Mobile Stars"
-                            className="max-[365px]:hidden print:hidden block mt-[1rem] h-[4.5rem] w-[4.5rem] absolute top-0 right-[-4.5rem]"
-                          />
+                            className="max-[365px]:hidden block mt-[1rem] h-[3.5rem] w-[3.5rem] absolute top-[-1.5rem] left-1/2 -translate-x-1/2"
+                          /> */}
                         </div>
                         {/* Badge */}
-                        <div className="flex  print:flex items-center  print:w-full  justify-center max-w-[88rem] mx-auto mb-[2rem]">
-                          <button className="px-[2rem] py-[1.5rem] print:px-[5rem] print:py-[1.4rem] lg:py-[2rem] lg:px-[4rem] bg-primary rounded-[5rem] text-center text-[1.6rem] print:text-[2.3rem] lg:text-[2.4rem] font-bold text-white border-none outline-none my-[2rem] lg:mb-auto">
+                        <div className="flex items-center justify-center max-w-[88rem] mx-auto mb-[2rem]">
+                          <button className="px-[2rem] py-[1.5rem] lg:py-[2rem] lg:px-[4rem] bg-primary rounded-[5rem] text-center text-[1.6rem] lg:text-[3rem] font-semibold text-white border-none outline-none  lg:mb-auto">
                             {listOfdata?.designation
                               ?.split("|")
                               .map((item, index) => (
@@ -215,7 +215,7 @@ const Home = ({ params }: { params: any }) => {
                       {listOfdata &&
                         listOfdata.skills_ids &&
                         listOfdata.skills_ids.length > 0 && (
-                          <div className="w-full p-[1.5rem] flex justify-center items-center flex-col gap-[1rem] lg:hidden">
+                          <div className="w-full p-[1.5rem] hidden justify-center items-center flex-col gap-[1rem]">
                             <div className="w-full flex justify-center items-center gap-[0.6rem] flex-wrap">
                               {/* Normal view (shows limited skills) */}
                               {Object.values(skills)
@@ -709,7 +709,9 @@ const Home = ({ params }: { params: any }) => {
                       {/* About Context */}
                       <div className="w-full">
                         {/* Badge */}
-                        <div className="badge">About Me</div>
+                        <div className="flex items-center justify-center mt-[2rem]">
+                          <div className="badge">About Me</div>
+                        </div>
                         {/* Heading */}
                         <div
                           dangerouslySetInnerHTML={{
@@ -942,9 +944,7 @@ const Home = ({ params }: { params: any }) => {
                       {/* About Context */}
                       <div className="w-full">
                         {/* Badge */}
-                        <div className="px-[6rem] mt-[3rem] py-[1.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[3rem] font-medium  font-Inter leading-[2rem] ">
-                          About Me
-                        </div>
+                        <div className="badge">About Me</div>
                         {/* Heading */}
                         <div
                           dangerouslySetInnerHTML={{
@@ -1139,13 +1139,10 @@ const Home = ({ params }: { params: any }) => {
                       className="mainContainer print:!pt-[4rem] print:my-[0rem] my-[5rem]  print:h-screen print:break-before-page break-before-avoid print:bg-[#a3ddd3]"
                     >
                       {/* Badge */}
-                      <div
-                        id="skills_ids"
-                        className="px-[2rem] mt-[3rem] py-[1rem] bg-white 
-                        rounded-[2.2rem] border border-border border-solid text-center
-                        max-w-max text-heading text-[2rem] font-medium font-Inter leading-[2rem] mx-auto  section_top_button"
-                      >
-                        Skills
+                      <div className="flex items-center justify-center mt-[2rem]">
+                        <div id="skills_ids" className="badge">
+                          Skills
+                        </div>
                       </div>
                       {/* Heading */}
                       <div className="text-center text-heading text-[2.4rem] xl:text-[3rem] print:text-[3rem] print:mb-[1.5rem] font-medium leading-[2.8rem] mt-[2rem]">
@@ -1167,11 +1164,8 @@ const Home = ({ params }: { params: any }) => {
                     <section className="w-full bg-sectionBG my-[5rem] print:m-0  print:break-before-page print:h-screen ">
                       <div className="mainContainer py-[5rem] xl:py-[10rem]">
                         {/* Badge */}
-                        <div
-                          className="px-[2rem] py-[1rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading 
-                        text-[2rem] font-medium font-Inter leading-tight mx-auto  section_top_button "
-                        >
-                          My Services
+                        <div className="flex items-center justify-center">
+                          <div className="badge">My Services</div>
                         </div>
                         {/* Heading */}
                         <div className="text-center text-paragraph2 text-[2.4rem] xl:text-[3rem] font-medium leading-[2.8rem] mt-[2rem]">
@@ -1199,8 +1193,8 @@ const Home = ({ params }: { params: any }) => {
                       >
                         <div className="mainContainer   my-[5rem] print:my-[1rem] ">
                           {/* Badge */}
-                          <div className="px-[2rem] py-[1rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[2rem] font-medium font-Inter leading-tight mx-auto  section_top_button">
-                            My Work
+                          <div className="flex items-center justify-center">
+                            <div className="badge">My Work</div>
                           </div>
                           {/* Heading */}
                           <div className="text-center text-heading text-[3rem] font-medium leading-[2.8rem] mt-[2rem]">
@@ -1228,8 +1222,8 @@ const Home = ({ params }: { params: any }) => {
                       >
                         <div className="mainContainer   print:shadow-none print:!pt-[3rem] ">
                           {/* Badge */}
-                          <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto  section_top_button ">
-                            Professional Experience
+                          <div className="flex items-center justify-center">
+                            <div className="badge">Professional Experience</div>
                           </div>
                           {/* Heading */}
                           <div className="text-center text-heading text-[2.4rem] xl:text-[3rem] font-medium leading-[2.8rem] mt-[2rem]">

@@ -1,10 +1,10 @@
-import { apigateway } from '@/gateways/apigateway';
+import { apigateway } from "@/gateways/apigateway";
 
 export const addLeadsApi = async (payload) => {
   return apigateway({
-    endpoint: '/leads/add',
-    method: 'POST',
+    endpoint: "/leads/add",
+    method: "POST",
     payload: payload,
-    contentType: 'multipart/form-data',
+    contentType: "multipart/form-data",
   });
 };
