@@ -164,13 +164,13 @@ const HomeSlider: React.FC<HomeSliderProps> = ({ portfolios, companyType }) => {
                             <div className="h-[234px] overflow-auto custom-scrollbar">
                               <p
                                 dangerouslySetInnerHTML={{
-                                  __html: portfolio.tagline_1,
+                                  __html: portfolio.tagline_2,
                                 }}
                                 className="text-[1.6rem] lg:text-[1.8rem] leading-[2.4rem] font-normal text-paragraph1 mt-[1rem] line-clampforTagline1 basicLineClamp"
                               ></p>
 
                               {/* Description */}
-                              <div>
+                              {/* <div>
                                 <p
                                   dangerouslySetInnerHTML={{
                                     __html: portfolio.tagline_2,
@@ -179,7 +179,6 @@ const HomeSlider: React.FC<HomeSliderProps> = ({ portfolios, companyType }) => {
                                     isExpanded ? "" : "line-clamp-4"
                                   }`}
                                 ></p>
-                                {/* Toggle button */}
                                 <button
                                   onClick={() => setIsExpanded(!isExpanded)}
                                   className={`bg-primary text-white print:hidden border border-transparent py-[0.4rem] px-[2rem] hover:bg-white hover:text-primary hover:border-primary hover:border text-heading
@@ -192,7 +191,7 @@ const HomeSlider: React.FC<HomeSliderProps> = ({ portfolios, companyType }) => {
                                 >
                                   {isExpanded ? "Read less" : "Read more"}
                                 </button>
-                              </div>
+                              </div> */}
                             </div>
                           </div>
 

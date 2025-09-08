@@ -1,7 +1,11 @@
-export const toggleShowMoreSkills = (index, setShowMoreSkills) => {
-  setShowMoreSkills((prev) => {
-    const newShowMoreSkills = [...prev];
-    newShowMoreSkills[index] = !newShowMoreSkills[index];
-    return newShowMoreSkills;
-  });
+export const toggleShowMoreSkills = (
+  index: number,
+  setShowMoreSkills: React.Dispatch<
+    React.SetStateAction<{ [key: number]: boolean }>
+  >
+) => {
+  setShowMoreSkills((prev) => ({
+    ...prev,
+    [index]: !prev[index], // toggle only this experience
+  }));
 };

@@ -250,41 +250,6 @@ const Home = ({ params }: { params: any }) => {
                                     </Link>
                                   );
                                 })}
-
-                              {/* Print view (shows all skills) */}
-                              <div className="hidden print:flex print:flex-wrap  print:justify-center print:items-center print:gap-[18px] print:w-full">
-                                {Object.values(skills)
-                                  .flat()
-                                  .slice(0, !showAll ? 12 : undefined)
-                                  .map((skill, i) => {
-                                    const groupIndex = Object.values(
-                                      skills
-                                    ).findIndex((group) =>
-                                      group.includes(skill)
-                                    );
-                                    const skillNumber = `${groupIndex + 1}.${
-                                      skills[
-                                        Object.keys(skills)[groupIndex]
-                                      ].indexOf(skill) + 1
-                                    }`;
-
-                                    return (
-                                      <Link
-                                        href={skill.url || "#"}
-                                        legacyBehavior
-                                        key={`print-${groupIndex}-${i}`}
-                                      >
-                                        <a
-                                          target="_blank"
-                                          rel="noopener noreferrer"
-                                          className="capitalize text-center text-primary text-[1.3rem] font-medium px-[21px] py-[0.5rem] bg-white flex items-center justify-center  rounded-[5rem] shadow border border-[#757575]"
-                                        >
-                                          {skill?.title}
-                                        </a>
-                                      </Link>
-                                    );
-                                  })}
-                              </div>
                             </div>
 
                             {/* Buttons hidden on print */}
@@ -744,13 +709,7 @@ const Home = ({ params }: { params: any }) => {
                       {/* About Context */}
                       <div className="w-full">
                         {/* Badge */}
-                        <div
-                          className="px-[2rem] mt-[3rem] py-[1rem] bg-white 
-                        rounded-[2.2rem] border border-border border-solid text-center
-                        max-w-max text-heading text-[2rem] font-medium font-Inter leading-[2rem]"
-                        >
-                          About Me
-                        </div>
+                        <div className="badge">About Me</div>
                         {/* Heading */}
                         <div
                           dangerouslySetInnerHTML={{
@@ -1240,7 +1199,7 @@ const Home = ({ params }: { params: any }) => {
                       >
                         <div className="mainContainer   my-[5rem] print:my-[1rem] ">
                           {/* Badge */}
-                          <div className="px-[2rem] py-[1rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[2rem] font-medium font-Inter leading-tight mx-auto  section_top_button ">
+                          <div className="px-[2rem] py-[1rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[2rem] font-medium font-Inter leading-tight mx-auto  section_top_button">
                             My Work
                           </div>
                           {/* Heading */}

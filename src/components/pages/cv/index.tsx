@@ -93,8 +93,10 @@ const CV = ({ params }: { params: any }) => {
   const [blogsList, setBlogsList] = useState([]);
   const [loadingblogs, setLoadingBlogs] = useState(false);
   const [showAll, setShowAll] = useState(false);
+  // Replace your state with this:
   const [showMoreSkillsForExperiences, setShowMoreSkillsForExperiences] =
-    useState([]);
+    useState<{ [key: number]: boolean }>({});
+
   const [showMoreSkillsForPortfolios, setShowMoreSkillsForPortfolios] =
     useState([]);
   const listOfdatas = useAppSelector(
@@ -200,9 +202,9 @@ const CV = ({ params }: { params: any }) => {
           loading: loading,
           actualPage: (
             <div className="bg-[#EFF5FD]">
-              <section 
-              className="w-full relative print:hidden"
-              // className="hidden"
+              <section
+                className="w-full relative print:hidden"
+                // className="hidden"
               >
                 <div className="mainContainer h-[60.7rem] lg:h-[65rem] print:h-auto  w-full relative ">
                   {/* Background SVG */}
@@ -254,8 +256,8 @@ const CV = ({ params }: { params: any }) => {
                 <div className="bg-white flex flex-col lg:flex-row gap-[4rem]  rounded-[1.4rem] relative pb-[5rem] lg:pb-[7rem] px-[2rem] lg:px-[3rem] mb-[10rem] lg:mb-[9.6rem]">
                   {/* Side Panel */}
                   <aside
-                   className="lg:max-w-[40rem] print:w-full print:break-before-page w-full  flex-shrink-0 bg-cvSideBg bg-no-repeat bg-cover pb-[2rem] pt-[5rem] print:pt-[2rem] px-[2rem] lg:px-[3rem]"
-                  // className="hidden"
+                    className="lg:max-w-[40rem] print:w-full print:break-before-page w-full  flex-shrink-0 bg-cvSideBg bg-no-repeat bg-cover pb-[2rem] pt-[5rem] print:pt-[2rem] px-[2rem] lg:px-[3rem]"
+                    // className="hidden"
                   >
                     <div className="flex flex-col items-center">
                       {/* Profile Bg */}
@@ -725,6 +727,7 @@ const CV = ({ params }: { params: any }) => {
                                                     15
                                                   )
                                             );
+
                                           return (
                                             <div
                                               className="relative flex items-start mt-[2rem] print-section"
@@ -760,10 +763,14 @@ const CV = ({ params }: { params: any }) => {
                                                       )}
                                                 </h2>
                                                 {/* Card */}
-                                                <div className="bg-[#F7F9FC] p-[1.5rem] 
-                                                lg:p-[2.4rem] rounded-[1rem] shadow mb-[2rem]">
-                                                  <div className="flex items-center flex-wrap 
-                                                  min-[400px]:text-nowrap gap-[1.5rem] md:justify-between">
+                                                <div
+                                                  className="bg-[#F7F9FC] p-[1.5rem] 
+                                                lg:p-[2.4rem] rounded-[1rem] shadow mb-[2rem]"
+                                                >
+                                                  <div
+                                                    className="flex items-center flex-wrap 
+                                                  min-[400px]:text-nowrap gap-[1.5rem] md:justify-between"
+                                                  >
                                                     {/* About Content */}
                                                     <Link
                                                       href={
@@ -1193,9 +1200,11 @@ const CV = ({ params }: { params: any }) => {
                                                                 (prev) => !prev
                                                               )
                                                             }
-                                                            className={`${expandedPortfolio
-                                                              ? "mt-[-3rem]"
-                                                              : "mt-[1rem]"} bg-primary 
+                                                            className={`${
+                                                              expandedPortfolio
+                                                                ? "mt-[-3rem]"
+                                                                : "mt-[1rem]"
+                                                            } bg-primary 
                                                               leading-normal text-center 
                                                                py-[0.6rem] px-[2rem]
                                                                 text-white hover:bg-white 

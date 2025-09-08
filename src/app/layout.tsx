@@ -1,8 +1,9 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "@/styles/globals.css";
 import ChildWrapperContainer from "@/components/ChildWrapperContainer";
 import LinkInterceptor from "@/components/LinkInterceptor";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,12 +22,6 @@ export const metadata: Metadata = {
     "Professional Journey",
   ],
   authors: [{ name: "Your Name", url: "https://yourwebsite.com" }],
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 1,
-  },
-  themeColor: "#ffffff",
   openGraph: {
     title: "Personal Website – CV & Portfolio",
     description:
@@ -59,6 +54,14 @@ export const metadata: Metadata = {
   manifest: "/site.webmanifest",
 };
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  themeColor: "#ffffff",
+};
+
+
 export default function RootLayout({
   children,
 }: {
@@ -69,6 +72,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <LinkInterceptor />
         <ChildWrapperContainer>{children}</ChildWrapperContainer>
+        <GoogleAnalytics gaId="G-DPWJX7YHZH" />
       </body>
     </html>
   );

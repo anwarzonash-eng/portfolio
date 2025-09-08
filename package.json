@@ -10,6 +10,7 @@
     "postcss": "postcss src/styles -o src/styles/build.css"
   },
   "dependencies": {
+    "@next/third-parties": "^15.5.2",
     "@radix-ui/react-slot": "^1.1.0",
     "@reduxjs/toolkit": "^2.2.7",
     "axios": "^1.7.7",
