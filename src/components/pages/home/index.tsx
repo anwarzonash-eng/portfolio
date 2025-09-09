@@ -37,6 +37,9 @@ import { useRouter } from "next/router";
 import { useMediaQuery } from "react-responsive";
 import Header from "@/components/layouts/header/page";
 import { SmoothScroll } from "@/hooks/SmoothScroll";
+import ExperienceDescription from "@/components/ExperienceDescription";
+import ExperienceSection from "@/components/ExperienceSection";
+import { sortByDate } from "@/utils/sortByDate";
 
 const Home = ({ params }: { params: any }) => {
   useBodyBackgroundColor("#f8f9fa");
@@ -50,10 +53,24 @@ const Home = ({ params }: { params: any }) => {
   const [isOverflowing, setIsOverflowing] = useState(false);
   const isSmallScreen = useMediaQuery({ query: "(max-width: 768px)" });
   const [showAll, setShowAll] = useState(false);
-  const [showAllExperiences, setShowAllExperiences] = useState(false);
   const listOfdatas = useAppSelector(
     (state) => state.profile.listOfProfileData
   );
+
+  // Experieces Section Timeline View Logic:
+  const [isMobile, setIsMobile] = useState(false);
+  const [showAllExperiences, setShowAllExperiences] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024); // breakpoint: < lg
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  // how many to show initially
+  const initialCount = isMobile ? 3 : 6;
+  const experiences = [...(listOfdata?.experiences_ids || [])].sort(sortByDate);
 
   useEffect(() => {
     const sectionID = searchParams.get("sectionId");
@@ -1218,7 +1235,7 @@ const Home = ({ params }: { params: any }) => {
                       {/* Professional Experience Timeline Section Completed */}
                       <section
                         id="workExperiences"
-                        className="w-full   print_p_m print:h-screen print:break-before-page print:bg-[#a3ddd3]  "
+                        className="w-full print_p_m print:h-screen print:break-before-page print:bg-[#a3ddd3]"
                       >
                         <div className="mainContainer   print:shadow-none print:!pt-[3rem] ">
                           {/* Badge */}
@@ -1230,285 +1247,38 @@ const Home = ({ params }: { params: any }) => {
                             My Professional Career Journey
                           </div>
                           {/* Timeline */}
-                          <div className="mainContainer flex items-center justify-center mt-[2rem] print:m-0 ">
-                            <div className="relative print:flex flex-col gap-4">
-                              {/* Vertical line */}
-                              <div className="absolute print_hidden left-[10rem] top-[3rem] w-[0.4rem] h-[calc(100%-78px)] bg-border  mx-[2.1rem] hidden xl:block" />
-                              {listOfdata?.experiences_ids &&
-                                [...listOfdata.experiences_ids]
-                                  ?.sort((a, b) => {
-                                    const yearA = new Date(
-                                      a.ending_Date
-                                    ).getFullYear();
-                                    const yearB = new Date(
-                                      b.ending_Date
-                                    ).getFullYear();
+                          {experiences
+                            .slice(
+                              0,
+                              showAllExperiences
+                                ? experiences.length
+                                : initialCount
+                            )
+                            .map((experience, index) => (
+                              <ExperienceSection
+                                key={index}
+                                experience={experience}
+                                index={index}
+                                listOfskills={listOfskills}
+                                listOfdata={listOfdata}
+                                showMoreSkills={showMoreSkills}
+                                setShowMoreSkills={setShowMoreSkills}
+                                variant="timeline"
+                              />
+                            ))}
 
-                                    if (yearA !== yearB) {
-                                      return yearB - yearA;
-                                    }
-
-                                    const monthA = new Date(
-                                      a.ending_Date
-                                    ).getMonth();
-                                    const monthB = new Date(
-                                      b.ending_Date
-                                    ).getMonth();
-
-                                    return monthB - monthA;
-                                  })
-                                  ?.slice(
-                                    0,
-                                    showAllExperiences
-                                      ? listOfdata.experiences_ids.length
-                                      : 3
-                                  )
-                                  ?.map((experience, index) => {
-                                    const skillsforExpereince: {
-                                      [key: string]: {
-                                        title: string;
-                                        url?: string;
-                                        order?: string;
-                                        icon?: string;
-                                      }[];
-                                    } = skillsGrouping(
-                                      showMoreSkills[index]
-                                        ? experience?.skills
-                                        : experience?.skills?.slice(0, 15)
-                                    );
-                                    return (
-                                      <>
-                                        {/* Timeline items Container */}
-                                        <div className="space-y-[1rem]  xl:space-y-[3rem] xl:space-x-[9rem] mt-10 print_p_m">
-                                          {/* Date and divider */}
-                                          <div className="ml-[0.5rem]  xl:mb-auto xl:ml-auto xl:absolute left-[-7.6rem] z-10 text-[1.8rem] text-paragraph1 capitalize">
-                                            {formatDate(
-                                              experience.starting_date,
-                                              dateFormatsOptions.shortMonthYear
-                                            )}{" "}
-                                            -{" "}
-                                            {isNaN(
-                                              new Date(
-                                                experience.ending_Date
-                                              ).getFullYear()
-                                            )
-                                              ? experience.ending_Date
-                                              : formatDate(
-                                                  experience.ending_Date,
-                                                  dateFormatsOptions.shortMonthYear
-                                                )}
-                                          </div>
-                                          {/* Timeline item */}
-                                          <>
-                                            <div className="relative  flex items-start">
-                                              {/* Dot */}
-                                              <div className="absolute print_hidden top-0 left-[2rem] hidden xl:block">
-                                                <div className="w-[2.6rem] h-[2.6rem] bg-white rounded-full flex items-center shadow-md justify-center">
-                                                  <div className="w-[0.7rem] h-[0.7rem] bg-heading rounded-full"></div>
-                                                </div>
-                                              </div>
-                                              {/* Card */}
-                                              <div className="bg-white  p-[1.5rem] lg:p-[2.4rem] rounded-[1rem] shadow xl:ml-[6rem] w-full">
-                                                <div className="flex items-center flex-wrap text-nowrap gap-[1.5rem] md:justify-between">
-                                                  {/* About Content */}
-                                                  <div className="flex gap-[1rem]">
-                                                    {experience?.thumbnail && (
-                                                      <div className="h-[4.2rem] w-[4.2rem] lg:h-[4.9rem] lg:w-[4.9rem] bg-[#D1E9FF] rounded-[0.4rem] flex items-center justify-center">
-                                                        <Image
-                                                          src={
-                                                            experience?.thumbnail
-                                                          }
-                                                          height={32}
-                                                          width={32}
-                                                          alt="Logo Mark"
-                                                        />
-                                                      </div>
-                                                    )}
-                                                    <div>
-                                                      <p className="text-[1.4rem] lg:text-[1.6rem] font-normal text-paragraph1">
-                                                        {
-                                                          experience?.company_name
-                                                        }
-                                                      </p>
-                                                      <h3 className="text-[1.6rem] lg:text-[1.8rem] font-medium text-heading">
-                                                        {experience?.title}
-                                                      </h3>
-                                                    </div>
-                                                  </div>
-
-                                                  {/* Link */}
-
-                                                  <div className="flex justify-center md:justify-end w-full md:w-auto">
-                                                    <div className="flex flex-col-reverse gap-[1rem] max-w-max">
-                                                      <div className=" py-[0.4rem] px-[2rem] bg-white border border-[#E2E6EE] border-solid text-[#47516B] rounded-[2rem] text-[1.5rem] font-medium leading-[0.8rem] hover:bg-primary hover:text-white ">
-                                                        <Link
-                                                          href={
-                                                            experience?.company_website ||
-                                                            "#"
-                                                          }
-                                                          className="flex gap-2 justify-center align-middle items-center hover:text-white hover:text-semibold"
-                                                        >
-                                                          <Image
-                                                            src={
-                                                              "/images/link.svg"
-                                                            }
-                                                            height={18}
-                                                            width={18}
-                                                            alt="Link"
-                                                          />{" "}
-                                                          {
-                                                            experience.company_website
-                                                              .replace(
-                                                                /^(https?:\/\/)?(www\.)?/,
-                                                                ""
-                                                              )
-                                                              .split("/")[0]
-                                                          }{" "}
-                                                        </Link>
-                                                      </div>
-                                                      {experience.company_website.includes(
-                                                        "upwork"
-                                                      ) && (
-                                                        <Link
-                                                          href={
-                                                            experience.company_website
-                                                          }
-                                                          className="hover:bg-primary hover:text-white py-[0.4rem] px-[1rem] text-heading bg-[#A3DDD3] rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
-                                                        >
-                                                          View my upwork
-                                                          Freelance Profile
-                                                        </Link>
-                                                      )}{" "}
-                                                    </div>
-                                                  </div>
-                                                </div>
-
-                                                <p
-                                                  className="mt-[2rem] list-div text-[1.6rem] font-medium text-paragraph1"
-                                                  dangerouslySetInnerHTML={{
-                                                    __html: modifiedContent(
-                                                      experience?.short_description,
-                                                      listOfskills,
-                                                      listOfdata
-                                                    ),
-                                                  }}
-                                                ></p>
-
-                                                {experience?.skills &&
-                                                  experience?.skills.length >
-                                                    0 && (
-                                                    <div className="w-full">
-                                                      <h4 className=" text-[1.5rem] text-primary font-medium my-[1.6rem] ">
-                                                        AREAS OF EXPERTISE I'VE
-                                                        WORKED IN
-                                                      </h4>
-                                                      <div className="w-full flex-col items-start flex gap-5">
-                                                        <div className="flex print:hidden items-center gap-[1rem] lg:gap-[0.7rem]   text-nowrap flex-wrap text-[1.2rem]">
-                                                          {Object?.values(
-                                                            skillsforExpereince
-                                                          )?.map(
-                                                            (
-                                                              group,
-                                                              groupIndex
-                                                            ) => (
-                                                              <React.Fragment
-                                                                key={groupIndex}
-                                                              >
-                                                                {group.map(
-                                                                  (
-                                                                    skill,
-                                                                    i
-                                                                  ) => {
-                                                                    // Calculate the skill number (groupIndex+1).(i+1)
-                                                                    const skillNumber = `${
-                                                                      groupIndex +
-                                                                      1
-                                                                    }.${i + 1}`;
-
-                                                                    return (
-                                                                      <Link
-                                                                        href={
-                                                                          skill.url ||
-                                                                          "#"
-                                                                        }
-                                                                        legacyBehavior
-                                                                        key={`${groupIndex}-${i}`}
-                                                                      >
-                                                                        <a
-                                                                          target="_blank"
-                                                                          rel="noopener noreferrer"
-                                                                          style={{
-                                                                            animationDelay: `${
-                                                                              i *
-                                                                              0.1
-                                                                            }s`,
-                                                                          }}
-                                                                          className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium py-[0.4rem] px-[2rem] bg-white flex items-center print:py-[0.2rem] print:px-[1.5rem] justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
-                                                                        >
-                                                                          {
-                                                                            skill?.title
-                                                                          }
-                                                                        </a>
-                                                                      </Link>
-                                                                    );
-                                                                  }
-                                                                )}
-                                                              </React.Fragment>
-                                                            )
-                                                          )}
-                                                        </div>
-
-                                                        <div className="hidden print:flex print:flex-wrap print:gap-[0.5rem]">
-                                                          {Object.values(
-                                                            skillsforExpereince
-                                                          )
-                                                            .flat()
-                                                            .slice(0, 7)
-                                                            .map((skill, i) => (
-                                                              <span
-                                                                key={`print-skill-${i}`}
-                                                                className="capitalize text-primary text-[1.1rem] font-medium py-[0.2rem] px-[1.2rem] bg-white rounded-[5rem] border border-[#757575] print:border-gray-300 print:shadow-none"
-                                                              >
-                                                                {skill?.title}
-                                                              </span>
-                                                            ))}
-                                                        </div>
-
-                                                        <ShowmoreSkills
-                                                          props={{
-                                                            list: experience?.skills,
-                                                            index,
-                                                            setShowMoreSkills,
-                                                            showMoreSkills,
-                                                          }}
-                                                        />
-                                                      </div>
-                                                    </div>
-                                                  )}
-                                              </div>
-                                            </div>
-                                          </>
-                                        </div>{" "}
-                                      </>
-                                    );
-                                  })}{" "}
-                              {listOfdata.experiences_ids.length > 3 && (
-                                <div className="flex justify-center mt-8 print_hidden">
-                                  <button
-                                    onClick={() =>
-                                      setShowAllExperiences(!showAllExperiences)
-                                    }
-                                    className="btn-primary text-white py-[1rem] px-[3.4rem] text-[1.8rem] font-medium"
-                                    // className="bg-primary  text-white py-[0.4rem] px-[2rem] border border-primary border-solid hover:text-primary hover:bg-white rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
-                                  >
-                                    {showAllExperiences
-                                      ? "Show Less"
-                                      : "View Full Career Timeline"}
-                                  </button>
-                                </div>
-                              )}
-                            </div>
-                          </div>
+                          {/* View Full Button */}
+                          {!showAllExperiences &&
+                            experiences.length > initialCount && (
+                              <div className="flex items-center justify-center">
+                                <button
+                                  onClick={() => setShowAllExperiences(true)}
+                                  className="self-center mt-6 bg-primary text-white px-6 py-3 rounded-[1rem] hover:bg-primary/90 transition text-[2rem] font-medium"
+                                >
+                                  View Full Career Timeline
+                                </button>
+                              </div>
+                            )}
                         </div>
                       </section>
                     </>

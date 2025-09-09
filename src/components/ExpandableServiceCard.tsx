@@ -45,7 +45,7 @@ const ExpandableServiceCard = forwardRef<
         {/* Section where click to expand and collapse */}
         <div
           className={`p-[1rem] lg:p-[3rem] print:p-[17px] print:!mb-[2rem] 
-            bg-primary bg-cvBoxDesktop bg-center bg-no-repeat bg-cover lg:bg-contain 
+            bg-primary bg-cvBoxDesktop bg-center bg-no-repeat bg-contain 
             print:text-white ${activeDropdown === index ? "bg-expanded" : ""}`}
         >
           <div className="flex flex-col md:flex-row items-start md:items-center gap-[2rem] mb-[2rem]">

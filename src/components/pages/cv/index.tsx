@@ -36,6 +36,8 @@ import Header from "@/components/layouts/header/page";
 import { SmoothScroll } from "@/hooks/SmoothScroll";
 import { getImageForIndex } from "@/utils/getImageForIndex";
 import ExperienceDescription from "@/components/ExperienceDescription";
+import ExperienceSection from "@/components/ExperienceSection";
+import { sortByDate } from "@/utils/sortByDate";
 type SkillType = {
   title: string;
   url?: string;
@@ -49,7 +51,22 @@ const CV = ({ params }: { params: any }) => {
   const [expandedPortfolio, setExpandedPortfolio] = useState(false);
   // Logic For Overview & Skill Section
   const [expanded, setExpanded] = useState(false);
+
+  // Experieces Section Timeline View Logic:
   const [isMobile, setIsMobile] = useState(false);
+  const [showAllExperiences, setShowAllExperiences] = useState(false);
+  const [showMoreSkills, setShowMoreSkills] = useState([]);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024); // breakpoint: < lg
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  // how many to show initially
+  const initialCount = isMobile ? 3 : 6;
+  const experiences = [...(listOfdata?.experiences_ids || [])].sort(sortByDate);
 
   // Check screen size (mobile or not)
   useEffect(() => {
@@ -672,7 +689,6 @@ const CV = ({ params }: { params: any }) => {
                                 <div
                                   id="expericeSection"
                                   className="relative flex items-start print:break-before-page"
-                                  // className="hidden"
                                 >
                                   {/* Dot */}
                                   <div className="absolute top-0 left-[-1.3rem]">
@@ -685,269 +701,50 @@ const CV = ({ params }: { params: any }) => {
                                     className="ml-[2rem] md:ml-[3rem] 
                                     lg:ml-[5rem] print_p_m"
                                   >
-                                    {/* Title - Hidden in print */}
-                                    <div className="w-full mb-[3.5rem]">
+                                    {/* Title */}
+                                    <div className="w-full">
                                       <h2 className="text-heading leading-[3.56rem] text-[3.67rem] font-medium pl-[0.5rem] pt-[3rem] pb-[2rem]">
                                         Experiences
                                       </h2>
                                     </div>
+                                    {[...(listOfdata?.experiences_ids || [])]
+                                      .sort(sortByDate)
+                                      .slice(
+                                        0,
+                                        showAllExperiences
+                                          ? listOfdata.experiences_ids.length
+                                          : isMobile
+                                          ? 3 // 📱 show 3 on mobile
+                                          : 6 // 💻 show 6 on desktop
+                                      )
+                                      .map((experience, index) => (
+                                        <ExperienceSection
+                                          key={index}
+                                          experience={experience}
+                                          index={index}
+                                          listOfskills={listOfskills}
+                                          listOfdata={listOfdata}
+                                          showMoreSkills={showMoreSkills}
+                                          setShowMoreSkills={setShowMoreSkills}
+                                          variant="list"
+                                        />
+                                      ))}
 
-                                    {listOfdata?.experiences_ids &&
-                                      [...listOfdata.experiences_ids]
-                                        ?.sort((a, b) => {
-                                          const yearA = new Date(
-                                            a.ending_Date
-                                          ).getFullYear();
-                                          const yearB = new Date(
-                                            b.ending_Date
-                                          ).getFullYear();
-                                          if (yearA !== yearB)
-                                            return yearB - yearA;
-                                          const monthA = new Date(
-                                            a.ending_Date
-                                          ).getMonth();
-                                          const monthB = new Date(
-                                            b.ending_Date
-                                          ).getMonth();
-                                          return monthB - monthA;
-                                        })
-                                        ?.map((experience, index) => {
-                                          if (isPrinting && index >= 2) {
-                                            return null;
-                                          }
-
-                                          const skillsforExpereinces =
-                                            skillsGrouping(
-                                              showMoreSkillsForExperiences[
-                                                index
-                                              ]
-                                                ? experience?.skills
-                                                : experience?.skills?.slice(
-                                                    0,
-                                                    15
-                                                  )
-                                            );
-
-                                          return (
-                                            <div
-                                              className="relative flex items-start mt-[2rem] print-section"
-                                              key={index}
-                                            >
-                                              {/* Dot */}
-                                              <div
-                                                className="absolute top-0 left-[-3.5rem] 
-                                                md:left-[-4.2rem] lg:left-[-6.2rem] block"
-                                              >
-                                                <div className="w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center">
-                                                  <div className="w-[0.8rem] h-[0.8rem] bg-sectionBG rounded-full"></div>
-                                                </div>
-                                              </div>
-
-                                              <div className="w-full">
-                                                {/* Date */}
-                                                <h2 className="text-heading leading-[2.67rem] text-[2rem] font-bold pl-[0.5rem]  print:!pt-[1.4rem] mb-[3rem]">
-                                                  {formatDate(
-                                                    experience?.starting_date,
-                                                    dateFormatsOptions.shortMonthYear
-                                                  )}{" "}
-                                                  -{" "}
-                                                  {isNaN(
-                                                    new Date(
-                                                      experience.ending_Date
-                                                    ).getFullYear()
-                                                  )
-                                                    ? experience.ending_Date
-                                                    : formatDate(
-                                                        experience.ending_Date,
-                                                        dateFormatsOptions.shortMonthYear
-                                                      )}
-                                                </h2>
-                                                {/* Card */}
-                                                <div
-                                                  className="bg-[#F7F9FC] p-[1.5rem] 
-                                                lg:p-[2.4rem] rounded-[1rem] shadow mb-[2rem]"
-                                                >
-                                                  <div
-                                                    className="flex items-center flex-wrap 
-                                                  min-[400px]:text-nowrap gap-[1.5rem] md:justify-between"
-                                                  >
-                                                    {/* About Content */}
-                                                    <Link
-                                                      href={
-                                                        experience?.company_website ||
-                                                        "#"
-                                                      }
-                                                      target="_blank"
-                                                      className="flex gap-[1rem] p-2 hover:bg-[#D1E9FF] hover:scale-[98%] transition-all duration-300 cursor-pointer rounded-[6px] 
-                                                      hover:drop-shadow-2xl"
-                                                    >
-                                                      {experience?.thumbnail && (
-                                                        <div className="h-[4.2rem] w-[4.2rem] lg:h-[4.9rem] lg:w-[4.9rem] bg-[#D1E9FF] rounded-[0.4rem] flex items-center justify-center">
-                                                          <Image
-                                                            src={
-                                                              experience?.thumbnail
-                                                            }
-                                                            height={40}
-                                                            width={40}
-                                                            alt="Logo Mark"
-                                                            className="h-full w-full object-cover"
-                                                          />
-                                                        </div>
-                                                      )}
-
-                                                      <div>
-                                                        <p className="text-[1.4rem] lg:text-[1.6rem] font-normal text-paragraph1">
-                                                          {
-                                                            experience.company_name
-                                                          }
-                                                        </p>
-                                                        <h3 className="text-[1.6rem] lg:text-[1.8rem] font-medium text-heading">
-                                                          {experience.title}
-                                                        </h3>
-                                                        {experience?.company_website && (
-                                                          <div className="flex items-center gap-[0.52rem]">
-                                                            {/* <Image
-                                                              src={
-                                                                "/images/link.svg"
-                                                              }
-                                                              height={18}
-                                                              width={18}
-                                                              alt="Link"
-                                                            /> */}
-                                                            <Link
-                                                              href={
-                                                                experience?.company_website ||
-                                                                "#"
-                                                              }
-                                                              className="text-[#1F4FE1] break-all text-[1.4rem] lg:text-[1.6rem] font-normal leading-normal"
-                                                            >
-                                                              {
-                                                                experience.company_website
-                                                                  .replace(
-                                                                    /^(https?:\/\/)?(www\.)?/,
-                                                                    ""
-                                                                  )
-                                                                  .split("/")[0]
-                                                              }{" "}
-                                                            </Link>
-                                                          </div>
-                                                        )}
-                                                      </div>
-                                                    </Link>
-
-                                                    {/* Link */}
-                                                    <div className="flex justify-center md:justify-end w-full md:w-auto print:hidden">
-                                                      <div className="flex flex-col-reverse gap-[1rem] items-center justify-center">
-                                                        <div className="py-[1rem] px-[2rem] bg-white border border-[#E2E6EE] border-solid text-[#47516B] rounded-[2rem] text-[1.5rem] font-medium leading-[0.8rem] max-w-max">
-                                                          {formatDate(
-                                                            experience?.starting_date,
-                                                            dateFormatsOptions.shortMonthYear
-                                                          )}{" "}
-                                                          -{" "}
-                                                          {isNaN(
-                                                            new Date(
-                                                              experience.ending_Date
-                                                            ).getFullYear()
-                                                          )
-                                                            ? experience.ending_Date
-                                                            : formatDate(
-                                                                experience.ending_Date,
-                                                                dateFormatsOptions.shortMonthYear
-                                                              )}
-                                                        </div>
-                                                        {experience.company_website.includes(
-                                                          "upwork"
-                                                        ) && (
-                                                          <Link
-                                                            href={
-                                                              experience.company_website
-                                                            }
-                                                            className="hover:bg-primary hover:text-white py-[0.4rem] px-[1rem] text-heading bg-[#A3DDD3] 
-                                                            rounded-[1.8rem] text-[1.4rem] font-medium leading-normal 
-                                                            w-full text-center"
-                                                          >
-                                                            View My Freelance
-                                                            Profile
-                                                          </Link>
-                                                        )}{" "}
-                                                      </div>
-                                                    </div>
-                                                  </div>
-
-                                                  <p
-                                                    dangerouslySetInnerHTML={{
-                                                      __html: modifiedContent(
-                                                        experience?.short_description,
-                                                        listOfskills,
-                                                        listOfdata
-                                                      ),
-                                                    }}
-                                                    className="mt-[2rem] list- text-[1.6rem] font-medium text-paragraph1"
-                                                  ></p>
-                                                  {/* New Code For Experiece Section */}
-                                                  <ExperienceDescription
-                                                    experience={experience}
-                                                    listOfskills={listOfskills}
-                                                    listOfdata={listOfdata}
-                                                    index={index}
-                                                  />
-
-                                                  {/* Skills Badges */}
-                                                  <div className="mt-[2.2rem]">
-                                                    <h4 className="text-heading text-[1.2rem] font-medium mb-[1.2rem] ml-[0.2rem]">
-                                                      AREAS OF EXPERTISE I'VE
-                                                      WORKED IN
-                                                    </h4>
-                                                    <div className="flex items-center gap-[1rem] lg:gap-[0.7rem]   text-nowrap flex-wrap text-[1.2rem]">
-                                                      {Object?.values(
-                                                        skillsforExpereinces
-                                                      )?.map(
-                                                        (
-                                                          group: SkillType[],
-                                                          groupIndex: number // Explicitly type the group
-                                                        ) => (
-                                                          <React.Fragment
-                                                            key={groupIndex}
-                                                          >
-                                                            {group.map(
-                                                              (
-                                                                skill: SkillType,
-                                                                i: number // Explicitly type skill
-                                                              ) => (
-                                                                <Link
-                                                                  href={
-                                                                    skill?.url ||
-                                                                    "#"
-                                                                  }
-                                                                  key={i}
-                                                                  className="hover:bg-primary py-[0.4rem] px-[2rem] hover:text-white bg-white border border-[#E2E6EE] border-solid text-heading rounded-[1.2rem] text-[1.2rem] font-medium leading-normal"
-                                                                >
-                                                                  {skill.title}
-                                                                </Link>
-                                                              )
-                                                            )}
-                                                          </React.Fragment>
-                                                        )
-                                                      )}
-                                                      <ShowmoreSkills
-                                                        props={{
-                                                          list: experience?.skills,
-                                                          index,
-                                                          setShowMoreSkills:
-                                                            setShowMoreSkillsForExperiences,
-                                                          showMoreSkills:
-                                                            showMoreSkillsForExperiences,
-                                                          className:
-                                                            "bg-primary py-[0.4rem] px-[2rem] print:hidden text-white hover:bg-white border border-[#E2E6EE] border-solid hover:border hover:border-primary hover:border-solid hover:text-primary rounded-[1.2rem] text-[1.2rem] font-medium leading-normal",
-                                                        }}
-                                                      />
-                                                    </div>
-                                                  </div>
-                                                </div>
-                                              </div>
-                                            </div>
-                                          );
-                                        })}
+                                    {/* View full career timeline button */}
+                                    {listOfdata?.experiences_ids?.length >
+                                      (isMobile ? 3 : 6) &&
+                                      !showAllExperiences && (
+                                        <div className="flex justify-center mt-6">
+                                          <button
+                                            onClick={() =>
+                                              setShowAllExperiences(true)
+                                            }
+                                            className="bg-primary py-[0.8rem] px-[2.4rem] text-white hover:bg-white border border-primary hover:text-primary rounded-[2rem] text-[1.6rem] font-medium transition-colors"
+                                          >
+                                            View Full Career Timeline
+                                          </button>
+                                        </div>
+                                      )}
                                   </div>
                                 </div>
                               )}
