@@ -108,27 +108,29 @@ const Faqs = ({ urlInfo, companyType }) => {
           <section className="w-full">
             <div className="mainContainer mt-[10rem]  mb-[5rem] flex flex-col md:flex-row gap-[4rem] lg:gap-[6rem] lg:justify-between">
               {/* Faq Bg - Hidden in print */}
-              <div className="bg-primary rounded-[2rem] flex items-center justify-between flex-col overflow-hidden h-[27rem] lg:h-[40.7rem] md:max-w-[35.7rem] w-full relative">
-                {/* Top Content */}
-                <div className="text-paragraph2 pt-[2rem] lg:pt-[3rem] pl-[2rem]">
-                  <h4 className="pb-[2rem] text-[2.4rem] lg:text-[3rem] font-medium leading-[3.6rem]">
-                    Find your <br /> answer here{urlInfo?.u ? "." : "?"}
-                  </h4>
+              {!urlInfo?.u && (
+                <div className="bg-primary rounded-[2rem] flex items-center justify-between flex-col overflow-hidden h-[27rem] lg:h-[40.7rem] md:max-w-[35.7rem] w-full relative">
+                  {/* Top Content */}
+                  <div className="text-paragraph2 pt-[2rem] lg:pt-[3rem] pl-[2rem]">
+                    <h4 className="pb-[2rem] text-[2.4rem] lg:text-[3rem] font-medium leading-[3.6rem]">
+                      Find your <br /> answer here{urlInfo?.u ? "." : "?"}
+                    </h4>
+                    {!urlInfo?.u && (
+                      <p className="text-[1.8rem] font-normal leading-[2.6rem]">
+                        No worries, You can share your quires over here.
+                      </p>
+                    )}
+                  </div>
                   {!urlInfo?.u && (
-                    <p className="text-[1.8rem] font-normal leading-[2.6rem]">
-                      No worries, You can share your quires over here.
-                    </p>
+                    <button
+                      onClick={() => scrollToSection("contact")}
+                      className="bg-radial-gradient bg-primary md:mb-[34px] mb-[13px] max-w-[334px] rounded-[0.6rem] text-white py-[2rem] px-[5.6rem] text-[1.8rem] font-medium border border-solid border-white hover:bg-white hover:text-primary duration-300 w-full"
+                    >
+                      Contact Me
+                    </button>
                   )}
                 </div>
-                {!urlInfo?.u && (
-                  <button
-                    onClick={() => scrollToSection("contact")}
-                    className="bg-radial-gradient bg-primary md:mb-[34px] mb-[13px] max-w-[334px] rounded-[0.6rem] text-white py-[2rem] px-[5.6rem] text-[1.8rem] font-medium border border-solid border-white hover:bg-white hover:text-primary duration-300 w-full"
-                  >
-                    Contact Me
-                  </button>
-                )}
-              </div>
+              )}
 
               {/* Faq Container */}
               <div className="w-full print:w-full">

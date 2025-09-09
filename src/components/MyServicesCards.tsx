@@ -53,7 +53,10 @@ const MyServicesCards = ({ services }) => {
 
                 {/* CTA Button */}
                 <Link
-                  href={`/offer?service=${service?.title}`}
+                  // href={`/offer?service=${service?.title}`}
+                  href={`/service-detail?service=${encodeURIComponent(
+                    service?.title
+                  )}`}
                   className="inline-flex items-center gap-2 text-white/90 hover:text-white transition-colors group"
                 >
                   <span className="font-bold text-[1.5rem] text-[#ffffff]">

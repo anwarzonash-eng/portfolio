@@ -54,15 +54,18 @@ const OurBlogs = ({ domain }) => {
 
         {/* Top Content */}
         <div className="flex justify-between flex-wrap items-end sm:items-center gap-[2rem] mb-[4rem] print:mb-[2rem]">
+          <div className="flex items-center justify-center lg:hidden w-full">
+            <div className="badge">My Latest Blogs</div>
+          </div>
           <div>
             {/* <p className="text-sectionBG print:hidden text-[2rem] leading-[2.4rem] font-medium">
               Our blog
             </p> */}
-            <h3 className="text-heading text-[3.6rem] leading-[4.4rem] font-medium mt-[1.2rem] print:m-0">
+            <h3 className="text-heading text-[3.6rem] leading-[4.4rem] font-medium mt-[1.2rem] print:m-0 hidden lg:block">
               My Latest Blogs
             </h3>
           </div>
-          <div className="w-full sm:w-auto flex justify-center">
+          <div className="w-full sm:w-auto  justify-center hidden lg:flex">
             <Link href={"/blog-listing"}>
               <button
                 className="btn-primary text-white py-[1rem] 
@@ -177,6 +180,16 @@ const OurBlogs = ({ domain }) => {
           }}
         />
       </section>
+      <div className="w-full flex items-center justify-center lg:hidden mt-[2rem]">
+        <Link href={"/blog-listing"}>
+          <button
+            className="btn-primary text-white py-[1rem] 
+                px-[3.4rem] text-[1.8rem] font-medium"
+          >
+            View All Blogs
+          </button>
+        </Link>
+      </div>
     </>
   );
 };

@@ -194,6 +194,7 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
                         <div className="bg-[#F7F9FC] border border-solid border-[#E2E6EE] w-full px-[2rem] rounded-[0.8rem] h-[9.4rem] flex items-center justify-between gap-[1rem]">
                           <div>
                             <div className="w-full flex items-center gap-[1.4rem] mb-[0.5rem]">
+                              {/* Gmail */}
                               <Tooltip text="My Gmail">
                                 <Link href={`mailto:${listOfdata?.email}`}>
                                   <Image
@@ -205,28 +206,37 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
                                   />
                                 </Link>
                               </Tooltip>
-                              <Link
-                                target="_blank"
-                                href={`https://wa.me/${listOfdata?.phone_no}`}
-                              >
-                                <Image
-                                  src="/images/whatsapp.svg"
-                                  height={45}
-                                  width={45}
-                                  alt="WhatsApp"
-                                  className="h-[3.4rem] w-[3.4rem] md:h-[4.5rem] md:w-[4.5rem]"
-                                />
-                              </Link>
-                              <Link href={`tel:${listOfdata?.phone_no}`}>
-                                <Image
-                                  src="/images/number.svg"
-                                  height={45}
-                                  width={45}
-                                  alt="Phone Number"
-                                  className="h-[3.4rem] w-[3.4rem] md:h-[4.5rem] md:w-[4.5rem]"
-                                />
-                              </Link>
+
+                              {/* WhatsApp */}
+                              <Tooltip text="My WhatsApp">
+                                <Link
+                                  target="_blank"
+                                  href={`https://wa.me/${listOfdata?.phone_no}`}
+                                >
+                                  <Image
+                                    src="/images/whatsapp.svg"
+                                    height={45}
+                                    width={45}
+                                    alt="WhatsApp"
+                                    className="h-[3.4rem] w-[3.4rem] md:h-[4.5rem] md:w-[4.5rem]"
+                                  />
+                                </Link>
+                              </Tooltip>
+
+                              {/* Phone Number */}
+                              <Tooltip text="Call Me">
+                                <Link href={`tel:${listOfdata?.phone_no}`}>
+                                  <Image
+                                    src="/images/number.svg"
+                                    height={45}
+                                    width={45}
+                                    alt="Phone Number"
+                                    className="h-[3.4rem] w-[3.4rem] md:h-[4.5rem] md:w-[4.5rem]"
+                                  />
+                                </Link>
+                              </Tooltip>
                             </div>
+
                             <p className="text-[1.2rem] font-normal text-paragraph1 text-center">
                               Contact Me
                             </p>
@@ -242,64 +252,74 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
                           <div
                             className={`w-full flex items-center ${
                               urlInfo?.u ? "justify-center" : ""
-                            }  gap-[1.4rem] mb-[0.5rem]`}
+                            } gap-[1.4rem] mb-[0.5rem]`}
                           >
                             {listOfdata?.upwork && (
-                              <Link
-                                target="_blank"
-                                href={listOfdata?.upwork || "#"}
-                              >
-                                <Image
-                                  src="/images/upwork.svg"
-                                  height={100}
-                                  width={100}
-                                  alt="Upwork"
-                                  className="h-[3.4rem] w-[3.4rem] md:h-[4.5rem] md:w-[4.5rem]"
-                                />
-                              </Link>
+                              <Tooltip text="My Upwork">
+                                <Link
+                                  target="_blank"
+                                  href={listOfdata?.upwork || "#"}
+                                >
+                                  <Image
+                                    src="/images/upwork.svg"
+                                    height={100}
+                                    width={100}
+                                    alt="Upwork"
+                                    className="h-[3.4rem] w-[3.4rem] md:h-[4.5rem] md:w-[4.5rem]"
+                                  />
+                                </Link>
+                              </Tooltip>
                             )}
+
                             {listOfdata?.github && (
-                              <Link
-                                target="_blank"
-                                href={listOfdata?.github || "#"}
-                              >
-                                <Image
-                                  src="/images/github.svg"
-                                  height={100}
-                                  width={100}
-                                  alt="GitHub"
-                                  className="h-[3.4rem] w-[3.4rem] md:h-[4.5rem] md:w-[4.5rem]"
-                                />
-                              </Link>
+                              <Tooltip text="My GitHub">
+                                <Link
+                                  target="_blank"
+                                  href={listOfdata?.github || "#"}
+                                >
+                                  <Image
+                                    src="/images/github.svg"
+                                    height={100}
+                                    width={100}
+                                    alt="GitHub"
+                                    className="h-[3.4rem] w-[3.4rem] md:h-[4.5rem] md:w-[4.5rem]"
+                                  />
+                                </Link>
+                              </Tooltip>
                             )}
+
                             {listOfdata?.linkedIn && (
-                              <Link
-                                target="_blank"
-                                href={listOfdata?.linkedIn || "#"}
-                              >
-                                <Image
-                                  src="/images/linkedin.svg"
-                                  height={100}
-                                  width={100}
-                                  alt="LinkedIn"
-                                  className="h-[3.4rem] w-[3.4rem] md:h-[4.5rem] md:w-[4.5rem]"
-                                />
-                              </Link>
+                              <Tooltip text="My LinkedIn">
+                                <Link
+                                  target="_blank"
+                                  href={listOfdata?.linkedIn || "#"}
+                                >
+                                  <Image
+                                    src="/images/linkedin.svg"
+                                    height={100}
+                                    width={100}
+                                    alt="LinkedIn"
+                                    className="h-[3.4rem] w-[3.4rem] md:h-[4.5rem] md:w-[4.5rem]"
+                                  />
+                                </Link>
+                              </Tooltip>
                             )}
 
                             {listOfdata?.behance_link && !urlInfo?.u && (
-                              <Link
-                                target="_blank"
-                                href={listOfdata?.behance_link || "#"}
-                              >
-                                <Image
-                                  src="/images/behance.svg"
-                                  height={100}
-                                  width={100}
-                                  alt="Behance"
-                                  className="h-[3.4rem] w-[3.4rem] md:h-[4.5rem] md:w-[4.5rem]"
-                                />
-                              </Link>
+                              <Tooltip text="My Behance">
+                                <Link
+                                  target="_blank"
+                                  href={listOfdata?.behance_link || "#"}
+                                >
+                                  <Image
+                                    src="/images/behance.svg"
+                                    height={100}
+                                    width={100}
+                                    alt="Behance"
+                                    className="h-[3.4rem] w-[3.4rem] md:h-[4.5rem] md:w-[4.5rem]"
+                                  />
+                                </Link>
+                              </Tooltip>
                             )}
                           </div>
 

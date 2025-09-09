@@ -1,27 +1,40 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import Tooltip from "@/components/Tooltip"; // adjust import path
 
 const WorkProofLinks = ({ props }) => {
   interface ProofLinks {
     href: string;
     src: string;
     alt: string;
+    label: string;
   }
 
   const workProofLinks: ProofLinks[] = [
-    { href: props?.upwork, src: "/images/upwork.svg", alt: "upwork" },
-    { href: props?.github, src: "/images/github.svg", alt: "github" },
+    {
+      href: props?.upwork,
+      src: "/images/upwork.svg",
+      alt: "upwork",
+      label: "My Upwork",
+    },
+    {
+      href: props?.github,
+      src: "/images/github.svg",
+      alt: "github",
+      label: "My GitHub",
+    },
     {
       href: props?.linkedIn,
       src: "/images/linkedin.svg",
       alt: "linkedin",
+      label: "My LinkedIn",
     },
-
     {
       href: props?.behance_link,
       src: "/images/behance.svg",
       alt: "behance",
+      label: "My Behance",
     },
   ];
 
@@ -33,17 +46,19 @@ const WorkProofLinks = ({ props }) => {
             ? alt === "upwork" || alt === "github" || alt === "linkedin"
             : true
         )
-        .map(({ href, src, alt }) =>
+        .map(({ href, src, alt, label }) =>
           href ? (
-            <Link href={href} key={alt} target="_blank">
-              <Image
-                src={src}
-                height={45}
-                width={45}
-                alt={alt}
-                className="size-[50px] print:size-[80px]"
-              />
-            </Link>
+            <Tooltip text={label} key={alt}>
+              <Link href={href} target="_blank">
+                <Image
+                  src={src}
+                  height={45}
+                  width={45}
+                  alt={alt}
+                  className="size-[50px] print:size-[80px]"
+                />
+              </Link>
+            </Tooltip>
           ) : null
         )}
     </>

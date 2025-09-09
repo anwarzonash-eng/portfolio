@@ -10,6 +10,7 @@ import { ErrorComponent } from "./errorComponent";
 import { formikEnums } from "@/enums/formikEnums";
 import { openChat } from "@/hooks/openTawkTochat";
 import ThankyouPopup from "./ThankyouPopup";
+import Tooltip from "./Tooltip";
 
 declare global {
   interface Window {
@@ -193,11 +194,19 @@ const ContactMe = ({ listOfdata }) => {
 
   return (
     <>
+      <h3 className="text-heading text-[3.6rem] leading-[4.4rem] font-medium mt-[1.2rem] print:m-0 mb-4 text-center hidden lg:block">
+        Contact Me
+      </h3>
+      {/* Badge */}
+      <div className="flex items-center justify-center lg:hidden my-[2rem]">
+        <div className="badge">Contact Me</div>
+      </div>
       <div
         id="contact"
         className="flex print:break-before-page items-center justify-center flex-wrap lg:flex-nowrap bg-footerMobile md:bg-footerDesktop bg-no-repeat print:bg-none print:w-full bg-left-top ultra2x:border-[1.5rem] ultra2x:border-white print:border-none bg-cover rounded-[1rem] relative  p-[1rem] sm:p-[2rem] gap-[2.4rem] shadow-lg print:shadow-none"
       >
         {/* Contact Form */}
+
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
@@ -310,8 +319,8 @@ const ContactMe = ({ listOfdata }) => {
         {/* Contact Details */}
         <div className="w-full">
           {/* Badge */}
-          <div className="px-[2rem] py-[1rem] rounded-[2.2rem] bg-white border border-border border-solid text-center max-w-max text-heading text-[2rem] font-medium font-Inter leading-[2rem] mb-[2rem] print:px-[3rem] print:text-[1.6rem] print:py-[1rem]">
-            Stay In Touch
+          <div className="flex items-center justify-center">
+            <div className="badge">Stay In Touch</div>
           </div>
           {/* Heading */}
           <div className="text-heading text-[3rem] lg:text-[4rem] p-[0.8rem] font-medium leading-[3.2rem] lg:leading-[4.8rem]">
@@ -403,9 +412,14 @@ const ContactMe = ({ listOfdata }) => {
             <div className="w-full border border-border border-solid p-[1.5rem] rounded-[0.8rem] flex items-center justify-around print:justify-start print:gap-8">
               {constactLinks.map(({ href, src, alt }) =>
                 href ? (
-                  <Link href={href} key={alt} target="_blank">
-                    <Image src={src} height={50} width={50} alt={alt} />
-                  </Link>
+                  <Tooltip
+                    text={`My ${alt.charAt(0).toUpperCase() + alt.slice(1)}`}
+                    key={alt}
+                  >
+                    <Link href={href} target="_blank">
+                      <Image src={src} height={50} width={50} alt={alt} />
+                    </Link>
+                  </Tooltip>
                 ) : null
               )}
             </div>
@@ -455,45 +469,52 @@ const ContactMe = ({ listOfdata }) => {
                   <div>
                     <div className="flex items-start justify-center sm:justify-normal flex-wrap gap-[1.6rem] mt-[1.4rem]">
                       {listOfdata?.phone_no && (
-                        <Link
-                          href="https://wa.me/${listOfdata?.phone_no}"
-                          target="_blank"
-                        >
-                          <Image
-                            alt=""
-                            src="/images/whatsappforContactComponent.svg"
-                            width={100}
-                            height={100}
-                            className="h-[4rem] w-[4rem]"
-                          />
-                        </Link>
-                      )}
-                      {listOfdata?.upwork && (
-                        <Link href={listOfdata?.upwork} target="_blank">
-                          <Image
-                            alt=""
-                            src="/images/upworkforContactComponent.svg"
-                            width={100}
-                            height={100}
-                            className="h-[4rem] w-[4rem]"
-                          />
-                        </Link>
+                        <Tooltip text="My WhatsApp">
+                          <Link
+                            href={`https://wa.me/${listOfdata?.phone_no}`}
+                            target="_blank"
+                          >
+                            <Image
+                              alt="WhatsApp"
+                              src="/images/whatsappforContactComponent.svg"
+                              width={100}
+                              height={100}
+                              className="h-[4rem] w-[4rem]"
+                            />
+                          </Link>
+                        </Tooltip>
                       )}
 
-                      <button
-                        onClick={(e) => openChat(e)}
-                        className="text-primary font-bold text-lg"
-                      >
-                        <div className="h-[4rem] w-[4rem] bg-[#22357b] rounded-lg relative">
-                          <Image
-                            alt=""
-                            src="/images/chatNowIcon.svg"
-                            width={100}
-                            height={100}
-                            className="h-[3rem] w-[3rem] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-                          />
-                        </div>
-                      </button>
+                      {listOfdata?.upwork && (
+                        <Tooltip text="My Upwork">
+                          <Link href={listOfdata?.upwork} target="_blank">
+                            <Image
+                              alt="Upwork"
+                              src="/images/upworkforContactComponent.svg"
+                              width={100}
+                              height={100}
+                              className="h-[4rem] w-[4rem]"
+                            />
+                          </Link>
+                        </Tooltip>
+                      )}
+
+                      <Tooltip text="Chat Now">
+                        <button
+                          onClick={(e) => openChat(e)}
+                          className="text-primary font-bold text-lg"
+                        >
+                          <div className="h-[4rem] w-[4rem] bg-[#22357b] rounded-lg relative">
+                            <Image
+                              alt="Chat Now"
+                              src="/images/chatNowIcon.svg"
+                              width={100}
+                              height={100}
+                              className="h-[3rem] w-[3rem] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                            />
+                          </div>
+                        </button>
+                      </Tooltip>
                     </div>
                   </div>
                 </div>
