@@ -50,7 +50,7 @@ const FooterNewsLetter = ({ listOfdata }) => {
           )}
         </h2>
 
-        {!urlInfo.u && (
+        {!urlInfo?.u && (
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}

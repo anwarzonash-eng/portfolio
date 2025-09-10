@@ -1,5 +1,5 @@
-import { authorBlogIds } from '@/data/JsonData';
-import axios from 'axios';
+import { authorBlogIds } from "@/data/JsonData";
+import axios from "axios";
 
 export const blogsListing = async (
   setLoadingBlogs,
@@ -16,11 +16,11 @@ export const blogsListing = async (
       `https://www.blog.cypexsoft.com/wp-json/wp/v2/posts?author=${authorId}&_embed=true`
     );
     setLoadingBlogs(false);
-    console.log('res', res);
+    console.log("res", res);
     setBlogsList(res?.data);
   } catch (error) {
     setLoadingBlogs(false);
-    console.log('error', error);
+    console.log("error", error);
   }
 };
 
@@ -44,7 +44,7 @@ export const loadBlogs = async ({
       title: blog?.title?.rendered,
       date: blog?.date,
       excerpt: blog?.excerpt?.rendered,
-      featuredImage: blog?._embedded?.['wp:featuredmedia']?.[0]?.source_url,
+      featuredImage: blog?._embedded?.["wp:featuredmedia"]?.[0]?.source_url,
     }));
     setBlogs(isDetail ? data : filteredData);
   } else {

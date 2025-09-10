@@ -11,9 +11,9 @@ const PortfolioPopUp = ({ isModalOpen, closeModal, portfolioImages }) => {
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
   const pressTimerRef = useRef(null);
-  const thumbnailsContainerRef = useRef(null); // NEW — ref for thumbnails container
+  const thumbnailsContainerRef = useRef(null);
 
-  // Auto-scroll thumbnails when currentImageIndex changes
+  // Auto-scroll thumbnails
   useEffect(() => {
     if (thumbnailsContainerRef.current) {
       const activeThumb =
@@ -53,12 +53,12 @@ const PortfolioPopUp = ({ isModalOpen, closeModal, portfolioImages }) => {
 
     const interval = setInterval(() => {
       if (!isPaused) {
-        elapsed += 100; // ms
-        setProgress((elapsed / 5000) * 100); // 5s duration
+        elapsed += 100;
+        setProgress((elapsed / 5000) * 100);
 
         if (elapsed >= 5000) {
           clearInterval(interval);
-          setTimeout(() => nextImage(), 0); // Move to next image after completion
+          setTimeout(() => nextImage(), 0);
         }
       }
     }, 100);
@@ -76,7 +76,7 @@ const PortfolioPopUp = ({ isModalOpen, closeModal, portfolioImages }) => {
   // Swipe handling
   const handleTouchStartSwipe = (e) => {
     touchStartX.current = e.changedTouches[0].clientX;
-    pressTimerRef.current = setTimeout(() => setIsPaused(true), 200); // Long press pause
+    pressTimerRef.current = setTimeout(() => setIsPaused(true), 200); // Long press pause (mobile)
   };
 
   const handleTouchEndSwipe = (e) => {
@@ -89,13 +89,16 @@ const PortfolioPopUp = ({ isModalOpen, closeModal, portfolioImages }) => {
     else if (distance < -50) prevImage();
   };
 
+  // Mouse hold handlers (desktop pause on press)
+  const handleMouseDown = () => setIsPaused(true);
+  const handleMouseUp = () => setIsPaused(false);
+  const handleMouseLeave = () => setIsPaused(false); // safety reset
+
   return (
     <>
       {isModalOpen && (
         <div
           className="fixed top-0 left-0 w-full h-full bg-opacity-50 backdrop-blur-2xl z-[500]"
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
           onTouchStart={handleTouchStartSwipe}
           onTouchEnd={handleTouchEndSwipe}
         >
@@ -154,11 +157,14 @@ const PortfolioPopUp = ({ isModalOpen, closeModal, portfolioImages }) => {
                     </svg>
                   </div>
 
-                  {/* Main Image */}
+                  {/* Main Image (pause on hold) */}
                   <img
                     src={images[currentImageIndex]}
                     alt="Slide"
                     className="h-[342px] lg:h-[450px] w-full object-contain object-center"
+                    onMouseDown={handleMouseDown}
+                    onMouseUp={handleMouseUp}
+                    onMouseLeave={handleMouseLeave}
                   />
 
                   {/* Next Button */}
@@ -189,7 +195,7 @@ const PortfolioPopUp = ({ isModalOpen, closeModal, portfolioImages }) => {
                     </svg>
                   </div>
 
-                  {/* Thumbnails with auto-scroll */}
+                  {/* Thumbnails (pause on hold too) */}
                   <div
                     ref={thumbnailsContainerRef}
                     className="flex gap-2 mt-4 overflow-x-auto max-w-full scrollbar-hidden"
@@ -200,6 +206,9 @@ const PortfolioPopUp = ({ isModalOpen, closeModal, portfolioImages }) => {
                         src={src}
                         alt={`Thumbnail ${index}`}
                         onClick={() => setCurrentImageIndex(index)}
+                        onMouseDown={handleMouseDown}
+                        onMouseUp={handleMouseUp}
+                        onMouseLeave={handleMouseLeave}
                         className={`h-40 w-40 object-cover rounded-md cursor-pointer border-2 flex-shrink-0 ${
                           index === currentImageIndex
                             ? "border-primary"
@@ -209,12 +218,9 @@ const PortfolioPopUp = ({ isModalOpen, closeModal, portfolioImages }) => {
                     ))}
                   </div>
                   <style jsx global>{`
-                    /* Hide scrollbar for WebKit browsers */
                     .scrollbar-hidden::-webkit-scrollbar {
                       display: none;
                     }
-
-                    /* Hide scrollbar for Firefox */
                     .scrollbar-hidden {
                       -ms-overflow-style: none;
                       scrollbar-width: none;

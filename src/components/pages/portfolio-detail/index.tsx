@@ -273,8 +273,12 @@ const PortfolioDetails = ({ params }: { params: any }) => {
                         ></p>
                       </div>
 
+                      <h4 className="text-primary text-[1.4rem] lg:text-[2rem] font-medium">
+                        AREAS OF EXPERTISE I'VE WORKED IN:
+                      </h4>
+
                       {/* Skills Badges */}
-                      <div className="flex items-center gap-[1rem] lg:gap-[0.7rem] text-nowrap flex-wrap text-[1.2rem] my-[3.2rem]">
+                      <div className="flex items-center gap-[1rem] lg:gap-[0.7rem] text-nowrap flex-wrap text-[1.2rem] mb-[3.2rem] mt-[1rem]">
                         {skillsforDetailPortfolio && (
                           <>
                             {Object?.values(skillsforDetailPortfolio)?.map(
