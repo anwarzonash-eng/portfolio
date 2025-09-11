@@ -23,6 +23,7 @@ const ServiceDetail = ({ params }: { params: any }) => {
   const [mainService, setMainService] = useState(null);
   const [detailService, setDetailService] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [listOfskills, setListOfSkills] = useState([]);
   const [categoryPictures, setCategoryPictures] = useState({});
   const listOfdatas = useAppSelector(
@@ -43,6 +44,7 @@ const ServiceDetail = ({ params }: { params: any }) => {
       reportsApiHandler({
         actionType: "home",
         urlInfo,
+        setError,
         setLoading,
         setListOfData,
       });
@@ -85,6 +87,7 @@ const ServiceDetail = ({ params }: { params: any }) => {
         props={{
           list: listOfdata,
           loading,
+          error,
           actualPage: (
             <div className="mainContainer w-full mt-[6rem] relative">
               {filteredServices &&

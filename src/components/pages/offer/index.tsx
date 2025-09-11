@@ -26,6 +26,7 @@ const Offer = ({ params }: { params: any }) => {
   const [mainService, setMainService] = useState(null);
   const [detailService, setDetailService] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [listOfskills, setListOfSkills] = useState([]);
   const [activeDropdown, setActiveDropdown] = useState(0);
 
@@ -42,6 +43,7 @@ const Offer = ({ params }: { params: any }) => {
       reportsApiHandler({
         actionType: "home",
         urlInfo,
+        setError,
         setLoading,
         setListOfData,
       });
@@ -82,6 +84,7 @@ const Offer = ({ params }: { params: any }) => {
         props={{
           list: listOfdata,
           loading: loading,
+          error,
           actualPage: (
             <>
               {/* Hero Banner */}

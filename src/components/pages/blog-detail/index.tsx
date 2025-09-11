@@ -43,6 +43,7 @@ const BlogDetails = ({ params }: { params: any }) => {
         actionType: "home",
         urlInfo,
         setLoading,
+        setError,
         setListOfData,
       });
     }
