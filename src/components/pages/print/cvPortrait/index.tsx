@@ -49,6 +49,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
   const [listOfdata, setListOfData] = useState(null);
   const [listOfskills, setListOfSkills] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   const [
     selectedPorfolioPicturesforPopup,
@@ -106,6 +107,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
       reportsApiHandler({
         actionType: "cv",
         urlInfo,
+        setError,
         setLoading,
         setListOfData,
       });
@@ -170,6 +172,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
         props={{
           list: listOfdata,
           loading: loading,
+          error,
           actualPage: (
             <div className="bg-[#EFF5FD]">
               {/* Intoduction Section ✅ */}

@@ -67,8 +67,8 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
 
   return (
     <div
-      className={`mainContainer w-full flex mt-[2rem] print:m-0 ${
-        variant === "timeline" ? "relative" : ""
+      className={`w-full flex mt-[2rem] ${
+        variant === "timeline" ? "relative" : "static"
       }`}
     >
       {/* Vertical timeline line (only for timeline) */}
@@ -86,9 +86,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
 
       <div
         className={`relative flex items-start w-full ${
-          variant === "timeline"
-            ? "xl:ml-[10rem] mt-10"
-            : "ml-[-3rem] xl:ml-[-8rem]"
+          variant === "timeline" ? "xl:ml-[13rem] mt-10" : "ml-[0.5rem]"
         }`}
       >
         {/* Card */}

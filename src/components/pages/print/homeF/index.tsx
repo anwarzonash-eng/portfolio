@@ -40,6 +40,8 @@ const Home_p = ({ params }: { params: any }) => {
   const [listOfdata, setListOfData] = useState(null);
   const [listOfskills, setListOfSkills] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
   const searchParams = useSearchParams();
   const skillsContainerRef = useRef(null);
   const [isOverflowing, setIsOverflowing] = useState(false);
@@ -57,6 +59,7 @@ const Home_p = ({ params }: { params: any }) => {
       reportsApiHandler({
         actionType: "home",
         urlInfo,
+        setError,
         setLoading,
         setListOfData,
       });
@@ -103,6 +106,7 @@ const Home_p = ({ params }: { params: any }) => {
           props={{
             list: listOfdata,
             loading: loading,
+            error,
             actualPage: (
               <>
                 <FreeTrialPopup listOfdata={listOfdata} urlInfo={urlInfo} />

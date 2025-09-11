@@ -53,6 +53,7 @@ const Home = ({ params }: { params: any }) => {
   const [isOverflowing, setIsOverflowing] = useState(false);
   const isSmallScreen = useMediaQuery({ query: "(max-width: 768px)" });
   const [showAll, setShowAll] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const listOfdatas = useAppSelector(
     (state) => state.profile.listOfProfileData
   );
@@ -92,6 +93,7 @@ const Home = ({ params }: { params: any }) => {
         urlInfo,
         setLoading,
         setListOfData,
+        setError,
       });
   }, [urlInfo]);
 
@@ -136,6 +138,7 @@ const Home = ({ params }: { params: any }) => {
           props={{
             list: listOfdata,
             loading: loading,
+            error,
             actualPage: (
               <>
                 <FreeTrialPopup listOfdata={listOfdata} urlInfo={urlInfo} />
@@ -961,7 +964,7 @@ const Home = ({ params }: { params: any }) => {
                       {/* About Context */}
                       <div className="w-full">
                         {/* Badge */}
-                        <div className="badge">About Me</div>
+                        <div className="badge lg:hidden">About Me</div>
                         {/* Heading */}
                         <div
                           dangerouslySetInnerHTML={{
@@ -1156,13 +1159,13 @@ const Home = ({ params }: { params: any }) => {
                       className="mainContainer print:!pt-[4rem] print:my-[0rem] my-[5rem]  print:h-screen print:break-before-page break-before-avoid print:bg-[#a3ddd3]"
                     >
                       {/* Badge */}
-                      <div className="flex items-center justify-center mt-[2rem]">
+                      <div className="flex items-center justify-center mt-[2rem] lg:hidden">
                         <div id="skills_ids" className="badge">
                           Skills
                         </div>
                       </div>
                       {/* Heading */}
-                      <div className="text-center text-heading text-[2.4rem] xl:text-[3rem] print:text-[3rem] print:mb-[1.5rem] font-medium leading-[2.8rem] mt-[2rem]">
+                      <div className="text-center text-heading text-[2.4rem] xl:text-[3rem] print:text-[3rem] print:mb-[1.5rem] font-medium leading-[2.8rem] mt-[2rem] hidden lg:block">
                         {listOfdata?.companytype == "leewop"
                           ? "The skills & tools I am really good at:"
                           : " The skills, tools and technologies I am really good at:"}
@@ -1179,13 +1182,13 @@ const Home = ({ params }: { params: any }) => {
                   listOfdata?.services &&
                   listOfdata?.services?.length > 0 && (
                     <section className="w-full bg-sectionBG my-[5rem] print:m-0  print:break-before-page print:h-screen ">
-                      <div className="mainContainer py-[5rem] xl:py-[10rem]">
+                      <div className="mainContainer py-[4rem] xl:py-[8rem]">
                         {/* Badge */}
-                        <div className="flex items-center justify-center">
+                        <div className="flex items-center justify-center lg:hidden">
                           <div className="badge">My Services</div>
                         </div>
                         {/* Heading */}
-                        <div className="text-center text-paragraph2 text-[2.4rem] xl:text-[3rem] font-medium leading-[2.8rem] mt-[2rem]">
+                        <div className="text-center text-paragraph2 text-[2.4rem] xl:text-[3rem] font-medium leading-[2.8rem] mt-[2rem] hidden lg:block">
                           I am not limited with this only services. Together we
                           can do more
                         </div>
@@ -1206,15 +1209,15 @@ const Home = ({ params }: { params: any }) => {
                       {/* My Work Section Slider  */}
                       <section
                         id="myWork"
-                        className="w-full mt-[8rem] mb-[7rem] print_p_m print:!pt-[3rem] print:bg-[#a3ddd3] print:break-before-page print:h-screen "
+                        className="w-full mt-[4rem] lg:mt-[8rem] mb-[3.5rem] lg:mb-[7rem] print_p_m print:!pt-[3rem] print:bg-[#a3ddd3] print:break-before-page print:h-screen "
                       >
                         <div className="mainContainer   my-[5rem] print:my-[1rem] ">
                           {/* Badge */}
-                          <div className="flex items-center justify-center">
+                          <div className="flex items-center justify-center lg:hidden">
                             <div className="badge">My Work</div>
                           </div>
                           {/* Heading */}
-                          <div className="text-center text-heading text-[3rem] font-medium leading-[2.8rem] mt-[2rem]">
+                          <div className="text-center text-heading text-[3rem] font-medium leading-[2.8rem] mt-[2rem] hidden lg:block">
                             Explore My Technical Endeavors
                           </div>
 
@@ -1239,11 +1242,11 @@ const Home = ({ params }: { params: any }) => {
                       >
                         <div className="mainContainer   print:shadow-none print:!pt-[3rem] ">
                           {/* Badge */}
-                          <div className="flex items-center justify-center">
+                          <div className="flex items-center justify-center lg:hidden">
                             <div className="badge">Professional Experience</div>
                           </div>
                           {/* Heading */}
-                          <div className="text-center text-heading text-[2.4rem] xl:text-[3rem] font-medium leading-[2.8rem] mt-[2rem]">
+                          <div className="text-center text-heading text-[2.4rem] xl:text-[3rem] font-medium leading-[2.8rem] mt-[2rem] hidden lg:block">
                             My Professional Career Journey
                           </div>
                           {/* Timeline */}
@@ -1273,7 +1276,8 @@ const Home = ({ params }: { params: any }) => {
                               <div className="flex items-center justify-center">
                                 <button
                                   onClick={() => setShowAllExperiences(true)}
-                                  className="self-center mt-6 bg-primary text-white px-6 py-3 rounded-[1rem] hover:bg-primary/90 transition text-[2rem] font-medium"
+                                  className="btn-primary text-white py-[1rem] mt-[2rem]
+                             px-[3.4rem] text-[1.8rem] font-medium"
                                 >
                                   View Full Career Timeline
                                 </button>

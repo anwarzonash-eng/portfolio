@@ -8,6 +8,7 @@ export const reportsApiHandler = async ({
   setLoading,
   setListOfData,
   itemID = null,
+  setError,
 }) => {
   const payload: { actionType: any; domain: any; uniqueId: any; itemID?: any } =
     {
@@ -18,20 +19,39 @@ export const reportsApiHandler = async ({
   if (itemID && itemID !== null) {
     payload.itemID = itemID;
   }
-  const results = await reportsSync(payload);
-  const statusStr = String(results?.status);
-  if (/^4\d{2}$/.test(statusStr)) {
-    setLoading(false);
-    console.log("error", results);
-  } else if (/^2\d{2}$/.test(statusStr)) {
-    console.log("before success", results?.data?.data[0]);
+  // const results = await reportsSync(payload);
+  // const statusStr = String(results?.status);
+  // if (/^4\d{2}$/.test(statusStr)) {
+  //   setLoading(false);
+  //   console.log("error", results);
+  // } else if (/^2\d{2}$/.test(statusStr)) {
+  //   console.log("before success", results?.data?.data[0]);
 
-    let data = await adjustDynamicContent(results?.data?.data[0]);
+  //   let data = await adjustDynamicContent(results?.data?.data[0]);
 
-    console.log("success", data);
-    setLoading(false);
-    setListOfData(data);
-    store.dispatch(setListOfProfileData(data));
+  //   console.log("success", data);
+  //   setLoading(false);
+  //   setListOfData(data);
+  //   store.dispatch(setListOfProfileData(data));
+  // }
+  try {
+    const results = await reportsSync(payload);
+    const statusStr = String(results?.status);
+
+    if (/^2\d{2}$/.test(statusStr)) {
+      let data = await adjustDynamicContent(results?.data?.data[0]);
+      setListOfData(data);
+      store.dispatch(setListOfProfileData(data));
+    } else {
+      // treat 4xx/5xx as error → empty data
+      setError("No data found");
+      setListOfData([]);
+    }
+  } catch (err) {
+    setError("Something went wrong while fetching reports");
+    setListOfData([]);
+  } finally {
+    setLoading(false); // ✅ always stop loader
   }
 };
 

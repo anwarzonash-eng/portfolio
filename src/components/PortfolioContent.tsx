@@ -38,9 +38,44 @@ const PortfolioContent: React.FC<PortfolioContentProps> = ({
       {/* Title + Thumbnail */}
       <div className="flex flex-col lg:flex-row gap-[1rem] lg:gap-[2rem]">
         <div className="order-1">
-          <h1 className="text-[1.8rem] lg:text-[2rem] font-bold leading-[2.69rem]">
+          {/* <h1 className="text-[1.8rem] lg:text-[2rem] font-bold leading-[2.69rem]">
             {portfolio?.title}
-          </h1>
+          </h1> */}
+          <Link
+            href={portfolio?.link || "#"}
+            target="_blank"
+            className="flex gap-[1rem] p-2 hover:bg-[#D1E9FF] hover:scale-[98%] transition-all duration-300 cursor-pointer rounded-[6px] hover:drop-shadow-2xl max-w-max"
+          >
+            {portfolio?.company_icon && (
+              <div className="bg-[#1B6393] p-[1.46rem] rounded-[1rem] inline-block">
+                <Image
+                  src={portfolio?.company_icon}
+                  alt="Case"
+                  height={34}
+                  width={34}
+                  className="h-[2rem] w-[2rem]"
+                />
+              </div>
+            )}
+
+            {/* Heading */}
+            <div>
+              <h1 className="text-[1.8rem] lg:text-[2rem] font-bold leading-[2.69rem]">
+                {portfolio?.title}
+              </h1>
+
+              <Link
+                href={portfolio?.link || "#"}
+                className="text-[#1F4FE1] break-all text-[1.4rem] lg:text-[1.6rem] font-normal leading-normal"
+              >
+                {
+                  portfolio?.link
+                    ?.replace(/^(https?:\/\/)?(www\.)?/, "")
+                    .split("/")[0]
+                }
+              </Link>
+            </div>
+          </Link>
           <p
             dangerouslySetInnerHTML={{
               __html: portfolio.tagline_2,
@@ -71,11 +106,10 @@ const PortfolioContent: React.FC<PortfolioContentProps> = ({
             </div>
 
             <button
-              className="mb-3 max-w-max lg:min-w-[220px]
-                text-white py-[6px] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient 
-                hover:bg-white hover:text-primary outline-none border border-solid border-transparent 
-                hover:border-primary duration-300 max-lg:w-full text-center rounded-[0.6rem] 
-                absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+              className="max-w-max py-[6px] px-[3.4rem] text-primary text-[1.6rem] leading-[2.4rem] font-medium hover:bg-primary backdrop-blur-[9px]  bg-black/20 hover:text-white 
+              outline-none border-2 border-solid border-white hover:border-transparent duration-300 
+              max-lg:w-full text-center rounded-[20rem] absolute top-1/2 left-1/2 -translate-x-1/2 
+              -translate-y-1/2"
               onClick={() =>
                 openModal(
                   portfolio?.pictures,
@@ -84,7 +118,7 @@ const PortfolioContent: React.FC<PortfolioContentProps> = ({
                 )
               }
             >
-              Explore the Gallery
+              See all
             </button>
           </div>
         )}

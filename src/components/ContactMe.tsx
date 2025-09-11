@@ -319,7 +319,7 @@ const ContactMe = ({ listOfdata }) => {
         {/* Contact Details */}
         <div className="w-full">
           {/* Badge */}
-          <div className="flex items-center justify-center">
+          <div className="flex items-center max-lg:justify-center">
             <div className="badge">Stay In Touch</div>
           </div>
           {/* Heading */}

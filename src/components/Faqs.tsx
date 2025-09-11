@@ -57,7 +57,10 @@ const Faqs = ({ urlInfo, companyType }) => {
             <NoteDomainForPint direction={"hidden print:right-0 print:block"} />
             {/* Faq Container */}
             <div className="max-w-[1550px] w-full mx-auto">
-              <h2 className="text-[4rem] font-medium text-heading print:mb-4">
+              <div className="flex items-center justify-center lg:hidden w-full">
+                <div className="badge">FAQ's</div>
+              </div>
+              <h2 className="text-[4rem] font-medium text-heading print:mb-4 hidden lg:block">
                 FAQ
               </h2>
 
@@ -134,7 +137,12 @@ const Faqs = ({ urlInfo, companyType }) => {
 
               {/* Faq Container */}
               <div className="w-full print:w-full">
-                <h2 className="text-[4rem] font-medium text-heading">FAQ</h2>
+                <div className="flex items-center justify-center lg:hidden w-full">
+                  <div className="badge">FAQ's</div>
+                </div>
+                <h2 className="text-[4rem] font-medium text-heading hidden lg:block">
+                  FAQ
+                </h2>
 
                 {faqsToDisplay.map((faq, index) => (
                   <div

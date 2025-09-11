@@ -44,6 +44,8 @@ const CV_Landscape = ({ params }: { params: any }) => {
   const [blogsList, setBlogsList] = useState([]);
   const [loadingblogs, setLoadingBlogs] = useState(false);
   const [showAll, setShowAll] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
   const [showMoreSkillsForExperiences, setShowMoreSkillsForExperiences] =
     useState([]);
   const [showMoreSkillsForPortfolios, setShowMoreSkillsForPortfolios] =
@@ -75,6 +77,7 @@ const CV_Landscape = ({ params }: { params: any }) => {
       reportsApiHandler({
         actionType: "cv",
         urlInfo,
+        setError,
         setLoading,
         setListOfData,
       });
@@ -134,6 +137,7 @@ const CV_Landscape = ({ params }: { params: any }) => {
         props={{
           list: listOfdata,
           loading: loading,
+          error,
           actualPage: (
             <div className="bg-white">
               {/* Overview Section */}

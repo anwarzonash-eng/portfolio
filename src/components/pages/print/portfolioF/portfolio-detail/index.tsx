@@ -32,6 +32,8 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
   const [listOfdata, setListOfData] = useState(null);
   const [listOfskills, setListOfSkills] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
   const listOfdatas = useAppSelector(
     (state) => state.profile.listOfProfileData
   );
@@ -47,6 +49,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
       reportsApiHandler({
         actionType: "portfolioById",
         urlInfo,
+        setError,
         setLoading,
         setListOfData,
         itemID: params.id ? params?.id : JSON.parse(params.value).id,

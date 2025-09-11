@@ -41,6 +41,7 @@ const PortfolioDetails = ({ params }: { params: any }) => {
   }, [listOfdata]);
 
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     console.log({ allparams: params.value });
@@ -54,6 +55,7 @@ const PortfolioDetails = ({ params }: { params: any }) => {
         actionType: "portfolioById",
         urlInfo,
         setLoading,
+        setError,
         setListOfData,
         itemID: params.id ? params?.id : JSON.parse(params.value).id,
       });
@@ -104,6 +106,7 @@ const PortfolioDetails = ({ params }: { params: any }) => {
         props={{
           list: portfolioDetails,
           loading: loading,
+          error,
           actualPage: (
             <>
               {/* Hero Section */}

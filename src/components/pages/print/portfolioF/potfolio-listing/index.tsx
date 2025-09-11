@@ -31,6 +31,8 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
   const [showMoreSkills, setShowMoreSkills] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [urlInfo, setURLInfo] = useState(null);
+  const [error, setError] = useState<string | null>(null);
+
   const [listOfdata, setListOfData] = useState(null);
   const [listOfskills, setListOfSkills] = useState([]);
   const listOfdatas = useAppSelector(
@@ -48,6 +50,7 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
       reportsApiHandler({
         actionType: "portfolio",
         urlInfo,
+        setError,
         setLoading,
         setListOfData,
       });

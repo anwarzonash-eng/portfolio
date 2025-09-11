@@ -19,30 +19,32 @@ import {
   blogsListing,
   loadBlogs,
 } from "@/hooks/apihandlers/blogListingApiHandler";
+import EmptyState from "@/components/EmptyState";
 
 const BlogListing = ({ params }: { params: any }) => {
-  const [urlInfo, setURLInfo] = useState(null);
-  const [blogsList, setBlogsList] = useState([]);
-  const [listOfdata, setListOfData] = useState(null);
+  const [urlInfo, setURLInfo] = useState<any>(null);
+  const [blogsList, setBlogsList] = useState<any[]>([]);
+  const [listOfdata, setListOfData] = useState<any>(null);
   const [loadingblogs, setLoadingBlogs] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const searchParams = useSearchParams();
-
-  console.log("DomainImageMap", DomainImageMap);
 
   useEffect(() => {
     setURLInfo(getRoutesDetails(params, searchParams));
   }, [params, searchParams]);
 
   useEffect(() => {
-    urlInfo &&
+    if (urlInfo) {
       reportsApiHandler({
         actionType: "home",
         urlInfo,
         setLoading,
         setListOfData,
+        setError,
       });
+    }
   }, [urlInfo]);
 
   const domain = listOfdata?.domain || "default";
@@ -52,15 +54,6 @@ const BlogListing = ({ params }: { params: any }) => {
   useEffect(() => {
     store.dispatch(setProfileUrlInfo(urlInfo));
   }, [urlInfo]);
-
-  // useEffect(() => {
-  //   if (listOfdata) {
-  //     blogsListing(setLoadingBlogs, listOfdata, setBlogsList);
-  //   }
-  // }, [listOfdata]);
-
-  console.log("Blogs List", blogsList);
-  console.log("Domain", listOfdata?.domain);
 
   useEffect(() => {
     if (listOfdata) {
@@ -72,11 +65,21 @@ const BlogListing = ({ params }: { params: any }) => {
     }
   }, [listOfdata]);
 
-  // 🔁 Get domain-based image
-  const getImageForIndex = (domain, index) => {
+  // Domain image helper
+  const getImageForIndex = (domain: string, index: number) => {
     const images = DomainImageMap[domain] || DomainImageMap["default"];
     return images[index % images.length];
   };
+
+  // 👉 Handle error state
+  if (error) {
+    return <EmptyState message={error || "No data found."} />;
+  }
+
+  // 👉 Handle loading state
+  if (loading || loadingblogs) {
+    return <WebsiteLoader height="h-[30rem]" />;
+  }
 
   return (
     <div className="bg-[#EFF5FD]">
