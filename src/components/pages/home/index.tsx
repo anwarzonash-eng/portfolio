@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import VideoPlayer from "@/components/VideoPlayer";
+import process from "process";
 import useBodyBackgroundColor from "@/hooks/useBodyBackgroundColor";
 import HomeSlider from "@/components/Sliders/HomeSlider";
 import Faqs from "@/components/Faqs";
@@ -68,6 +69,8 @@ const Home = ({ params }: { params: any }) => {
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
+
+  console.log("ENV: ", process.env.API_BASE_URL);
 
   // how many to show initially
   const initialCount = isMobile ? 3 : 6;

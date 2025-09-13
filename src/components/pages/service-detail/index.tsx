@@ -82,7 +82,7 @@ const ServiceDetail = ({ params }: { params: any }) => {
     : detailService;
 
   return (
-    <div className="bg-[#EFF5FD] print:my-[3rem] ">
+    <div className="bg-[#EFF5FD] print:my-[3rem]">
       <PageRendering
         props={{
           list: listOfdata,

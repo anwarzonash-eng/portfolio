@@ -289,7 +289,7 @@ const CV = ({ params }: { params: any }) => {
                                         onClick={() =>
                                           setExpanded((prev) => !prev)
                                         }
-                                        className="text-[2rem] text-white w-full py-[1.6rem] px-[3.4rem] bg-gradient-to-b from-white/30 to-transparent bg-primary shadow-[0px_0px_0px_1px_#FFF] hover:bg-white hover:text-primary border-transparent hover:border-primary  border border-solid duration-300 sm:max-w-[200px]"
+                                        className="px-[4rem] print:hidden py-[1.4rem] bg-primary rounded-[2.2rem] hover:bg-white hover:text-primary hover:border-primary border border-border border-solid text-center max-w-max text-white text-[1.4rem] font-medium font-Inter leading-tight mt-[2rem]"
                                       >
                                         {expanded ? "Read Less" : "Read More"}
                                       </button>

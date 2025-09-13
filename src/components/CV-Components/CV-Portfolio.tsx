@@ -77,18 +77,25 @@ const CVPortfolio: React.FC<CVPortfolioProps> = ({
       {/* Date */}
       <h2
         key={index}
-        className="text-heading leading-[2.67rem] text-[2rem] font-bold pl-[0.5rem] print:mb-[0rem] print:!mt-[1.3rem] mb-[3rem]"
+        className="text-heading leading-[2.67rem] text-[2rem] font-bold pl-[0.5rem] mb-[3rem]"
       >
-        {formatDate(portfolio?.starting_date, dateFormatsOptions.onlyYear)} -{" "}
+        {formatDate(
+          portfolio?.starting_date,
+          dateFormatsOptions.shortMonthYear
+        )}{" "}
+        -{" "}
         {isNaN(new Date(portfolio.ending_Date).getFullYear())
           ? portfolio.ending_Date
-          : formatDate(portfolio.ending_Date, dateFormatsOptions.onlyYear)}
+          : formatDate(
+              portfolio.ending_Date,
+              dateFormatsOptions.shortMonthYear
+            )}
       </h2>
 
       {/* Card */}
       <div className="max-lg:p-[1.5rem] print_p_m print:!mt-[2rem] bg-white shadow-testimonialeShadow relative rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden p-[2.4rem] gap-[2.4rem] mb-[2rem]">
         <div className="w-full">
-          <div className="flex items-center justify-between flex-col-reverse xl:flex-row">
+          <div className="flex items-center justify-between flex-col-reverse xl:flex-row border-2 border-solid border-black">
             <div>
               <Link
                 href={portfolio?.link || "#"}
@@ -158,7 +165,7 @@ const CVPortfolio: React.FC<CVPortfolioProps> = ({
                   }
                   className="max-w-max py-[6px] px-[3.4rem] text-primary text-[1.6rem] leading-[2.4rem] font-medium hover:bg-primary backdrop-blur-[9px] bg-black/20 text-nowrap hover:text-white outline-none border-2 border-solid border-white hover:border-transparent duration-300 max-lg:w-full text-center rounded-[20rem] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
                 >
-                  Explore the Gallery
+                  See all
                 </button>
               </div>
             )}

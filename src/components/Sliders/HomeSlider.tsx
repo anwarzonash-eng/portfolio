@@ -43,6 +43,8 @@ const HomeSlider: React.FC<HomeSliderProps> = ({ portfolios }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [slideHeight, setSlideHeight] = useState<number>(0);
+  const [isInteracting, setIsInteracting] = useState(false);
 
   const [selectedPortfolioPictures, setSelectedPortfolioPictures] = useState<
     string[] | null
@@ -52,12 +54,14 @@ const HomeSlider: React.FC<HomeSliderProps> = ({ portfolios }) => {
     Array(portfolios.length).fill(false)
   );
 
-  // Swipe tracking
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
   const pressTimerRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Fallback loader
+  const [isInViewport, setIsInViewport] = useState(false);
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const slideRefs = useRef<(HTMLDivElement | null)[]>([]);
+
   if (!portfolios?.length) return <PortfolioImagesLoader />;
 
   // --- Navigation ---
@@ -95,10 +99,9 @@ const HomeSlider: React.FC<HomeSliderProps> = ({ portfolios }) => {
 
   // --- Auto Progress ---
   useEffect(() => {
-    if (isPaused || isModalOpen) return;
+    if (isPaused || isModalOpen || !isInViewport) return;
 
-    setProgress(0);
-    let elapsed = 0;
+    let elapsed = (progress / 100) * SLIDE_INTERVAL;
 
     const interval = setInterval(() => {
       elapsed += PROGRESS_STEP;
@@ -106,12 +109,13 @@ const HomeSlider: React.FC<HomeSliderProps> = ({ portfolios }) => {
 
       if (elapsed >= SLIDE_INTERVAL) {
         clearInterval(interval);
+        setProgress(0);
         nextSlide();
       }
     }, PROGRESS_STEP);
 
     return () => clearInterval(interval);
-  }, [currentSlide, isPaused, isModalOpen, nextSlide]);
+  }, [currentSlide, isPaused, isModalOpen, isInViewport, nextSlide]);
 
   // --- Swipe & Press ---
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -136,43 +140,73 @@ const HomeSlider: React.FC<HomeSliderProps> = ({ portfolios }) => {
   const handleMouseUp = () => !isModalOpen && setIsPaused(false);
   const handleMouseLeave = () => !isModalOpen && setIsPaused(false);
 
+  // --- Intersection Observer ---
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsInViewport(entry.isIntersecting),
+      { threshold: 0.1 }
+    );
+
+    if (carouselRef.current) observer.observe(carouselRef.current);
+
+    return () => {
+      if (carouselRef.current) observer.unobserve(carouselRef.current);
+    };
+  }, []);
+
+  // --- Dynamic Height ---
+  useEffect(() => {
+    if (slideRefs.current[currentSlide]) {
+      setSlideHeight(slideRefs.current[currentSlide]!.offsetHeight);
+    }
+  }, [currentSlide]);
+
   return (
     <div className="w-full flex flex-col items-center gap-3 mt-[3rem] relative">
-      <div className="relative w-full overflow-hidden transition-all duration-500 ease-in-out h-auto">
-        {/* Modal */}
-        {isModalOpen && selectedPortfolioPictures && (
-          <PortfolioPopUp
-            isModalOpen={isModalOpen}
-            closeModal={closeModal}
-            portfolioImages={selectedPortfolioPictures}
-          />
-        )}
+      {/* Modal */}
+      {isModalOpen && selectedPortfolioPictures && (
+        <PortfolioPopUp
+          isModalOpen={isModalOpen}
+          closeModal={closeModal}
+          portfolioImages={selectedPortfolioPictures}
+        />
+      )}
 
-        {/* Progress Bars */}
-        <div className="absolute top-0 left-0 w-full flex gap-[4px] p-2 z-20">
-          {portfolios.map((_, index) => (
+      {/* Progress Bars */}
+      <div className="w-full flex gap-[4px] px-4 mb-3">
+        {portfolios.map((_, index) => (
+          <div
+            key={index}
+            className="h-[4px] flex-1 bg-gray-300 rounded overflow-hidden"
+          >
             <div
-              key={index}
-              className="h-[4px] flex-1 bg-gray-300 rounded overflow-hidden"
-            >
-              <div
-                className="h-full bg-primary transition-all duration-100"
-                style={{
-                  width:
-                    index < currentSlide
-                      ? "100%"
-                      : index === currentSlide
-                      ? `${progress}%`
-                      : "0%",
-                }}
-              />
-            </div>
-          ))}
-        </div>
+              className={`h-full transition-all duration-100 ${
+                isPaused ? "bg-gray-400" : "bg-primary"
+              }`}
+              style={{
+                width:
+                  index < currentSlide
+                    ? "100%"
+                    : index === currentSlide
+                    ? `${progress}%`
+                    : "0%",
+              }}
+            />
+          </div>
+        ))}
+      </div>
 
+      {/* Slider */}
+      <div
+        ref={carouselRef}
+        className={`relative w-full transition-all duration-500 ease-in-out ${
+          isInteracting ? "overflow-visible" : "overflow-hidden"
+        }`}
+        style={{ height: isInteracting ? "auto" : `${slideHeight}px` }}
+      >
         {/* Slides */}
         <div
-          className="flex transition-transform duration-700 ease-in-out"
+          className="flex items-start transition-transform duration-700 ease-in-out"
           style={{ transform: `translateX(-${currentSlide * 100}%)` }}
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
@@ -184,8 +218,16 @@ const HomeSlider: React.FC<HomeSliderProps> = ({ portfolios }) => {
             <div
               key={portfolio.id || index}
               className="w-full flex-shrink-0 px-[1.5rem] bg-white rounded-[1rem] p-4 lg:p-8"
+              ref={(el) => {
+                slideRefs.current[index] = el;
+              }}
+              onMouseEnter={() => setIsPaused(true)}
+              onMouseLeave={() => setIsPaused(false)}
+              onFocus={() => setIsPaused(true)}
             >
               <PortfolioContent
+                pauseSlider={() => setIsPaused(true)}
+                resumeSlider={() => setIsPaused(false)}
                 portfolio={portfolio}
                 thumbnailToUse={
                   portfolio.title === "Velzon"
@@ -207,32 +249,30 @@ const HomeSlider: React.FC<HomeSliderProps> = ({ portfolios }) => {
             </div>
           ))}
         </div>
+
+        {/* Navigation */}
+        {!isModalOpen && (
+          <div className="absolute bottom-0 right-0 hidden xl:flex items-center gap-5 p-4 lg:p-8 bg-white">
+            <button
+              className="rounded-full h-[5rem] w-[5rem] border-2 border-primary 
+              hidden xl:flex items-center justify-center bg-white hover:bg-primary hover:text-white 
+              text-primary transition-colors duration-300"
+              onClick={prevSlide}
+            >
+              <ChevronLeft className="w-8 h-8" />
+            </button>
+
+            <button
+              className="rounded-full h-[5rem] w-[5rem] border-2 border-primary 
+              hidden xl:flex items-center justify-center bg-white hover:bg-primary hover:text-white 
+              text-primary transition-colors duration-300"
+              onClick={nextSlide}
+            >
+              <ChevronRight className="w-8 h-8" />
+            </button>
+          </div>
+        )}
       </div>
-
-      {/* Navigation */}
-      {!isModalOpen && (
-        <>
-          <button
-            className=" absolute top-1/2 -translate-y-1/2 left-0 -translate-x-1/2 z-20 
-                       rounded-full h-[5.6rem] w-[5.6rem] border-2 border-primary 
-                       hidden xl:flex items-center justify-center hover:bg-primary hover:text-white 
-                       text-primary transition-colors duration-300"
-            onClick={prevSlide}
-          >
-            <ChevronLeft className="w-8 h-8" />
-          </button>
-
-          <button
-            className="absolute top-1/2 -translate-y-1/2 right-0 translate-x-1/2 z-20 
-                       rounded-full h-[5.6rem] w-[5.6rem] border-2 border-primary 
-                       hidden xl:flex items-center justify-center hover:bg-primary hover:text-white 
-                       text-primary transition-colors duration-300"
-            onClick={nextSlide}
-          >
-            <ChevronRight className="w-8 h-8" />
-          </button>
-        </>
-      )}
     </div>
   );
 };

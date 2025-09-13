@@ -20,6 +20,8 @@ interface PortfolioContentProps {
     thumbnail: string | null,
     childBanner: any
   ) => void;
+  pauseSlider: () => void; // ✅ added
+  resumeSlider: () => void; // ✅ added
 }
 
 const PortfolioContent: React.FC<PortfolioContentProps> = ({
@@ -32,6 +34,8 @@ const PortfolioContent: React.FC<PortfolioContentProps> = ({
   showMoreSkills,
   setShowMoreSkills,
   openModal,
+  pauseSlider, // ✅ added
+  resumeSlider, // ✅ added
 }) => {
   return (
     <div className="w-full">
