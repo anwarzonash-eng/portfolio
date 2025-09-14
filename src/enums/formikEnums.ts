@@ -1,12 +1,16 @@
 export const formikEnums = {
-  Message: 'Message is required.',
-  Email: {
-    Invalid: 'Invalid email',
-    Required: 'Email is required.',
-  },
-
   Name: {
-    FullNameRequired: 'Full name is required.',
+    FullNameRequired: "Full name is required",
   },
-  Subject: 'Subject is required.',
+  Email: {
+    Required: "Email is required",
+    Invalid: "Invalid email address",
+  },
+  Phone: {
+    Required: "Phone number is required",
+    Invalid: "Invalid phone number",
+  },
+  Subject: "Subject is required",
+  ProjectLength: "Please select project length",
+  Message: "Message is required",
 };

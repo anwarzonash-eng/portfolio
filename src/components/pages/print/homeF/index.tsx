@@ -1560,7 +1560,11 @@ const Home_p = ({ params }: { params: any }) => {
                   )}
 
                 {/* FAQ Section Completed ✅ */}
-                <Faqs urlInfo={urlInfo} companyType={listOfdata?.companytype} />
+                <Faqs
+                  urlInfo={urlInfo}
+                  companyType={listOfdata?.companytype}
+                  listOfdata={listOfdata}
+                />
 
                 {/* Our Blogs ✅ */}
                 <div className="my-[5rem] print:my-0">

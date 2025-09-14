@@ -209,7 +209,7 @@ const PortfolioPopUp = ({ isModalOpen, closeModal, portfolioImages }) => {
                         onMouseDown={handleMouseDown}
                         onMouseUp={handleMouseUp}
                         onMouseLeave={handleMouseLeave}
-                        className={`h-40 w-40 object-cover rounded-md cursor-pointer border-2 flex-shrink-0 ${
+                        className={`h-40 w-40 object-contain object-center rounded-md cursor-pointer border-2 flex-shrink-0 ${
                           index === currentImageIndex
                             ? "border-primary"
                             : "border-transparent"

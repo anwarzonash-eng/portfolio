@@ -1,13 +1,13 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import ExperienceDescription from "./ExperienceDescription";
 import ShowmoreSkills from "./showmoreSkills";
 
 import { skillsGrouping } from "@/hooks/skillsGrouping";
 import { formatDate } from "@/hooks/formatdate";
 import { dateFormatsOptions } from "@/data/JsonData";
+import { modifiedContent } from "@/hooks/modifiedContent";
 
 interface SkillType {
   title: string;
@@ -33,7 +33,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
   listOfdata,
   showMoreSkills,
   setShowMoreSkills,
-  variant = "list", // default styling
+  variant = "list",
 }) => {
   const skillsForExperience = skillsGrouping(
     showMoreSkills[index]
@@ -41,7 +41,81 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
       : experience?.skills?.slice(0, 15)
   );
 
-  // ✅ Handle multiple possible field names
+  // Expanded Code Logic
+  const [isMobile, setIsMobile] = useState(false);
+  const [expansionState, setExpansionState] = useState<
+    "collapsed" | "partial" | "full"
+  >("collapsed");
+
+  useEffect(() => {
+    const checkMobile = window.innerWidth < 768; // Matches Tailwind 'md' breakpoint
+    setIsMobile(checkMobile);
+    setExpansionState(checkMobile ? "collapsed" : "partial");
+
+    const handleResize = () => {
+      const newIsMobile = window.innerWidth < 768;
+      setIsMobile(newIsMobile);
+      setExpansionState(newIsMobile ? "collapsed" : "partial");
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Memoize the processed HTML from modifiedContent
+  const rawHtml = useMemo(
+    () =>
+      modifiedContent(
+        experience.long_description || "",
+        listOfskills,
+        listOfdata
+      ) || "", // Fallback to empty string
+    [experience.long_description, listOfskills, listOfdata]
+  );
+
+  console.log("Experiences:", experience);
+
+  // Parse the <li> elements, preserving all HTML and styles
+  const items = useMemo(() => {
+    if (!rawHtml) return [];
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(rawHtml, "text/html");
+    const liElements = doc.querySelectorAll("li");
+    return liElements.length > 0
+      ? Array.from(liElements).map((li) => li.outerHTML)
+      : [];
+  }, [rawHtml]);
+
+  // Determine visible count based on state
+  const visibleCount = useMemo(() => {
+    if (items.length === 0) return 0;
+    switch (expansionState) {
+      case "collapsed":
+        return 0;
+      case "partial":
+        return Math.min(4, items.length); // Show up to 4 items
+      case "full":
+        return items.length; // Show all items
+      default:
+        return 0;
+    }
+  }, [expansionState, items.length]);
+
+  const visibleItems = useMemo(
+    () => items.slice(0, visibleCount),
+    [items, visibleCount]
+  );
+
+  // Handle toggle logic
+  const handleToggle = useCallback(() => {
+    setExpansionState((prev) => {
+      if (prev === "collapsed") return "partial";
+      if (prev === "partial") return items.length > 4 ? "full" : "collapsed"; // Skip "full" if ≤ 4 items
+      return "collapsed";
+    });
+  }, [items.length]);
+
+  // Handle multiple possible field names
   const startRaw =
     experience?.starting_date ??
     experience?.start_date ??
@@ -50,7 +124,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
   const endRaw =
     experience?.ending_Date ?? experience?.end_date ?? experience?.endDate;
 
-  // ✅ Safe formatter
+  // Safe formatter
   const fmtMonthYear = (value: any) => {
     if (!value) return null;
     const d = new Date(value);
@@ -71,17 +145,15 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
         variant === "timeline" ? "relative" : "static"
       }`}
     >
-      {/* Vertical timeline line (only for timeline) */}
       {variant === "timeline" && (
-        <div className="absolute left-[10rem] top-[4rem] h-[90%] bottom-0 w-[0.4rem] bg-border hidden xl:block" />
-      )}
-      {/* Timeline dot (only for timeline) */}
-      {variant === "timeline" && (
-        <div className="absolute top-[2.5rem] left-[9rem] hidden xl:block">
-          <div className="w-[2.6rem] h-[2.6rem] bg-white rounded-full flex items-center shadow-md justify-center">
-            <div className="w-[0.7rem] h-[0.7rem] bg-heading rounded-full"></div>
+        <>
+          <div className="absolute left-[10rem] top-[4rem] h-[90%] bottom-0 w-[0.4rem] bg-border hidden xl:block" />
+          <div className="absolute top-[2.5rem] left-[9rem] hidden xl:block">
+            <div className="w-[2.6rem] h-[2.6rem] bg-white rounded-full flex items-center shadow-md justify-center">
+              <div className="w-[0.7rem] h-[0.7rem] bg-heading rounded-full"></div>
+            </div>
           </div>
-        </div>
+        </>
       )}
 
       <div
@@ -89,7 +161,6 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
           variant === "timeline" ? "xl:ml-[13rem] mt-10" : "ml-[0.5rem]"
         }`}
       >
-        {/* Card */}
         <div className="bg-white p-[1.5rem] lg:p-[2.4rem] rounded-[1rem] shadow w-full">
           <div className="flex items-center flex-wrap text-nowrap gap-[1.5rem] md:justify-between">
             {/* About Content */}
@@ -179,7 +250,8 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
               </div>
             )}
           </div>
-          {/* 📅 Unified Date Range */}
+
+          {/* Unified Date Range */}
           {(startLabel || endLabel) && (
             <p className="text-[2rem] text-primary font-medium max-lg:text-center max-lg:my-[1rem] mb-2">
               {startLabel ?? ""} - {endLabel ?? "Present"}
@@ -187,20 +259,40 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
           )}
 
           {/* Short Description */}
-          <p
-            className="text-[1.6rem] font-medium text-paragraph1"
-            dangerouslySetInnerHTML={{
-              __html: experience?.short_description,
-            }}
-          />
+          {experience?.short_description && (
+            <p
+              className="text-[1.6rem] font-medium text-paragraph1"
+              dangerouslySetInnerHTML={{
+                __html: experience.short_description,
+              }}
+            />
+          )}
 
-          {/* Extended Description */}
-          <ExperienceDescription
-            experience={experience}
-            listOfskills={listOfskills}
-            listOfdata={listOfdata}
-            index={index}
-          />
+          {/* Expandable Content */}
+          <div className="mb-2">
+            {visibleItems.length > 0 && (
+              <ul
+                className="mt-[2rem] list-div-portfolio1 pl-[2rem] text-heading text-[1.6rem] leading-[2.4rem] list-disc"
+                dangerouslySetInnerHTML={{ __html: visibleItems.join("") }}
+              />
+            )}
+
+            {items.length > 0 && (
+              <button
+                onClick={handleToggle}
+                className={`mt-[1rem] bg-primary leading-normal text-center py-[0.6rem] px-[2rem] text-white hover:bg-white border border-[#E2E6EE] border-solid hover:border-primary hover:text-primary rounded-[2rem] text-[1.4rem] font-medium`}
+                aria-label={
+                  expansionState === "full"
+                    ? "Collapse content"
+                    : "Expand content"
+                }
+              >
+                {expansionState === "full" ? "Read Less" : "Read More"}
+              </button>
+            )}
+          </div>
+
+          <hr className="w-full my-[2.4rem] h-px bg-border print:hidden" />
 
           {/* Skills */}
           {experience?.skills?.length > 0 && (
@@ -215,13 +307,12 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                       <Link
                         href={skill.url || "#"}
                         key={`${groupIndex}-${i}`}
-                        className="hover:bg-primary capitalize hover:text-white text-primary text-[1.3rem] font-medium py-[0.4rem] px-[2rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] "
+                        className="hover:bg-primary capitalize hover:text-white text-primary text-[1.3rem] font-medium py-[0.4rem] px-[2rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575]"
                       >
                         {skill?.title}
                       </Link>
                     ))
                 )}
-
                 <ShowmoreSkills
                   props={{
                     list: experience?.skills,

@@ -3,13 +3,14 @@ import React, { forwardRef } from "react";
 import Image from "next/image";
 import { modifiedContent } from "@/hooks/modifiedContent";
 import SkillsComponent from "./SkillsComponent";
+import { ChevronDown, ChevronUp } from "lucide-react"; // ✅ lucide-react arrows
 
 interface ExpandableServiceCardProps {
   service: any;
   index: number;
   activeDropdown: number | null;
   setActiveDropdown: React.Dispatch<React.SetStateAction<number | null>>;
-  serviceRefs?: React.MutableRefObject<any> | null; // ✅ optional now
+  serviceRefs?: React.MutableRefObject<any> | null;
   listOfskills: any[];
   listOfdata: any;
 }
@@ -30,11 +31,12 @@ const ExpandableServiceCard = forwardRef<
     },
     ref
   ) => {
+    const isActive = activeDropdown === index;
+
     return (
       <div
         key={index}
         ref={(el) => {
-          // ✅ Only attach ref if serviceRefs is provided
           if (serviceRefs) {
             serviceRefs.current[service?.title] = el;
           }
@@ -42,11 +44,13 @@ const ExpandableServiceCard = forwardRef<
         className="w-full bg-white print:break-before-page block rounded-[1rem] 
         border border-border border-solid mb-[3rem] overflow-hidden relative print-section"
       >
-        {/* Section where click to expand and collapse */}
+        {/* Header */}
         <div
           className={`p-[1rem] lg:p-[3rem] print:p-[17px] print:!mb-[2rem] 
             bg-primary bg-cvBoxDesktop bg-center bg-no-repeat bg-contain 
-            print:text-white ${activeDropdown === index ? "bg-expanded" : ""}`}
+            print:text-white cursor-pointer transition-colors duration-300
+            ${isActive ? "bg-expanded" : ""}`}
+          onClick={() => setActiveDropdown(isActive ? null : index)}
         >
           <div className="flex flex-col md:flex-row items-start md:items-center gap-[2rem] mb-[2rem]">
             <div className="w-full flex items-center justify-between">
@@ -69,37 +73,14 @@ const ExpandableServiceCard = forwardRef<
                 </h3>
               </div>
 
-              {/* Expand/Collapse Icons (clickable) */}
-              {activeDropdown !== index ? (
-                <img
-                  src="/images/expand_icon.png"
-                  alt="expand"
-                  className="w-[52px] print:hidden block cursor-pointer"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setActiveDropdown(index);
-
-                    // ✅ Only scroll if serviceRefs is provided
-                    const serviceRef = serviceRefs?.current?.[service?.title];
-                    if (serviceRef) {
-                      serviceRef.scrollIntoView({
-                        behavior: "smooth",
-                        block: "center",
-                      });
-                    }
-                  }}
-                />
-              ) : (
-                <img
-                  src="/images/collaps_icon.png"
-                  alt="collapse"
-                  className="w-[52px] print:hidden block cursor-pointer"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setActiveDropdown(null);
-                  }}
-                />
-              )}
+              {/* Up/Down Arrow */}
+              <div className="print:hidden transition-transform duration-500 ease-in-out">
+                {isActive ? (
+                  <ChevronUp className="w-[40px] h-[40px] text-white" />
+                ) : (
+                  <ChevronDown className="w-[40px] h-[40px] text-white" />
+                )}
+              </div>
             </div>
           </div>
 
@@ -112,11 +93,11 @@ const ExpandableServiceCard = forwardRef<
           ></p>
         </div>
 
-        {/* Expandable content */}
+        {/* Expandable Content with Smooth Animation */}
         <div
           className={`transition-all duration-500 ease-in-out overflow-hidden ${
-            activeDropdown === index
-              ? "h-auto opacity-100"
+            isActive
+              ? "max-h-[2000px] opacity-100" // ✅ large max-h ensures smooth expand
               : "max-h-0 opacity-0"
           } print-expanded`}
         >
@@ -129,7 +110,7 @@ const ExpandableServiceCard = forwardRef<
                   listOfdata
                 ),
               }}
-              className="p-[1rem] offer_main list-div text-[1.6rem] rounded-[1rem] bg-white "
+              className="p-[2rem] offer_main list-div text-[1.6rem] rounded-[1rem]"
             ></div>
 
             {service?.skills && service?.skills.length > 0 && (
@@ -147,5 +128,4 @@ const ExpandableServiceCard = forwardRef<
 );
 
 ExpandableServiceCard.displayName = "ExpandableServiceCard";
-
 export default ExpandableServiceCard;

@@ -274,10 +274,7 @@ const CV = ({ params }: { params: any }) => {
                                   </h2>
 
                                   {/* New Code With Mobile Check */}
-                                  <div
-                                    className="text-heading services_main list-div text-[1.6rem] leading-[2.4rem] 
-     flex flex-col gap-[1rem] mb-[5rem] list-inside print:p-0 w-full max-w-full"
-                                  >
+                                  <div className="text-heading services_main list-div text-[1.6rem] leading-[2.4rem] flex flex-col gap-[1rem] mb-[5rem] list-inside print:p-0 w-full max-w-full">
                                     <ul
                                       dangerouslySetInnerHTML={{
                                         __html: visibleItems.join(""),

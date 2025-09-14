@@ -38,7 +38,6 @@ import { useRouter } from "next/router";
 import { useMediaQuery } from "react-responsive";
 import Header from "@/components/layouts/header/page";
 import { SmoothScroll } from "@/hooks/SmoothScroll";
-import ExperienceDescription from "@/components/ExperienceDescription";
 import ExperienceSection from "@/components/ExperienceSection";
 import { sortByDate } from "@/utils/sortByDate";
 
@@ -1227,7 +1226,7 @@ const Home = ({ params }: { params: any }) => {
                           {/* Home Page Slider */}
                           <HomeSlider
                             portfolios={listOfdata?.portfolios_ids}
-                            companyType={listOfdata?.companytype}
+                            // companyType={listOfdata?.companytype}
                           />
                         </div>
                       </section>
@@ -1292,7 +1291,12 @@ const Home = ({ params }: { params: any }) => {
                   )}
 
                 {/* FAQ Section Completed */}
-                <Faqs urlInfo={urlInfo} companyType={listOfdata?.companytype} />
+                <Faqs
+                  urlInfo={urlInfo}
+                  companyType={listOfdata?.companytype}
+                  listOfdata={listOfdata}
+                />
+
                 {/* Our Blogs */}
                 <div id="ourBlogs" className="my-[5rem] print:bg-[#a3ddd3]">
                   <OurBlogs domain={listOfdata?.domain} />

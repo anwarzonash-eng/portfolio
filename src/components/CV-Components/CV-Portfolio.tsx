@@ -1,6 +1,5 @@
 "use client";
-
-import React from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { formatDate } from "@/hooks/formatdate";
@@ -64,9 +63,72 @@ const CVPortfolio: React.FC<CVPortfolioProps> = ({
   setShowMoreSkillsForPortfolios,
   openModal,
   modifiedContent,
-  expandedPortfolio,
-  setExpandedPortfolio,
 }) => {
+  const [isMobile, setIsMobile] = useState(false);
+  const [expansionState, setExpansionState] = useState<
+    "collapsed" | "partial" | "full"
+  >("collapsed");
+
+  useEffect(() => {
+    const checkMobile = window.innerWidth < 768; // Adjust breakpoint to match Tailwind 'md' or 'lg' (e.g., 1024 for 'lg')
+    setIsMobile(checkMobile);
+    setExpansionState(checkMobile ? "collapsed" : "partial");
+
+    const handleResize = () => {
+      const newIsMobile = window.innerWidth < 768;
+      setIsMobile(newIsMobile);
+      setExpansionState(newIsMobile ? "collapsed" : "partial");
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Memoize the processed HTML from modifiedContent
+  const rawHtml = useMemo(
+    () =>
+      modifiedContent(portfolio.features_short || "", listOfskills, listOfdata),
+    [portfolio.features_short, listOfskills, listOfdata, modifiedContent]
+  );
+
+  // Parse the <li> elements, preserving all HTML and styles
+  const items = useMemo(() => {
+    if (!rawHtml) return [];
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(rawHtml, "text/html");
+    return Array.from(doc.querySelectorAll("li")).map((li) => li.outerHTML);
+  }, [rawHtml]);
+
+  // Determine visible count based on state
+  const visibleCount = useMemo(() => {
+    switch (expansionState) {
+      case "collapsed":
+        return 0;
+      case "partial":
+        return Math.min(4, items.length);
+      case "full":
+        return items.length;
+      default:
+        return 0;
+    }
+  }, [expansionState, items.length]);
+
+  const visibleItems = items.slice(0, visibleCount);
+
+  // Handle toggle logic
+  const handleToggle = useCallback(() => {
+    switch (expansionState) {
+      case "collapsed":
+        setExpansionState("partial");
+        break;
+      case "partial":
+        setExpansionState("full");
+        break;
+      case "full":
+        setExpansionState("collapsed");
+        break;
+    }
+  }, [expansionState]);
   return (
     <div className="w-full">
       {/* Title for print */}
@@ -95,7 +157,7 @@ const CVPortfolio: React.FC<CVPortfolioProps> = ({
       {/* Card */}
       <div className="max-lg:p-[1.5rem] print_p_m print:!mt-[2rem] bg-white shadow-testimonialeShadow relative rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden p-[2.4rem] gap-[2.4rem] mb-[2rem]">
         <div className="w-full">
-          <div className="flex items-center justify-between flex-col-reverse xl:flex-row border-2 border-solid border-black">
+          <div className="flex items-center justify-between flex-col-reverse xl:flex-row">
             <div>
               <Link
                 href={portfolio?.link || "#"}
@@ -145,7 +207,7 @@ const CVPortfolio: React.FC<CVPortfolioProps> = ({
             {/* Thumbnail */}
             {portfolio?.thumbnail && (
               <div className="md:ms-[2rem] flex items-center gap-2 flex-col lg:w-[30rem] float-right w-full rounded-[1.2rem] print:hidden relative min-w-[28rem]">
-                <div className="relative pt-[56.25%] w-full">
+                <div className="relative pt-[56.25%] w-full border border-solid rounded-[1.2rem] border-border">
                   <Image
                     src={portfolio.thumbnail}
                     alt="Project Image"
@@ -171,31 +233,33 @@ const CVPortfolio: React.FC<CVPortfolioProps> = ({
             )}
           </div>
 
-          {/* Expandable Content */}
+          {/* Expandable Code */}
           <div className="mb-2">
-            {expandedPortfolio && (
-              <p
-                dangerouslySetInnerHTML={{
-                  __html: modifiedContent(
-                    portfolio.features_short || "",
-                    listOfskills,
-                    listOfdata
-                  ),
-                }}
-                className="mt-[2rem] list-div-portfolio1 pl-[2rem]"
-              ></p>
+            {visibleCount > 0 && (
+              <ul
+                className="mt-[2rem] list-div-portfolio1 pl-[2rem] text-heading text-[1.6rem] leading-[2.4rem] list-disc"
+                dangerouslySetInnerHTML={{ __html: visibleItems.join("") }}
+              />
             )}
 
-            <button
-              onClick={() => setExpandedPortfolio((prev) => !prev)}
-              className={`${
-                expandedPortfolio ? "mt-[-3rem]" : "mt-[1rem]"
-              } bg-primary leading-normal text-center py-[0.6rem] px-[2rem] text-white hover:bg-white border border-[#E2E6EE] border-solid hover:border-primary hover:text-primary rounded-[2rem] text-[1.4rem] font-medium`}
-            >
-              {expandedPortfolio ? "Read Less" : "Read More"}
-            </button>
+            {items.length > 0 && (
+              <button
+                onClick={handleToggle}
+                className={`${
+                  expansionState === "full" ? "mt-[-3rem]" : "mt-[1rem]"
+                } bg-primary leading-normal text-center py-[0.6rem] px-[2rem] text-white hover:bg-white border border-[#E2E6EE] border-solid hover:border-primary hover:text-primary rounded-[2rem] text-[1.4rem] font-medium`}
+                aria-label={
+                  expansionState === "full"
+                    ? "Collapse content"
+                    : "Expand content"
+                }
+              >
+                {expansionState === "full" ? "Read Less" : "Read More"}
+              </button>
+            )}
           </div>
 
+          <hr className="w-full my-[2.4rem] h-px bg-border print:hidden" />
           {/* Skills */}
           <div>
             <h4 className="text-heading text-[1.2rem] font-medium mb-[1.2rem] ml-[0.2rem]">

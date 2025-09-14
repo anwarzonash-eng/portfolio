@@ -2,8 +2,54 @@ import { openChat } from "@/hooks/openTawkTochat";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import Tooltip from "./Tooltip";
 
 const ThankyouPopup = ({ setIsModalOpen, listOfdata, text = null }) => {
+  const contactOptions = [
+    listOfdata?.upwork && {
+      href: listOfdata.upwork,
+      src: "/images/upworkforContactComponent.svg",
+      alt: "upwork",
+      bg: "transparent",
+      isButton: false,
+    },
+    listOfdata?.github && {
+      href: listOfdata?.github,
+      src: "/images/github.svg",
+      alt: "github",
+      bg: "transparent",
+      isButton: false,
+    },
+    listOfdata?.linkedIn && {
+      href: listOfdata?.linkedIn,
+      src: "/images/linkedin.svg",
+      alt: "Linkedin",
+      bg: "transparent",
+      isButton: false,
+    },
+    listOfdata?.phone_no && {
+      href: `https://wa.me/${listOfdata.phone_no}`,
+      src: "/images/whatsappforContactComponent.svg",
+      alt: "whatsapp",
+      bg: "transparent",
+      isButton: false,
+    },
+    listOfdata?.calendly_link && {
+      href: listOfdata.calendly_link,
+      src: "/images/calendlyicon.svg",
+      alt: "calendly",
+      bg: "#006bff",
+      isButton: false,
+    },
+    {
+      href: "#",
+      src: "/images/chatNowIcon.svg",
+      alt: "chat",
+      bg: "#22357b",
+      isButton: true,
+    },
+  ].filter(Boolean); // removes null/false entries
+
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-opacity-50 backdrop-blur-3xl z-[500]">
       <div className="rounded-[1.2rem] relative w-full h-full overflow-y-auto py-[10rem]">
@@ -29,59 +75,51 @@ const ThankyouPopup = ({ setIsModalOpen, listOfdata, text = null }) => {
                 response, please explore the following options:
               </p>
               <div className="flex items-start justify-center flex-wrap gap-[1.6rem] mt-[2.4rem]">
-                {listOfdata?.phone_no && (
-                  <Link
-                    href={`https://wa.me/${listOfdata?.phone_no}`}
-                    target="_blank"
+                {contactOptions.map(({ href, src, alt, bg, isButton }, idx) => (
+                  <Tooltip
+                    text={`My ${alt.charAt(0).toUpperCase() + alt.slice(1)}`}
+                    key={idx}
                   >
-                    <Image
-                      alt=""
-                      src="/images/whatsappforContactComponent.svg"
-                      width={100}
-                      height={100}
-                      className="h-[4rem] w-[4rem]"
-                    />
-                  </Link>
-                )}
-                {listOfdata?.upwork && (
-                  <Link href={listOfdata?.upwork} target="_blank">
-                    <Image
-                      alt=""
-                      src="/images/upworkforContactComponent.svg"
-                      width={100}
-                      height={100}
-                      className="h-[4rem] w-[4rem]"
-                    />
-                  </Link>
-                )}
-                {listOfdata?.calendly_link && (
-                  <Link href={listOfdata?.calendly_link} target="_blank">
-                    <div className="h-[4rem] w-[4rem] bg-[#006bff] rounded-lg flex items-center justify-center">
-                      <Image
-                        alt=""
-                        src="/images/calendlyicon.svg"
-                        width={100}
-                        height={100}
-                        className="h-[3rem] w-[3rem]"
-                      />
-                    </div>
-                  </Link>
-                )}
-
-                <button
-                  onClick={(e) => openChat(e)}
-                  className="text-primary font-bold text-lg"
-                >
-                  <div className="h-[4rem] w-[4rem] bg-[#22357b] rounded-lg flex items-center justify-center">
-                    <Image
-                      alt=""
-                      src="/images/chatNowIcon.svg"
-                      width={100}
-                      height={100}
-                      className="h-[3rem] w-[3rem]"
-                    />
-                  </div>
-                </button>
+                    {isButton ? (
+                      <button
+                        onClick={(e) => openChat(e)}
+                        className="text-primary font-bold text-lg"
+                      >
+                        <div
+                          className={`h-[4rem] w-[4rem] rounded-lg flex items-center justify-center`}
+                          style={{ backgroundColor: bg }}
+                        >
+                          <Image
+                            alt={alt}
+                            src={src}
+                            width={100}
+                            height={100}
+                            className="h-[3rem] w-[3rem]"
+                          />
+                        </div>
+                      </button>
+                    ) : (
+                      <Link href={href} target="_blank">
+                        <div
+                          className={`h-[4rem] w-[4rem] rounded-lg flex items-center justify-center`}
+                          style={{ backgroundColor: bg }}
+                        >
+                          <Image
+                            alt={alt}
+                            src={src}
+                            width={100}
+                            height={100}
+                            className={`${
+                              bg === "transparent"
+                                ? "h-[4rem] w-[4rem]"
+                                : "h-[3rem] w-[3rem]"
+                            }`}
+                          />
+                        </div>
+                      </Link>
+                    )}
+                  </Tooltip>
+                ))}
               </div>
             </div>
           </div>

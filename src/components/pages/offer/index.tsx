@@ -78,6 +78,27 @@ const Offer = ({ params }: { params: any }) => {
     }
   }, [detailService]);
 
+  // List Points Logic
+  const [expanded, setExpanded] = useState(false);
+
+  // Safely get content string (fallback to "")
+  const content =
+    modifiedContent(
+      mainService?.intro_detail || "",
+      listOfskills,
+      listOfdata
+    ) || "";
+
+  // Try to extract <li> elements
+  const items = content ? content.match(/<li[^>]*>.*?<\/li>/g) || [] : [];
+
+  // If no <li>, fall back to treating content as one "block"
+  const visibleItems = items.length
+    ? expanded
+      ? items
+      : items.slice(0, 4)
+    : [content]; // fallback for <p> or plain text
+
   return (
     <div className="bg-[#EFF5FD] print:my-[3rem] ">
       <PageRendering
@@ -146,7 +167,7 @@ const Offer = ({ params }: { params: any }) => {
                         />
                       </div>
                     )}
-                    <div
+                    {/* <div
                       dangerouslySetInnerHTML={{
                         __html: modifiedContent(
                           mainService?.intro_detail,
@@ -155,7 +176,23 @@ const Offer = ({ params }: { params: any }) => {
                         ),
                       }}
                       className=" p-[1rem] list-div text-[1.6rem] lg:p-[3rem] rounded-[1rem] bg-white services_main"
-                    />
+                    /> */}
+                    <div className="p-[1rem] lg:p-[3rem] rounded-[1rem] bg-white services_main list-div text-[1.6rem]">
+                      <ul
+                        dangerouslySetInnerHTML={{
+                          __html: visibleItems.join(""),
+                        }}
+                      />
+
+                      {items.length > 4 && (
+                        <button
+                          onClick={() => setExpanded((prev) => !prev)}
+                          className="px-[4rem] py-[1.4rem] bg-primary rounded-[2.2rem] hover:bg-white hover:text-primary hover:border-primary border border-border border-solid text-center max-w-max text-white text-[1.4rem] font-medium font-Inter leading-tight mt-[2rem]"
+                        >
+                          {expanded ? "Read Less" : "Read More"}
+                        </button>
+                      )}
+                    </div>
                     {mainService?.skills?.length > 0 && (
                       <SkillsComponent
                         service={mainService}
@@ -190,10 +227,7 @@ const Offer = ({ params }: { params: any }) => {
                     <div className="text-center text-heading text-[3rem] font-medium leading-[2.8rem] mt-[2rem]">
                       Explore My Technical Endeavors
                     </div>
-                    <HomeSlider
-                      portfolios={listOfdata?.portfolios_ids}
-                      companyType={listOfdata?.companytype}
-                    />
+                    <HomeSlider portfolios={listOfdata?.portfolios_ids} />
                   </div>
                 </section>
               )}

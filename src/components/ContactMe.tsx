@@ -36,16 +36,16 @@ const ContactMe = ({ listOfdata }) => {
 
   // ✅ Yup Validation
   const validationSchema = Yup.object({
-    fullName: Yup.string().required("Full name is required"),
+    fullName: Yup.string().required(formikEnums.Name.FullNameRequired),
     email: Yup.string()
-      .email("Invalid email address")
-      .required("Email is required"),
+      .email(formikEnums.Email.Invalid)
+      .required(formikEnums.Email.Required),
     phone: Yup.string()
-      .matches(/^\+?[0-9]{7,15}$/, "Invalid phone number")
-      .required("Phone number is required"),
-    subject: Yup.string().required("Subject is required"),
-    projectLength: Yup.string().required("Please select project length"),
-    message: Yup.string().required("Message is required"),
+      .matches(/^\+?[0-9]{7,15}$/, formikEnums.Phone.Invalid)
+      .required(formikEnums.Phone.Required),
+    subject: Yup.string().required(formikEnums.Subject),
+    projectLength: Yup.string().required(formikEnums.ProjectLength),
+    message: Yup.string().required(formikEnums.Message),
   });
 
   const initialValues = {
@@ -110,19 +110,15 @@ const ContactMe = ({ listOfdata }) => {
     }
   };
 
-  // const openChat = () => {
-  //   console.log("Chat window opened!"); // replace with real chat logic
-  // };
-
   // Contact Links
   const constactLinks: ConstactLinks[] = [
     { href: listOfdata?.upwork, src: "/images/upwork.svg", alt: "upwork" },
     { href: listOfdata?.github, src: "/images/github.svg", alt: "github" },
-    {
-      href: listOfdata?.linkedIn,
-      src: "/images/linkedin.svg",
-      alt: "Linkedin",
-    },
+    // {
+    //   href: listOfdata?.linkedIn,
+    //   src: "/images/linkedin.svg",
+    //   alt: "Linkedin",
+    // },
     {
       href: `https://wa.me/${listOfdata?.phone_no}`,
       src: "/images/whatsapp.svg",
@@ -187,7 +183,7 @@ const ContactMe = ({ listOfdata }) => {
                   Need immediate assistance?{" "}
                   <button
                     type="button"
-                    onClick={() => openChat(e)}
+                    onClick={(e) => openChat(e)}
                     className="text-primary font-bold text-lg"
                   >
                     Chat Now
@@ -526,7 +522,7 @@ const ContactMe = ({ listOfdata }) => {
 
                       <Tooltip text="Chat Now">
                         <button
-                          onClick={(e) => openChat()}
+                          onClick={(e) => openChat(e)}
                           className="text-primary font-bold text-lg"
                         >
                           <div className="h-[4rem] w-[4rem] bg-[#22357b] rounded-lg relative">

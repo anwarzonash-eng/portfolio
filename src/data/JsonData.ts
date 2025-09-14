@@ -166,6 +166,18 @@ export const FaqsData = [
       "  My bookkeeping process begins with an in-depth consultation to understand your financial needs and goals. From there, I move into organizing your financial data, setting up accounting systems, and managing records. Once set, I focus on maintaining accurate bookkeeping, followed by thorough reviews and reporting. Throughout the process, I ensure open communication and offer you opportunities to review and provide feedback at key stages.",
     altName: "bookkeeping_process",
   },
+  {
+    question: "Do you have a LinkedIn profile?",
+    answer:
+      "Yes! You can explore my professional journey, skills, and recommendations on LinkedIn. It’s a great way to see my credibility and connect with me directly.",
+    altName: "LinkedIn",
+  },
+  {
+    question: "Do you have a GitHub profile?",
+    answer:
+      "Absolutely! My GitHub showcases real-world projects, code samples, and contributions that reflect my hands-on expertise. It’s the perfect place to evaluate my coding style and technical depth.",
+    altName: "GitHub",
+  },
 ];
 
 export const cardData = [

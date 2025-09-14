@@ -6,45 +6,16 @@ import PortfolioContent from "../PortfolioContent";
 import { skillsGrouping } from "@/hooks/skillsGrouping";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-type SkillType = {
-  title: string;
-  url?: string;
-  order?: string;
-  icon?: string;
-};
-
-type PortfolioType = {
-  id: string;
-  title: string;
-  tagline_1: string;
-  tagline_2: string;
-  skills: SkillType[];
-  thumbnail: string;
-  pictures: string;
-  child_hero_banner: string;
-  link: string;
-  has_testimonial: boolean;
-  company_icon?: string;
-  features_short?: string;
-};
-
-interface HomeSliderProps {
-  portfolios: PortfolioType[];
-  companyType: string;
-}
-
 // Config
-const SLIDE_INTERVAL = 5000;
-const PROGRESS_STEP = 100;
-const SWIPE_THRESHOLD = 50;
-const PRESS_DELAY = 200;
+const SLIDE_INTERVAL = 5000; // default autoplay
+const INACTIVITY_DELAY = 5000; // after interaction
 
-const HomeSlider: React.FC<HomeSliderProps> = ({ portfolios }) => {
+const HomeSlider = ({ portfolios }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [isInViewport, setIsInViewport] = useState(false);
   const [slideHeight, setSlideHeight] = useState<number>(0);
-  const [isInteracting, setIsInteracting] = useState(false);
 
   const [selectedPortfolioPictures, setSelectedPortfolioPictures] = useState<
     string[] | null
@@ -54,13 +25,9 @@ const HomeSlider: React.FC<HomeSliderProps> = ({ portfolios }) => {
     Array(portfolios.length).fill(false)
   );
 
-  const touchStartX = useRef(0);
-  const touchEndX = useRef(0);
-  const pressTimerRef = useRef<NodeJS.Timeout | null>(null);
-
-  const [isInViewport, setIsInViewport] = useState(false);
   const carouselRef = useRef<HTMLDivElement>(null);
   const slideRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const inactivityTimer = useRef<NodeJS.Timeout | null>(null);
 
   if (!portfolios?.length) return <PortfolioImagesLoader />;
 
@@ -102,9 +69,8 @@ const HomeSlider: React.FC<HomeSliderProps> = ({ portfolios }) => {
     if (isPaused || isModalOpen || !isInViewport) return;
 
     let elapsed = (progress / 100) * SLIDE_INTERVAL;
-
     const interval = setInterval(() => {
-      elapsed += PROGRESS_STEP;
+      elapsed += 100;
       setProgress((elapsed / SLIDE_INTERVAL) * 100);
 
       if (elapsed >= SLIDE_INTERVAL) {
@@ -112,39 +78,16 @@ const HomeSlider: React.FC<HomeSliderProps> = ({ portfolios }) => {
         setProgress(0);
         nextSlide();
       }
-    }, PROGRESS_STEP);
+    }, 100);
 
     return () => clearInterval(interval);
-  }, [currentSlide, isPaused, isModalOpen, isInViewport, nextSlide]);
-
-  // --- Swipe & Press ---
-  const handleTouchStart = (e: React.TouchEvent) => {
-    if (isModalOpen) return;
-    touchStartX.current = e.changedTouches[0].clientX;
-    pressTimerRef.current = setTimeout(() => setIsPaused(true), PRESS_DELAY);
-  };
-
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    if (isModalOpen) return;
-    if (pressTimerRef.current) clearTimeout(pressTimerRef.current);
-
-    setIsPaused(false);
-    touchEndX.current = e.changedTouches[0].clientX;
-
-    const distance = touchStartX.current - touchEndX.current;
-    if (distance > SWIPE_THRESHOLD) nextSlide();
-    else if (distance < -SWIPE_THRESHOLD) prevSlide();
-  };
-
-  const handleMouseDown = () => !isModalOpen && setIsPaused(true);
-  const handleMouseUp = () => !isModalOpen && setIsPaused(false);
-  const handleMouseLeave = () => !isModalOpen && setIsPaused(false);
+  }, [currentSlide, isPaused, isModalOpen, isInViewport, nextSlide, progress]);
 
   // --- Intersection Observer ---
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => setIsInViewport(entry.isIntersecting),
-      { threshold: 0.1 }
+      { threshold: 0.1 } // at least 10% visible
     );
 
     if (carouselRef.current) observer.observe(carouselRef.current);
@@ -154,11 +97,44 @@ const HomeSlider: React.FC<HomeSliderProps> = ({ portfolios }) => {
     };
   }, []);
 
-  // --- Dynamic Height ---
+  // --- Interaction Tracking ---
   useEffect(() => {
-    if (slideRefs.current[currentSlide]) {
-      setSlideHeight(slideRefs.current[currentSlide]!.offsetHeight);
-    }
+    const el = carouselRef.current;
+    if (!el) return;
+
+    const handleUserActivity = () => {
+      setIsPaused(true);
+
+      if (inactivityTimer.current) clearTimeout(inactivityTimer.current);
+
+      inactivityTimer.current = setTimeout(() => {
+        setIsPaused(false);
+        setProgress(0); // restart progress bar
+      }, INACTIVITY_DELAY);
+    };
+
+    const events = ["mousemove", "click", "touchstart", "keydown"];
+    events.forEach((ev) => el.addEventListener(ev, handleUserActivity));
+
+    return () => {
+      events.forEach((ev) => el.removeEventListener(ev, handleUserActivity));
+      if (inactivityTimer.current) clearTimeout(inactivityTimer.current);
+    };
+  }, []);
+
+  // --- Dynamic Height (ResizeObserver) ---
+  useEffect(() => {
+    if (!slideRefs.current[currentSlide]) return;
+
+    const slideEl = slideRefs.current[currentSlide];
+    const observer = new ResizeObserver(() => {
+      if (slideEl) setSlideHeight(slideEl.offsetHeight);
+    });
+
+    observer.observe(slideEl);
+    setSlideHeight(slideEl.offsetHeight);
+
+    return () => observer.disconnect();
   }, [currentSlide]);
 
   return (
@@ -199,20 +175,12 @@ const HomeSlider: React.FC<HomeSliderProps> = ({ portfolios }) => {
       {/* Slider */}
       <div
         ref={carouselRef}
-        className={`relative w-full transition-all duration-500 ease-in-out ${
-          isInteracting ? "overflow-visible" : "overflow-hidden"
-        }`}
-        style={{ height: isInteracting ? "auto" : `${slideHeight}px` }}
+        className="relative w-full transition-all duration-500 ease-in-out overflow-hidden"
+        style={{ height: `${slideHeight}px` }}
       >
-        {/* Slides */}
         <div
           className="flex items-start transition-transform duration-700 ease-in-out"
           style={{ transform: `translateX(-${currentSlide * 100}%)` }}
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
-          onMouseDown={handleMouseDown}
-          onMouseUp={handleMouseUp}
-          onMouseLeave={handleMouseLeave}
         >
           {portfolios.map((portfolio, index) => (
             <div
@@ -221,25 +189,23 @@ const HomeSlider: React.FC<HomeSliderProps> = ({ portfolios }) => {
               ref={(el) => {
                 slideRefs.current[index] = el;
               }}
-              onMouseEnter={() => setIsPaused(true)}
-              onMouseLeave={() => setIsPaused(false)}
-              onFocus={() => setIsPaused(true)}
             >
               <PortfolioContent
-                pauseSlider={() => setIsPaused(true)}
-                resumeSlider={() => setIsPaused(false)}
                 portfolio={portfolio}
                 thumbnailToUse={
                   portfolio.title === "Velzon"
                     ? "/VelzonThumbnail.PNG"
                     : portfolio.thumbnail || "/images/dummy_port_img.webp"
                 }
-                listOfskills={[]}
-                listOfdata={[]}
+                listOfskills={portfolio.skills || []} // Pass portfolio.skills as the skills list for modifiedContent
+                listOfdata={{
+                  primaryColor: "#1F4FE1", // Match CVPortfolio's expected color
+                  companytype: portfolio.companytype || "", // For "Launch Project" button
+                }}
                 skills={skillsGrouping(
                   portfolio.skills?.length < 15
-                    ? portfolio.skills
-                    : portfolio.skills?.slice(0, 15)
+                    ? portfolio.skills || []
+                    : portfolio.skills?.slice(0, 15) || []
                 )}
                 index={index}
                 showMoreSkills={showMoreSkills}
@@ -251,6 +217,7 @@ const HomeSlider: React.FC<HomeSliderProps> = ({ portfolios }) => {
         </div>
 
         {/* Navigation */}
+
         {!isModalOpen && (
           <div className="absolute bottom-0 right-0 hidden xl:flex items-center gap-5 p-4 lg:p-8 bg-white">
             <button
