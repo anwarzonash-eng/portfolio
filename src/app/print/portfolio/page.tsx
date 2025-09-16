@@ -1,6 +1,6 @@
 "use client";
 
-import PortfolioListing_p from "@/components/pages/print/portfolioF/potfolio-listing";
+import PortfolioListing_p from "@/components/pages/print/portfolio/potfolio-listing";
 import React from "react";
 
 const portfolioListing = ({ params }: { params: any }) => {

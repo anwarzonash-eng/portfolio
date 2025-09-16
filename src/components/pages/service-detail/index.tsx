@@ -11,6 +11,7 @@ import { useAppSelector } from "@/store";
 import OurBlogs from "@/components/OurBlogs";
 import Newsletter from "@/components/Newsletter";
 import ExpandableServiceCard from "@/components/ExpandableServiceCard";
+import EducationComponent from "@/components/EducationComponent";
 
 const ServiceDetail = ({ params }: { params: any }) => {
   useBodyBackgroundColor("#EFF5FD");
@@ -110,6 +111,11 @@ const ServiceDetail = ({ params }: { params: any }) => {
         }}
       />
       <>
+        {/* Education Section */}
+        <div id="education" className="my-[5rem]">
+          <EducationComponent />
+        </div>
+
         {/* Our Blogs */}
         <div className="my-[5rem]">
           <OurBlogs domain={listOfdata?.domain} />

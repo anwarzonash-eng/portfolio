@@ -40,6 +40,7 @@ import Header from "@/components/layouts/header/page";
 import { SmoothScroll } from "@/hooks/SmoothScroll";
 import ExperienceSection from "@/components/ExperienceSection";
 import { sortByDate } from "@/utils/sortByDate";
+import EducationComponent from "@/components/EducationComponent";
 
 const Home = ({ params }: { params: any }) => {
   useBodyBackgroundColor("#f8f9fa");
@@ -1297,8 +1298,13 @@ const Home = ({ params }: { params: any }) => {
                   listOfdata={listOfdata}
                 />
 
+                {/* Education Section */}
+                <div id="education" className="my-[5rem]">
+                  <EducationComponent />
+                </div>
+
                 {/* Our Blogs */}
-                <div id="ourBlogs" className="my-[5rem] print:bg-[#a3ddd3]">
+                <div id="ourBlogs" className="my-[5rem]">
                   <OurBlogs domain={listOfdata?.domain} />
                 </div>
 

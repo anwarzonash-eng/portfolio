@@ -18,12 +18,12 @@ import PageRendering from "@/components/PageRendering";
 import { skillsGrouping } from "@/hooks/skillsGrouping";
 import WorkProofLinks from "@/components/WorkProofLinks";
 import ContactMeLinks from "@/components/ContactMeLinks";
-import OurBlogsPortrait from "@/components/OurBlogsPortrait";
 import SliderXLPrint from "@/components/Sliders/SliderXLPrint";
 import SkillsContainerPrint from "@/components/SkillsContainerPrint";
 import NoteDomainForPint from "@/components/NoteDomainForPint";
 import DesignationDomain from "@/components/DesignationDomain";
 import NoteClickable from "@/components/NoteClickable";
+import EducationBlogsPortrait from "@/components/EducationBlogsPortrait";
 
 const PortfolioDetails_p = ({ params }: { params: any }) => {
   const searchParams = useSearchParams();
@@ -427,6 +427,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
                     list={portfolioDetails?.skills}
                     layoutType={true}
                     initialVisibleItems={8}
+                    portfolioId=""
                   />
                 </div>
                 {/* Slider  Sections ✅ */}
@@ -439,13 +440,8 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
                 </div>
               </section>
 
-              {/* Our Blogs Section ✅ */}
-              <section className="max-w-[1550px] w-full mx-auto">
-                <OurBlogsPortrait
-                  domain={listOfdata?.domain}
-                  locationLink={`/portfolio/?sectionId=blogsSection`}
-                />
-              </section>
+              {/* Education & Blogs Section */}
+              <EducationBlogsPortrait />
             </>
           ),
         }}

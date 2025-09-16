@@ -66,15 +66,15 @@ export default function ChildWrapper({
   const colors = getColors(listOfdata);
 
   const hideHeaderFooterPaths = [
-    "/print/homeF",
-    "/print/portfolioF",
+    "/print/home",
+    "/print/portfolio",
     "/print/cvPortrait",
     "/print/cvLandscape",
   ];
 
   const isHiddenPaths =
     hideHeaderFooterPaths.includes(pathname) ||
-    pathname.startsWith("/print/portfolioF");
+    pathname.startsWith("/print/portfolio");
 
   useEffect(() => {
     const handleScroll = () => {

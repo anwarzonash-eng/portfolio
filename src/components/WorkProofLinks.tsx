@@ -55,7 +55,7 @@ const WorkProofLinks = ({ props }) => {
                   height={45}
                   width={45}
                   alt={alt}
-                  className="size-[50px] print:size-[80px]"
+                  className="size-[50px] print:size-[40px]"
                 />
               </Link>
             </Tooltip>

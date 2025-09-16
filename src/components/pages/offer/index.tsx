@@ -16,6 +16,7 @@ import Background from "@/components/background";
 import { useAppSelector } from "@/store";
 import SkillsComponent from "@/components/SkillsComponent";
 import ExpandableServiceCard from "@/components/ExpandableServiceCard";
+import EducationComponent from "@/components/EducationComponent";
 
 const Offer = ({ params }: { params: any }) => {
   useBodyBackgroundColor("#EFF5FD");
@@ -232,8 +233,13 @@ const Offer = ({ params }: { params: any }) => {
                 </section>
               )}
 
+              {/* Education Section */}
+              <div id="education" className="my-[5rem]">
+                <EducationComponent />
+              </div>
+
               {/* Our Blogs */}
-              <div className="my-[10rem] lg:my-[12.6rem] print:hidden block">
+              <div className="my-[5rem]">
                 <OurBlogs domain={listOfdata?.domain} />
               </div>
 

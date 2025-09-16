@@ -19,6 +19,7 @@ import BlogDetailMobileSVG from "@/components/BlogDetailMobileSVG";
 import BlogDetailDesktopSVG from "@/components/BlogDetailDesktopSVG";
 import { getImageForIndex } from "@/utils/getImageForIndex";
 import { loadBlogs } from "@/hooks/apihandlers/blogListingApiHandler";
+import EducationComponent from "@/components/EducationComponent";
 
 const BlogDetails = ({ params }: { params: any }) => {
   const [urlInfo, setURLInfo] = useState(null);
@@ -179,7 +180,12 @@ const BlogDetails = ({ params }: { params: any }) => {
                   </div>
                 </div>
               </section>
-              <div className="w-full my-[10rem] lg:my-[12rem]">
+              {/* Education Section */}
+              <div id="education" className="my-[5rem]">
+                <EducationComponent />
+              </div>
+
+              <div className="w-full my-[5rem]">
                 <OurBlogs domain={listOfdata?.domain} />
               </div>
               {!urlInfo?.u && (

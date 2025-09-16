@@ -76,8 +76,7 @@ const Faqs = ({ urlInfo, companyType, listOfdata, status }: FaqsProps) => {
 
   const forcePrintStyles =
     pathname?.startsWith("/print/portfolio") ||
-    pathname?.startsWith("/print/cvF") ||
-    pathname?.startsWith("/print/homeF");
+    pathname?.startsWith("/print/home");
 
   useEffect(() => {
     const handleBeforePrint = () => setIsPrinting(true);
@@ -237,7 +236,7 @@ const Faqs = ({ urlInfo, companyType, listOfdata, status }: FaqsProps) => {
   }, [companyFiltered, effectiveStatus]);
 
   // For print mode limit/slice
-  const faqsToDisplay = isPrinting ? displayFaqs.slice(0, 4) : displayFaqs;
+  const faqsToDisplay = isPrinting ? displayFaqs.slice(0, 5) : displayFaqs;
 
   // (Optional) keep a console log to help debug while developing
   // console.log("effectiveStatus", effectiveStatus, "listOfdata", listOfdata);
@@ -248,10 +247,10 @@ const Faqs = ({ urlInfo, companyType, listOfdata, status }: FaqsProps) => {
         <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center p-[4rem] relative">
           <NoteDomainForPint direction={"hidden print:right-0 print:block"} />
           <div className="max-w-[1550px] w-full mx-auto">
-            <div className="flex items-center justify-center lg:hidden w-full">
+            <div className="flex items-center justify-center lg:hidden print:flex w-full">
               <div className="badge">FAQ's</div>
             </div>
-            <h2 className="text-[4rem] font-medium text-heading print:mb-4 hidden lg:block">
+            <h2 className="text-[4rem] font-medium text-heading print:mb-4 hidden lg:block print:hidden">
               FAQ
             </h2>
 
@@ -261,7 +260,7 @@ const Faqs = ({ urlInfo, companyType, listOfdata, status }: FaqsProps) => {
                 className="border-b border-solid border-border print:border-black print:mb-[2rem]"
               >
                 <button
-                  className={`w-full gap-[2rem] flex justify-between items-center text-left text-[1.8rem] print:text-[3rem] font-medium leading-[2.8rem] text-heading py-[2.4rem] rounded-md focus:outline-none print:py-2 ${
+                  className={`w-full gap-[2rem] flex justify-between items-center text-left text-[1.6rem] print:text-[2rem] font-medium leading-[2.8rem] text-heading py-[1rem] rounded-md focus:outline-none print:py-2 ${
                     isPrinting ? "pointer-events-none" : ""
                   }`}
                   onClick={() => !isPrinting && toggleFAQ(index)}
@@ -283,12 +282,12 @@ const Faqs = ({ urlInfo, companyType, listOfdata, status }: FaqsProps) => {
                 <div
                   className={`overflow-hidden transition-all duration-300 ease-out ${
                     isPrinting || activeFaq === index
-                      ? "max-h-[500px] pt-4 pb-4 print:max-h-none"
+                      ? "max-h-[500px] pt-2 pb-2 print:max-h-none"
                       : "max-h-0"
                   }`}
                 >
                   <div
-                    className="text-[1.6rem] font-normal text-paragraph1 mt-2 duration-300 print:text-sm print:mt-0"
+                    className="text-[1.4rem] font-normal text-paragraph1 mt-2 duration-300 print:text-sm print:mt-0"
                     dangerouslySetInnerHTML={{ __html: faq.displayAnswer }}
                   />
                 </div>

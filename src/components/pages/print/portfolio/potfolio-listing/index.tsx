@@ -18,10 +18,11 @@ import ShowmoreSkills from "@/components/showmoreSkills";
 import { useAppSelector } from "@/store";
 import WorkProofLinks from "@/components/WorkProofLinks";
 import ContactMeLinks from "@/components/ContactMeLinks";
-import OurBlogsPortrait from "@/components/OurBlogsPortrait";
 import NoteDomainForPint from "@/components/NoteDomainForPint";
 import DesignationDomain from "@/components/DesignationDomain";
 import NoteClickable from "@/components/NoteClickable";
+import EducationBlogsPortrait from "@/components/EducationBlogsPortrait";
+import ContactMePrint from "@/components/ContactMePrint";
 
 const PortfolioListing_p = ({ params }: { params: any }) => {
   const [
@@ -153,7 +154,7 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
       {listOfdata && listOfdata?.portfolios_ids?.length > 0 && (
         <>
           {/* Portfolio Timeline Section */}
-          <div className="bg-transparent max-w-[1550px] w-full mx-auto flex items-center justify-center bg-blue-500">
+          <div className="bg-white max-w-[1550px] w-full mx-auto flex items-center justify-center">
             {/* Timeline items Container */}
             <div className="space-y-[3.5rem] print:space-y-0">
               {listOfdata?.portfolios_ids?.map((portfolio, index) => {
@@ -170,7 +171,7 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
                 );
                 return (
                   <section
-                    className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative"
+                    className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative bg-white"
                     key={index}
                   >
                     <NoteDomainForPint
@@ -213,7 +214,7 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
                             </h1>
                             <p
                               dangerouslySetInnerHTML={{
-                                __html: portfolio.tagline_1,
+                                __html: portfolio.tagline_2,
                               }}
                               className="text-[1.9rem] leading-[150%] font-medium mt-[1rem] text-primary"
                             ></p>
@@ -280,11 +281,10 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
               })}
             </div>
           </div>
-          {/* Our Blogs Section */}
-          <OurBlogsPortrait
-            locationLink={`/portfolio/?sectionId=blogsSection`}
-            domain={listOfdata?.domain}
-          />
+          {!urlInfo?.u && <ContactMePrint listOfdata={listOfdata} />}
+
+          {/* Education & Blogs Section */}
+          <EducationBlogsPortrait />
         </>
       )}
     </div>

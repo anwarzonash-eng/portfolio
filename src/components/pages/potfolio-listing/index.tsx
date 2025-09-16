@@ -20,6 +20,7 @@ import ContactMeLinks from "@/components/ContactMeLinks";
 import { SmoothScroll } from "@/hooks/SmoothScroll";
 import PortfolioContent from "@/components/PortfolioContent";
 import EmptyState from "@/components/EmptyState";
+import EducationComponent from "@/components/EducationComponent";
 
 const PortfolioListing = ({ params }: { params: any }) => {
   const [
@@ -40,10 +41,35 @@ const PortfolioListing = ({ params }: { params: any }) => {
   );
 
   // Smooth scroll when sectionId is in query
+  // useEffect(() => {
+  //   const sectionID = searchParams.get("sectionId");
+  //   if (sectionID) {
+  //     SmoothScroll(sectionID);
+  //   }
+  // }, [listOfdata, searchParams]);
   useEffect(() => {
     const sectionID = searchParams.get("sectionId");
+    const shouldOpenGallery = searchParams.get("openGallery") === "true";
+
     if (sectionID) {
       SmoothScroll(sectionID);
+
+      // Wait for scroll animation + portfolio render
+      setTimeout(() => {
+        if (shouldOpenGallery && listOfdata?.portfolios_ids?.length > 0) {
+          const portfolio = listOfdata.portfolios_ids.find(
+            (p: any) => p.id === sectionID
+          );
+
+          if (portfolio) {
+            openModal(
+              portfolio.pictures,
+              portfolio.thumbnail,
+              portfolio.child_hero_banner
+            );
+          }
+        }
+      }, 800); // delay to allow scroll/render
     }
   }, [listOfdata, searchParams]);
 
@@ -201,6 +227,7 @@ const PortfolioListing = ({ params }: { params: any }) => {
 
                         return (
                           <div
+                            id={portfolio.id}
                             className="relative flex items-start portfolio-item w-full"
                             key={index}
                           >
@@ -248,11 +275,13 @@ const PortfolioListing = ({ params }: { params: any }) => {
             </div>
           </div>
 
+          {/* Education Section */}
+          <div id="education" className="my-[5rem]">
+            <EducationComponent />
+          </div>
+
           {/* Our Blogs Section */}
-          <div
-            className="w-full my-[10rem] lg:my-[12rem] print:my-1"
-            id="blogsSection"
-          >
+          <div className="w-full my-[5rem]" id="blogsSection">
             <OurBlogs domain={listOfdata?.domain} />
           </div>
 

@@ -1,15 +1,12 @@
 "use client";
-
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { store, useAppSelector } from "@/store";
 import { setProfileUrlInfo, setProfileLoading } from "@/store/profileSlice";
-
 import { reportsApiHandler } from "@/hooks/apihandlers/reportsApiHandlers";
 import { handleSkillsApiCall } from "@/hooks/apihandlers/skillsApiHandlers";
 import { loadBlogs } from "@/hooks/apihandlers/blogListingApiHandler";
-
 import { getRoutesDetails } from "@/hooks/url";
 import { modifiedContent } from "@/hooks/modifiedContent";
 import { SmoothScroll } from "@/hooks/SmoothScroll";
@@ -17,9 +14,7 @@ import { sortByDate } from "@/utils/sortByDate";
 import { skillsGrouping } from "@/hooks/skillsGrouping";
 import { contactDetails } from "@/data/JsonData";
 import { socialLinks } from "@/data/JsonData";
-
 import useBodyBackgroundColor from "@/hooks/useBodyBackgroundColor";
-
 import CVSideBar from "@/components/CV-Components/CV-SideBar";
 import CVSkills from "@/components/CV-Components/CV-Skills";
 import ExperienceSection from "@/components/ExperienceSection";
@@ -31,26 +26,21 @@ import PageRendering from "@/components/PageRendering";
 import PortfolioPopUp from "@/components/PortfolioPopUp";
 import WebsiteLoader from "@/components/WebsiteLoader";
 import Background from "@/components/background";
-import { imageOptimizer } from "next/dist/server/image-optimizer";
 
 const CV = ({ params }: { params: any }) => {
   const searchParams = useSearchParams();
-
   // Global state
   const [urlInfo, setURLInfo] = useState<any>(null);
   const [listOfdata, setListOfData] = useState<any>(null);
   const [listOfskills, setListOfSkills] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
   // Skills expansion
   const [expanded, setExpanded] = useState(false);
-
   // Experiences section
   const [isMobile, setIsMobile] = useState(false);
   const [showAllExperiences, setShowAllExperiences] = useState(false);
   const [showMoreSkills, setShowMoreSkills] = useState<any[]>([]);
-
   // Portfolio popup
   const [expandedPortfolio, setExpandedPortfolio] = useState(false);
   const [
@@ -58,17 +48,19 @@ const CV = ({ params }: { params: any }) => {
     setSelectedPorfolioPicturesforPopup,
   ] = useState<string[] | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   // Blogs
   const [blogsList, setBlogsList] = useState<any[]>([]);
   const [loadingblogs, setLoadingBlogs] = useState(false);
-
   // Skills
   const [showAll, setShowAll] = useState(false);
   const [showMoreSkillsForExperiences, setShowMoreSkillsForExperiences] =
     useState<{ [key: number]: boolean }>({});
   const [showMoreSkillsForPortfolios, setShowMoreSkillsForPortfolios] =
     useState<any[]>([]);
+  // Highlight specific experience
+  const [highlightedExperienceId, setHighlightedExperienceId] = useState<
+    string | null
+  >(null);
 
   // Redux profile data (if needed)
   const listOfdatas = useAppSelector(
@@ -81,7 +73,6 @@ const CV = ({ params }: { params: any }) => {
   const visibleSkills = showAll
     ? listOfdata?.skills_ids ?? []
     : (listOfdata?.skills_ids ?? []).slice(0, initialVisibleItems);
-
   const skillsforCV = skillsGrouping(visibleSkills);
   const domain = listOfdata?.domain || "default-domain";
 
@@ -93,11 +84,28 @@ const CV = ({ params }: { params: any }) => {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // Scroll on query param
+  // Scroll to specific experience or section
   useEffect(() => {
-    const sectionID = searchParams.get("sectionId");
-    if (sectionID) SmoothScroll(sectionID);
-  }, [listOfdata]);
+    const sectionId = searchParams.get("sectionId");
+    const experienceId = searchParams.get("experienceId");
+
+    if (experienceId) {
+      setHighlightedExperienceId(experienceId); // Highlight the specific experience
+      setShowAllExperiences(true); // Ensure all experiences are shown
+      setTimeout(() => {
+        const experienceElement = document.getElementById(
+          `experience-${experienceId}`
+        );
+        if (experienceElement) {
+          experienceElement.scrollIntoView({ behavior: "smooth" });
+        } else if (sectionId) {
+          SmoothScroll(sectionId);
+        }
+      }, 100); // Small delay to ensure DOM is rendered
+    } else if (sectionId) {
+      SmoothScroll(sectionId);
+    }
+  }, [searchParams, listOfdata]);
 
   // API Calls
   useEffect(() => {
@@ -173,43 +181,12 @@ const CV = ({ params }: { params: any }) => {
           error,
           actualPage: (
             <div className="bg-[#EFF5FD]">
-              <section
-                className="w-full relative print:hidden"
-                // className="hidden"
-              >
-                <div className="mainContainer h-[60.7rem] lg:h-[65rem] print:h-auto  w-full relative ">
-                  {/* Background SVG */}
+              <section className="w-full relative print:hidden">
+                <div className="mainContainer h-[60.7rem] lg:h-[65rem] print:h-auto w-full relative ">
                   <Background />
-                  {/* Badge Heading and Paara Text */}
                   <div className="max-w-[1024px] mx-auto text-center px-[2rem] pt-[8rem] relative z-20">
-                    {/* Badge */}
-
-                    {/* Heading */}
-                    <div className="text-center text-primary text-[4rem] lg:text-[6rem] font-medium  leading-[5rem] lg:leading-[6rem] mt-[1.6rem]">
+                    <div className="text-center text-primary text-[4rem] lg:text-[6rem] font-medium leading-[5rem] lg:leading-[6rem] mt-[1.6rem]">
                       CV
-                    </div>
-                    <div className="items-start justify-strat gap-[4rem] hidden w-full">
-                      <img
-                        src={listOfdatas?.profile_photo_1}
-                        alt=""
-                        className="w-[145px] h-[143px] rounded-full"
-                      />
-                      <div className="flex items-start justify-start flex-col">
-                        <h2 className="text-[5rem] font-bold">
-                          {" "}
-                          {listOfdata?.name}
-                        </h2>
-                        <div className="text-[3rem] font-medium flex items-center justify-center flex-wrap gap-[3px]">
-                          {" "}
-                          {listOfdatas?.designation
-                            ?.split("|")
-                            .map((item, index) => (
-                              <div key={index} className="text-center">
-                                {item.trim()}
-                              </div>
-                            ))}
-                        </div>
-                      </div>
                     </div>
                     {loading && <WebsiteLoader height="h-[30rem]" />}
                   </div>
@@ -222,10 +199,8 @@ const CV = ({ params }: { params: any }) => {
                   portfolioImages={selectedPorfolioPicturesforPopup}
                 />
               )}
-
               <div className="mt-[-40rem] print:mt-0 max-w-[1550px] print:max-w-[1550px] w-full mx-auto px-[1.5rem]">
-                <div className="bg-white flex flex-col lg:flex-row gap-[4rem]  rounded-[1.4rem] relative pb-[5rem] lg:pb-[7rem] px-[2rem] lg:px-[3rem] mb-[10rem] lg:mb-[9.6rem]">
-                  {/* Side Panel */}
+                <div className="bg-white flex flex-col lg:flex-row gap-[4rem] rounded-[1.4rem] relative pb-[5rem] lg:pb-[7rem] px-[2rem] lg:px-[3rem] mb-[10rem] lg:mb-[9.6rem]">
                   <CVSideBar
                     listOfdata={listOfdata}
                     urlInfo={urlInfo}
@@ -237,50 +212,33 @@ const CV = ({ params }: { params: any }) => {
                     contactDetails={contactDetails}
                     socialLinks={socialLinks}
                   />
-                  {/* Right Content Section */}
                   <section className="w-full mt-[-2rem] lg:mt-0 md:pt-[7rem]">
-                    {/* 10 Years Experience */}
                     <div
                       dangerouslySetInnerHTML={{ __html: listOfdata?.tag_line }}
                       className="py-[5rem] px-[3.4rem] print:hidden block primaryGradient text-white text-[2.2rem] leading-[3.1rem] font-bold rounded-[1rem] text-center"
-                      // className="hidden"
                     ></div>
-
-                    {/* Timeline Section */}
-                    <div className=" w-full print:mt-[5rem] print:pt-[5rem]">
-                      {/* Timeline */}
+                    <div className="w-full print:mt-[5rem] print:pt-[5rem]">
                       <div className="flex items-center justify-center mt-[4rem] lg:mt-[6rem]">
                         <div className="relative">
-                          {/* Vertical line */}
                           <div className="absolute left-0 top-0 w-[1.5px] h-[100%] bg-border print:hidden" />
-                          {/* Timeline items Container */}
                           <div className="space-y-[1rem] lg:space-y-[2rem]">
-                            {/* Overview & Skills Timeline item ✅ */}
                             {listOfdata?.skills && (
-                              <div
-                                className="relative flex items-start print:break-before-page"
-                                // className="hidden"
-                              >
-                                {/* Dot */}
-                                <div className="absolute top-0 left-[-1.3rem] block  print:hidden">
+                              <div className="relative flex items-start print:break-before-page">
+                                <div className="absolute top-0 left-[-1.3rem] block print:hidden">
                                   <div className="w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center">
                                     <div className="w-[0.8rem] h-[0.8rem] bg-sectionBG rounded-full"></div>
                                   </div>
                                 </div>
-                                <div className="  overflow-hidden ml-[2rem] md:ml-[3rem] lg:ml-[5rem] print:break-before-page print_p_m">
-                                  {/* Title */}
+                                <div className="overflow-hidden ml-[2rem] md:ml-[3rem] lg:ml-[5rem] print:break-before-page print_p_m">
                                   <h2 className="text-heading leading-[3.56rem] text-[2.5rem] lg:text-[3.67rem] font-medium pl-[0.5rem] mb-[3rem]">
                                     Overview & Skills
                                   </h2>
-
-                                  {/* New Code With Mobile Check */}
                                   <div className="text-heading services_main list-div text-[1.6rem] leading-[2.4rem] flex flex-col gap-[1rem] mb-[5rem] list-inside print:p-0 w-full max-w-full">
                                     <ul
                                       dangerouslySetInnerHTML={{
                                         __html: visibleItems.join(""),
                                       }}
                                     />
-
                                     {items.length > 4 && (
                                       <button
                                         onClick={() =>
@@ -295,16 +253,12 @@ const CV = ({ params }: { params: any }) => {
                                 </div>
                               </div>
                             )}
-
-                            {/* Skills Timeline item ✅ */}
                             {listOfdata?.skills_ids && (
                               <div
                                 id="skillsSection"
                                 className="relative flex items-start print:break-before-page"
-                                // className="hidden"
                               >
-                                {/* Dot */}
-                                <div className="absolute top-0 left-[-1.3rem] block  print:hidden">
+                                <div className="absolute top-0 left-[-1.3rem] block print:hidden">
                                   <div className="w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center">
                                     <div className="w-[0.8rem] h-[0.8rem] bg-sectionBG rounded-full"></div>
                                   </div>
@@ -316,26 +270,18 @@ const CV = ({ params }: { params: any }) => {
                                 />
                               </div>
                             )}
-
-                            {/* Experience Section Problamatic Working */}
                             {listOfdata &&
                               listOfdata?.experiences_ids?.length > 0 && (
                                 <div
-                                  id="expericeSection"
+                                  id="experienceSection"
                                   className="relative flex items-start print:break-before-page"
                                 >
-                                  {/* Dot */}
                                   <div className="absolute top-0 left-[-1.3rem]">
                                     <div className="w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center mt-[3rem] mb-[2rem]">
                                       <div className="w-[0.8rem] h-[0.8rem] bg-sectionBG rounded-full"></div>
                                     </div>
                                   </div>
-
-                                  <div
-                                    className="ml-[2rem] md:ml-[3rem] 
-                                    lg:ml-[5rem] print_p_m"
-                                  >
-                                    {/* Title */}
+                                  <div className="ml-[2rem] md:ml-[3rem] lg:ml-[5rem] print_p_m">
                                     <div className="w-full">
                                       <h2 className="text-heading leading-[3.56rem] text-[3.67rem] font-medium pl-[0.5rem] pt-[3rem] pb-[2rem]">
                                         Experiences
@@ -349,26 +295,34 @@ const CV = ({ params }: { params: any }) => {
                                           showAllExperiences
                                             ? listOfdata.experiences_ids.length
                                             : isMobile
-                                            ? 3 // 📱 show 3 on mobile
-                                            : 6 // 💻 show 6 on desktop
+                                            ? 3
+                                            : 6
                                         )
                                         .map((experience, index) => (
-                                          <ExperienceSection
+                                          <div
                                             key={index}
-                                            experience={experience}
-                                            index={index}
-                                            listOfskills={listOfskills}
-                                            listOfdata={listOfdata}
-                                            showMoreSkills={showMoreSkills}
-                                            setShowMoreSkills={
-                                              setShowMoreSkills
-                                            }
-                                            variant="list"
-                                          />
+                                            id={`experience-${experience.id}`} // Add unique ID for scrolling
+                                            className={`relative ${
+                                              highlightedExperienceId ===
+                                              experience.id
+                                                ? "border border-primary rounded-[1rem]"
+                                                : ""
+                                            }`} // Highlight if selected
+                                          >
+                                            <ExperienceSection
+                                              experience={experience}
+                                              index={index}
+                                              listOfskills={listOfskills}
+                                              listOfdata={listOfdata}
+                                              showMoreSkills={showMoreSkills}
+                                              setShowMoreSkills={
+                                                setShowMoreSkills
+                                              }
+                                              variant="list"
+                                            />
+                                          </div>
                                         ))}
                                     </div>
-
-                                    {/* View full career timeline button */}
                                     {listOfdata?.experiences_ids?.length >
                                       (isMobile ? 3 : 6) &&
                                       !showAllExperiences && (
@@ -386,30 +340,25 @@ const CV = ({ params }: { params: any }) => {
                                   </div>
                                 </div>
                               )}
-
-                            {/* Portfolio Timeline item Problamatic */}
                             {listOfdata &&
                               listOfdata?.portfolios_ids?.length > 0 && (
                                 <div
                                   id="portfolioSection"
                                   className="relative flex items-start print:break-before-page"
-                                  // className="hidden"
                                 >
-                                  {/* Dot */}
-                                  <div className="absolute top-0 left-[-1.3rem] block print:hidden ">
+                                  <div className="absolute top-0 left-[-1.3rem] block print:hidden">
                                     <div className="w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center mt-[3rem] mb-[2rem]">
                                       <div className="w-[0.8rem] h-[0.8rem] bg-sectionBG rounded-full"></div>
                                     </div>
                                   </div>
-                                  <div className="ml-[2rem] md:ml-[3rem] lg:ml-[5rem] print_p_m print:!pt-[2rem] ">
-                                    {/* Title */}
+                                  <div className="ml-[2rem] md:ml-[3rem] lg:ml-[5rem] print_p_m print:!pt-[2rem]">
                                     <div className="flex items-center print:hidden justify-between w-full my-[3rem]">
                                       <h2 className="text-heading leading-[3.56rem] text-[3.67rem] font-medium pl-[0.5rem]">
                                         Portfolios
                                       </h2>
                                       <Link
                                         href={"/portfolio"}
-                                        className=" flex items-center gap-[0.6rem] group cursor-pointer mt-1.5"
+                                        className="flex items-center gap-[0.6rem] group cursor-pointer mt-1.5"
                                       >
                                         <div className="hover:font-bold hover:text-primary text-[1.4rem] text-heading font-medium">
                                           View all
@@ -446,13 +395,11 @@ const CV = ({ params }: { params: any }) => {
                                             ? portfolio?.skills
                                             : portfolio?.skills?.slice(0, 15)
                                         );
-
                                         return (
                                           <div
                                             className="relative flex items-start mt-[2rem] print-section"
                                             key={index}
                                           >
-                                            {/* Dot */}
                                             <div className="absolute top-0 left-[-3.2rem] md:left-[-4.2rem] lg:left-[-6.2rem] block print:hidden">
                                               <div className="w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center">
                                                 <div className="w-[0.8rem] h-[0.8rem] bg-sectionBG rounded-full"></div>
@@ -488,17 +435,11 @@ const CV = ({ params }: { params: any }) => {
                                   </div>
                                 </div>
                               )}
-
-                            {/* Education Timeline item */}
                             {listOfdata &&
                               listOfdata?.education_ids?.length > 0 && (
-                                <div
-                                  className="relative flex items-start print:break-before-page print:w-full print:flex print:items-center print:justify-center"
-                                  // className="hidden"
-                                >
-                                  {/* Dot */}
-                                  <div className="absolute top-0 left-[-1.3rem]  block print:hidden ">
-                                    <div className="w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center my-[3rem] ">
+                                <div className="relative flex items-start print:break-before-page print:w-full print:flex print:items-center print:justify-center">
+                                  <div className="absolute top-0 left-[-1.3rem] block print:hidden">
+                                    <div className="w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center my-[3rem]">
                                       <div className="w-[0.8rem] h-[0.8rem] bg-sectionBG rounded-full"></div>
                                     </div>
                                   </div>
@@ -509,15 +450,11 @@ const CV = ({ params }: { params: any }) => {
                                   />
                                 </div>
                               )}
-
-                            {/* Blogs Timeline item */}
                             <div
                               id="blogsSection"
                               className="relative flex items-start print:hidden"
-                              // className="hidden"
                             >
-                              {/* Dot */}
-                              <div className="absolute top-0 left-[-1.3rem]  block print:hidden ">
+                              <div className="absolute top-0 left-[-1.3rem] block print:hidden">
                                 <div className="w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center my-[3rem]">
                                   <div className="w-[0.8rem] h-[0.8rem] bg-sectionBG rounded-full"></div>
                                 </div>
@@ -547,4 +484,5 @@ const CV = ({ params }: { params: any }) => {
     </>
   );
 };
+
 export default CV;

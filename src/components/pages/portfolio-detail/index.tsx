@@ -22,6 +22,7 @@ import PageRendering from "@/components/PageRendering";
 import SkillsContainer from "@/components/SkillsContainer";
 import { skillsGrouping } from "@/hooks/skillsGrouping";
 import { SmoothScroll } from "@/hooks/SmoothScroll";
+import EducationComponent from "@/components/EducationComponent";
 
 const PortfolioDetails = ({ params }: { params: any }) => {
   const searchParams = useSearchParams();
@@ -372,6 +373,7 @@ const PortfolioDetails = ({ params }: { params: any }) => {
                       The skills, tools and technologies I used in this project:
                     </div>
                     {/* Skills Container */}
+
                     <SkillsContainer list={portfolioDetails?.skills} />
                   </article>
 
@@ -381,11 +383,14 @@ const PortfolioDetails = ({ params }: { params: any }) => {
                   )}
                 </div>
               </section>
+
+              {/* Education Section */}
+              <div id="education" className="my-[5rem]">
+                <EducationComponent />
+              </div>
+
               {/* Our Blogs Section */}
-              <div
-                className="w-full my-[10rem] lg:my-[12rem]"
-                id="blogsSection"
-              >
+              <div className="w-full my-[5rem]" id="blogsSection">
                 <OurBlogs domain={listOfdata?.domain} />
               </div>
               {/* Newsletter */}

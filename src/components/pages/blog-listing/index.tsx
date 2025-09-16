@@ -20,6 +20,7 @@ import {
   loadBlogs,
 } from "@/hooks/apihandlers/blogListingApiHandler";
 import EmptyState from "@/components/EmptyState";
+import EducationComponent from "@/components/EducationComponent";
 
 const BlogListing = ({ params }: { params: any }) => {
   const [urlInfo, setURLInfo] = useState<any>(null);
@@ -317,6 +318,12 @@ const BlogListing = ({ params }: { params: any }) => {
           </div>
         </div>
       </section>
+
+      {/* Education Section */}
+      <div id="education" className="my-[5rem]">
+        <EducationComponent />
+      </div>
+
       {/* Blog Cards */}
       {blogsList && blogsList.length > 0 && (
         <div className="mainContainer  mt-[-26rem]  lg:mt-[-40rem] relative w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 lg:grid-rows-3 justify-items-center gap-[3.2rem]">
@@ -407,11 +414,17 @@ const BlogListing = ({ params }: { params: any }) => {
         </div>
       )}
 
+      {/* Education Section */}
+      <div id="education" className="my-[5rem]">
+        <EducationComponent />
+      </div>
+
       {!urlInfo?.u && (
         <div className="w-full my-[5rem]">
           <Newsletter listOfdata={listOfdata} />
         </div>
       )}
+
       {/* Pagination */}
       {/* <div className='mainContainer w-full flex justify-between items-center mt-[6.4rem]'>
         <div className='flex items-center gap-[0.8rem] group cursor-pointer'>

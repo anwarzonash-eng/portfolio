@@ -152,11 +152,11 @@ const ContactMe = ({ listOfdata }) => {
 
   return (
     <>
-      <h3 className="text-heading text-[3.6rem] leading-[4.4rem] font-medium mt-[1.2rem] print:m-0 mb-4 text-center hidden lg:block">
+      <h3 className="text-heading text-[3.6rem] leading-[4.4rem] font-medium mt-[1.2rem] print:m-0 mb-4 text-center hidden lg:block print:hidden">
         Contact Me
       </h3>
       {/* Badge */}
-      <div className="flex items-center justify-center lg:hidden my-[2rem]">
+      <div className="flex items-center justify-center lg:hidden print:block my-[2rem]">
         <div className="badge">Contact Me</div>
       </div>
       <div

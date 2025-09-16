@@ -28,6 +28,7 @@ type PortfolioType = {
 
 interface HomeSliderPrintProps {
   portfolios: PortfolioType[];
+  isPortraitMode: boolean;
   companyType: string;
   locationLink: string;
   from: number;
@@ -36,6 +37,7 @@ interface HomeSliderPrintProps {
 
 const HomeSliderPrint: React.FC<HomeSliderPrintProps> = ({
   portfolios,
+  isPortraitMode,
   companyType,
   locationLink,
   from,
@@ -81,9 +83,17 @@ const HomeSliderPrint: React.FC<HomeSliderPrintProps> = ({
             key={index}
             className="flex flex-row rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden w-full bg-white"
           >
-            <div className="flex items-stretch bg-white rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden h-full w-full p-[3rem]">
+            <div
+              className={`flex ${
+                isPortraitMode ? "flex-col-reverse" : ""
+              } items-stretch bg-white rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden h-full w-full p-[3rem] gap-[4rem]`}
+            >
               {/* Content Section */}
-              <div className="w-1/2  flex items-start justify-between flex-col">
+              <div
+                className={`${
+                  isPortraitMode ? "w-full" : "w-1/2"
+                } flex flex-col items-center justify-center`}
+              >
                 <div className="flex items-start w-full flex-col justify-between h-full">
                   <div>
                     <div className="flex gap-[2rem] mb-[2rem]">
@@ -105,17 +115,20 @@ const HomeSliderPrint: React.FC<HomeSliderPrintProps> = ({
                         dangerouslySetInnerHTML={{
                           __html: portfolio.tagline_2,
                         }}
-                        className="text-[1.8rem] leading-[2.4rem] font-normal text-primary mt-[1rem] line-clamp-4"
+                        className="text-[1.8rem] leading-[2.4rem] font-normal text-primary mt-[1rem] line-clamp-6"
                       ></p>
                     </div>
                   </div>
 
-                  <div className="text-black text-[1.8rem] leading-[2.8rem] font-medium my-[2rem]">
-                    AREAS OF EXPERTISE I'VE WORKED IN:
-                    <div className="flex items-center gap-[0.7rem] my-[2rem] text-nowrap flex-wrap">
+                  <hr className="w-full my-[2rem] h-px bg-border" />
+                  <div className="text-black text-[1.8rem] leading-[2.8rem] font-medium">
+                    <p className="mb-[1rem]">
+                      AREAS OF EXPERTISE I'VE WORKED IN:
+                    </p>
+                    <div className="flex items-center gap-[0.7rem] text-nowrap flex-wrap">
                       {Object.values(skills)
                         .flat()
-                        .slice(0, showAllSkills ? undefined : 5)
+                        .slice(0, showAllSkills ? undefined : 7)
                         .map((skill: SkillType, i: number) => (
                           <Link
                             href={skill.url || "#"}
@@ -138,7 +151,7 @@ const HomeSliderPrint: React.FC<HomeSliderPrintProps> = ({
                       {Object.values(skills).flat().length > 8 && (
                         <button
                           onClick={() => setShowAllSkills(!showAllSkills)}
-                          className="bg-primary text-white border border-transparent py-[0.4rem] px-[2rem] hover:bg-white hover:text-primary hover:border-primary hover:border text-heading rounded-[1.2rem] text-[1.4rem] font-medium leading-[2rem]"
+                          className="hover:bg-white bg-primary text-white hover:text-primary capitalize text-center text-primary text-[1.3rem] font-medium py-[0.4rem] px-[2rem] flex items-center justify-center gap-[8px] rounded-[5rem] shadow opacity-0 animate-fadeIn relative group border border-transparent hover:border-primary"
                         >
                           {showAllSkills ? "Show Less" : "See More"}
                         </button>
@@ -147,7 +160,9 @@ const HomeSliderPrint: React.FC<HomeSliderPrintProps> = ({
                   </div>
                 </div>
 
-                <div className="flex items-center gap-[1.4rem]">
+                <hr className="w-full my-[2rem] h-px bg-border" />
+
+                <div className={`flex  gap-[1.4rem] w-full`}>
                   <Link
                     href={`/portfolio/${portfolio.id}`}
                     className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent hover:border-primary duration-300 text-center rounded-[0.6rem] max-w-max text-nowrap"
@@ -174,7 +189,11 @@ const HomeSliderPrint: React.FC<HomeSliderPrintProps> = ({
               </div>
 
               {/* Image Section */}
-              <div className="w-1/2 flex flex-col items-center justify-center">
+              <div
+                className={`${
+                  isPortraitMode ? "w-full" : "w-1/2"
+                } flex flex-col items-center justify-center`}
+              >
                 {portfolio?.thumbnail && (
                   <div className="relative w-full h-[300px] lg:h-[400px] rounded-[1.2rem] overflow-hidden">
                     <Image
@@ -196,15 +215,9 @@ const HomeSliderPrint: React.FC<HomeSliderPrintProps> = ({
                   </div>
                 )}
 
-                <button
+                <Link
+                  href={`/portfolio?sectionId=${portfolio.id}&openGallery=true`}
                   className="text-white py-[6px] mt-[17px] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent hover:border-primary duration-300 max-lg:w-full text-center rounded-[0.6rem] relative max-w-max text-nowrap"
-                  onClick={() =>
-                    openModal(
-                      portfolio?.pictures,
-                      portfolio?.thumbnail,
-                      portfolio?.child_hero_banner
-                    )
-                  }
                 >
                   <span className="relative z-10 flex items-center justify-center gap-2">
                     Explore the Gallery
@@ -222,7 +235,7 @@ const HomeSliderPrint: React.FC<HomeSliderPrintProps> = ({
                     </svg>
                   </span>
                   <span className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                </button>
+                </Link>
               </div>
             </div>
           </div>
