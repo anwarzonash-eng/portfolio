@@ -171,10 +171,6 @@ body {
   text-center max-w-max text-heading text-[2rem] font-medium font-Inter leading-[2rem];
 }
 
-/* .footerLink {
-  @apply relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1px] after:bg-heading duration-300 hover:text-primary hover:after:hidden;
-} */
-
 .footerLink {
   @apply relative inline-block text-white duration-300 text-opacity-80 hover:text-opacity-100 font-light text-[1.6rem];
 
@@ -241,21 +237,6 @@ body {
   @apply text-primary font-medium relative inline-block underline; /* Set as inline-block to apply ::before properly */
 }
 
-/* .list-div ul {
-  list-style-type: disc !important;
-  padding-left: 3.8rem !important;
-} */
-
-/* .list-div ul li {
-  line-height: 3.8rem !important;
-  padding-left: 2.8rem !important;
-}
-
-.list-div ul li::marker {
-  font-size: 1.5em;
-  color: var(--primary-color);
-} */
-
 .blogs-modified h1,
 .blogs-modified h2,
 .blogs-modified h3,
@@ -318,13 +299,6 @@ body {
 .list-div-portfolio1 ul li {
   @apply mb-[1rem];
 }
-/* .basicLineClamp {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  word-break: break-word;
-} */
 
 .line-clamp {
   -webkit-line-clamp: 1;

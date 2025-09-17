@@ -40,6 +40,7 @@ import NoteClickable from "@/components/NoteClickable";
 import PortfolioPopUp from "@/components/PortfolioPopUp";
 import EducationBlogsPortrait from "@/components/EducationBlogsPortrait";
 import HomeSliderPrint from "@/components/Sliders/HomeSliderPrint";
+import SkillsContainerPrint from "@/components/SkillsContainerPrint";
 type SkillType = {
   title: string;
   url?: string;
@@ -86,20 +87,6 @@ const CV_Portrait = ({ params }: { params: any }) => {
   const listOfdatas = useAppSelector(
     (state) => state.profile.listOfProfileData
   );
-  const initialVisibleItems = 3 * 6;
-
-  const visibleSkills = showAll
-    ? listOfdata?.skills_ids
-    : listOfdata?.skills_ids.slice(0, initialVisibleItems);
-
-  const skillsforCV: {
-    [key: string]: {
-      title: string;
-      url?: string;
-      order?: string;
-      icon?: string;
-    }[];
-  } = skillsGrouping(visibleSkills);
 
   useEffect(() => {
     setURLInfo(getRoutesDetails(params, searchParams));
@@ -251,7 +238,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
                     </div>
                   </div>
                   {/* Contact & Work Proof Container */}
-                  <div className="flex w-full gap-[2rem] items-start">
+                  <div className="flex w-full gap-[2rem] items-start px-[3rem]">
                     {/* Email, Website, Phone, Location */}
                     <div className="mb-[4rem] w-full flex flex-col gap-[2.6rem]">
                       {contactDetails(listOfdata)
@@ -363,7 +350,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
                             listOfdata?.skills,
                             listOfskills,
                             listOfdata,
-                            10 // ← show only first 5 bullet points
+                            12 // bullet points
                           ),
                         }}
                       ></div>
@@ -379,61 +366,18 @@ const CV_Portrait = ({ params }: { params: any }) => {
                   <NoteDomainForPint
                     direction={"hidden print:right-0 print:block"}
                   />
-                  <div className="relative flex items-start max-w-[1550px] w-full mx-auto px-[4rem] ">
+                  <div className="relative flex items-center justify-center max-w-[1550px] w-full mx-auto px-[4rem]">
                     <div className="print:mt-[4rem]">
                       {/* Title */}
-                      <h2 className="ml-[2rem] md:ml-[3rem] lg:ml-[5rem] text-heading leading-[3.56rem] text-[3.67rem] font-medium pl-[0.5rem] mb-[3rem]">
-                        Skills
-                      </h2>
-                      <div className="flex flex-col items-center">
-                        <div className="grid  grid-cols-5  xl:grid-cols-6 gap-[1.5rem] ml-[2rem] ">
-                          {Object.values(skillsforCV)
-                            .flat()
-                            ?.slice(0, showAll ? undefined : 20)
-                            .map((skill, i) => (
-                              <div
-                                key={i}
-                                style={{
-                                  animationDelay: `${0.3}s`,
-                                }}
-                                className="mx-auto mb-[4rem] flex flex-col items-center justify-start gap-[0.8rem] max-w-[15rem] lg:max-w-[19rem] w-full animate-fadeIn opacity-0"
-                              >
-                                {skill.icon && (
-                                  <div className="flex items-center justify-center h-[6.4rem] w-[6.4rem]">
-                                    <Image
-                                      src={skill?.icon}
-                                      alt={skill?.title}
-                                      height={64}
-                                      width={64}
-                                      className="object-contain rounded-full h-[6.4rem] w-[6.4rem]"
-                                    />
-                                  </div>
-                                )}
-                                <p className="mt-[1.5rem] text-paragraph1 text-center text-[1.8rem] leading-[2.8rem] overflow-hidden text-ellipsis">
-                                  {skill.title}
-                                </p>
-                              </div>
-                            ))}
-                        </div>
-                        {!showAll &&
-                          Object.values(skillsforCV).flat().length > 10 && (
-                            <button
-                              onClick={() => setShowAll(true)}
-                              className="px-[4rem] py-[1.4rem] bg-primary rounded-[2.2rem] hover:bg-white hover:text-primary hover:border-primary border border-border border-solid text-center max-w-max text-white text-[1.4rem] font-medium font-Inter leading-tight mx-auto"
-                            >
-                              Show More
-                            </button>
-                          )}
-
-                        {showAll && (
-                          <button
-                            onClick={() => setShowAll(false)}
-                            className="px-[4rem] py-[1.4rem] bg-primary rounded-[2.2rem] hover:bg-white hover:text-primary hover:border-primary border border-border border-solid text-center max-w-max text-white text-[1.4rem] font-medium font-Inter leading-tight mx-auto"
-                          >
-                            Show Less
-                          </button>
-                        )}
+                      <div className="flex items-center justify-center print:mb-[5rem]">
+                        <div className="badge">Skills</div>
                       </div>
+                      <SkillsContainerPrint
+                        list={listOfdata?.skills_ids}
+                        numColumns={6} // ✅ Dynamic columns (you can make this dynamic based on screen size or other conditions)
+                        numSkills={30} // ✅ Dynamic number of skills to display
+                        portfolioId={listOfdata?.portfolios_ids[0]?.id}
+                      />
                     </div>
                   </div>
                 </section>
@@ -454,7 +398,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
                         <div className="badge">Professional Experience</div>
                       </div>
                       {/* Timeline */}
-                      <div className="max-w-[1550px] w-full mx-auto px-[4rem] flex items-center justify-center mt-[2rem] print:m-0 ">
+                      <div className="w-full mx-auto flex items-center justify-center mt-[2rem] print:m-0 ">
                         <div className="relative print:flex flex-col gap-4">
                           {listOfdata?.experiences_ids &&
                             [...listOfdata.experiences_ids]
@@ -483,7 +427,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
                                 1,
                                 showAllExperiences
                                   ? listOfdata.experiences_ids.length
-                                  : 4
+                                  : 5
                               )
                               ?.map((experience, index) => {
                                 const skillsforExpereince: {
@@ -688,7 +632,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
                     />
                     <div className="max-w-[1550px] w-full mx-auto">
                       {/* Timeline */}
-                      <div className="max-w-[1550px] w-full mx-auto px-[4rem] flex items-center justify-center mt-[2rem] print:m-0 ">
+                      <div className="w-full mx-auto flex items-center justify-center mt-[2rem] print:m-0">
                         <div className="relative print:flex flex-col gap-4">
                           {listOfdata?.experiences_ids &&
                             [...listOfdata.experiences_ids]
@@ -714,241 +658,10 @@ const CV_Portrait = ({ params }: { params: any }) => {
                                 return monthB - monthA;
                               })
                               ?.slice(
-                                4,
+                                5,
                                 showAllExperiences
                                   ? listOfdata.experiences_ids.length
-                                  : 7
-                              )
-                              ?.map((experience, index) => {
-                                const skillsforExpereince: {
-                                  [key: string]: {
-                                    title: string;
-                                    url?: string;
-                                    order?: string;
-                                    icon?: string;
-                                  }[];
-                                } = skillsGrouping(
-                                  ShowmoreSkills[index]
-                                    ? experience?.skills
-                                    : experience?.skills?.slice(0, 5)
-                                );
-                                return (
-                                  <>
-                                    {/* Timeline items Container */}
-                                    <div className="space-y-[1rem] space-x-[9rem]">
-                                      {/* Timeline item */}
-                                      <>
-                                        <div className="relative flex items-start">
-                                          {/* Card */}
-                                          <div className="bg-white p-[1.6rem] rounded-[1rem] shadow w-full mb-[1rem]">
-                                            <div className="flex items-center flex-wrap text-nowrap gap-[1.5rem] md:justify-between">
-                                              {/* About Content */}
-                                              <div className="flex gap-[1rem] items-center  w-full justify-between">
-                                                <div className="flex items-center gap-2">
-                                                  {experience?.thumbnail && (
-                                                    <div className="h-[3.5rem] w-[3.5rem] bg-[#D1E9FF] rounded-[0.4rem] relative">
-                                                      <Image
-                                                        src={
-                                                          experience?.thumbnail
-                                                        }
-                                                        height={26}
-                                                        width={26}
-                                                        alt="Logo Mark"
-                                                        className="h-[2.6rem] 
-                                                            w-[2.6rem] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-                                                      />
-                                                    </div>
-                                                  )}
-                                                  <div>
-                                                    <p className="text-[1.2rem] font-normal text-paragraph1">
-                                                      {experience?.company_name}
-                                                    </p>
-                                                    <h3 className="text-[1.4rem] font-medium text-heading">
-                                                      {experience?.title}
-                                                    </h3>
-                                                  </div>
-                                                </div>
-
-                                                {/* Link */}
-                                                <div className="flex justify-end w-auto">
-                                                  <div className="flex flex-col-reverse gap-[1rem] max-w-max">
-                                                    <div className=" py-[0.4rem] px-[2rem] bg-white border border-[#E2E6EE] border-solid text-[#47516B] rounded-[2rem] text-[1.5rem] font-medium leading-[0.8rem] hover:bg-primary hover:text-white ">
-                                                      <Link
-                                                        href={
-                                                          experience.company_website
-                                                        }
-                                                        className="flex gap-2 justify-center align-middle items-center hover:text-white hover:text-semibold relative py-2 pl-[1rem] text-[1.3rem]"
-                                                      >
-                                                        {
-                                                          experience.company_website
-                                                            .replace(
-                                                              /^(https?:\/\/)?(www\.)?/,
-                                                              ""
-                                                            )
-                                                            .split("/")[0]
-                                                        }{" "}
-                                                      </Link>
-                                                    </div>
-                                                    {experience.company_website.includes(
-                                                      "upwork"
-                                                    ) && (
-                                                      <Link
-                                                        href={
-                                                          experience.company_website
-                                                        }
-                                                        className="hover:bg-primary hover:text-white py-[0.4rem] px-[1rem] text-heading bg-[#A3DDD3] rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
-                                                      >
-                                                        View my upwork Freelance
-                                                        Profile
-                                                      </Link>
-                                                    )}{" "}
-                                                  </div>
-                                                </div>
-                                              </div>
-                                            </div>
-
-                                            <div className="w-full">
-                                              <p
-                                                className="mt-[1rem] list-div text-[1.4rem] font-medium text-paragraph1 line-clamp-2"
-                                                dangerouslySetInnerHTML={{
-                                                  __html:
-                                                    modifiedContent(
-                                                      experience?.short_description,
-                                                      listOfskills,
-                                                      listOfdata
-                                                    ) +
-                                                    (experience
-                                                      ?.short_description
-                                                      .length > 80
-                                                      ? "..."
-                                                      : ""), // Add ellipsis if description is long
-                                                }}
-                                              />
-                                              <Link
-                                                href={`/cv?sectionId=experienceSection&experienceId=${experience.id}`} // Navigate to CV page with experience ID
-                                                className="hover:bg-white bg-primary text-white hover:text-primary capitalize text-center text-primary text-[1.2rem] font-medium py-[0.4rem] px-[1.5rem] inline-flex items-center justify-center gap-[8px] rounded-[5rem] shadow opacity-0 animate-fadeIn relative group border border-transparent hover:border-primary mt-[0.3rem]"
-                                              >
-                                                Read More
-                                              </Link>
-                                            </div>
-
-                                            {experience?.skills &&
-                                              experience?.skills.length > 0 && (
-                                                <div className="w-full">
-                                                  <h4 className="text-[1.3rem] text-black font-medium mb-[0.5rem] mt-[1rem]">
-                                                    AREAS OF EXPERTISE I'VE
-                                                    WORKED IN
-                                                  </h4>
-                                                  <div className="w-full flex-col items-start flex gap-5">
-                                                    <div className="flex items-center gap-[1rem] lg:gap-[0.7rem] text-nowrap flex-wrap text-[1.2rem]">
-                                                      {Object?.values(
-                                                        skillsforExpereince
-                                                      )?.map(
-                                                        (group, groupIndex) => (
-                                                          <React.Fragment
-                                                            key={groupIndex}
-                                                          >
-                                                            {group.map(
-                                                              (skill, i) => {
-                                                                // Calculate the skill number (groupIndex+1).(i+1)
-                                                                const skillNumber = `${
-                                                                  groupIndex + 1
-                                                                }.${i + 1}`;
-
-                                                                return (
-                                                                  <Link
-                                                                    href={
-                                                                      skill.url ||
-                                                                      "#"
-                                                                    }
-                                                                    legacyBehavior
-                                                                    key={`${groupIndex}-${i}`}
-                                                                  >
-                                                                    <a
-                                                                      target="_blank"
-                                                                      rel="noopener noreferrer"
-                                                                      style={{
-                                                                        animationDelay: `${
-                                                                          i *
-                                                                          0.1
-                                                                        }s`,
-                                                                      }}
-                                                                      className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.2rem] font-medium py-[0.3rem] px-[1.5rem] bg-white flex items-center print:py-[0.2rem] print:px-[1.5rem] justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
-                                                                    >
-                                                                      {
-                                                                        skill?.title
-                                                                      }
-                                                                    </a>
-                                                                  </Link>
-                                                                );
-                                                              }
-                                                            )}
-                                                          </React.Fragment>
-                                                        )
-                                                      )}
-                                                      <button
-                                                        className="hover:bg-white bg-primary text-white hover:text-primary capitalize text-center text-primary 
-                                                          text-[1.2rem] font-medium py-[0.4rem] px-[1.5rem] inline-flex items-center justify-center gap-[8px] rounded-[5rem] shadow opacity-0 animate-fadeIn relative group border border-transparent hover:border-primary"
-                                                      >
-                                                        Show More Skills
-                                                      </button>
-                                                    </div>
-                                                  </div>
-                                                </div>
-                                              )}
-                                          </div>
-                                        </div>
-                                      </>
-                                    </div>{" "}
-                                  </>
-                                );
-                              })}{" "}
-                        </div>
-                      </div>
-                    </div>
-                  </section>
-                </>
-              )}
-
-              {listOfdata && listOfdata?.experiences_ids?.length > 0 && (
-                <>
-                  <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center p-[4rem] relative">
-                    {/* Note and Domain For Each Page */}
-                    <NoteDomainForPint
-                      direction={"hidden print:right-0 print:block"}
-                    />
-                    <div className="max-w-[1550px] w-full mx-auto">
-                      {/* Timeline */}
-                      <div className="max-w-[1550px] w-full mx-auto px-[4rem] flex items-center justify-center mt-[2rem] print:m-0 ">
-                        <div className="relative print:flex flex-col gap-4">
-                          {listOfdata?.experiences_ids &&
-                            [...listOfdata.experiences_ids]
-                              ?.sort((a, b) => {
-                                const yearA = new Date(
-                                  a.ending_Date
-                                ).getFullYear();
-                                const yearB = new Date(
-                                  b.ending_Date
-                                ).getFullYear();
-
-                                if (yearA !== yearB) {
-                                  return yearB - yearA;
-                                }
-
-                                const monthA = new Date(
-                                  a.ending_Date
-                                ).getMonth();
-                                const monthB = new Date(
-                                  b.ending_Date
-                                ).getMonth();
-
-                                return monthB - monthA;
-                              })
-                              ?.slice(
-                                7,
-                                showAllExperiences
-                                  ? listOfdata.experiences_ids.length
-                                  : 10
+                                  : 9
                               )
                               ?.map((experience, index) => {
                                 const skillsforExpereince: {
@@ -1189,7 +902,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
                         className="max-w-[1550px] mx-auto w-full relative"
                         key={index}
                       >
-                        <div className="w-full px-[6rem]">
+                        <div className="w-full px-[3rem]">
                           {/* Date */}
                           <h2
                             key={index}
@@ -1216,6 +929,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
                             isPortraitMode={true}
                             companyType={listOfdata?.companytype}
                             locationLink={`/?sectionId=myWork`}
+                            portfolioId={listOfdata?.portfolios_ids[0]?.id}
                             from={0}
                             max={1}
                           />
@@ -1242,7 +956,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
                         className="max-w-[1550px] mx-auto w-full relative"
                         key={index}
                       >
-                        <div className="w-full px-[6rem]">
+                        <div className="w-full px-[3rem]">
                           {/* Date */}
                           <h2
                             key={index}
@@ -1269,6 +983,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
                             isPortraitMode={true}
                             companyType={listOfdata?.companytype}
                             locationLink={`/?sectionId=myWork`}
+                            portfolioId={listOfdata?.portfolios_ids[0]?.id}
                             from={1}
                             max={2}
                           />
@@ -1295,7 +1010,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
                         className="max-w-[1550px] mx-auto w-full relative"
                         key={index}
                       >
-                        <div className="w-full px-[6rem]">
+                        <div className="w-full px-[3rem]">
                           {/* Date */}
                           <h2
                             key={index}
@@ -1322,6 +1037,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
                             isPortraitMode={true}
                             companyType={listOfdata?.companytype}
                             locationLink={`/?sectionId=myWork`}
+                            portfolioId={listOfdata?.portfolios_ids[0]?.id}
                             from={2}
                             max={3}
                           />

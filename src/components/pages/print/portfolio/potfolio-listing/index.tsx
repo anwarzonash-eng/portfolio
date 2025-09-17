@@ -219,7 +219,7 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
                               className="text-[1.9rem] leading-[150%] font-medium mt-[1rem] text-primary"
                             ></p>
 
-                            <p
+                            {/* <p
                               dangerouslySetInnerHTML={{
                                 __html: modifiedContent(
                                   portfolio.features_short,
@@ -228,8 +228,9 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
                                 ),
                               }}
                               className="mt-[2rem] list-div-portfolio1 pl-[2rem] line-clamp-5"
-                            ></p>
-                            <h4 className="text-heading text-[1.2rem] font-medium mb-[1.2rem] ml-[0.2rem]">
+                            ></p> */}
+                            <hr className="w-full my-[2.4rem] h-px bg-border" />
+                            <h4 className="text-heading text-[1.6rem] font-medium mb-[1.2rem] ml-[0.2rem]">
                               AREAS OF EXPERTISE I'VE WORKED IN
                             </h4>
                             <div className="flex items-center gap-[1rem] mt-3 lg:gap-[0.7rem] flex-wrap text-[1.2rem] w-full">

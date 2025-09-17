@@ -200,7 +200,7 @@ const PortfolioContent: React.FC<PortfolioContentProps> = ({
       <div className="mb-2">
         {visibleCount > 0 && (
           <ul
-            className="mt-[2rem] list-div-portfolio1 pl-[2rem] text-heading text-[1.6rem] leading-[2.4rem] list-disc"
+            className="mt-[2rem] list-div-portfolio1 custom-bullets pl-[2rem] text-heading text-[1.6rem] leading-[2.4rem]"
             dangerouslySetInnerHTML={{ __html: visibleItems.join("") }}
           />
         )}
@@ -208,7 +208,7 @@ const PortfolioContent: React.FC<PortfolioContentProps> = ({
           <button
             onClick={handleToggle}
             className={`${
-              expansionState === "full" ? "mt-[-3rem]" : "mt-[1rem]"
+              expansionState === "full" ? "mt-[1rem]" : "mt-[1rem]"
             } bg-primary leading-normal text-center py-[0.6rem] px-[2rem] text-white hover:bg-white border border-[#E2E6EE] border-solid hover:border-primary hover:text-primary rounded-[2rem] text-[1.4rem] font-medium`}
             aria-label={
               expansionState === "full" ? "Collapse content" : "Expand content"

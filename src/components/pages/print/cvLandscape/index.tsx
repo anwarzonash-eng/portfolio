@@ -32,6 +32,7 @@ import DesignationDomain from "@/components/DesignationDomain";
 import PortfolioPopUp from "@/components/PortfolioPopUp";
 import EducationBlogsLandscape from "@/components/EducationBlogsLandscape";
 import HomeSliderPrint from "@/components/Sliders/HomeSliderPrint";
+import SkillsContainerPrint from "@/components/SkillsContainerPrint";
 type SkillType = {
   title: string;
   url?: string;
@@ -53,20 +54,6 @@ const CV_Landscape = ({ params }: { params: any }) => {
   const listOfdatas = useAppSelector(
     (state) => state.profile.listOfProfileData
   );
-  const initialVisibleItems = 3 * 6;
-
-  const visibleSkills = showAll
-    ? listOfdata?.skills_ids
-    : listOfdata?.skills_ids.slice(0, initialVisibleItems);
-
-  const skillsforCV: {
-    [key: string]: {
-      title: string;
-      url?: string;
-      order?: string;
-      icon?: string;
-    }[];
-  } = skillsGrouping(visibleSkills);
 
   useEffect(() => {
     setURLInfo(getRoutesDetails(params, searchParams));
@@ -244,18 +231,18 @@ const CV_Landscape = ({ params }: { params: any }) => {
                     {listOfdata?.skills && (
                       <div className="w-full">
                         {/* Title */}
-                        <h2 className="text-heading leading-[3.56rem] text-[3.67rem] font-medium pl-[0.5rem] mb-[3rem]">
+                        <h2 className="text-heading leading-[3.56rem] text-[3.67rem] font-medium ">
                           Overview & Skills
                         </h2>
                         {/* Skills List */}
                         <div
-                          className="text-heading services_main list-div text-[1.6rem] leading-[2.4rem] flex flex-col gap-[1rem] mb-[5rem] list-inside print:p-0"
+                          className="text-heading text-[1.6rem] leading-[2.4rem] flex flex-col gap-[1rem] my-[1rem] list-inside print:p-0"
                           dangerouslySetInnerHTML={{
                             __html: modifiedContentPrint(
                               listOfdata?.skills,
                               listOfskills,
                               listOfdata,
-                              8 // ← show only first 5 bullet points
+                              6 // 5 bullet points
                             ),
                           }}
                         ></div>
@@ -368,64 +355,16 @@ const CV_Landscape = ({ params }: { params: any }) => {
                   {listOfdata?.skills && (
                     <div className="w-full">
                       {/* Badge*/}
-                      <div className="flex items-center justify-center">
+                      <div className="flex items-center justify-center mb-[4rem]">
                         <h2 className="badge">Skills</h2>
                       </div>
                       {/* Skills List */}
-                      {listOfdata?.skills_ids && (
-                        <div className="my-[3rem]">
-                          <div className="flex flex-col items-center">
-                            <div className="grid grid-cols-6 gap-[1rem] mb-[1rem]">
-                              {Object.values(skillsforCV)
-                                ?.flat()
-                                ?.slice(0, showAll ? undefined : 18) // ✅ Show all if showAll is true
-                                ?.map((skill, i) => (
-                                  <div
-                                    key={i}
-                                    style={{
-                                      animationDelay: `${0.2}s`,
-                                    }}
-                                    className="mx-auto mb-[2rem] flex flex-col items-center justify-start gap-[0.8rem] max-w-[15rem] lg:max-w-[19rem] w-full animate-fadeIn opacity-0"
-                                  >
-                                    {skill.icon && (
-                                      <div className="flex items-center justify-center h-[5.4rem] w-[5.4rem]">
-                                        <Image
-                                          src={skill?.icon}
-                                          alt={skill?.title}
-                                          height={64}
-                                          width={64}
-                                          className="object-contain rounded-full
-                                                      h-full w-full"
-                                        />
-                                      </div>
-                                    )}
-                                    <p className="mt-[1.5rem] text-paragraph1 text-center text-[1.8rem] leading-[2.8rem] overflow-hidden text-ellipsis">
-                                      {skill.title}
-                                    </p>
-                                  </div>
-                                ))}
-                            </div>
-                            {!showAll &&
-                              Object.values(skillsforCV).flat().length > 10 && (
-                                <button
-                                  onClick={() => setShowAll(true)}
-                                  className="px-[4rem] py-[1.4rem] bg-primary rounded-[2.2rem] hover:bg-white hover:text-primary hover:border-primary border border-border border-solid text-center max-w-max text-white text-[1.4rem] font-medium font-Inter leading-tight mx-auto"
-                                >
-                                  Show More
-                                </button>
-                              )}
-
-                            {showAll && (
-                              <button
-                                onClick={() => setShowAll(false)}
-                                className="px-[4rem] py-[1.4rem] bg-primary rounded-[2.2rem] hover:bg-white hover:text-primary hover:border-primary border border-border border-solid text-center max-w-max text-white text-[1.4rem] font-medium font-Inter leading-tight mx-auto"
-                              >
-                                Show Less
-                              </button>
-                            )}
-                          </div>
-                        </div>
-                      )}
+                      <SkillsContainerPrint
+                        list={listOfdata?.skills_ids}
+                        numColumns={5} // ✅ Dynamic columns (you can make this dynamic based on screen size or other conditions)
+                        numSkills={20} // ✅ Dynamic number of skills to display
+                        portfolioId={listOfdata?.portfolios_ids[0]?.id}
+                      />
                     </div>
                   )}
                 </div>
@@ -446,7 +385,7 @@ const CV_Landscape = ({ params }: { params: any }) => {
                         <div className="badge">Professional Experience</div>
                       </div>
                       {/* Timeline */}
-                      <div className="max-w-[1550px] w-full mx-auto px-[4rem] flex items-center justify-center mt-[2rem] print:m-0 ">
+                      <div className="max-w-[1550px] w-full mx-auto flex items-center justify-center mt-[2rem] print:m-0 ">
                         <div className="relative print:flex flex-col gap-4">
                           {listOfdata?.experiences_ids &&
                             [...listOfdata.experiences_ids]
@@ -680,7 +619,7 @@ const CV_Landscape = ({ params }: { params: any }) => {
                     />
                     <div className="max-w-[1550px] w-full mx-auto">
                       {/* Timeline */}
-                      <div className="max-w-[1550px] w-full mx-auto px-[4rem] flex items-center justify-center mt-[2rem] print:m-0 ">
+                      <div className="max-w-[1550px] w-full mx-auto flex items-center justify-center mt-[2rem] print:m-0 ">
                         <div className="relative print:flex flex-col gap-4">
                           {listOfdata?.experiences_ids &&
                             [...listOfdata.experiences_ids]
@@ -911,7 +850,7 @@ const CV_Landscape = ({ params }: { params: any }) => {
                     />
                     <div className="max-w-[1550px] w-full mx-auto">
                       {/* Timeline */}
-                      <div className="max-w-[1550px] w-full mx-auto px-[4rem] flex items-center justify-center mt-[2rem] print:m-0 ">
+                      <div className="max-w-[1550px] w-full mx-auto flex items-center justify-center mt-[2rem] print:m-0 ">
                         <div className="relative print:flex flex-col gap-4">
                           {listOfdata?.experiences_ids &&
                             [...listOfdata.experiences_ids]
@@ -1181,7 +1120,7 @@ const CV_Landscape = ({ params }: { params: any }) => {
                         className="max-w-[1550px] mx-auto w-full relative"
                         key={index}
                       >
-                        <div className="w-full px-[6rem]">
+                        <div className="w-full px-[4rem]">
                           {/* Date */}
                           <h2
                             key={index}
@@ -1208,6 +1147,7 @@ const CV_Landscape = ({ params }: { params: any }) => {
                             isPortraitMode={false}
                             companyType={listOfdata?.companytype}
                             locationLink={`/?sectionId=myWork`}
+                            portfolioId={listOfdata?.portfolios_ids[0]?.id}
                             from={0}
                             max={1}
                           />
@@ -1234,7 +1174,7 @@ const CV_Landscape = ({ params }: { params: any }) => {
                         className="max-w-[1550px] mx-auto w-full relative"
                         key={index}
                       >
-                        <div className="w-full px-[6rem]">
+                        <div className="w-full px-[4rem]">
                           {/* Date */}
                           <h2
                             key={index}
@@ -1261,6 +1201,7 @@ const CV_Landscape = ({ params }: { params: any }) => {
                             isPortraitMode={false}
                             companyType={listOfdata?.companytype}
                             locationLink={`/?sectionId=myWork`}
+                            portfolioId={listOfdata?.portfolios_ids[0]?.id}
                             from={1}
                             max={2}
                           />
@@ -1287,7 +1228,7 @@ const CV_Landscape = ({ params }: { params: any }) => {
                         className="max-w-[1550px] mx-auto w-full relative"
                         key={index}
                       >
-                        <div className="w-full px-[6rem]">
+                        <div className="w-full px-[4rem]">
                           {/* Date */}
                           <h2
                             key={index}
@@ -1314,6 +1255,7 @@ const CV_Landscape = ({ params }: { params: any }) => {
                             isPortraitMode={false}
                             companyType={listOfdata?.companytype}
                             locationLink={`/?sectionId=myWork`}
+                            portfolioId={listOfdata?.portfolios_ids[0]?.id}
                             from={2}
                             max={3}
                           />

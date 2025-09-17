@@ -558,7 +558,7 @@ const Home_p = ({ params }: { params: any }) => {
                       />
                       <div className="max-w-[1550px] w-full mx-auto">
                         {/* Badge */}
-                        <div className="flex items-center justify-center mb-[4rem]">
+                        <div className="flex items-center justify-center mb-[1rem]">
                           <div className="badge">Skills</div>
                         </div>
                         {/* Heading */}
@@ -573,8 +573,8 @@ const Home_p = ({ params }: { params: any }) => {
                         {/* Skills Container */}
                         <SkillsContainerPrint
                           list={listOfdata?.skills_ids}
-                          layoutType={false}
-                          initialVisibleItems={18}
+                          numColumns={6} // number of columns to display
+                          numSkills={24} // number of skills to display
                           portfolioId={listOfdata?.portfolios_ids[0]?.id}
                         />
                       </div>
@@ -645,6 +645,7 @@ const Home_p = ({ params }: { params: any }) => {
                             portfolios={listOfdata?.portfolios_ids}
                             isPortraitMode={false}
                             companyType={listOfdata?.companytype}
+                            portfolioId={listOfdata?.portfolios_ids[0]?.id}
                             locationLink={`/?sectionId=myWork`}
                             from={0}
                             max={1}
@@ -665,6 +666,7 @@ const Home_p = ({ params }: { params: any }) => {
                             isPortraitMode={false}
                             companyType={listOfdata?.companytype}
                             locationLink={`/?sectionId=myWork`}
+                            portfolioId={listOfdata?.portfolios_ids[0]?.id}
                             from={1}
                             max={2}
                           />
@@ -684,6 +686,7 @@ const Home_p = ({ params }: { params: any }) => {
                             isPortraitMode={false}
                             companyType={listOfdata?.companytype}
                             locationLink={`/?sectionId=myWork`}
+                            portfolioId={listOfdata?.portfolios_ids[0]?.id}
                             from={2}
                             max={3}
                           />

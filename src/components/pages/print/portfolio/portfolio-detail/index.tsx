@@ -424,10 +424,10 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
                   </div>
                   {/* Skills Container */}
                   <SkillsContainerPrint
-                    list={portfolioDetails?.skills}
-                    layoutType={true}
-                    initialVisibleItems={8}
-                    portfolioId=""
+                    list={listOfdata?.skills_ids}
+                    numColumns={6} // number of columns to display
+                    numSkills={24} // number of skills to display
+                    portfolioId={listOfdata?.portfolios_ids[0]?.id}
                   />
                 </div>
                 {/* Slider  Sections ✅ */}

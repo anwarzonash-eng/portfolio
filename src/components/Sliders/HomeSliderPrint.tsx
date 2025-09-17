@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import PortfolioPopUp from "../PortfolioPopUp";
 import { skillsGrouping } from "@/hooks/skillsGrouping";
+import { useRouter } from "next/navigation";
 
 type SkillType = {
   title: string;
@@ -31,6 +32,7 @@ interface HomeSliderPrintProps {
   isPortraitMode: boolean;
   companyType: string;
   locationLink: string;
+  portfolioId: string;
   from: number;
   max?: number;
 }
@@ -40,6 +42,7 @@ const HomeSliderPrint: React.FC<HomeSliderPrintProps> = ({
   isPortraitMode,
   companyType,
   locationLink,
+  portfolioId,
   from,
   max,
 }) => {
@@ -58,7 +61,7 @@ const HomeSliderPrint: React.FC<HomeSliderPrintProps> = ({
     setSelectedPorfolioPicturesforPopup(null);
     setIsModalOpen(false);
   };
-  const [showAllSkills, setShowAllSkills] = useState(false);
+
   const [
     selectedPorfolioPicturesforPopup,
     setSelectedPorfolioPicturesforPopup,
@@ -68,6 +71,13 @@ const HomeSliderPrint: React.FC<HomeSliderPrintProps> = ({
   if (!portfolios || portfolios.length === 0) return null;
 
   const topTwoPortfolios = portfolios.slice(from, max);
+
+  const router = useRouter();
+
+  const handleSeeMore = () => {
+    // Navigate to portfolio detail with skills section scroll
+    router.push(`/portfolio/${portfolioId}?scroll=skills`);
+  };
 
   return (
     <div className="w-full flex flex-col items-center gap-6 mt-[2rem]">
@@ -128,7 +138,7 @@ const HomeSliderPrint: React.FC<HomeSliderPrintProps> = ({
                     <div className="flex items-center gap-[0.7rem] text-nowrap flex-wrap">
                       {Object.values(skills)
                         .flat()
-                        .slice(0, showAllSkills ? undefined : 7)
+                        .slice(0, 7)
                         .map((skill: SkillType, i: number) => (
                           <Link
                             href={skill.url || "#"}
@@ -150,10 +160,10 @@ const HomeSliderPrint: React.FC<HomeSliderPrintProps> = ({
 
                       {Object.values(skills).flat().length > 8 && (
                         <button
-                          onClick={() => setShowAllSkills(!showAllSkills)}
+                          onClick={handleSeeMore}
                           className="hover:bg-white bg-primary text-white hover:text-primary capitalize text-center text-primary text-[1.3rem] font-medium py-[0.4rem] px-[2rem] flex items-center justify-center gap-[8px] rounded-[5rem] shadow opacity-0 animate-fadeIn relative group border border-transparent hover:border-primary"
                         >
-                          {showAllSkills ? "Show Less" : "See More"}
+                          See More
                         </button>
                       )}
                     </div>
