@@ -4,6 +4,7 @@ import { skillsGrouping } from "@/hooks/skillsGrouping";
 import Image from "next/image";
 import React from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 // Define the skill type
 type SkillType = {
@@ -52,6 +53,8 @@ const SkillsContainerPrint: React.FC<SkillsContainerPrintProps> = ({
   // Slice visible skills based on numSkills prop
   const visibleSkills = list?.slice(0, numSkills) || [];
 
+  console.log("Skills Print List:", list);
+
   // Group the visible skills
   const skills: Record<string, SkillType[]> = skillsGrouping(visibleSkills);
 
@@ -71,7 +74,9 @@ const SkillsContainerPrint: React.FC<SkillsContainerPrintProps> = ({
         {Object.values(skills).map((group, groupIndex) => (
           <React.Fragment key={groupIndex}>
             {group.map((skill, i) => (
-              <div
+              <Link
+                href={skill.url}
+                target="_blank"
                 key={`${groupIndex}-${i}`}
                 style={{ animationDelay: `${i * 0.03}s` }}
                 className="mx-auto mb-[4rem] flex items-center justify-center flex-col gap-[0.8rem] max-w-[12rem] w-full animate-fadeIn opacity-0"
@@ -93,7 +98,7 @@ const SkillsContainerPrint: React.FC<SkillsContainerPrintProps> = ({
                 <p className="mt-[1.5rem] text-paragraph1 text-center text-[1.8rem] leading-[2.8rem] overflow-hidden text-ellipsis">
                   {skill.title}
                 </p>
-              </div>
+              </Link>
             ))}
           </React.Fragment>
         ))}

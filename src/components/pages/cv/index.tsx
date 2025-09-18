@@ -26,6 +26,7 @@ import PageRendering from "@/components/PageRendering";
 import PortfolioPopUp from "@/components/PortfolioPopUp";
 import WebsiteLoader from "@/components/WebsiteLoader";
 import Background from "@/components/background";
+import PortfolioCardContent from "@/components/PortfolioCardContent";
 
 const CV = ({ params }: { params: any }) => {
   const searchParams = useSearchParams();
@@ -405,28 +406,24 @@ const CV = ({ params }: { params: any }) => {
                                                 <div className="w-[0.8rem] h-[0.8rem] bg-sectionBG rounded-full"></div>
                                               </div>
                                             </div>
-                                            <CVPortfolio
+
+                                            <PortfolioCardContent
                                               portfolio={portfolio}
+                                              thumbnailSize={"small"}
+                                              listOfskills={
+                                                portfolio.skills || []
+                                              }
+                                              listOfdata={{
+                                                primaryColor: "#1F4FE1",
+                                                companytype:
+                                                  portfolio.companytype || "",
+                                              }}
                                               index={index}
-                                              listOfskills={listOfskills}
-                                              listOfdata={listOfdata}
-                                              skillsForPortfolios={
-                                                skillsForPortfolios
-                                              }
-                                              showMoreSkillsForPortfolios={
-                                                showMoreSkillsForPortfolios
-                                              }
-                                              setShowMoreSkillsForPortfolios={
-                                                setShowMoreSkillsForPortfolios
+                                              showMoreSkills={showMoreSkills}
+                                              setShowMoreSkills={
+                                                setShowMoreSkills
                                               }
                                               openModal={openModal}
-                                              modifiedContent={modifiedContent}
-                                              expandedPortfolio={
-                                                expandedPortfolio
-                                              }
-                                              setExpandedPortfolio={
-                                                setExpandedPortfolio
-                                              }
                                             />
                                           </div>
                                         );

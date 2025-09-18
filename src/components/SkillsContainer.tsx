@@ -1,5 +1,6 @@
 import { skillsGrouping } from "@/hooks/skillsGrouping";
 import Image from "next/image";
+import Link from "next/link";
 import React, { useState } from "react";
 
 // Define the skill type
@@ -17,6 +18,8 @@ interface SkillsContainerProps {
 
 const SkillsContainer: React.FC<SkillsContainerProps> = ({ list }) => {
   const [showAll, setShowAll] = useState(false);
+
+  console.log("Skills List:", list);
 
   // Number of items to display by default
   const initialVisibleItemsXL = 2 * 8; // 2 rows × 8 skills
@@ -54,20 +57,26 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({ list }) => {
                 }}
                 className="mx-auto mb-[4rem] flex flex-col items-center justify-start gap-[0.8rem] max-w-[13rem] lg:max-w-[17rem] w-full animate-fadeIn opacity-0"
               >
-                {skill.icon && (
-                  <div className="flex items-center justify-center h-[6.4rem] w-[6.4rem]">
-                    <Image
-                      src={skill.icon}
-                      alt={skill.title}
-                      height={64}
-                      width={64}
-                      className="object-cover rounded-full h-[6.4rem] w-[6.4rem]"
-                    />
-                  </div>
-                )}
-                <p className="mt-[1.5rem] text-paragraph1 text-center text-[1.8rem] leading-[2.8rem] overflow-hidden text-ellipsis">
-                  {skill.title == "Nest.js" ? "NestJs" : skill.title}
-                </p>
+                <Link
+                  href={skill.url}
+                  target="_blank"
+                  className="flex flex-col items-center justify-center"
+                >
+                  {skill.icon && (
+                    <div className="flex items-center justify-center h-[6.4rem] w-[6.4rem]">
+                      <Image
+                        src={skill.icon}
+                        alt={skill.title}
+                        height={64}
+                        width={64}
+                        className="object-cover rounded-full h-[6.4rem] w-[6.4rem]"
+                      />
+                    </div>
+                  )}
+                  <p className="mt-[1.5rem] text-paragraph1 text-center text-[1.8rem] leading-[2.8rem] overflow-hidden text-ellipsis">
+                    {skill.title == "Nest.js" ? "NestJs" : skill.title}
+                  </p>
+                </Link>
               </div>
             ))}
           </React.Fragment>

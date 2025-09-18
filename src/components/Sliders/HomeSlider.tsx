@@ -2,9 +2,8 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import PortfolioImagesLoader from "../PortfolioImagesLoader";
 import PortfolioPopUp from "../PortfolioPopUp";
-import PortfolioContent from "../PortfolioContent";
-import { skillsGrouping } from "@/hooks/skillsGrouping";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import PortfolioCardContent from "../PortfolioCardContent";
 
 // Config
 const SLIDE_INTERVAL = 5000; // default autoplay
@@ -185,28 +184,19 @@ const HomeSlider = ({ portfolios }) => {
           {portfolios.map((portfolio, index) => (
             <div
               key={portfolio.id || index}
-              className="w-full flex-shrink-0 px-[1.5rem] bg-white rounded-[1rem] p-4 lg:p-8"
+              className="w-full flex-shrink-0 rounded-[1rem]"
               ref={(el) => {
                 slideRefs.current[index] = el;
               }}
             >
-              <PortfolioContent
+              <PortfolioCardContent
                 portfolio={portfolio}
-                thumbnailToUse={
-                  portfolio.title === "Velzon"
-                    ? "/VelzonThumbnail.PNG"
-                    : portfolio.thumbnail || "/images/dummy_port_img.webp"
-                }
-                listOfskills={portfolio.skills || []} // Pass portfolio.skills as the skills list for modifiedContent
+                thumbnailSize={"large"}
+                listOfskills={portfolio.skills || []}
                 listOfdata={{
-                  primaryColor: "#1F4FE1", // Match CVPortfolio's expected color
-                  companytype: portfolio.companytype || "", // For "Launch Project" button
+                  primaryColor: "#1F4FE1",
+                  companytype: portfolio.companytype || "",
                 }}
-                skills={skillsGrouping(
-                  portfolio.skills?.length < 15
-                    ? portfolio.skills || []
-                    : portfolio.skills?.slice(0, 15) || []
-                )}
                 index={index}
                 showMoreSkills={showMoreSkills}
                 setShowMoreSkills={setShowMoreSkills}
@@ -219,7 +209,7 @@ const HomeSlider = ({ portfolios }) => {
         {/* Navigation */}
 
         {!isModalOpen && (
-          <div className="absolute bottom-0 right-0 hidden xl:flex items-center gap-5 p-4 lg:p-8 bg-white">
+          <div className="absolute bottom-0 right-0 hidden xl:flex items-center gap-5 p-4 lg:p-8">
             <button
               className="rounded-full h-[5rem] w-[5rem] border-2 border-primary 
               hidden xl:flex items-center justify-center bg-white hover:bg-primary hover:text-white 

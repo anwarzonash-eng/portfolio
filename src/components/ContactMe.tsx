@@ -27,8 +27,6 @@ const ContactMe = ({ listOfdata }) => {
     alt: string;
   }
 
-  console.log("Data:", listOfdata.linkedIn);
-
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
   const [dragActive, setDragActive] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
