@@ -25,6 +25,8 @@ type PortfolioType = {
   link: string;
   has_testimonial: boolean;
   company_icon?: string;
+  starting_date?: string;
+  ending_Date?: string;
 };
 
 interface HomeSliderPrintProps {
@@ -106,19 +108,39 @@ const HomeSliderPrint: React.FC<HomeSliderPrintProps> = ({
               >
                 <div className="flex items-start w-full flex-col justify-between h-full">
                   <div>
-                    <div className="flex gap-[2rem] mb-[2rem]">
+                    <div className="flex gap-[2rem] mb-[1rem]">
                       <Link href={`/portfolio/${portfolio.id}`}>
                         <h1 className="flex items-center text-[3.2rem] font-bold leading-[4rem] text-heading">
                           {portfolio.title}
                         </h1>
                       </Link>
                     </div>
+                    <p className="text-[2rem] font-medium text-heading">
+                      {new Date(portfolio.starting_date).toLocaleString(
+                        "en-US",
+                        {
+                          month: "short",
+                          year: "numeric",
+                        }
+                      )}{" "}
+                      -{" "}
+                      {isNaN(new Date(portfolio.ending_Date).getTime())
+                        ? portfolio.ending_Date // fallback if value is "Present" or invalid
+                        : new Date(portfolio.ending_Date).toLocaleString(
+                            "en-US",
+                            {
+                              month: "short",
+                              year: "numeric",
+                            }
+                          )}
+                    </p>
                     <div className="">
                       <p
                         dangerouslySetInnerHTML={{
                           __html: portfolio.tagline_1,
                         }}
-                        className="text-[1.8rem] leading-[2.4rem] font-normal text-paragraph1 mt-[1rem] line-clamp-2"
+                        className="text-[1.8rem] leading-[2.4rem] font-normal text-paragraph1 
+                        mt-[1rem] line-clamp-2"
                       ></p>
 
                       <p

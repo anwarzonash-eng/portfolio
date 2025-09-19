@@ -28,8 +28,6 @@ const SkillsContainerPrint: React.FC<SkillsContainerPrintProps> = ({
   numSkills = 8, // Default to 8 skills
   portfolioId,
 }) => {
-  const router = useRouter();
-
   const getGridColumnsClass = (numColumns: number) => {
     const columnMap: Record<number, string> = {
       1: "grid-cols-1",
@@ -58,6 +56,7 @@ const SkillsContainerPrint: React.FC<SkillsContainerPrintProps> = ({
   // Group the visible skills
   const skills: Record<string, SkillType[]> = skillsGrouping(visibleSkills);
 
+  const router = useRouter();
   // Navigate to portfolio detail page -> skills section
   const handleSeeMore = () => {
     // Navigate to portfolio detail with skills section scroll

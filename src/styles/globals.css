@@ -419,6 +419,17 @@ body {
     @apply block text-[12px] !list-disc;
   }
 }
+
+/* For cvLandscape */
+@media print {
+  .limit-height-landscape {
+    height: 480px;
+    overflow: hidden;
+  }
+}
+
+/* ssss */
+
 .skill_print_pedd {
   @apply print:py-[0.1rem];
 }

@@ -398,7 +398,7 @@ const CV = ({ params }: { params: any }) => {
                                         );
                                         return (
                                           <div
-                                            className="relative flex items-start mt-[2rem] print-section"
+                                            className="relative flex items-start mt-[2rem] print-section flex-col"
                                             key={index}
                                           >
                                             <div className="absolute top-0 left-[-3.2rem] md:left-[-4.2rem] lg:left-[-6.2rem] block print:hidden">
@@ -406,6 +406,27 @@ const CV = ({ params }: { params: any }) => {
                                                 <div className="w-[0.8rem] h-[0.8rem] bg-sectionBG rounded-full"></div>
                                               </div>
                                             </div>
+                                            <h1 className="mb-[1rem] text-heading text-[2rem] leading-[2.7rem] font-bold max-lg:ml-[0.5rem] print:hidden block">
+                                              {new Date(
+                                                portfolio.starting_date
+                                              ).toLocaleString("en-US", {
+                                                month: "short",
+                                                year: "numeric",
+                                              })}{" "}
+                                              -{" "}
+                                              {isNaN(
+                                                new Date(
+                                                  portfolio.ending_Date
+                                                ).getTime()
+                                              )
+                                                ? portfolio.ending_Date
+                                                : new Date(
+                                                    portfolio.ending_Date
+                                                  ).toLocaleString("en-US", {
+                                                    month: "short",
+                                                    year: "numeric",
+                                                  })}
+                                            </h1>
 
                                             <PortfolioCardContent
                                               portfolio={portfolio}

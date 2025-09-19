@@ -102,7 +102,7 @@ const Home_p = ({ params }: { params: any }) => {
     }[];
   } = skillsGrouping(listOfdata?.skills_ids);
 
-  console.log("Data", listOfdata);
+  console.log("Print Home Data: ", listOfdata);
 
   return (
     <>

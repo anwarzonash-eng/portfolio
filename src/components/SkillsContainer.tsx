@@ -119,7 +119,8 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({ list }) => {
       {list && list.length > initialVisibleItemsSmall && (
         <button
           onClick={() => setShowAll(!showAll)}
-          className="px-[4rem] py-[1.6rem] bg-primary hover:bg-white hover:text-primary hover:border-primary border border-border border-solid text-center max-w-max text-white rounded-[2.2rem] text-[2rem] font-semibold font-Inter leading-tight mx-auto"
+          className="btn-primary text-white py-[1rem] mt-[2rem]
+          px-[3.4rem] text-[1.8rem] font-medium"
         >
           {showAll ? "See Less" : "See More Skills"}
         </button>

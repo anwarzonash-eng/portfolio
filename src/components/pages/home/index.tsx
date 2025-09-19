@@ -34,7 +34,6 @@ import { scrollToSection } from "@/hooks/scrollToSection";
 import SkillsContainer from "@/components/SkillsContainer";
 import { skillsGrouping } from "@/hooks/skillsGrouping";
 import ShowmoreSkills from "@/components/showmoreSkills";
-import { useRouter } from "next/router";
 import { useMediaQuery } from "react-responsive";
 import Header from "@/components/layouts/header/page";
 import { SmoothScroll } from "@/hooks/SmoothScroll";
@@ -72,18 +71,63 @@ const Home = ({ params }: { params: any }) => {
 
   console.log("ENV: ", process.env.API_BASE_URL);
 
+  const experiencesRef = useRef<HTMLDivElement>(null);
+
+  // Scroll to experiences section
+  useEffect(() => {
+    const scrollTo = searchParams.get("scrollTo");
+    const expand = searchParams.get("expand");
+
+    console.log(
+      "scrollTo:",
+      scrollTo,
+      "expand:",
+      expand,
+      "experiencesRef:",
+      experiencesRef.current
+    );
+
+    if (
+      scrollTo === "experiences" &&
+      experiencesRef.current &&
+      listOfdata?.experiences_ids?.length > 0
+    ) {
+      // Calculate offset for fixed header (adjust this value based on your header height)
+      const headerOffset = 100; // Example: 100px for a fixed header; adjust as needed
+      const elementPosition =
+        experiencesRef.current.getBoundingClientRect().top + window.pageYOffset;
+      const offsetPosition = elementPosition - headerOffset;
+
+      // Scroll with offset to ensure section is fully in view
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+
+      console.log(
+        "Scrolling to experiences section at offset:",
+        offsetPosition
+      );
+
+      if (expand === "true") {
+        setShowAllExperiences(true);
+        console.log("Expanding all experiences");
+      }
+    }
+  }, [searchParams, listOfdata]);
+
   // how many to show initially
   const initialCount = isMobile ? 3 : 6;
   const experiences = [...(listOfdata?.experiences_ids || [])].sort(sortByDate);
 
-  useEffect(() => {
-    const sectionID = searchParams.get("sectionId");
-    if (!sectionID) return;
-    // Example: URL query ya koi condition ke basis par scroll karo
-    console.log("Section ID:", sectionID);
-    const targetId = "about";
-    SmoothScroll(sectionID);
-  }, [listOfdata]);
+  // useEffect(() => {
+  //   const sectionID = searchParams.get("sectionId");
+  //   if (!sectionID) return;
+  //   // Example: URL query ya koi condition ke basis par scroll karo
+  //   console.log("Section ID:", sectionID);
+  //   const targetId = "about";
+  //   SmoothScroll(sectionID);
+  // }, [listOfdata]);
 
   useEffect(() => {
     setURLInfo(getRoutesDetails(params, searchParams));
@@ -732,7 +776,7 @@ const Home = ({ params }: { params: any }) => {
                       {/* About Context */}
                       <div className="w-full">
                         {/* Badge */}
-                        <div className="flex items-center justify-center mt-[2rem]">
+                        <div className="flex items-center max-lg:justify-center mt-[2rem]">
                           <div className="badge">About Me</div>
                         </div>
                         {/* Heading */}
@@ -1234,33 +1278,27 @@ const Home = ({ params }: { params: any }) => {
                     </>
                   )}
 
+                {/* Experience Section Completed */}
                 {listOfdata &&
                   listOfdata.experiences_ids &&
                   listOfdata.experiences_ids.length > 0 && (
-                    <>
-                      {/* Professional Experience Timeline Section Completed */}
-                      <section
-                        id="workExperiences"
-                        className="w-full print_p_m print:h-screen print:break-before-page print:bg-[#a3ddd3]"
-                      >
-                        <div className="mainContainer   print:shadow-none print:!pt-[3rem] ">
-                          {/* Badge */}
-                          <div className="flex items-center justify-center lg:hidden">
-                            <div className="badge">Professional Experience</div>
-                          </div>
-                          {/* Heading */}
-                          <div className="text-center text-heading text-[2.4rem] xl:text-[3rem] font-medium leading-[2.8rem] mt-[2rem] hidden lg:block">
-                            My Professional Career Journey
-                          </div>
-                          {/* Timeline */}
-                          {experiences
-                            .slice(
-                              0,
-                              showAllExperiences
-                                ? experiences.length
-                                : initialCount
-                            )
-                            .map((experience, index) => (
+                    <section className="w-full print_p_m print:h-screen print:break-before-page print:bg-[#a3ddd3]">
+                      <div className="mainContainer print:shadow-none print:!pt-[3rem]">
+                        <div className="flex items-center justify-center lg:hidden">
+                          <div className="badge">Professional Experience</div>
+                        </div>
+                        <div className="text-center text-heading text-[2.4rem] xl:text-[3rem] font-medium leading-[2.8rem] mt-[2rem] hidden lg:block">
+                          My Professional Career Journey
+                        </div>
+                        {experiences
+                          .slice(
+                            0,
+                            showAllExperiences
+                              ? experiences.length
+                              : initialCount
+                          )
+                          .map((experience, index) => (
+                            <div ref={experiencesRef}>
                               <ExperienceSection
                                 key={index}
                                 experience={experience}
@@ -1271,24 +1309,21 @@ const Home = ({ params }: { params: any }) => {
                                 setShowMoreSkills={setShowMoreSkills}
                                 variant="timeline"
                               />
-                            ))}
-
-                          {/* View Full Button */}
-                          {!showAllExperiences &&
-                            experiences.length > initialCount && (
-                              <div className="flex items-center justify-center">
-                                <button
-                                  onClick={() => setShowAllExperiences(true)}
-                                  className="btn-primary text-white py-[1rem] mt-[2rem]
-                             px-[3.4rem] text-[1.8rem] font-medium"
-                                >
-                                  View Full Career Timeline
-                                </button>
-                              </div>
-                            )}
-                        </div>
-                      </section>
-                    </>
+                            </div>
+                          ))}
+                        {!showAllExperiences &&
+                          experiences.length > initialCount && (
+                            <div className="flex items-center justify-center">
+                              <button
+                                onClick={() => setShowAllExperiences(true)}
+                                className="btn-primary text-white py-[1rem] mt-[2rem] px-[3.4rem] text-[1.8rem] font-medium"
+                              >
+                                View Full Career Timeline
+                              </button>
+                            </div>
+                          )}
+                      </div>
+                    </section>
                   )}
 
                 {/* FAQ Section Completed */}

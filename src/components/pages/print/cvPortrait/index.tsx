@@ -14,7 +14,7 @@ import {
   socialLinks,
 } from "@/data/JsonData";
 import WebsiteLoader from "@/components/WebsiteLoader";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { getRoutesDetails } from "@/hooks/url";
 import { reportsApiHandler } from "@/hooks/apihandlers/reportsApiHandlers";
 import { handleSkillsApiCall } from "@/hooks/apihandlers/skillsApiHandlers";
@@ -74,6 +74,19 @@ const CV_Portrait = ({ params }: { params: any }) => {
   const closeModal = () => {
     setSelectedPorfolioPicturesforPopup(null);
     setIsModalOpen(false);
+  };
+
+  const router = useRouter();
+  // Navigate to portfolio detail page -> skills section
+  const handleSeeMore = () => {
+    // Navigate to portfolio detail with skills section scroll
+    router.push(
+      `/portfolio/${listOfdata?.portfolios_ids[0]?.id}?scroll=skills`
+    );
+  };
+
+  const handleViewMore = () => {
+    router.push("/?scrollTo=experiences&expand=true");
   };
 
   const [blogsList, setBlogsList] = useState([]);
@@ -154,7 +167,10 @@ const CV_Portrait = ({ params }: { params: any }) => {
     };
   }, []);
 
-  console.log("listOfdata:", listOfdata);
+  console.log("Skills Inside List of data: ", listOfdata?.skills);
+  console.log("List of skills: ", listOfskills);
+  console.log("List of data: ", listOfdata);
+  console.log("Skills Group  Data:", listOfdata?.skills_groups);
 
   return (
     <>
@@ -342,18 +358,22 @@ const CV_Portrait = ({ params }: { params: any }) => {
                       <h2 className="text-heading leading-[3.56rem] text-[3.67rem] font-medium pl-[0.5rem] mb-[3rem]">
                         Overview & Skills
                       </h2>
-
                       <div
-                        className="text-heading services_main list-div text-[1.6rem] leading-[2.4rem] flex flex-col gap-[1rem] mb-[5rem] list-inside print:p-0"
+                        className="text-heading services_main list-div text-[1.6rem] leading-[2.4rem] flex flex-col gap-[1rem] mb-[5rem] list-inside"
                         dangerouslySetInnerHTML={{
-                          __html: modifiedContentPrint(
+                          __html: modifiedContent(
                             listOfdata?.skills,
                             listOfskills,
-                            listOfdata,
-                            12 // bullet points
+                            listOfdata
                           ),
                         }}
                       ></div>
+                      <Link
+                        href={"/cv"}
+                        className="px-[4rem] py-[1.4rem] bg-primary rounded-[2.2rem] hover:bg-white hover:text-primary hover:border-primary border border-border border-solid text-center max-w-max text-white text-[1.4rem] font-medium font-Inter leading-tight mb-[2rem] block"
+                      >
+                        Read More
+                      </Link>
                     </div>
                   </div>
                 </section>
@@ -427,7 +447,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
                                 1,
                                 showAllExperiences
                                   ? listOfdata.experiences_ids.length
-                                  : 5
+                                  : 4
                               )
                               ?.map((experience, index) => {
                                 const skillsforExpereince: {
@@ -518,6 +538,27 @@ const CV_Portrait = ({ params }: { params: any }) => {
                                                   </div>
                                                 </div>
                                               </div>
+                                              <h1 className="mb-[1rem] text-primary text-[1.8rem] leading-[2rem] font-bold">
+                                                {new Date(
+                                                  experience.starting_date
+                                                ).toLocaleString("en-US", {
+                                                  month: "short",
+                                                  year: "numeric",
+                                                })}{" "}
+                                                -{" "}
+                                                {isNaN(
+                                                  new Date(
+                                                    experience.ending_Date
+                                                  ).getTime()
+                                                )
+                                                  ? experience.ending_Date
+                                                  : new Date(
+                                                      experience.ending_Date
+                                                    ).toLocaleString("en-US", {
+                                                      month: "short",
+                                                      year: "numeric",
+                                                    })}
+                                              </h1>
                                             </div>
 
                                             <div className="w-full">
@@ -544,6 +585,8 @@ const CV_Portrait = ({ params }: { params: any }) => {
                                                 Read More
                                               </Link>
                                             </div>
+
+                                            <hr className="w-full my-[1rem] h-px bg-border" />
 
                                             {experience?.skills &&
                                               experience?.skills.length > 0 && (
@@ -600,6 +643,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
                                                         )
                                                       )}
                                                       <button
+                                                        onClick={handleSeeMore}
                                                         className="hover:bg-white bg-primary text-white hover:text-primary capitalize text-center text-primary 
                                                           text-[1.2rem] font-medium py-[0.4rem] px-[1.5rem] inline-flex items-center justify-center gap-[8px] rounded-[5rem] shadow opacity-0 animate-fadeIn relative group border border-transparent hover:border-primary"
                                                       >
@@ -625,6 +669,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
 
               {listOfdata && listOfdata?.experiences_ids?.length > 0 && (
                 <>
+                  {/* Professional Experience Timeline Section 1✅ */}
                   <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center p-[4rem] relative">
                     {/* Note and Domain For Each Page */}
                     <NoteDomainForPint
@@ -632,7 +677,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
                     />
                     <div className="max-w-[1550px] w-full mx-auto">
                       {/* Timeline */}
-                      <div className="w-full mx-auto flex items-center justify-center mt-[2rem] print:m-0">
+                      <div className="w-full mx-auto flex items-center justify-center mt-[2rem] print:m-0 ">
                         <div className="relative print:flex flex-col gap-4">
                           {listOfdata?.experiences_ids &&
                             [...listOfdata.experiences_ids]
@@ -658,10 +703,10 @@ const CV_Portrait = ({ params }: { params: any }) => {
                                 return monthB - monthA;
                               })
                               ?.slice(
-                                5,
+                                4,
                                 showAllExperiences
                                   ? listOfdata.experiences_ids.length
-                                  : 9
+                                  : 7
                               )
                               ?.map((experience, index) => {
                                 const skillsforExpereince: {
@@ -684,7 +729,10 @@ const CV_Portrait = ({ params }: { params: any }) => {
                                       <>
                                         <div className="relative flex items-start">
                                           {/* Card */}
-                                          <div className="bg-white p-[1.6rem] rounded-[1rem] shadow w-full mb-[1rem]">
+                                          <div
+                                            className="bg-white p-[1.6rem]
+                                           rounded-[1rem] shadow w-full mb-[1rem]"
+                                          >
                                             <div className="flex items-center flex-wrap text-nowrap gap-[1.5rem] md:justify-between">
                                               {/* About Content */}
                                               <div className="flex gap-[1rem] items-center  w-full justify-between">
@@ -749,6 +797,27 @@ const CV_Portrait = ({ params }: { params: any }) => {
                                                   </div>
                                                 </div>
                                               </div>
+                                              <h1 className="mb-[1rem] text-primary text-[1.8rem] leading-[2rem] font-bold">
+                                                {new Date(
+                                                  experience.starting_date
+                                                ).toLocaleString("en-US", {
+                                                  month: "short",
+                                                  year: "numeric",
+                                                })}{" "}
+                                                -{" "}
+                                                {isNaN(
+                                                  new Date(
+                                                    experience.ending_Date
+                                                  ).getTime()
+                                                )
+                                                  ? experience.ending_Date
+                                                  : new Date(
+                                                      experience.ending_Date
+                                                    ).toLocaleString("en-US", {
+                                                      month: "short",
+                                                      year: "numeric",
+                                                    })}
+                                              </h1>
                                             </div>
 
                                             <div className="w-full">
@@ -775,6 +844,8 @@ const CV_Portrait = ({ params }: { params: any }) => {
                                                 Read More
                                               </Link>
                                             </div>
+
+                                            <hr className="w-full my-[1rem] h-px bg-border" />
 
                                             {experience?.skills &&
                                               experience?.skills.length > 0 && (
@@ -831,6 +902,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
                                                         )
                                                       )}
                                                       <button
+                                                        onClick={handleSeeMore}
                                                         className="hover:bg-white bg-primary text-white hover:text-primary capitalize text-center text-primary 
                                                           text-[1.2rem] font-medium py-[0.4rem] px-[1.5rem] inline-flex items-center justify-center gap-[8px] rounded-[5rem] shadow opacity-0 animate-fadeIn relative group border border-transparent hover:border-primary"
                                                       >
@@ -848,6 +920,14 @@ const CV_Portrait = ({ params }: { params: any }) => {
                                 );
                               })}{" "}
                         </div>
+                      </div>
+                      <div className="flex justify-center mt-8">
+                        <button
+                          onClick={handleViewMore}
+                          className="btn-primary text-white py-[1rem] px-[3.4rem] text-[1.8rem] font-medium"
+                        >
+                          View All Experiences
+                        </button>
                       </div>
                     </div>
                   </section>
@@ -904,7 +984,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
                       >
                         <div className="w-full px-[3rem]">
                           {/* Date */}
-                          <h2
+                          {/* <h2
                             key={index}
                             className="text-heading leading-[2.67rem] text-[2rem] font-bold 
                   pl-[0.5rem] mb-[3rem]"
@@ -922,7 +1002,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
                                   portfolio.ending_Date,
                                   dateFormatsOptions.shortMonthYear // 👈 Month + Year here too
                                 )}
-                          </h2>
+                          </h2> */}
 
                           <HomeSliderPrint
                             portfolios={listOfdata?.portfolios_ids}
@@ -1012,7 +1092,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
                       >
                         <div className="w-full px-[3rem]">
                           {/* Date */}
-                          <h2
+                          {/* <h2
                             key={index}
                             className="text-heading leading-[2.67rem] text-[2rem] font-bold 
                   pl-[0.5rem] mb-[3rem]"
@@ -1030,7 +1110,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
                                   portfolio.ending_Date,
                                   dateFormatsOptions.shortMonthYear // 👈 Month + Year here too
                                 )}
-                          </h2>
+                          </h2> */}
 
                           <HomeSliderPrint
                             portfolios={listOfdata?.portfolios_ids}
@@ -1045,6 +1125,14 @@ const CV_Portrait = ({ params }: { params: any }) => {
                       </div>
                     );
                   })}
+                  <div className="flex justify-center mt-8">
+                    <Link
+                      href={"/portfolio"}
+                      className="btn-primary text-white py-[1rem] px-[3.4rem] text-[1.8rem] font-medium"
+                    >
+                      View All Portfolios
+                    </Link>
+                  </div>
                 </section>
               )}
 

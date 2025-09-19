@@ -180,15 +180,27 @@ const PortfolioListing = ({ params }: { params: any }) => {
                           </div>
                         </div>
                         <div className="ml-[3rem] lg:ml-[6rem] print:m-auto  w-full">
-                          {/* Year */}
+                          {/* Date */}
                           <h1 className="mb-[3rem] text-heading text-[2rem] leading-[2.7rem] font-bold max-lg:ml-[0.5rem] print:hidden block">
-                            {new Date(portfolio.starting_date).getFullYear()} -{" "}
-                            {isNaN(
-                              new Date(portfolio.ending_Date).getFullYear()
-                            )
+                            {new Date(portfolio.starting_date).toLocaleString(
+                              "en-US",
+                              {
+                                month: "short",
+                                year: "numeric",
+                              }
+                            )}{" "}
+                            -{" "}
+                            {isNaN(new Date(portfolio.ending_Date).getTime())
                               ? portfolio.ending_Date
-                              : new Date(portfolio.ending_Date).getFullYear()}
+                              : new Date(portfolio.ending_Date).toLocaleString(
+                                  "en-US",
+                                  {
+                                    month: "short",
+                                    year: "numeric",
+                                  }
+                                )}
                           </h1>
+
                           {/* Card */}
                           <PortfolioCardContent
                             portfolio={portfolio}
