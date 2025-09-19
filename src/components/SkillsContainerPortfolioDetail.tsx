@@ -69,13 +69,13 @@ const SkillsContainerPortfolioDetail: React.FC<
                 className="flex items-center justify-center flex-col gap-[0.8rem] max-w-[10rem] w-full"
               >
                 {skill.icon && (
-                  <div className="flex items-center justify-center rounded-full h-[6rem] w-[6rem]">
+                  <div className="flex items-center justify-center  h-[6rem] w-[6rem]">
                     <Image
                       src={skill.icon}
                       alt={skill.title}
                       height={150}
                       width={150}
-                      className="object-cover h-full w-full rounded-full"
+                      className="object-cover h-full w-full "
                     />
                   </div>
                 )}

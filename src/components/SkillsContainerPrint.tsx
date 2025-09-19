@@ -82,7 +82,7 @@ const SkillsContainerPrint: React.FC<SkillsContainerPrintProps> = ({
               >
                 {skill.icon && (
                   <div
-                    className="flex items-center justify-center rounded-full 
+                    className="flex items-center justify-center 
                   h-[6.5rem] w-[6.5rem] print:h-[4.5rem] print:w-[4.5rem]"
                   >
                     <Image

@@ -180,11 +180,24 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
 
                     <div className="max-w-[1550px] w-full mx-auto px-[4rem]">
                       {/* Year */}
-                      <h1 className="mb-[3rem] print:mb-[1rem]  text-heading text-[2rem] leading-[2.7rem] font-bold max-lg:ml-[0.5rem] block">
-                        {new Date(portfolio.starting_date).getFullYear()} -{" "}
-                        {isNaN(new Date(portfolio.ending_Date).getFullYear())
+                      <h1 className="ml-[2rem] mb-[3rem] text-heading text-[2rem] leading-[2.7rem] font-bold ">
+                        {new Date(portfolio.starting_date).toLocaleString(
+                          "en-US",
+                          {
+                            month: "short",
+                            year: "numeric",
+                          }
+                        )}{" "}
+                        -{" "}
+                        {isNaN(new Date(portfolio.ending_Date).getTime())
                           ? portfolio.ending_Date
-                          : new Date(portfolio.ending_Date).getFullYear()}
+                          : new Date(portfolio.ending_Date).toLocaleString(
+                              "en-US",
+                              {
+                                month: "short",
+                                year: "numeric",
+                              }
+                            )}
                       </h1>
                       {/* Card */}
                       <div className="flex items-center justify-center p-[1.5rem] bg-white shadow-testimonialeShadow ">
