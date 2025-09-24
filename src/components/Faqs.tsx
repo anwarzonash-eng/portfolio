@@ -239,7 +239,7 @@ const Faqs = ({ urlInfo, companyType, listOfdata, status }: FaqsProps) => {
   const faqsToDisplay = isPrinting ? displayFaqs.slice(0, 5) : displayFaqs;
 
   // (Optional) keep a console log to help debug while developing
-  // console.log("effectiveStatus", effectiveStatus, "listOfdata", listOfdata);
+  // // console.log("effectiveStatus", effectiveStatus, "listOfdata", listOfdata);
 
   return (
     <>

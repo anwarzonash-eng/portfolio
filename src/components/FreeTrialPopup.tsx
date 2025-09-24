@@ -66,7 +66,7 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
     }[];
   } = skillsGrouping(listOfdata?.skills_ids);
 
-  // console.log("PopUp API RES:", listOfdata);
+  // // console.log("PopUp API RES:", listOfdata);
 
   return (
     <>

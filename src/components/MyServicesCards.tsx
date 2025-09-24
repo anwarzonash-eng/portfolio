@@ -24,7 +24,7 @@ const MyServicesCards = ({ services }) => {
                     alt={service.title || "Service image"}
                     height={150}
                     width={150}
-                    className="object-cover transition-transform duration-500 z-10 group-hover:scale-110 w-[9.8rem] h-[9.8rem] print:object-center rounded-full"
+                    className="object-cover transition-transform duration-500 z-10 group-hover:scale-110 w-[9.8rem] h-[9.8rem] print:object-center"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
                       target.style.display = "none";

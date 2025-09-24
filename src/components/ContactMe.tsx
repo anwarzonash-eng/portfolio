@@ -98,7 +98,7 @@ const ContactMe = ({ listOfdata }) => {
       source_category: "contact",
     };
 
-    console.log("Payload: ", payload);
+    // console.log("Payload: ", payload);
 
     const res = await addLeadsApi(payload);
     if (/^2\d{2}$/.test(res?.status)) {

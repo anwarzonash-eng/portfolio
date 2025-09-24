@@ -140,7 +140,10 @@ const Footer = () => {
                       </h4>
                       {services.slice(0, 6).map((service, index) => (
                         <Link
-                          href={`/offer?service=${service?.title}`}
+                          // href={`/offer?service=${service?.title}`}
+                          href={`/service-detail?service=${encodeURIComponent(
+                            service?.title
+                          )}`}
                           key={index}
                           className="footerLink"
                         >

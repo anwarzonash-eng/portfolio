@@ -46,7 +46,7 @@ const CVSkills: React.FC<CVSkillsProps> = ({
           {visibleSkills.map((skill, i) => (
             <div
               key={i}
-              style={{ animationDelay: `${i * 0.2}s` }}
+              style={{ animationDelay: `${i * 0.03}s` }}
               className="mx-auto mb-[2rem] xl:mb-[4rem] flex flex-col items-center justify-start gap-[0.4rem] xl:gap-[0.8rem] max-w-[15rem] lg:max-w-[19rem] w-full animate-fadeIn opacity-0"
             >
               {skill.icon && (
@@ -56,7 +56,7 @@ const CVSkills: React.FC<CVSkillsProps> = ({
                     alt={skill.title}
                     height={64}
                     width={64}
-                    className="object-cover rounded-full w-full h-full"
+                    className="max-h-[6.4rem] max-w-[6.4rem] w-full h-full object-contain"
                   />
                 </div>
               )}

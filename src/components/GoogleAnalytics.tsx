@@ -30,7 +30,7 @@ const GoogleAnalytics = ({ scriptNumber }) => {
           gtag("js", new Date());
           gtag("config", scriptNumber);
 
-          //   console.log(
+          //   // console.log(
           //     'Google Analytics script loaded successfully with ID:',
           //     scriptNumber
           //   );

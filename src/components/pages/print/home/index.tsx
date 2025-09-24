@@ -80,7 +80,7 @@ const Home_p = ({ params }: { params: any }) => {
 
   useEffect(() => {
     if (listOfdata) {
-      // console.log(listOfdata);
+      // // console.log(listOfdata);
       // skillsSyncApi({ setListOfSkills });
     }
     listOfdata && handleSkillsApiCall({ setListOfSkills });
@@ -102,7 +102,7 @@ const Home_p = ({ params }: { params: any }) => {
     }[];
   } = skillsGrouping(listOfdata?.skills_ids);
 
-  console.log("Print Home Data: ", listOfdata);
+  // console.log("Print Home Data: ", listOfdata);
 
   return (
     <>

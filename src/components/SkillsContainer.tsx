@@ -19,7 +19,7 @@ interface SkillsContainerProps {
 const SkillsContainer: React.FC<SkillsContainerProps> = ({ list }) => {
   const [showAll, setShowAll] = useState(false);
 
-  console.log("Skills List:", list);
+  // console.log("Skills List:", list);
 
   // Number of items to display by default
   const initialVisibleItemsXL = 2 * 8; // 2 rows × 8 skills
@@ -69,7 +69,7 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({ list }) => {
                         alt={skill.title}
                         height={64}
                         width={64}
-                        className="object-cover  h-[6.4rem] w-[6.4rem]"
+                        className="max-h-[6.4rem] max-w-[6.4rem] w-full h-full object-contain "
                       />
                     </div>
                   )}

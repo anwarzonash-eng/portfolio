@@ -69,7 +69,7 @@ const Home = ({ params }: { params: any }) => {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  console.log("ENV: ", process.env.API_BASE_URL);
+  // console.log("ENV: ", process.env.API_BASE_URL);
 
   const experiencesRef = useRef<HTMLDivElement>(null);
 
@@ -77,15 +77,6 @@ const Home = ({ params }: { params: any }) => {
   useEffect(() => {
     const scrollTo = searchParams.get("scrollTo");
     const expand = searchParams.get("expand");
-
-    console.log(
-      "scrollTo:",
-      scrollTo,
-      "expand:",
-      expand,
-      "experiencesRef:",
-      experiencesRef.current
-    );
 
     if (
       scrollTo === "experiences" &&
@@ -104,14 +95,9 @@ const Home = ({ params }: { params: any }) => {
         behavior: "smooth",
       });
 
-      console.log(
-        "Scrolling to experiences section at offset:",
-        offsetPosition
-      );
-
       if (expand === "true") {
         setShowAllExperiences(true);
-        console.log("Expanding all experiences");
+        // console.log("Expanding all experiences");
       }
     }
   }, [searchParams, listOfdata]);
@@ -124,7 +110,7 @@ const Home = ({ params }: { params: any }) => {
   //   const sectionID = searchParams.get("sectionId");
   //   if (!sectionID) return;
   //   // Example: URL query ya koi condition ke basis par scroll karo
-  //   console.log("Section ID:", sectionID);
+  //   // console.log("Section ID:", sectionID);
   //   const targetId = "about";
   //   SmoothScroll(sectionID);
   // }, [listOfdata]);
@@ -156,7 +142,7 @@ const Home = ({ params }: { params: any }) => {
 
   useEffect(() => {
     if (listOfdata) {
-      // console.log(listOfdata);
+      // // console.log(listOfdata);
       // skillsSyncApi({ setListOfSkills });
     }
     listOfdata && handleSkillsApiCall({ setListOfSkills });
@@ -467,41 +453,32 @@ const Home = ({ params }: { params: any }) => {
 
                         {/* Left Pricing and Hours Badge Positoned */}
                         <div className="absolute left-0 top-[24rem] w-[33.5rem] h-[18rem] inline-flex items-center justify-center bg-Circle bg-no-repeat bg-contain animate-bounce">
-                          {/* Prev Code For Pricing */}
-                          {/* <div className="h-[100px] p-5 rounded  justify-center items-center gap-5 inline-flex ">
-                            <div className="text-primary">
-                              <h3 className="text-[4rem] font-medium leading-[4rem]">
-                                ${listOfdata?.hourly_rate}
-                              </h3>
-                              <p className="text-[2rem] font-normal">hour</p>
-                            </div>
-                            <hr className="h-[6rem] w-[0.1rem] bg-border" />
-                            <div className="text-primary">
-                              <h3 className="text-[4rem] font-medium leading-[4rem]">
-                                40hr
-                              </h3>
-                              <p className="text-[2rem] font-normal">week</p>
-                            </div>
-                          </div> */}
-
                           {/* New Code For Pricing */}
-                          <div className="h-[100px] p-5 rounded flex justify-center items-center gap-5">
-                            {/* Hourly rate */}
-                            <div className="text-primary text-center">
-                              <h3 className="text-[4rem] font-medium leading-[4rem]">
-                                ${listOfdata?.hourly_rate}
-                              </h3>
-                              <p className="text-[4rem] font-normal">hour</p>
+                          <div className="h-[100px] rounded flex gap-4 flex-col w-full px-10 relative">
+                            {/* Hourly Rate */}
+                            <div className="flex items-center gap-[0.35rem] text-nowrap text-primary text-[2rem] font-medium rounded-[3.5rem] py-[0.69rem] bg-white shadow-lg max-w-max px-[0.9rem] pr-[1.4rem]">
+                              <Image
+                                src={"/images/dollar-symbol.svg"}
+                                height={24}
+                                width={24}
+                                alt="Dollar Symbol"
+                                className="h-[2.4rem] w-[2.4rem]"
+                              />
+                              <p>${listOfdata?.hourly_rate} / hour</p>
                             </div>
-
-                            <hr className="h-[6rem] w-[0.1rem] bg-border" />
-
-                            {/* Number of hours */}
-                            <div className="text-primary text-center">
-                              <h3 className="text-[4rem] font-medium leading-[4rem]">
-                                40hr
-                              </h3>
-                              <p className="text-[4rem] font-normal">week</p>
+                            {/* Availability */}
+                            <div
+                              className="flex gap-[0.35rem] text-nowrap text-primary 
+                            text-[2rem] font-medium rounded-[3.5rem] py-[0.69rem] bg-white shadow-lg px-[1.2rem] min-w-max"
+                            >
+                              <Image
+                                src={"/images/clock.svg"}
+                                height={26}
+                                width={26}
+                                alt="Clock"
+                                className="h-[2.6rem] w-[2.6rem]"
+                              />
+                              <p>45 hr / Week Availability</p>
                             </div>
                           </div>
                         </div>
@@ -565,117 +542,6 @@ const Home = ({ params }: { params: any }) => {
                                                 {/* <span className=" bg-primary text-white group-hover:bg-white group-hover:text-primary text-[0.8rem] pt-[1.5px] font-bold rounded-full size-[21px] flex items-center justify-center">
       {skillNumber}
     </span> */}
-                                                {skill?.title}
-                                              </a>
-                                            </Link>
-                                          );
-                                        })}
-                                      </React.Fragment>
-                                    )
-                                  )}
-                                </div>
-                              </div>
-                            )}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  {/* Hero Section For Print section  */}
-                  <div className="!px-0 w-full !m-0 hidden print:block">
-                    <div className="text-center mx-[3rem] mt-[3rem]">
-                      <p className="text-heading text-[4rem] font-normal leading-normal mb-[1rem]">
-                        Hello! I’m
-                      </p>
-                      <h1 className="font-bold text-[11rem] text-primary mt-[-3.5rem]">
-                        {listOfdata?.name}
-                      </h1>
-                      {/* Badge */}
-                      <div className="relative z-[50] mt-[1rem] flex items-center justify-start">
-                        <div className="inline-block px-[2rem] py-[1.5rem] lg:py-[1rem] lg:px-[4rem] bg-primary lg:max-w-[45rem] rounded-[5rem] text-center text-[1.6rem] lg:text-[2.4rem] font-bold text-white border-none outline-none mb-[2rem]">
-                          {listOfdata?.designation
-                            ?.split("|")
-                            .map((item, index) => (
-                              <div key={index} className="text-center">
-                                {item.trim()}
-                              </div>
-                            ))}
-                        </div>
-                      </div>
-                      <div className="mt-[-4rem] flex justify-center relative">
-                        {/* Center Dev Image */}
-                        <Image
-                          width={731}
-                          height={707}
-                          alt=""
-                          src={listOfdata?.profile_photo_2}
-                          className="mr-[12rem] w-[706px] h-[707px]"
-                        />
-
-                        {/* Left Pricing and Hours Badge Positoned */}
-                        <div className="absolute left-0 top-[24rem] w-[33.5rem] h-[18rem] inline-flex items-center justify-center bg-Circle bg-no-repeat bg-contain animate-bounce">
-                          <div className="h-[100px] p-5 rounded  justify-center items-center gap-5 inline-flex">
-                            <div className="text-primary">
-                              <h3 className="text-[4rem] font-medium leading-[4rem]">
-                                ${listOfdata?.hourly_rate}
-                              </h3>
-                              <p className="text-[2rem] font-normal">hour</p>
-                            </div>
-                            <hr className="h-[6rem] w-[0.1rem] bg-border" />
-                            <div className="text-primary">
-                              <h3 className="text-[4rem] font-medium leading-[4rem]">
-                                40hr
-                              </h3>
-                              <p className="text-[2rem] font-normal">week</p>
-                            </div>
-                          </div>
-                        </div>
-                        {/* Positioned Skills and Text Desktop */}
-                        <div className="max-w-[55rem] w-full absolute right-[-4rem] top-[7rem]">
-                          <p
-                            dangerouslySetInnerHTML={{
-                              __html: listOfdata?.tag_line,
-                            }}
-                            className="w-full text-primary text-[2.2rem] font-medium leading-[3rem] mb-[2rem] text-left"
-                          ></p>
-
-                          {listOfdata &&
-                            listOfdata.skills_ids &&
-                            listOfdata.skills_ids.length > 0 && (
-                              <div className="z-[50] absolute max-w-[49rem] w-full rounded-[0.6rem] border border-border border-solid overflow-hidden">
-                                <div className="flex justify-between bg-primary border-b border-border w-full py-[1rem] px-[2rem]">
-                                  <div className="text-left text-white text-[1.8rem] font-medium">
-                                    My Skills
-                                  </div>
-                                </div>
-
-                                <div
-                                  ref={skillsContainerRef}
-                                  className="w-full p-[1.5rem] bg-white/70 backdrop-blur-xl justify-start items-center gap-[0.6rem] flex flex-wrap "
-                                  style={{ maxHeight: "45.3rem" }}
-                                >
-                                  {Object?.values(skills)?.map(
-                                    (group, groupIndex) => (
-                                      <React.Fragment key={groupIndex}>
-                                        {group.map((skill, i) => {
-                                          // Calculate the skill number (groupIndex+1).(i+1)
-                                          const skillNumber = `${
-                                            groupIndex + 1
-                                          }.${i + 1}`;
-
-                                          return (
-                                            <Link
-                                              href={skill.url || "#"}
-                                              legacyBehavior
-                                              key={`${groupIndex}-${i}`}
-                                            >
-                                              <a
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                style={{
-                                                  animationDelay: `${i * 0.1}s`,
-                                                }}
-                                                className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium px-[21px] py-[0.5rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
-                                              >
                                                 {skill?.title}
                                               </a>
                                             </Link>

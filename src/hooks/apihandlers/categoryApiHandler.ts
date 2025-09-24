@@ -1,4 +1,4 @@
-import { categorySyncApi } from '@/apiHandlers/categoryApi';
+import { categorySyncApi } from "@/apiHandlers/categoryApi";
 
 export const handleCategoryPicture = async (
   idforPicture,
@@ -11,7 +11,7 @@ export const handleCategoryPicture = async (
   const results = await categorySyncApi(payload);
   const statusStr = String(results?.status);
   if (/^4\d{2}$/.test(statusStr)) {
-    console.log('error', results);
+    // console.log('error', results);
   } else if (/^2\d{2}$/.test(statusStr)) {
     setCategoryPictures((prev) => ({
       ...prev,

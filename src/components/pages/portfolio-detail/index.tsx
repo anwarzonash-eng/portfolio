@@ -38,7 +38,7 @@
 //     const sectionID = searchParams.get("sectionId");
 //     if (!sectionID) return;
 //     // Example: URL query ya koi condition ke basis par scroll karo
-//     console.log("Section ID:", sectionID);
+//     // console.log("Section ID:", sectionID);
 //     SmoothScroll(sectionID);
 //   }, [listOfdata]);
 
@@ -46,7 +46,7 @@
 //   const [error, setError] = useState<string | null>(null);
 
 //   useEffect(() => {
-//     console.log({ allparams: params.value });
+//     // console.log({ allparams: params.value });
 
 //     setURLInfo(getRoutesDetails(params, searchParams));
 //   }, [params, searchParams]);
@@ -100,7 +100,7 @@
 //     }[];
 //   } = skillsGrouping(portfolioDetails?.skills);
 
-//   console.log("portfolioDetails", portfolioDetails);
+//   // console.log("portfolioDetails", portfolioDetails);
 
 //   return (
 //     <div className="bg-[#EFF5FD]">
@@ -453,7 +453,7 @@ const PortfolioDetails = ({ params }: { params: any }) => {
   const skillsContainerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    console.log({ allparams: params.value });
+    // console.log({ allparams: params.value });
     setURLInfo(getRoutesDetails(params, searchParams));
   }, [params, searchParams]);
 
@@ -521,7 +521,7 @@ const PortfolioDetails = ({ params }: { params: any }) => {
     }[];
   } = skillsGrouping(portfolioDetails?.skills);
 
-  console.log("portfolioDetails", portfolioDetails);
+  // console.log("portfolioDetails", portfolioDetails);
 
   return (
     <div className="bg-[#EFF5FD]">

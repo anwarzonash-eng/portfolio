@@ -51,7 +51,7 @@ const SkillsContainerPrint: React.FC<SkillsContainerPrintProps> = ({
   // Slice visible skills based on numSkills prop
   const visibleSkills = list?.slice(0, numSkills) || [];
 
-  console.log("Skills Print List:", list);
+  // console.log("Skills Print List:", list);
 
   // Group the visible skills
   const skills: Record<string, SkillType[]> = skillsGrouping(visibleSkills);

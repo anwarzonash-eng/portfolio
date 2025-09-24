@@ -21,7 +21,7 @@ const ContactMePrint = ({ listOfdata }) => {
     alt: string;
   }
 
-  console.log("Data:", listOfdata.linkedIn);
+  // console.log("Data:", listOfdata.linkedIn);
 
   // Contact Links
   const constactLinks: ConstactLinks[] = [

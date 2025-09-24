@@ -16,11 +16,11 @@ export const blogsListing = async (
       `https://www.blog.cypexsoft.com/wp-json/wp/v2/posts?author=${authorId}&_embed=true`
     );
     setLoadingBlogs(false);
-    console.log("res", res);
+    // console.log("res", res);
     setBlogsList(res?.data);
   } catch (error) {
     setLoadingBlogs(false);
-    console.log("error", error);
+    // console.log("error", error);
   }
 };
 

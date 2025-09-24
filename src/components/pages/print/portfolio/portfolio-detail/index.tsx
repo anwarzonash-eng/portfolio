@@ -39,7 +39,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
   );
 
   useEffect(() => {
-    console.log({ allparams: params.value });
+    // console.log({ allparams: params.value });
 
     setURLInfo(getRoutesDetails(params, searchParams));
   }, [params, searchParams]);

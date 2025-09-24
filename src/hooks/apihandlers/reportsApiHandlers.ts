@@ -23,13 +23,13 @@ export const reportsApiHandler = async ({
   // const statusStr = String(results?.status);
   // if (/^4\d{2}$/.test(statusStr)) {
   //   setLoading(false);
-  //   console.log("error", results);
+  //   // console.log("error", results);
   // } else if (/^2\d{2}$/.test(statusStr)) {
-  //   console.log("before success", results?.data?.data[0]);
+  //   // console.log("before success", results?.data?.data[0]);
 
   //   let data = await adjustDynamicContent(results?.data?.data[0]);
 
-  //   console.log("success", data);
+  //   // console.log("success", data);
   //   setLoading(false);
   //   setListOfData(data);
   //   store.dispatch(setListOfProfileData(data));

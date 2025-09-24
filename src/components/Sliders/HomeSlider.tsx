@@ -67,20 +67,28 @@ const HomeSlider = ({ portfolios }) => {
   useEffect(() => {
     if (isPaused || isModalOpen || !isInViewport) return;
 
-    let elapsed = (progress / 100) * SLIDE_INTERVAL;
-    const interval = setInterval(() => {
-      elapsed += 100;
-      setProgress((elapsed / SLIDE_INTERVAL) * 100);
+    let start: number | null = null;
+    let frameId: number;
 
-      if (elapsed >= SLIDE_INTERVAL) {
-        clearInterval(interval);
+    const step = (timestamp: number) => {
+      if (!start) start = timestamp;
+      const elapsed = timestamp - start;
+      const newProgress = Math.min((elapsed / SLIDE_INTERVAL) * 100, 100);
+
+      setProgress(newProgress);
+
+      if (elapsed < SLIDE_INTERVAL) {
+        frameId = requestAnimationFrame(step);
+      } else {
         setProgress(0);
         nextSlide();
       }
-    }, 100);
+    };
 
-    return () => clearInterval(interval);
-  }, [currentSlide, isPaused, isModalOpen, isInViewport, nextSlide, progress]);
+    frameId = requestAnimationFrame(step);
+
+    return () => cancelAnimationFrame(frameId);
+  }, [currentSlide, isPaused, isModalOpen, isInViewport, nextSlide]);
 
   // --- Intersection Observer ---
   useEffect(() => {
@@ -108,7 +116,7 @@ const HomeSlider = ({ portfolios }) => {
 
       inactivityTimer.current = setTimeout(() => {
         setIsPaused(false);
-        setProgress(0); // restart progress bar
+        setProgress(0); // restart progress smoothly
       }, INACTIVITY_DELAY);
     };
 
@@ -120,6 +128,49 @@ const HomeSlider = ({ portfolios }) => {
       if (inactivityTimer.current) clearTimeout(inactivityTimer.current);
     };
   }, []);
+
+  // --- Touch/Swipe Support ---
+  useEffect(() => {
+    const el = carouselRef.current;
+    if (!el) return;
+
+    let startX = 0;
+    let isDragging = false;
+
+    const onTouchStart = (e: TouchEvent) => {
+      startX = e.touches[0].clientX;
+      isDragging = true;
+    };
+
+    const onTouchMove = (e: TouchEvent) => {
+      if (!isDragging) return;
+      const diff = e.touches[0].clientX - startX;
+
+      // Threshold: only swipe if moved enough
+      if (Math.abs(diff) > 50) {
+        if (diff > 0) {
+          prevSlide();
+        } else {
+          nextSlide();
+        }
+        isDragging = false; // prevent multiple triggers
+      }
+    };
+
+    const onTouchEnd = () => {
+      isDragging = false;
+    };
+
+    el.addEventListener("touchstart", onTouchStart);
+    el.addEventListener("touchmove", onTouchMove);
+    el.addEventListener("touchend", onTouchEnd);
+
+    return () => {
+      el.removeEventListener("touchstart", onTouchStart);
+      el.removeEventListener("touchmove", onTouchMove);
+      el.removeEventListener("touchend", onTouchEnd);
+    };
+  }, [nextSlide, prevSlide]);
 
   // --- Dynamic Height (ResizeObserver) ---
   useEffect(() => {
@@ -149,26 +200,32 @@ const HomeSlider = ({ portfolios }) => {
 
       {/* Progress Bars */}
       <div className="w-full flex gap-[4px] px-4 mb-3">
-        {portfolios.map((_, index) => (
-          <div
-            key={index}
-            className="h-[4px] flex-1 bg-gray-300 rounded overflow-hidden"
-          >
+        {portfolios.map((_, index) => {
+          const isActive = index === currentSlide;
+          const isCompleted = index < currentSlide;
+
+          return (
             <div
-              className={`h-full transition-all duration-100 ${
-                isPaused ? "bg-gray-400" : "bg-primary"
-              }`}
-              style={{
-                width:
-                  index < currentSlide
+              key={index}
+              className="h-[4px] flex-1 bg-gray-300 rounded overflow-hidden"
+            >
+              <div
+                className={`h-full ${
+                  isPaused || isModalOpen || !isInViewport
+                    ? "bg-gray-400"
+                    : "bg-primary"
+                }`}
+                style={{
+                  width: isCompleted
                     ? "100%"
-                    : index === currentSlide
+                    : isActive
                     ? `${progress}%`
                     : "0%",
-              }}
-            />
-          </div>
-        ))}
+                }}
+              />
+            </div>
+          );
+        })}
       </div>
 
       {/* Slider */}

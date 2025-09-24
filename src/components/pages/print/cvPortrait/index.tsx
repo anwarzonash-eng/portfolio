@@ -167,10 +167,10 @@ const CV_Portrait = ({ params }: { params: any }) => {
     };
   }, []);
 
-  console.log("Skills Inside List of data: ", listOfdata?.skills);
-  console.log("List of skills: ", listOfskills);
-  console.log("List of data: ", listOfdata);
-  console.log("Skills Group  Data:", listOfdata?.skills_groups);
+  // console.log("Skills Inside List of data: ", listOfdata?.skills);
+  // console.log("List of skills: ", listOfskills);
+  // console.log("List of data: ", listOfdata);
+  // console.log("Skills Group  Data:", listOfdata?.skills_groups);
 
   return (
     <>

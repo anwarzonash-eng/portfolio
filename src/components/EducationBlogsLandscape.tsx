@@ -73,7 +73,7 @@ const EducationBlogsLandscape = () => {
 
   const domain = listOfdata?.domain;
 
-  console.log("Education Data Checking:", listOfdata);
+  // console.log("Education Data Checking:", listOfdata);
 
   return (
     <PageRendering

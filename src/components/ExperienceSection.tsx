@@ -73,7 +73,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
     [experience.long_description, listOfskills, listOfdata]
   );
 
-  console.log("Experiences:", experience);
+  // console.log("Experiences:", experience);
 
   // Parse the <li> elements, preserving all HTML and styles
   const items = useMemo(() => {
