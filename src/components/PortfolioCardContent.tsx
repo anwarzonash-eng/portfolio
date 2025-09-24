@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import PortfolioFeatures from "./PortfolioFeatures";
 import ShowmoreSkills from "./showmoreSkills";
+import useIsDesktop from "@/hooks/useIsDesktop";
 
 interface PortfolioCardContentProps {
   portfolio: {
@@ -45,7 +46,8 @@ const PortfolioCardContent: React.FC<PortfolioCardContentProps> = ({
   const isSkillsNested =
     Array.isArray(skills) && skills.length > 0 && Array.isArray(skills[0]);
   const flatSkills = isSkillsNested ? skills.flat() : skills; // Flatten nested skills for consistent rendering
-  const initialSkillLimit = 15; // Show skills initially
+  const isDesktop = useIsDesktop(1024); // matches Tailwind's lg breakpoint
+  const initialSkillLimit = isDesktop ? 15 : 6;
   const skillsToShow = showMoreSkills[index]
     ? flatSkills
     : flatSkills.slice(0, initialSkillLimit);
@@ -76,7 +78,7 @@ const PortfolioCardContent: React.FC<PortfolioCardContentProps> = ({
                 } lg:w-[800px] w-full object-cover rounded-[1.2rem] border border-solid border-border`}
               />
               <button
-                className="mb-3 print:hidden min-w-[137px] lg:max-w-max py-[6px] mt-[17px] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium hover:bg-primary backdrop-blur-[9px] bg-black/20 text-nowrap hover:text-white border border-solid border-transparent hover:border-primary duration-300 max-lg:w-full text-center rounded-[3rem] absolute"
+                className="mb-3 print:hidden min-w-[137px] lg:max-w-max py-[6px] mt-[17px] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium hover:bg-primary backdrop-blur-[9px] bg-black/20 text-nowrap hover:text-white border border-solid border-transparent hover:border-primary duration-300 max-lg:w-full text-center rounded-[3rem] absolute max-w-max"
                 onClick={() =>
                   openModal(
                     portfolio?.pictures,
@@ -93,7 +95,7 @@ const PortfolioCardContent: React.FC<PortfolioCardContentProps> = ({
             <Link
               href={portfolio?.link || "#"}
               target="_blank"
-              className="flex gap-[1rem] p-2 hover:bg-[#D1E9FF] hover:scale-[98%] transition-all duration-300 cursor-pointer rounded-[6px] hover:drop-shadow-2xl max-w-max"
+              className="inline-flex gap-[1rem] p-2 hover:bg-[#D1E9FF] hover:scale-[98%] transition-all duration-300 cursor-pointer rounded-[6px] hover:drop-shadow-2xl max-w-max max-lg:mt-[1rem]"
             >
               {portfolio?.company_icon && (
                 <div className="bg-[#1B6393] p-[1.46rem] rounded-[1rem] inline-block">
@@ -174,7 +176,7 @@ const PortfolioCardContent: React.FC<PortfolioCardContentProps> = ({
                 <a
                   href={portfolio?.link}
                   target="_blank"
-                  className="py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-primary border border-solid hover:border-transparent border-primary print:!text-primary duration-300 hover:bg-primary hover:text-white rounded-[0.6rem] max-sm:w-full text-center"
+                  className="py-[1rem] px-[2rem] text-[1.6rem] leading-[2.4rem] font-medium text-primary border border-solid hover:border-transparent border-primary print:!text-primary duration-300 hover:bg-primary hover:text-white rounded-[0.6rem] max-sm:w-full text-center text-nowrap"
                 >
                   Launch Project - Live Preview
                 </a>

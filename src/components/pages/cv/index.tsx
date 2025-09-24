@@ -171,7 +171,8 @@ const CV = ({ params }: { params: any }) => {
   const items = Array.from(doc.querySelectorAll("li")).map(
     (li) => li.outerHTML
   );
-  const visibleItems = !expanded ? items.slice(0, 4) : items;
+  const maxItems = isMobile ? 4 : 10;
+  const visibleItems = !expanded ? items.slice(0, maxItems) : items;
 
   return (
     <>
@@ -240,15 +241,17 @@ const CV = ({ params }: { params: any }) => {
                                         __html: visibleItems.join(""),
                                       }}
                                     />
-                                    {items.length > 4 && (
-                                      <button
-                                        onClick={() =>
-                                          setExpanded((prev) => !prev)
-                                        }
-                                        className="px-[4rem] print:hidden py-[1.4rem] bg-primary rounded-[2.2rem] hover:bg-white hover:text-primary hover:border-primary border border-border border-solid text-center max-w-max text-white text-[1.4rem] font-medium font-Inter leading-tight mt-[2rem]"
-                                      >
-                                        {expanded ? "Read Less" : "Read More"}
-                                      </button>
+                                    {items.length > maxItems && (
+                                      <div className="flex items-center justify-center">
+                                        <button
+                                          onClick={() =>
+                                            setExpanded((prev) => !prev)
+                                          }
+                                          className="px-[4rem] print:hidden py-[1.4rem] bg-primary rounded-[2.2rem] hover:bg-white hover:text-primary hover:border-primary border border-border border-solid text-center max-w-max text-white text-[1.4rem] font-medium font-Inter leading-tight mt-[2rem]"
+                                        >
+                                          {expanded ? "Read Less" : "Read More"}
+                                        </button>
+                                      </div>
                                     )}
                                   </div>
                                 </div>

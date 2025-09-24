@@ -77,12 +77,14 @@ const PortfolioFeatures: React.FC<PortfolioFeaturesProps> = ({
         />
       )}
       {listItems.length > (isMobile && !showInitialMobile ? 0 : 4) && (
-        <button
-          onClick={handleToggle}
-          className={`bg-primary leading-normal text-center py-[0.6rem] px-[2rem] text-white hover:bg-white border border-[#E2E6EE] border-solid hover:border-primary hover:text-primary rounded-[2rem] text-[1.4rem] font-medium my-[1.5rem]`}
-        >
-          {showAll ? "Read Less" : "See More"}
-        </button>
+        <div className="flex items-center max-lg:justify-center">
+          <button
+            onClick={handleToggle}
+            className={`bg-primary leading-normal text-center py-[0.6rem] px-[2rem] text-white hover:bg-white border border-[#E2E6EE] border-solid hover:border-primary hover:text-primary rounded-[2rem] text-[1.4rem] font-medium my-[1.5rem] max-lg:px-[4rem]`}
+          >
+            {showAll ? "Read Less" : "See More"}
+          </button>
+        </div>
       )}
     </div>
   );

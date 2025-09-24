@@ -423,6 +423,15 @@ body {
 /* For cvLandscape */
 @media print {
   .limit-height-landscape {
+    max-height: 480px;
+    height: 100%;
+    overflow: hidden;
+  }
+}
+
+/* For cvLandscape */
+@media print {
+  .limit-height-landscape {
     height: 480px;
     overflow: hidden;
   }

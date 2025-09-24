@@ -8,6 +8,7 @@ import { skillsGrouping } from "@/hooks/skillsGrouping";
 import { formatDate } from "@/hooks/formatdate";
 import { dateFormatsOptions } from "@/data/JsonData";
 import { modifiedContent } from "@/hooks/modifiedContent";
+import useIsDesktop from "@/hooks/useIsDesktop";
 
 interface SkillType {
   title: string;
@@ -35,11 +36,15 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
   setShowMoreSkills,
   variant = "list",
 }) => {
-  const skillsForExperience = skillsGrouping(
-    showMoreSkills[index]
-      ? experience?.skills
-      : experience?.skills?.slice(0, 15)
-  );
+  const skills = experience?.skills || [];
+  const isSkillsNested =
+    Array.isArray(skills) && skills.length > 0 && Array.isArray(skills[0]);
+  const flatSkills = isSkillsNested ? skills.flat() : skills; // Flatten nested skills for consistent rendering
+  const isDesktop = useIsDesktop(1024); // matches Tailwind's lg breakpoint
+  const initialSkillLimit = isDesktop ? 15 : 6;
+  const skillsToShow = showMoreSkills[index]
+    ? flatSkills
+    : flatSkills.slice(0, initialSkillLimit);
 
   // Expanded Code Logic
   const [isMobile, setIsMobile] = useState(false);
@@ -278,17 +283,19 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
             )}
 
             {items.length > 0 && (
-              <button
-                onClick={handleToggle}
-                className={`mt-[1rem] bg-primary leading-normal text-center py-[0.6rem] px-[2rem] text-white hover:bg-white border border-[#E2E6EE] border-solid hover:border-primary hover:text-primary rounded-[2rem] text-[1.4rem] font-medium`}
-                aria-label={
-                  expansionState === "full"
-                    ? "Collapse content"
-                    : "Expand content"
-                }
-              >
-                {expansionState === "full" ? "Read Less" : "Read More"}
-              </button>
+              <div className="flex items-center max-lg:justify-center">
+                <button
+                  onClick={handleToggle}
+                  className={`mt-[1rem] bg-primary leading-normal text-center py-[0.6rem] px-[2rem] text-white hover:bg-white border border-[#E2E6EE] border-solid hover:border-primary hover:text-primary rounded-[2rem] text-[1.4rem] font-medium`}
+                  aria-label={
+                    expansionState === "full"
+                      ? "Collapse content"
+                      : "Expand content"
+                  }
+                >
+                  {expansionState === "full" ? "Read Less" : "Read More"}
+                </button>
+              </div>
             )}
           </div>
 
@@ -300,22 +307,27 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
               <h4 className="text-primary text-[1.5rem] font-medium mb-[1.2rem]">
                 AREAS OF EXPERTISE I'VE WORKED IN
               </h4>
-              <div className="flex items-center gap-[1rem] flex-wrap text-[1.2rem]">
-                {(Object.values(skillsForExperience) as SkillType[][]).map(
-                  (group, groupIndex) =>
-                    group.map((skill, i) => (
+              <div className="flex items-center gap-[1rem] mt-3 lg:gap-[0.7rem] flex-wrap text-[1.2rem] w-full">
+                {Array.isArray(skillsToShow) && skillsToShow.length > 0 && (
+                  <React.Fragment>
+                    {skillsToShow.map((skill: any, i: number) => (
                       <Link
+                        key={i}
                         href={skill.url || "#"}
-                        key={`${groupIndex}-${i}`}
-                        className="hover:bg-primary capitalize hover:text-white text-primary text-[1.3rem] font-medium py-[0.4rem] px-[2rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575]"
+                        target="_blank"
+                        className="hover:bg-primary hover:text-white py-[0.4rem] print:py-[0.1rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
                       >
-                        {skill?.title}
+                        {skill.title}
                       </Link>
-                    ))
+                    ))}
+                    {showMoreSkills[index] && (
+                      <div className="w-full mb-[1px]" />
+                    )}
+                  </React.Fragment>
                 )}
                 <ShowmoreSkills
                   props={{
-                    list: experience?.skills,
+                    list: flatSkills,
                     index,
                     setShowMoreSkills,
                     showMoreSkills,

@@ -75,7 +75,7 @@ const EducationComponent: React.FC = () => {
         {listOfdata.education_ids.map((edu: any) => (
           <div
             key={edu.id}
-            className="p-[2rem] w-full rounded-[0.8rem] border border-solid border-[#E2E6EE] bg-[#F7F9FC]"
+            className="p-[2rem] w-full rounded-[0.8rem] border border-solid border-[#E2E6EE] bg-[#F7F9FC] border-b-[4px]"
           >
             {/* University + Logo */}
             <div className="flex items-center gap-[1.8rem]">

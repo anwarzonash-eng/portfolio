@@ -23,6 +23,7 @@ import DesignationDomain from "@/components/DesignationDomain";
 import NoteClickable from "@/components/NoteClickable";
 import EducationBlogsPortrait from "@/components/EducationBlogsPortrait";
 import ContactMePrint from "@/components/ContactMePrint";
+import HomeSliderPrint from "@/components/Sliders/HomeSliderPrint";
 
 const PortfolioListing_p = ({ params }: { params: any }) => {
   const [
@@ -179,116 +180,15 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
                     />
 
                     <div className="max-w-[1550px] w-full mx-auto px-[4rem]">
-                      {/* Year */}
-                      <h1 className="ml-[2rem] mb-[3rem] text-heading text-[2rem] leading-[2.7rem] font-bold ">
-                        {new Date(portfolio.starting_date).toLocaleString(
-                          "en-US",
-                          {
-                            month: "short",
-                            year: "numeric",
-                          }
-                        )}{" "}
-                        -{" "}
-                        {isNaN(new Date(portfolio.ending_Date).getTime())
-                          ? portfolio.ending_Date
-                          : new Date(portfolio.ending_Date).toLocaleString(
-                              "en-US",
-                              {
-                                month: "short",
-                                year: "numeric",
-                              }
-                            )}
-                      </h1>
-                      {/* Card */}
-                      <div className="flex items-center justify-center p-[1.5rem] bg-white shadow-testimonialeShadow ">
-                        {/* Content */} {/* Title and Description */}
-                        <div className="flex flex-col w-full gap-3">
-                          {portfolio?.thumbnail && (
-                            <div className="w-full rounded-[1.2rem]">
-                              <img
-                                src={portfolio.thumbnail}
-                                alt="Portfolio Image"
-                                height={800}
-                                width={800}
-                                className="print:h-[300px] h-[600px] w-full object-fill rounded-[1.2rem] border border-solid border-border cursor-pointer"
-                                onError={(e) => {
-                                  const target = e.target as HTMLImageElement;
-                                  target.onerror = null; // prevent infinite loop if fallback fails
-                                  target.src =
-                                    "https://images.unsplash.com/photo-1542393545-10f5cde2c810?q=80&w=465&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
-                                }}
-                              />
-                            </div>
-                          )}
-
-                          <div className="">
-                            <h1 className="text-[1.8rem] lg:text-[2rem] font-bold leading-[2.69rem]">
-                              {portfolio?.title}
-                            </h1>
-                            <p
-                              dangerouslySetInnerHTML={{
-                                __html: portfolio.tagline_2,
-                              }}
-                              className="text-[1.9rem] leading-[150%] font-medium mt-[1rem] text-primary"
-                            ></p>
-
-                            {/* <p
-                              dangerouslySetInnerHTML={{
-                                __html: modifiedContent(
-                                  portfolio.features_short,
-                                  listOfskills,
-                                  listOfdata
-                                ),
-                              }}
-                              className="mt-[2rem] list-div-portfolio1 pl-[2rem] line-clamp-5"
-                            ></p> */}
-                            <hr className="w-full my-[2.4rem] h-px bg-border" />
-                            <h4 className="text-heading text-[1.6rem] font-medium mb-[1.2rem] ml-[0.2rem]">
-                              AREAS OF EXPERTISE I'VE WORKED IN
-                            </h4>
-                            <div className="flex items-center gap-[1rem] mt-3 lg:gap-[0.7rem] flex-wrap text-[1.2rem] w-full">
-                              {Object.values(skills)
-                                .flat()
-                                .slice(0, 9)
-                                .map((skill, index) => (
-                                  <Link
-                                    key={index}
-                                    href={skill.url || "#"}
-                                    target="_blank"
-                                    className="hover:bg-primary hover:text-white py-[0.4rem] print:py-[0.1rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
-                                  >
-                                    {skill.title}
-                                  </Link>
-                                ))}
-                              {/* <Link href={`/portfolio`}>
-                                <button className="bg-primary text-white py-[0.4rem] px-[2rem] border border-primary border-solid hover:text-primary hover:bg-white rounded-[1.8rem] text-[1.4rem] font-medium leading-normal">
-                                  Show More Skills
-                                </button>
-                              </Link> */}
-                            </div>
-                            <hr className="w-full my-[2.4rem] h-px bg-border" />
-                            {/* Links */}
-                            <div className="flex  flex-col gap-[1.4rem]">
-                              <Link
-                                href={`/print/portfolioF/${portfolio.id}`}
-                                className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent hover:border-primary duration-300 max-sm:w-full text-center rounded-[0.6rem]"
-                              >
-                                View Details
-                              </Link>
-
-                              {listOfdata?.companytype !== "leewop" && (
-                                <a
-                                  href={`/portfolio`}
-                                  target="_blank"
-                                  className="py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-primary border border-solid hover:border-transparent border-primary print:!text-primary duration-300 hover:bg-primary hover:text-white rounded-[0.6rem] max-sm:w-full text-center"
-                                >
-                                  Launch Project - Live Preview
-                                </a>
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                      <HomeSliderPrint
+                        portfolios={[portfolio]}
+                        isPortraitMode={true}
+                        companyType={listOfdata?.companytype}
+                        locationLink={`/?sectionId=myWork`}
+                        portfolioId={portfolio?.id}
+                        from={0}
+                        max={1}
+                      />
                     </div>
                   </section>
                 );

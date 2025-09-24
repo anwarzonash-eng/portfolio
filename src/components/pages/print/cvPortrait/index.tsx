@@ -368,12 +368,14 @@ const CV_Portrait = ({ params }: { params: any }) => {
                           ),
                         }}
                       ></div>
-                      <Link
-                        href={"/cv"}
-                        className="px-[4rem] py-[1.4rem] bg-primary rounded-[2.2rem] hover:bg-white hover:text-primary hover:border-primary border border-border border-solid text-center max-w-max text-white text-[1.4rem] font-medium font-Inter leading-tight mb-[2rem] block"
-                      >
-                        Read More
-                      </Link>
+                      <div className="flex items-center justify-center">
+                        <Link
+                          href={"/cv"}
+                          className="px-[4rem] py-[1.4rem] bg-primary rounded-[2.2rem] hover:bg-white hover:text-primary hover:border-primary border border-border border-solid text-center max-w-max text-white text-[1.4rem] font-medium font-Inter leading-tight mb-[2rem] block"
+                        >
+                          Read More
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </section>
