@@ -347,17 +347,17 @@ const CV_Portrait = ({ params }: { params: any }) => {
 
               {/* Overview Section ✅ */}
               {listOfdata?.skills && (
-                <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative my-[4rem] print:m-0 bg-cvSideBg bg-no-repeat bg-cover">
+                <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex flex-col items-center justify-center overflow-hidden relative my-[4rem] print:m-0 bg-cvSideBg bg-no-repeat bg-cover">
                   {/* Note and Domain For Each Page */}
                   <NoteDomainForPint
                     direction={"hidden print:right-0 print:block"}
                   />
+                  {/* Title */}
+                  <h2 className="text-heading leading-[3.56rem] text-[3.67rem] font-medium pl-[0.5rem] mb-[3rem] text-center">
+                    Overview & Skills
+                  </h2>
                   <div className="relative flex items-start max-w-[1550px] w-full mx-auto px-[4rem]">
                     <div className="print:break-before-page print_p_m">
-                      {/* Title */}
-                      <h2 className="text-heading leading-[3.56rem] text-[3.67rem] font-medium pl-[0.5rem] mb-[3rem]">
-                        Overview & Skills
-                      </h2>
                       <div
                         className="text-heading services_main list-div text-[1.6rem] leading-[2.4rem] flex flex-col gap-[1rem] mb-[5rem] list-inside"
                         dangerouslySetInnerHTML={{
@@ -368,7 +368,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
                           ),
                         }}
                       ></div>
-                      <div className="flex items-center justify-center">
+                      <div className="flex items-center justify-center w-full">
                         <Link
                           href={"/cv"}
                           className="px-[4rem] py-[1.4rem] bg-primary rounded-[2.2rem] hover:bg-white hover:text-primary hover:border-primary border border-border border-solid text-center max-w-max text-white text-[1.4rem] font-medium font-Inter leading-tight mb-[2rem] block"
