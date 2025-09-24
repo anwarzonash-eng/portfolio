@@ -82,7 +82,7 @@ const PortfolioFeatures: React.FC<PortfolioFeaturesProps> = ({
             onClick={handleToggle}
             className={`bg-primary leading-normal text-center py-[0.6rem] px-[2rem] text-white hover:bg-white border border-[#E2E6EE] border-solid hover:border-primary hover:text-primary rounded-[2rem] text-[1.4rem] font-medium my-[1.5rem] max-lg:px-[4rem]`}
           >
-            {showAll ? "Read Less" : "See More"}
+            {showAll ? "Read Less" : "Read More"}
           </button>
         </div>
       )}

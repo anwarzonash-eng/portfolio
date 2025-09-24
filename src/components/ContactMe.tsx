@@ -27,7 +27,7 @@ const ContactMe = ({ listOfdata }) => {
     alt: string;
   }
 
-  const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
+  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [dragActive, setDragActive] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -57,15 +57,15 @@ const ContactMe = ({ listOfdata }) => {
 
   // ✅ File Upload Handlers
   const handleFileChange = (files: FileList | null) => {
-    if (!files) return;
-    setUploadedFiles((prev) => [...prev, ...Array.from(files)]);
+    if (!files || files.length === 0) return;
+    setUploadedFile(files[0]); // only keep the first file
   };
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     setDragActive(false);
-    if (e.dataTransfer.files) {
-      handleFileChange(e.dataTransfer.files);
+    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+      setUploadedFile(e.dataTransfer.files[0]); // only first file
     }
   };
 
@@ -78,8 +78,8 @@ const ContactMe = ({ listOfdata }) => {
     setDragActive(isActive);
   };
 
-  const removeFile = (index: number) => {
-    setUploadedFiles((prev) => prev.filter((_, i) => i !== index));
+  const removeFile = () => {
+    setUploadedFile(null);
   };
 
   // ✅ Submit Handler
@@ -94,7 +94,7 @@ const ContactMe = ({ listOfdata }) => {
       subject: values.subject,
       projectLength: values.projectLength,
       message: values.message,
-      upload: uploadedFiles,
+      upload: uploadedFile,
       source_category: "contact",
     };
 
@@ -104,7 +104,7 @@ const ContactMe = ({ listOfdata }) => {
     if (/^2\d{2}$/.test(res?.status)) {
       setIsModalOpen(true);
       resetForm();
-      setUploadedFiles([]); // ✅ clear files after submit
+      setUploadedFile(null); // ✅ clear file after submit
     }
   };
 
@@ -275,6 +275,7 @@ const ContactMe = ({ listOfdata }) => {
               </div>
 
               {/* Drag & Drop Multiple Upload */}
+              {/* Drag & Drop Single Upload */}
               <div
                 className={`flex flex-col items-center justify-center gap-[1rem] lg:max-w-[40.7rem] w-full mb-[1.5rem] border-2 border-dashed rounded-[0.6rem] p-6 cursor-pointer ${
                   dragActive ? "border-primary bg-blue-50" : "border-border"
@@ -286,7 +287,6 @@ const ContactMe = ({ listOfdata }) => {
                 <input
                   type="file"
                   id="file-upload"
-                  multiple
                   className="hidden"
                   onChange={(e) => handleFileChange(e.target.files)}
                 />
@@ -294,29 +294,22 @@ const ContactMe = ({ listOfdata }) => {
                   htmlFor="file-upload"
                   className="cursor-pointer text-paragraph1 text-[1.6rem] font-normal"
                 >
-                  Drag & Drop files here or{" "}
+                  Drag & Drop a file here or{" "}
                   <span className="text-primary font-semibold">Browse</span>
                 </label>
 
-                {/* File List */}
-                {uploadedFiles.length > 0 && (
-                  <ul className="mt-3 w-full text-[1.4rem] text-paragraph1">
-                    {uploadedFiles.map((file, idx) => (
-                      <li
-                        key={idx}
-                        className="flex justify-between items-center border-b border-border py-1"
-                      >
-                        <span>{file.name}</span>
-                        <button
-                          type="button"
-                          className="text-red-500 text-sm ml-2"
-                          onClick={() => removeFile(idx)}
-                        >
-                          ✕
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
+                {/* File Preview */}
+                {uploadedFile && (
+                  <div className="mt-3 w-full text-[1.4rem] text-paragraph1 flex justify-between items-center border-b border-border py-1">
+                    <span>{uploadedFile.name}</span>
+                    <button
+                      type="button"
+                      className="text-red-500 text-sm ml-2"
+                      onClick={removeFile}
+                    >
+                      ✕
+                    </button>
+                  </div>
                 )}
               </div>
 
