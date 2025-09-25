@@ -178,6 +178,8 @@ export const getRoutesDetails = (
       routesInfo.u = "_"; // ✅ set true, not null
     }
 
+    console.log(dynamicRoutes);
+
     // uniqueID handling
     if (dynamicRoutes?.unique_id) {
       routesInfo.uniqueID = dynamicRoutes.unique_id;

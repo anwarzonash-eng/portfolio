@@ -11,11 +11,11 @@ export const reportsApiHandler = async ({
   setError,
 }) => {
   const payload: { actionType: any; domain: any; uniqueId: any; itemID?: any } =
-    {
-      actionType: actionType,
-      domain: urlInfo?.domain,
-      uniqueId: urlInfo?.uniqueID,
-    };
+  {
+    actionType: actionType,
+    domain: urlInfo?.domain,
+    uniqueId: 'wliy', //urlInfo?.uniqueID,
+  };
   if (itemID && itemID !== null) {
     payload.itemID = itemID;
   }
