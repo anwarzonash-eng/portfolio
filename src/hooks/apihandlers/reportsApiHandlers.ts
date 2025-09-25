@@ -14,7 +14,7 @@ export const reportsApiHandler = async ({
   {
     actionType: actionType,
     domain: urlInfo?.domain,
-    uniqueId: 'wliy', //urlInfo?.uniqueID,
+    uniqueId: urlInfo?.uniqueID,
   };
   if (itemID && itemID !== null) {
     payload.itemID = itemID;
