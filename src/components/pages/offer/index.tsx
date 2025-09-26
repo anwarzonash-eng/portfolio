@@ -17,6 +17,7 @@ import { useAppSelector } from "@/store";
 import SkillsComponent from "@/components/SkillsComponent";
 import ExpandableServiceCard from "@/components/ExpandableServiceCard";
 import EducationComponent from "@/components/EducationComponent";
+import { useUniquePortfolios } from "@/hooks/useUniquePortfolios";
 
 const Offer = ({ params }: { params: any }) => {
   useBodyBackgroundColor("#EFF5FD");
@@ -81,6 +82,8 @@ const Offer = ({ params }: { params: any }) => {
 
   // List Points Logic
   const [expanded, setExpanded] = useState(false);
+
+  const uniqueList = useUniquePortfolios(listOfdata?.portfolios_ids);
 
   // Safely get content string (fallback to "")
   const content =
@@ -228,7 +231,7 @@ const Offer = ({ params }: { params: any }) => {
                     <div className="text-center text-heading text-[3rem] font-medium leading-[2.8rem] mt-[2rem]">
                       Explore My Technical Endeavors
                     </div>
-                    <HomeSlider portfolios={listOfdata?.portfolios_ids} />
+                    <HomeSlider portfolios={uniqueList} />
                   </div>
                 </section>
               )}

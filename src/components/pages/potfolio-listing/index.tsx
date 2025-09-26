@@ -1,8 +1,6 @@
 "use client";
 import React, { useEffect } from "react";
 import { useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
 import Newsletter from "@/components/Newsletter";
 import useBodyBackgroundColor from "@/hooks/useBodyBackgroundColor";
 import PortfolioPopUp from "@/components/PortfolioPopUp";
@@ -13,15 +11,11 @@ import { reportsApiHandler } from "@/hooks/apihandlers/reportsApiHandlers";
 import { store } from "@/store";
 import { setProfileLoading, setProfileUrlInfo } from "@/store/profileSlice";
 import OurBlogs from "@/components/OurBlogs";
-import { modifiedContent } from "@/hooks/modifiedContent";
 import { handleSkillsApiCall } from "@/hooks/apihandlers/skillsApiHandlers";
 import { skillsGrouping } from "@/hooks/skillsGrouping";
-import { toggleShowMoreSkills } from "@/hooks/toggleShowMoreSkills";
-import ShowmoreSkills from "@/components/showmoreSkills";
 import Background from "@/components/background";
 import { useAppSelector } from "@/store";
 import EmptyState from "@/components/EmptyState";
-import PortfolioFeatures from "@/components/PortfolioFeatures";
 import PortfolioCardContent from "@/components/PortfolioCardContent";
 
 const PortfolioListing = ({ params }: { params: any }) => {
@@ -95,7 +89,6 @@ const PortfolioListing = ({ params }: { params: any }) => {
   return (
     <div className="bg-[#EFF5FD]">
       {/* Hero Banner */}
-
       <section className="w-full relative banner-section">
         <div className="mainContainer h-[60.7rem] lg:h-[65rem] print:h-auto w-full relative ">
           {/* Background SVG */}

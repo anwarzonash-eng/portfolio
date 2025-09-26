@@ -524,7 +524,7 @@ const HomeSlider = ({ portfolios }) => {
         >
           {portfolios.map((portfolio, index) => (
             <div
-              key={portfolio.id || index}
+              key={portfolio.id}
               className="w-full flex-shrink-0 rounded-[1rem]"
               ref={(el) => {
                 slideRefs.current[index] = el;

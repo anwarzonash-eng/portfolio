@@ -78,7 +78,8 @@ const PortfolioCardContent: React.FC<PortfolioCardContentProps> = ({
                 } lg:w-[800px] w-full object-cover rounded-[1.2rem] border border-solid border-border`}
               />
               <button
-                className="mb-3 print:hidden min-w-[137px] lg:max-w-max py-[6px] mt-[17px] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium hover:bg-primary backdrop-blur-[9px] bg-black/20 text-nowrap hover:text-white border border-solid border-transparent hover:border-primary duration-300 max-lg:w-full text-center rounded-[3rem] absolute max-w-max"
+                className="btn-primary text-white py-[1rem] mt-[2rem]
+                px-[8rem] text-[1.8rem] font-medium"
                 onClick={() =>
                   openModal(
                     portfolio?.pictures,
@@ -87,7 +88,7 @@ const PortfolioCardContent: React.FC<PortfolioCardContentProps> = ({
                   )
                 }
               >
-                See All
+                View Gallery
               </button>
             </div>
           )}
