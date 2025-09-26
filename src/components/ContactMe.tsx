@@ -459,10 +459,10 @@ const ContactMe = ({ listOfdata }) => {
                     {/* SVG Social Icons */}
                     <div>
                       <div className="flex items-start justify-center sm:justify-normal flex-wrap gap-[1.6rem] mt-[1.4rem]">
-                        {socialMediaLinksForContactComponent?.map((C) => (
+                        {socialMediaLinksForContactComponent?.map((C, i) => (
                           <>
                             {C.link && (
-                              <Link href={C.link} target="_blank">
+                              <Link href={C.link} target="_blank" key={i}>
                                 <C.SVG />
                               </Link>
                             )}

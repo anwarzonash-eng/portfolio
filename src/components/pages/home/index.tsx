@@ -151,7 +151,7 @@ const Home = ({ params }: { params: any }) => {
     }[];
   } = skillsGrouping(listOfdata?.skills_ids);
 
-  console.log("Lists Data", listOfdata);
+  // console.log("Lists Data", listOfdata);
 
   // Assign unique IDs to portfolios
   // console.log("Portfolios ID:", listOfdata?.portfolios_ids);

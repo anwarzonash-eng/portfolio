@@ -15,17 +15,26 @@ type SkillType = {
 interface SkillsContainerPortfolioDetailProps {
   list: SkillType[] | undefined | null;
   layoutType?: boolean;
-  initialVisibleItems?: number;
 }
 
 const SkillsContainerPortfolioDetail: React.FC<
   SkillsContainerPortfolioDetailProps
-> = ({ list = [], layoutType = false, initialVisibleItems = 12 }) => {
+> = ({ list = [], layoutType = false }) => {
   const searchParams = useSearchParams();
 
   // State for expanded view
   const [isExpanded, setIsExpanded] = useState(false);
   const [shouldExpand, setShouldExpand] = useState(false);
+
+  // Number of items to display by default
+  const initialVisibleItemsDesktop = 16; // lg and above (≥1024px)
+  const initialVisibleItemsMobile = 12; // below lg (<1024px)
+
+  // Determine the number of items to show based on screen size
+  const initialVisibleItems =
+    typeof window !== "undefined" && window.innerWidth >= 1024
+      ? initialVisibleItemsDesktop
+      : initialVisibleItemsMobile;
 
   // Check if we need to expand on mount (when navigated from skills print page)
   useEffect(() => {
@@ -55,11 +64,14 @@ const SkillsContainerPortfolioDetail: React.FC<
     setIsExpanded(!isExpanded);
   };
 
+  // Determine when to show the "Show All Skills" or "Show Less" button
+  const showToggleButton = list && list.length > initialVisibleItems;
+
   return (
     <div className="w-full mt-[3rem]">
       {/* Skills Grid */}
       <div
-        className={`grid grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-[2rem] content-center place-items-center`}
+        className={`grid grid-cols-3 lg:grid-cols-6 xl:grid-cols-8 gap-[2rem] content-center place-items-center`}
       >
         {Object.values(skills).map((group, groupIndex) => (
           <React.Fragment key={groupIndex}>
@@ -88,26 +100,14 @@ const SkillsContainerPortfolioDetail: React.FC<
         ))}
       </div>
 
-      {/* Expand/Collapse Button - Only show if not expanded and there are more skills */}
-      {!isExpanded && list && list.length > initialVisibleItems && (
+      {/* Expand/Collapse Button - Only show if there are more skills than initialVisibleItems */}
+      {showToggleButton && (
         <div className="flex justify-center mt-[3rem]">
           <button
             onClick={handleToggleExpand}
             className="px-[3rem] py-[1rem] bg-primary rounded-[2rem] text-white text-[1.4rem] font-medium hover:bg-primary-dark transition-colors"
           >
-            Show All Skills
-          </button>
-        </div>
-      )}
-
-      {/* Show "Showing All Skills" message when expanded */}
-      {isExpanded && list && list.length > initialVisibleItems && (
-        <div className="flex justify-center mt-[2rem]">
-          <button
-            onClick={handleToggleExpand}
-            className="px-[3rem] py-[1rem] bg-primary rounded-[2rem] text-white text-[1.4rem] font-medium hover:bg-primary-dark transition-colors"
-          >
-            Show Less
+            {isExpanded ? "Show Less" : "Show All Skills"}
           </button>
         </div>
       )}

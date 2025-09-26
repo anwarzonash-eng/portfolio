@@ -353,7 +353,6 @@ const PortfolioDetails = ({ params }: { params: any }) => {
                     <div ref={skillsContainerRef}>
                       <SkillsContainerPortfolioDetail
                         list={portfolioDetails?.skills}
-                        initialVisibleItems={16}
                       />
                     </div>
                   </article>
