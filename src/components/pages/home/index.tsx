@@ -129,6 +129,8 @@ const Home = ({ params }: { params: any }) => {
     [listOfdata]
   );
 
+  console.log("URL Info:", urlInfo);
+
   useEffect(() => {
     setURLInfo(getRoutesDetails(params, searchParams));
   }, [params, searchParams]);

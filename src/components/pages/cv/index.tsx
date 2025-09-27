@@ -123,6 +123,8 @@ const CV = ({ params }: { params: any }) => {
     setURLInfo(getRoutesDetails(params, searchParams));
   }, [params, searchParams]);
 
+  console.log(urlInfo);
+
   useEffect(() => {
     if (urlInfo) {
       reportsApiHandler({
