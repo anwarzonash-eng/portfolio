@@ -286,7 +286,6 @@ const CV = ({ params }: { params: any }) => {
                                 <CVSkills
                                   skillsforCV={skillsforCV}
                                   listOfdata={listOfdata}
-                                  initialVisibleItems={16}
                                 />
                               </div>
                             )}

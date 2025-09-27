@@ -36,6 +36,17 @@ const PortfolioDetails = ({ params }: { params: any }) => {
   // Ref for the SkillsContainer section
   const skillsContainerRef = useRef<HTMLDivElement | null>(null);
 
+  // Filter skills based on listOfdata.skills_ids
+  useEffect(() => {
+    if (listOfdata?.skills_ids && listOfskills.length > 0) {
+      const matchedSkills = listOfskills.filter((skill) =>
+        listOfdata.skills_ids.some((dataSkill) => dataSkill.id === skill.id)
+      );
+      setListOfSkills(matchedSkills);
+      // console.log("Filtered Skills:", matchedSkills); // Debug
+    }
+  }, [listOfdata, listOfskills]);
+
   useEffect(() => {
     // console.log({ allparams: params.value });
     setURLInfo(getRoutesDetails(params, searchParams));
@@ -347,7 +358,7 @@ const PortfolioDetails = ({ params }: { params: any }) => {
                   ></div>
                   {/* My Tools and Technologies */}
                   <article className="my-[6.4rem]">
-                    <div className="text-heading text-[2.4rem] xl:text-[3rem] font-medium leading-[2.8rem]">
+                    <div className="text-heading text-[2.4rem] xl:text-[3rem] font-medium leading-[2.8rem] text-center">
                       The skills, tools and technologies I used in this project:
                     </div>
                     <div ref={skillsContainerRef}>

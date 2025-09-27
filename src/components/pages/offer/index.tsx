@@ -36,21 +36,37 @@ const Offer = ({ params }: { params: any }) => {
     (state) => state.profile.listOfProfileData
   );
 
+  // Filter skills based on listOfdata.skills_ids
+  useEffect(() => {
+    if (listOfdata?.skills_ids && listOfskills.length > 0) {
+      const matchedSkills = listOfskills.filter((skill) =>
+        listOfdata.skills_ids.some((dataSkill) => dataSkill.id === skill.id)
+      );
+      setListOfSkills(matchedSkills);
+      // console.log("Filtered Skills:", matchedSkills); // Debug
+    }
+  }, [listOfdata, listOfskills]);
+
+  // API Calls
   useEffect(() => {
     setURLInfo(getRoutesDetails(params, searchParams));
-  }, [searchParams]);
+  }, [params, searchParams]);
 
   useEffect(() => {
     if (urlInfo) {
       reportsApiHandler({
         actionType: "home",
         urlInfo,
-        setError,
         setLoading,
         setListOfData,
+        setError,
       });
     }
   }, [urlInfo]);
+
+  useEffect(() => {
+    handleSkillsApiCall({ setListOfSkills });
+  }, []);
 
   useEffect(() => {
     if (urlInfo && listOfdata) {
@@ -64,10 +80,6 @@ const Offer = ({ params }: { params: any }) => {
       );
     }
   }, [listOfdata, urlInfo]);
-
-  useEffect(() => {
-    handleSkillsApiCall({ setListOfSkills });
-  }, []);
 
   useEffect(() => {
     if (Array.isArray(detailService)) {
@@ -117,10 +129,10 @@ const Offer = ({ params }: { params: any }) => {
                 <div className="mainContainer h-[70rem] lg:h-[60rem] w-full relative">
                   <Background />
                   <div className="max-w-[1024px] mx-auto print:mb-[8rem] text-center px-[2rem] pt-[7rem] print:pt-[4rem] relative z-20">
-                    <div className="text-center text-primary text-[4rem] lg:text-[6rem] font-medium  leading-[5rem] lg:leading-[6rem] mt-[1.6rem] mb-[2.4rem] ">
+                    <div className="text-center text-primary text-[4rem] lg:text-[6rem] font-medium leading-[5rem] lg:leading-[6rem] mt-[1.6rem] mb-[2.4rem] ">
                       Cover Letter
                     </div>
-                    <div className=" items-start justify-strat gap-[4rem] print:flex hidden  w-full  ">
+                    <div className=" items-start justify-start gap-[4rem] print:flex hidden  w-full  ">
                       <img
                         src={listOfdatas?.profile_photo_1}
                         alt=""
@@ -171,23 +183,12 @@ const Offer = ({ params }: { params: any }) => {
                         />
                       </div>
                     )}
-                    {/* <div
-                      dangerouslySetInnerHTML={{
-                        __html: modifiedContent(
-                          mainService?.intro_detail,
-                          listOfskills,
-                          listOfdata
-                        ),
-                      }}
-                      className=" p-[1rem] list-div text-[1.6rem] lg:p-[3rem] rounded-[1rem] bg-white services_main"
-                    /> */}
                     <div className="p-[1rem] lg:p-[3rem] rounded-[1rem] bg-white services_main list-div text-[1.6rem]">
                       <ul
                         dangerouslySetInnerHTML={{
                           __html: visibleItems.join(""),
                         }}
                       />
-
                       {items.length > 4 && (
                         <button
                           onClick={() => setExpanded((prev) => !prev)}

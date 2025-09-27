@@ -1,6 +1,7 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import { useSearchParams } from "next/navigation";
 
 type Skill = {
   title: string;
@@ -11,20 +12,50 @@ type Skill = {
 interface CVSkillsProps {
   skillsforCV: Record<string, Skill[]>; // grouped skills
   listOfdata?: { skills_ids?: string[] };
-  initialVisibleItems?: number; // default visible skills count
 }
 
-const CVSkills: React.FC<CVSkillsProps> = ({
-  skillsforCV,
-  listOfdata,
-  initialVisibleItems = 16,
-}) => {
-  const [showAll, setShowAll] = useState(false);
+const CVSkills: React.FC<CVSkillsProps> = ({ skillsforCV, listOfdata }) => {
+  const searchParams = useSearchParams();
 
+  // State for expanded view
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [shouldExpand, setShouldExpand] = useState(false);
+
+  // Number of items to display by default
+  const initialVisibleItemsDesktop = 24; // lg and above (≥1024px)
+  const initialVisibleItemsMobile = 12; // below lg (<1024px)
+
+  // Determine the number of items to show based on screen size
+  const initialVisibleItems =
+    typeof window !== "undefined" && window.innerWidth >= 1024
+      ? initialVisibleItemsDesktop
+      : initialVisibleItemsMobile;
+
+  // Check if we need to expand on mount (when navigated from skills print page)
+  useEffect(() => {
+    const scrollParam = searchParams.get("scroll");
+    if (scrollParam === "skills") {
+      setShouldExpand(true);
+    }
+  }, [searchParams]);
+
+  // Auto-expand when shouldExpand is true
+  useEffect(() => {
+    if (shouldExpand) {
+      setIsExpanded(true);
+    }
+  }, [shouldExpand]);
+
+  // Flatten skills from grouped structure
   const allSkills = Object.values(skillsforCV).flat();
-  const visibleSkills = showAll
+
+  // Calculate visible skills based on expanded state
+  const visibleSkills = isExpanded
     ? allSkills
     : allSkills.slice(0, initialVisibleItems);
+
+  // Determine when to show the "Show More Skills" or "Show Less Skills" button
+  const showToggleButton = allSkills.length > initialVisibleItems;
 
   return (
     <div className="print:mt-[4rem] w-full">
@@ -68,15 +99,14 @@ const CVSkills: React.FC<CVSkillsProps> = ({
         </div>
 
         {/* Show More / Show Less Button */}
-        {listOfdata?.skills_ids?.length &&
-          listOfdata.skills_ids.length > initialVisibleItems && (
-            <button
-              onClick={() => setShowAll(!showAll)}
-              className="px-[4rem] print:hidden py-[1.4rem] bg-primary rounded-[2.2rem] hover:bg-white hover:text-primary hover:border-primary border border-border border-solid text-center max-w-max text-white text-[1.4rem] font-medium font-Inter leading-tight mx-auto"
-            >
-              {showAll ? "Show Less Skills" : "Show More Skills"}
-            </button>
-          )}
+        {showToggleButton && (
+          <button
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="px-[4rem] print:hidden py-[1.4rem] bg-primary rounded-[2.2rem] hover:bg-white hover:text-primary hover:border-primary border border-border border-solid text-center max-w-max text-white text-[1.4rem] font-medium font-Inter leading-tight mx-auto"
+          >
+            {isExpanded ? "Show Less Skills" : "Show More Skills"}
+          </button>
+        )}
       </div>
     </div>
   );

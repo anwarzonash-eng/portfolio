@@ -56,9 +56,57 @@ const Home = ({ params }: { params: any }) => {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // console.log("ENV: ", process.env.API_BASE_URL);
-
   const experiencesRef = useRef<HTMLDivElement>(null);
+  // Filter skills based on listOfdata.skills_ids
+  useEffect(() => {
+    if (listOfdata?.skills_ids && listOfskills.length > 0) {
+      const matchedSkills = listOfskills.filter((skill) =>
+        listOfdata.skills_ids.some((dataSkill) => dataSkill.id === skill.id)
+      );
+      setListOfSkills(matchedSkills);
+      // console.log("Filtered Skills:", matchedSkills); // Debug
+    }
+  }, [listOfdata, listOfskills]);
+
+  // API Calls
+  useEffect(() => {
+    setURLInfo(getRoutesDetails(params, searchParams));
+  }, [params, searchParams]);
+
+  useEffect(() => {
+    if (urlInfo) {
+      reportsApiHandler({
+        actionType: "home",
+        urlInfo,
+        setLoading,
+        setListOfData,
+        setError,
+      });
+    }
+  }, [urlInfo]);
+
+  useEffect(() => {
+    handleSkillsApiCall({ setListOfSkills });
+  }, []);
+
+  console.log("Filtered List:", listOfskills); // Debug
+
+  useEffect(() => {
+    const skillsContainer = skillsContainerRef?.current;
+    if (skillsContainer) {
+      setIsOverflowing(
+        skillsContainer?.scrollHeight > skillsContainer?.clientHeight
+      );
+    }
+  }, [listOfdata?.skills_ids]);
+
+  useEffect(() => {
+    store.dispatch(setProfileUrlInfo(urlInfo));
+  }, [urlInfo]);
+
+  useEffect(() => {
+    store.dispatch(setProfileLoading(loading));
+  }, [loading]);
 
   // Scroll to experiences section
   useEffect(() => {
@@ -92,15 +140,6 @@ const Home = ({ params }: { params: any }) => {
   // how many to show initially
   const initialCount = isMobile ? 3 : 6;
   const experiences = [...(listOfdata?.experiences_ids || [])].sort(sortByDate);
-
-  // useEffect(() => {
-  //   const sectionID = searchParams.get("sectionId");
-  //   if (!sectionID) return;
-  //   // Example: URL query ya koi condition ke basis par scroll karo
-  //   // console.log("Section ID:", sectionID);
-  //   const targetId = "about";
-  //   SmoothScroll(sectionID);
-  // }, [listOfdata]);
 
   useEffect(() => {
     setURLInfo(getRoutesDetails(params, searchParams));
@@ -172,7 +211,7 @@ const Home = ({ params }: { params: any }) => {
 
                 <HeroSection
                   listOfdata={listOfdata}
-                  skills={skills}
+                  skills={skillsGrouping(listOfskills)}
                   showAll={showAll}
                   setShowAll={setShowAll}
                   skillsContainerRef={skillsContainerRef}
@@ -227,7 +266,7 @@ const Home = ({ params }: { params: any }) => {
                       </div>
                       {/* Skills Container */}
 
-                      <SkillsContainer list={listOfdata?.skills_ids} />
+                      <SkillsContainer list={listOfskills} />
                     </div>{" "}
                   </>
                 )}

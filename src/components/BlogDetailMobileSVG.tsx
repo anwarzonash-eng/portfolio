@@ -10,7 +10,7 @@ function BlogDetailMobileSVG() {
       fill="none"
       className="md:hidden h-full w-full"
     >
-      <g clip-path="url(#clip0_542_3919)">
+      <g clipPath="url(#clip0_542_3919)">
         <rect width="393" height="895.013" className="fill-sectionBG" />
         <g filter="url(#filter0_f_542_3919)">
           <path
@@ -84,8 +84,8 @@ function BlogDetailMobileSVG() {
           y2="1103.39"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#EFF5FD" />
-          <stop offset="1" stop-color="#EFF5FD" stop-opacity="0.03" />
+          <stop stopColor="#EFF5FD" />
+          <stop offset="1" stopColor="#EFF5FD" stopOpacity="0.03" />
         </linearGradient>
         <linearGradient
           id="paint1_linear_542_3919"
@@ -95,8 +95,8 @@ function BlogDetailMobileSVG() {
           y2="419.76"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#EFF5FD" />
-          <stop offset="1" stop-color="#EFF5FD" stop-opacity="0.03" />
+          <stop stopColor="#EFF5FD" />
+          <stop offset="1" stopColor="#EFF5FD" stopOpacity="0.03" />
         </linearGradient>
         <radialGradient
           id="paint2_radial_542_3919"
@@ -106,9 +106,9 @@ function BlogDetailMobileSVG() {
           gradientUnits="userSpaceOnUse"
           gradientTransform="translate(-140.113 312.816) rotate(31.7076) scale(880.822 923.942)"
         >
-          <stop stop-color="white" />
-          <stop offset="0.488621" stop-color="#EFF5FD" stop-opacity="0.34" />
-          <stop offset="1" stop-color="#EFF5FD" stop-opacity="0.16" />
+          <stop stopColor="white" />
+          <stop offset="0.488621" stopColor="#EFF5FD" stopOpacity="0.34" />
+          <stop offset="1" stopColor="#EFF5FD" stopOpacity="0.16" />
         </radialGradient>
         <clipPath id="clip0_542_3919">
           <rect width="393" height="895.013" fill="white" />

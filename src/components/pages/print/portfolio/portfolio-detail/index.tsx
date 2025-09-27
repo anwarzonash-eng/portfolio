@@ -38,6 +38,17 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
     (state) => state.profile.listOfProfileData
   );
 
+  // Filter skills based on listOfdata.skills_ids
+  useEffect(() => {
+    if (listOfdata?.skills_ids && listOfskills.length > 0) {
+      const matchedSkills = listOfskills.filter((skill) =>
+        listOfdata.skills_ids.some((dataSkill) => dataSkill.id === skill.id)
+      );
+      setListOfSkills(matchedSkills);
+      // console.log("Filtered Skills:", matchedSkills); // Debug
+    }
+  }, [listOfdata, listOfskills]);
+
   useEffect(() => {
     // console.log({ allparams: params.value });
 

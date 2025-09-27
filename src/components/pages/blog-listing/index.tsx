@@ -100,7 +100,7 @@ const BlogListing = ({ params }: { params: any }) => {
               xmlns="http://www.w3.org/2000/svg"
               className="h-full w-full hidden md:block"
             >
-              <g clip-path="url(#clip0_411_2212)">
+              <g clipPath="url(#clip0_411_2212)">
                 <path
                   d="M-480 -11H1920V458.556L-480 758.555V-11Z"
                   className="fill-bannerBG"
@@ -108,7 +108,7 @@ const BlogListing = ({ params }: { params: any }) => {
                 <path
                   d="M1375 526.006L1841.67 467.653V538.764L1375 597.117V526.006Z"
                   className="fill-primary"
-                  fill-opacity="0.4"
+                  fillOpacity="0.4"
                 />
                 <path
                   d="M1375 526.006L1841.67 467.653V538.764L1375 597.117V526.006Z"
@@ -129,7 +129,7 @@ const BlogListing = ({ params }: { params: any }) => {
                 <path
                   d="M-25 630.463L441.667 572.11V643.221L-25 701.574V630.463Z"
                   className="fill-primary"
-                  fill-opacity="0.4"
+                  fillOpacity="0.4"
                 />
                 <path
                   d="M-25 630.463L441.667 572.11V643.221L-25 701.574V630.463Z"
@@ -153,8 +153,8 @@ const BlogListing = ({ params }: { params: any }) => {
                   gradientUnits="userSpaceOnUse"
                   gradientTransform="translate(1608.33 467.653) rotate(90) scale(129.463 466.667)"
                 >
-                  <stop stop-color="white" stop-opacity="0.3" />
-                  <stop offset="1" stop-color="white" stop-opacity="0" />
+                  <stop stopColor="white" stopOpacity="0.3" />
+                  <stop offset="1" stopColor="white" stopOpacity="0" />
                 </radialGradient>
                 <radialGradient
                   id="paint1_radial_411_2212"
@@ -164,8 +164,8 @@ const BlogListing = ({ params }: { params: any }) => {
                   gradientUnits="userSpaceOnUse"
                   gradientTransform="translate(1321.33 363) rotate(90) scale(129.463 466.667)"
                 >
-                  <stop stop-color="white" stop-opacity="0.3" />
-                  <stop offset="1" stop-color="white" stop-opacity="0" />
+                  <stop stopColor="white" stopOpacity="0.3" />
+                  <stop offset="1" stopColor="white" stopOpacity="0" />
                 </radialGradient>
                 <radialGradient
                   id="paint2_radial_411_2212"
@@ -175,8 +175,8 @@ const BlogListing = ({ params }: { params: any }) => {
                   gradientUnits="userSpaceOnUse"
                   gradientTransform="translate(208.333 572.11) rotate(90) scale(129.463 466.667)"
                 >
-                  <stop stop-color="white" stop-opacity="0.3" />
-                  <stop offset="1" stop-color="white" stop-opacity="0" />
+                  <stop stopColor="white" stopOpacity="0.3" />
+                  <stop offset="1" stopColor="white" stopOpacity="0" />
                 </radialGradient>
                 <radialGradient
                   id="paint3_radial_411_2212"
@@ -186,8 +186,8 @@ const BlogListing = ({ params }: { params: any }) => {
                   gradientUnits="userSpaceOnUse"
                   gradientTransform="translate(39.4447 664.32) rotate(90) scale(129.463 466.667)"
                 >
-                  <stop stop-color="white" stop-opacity="0.3" />
-                  <stop offset="1" stop-color="white" stop-opacity="0" />
+                  <stop stopColor="white" stopOpacity="0.3" />
+                  <stop offset="1" stopColor="white" stopOpacity="0" />
                 </radialGradient>
                 <clipPath id="clip0_411_2212">
                   <rect width="1550" height="770" fill="white" />
@@ -203,7 +203,7 @@ const BlogListing = ({ params }: { params: any }) => {
               fill="none"
               className="h-full w-full md:hidden"
             >
-              <g clip-path="url(#clip0_411_2212)">
+              <g clipPath="url(#clip0_411_2212)">
                 <path
                   d="M-480 -11H1920V458.556L-480 758.555V-11Z"
                   className="fill-bannerBG"
@@ -211,7 +211,7 @@ const BlogListing = ({ params }: { params: any }) => {
                 <path
                   d="M342.3 548.79L606 515.816V555.999L342.3 588.972V548.79Z"
                   className="fill-primary"
-                  fill-opacity="0.4"
+                  fillOpacity="0.4"
                 />
                 <path
                   d="M342.3 548.79L606 515.816V555.999L342.3 588.972V548.79Z"
@@ -232,7 +232,7 @@ const BlogListing = ({ params }: { params: any }) => {
                 <path
                   d="M-98.4546 607.816L165.245 574.843V615.026L-98.4546 647.999V607.816Z"
                   className="fill-primary"
-                  fill-opacity="0.4"
+                  fillOpacity="0.4"
                 />
                 <path
                   d="M-98.4546 607.816L165.245 574.843V615.026L-98.4546 647.999V607.816Z"
@@ -256,8 +256,8 @@ const BlogListing = ({ params }: { params: any }) => {
                   gradientUnits="userSpaceOnUse"
                   gradientTransform="translate(474.15 515.816) rotate(90) scale(73.1559 263.7)"
                 >
-                  <stop stop-color="white" stop-opacity="0.3" />
-                  <stop offset="1" stop-color="white" stop-opacity="0" />
+                  <stop stopColor="white" stopOpacity="0.3" />
+                  <stop offset="1" stopColor="white" stopOpacity="0" />
                 </radialGradient>
                 <radialGradient
                   id="paint1_radial_411_2212"
@@ -267,8 +267,8 @@ const BlogListing = ({ params }: { params: any }) => {
                   gradientUnits="userSpaceOnUse"
                   gradientTransform="translate(311.975 456.681) rotate(90) scale(73.1559 263.7)"
                 >
-                  <stop stop-color="white" stop-opacity="0.3" />
-                  <stop offset="1" stop-color="white" stop-opacity="0" />
+                  <stop stopColor="white" stopOpacity="0.3" />
+                  <stop offset="1" stopColor="white" stopOpacity="0" />
                 </radialGradient>
                 <radialGradient
                   id="paint2_radial_411_2212"
@@ -278,8 +278,8 @@ const BlogListing = ({ params }: { params: any }) => {
                   gradientUnits="userSpaceOnUse"
                   gradientTransform="translate(33.3952 574.843) rotate(90) scale(73.1559 263.7)"
                 >
-                  <stop stop-color="white" stop-opacity="0.3" />
-                  <stop offset="1" stop-color="white" stop-opacity="0" />
+                  <stop stopColor="white" stopOpacity="0.3" />
+                  <stop offset="1" stopColor="white" stopOpacity="0" />
                 </radialGradient>
                 <radialGradient
                   id="paint3_radial_411_2212"
@@ -289,8 +289,8 @@ const BlogListing = ({ params }: { params: any }) => {
                   gradientUnits="userSpaceOnUse"
                   gradientTransform="translate(-62.0389 626.947) rotate(90) scale(73.1559 263.7)"
                 >
-                  <stop stop-color="white" stop-opacity="0.3" />
-                  <stop offset="1" stop-color="white" stop-opacity="0" />
+                  <stop stopColor="white" stopOpacity="0.3" />
+                  <stop offset="1" stopColor="white" stopOpacity="0" />
                 </radialGradient>
                 <clipPath id="clip0_411_2212">
                   <rect width="393" height="770" fill="white" />

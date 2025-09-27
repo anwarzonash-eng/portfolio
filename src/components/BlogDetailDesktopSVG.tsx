@@ -10,7 +10,7 @@ function BlogDetailDesktopSVG() {
       fill="none"
       className="hidden md:block h-full w-full"
     >
-      <g clip-path="url(#clip0_391_2924)">
+      <g clipPath="url(#clip0_391_2924)">
         <rect width="1550" height="895.013" className="fill-sectionBG" />
         <g filter="url(#filter0_f_391_2924)">
           <path
@@ -131,8 +131,8 @@ function BlogDetailDesktopSVG() {
           y2="1103.39"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#EFF5FD" />
-          <stop offset="1" stop-color="#EFF5FD" stop-opacity="0.03" />
+          <stop stopColor="#EFF5FD" />
+          <stop offset="1" stopColor="#EFF5FD" stopOpacity="0.03" />
         </linearGradient>
         <linearGradient
           id="paint1_linear_391_2924"
@@ -142,8 +142,8 @@ function BlogDetailDesktopSVG() {
           y2="419.76"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#EFF5FD" />
-          <stop offset="1" stop-color="#EFF5FD" stop-opacity="0.03" />
+          <stop stopColor="#EFF5FD" />
+          <stop offset="1" stopColor="#EFF5FD" stopOpacity="0.03" />
         </linearGradient>
         <radialGradient
           id="paint2_radial_391_2924"
@@ -153,8 +153,8 @@ function BlogDetailDesktopSVG() {
           gradientUnits="userSpaceOnUse"
           gradientTransform="translate(859.125 1081.52) rotate(-44.425) scale(1187.75 1245.89)"
         >
-          <stop stop-color="#BEF264" stop-opacity="0.13" />
-          <stop offset="1" stop-color="#10B981" stop-opacity="0.29" />
+          <stop stopColor="#BEF264" stopOpacity="0.13" />
+          <stop offset="1" stopColor="#10B981" stopOpacity="0.29" />
         </radialGradient>
         <linearGradient
           id="paint3_linear_391_2924"
@@ -164,9 +164,9 @@ function BlogDetailDesktopSVG() {
           y2="811.719"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#EFF5FD" />
-          <stop offset="1" stop-color="#EFF5FD" />
-          <stop offset="1" stop-color="#EFF5FD" />
+          <stop stopColor="#EFF5FD" />
+          <stop offset="1" stopColor="#EFF5FD" />
+          <stop offset="1" stopColor="#EFF5FD" />
         </linearGradient>
         <linearGradient
           id="paint4_linear_391_2924"
@@ -176,9 +176,9 @@ function BlogDetailDesktopSVG() {
           y2="678.386"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#EFF5FD" />
-          <stop offset="1" stop-color="#EFF5FD" />
-          <stop offset="1" stop-color="#EFF5FD" />
+          <stop stopColor="#EFF5FD" />
+          <stop offset="1" stopColor="#EFF5FD" />
+          <stop offset="1" stopColor="#EFF5FD" />
         </linearGradient>
         <linearGradient
           id="paint5_linear_391_2924"
@@ -188,9 +188,9 @@ function BlogDetailDesktopSVG() {
           y2="481.039"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#EFF5FD" />
-          <stop offset="1" stop-color="#EFF5FD" />
-          <stop offset="1" stop-color="#EFF5FD" />
+          <stop stopColor="#EFF5FD" />
+          <stop offset="1" stopColor="#EFF5FD" />
+          <stop offset="1" stopColor="#EFF5FD" />
         </linearGradient>
         <radialGradient
           id="paint6_radial_391_2924"
@@ -200,9 +200,9 @@ function BlogDetailDesktopSVG() {
           gradientUnits="userSpaceOnUse"
           gradientTransform="translate(-56.55 222.393) rotate(31.7076) scale(1386.31 1454.18)"
         >
-          <stop stop-color="white" />
-          <stop offset="0.488621" stop-color="#EFF5FD" stop-opacity="0.34" />
-          <stop offset="1" stop-color="#EFF5FD" stop-opacity="0.16" />
+          <stop stopColor="white" />
+          <stop offset="0.488621" stopColor="#EFF5FD" stopOpacity="0.34" />
+          <stop offset="1" stopColor="#EFF5FD" stopOpacity="0.16" />
         </radialGradient>
         <linearGradient
           id="paint7_linear_391_2924"
@@ -212,9 +212,9 @@ function BlogDetailDesktopSVG() {
           y2="883.472"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#EFF5FD" />
-          <stop offset="1" stop-color="#EFF5FD" />
-          <stop offset="1" stop-color="#EFF5FD" />
+          <stop stopColor="#EFF5FD" />
+          <stop offset="1" stopColor="#EFF5FD" />
+          <stop offset="1" stopColor="#EFF5FD" />
         </linearGradient>
         <linearGradient
           id="paint8_linear_391_2924"
@@ -224,9 +224,9 @@ function BlogDetailDesktopSVG() {
           y2="692.364"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#EFF5FD" />
-          <stop offset="1" stop-color="#EFF5FD" />
-          <stop offset="1" stop-color="#EFF5FD" />
+          <stop stopColor="#EFF5FD" />
+          <stop offset="1" stopColor="#EFF5FD" />
+          <stop offset="1" stopColor="#EFF5FD" />
         </linearGradient>
         <linearGradient
           id="paint9_linear_391_2924"
@@ -236,9 +236,9 @@ function BlogDetailDesktopSVG() {
           y2="363.768"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#EFF5FD" />
-          <stop offset="1" stop-color="#EFF5FD" />
-          <stop offset="1" stop-color="#EFF5FD" />
+          <stop stopColor="#EFF5FD" />
+          <stop offset="1" stopColor="#EFF5FD" />
+          <stop offset="1" stopColor="#EFF5FD" />
         </linearGradient>
         <clipPath id="clip0_391_2924">
           <rect width="1550" height="895.013" fill="white" />

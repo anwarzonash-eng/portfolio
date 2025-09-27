@@ -763,7 +763,7 @@ const HomeSlider = ({ portfolios }) => {
   return (
     <div className="w-full flex flex-col items-center gap-3 mt-[3rem] relative">
       {/* Progress Bars */}
-      <div className="w-full flex gap-[4px] px-4 mb-3 sticky top-[9rem] z-10 bg-white xl:static xl:bg-transparent p-2 rounded-[1rem]">
+      <div className="w-full flex gap-[4px] px-4 mb-3 sticky top-[9rem] z-10 bg-white xl:static xl:bg-transparent p-2 rounded-[1rem] max-xl:shadow-lg">
         {portfolios.map((_, index) => {
           const isActive = index === currentSlide;
           const isCompleted = index < currentSlide;

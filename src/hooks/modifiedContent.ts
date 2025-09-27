@@ -43,83 +43,6 @@
 //   return modifiedContentInner;
 // }
 
-// import { getColors } from "./colors";
-
-// export function modifiedContent(content, skillsList, listOfdata) {
-//   const colors = getColors(listOfdata);
-
-//   console.log("Skills List:", skillsList);
-
-//   let modifiedContentInner = content
-//     ?.replace(/<h1>/g, `<h1 style="color:${colors.primary}">`)
-//     ?.replace(/<h2>/g, `<h2 style="color:${colors.primary}">`)
-//     ?.replace(/<h3>/g, `<h3 style="color:${colors.primary}">`)
-//     ?.replace(/<h4>/g, `<h4 style="color:${colors.primary}">`)
-//     ?.replace(/<strong >/g, `<strong style="color:${colors.primary}">`)
-//     ?.replace(/<strong>/g, `<strong style="color:${colors.primary}">`);
-
-//   // Collect all phrases with their skills
-//   const phraseToSkill = new Map();
-//   skillsList.forEach((skill) => {
-//     phraseToSkill.set(skill.title.toLowerCase(), skill);
-//     (skill.variations || []).forEach((var_) => {
-//       phraseToSkill.set(var_.toLowerCase(), skill);
-//     });
-//   });
-
-//   // Get all unique phrases, sort by length descending
-//   const phrases = Array.from(phraseToSkill.keys()).sort(
-//     (a, b) => b.length - a.length
-//   );
-
-//   // Find all matches with positions
-//   const matches = [];
-//   phrases.forEach((phrase) => {
-//     const escaped = phrase.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-//     const regex = new RegExp(`\\b${escaped}\\b`, "gi");
-//     let match;
-//     while ((match = regex.exec(modifiedContentInner)) !== null) {
-//       matches.push({
-//         start: match.index,
-//         end: regex.lastIndex,
-//         phrase: phrase,
-//         original: match[0],
-//       });
-//     }
-//   });
-
-//   // Sort matches by start position
-//   matches.sort((a, b) => a.start - b.start);
-
-//   // Resolve overlapping: greedy longest match
-//   const nonOverlapping = [];
-//   let lastEnd = -1;
-//   matches.forEach((match) => {
-//     if (match.start >= lastEnd) {
-//       nonOverlapping.push(match);
-//       lastEnd = match.end;
-//     }
-//   });
-
-//   // Replace from end to start
-//   nonOverlapping.reverse().forEach(({ start, end, phrase, original }) => {
-//     const skill = phraseToSkill.get(phrase);
-//     const url = skill?.url || "";
-//     let replacement;
-//     if (url) {
-//       replacement = `<span class="modifiedText"><a href="${url}" target="_blank">${original}</a></span>`;
-//     } else {
-//       replacement = `<span class="modifiedText">${original}</span>`;
-//     }
-//     modifiedContentInner =
-//       modifiedContentInner.slice(0, start) +
-//       replacement +
-//       modifiedContentInner.slice(end);
-//   });
-
-//   return modifiedContentInner;
-// }
-
 import { getColors } from "./colors";
 
 export function modifiedContent(content, skillsList, listOfdata) {
@@ -139,8 +62,8 @@ export function modifiedContent(content, skillsList, listOfdata) {
   const phraseToSkill = new Map();
   skillsList.forEach((skill) => {
     phraseToSkill.set(skill.title.toLowerCase(), skill);
-    (skill.variations || []).forEach((var_) => {
-      phraseToSkill.set(var_.toLowerCase(), skill);
+    (skill.variations || []).forEach((variation) => {
+      phraseToSkill.set(variation.toLowerCase(), skill);
     });
   });
 
@@ -194,13 +117,13 @@ export function modifiedContent(content, skillsList, listOfdata) {
     const url = skill?.url || "";
     let replacement;
 
-    // Apply this flag when we want to prominent the keyword that is being linked
-    // if (url) {
-    //   replacement = `<span class="modifiedText"><a href="${url}" target="_blank">${original}</a></span>`;
-    // } else {
-    //   replacement = `<span class="modifiedText">${original}</span>`;
-    // }
-    replacement = `<span class="modifiedText"><a href="${url}" target="_blank">${original}</a></span>`;
+    // Apply this flag to prominent the keyword that is being linked
+    if (url) {
+      replacement = `<span class="modifiedText"><a href="${url}" target="_blank">${original}</a></span>`;
+    } else {
+      replacement = `<span class="modifiedText">${original}</span>`;
+    }
+
     modifiedContentInner =
       modifiedContentInner.slice(0, start) +
       replacement +
