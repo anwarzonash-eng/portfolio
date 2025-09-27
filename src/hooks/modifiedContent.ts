@@ -118,11 +118,13 @@ export function modifiedContent(content, skillsList, listOfdata) {
     let replacement;
 
     // Apply this flag to prominent the keyword that is being linked
-    if (url) {
-      replacement = `<span class="modifiedText"><a href="${url}" target="_blank">${original}</a></span>`;
-    } else {
-      replacement = `<span class="modifiedText">${original}</span>`;
-    }
+    // if (url) {
+    //   replacement = `<span class="modifiedText"><a href="${url}" target="_blank">${original}</a></span>`;
+    // } else {
+    //   replacement = `<span class="modifiedText">${original}</span>`;
+    // }
+
+    replacement = `<span class="modifiedText"><a href="${url}" target="_blank">${original}</a></span>`;
 
     modifiedContentInner =
       modifiedContentInner.slice(0, start) +

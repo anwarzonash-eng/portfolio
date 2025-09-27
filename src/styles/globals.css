@@ -327,11 +327,11 @@ body {
   @apply flex flex-col gap-[0.8rem] text-[1.6rem] leading-[150%] text-heading mb-[2rem] list-disc;
 }
 
-.list-divul {
+.list-div ul {
   @apply gap-[0.8rem] text-[1.6rem] leading-[150%] text-heading mb-[2rem] list-disc;
 }
 
-.list-divul li {
+.list-div ul li {
   @apply mb-[1rem];
 }
 
@@ -454,6 +454,15 @@ body {
     @apply block text-[12px] !list-disc;
   }
 }
+
+/* For cvPortrait */
+/* @media print {
+  .limit-height-portrait {
+    max-height: 800px;
+    height: 100%;
+    overflow: hidden;
+  }
+} */
 
 /* For cvLandscape */
 @media print {

@@ -160,7 +160,7 @@ const HomeSliderPrint: React.FC<HomeSliderPrintProps> = ({
                     <div className="flex items-center gap-[0.7rem] text-nowrap flex-wrap">
                       {Object.values(skills)
                         .flat()
-                        .slice(0, 7)
+                        .slice(0, 5)
                         .map((skill: SkillType, i: number) => (
                           <Link
                             href={skill.url || "#"}

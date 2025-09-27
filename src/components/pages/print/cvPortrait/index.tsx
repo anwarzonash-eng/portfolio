@@ -54,27 +54,16 @@ const CV_Portrait = ({ params }: { params: any }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const [
-    selectedPorfolioPicturesforPopup,
-    setSelectedPorfolioPicturesforPopup,
-  ] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const openModal = (
-    pictures: string,
-    thumbnail: string,
-    child_hero_banner: string
-  ) => {
-    const portfolioImages = JSON.parse(pictures) as string[];
-    const allImages = [thumbnail, child_hero_banner, ...portfolioImages];
-    setSelectedPorfolioPicturesforPopup(allImages);
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setSelectedPorfolioPicturesforPopup(null);
-    setIsModalOpen(false);
-  };
+  // Filter skills based on listOfdata.skills_ids
+  useEffect(() => {
+    if (listOfdata?.skills_ids && listOfskills.length > 0) {
+      const matchedSkills = listOfskills.filter((skill) =>
+        listOfdata.skills_ids.some((dataSkill) => dataSkill.id === skill.id)
+      );
+      setListOfSkills(matchedSkills);
+      // console.log("Filtered Skills:", matchedSkills); // Debug
+    }
+  }, [listOfdata, listOfskills]);
 
   const router = useRouter();
   // Navigate to portfolio detail page -> skills section
@@ -166,11 +155,6 @@ const CV_Portrait = ({ params }: { params: any }) => {
       window.removeEventListener("afterprint", handleAfterPrint);
     };
   }, []);
-
-  // console.log("Skills Inside List of data: ", listOfdata?.skills);
-  // console.log("List of skills: ", listOfskills);
-  // console.log("List of data: ", listOfdata);
-  // console.log("Skills Group  Data:", listOfdata?.skills_groups);
 
   return (
     <>
@@ -948,32 +932,6 @@ const CV_Portrait = ({ params }: { params: any }) => {
                     <h2 className="badge">Portfolios</h2>
                   </div>
 
-                  {/* <Link
-                                    href={"/portfolio"}
-                                    className=" flex items-center gap-[0.6rem] group cursor-pointer"
-                                  >
-                                    <div className="hover:font-bold hover:text-primary text-[1.4rem] text-heading font-medium">
-                                      View all
-                                    </div>
-                                    <div className="group-hover:translate-x-[1rem] duration-300">
-                                      <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="20"
-                                        height="20"
-                                        viewBox="0 0 20 20"
-                                        fill="none"
-                                      >
-                                        <path
-                                          d="M4.1665 10.0003H15.8332M15.8332 10.0003L9.99984 4.16699M15.8332 10.0003L9.99984 15.8337"
-                                          stroke="#262626"
-                                          strokeWidth="1.67"
-                                          strokeLinecap="round"
-                                          strokeLinejoin="round"
-                                        />
-                                      </svg>
-                                    </div>
-                                  </Link> */}
-
                   {listOfdata?.portfolios_ids?.map((portfolio, index) => {
                     if (index >= 1) {
                       return null;
@@ -985,27 +943,6 @@ const CV_Portrait = ({ params }: { params: any }) => {
                         key={index}
                       >
                         <div className="w-full px-[3rem]">
-                          {/* Date */}
-                          {/* <h2
-                            key={index}
-                            className="text-heading leading-[2.67rem] text-[2rem] font-bold 
-                  pl-[0.5rem] mb-[3rem]"
-                          >
-                            {formatDate(
-                              portfolio?.starting_date,
-                              dateFormatsOptions.shortMonthYear // 👈 Month + Year instead of onlyYear
-                            )}{" "}
-                            -{" "}
-                            {isNaN(
-                              new Date(portfolio.ending_Date).getFullYear()
-                            )
-                              ? portfolio.ending_Date
-                              : formatDate(
-                                  portfolio.ending_Date,
-                                  dateFormatsOptions.shortMonthYear // 👈 Month + Year here too
-                                )}
-                          </h2> */}
-
                           <HomeSliderPrint
                             portfolios={listOfdata?.portfolios_ids}
                             isPortraitMode={true}
@@ -1093,27 +1030,6 @@ const CV_Portrait = ({ params }: { params: any }) => {
                         key={index}
                       >
                         <div className="w-full px-[3rem]">
-                          {/* Date */}
-                          {/* <h2
-                            key={index}
-                            className="text-heading leading-[2.67rem] text-[2rem] font-bold 
-                  pl-[0.5rem] mb-[3rem]"
-                          >
-                            {formatDate(
-                              portfolio?.starting_date,
-                              dateFormatsOptions.shortMonthYear // 👈 Month + Year instead of onlyYear
-                            )}{" "}
-                            -{" "}
-                            {isNaN(
-                              new Date(portfolio.ending_Date).getFullYear()
-                            )
-                              ? portfolio.ending_Date
-                              : formatDate(
-                                  portfolio.ending_Date,
-                                  dateFormatsOptions.shortMonthYear // 👈 Month + Year here too
-                                )}
-                          </h2> */}
-
                           <HomeSliderPrint
                             portfolios={listOfdata?.portfolios_ids}
                             isPortraitMode={true}
