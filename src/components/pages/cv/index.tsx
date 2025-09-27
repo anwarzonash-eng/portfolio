@@ -108,6 +108,17 @@ const CV = ({ params }: { params: any }) => {
     }
   }, [searchParams, listOfdata]);
 
+  // Filter skills based on listOfdata.skills_ids
+  useEffect(() => {
+    if (listOfdata?.skills_ids && listOfskills.length > 0) {
+      const matchedSkills = listOfskills.filter((skill) =>
+        listOfdata.skills_ids.some((dataSkill) => dataSkill.id === skill.id)
+      );
+      setListOfSkills(matchedSkills);
+      // console.log("Filtered Skills:", matchedSkills); // Debug
+    }
+  }, [listOfdata, listOfskills]);
+
   // API Calls
   useEffect(() => {
     setURLInfo(getRoutesDetails(params, searchParams));
@@ -128,6 +139,10 @@ const CV = ({ params }: { params: any }) => {
   useEffect(() => {
     handleSkillsApiCall({ setListOfSkills });
   }, []);
+
+  // useEffect(() => {
+  //   console.log("Skills List:", listOfskills);
+  // }, [listOfskills]);
 
   useEffect(() => {
     if (listOfdata) {
@@ -173,6 +188,7 @@ const CV = ({ params }: { params: any }) => {
   );
   const maxItems = isMobile ? 4 : 10;
   const visibleItems = !expanded ? items.slice(0, maxItems) : items;
+  console.log("Visible Items:", visibleItems);
 
   return (
     <>
@@ -305,13 +321,13 @@ const CV = ({ params }: { params: any }) => {
                                         .map((experience, index) => (
                                           <div
                                             key={index}
-                                            id={`experience-${experience.id}`} // Add unique ID for scrolling
+                                            id={`experience-${experience.id}`}
                                             className={`relative ${
                                               highlightedExperienceId ===
                                               experience.id
                                                 ? "border border-primary rounded-[1rem]"
                                                 : ""
-                                            }`} // Highlight if selected
+                                            }`}
                                           >
                                             <ExperienceSection
                                               experience={experience}
@@ -434,9 +450,7 @@ const CV = ({ params }: { params: any }) => {
                                             <PortfolioCardContent
                                               portfolio={portfolio}
                                               thumbnailSize={"small"}
-                                              listOfskills={
-                                                portfolio.skills || []
-                                              }
+                                              listOfskills={listOfskills} // FIX: Use filtered listOfskills
                                               listOfdata={{
                                                 primaryColor: "#1F4FE1",
                                                 companytype:

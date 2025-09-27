@@ -234,7 +234,7 @@ body {
   @apply duration-300 rounded-[6px] border border-primary text-primary bg-transparent hover:bg-gradient-to-b hover:from-white/30 hover:to-transparent hover:bg-primary hover:text-white hover:border-white/[0.24] hover:shadow-[0px_0px_0px_1px_#FFF];
 }
 .modifiedText a {
-  @apply text-primary font-medium relative inline-block underline; /* Set as inline-block to apply ::before properly */
+  @apply text-primary relative inline-block font-semibold  underline; /* Set as inline-block to apply ::before properly */
 }
 
 .blogs-modified h1,
@@ -275,7 +275,8 @@ body {
   @apply bg-gray-200;
 }
 
-.list-div ul,
+/* Prev List Styles with Marker */
+/* .list-div ul,
 .list-div ol {
   @apply text-heading text-[1.6rem] print:text-[1.8rem] leading-[2.4rem] flex flex-col gap-[1rem] list-disc pl-[3rem];
 }
@@ -286,17 +287,51 @@ body {
 .list-div ul li::marker,
 .list-div ol li::marker {
   @apply text-[1.7em] text-primary;
+} */
+
+/* New List Styles */
+.list-div ul,
+.list-div ol {
+  @apply text-heading text-[1.6rem] print:text-[1.8rem] leading-[2.4rem] flex flex-col gap-[1rem] pl-[3rem] list-none; /* Remove default list style */
+}
+
+.list-div li {
+  @apply pl-[1.3rem] relative; /* Add relative positioning to the li for absolute positioning of the marker */
+}
+
+.list-div ul li::before {
+  @apply text-primary;
+  content: "•"; /* Custom bullet for unordered lists */
+  position: absolute;
+  left: -2rem; /* Adjust this to control the marker's horizontal position */
+  top: 0.2rem; /* Adjust vertical alignment */
+  font-size: 1.7em; /* Match the marker size */
+}
+
+.list-div ol li::before {
+  @apply text-primary;
+  content: counter(list-item) "."; /* Use counter for ordered list numbers */
+  counter-increment: list-item; /* Increment the counter */
+  position: absolute;
+  left: -2rem; /* Adjust this to control the marker's horizontal position */
+  top: 0.2rem; /* Adjust vertical alignment */
+  font-size: 1.7em; /* Match the marker size */
+}
+
+/* Reset counter for ordered lists */
+.list-div ol {
+  counter-reset: list-item; /* Reset counter for each ordered list */
 }
 
 .list-div-portfolio ul {
   @apply flex flex-col gap-[0.8rem] text-[1.6rem] leading-[150%] text-heading mb-[2rem] list-disc;
 }
 
-.list-div-portfolio1 ul {
+.list-divul {
   @apply gap-[0.8rem] text-[1.6rem] leading-[150%] text-heading mb-[2rem] list-disc;
 }
 
-.list-div-portfolio1 ul li {
+.list-divul li {
   @apply mb-[1rem];
 }
 
@@ -423,21 +458,11 @@ body {
 /* For cvLandscape */
 @media print {
   .limit-height-landscape {
-    max-height: 480px;
+    max-height: 500px;
     height: 100%;
     overflow: hidden;
   }
 }
-
-/* For cvLandscape */
-@media print {
-  .limit-height-landscape {
-    height: 480px;
-    overflow: hidden;
-  }
-}
-
-/* ssss */
 
 .skill_print_pedd {
   @apply print:py-[0.1rem];

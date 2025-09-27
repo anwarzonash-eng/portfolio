@@ -200,7 +200,7 @@ const PortfolioContent: React.FC<PortfolioContentProps> = ({
       <div className="mb-2">
         {visibleCount > 0 && (
           <ul
-            className="mt-[2rem] list-div-portfolio1 custom-bullets pl-[2rem] text-heading text-[1.6rem] leading-[2.4rem]"
+            className="mt-[2rem]  pl-[2rem] text-heading text-[1.6rem] leading-[2.4rem]"
             dangerouslySetInnerHTML={{ __html: visibleItems.join("") }}
           />
         )}

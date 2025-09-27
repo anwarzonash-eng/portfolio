@@ -1,8 +1,8 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { useDispatch, TypedUseSelectorHook, useSelector } from 'react-redux';
-import { persistReducer } from 'redux-persist';
-import createWebStorage from 'redux-persist/lib/storage/createWebStorage';
-import { profileReducer } from './profileSlice';
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
+import { persistReducer } from "redux-persist";
+import createWebStorage from "redux-persist/lib/storage/createWebStorage";
+import { profileReducer } from "./profileSlice";
 
 const createNoopStorage = () => {
   return {
@@ -19,14 +19,14 @@ const createNoopStorage = () => {
 };
 
 const storage =
-  typeof window !== 'undefined'
-    ? createWebStorage('local')
+  typeof window !== "undefined"
+    ? createWebStorage("local")
     : createNoopStorage();
 
 const profilePersistConfig = {
-  key: 'profile',
+  key: "profile",
   storage: storage,
-  whitelist: ['listOfProfileData', 'profileLoading', 'profileUrlInfo'],
+  whitelist: ["listOfProfileData", "profileLoading", "profileUrlInfo"],
 };
 
 const persistedProfileReducer = persistReducer(
