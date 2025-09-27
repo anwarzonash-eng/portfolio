@@ -39,15 +39,21 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
   );
 
   // Filter skills based on listOfdata.skills_ids
+  const [allSkills, setAllSkills] = useState([]);
+  const [filteredSkills, setFilteredSkills] = useState([]);
+
   useEffect(() => {
-    if (listOfdata?.skills_ids && listOfskills.length > 0) {
-      const matchedSkills = listOfskills.filter((skill) =>
+    if (listOfdata?.skills_ids && allSkills.length > 0) {
+      const matchedSkills = allSkills.filter((skill) =>
         listOfdata.skills_ids.some((dataSkill) => dataSkill.id === skill.id)
       );
-      setListOfSkills(matchedSkills);
-      // console.log("Filtered Skills:", matchedSkills); // Debug
+      setFilteredSkills(matchedSkills);
     }
-  }, [listOfdata, listOfskills]);
+  }, [listOfdata, allSkills]);
+
+  useEffect(() => {
+    handleSkillsApiCall({ setListOfSkills: setAllSkills });
+  }, []);
 
   useEffect(() => {
     // console.log({ allparams: params.value });
@@ -324,7 +330,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
                         dangerouslySetInnerHTML={{
                           __html: modifiedContent(
                             portfolioDetails?.tagline_1,
-                            listOfskills,
+                            filteredSkills,
                             listOfdata
                           ),
                         }}
@@ -337,7 +343,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
                         dangerouslySetInnerHTML={{
                           __html: modifiedContent(
                             portfolioDetails?.tagline_2,
-                            listOfskills,
+                            filteredSkills,
                             listOfdata
                           ),
                         }}
@@ -369,7 +375,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
                     dangerouslySetInnerHTML={{
                       __html: modifiedContent(
                         portfolioDetails?.features_short,
-                        listOfskills,
+                        filteredSkills,
                         listOfdata
                       ),
                     }}
@@ -397,7 +403,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
                     dangerouslySetInnerHTML={{
                       __html: modifiedContent(
                         portfolioDetails?.features_long,
-                        listOfskills,
+                        filteredSkills,
                         listOfdata
                       ),
                     }}

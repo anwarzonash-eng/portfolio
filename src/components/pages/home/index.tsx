@@ -1,10 +1,9 @@
 "use client";
 import useBodyBackgroundColor from "@/hooks/useBodyBackgroundColor";
-import { v4 as uuidv4 } from "uuid"; // Import uuid
 import HomeSlider from "@/components/Sliders/HomeSlider";
 import Faqs from "@/components/Faqs";
 import FreeTrialPopup from "@/components/FreeTrialPopup";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useMemo } from "react";
 import { formatPhoneNumber } from "@/hooks/formatPhoneNumber";
 import { useSearchParams } from "next/navigation";
 import { getRoutesDetails } from "@/hooks/url";
@@ -30,24 +29,30 @@ import { useUniquePortfolios } from "@/hooks/useUniquePortfolios";
 
 const Home = ({ params }: { params: any }) => {
   useBodyBackgroundColor("#f8f9fa");
+
+  // typed states
   const [showMoreSkills, setShowMoreSkills] = useState([]);
-  const [urlInfo, setURLInfo] = useState(null);
-  const [listOfdata, setListOfData] = useState(null);
-  const [listOfskills, setListOfSkills] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [urlInfo, setURLInfo] = useState<any | null>(null);
+  const [listOfdata, setListOfData] = useState<any | null>(null);
+
+  // FIX: keep API result separate from filtered display list
+  const [allSkills, setAllSkills] = useState<any[]>([]);
+  const [filteredSkills, setFilteredSkills] = useState<any[]>([]);
+
+  const [loading, setLoading] = useState<boolean>(true);
   const searchParams = useSearchParams();
-  const skillsContainerRef = useRef(null);
-  const [isOverflowing, setIsOverflowing] = useState(false);
+  const skillsContainerRef = useRef<HTMLDivElement | null>(null);
+  const [isOverflowing, setIsOverflowing] = useState<boolean>(false);
   const isSmallScreen = useMediaQuery({ query: "(max-width: 768px)" });
-  const [showAll, setShowAll] = useState(false);
+  const [showAll, setShowAll] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const listOfdatas = useAppSelector(
     (state) => state.profile.listOfProfileData
   );
 
-  // Experieces Section Timeline View Logic:
-  const [isMobile, setIsMobile] = useState(false);
-  const [showAllExperiences, setShowAllExperiences] = useState(false);
+  // Experiences Section Timeline View Logic:
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+  const [showAllExperiences, setShowAllExperiences] = useState<boolean>(false);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 1024); // breakpoint: < lg
@@ -56,19 +61,74 @@ const Home = ({ params }: { params: any }) => {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  const experiencesRef = useRef<HTMLDivElement>(null);
-  // Filter skills based on listOfdata.skills_ids
-  useEffect(() => {
-    if (listOfdata?.skills_ids && listOfskills.length > 0) {
-      const matchedSkills = listOfskills.filter((skill) =>
-        listOfdata.skills_ids.some((dataSkill) => dataSkill.id === skill.id)
-      );
-      setListOfSkills(matchedSkills);
-      // console.log("Filtered Skills:", matchedSkills); // Debug
-    }
-  }, [listOfdata, listOfskills]);
+  // REF moved to section wrapper so scrollTo works predictably (FIX)
+  const experiencesRef = useRef<HTMLElement | null>(null);
 
-  // API Calls
+  // FIX: derive filtered skills from allSkills — do not overwrite allSkills
+  useEffect(() => {
+    if (listOfdata && handleSkillsApiCall) {
+      // handleSkillsApiCall expects an object with setListOfSkills
+      handleSkillsApiCall({ setListOfSkills: setAllSkills });
+    }
+  }, [listOfdata]);
+
+  useEffect(() => {
+    if (listOfdata?.skills_ids && allSkills.length > 0) {
+      const matchedSkills = allSkills.filter((skill) =>
+        listOfdata.skills_ids.some(
+          (dataSkill: any) => dataSkill.id === skill.id
+        )
+      );
+      setFilteredSkills(matchedSkills);
+    } else {
+      setFilteredSkills([]);
+    }
+  }, [listOfdata, allSkills]);
+
+  // FIX: single overflow check, trigger when filtered skills change (removed duplicate)
+  useEffect(() => {
+    const skillsContainer = skillsContainerRef?.current;
+    if (skillsContainer) {
+      setIsOverflowing(
+        skillsContainer.scrollHeight > skillsContainer.clientHeight
+      );
+    }
+  }, [filteredSkills]);
+
+  // Scroll to experiences section
+  useEffect(() => {
+    const scrollTo = searchParams.get("scrollTo");
+    const expand = searchParams.get("expand");
+
+    if (
+      scrollTo === "experiences" &&
+      experiencesRef.current &&
+      listOfdata?.experiences_ids?.length > 0
+    ) {
+      const headerOffset = 100;
+      const elementPosition =
+        experiencesRef.current.getBoundingClientRect().top + window.pageYOffset;
+      const offsetPosition = elementPosition - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+
+      if (expand === "true") {
+        setShowAllExperiences(true);
+      }
+    }
+  }, [searchParams, listOfdata]);
+
+  // how many to show initially
+  const initialCount = isMobile ? 3 : 6;
+  // memoize experiences array sorted by date
+  const experiences = useMemo(
+    () => [...(listOfdata?.experiences_ids || [])].sort(sortByDate),
+    [listOfdata]
+  );
+
   useEffect(() => {
     setURLInfo(getRoutesDetails(params, searchParams));
   }, [params, searchParams]);
@@ -86,115 +146,15 @@ const Home = ({ params }: { params: any }) => {
   }, [urlInfo]);
 
   useEffect(() => {
-    handleSkillsApiCall({ setListOfSkills });
-  }, []);
-
-  console.log("Filtered List:", listOfskills); // Debug
-
-  useEffect(() => {
-    const skillsContainer = skillsContainerRef?.current;
-    if (skillsContainer) {
-      setIsOverflowing(
-        skillsContainer?.scrollHeight > skillsContainer?.clientHeight
-      );
-    }
-  }, [listOfdata?.skills_ids]);
-
-  useEffect(() => {
-    store.dispatch(setProfileUrlInfo(urlInfo));
+    if (urlInfo) store.dispatch(setProfileUrlInfo(urlInfo));
   }, [urlInfo]);
 
   useEffect(() => {
     store.dispatch(setProfileLoading(loading));
   }, [loading]);
 
-  // Scroll to experiences section
-  useEffect(() => {
-    const scrollTo = searchParams.get("scrollTo");
-    const expand = searchParams.get("expand");
-
-    if (
-      scrollTo === "experiences" &&
-      experiencesRef.current &&
-      listOfdata?.experiences_ids?.length > 0
-    ) {
-      // Calculate offset for fixed header (adjust this value based on your header height)
-      const headerOffset = 100; // Example: 100px for a fixed header; adjust as needed
-      const elementPosition =
-        experiencesRef.current.getBoundingClientRect().top + window.pageYOffset;
-      const offsetPosition = elementPosition - headerOffset;
-
-      // Scroll with offset to ensure section is fully in view
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth",
-      });
-
-      if (expand === "true") {
-        setShowAllExperiences(true);
-        // console.log("Expanding all experiences");
-      }
-    }
-  }, [searchParams, listOfdata]);
-
-  // how many to show initially
-  const initialCount = isMobile ? 3 : 6;
-  const experiences = [...(listOfdata?.experiences_ids || [])].sort(sortByDate);
-
-  useEffect(() => {
-    setURLInfo(getRoutesDetails(params, searchParams));
-  }, [params, searchParams]);
-
-  useEffect(() => {
-    urlInfo &&
-      reportsApiHandler({
-        actionType: "home",
-        urlInfo,
-        setLoading,
-        setListOfData,
-        setError,
-      });
-  }, [urlInfo]);
-
-  useEffect(() => {
-    const skillsContainer = skillsContainerRef?.current;
-    if (skillsContainer) {
-      // Check if content overflows the specified height (e.g., 40rem)
-      setIsOverflowing(
-        skillsContainer?.scrollHeight > skillsContainer?.clientHeight
-      );
-    }
-  }, [listOfdata?.skills_ids]);
-
-  useEffect(() => {
-    if (listOfdata) {
-      // // console.log(listOfdata);
-      // skillsSyncApi({ setListOfSkills });
-    }
-    listOfdata && handleSkillsApiCall({ setListOfSkills });
-  }, [listOfdata]);
-
-  useEffect(() => {
-    store.dispatch(setProfileUrlInfo(urlInfo));
-  }, [urlInfo]);
-
-  useEffect(() => {
-    store.dispatch(setProfileLoading(loading));
-  }, [loading]);
-
-  const skills: {
-    [key: string]: {
-      title: string;
-      url?: string;
-      order?: string;
-    }[];
-  } = skillsGrouping(listOfdata?.skills_ids);
-
-  // console.log("Lists Data", listOfdata);
-
-  // Assign unique IDs to portfolios
-  // console.log("Portfolios ID:", listOfdata?.portfolios_ids);
-
+  // grouping used elsewhere — keep as is
+  const skills = skillsGrouping(listOfdata?.skills_ids);
   const uniqueList = useUniquePortfolios(listOfdata?.portfolios_ids);
 
   return (
@@ -211,7 +171,8 @@ const Home = ({ params }: { params: any }) => {
 
                 <HeroSection
                   listOfdata={listOfdata}
-                  skills={skillsGrouping(listOfskills)}
+                  // FIX: pass filteredSkills to show only profile-specific skills
+                  skills={skillsGrouping(filteredSkills)}
                   showAll={showAll}
                   setShowAll={setShowAll}
                   skillsContainerRef={skillsContainerRef}
@@ -246,73 +207,68 @@ const Home = ({ params }: { params: any }) => {
                 )}
 
                 {listOfdata && listOfdata?.skills_ids?.length > 0 && (
-                  <>
-                    {/* Skills Section Completed */}
-                    <div
-                      id="skillSection"
-                      className="mainContainer print:!pt-[4rem] print:my-[0rem] my-[5rem]  print:h-screen print:break-before-page break-before-avoid print:bg-[#a3ddd3]"
-                    >
-                      {/* Badge */}
-                      <div className="flex items-center justify-center mt-[2rem] lg:hidden">
-                        <div id="skills_ids" className="badge">
-                          Skills
-                        </div>
+                  <div
+                    id="skillSection"
+                    className="mainContainer print:!pt-[4rem] print:my-[0rem] my-[5rem]  print:h-screen print:break-before-page break-before-avoid print:bg-[#a3ddd3]"
+                  >
+                    <div className="flex items-center justify-center mt-[2rem] lg:hidden">
+                      <div id="skills_ids" className="badge">
+                        Skills
                       </div>
-                      {/* Heading */}
-                      <div className="text-center text-heading text-[2.4rem] xl:text-[3rem] print:text-[3rem] print:mb-[1.5rem] font-medium leading-[2.8rem] mt-[2rem] hidden lg:block">
-                        {listOfdata?.companytype == "leewop"
-                          ? "The skills & tools I am really good at:"
-                          : " The skills, tools and technologies I am really good at:"}
-                      </div>
-                      {/* Skills Container */}
+                    </div>
 
-                      <SkillsContainer list={listOfskills} />
-                    </div>{" "}
-                  </>
+                    <div className="text-center text-heading text-[2.4rem] xl:text-[3rem] print:text-[3rem] print:mb-[1.5rem] font-medium leading-[2.8rem] mt-[2rem] hidden lg:block">
+                      {listOfdata?.companytype == "leewop"
+                        ? "The skills & tools I am really good at:"
+                        : " The skills, tools and technologies I am really good at:"}
+                    </div>
+
+                    {/* FIX: pass filteredSkills to SkillsContainer */}
+                    <SkillsContainer list={filteredSkills} />
+                  </div>
                 )}
 
-                {/* Services Section Completed */}
+                {/* Services Section */}
                 {listOfdata &&
                   listOfdata?.services &&
                   listOfdata?.services?.length > 0 && (
                     <ServicesSection
                       services={listOfdata.services.filter(
-                        (service) => service?.type !== "main"
+                        (service: any) => service?.type !== "main"
                       )}
                     />
                   )}
 
+                {/* My Work Section Slider */}
                 {listOfdata &&
                   listOfdata.portfolios_ids &&
                   listOfdata.portfolios_ids.length > 0 && (
-                    <>
-                      {/* My Work Section Slider  */}
-                      <section
-                        id="myWork"
-                        className="w-full mt-[4rem] lg:mt-[8rem] mb-[3.5rem] lg:mb-[7rem] print_p_m print:!pt-[3rem] print:bg-[#a3ddd3] print:break-before-page print:h-screen "
-                      >
-                        <div className="mainContainer   my-[5rem] print:my-[1rem] ">
-                          {/* Badge */}
-                          <div className="flex items-center justify-center lg:hidden">
-                            <div className="badge">My Work</div>
-                          </div>
-                          {/* Heading */}
-                          <div className="text-center text-heading text-[3rem] font-medium leading-[2.8rem] mt-[2rem] hidden lg:block">
-                            Explore My Technical Endeavors
-                          </div>
-
-                          {/* Home Page Slider */}
-                          <HomeSlider portfolios={uniqueList} />
+                    <section
+                      id="myWork"
+                      className="w-full mt-[4rem] lg:mt-[8rem] mb-[3.5rem] lg:mb-[7rem] print_p_m print:!pt-[3rem] print:bg-[#a3ddd3] print:break-before-page print:h-screen "
+                    >
+                      <div className="mainContainer   my-[5rem] print:my-[1rem] ">
+                        <div className="flex items-center justify-center lg:hidden">
+                          <div className="badge">My Work</div>
                         </div>
-                      </section>
-                    </>
+
+                        <div className="text-center text-heading text-[3rem] font-medium leading-[2.8rem] mt-[2rem] hidden lg:block">
+                          Explore My Technical Endeavors
+                        </div>
+
+                        <HomeSlider portfolios={uniqueList} />
+                      </div>
+                    </section>
                   )}
 
-                {/* Experience Section Completed */}
+                {/* Experience Section */}
                 {listOfdata &&
                   listOfdata.experiences_ids &&
                   listOfdata.experiences_ids.length > 0 && (
-                    <section className="w-full print_p_m print:h-screen print:break-before-page print:bg-[#a3ddd3]">
+                    <section
+                      ref={experiencesRef} // FIX: ref on section wrapper
+                      className="w-full print_p_m print:h-screen print:break-before-page print:bg-[#a3ddd3]"
+                    >
                       <div className="mainContainer print:shadow-none print:!pt-[3rem]">
                         <div className="flex items-center justify-center lg:hidden">
                           <div className="badge">Professional Experience</div>
@@ -320,6 +276,7 @@ const Home = ({ params }: { params: any }) => {
                         <div className="text-center text-heading text-[2.4rem] xl:text-[3rem] font-medium leading-[2.8rem] mt-[2rem] hidden lg:block">
                           My Professional Career Journey
                         </div>
+
                         {experiences
                           .slice(
                             0,
@@ -327,13 +284,12 @@ const Home = ({ params }: { params: any }) => {
                               ? experiences.length
                               : initialCount
                           )
-                          .map((experience, index) => (
-                            <div ref={experiencesRef} key={experience.id}>
+                          .map((experience) => (
+                            <div key={experience.id}>
                               <ExperienceSection
-                                key={index}
+                                index={experience.id}
                                 experience={experience}
-                                index={index}
-                                listOfskills={listOfskills}
+                                listOfskills={filteredSkills} // FIX: pass filteredSkills
                                 listOfdata={listOfdata}
                                 showMoreSkills={showMoreSkills}
                                 setShowMoreSkills={setShowMoreSkills}
@@ -341,6 +297,7 @@ const Home = ({ params }: { params: any }) => {
                               />
                             </div>
                           ))}
+
                         {!showAllExperiences &&
                           experiences.length > initialCount && (
                             <div className="flex items-center justify-center">
@@ -356,24 +313,20 @@ const Home = ({ params }: { params: any }) => {
                     </section>
                   )}
 
-                {/* FAQ Section Completed */}
                 <Faqs
                   urlInfo={urlInfo}
                   companyType={listOfdata?.companytype}
                   listOfdata={listOfdata}
                 />
 
-                {/* Education Section */}
                 <div id="education" className="my-[5rem]">
                   <EducationComponent />
                 </div>
 
-                {/* Our Blogs */}
                 <div id="ourBlogs" className="my-[5rem]">
                   <OurBlogs domain={listOfdata?.domain} />
                 </div>
 
-                {/* Newsletter */}
                 {!urlInfo?.u && (
                   <div className="w-full mb-[5rem]">
                     <Newsletter listOfdata={listOfdata} />

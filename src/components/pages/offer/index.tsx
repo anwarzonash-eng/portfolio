@@ -37,15 +37,21 @@ const Offer = ({ params }: { params: any }) => {
   );
 
   // Filter skills based on listOfdata.skills_ids
+  const [allSkills, setAllSkills] = useState([]);
+  const [filteredSkills, setFilteredSkills] = useState([]);
+
   useEffect(() => {
-    if (listOfdata?.skills_ids && listOfskills.length > 0) {
-      const matchedSkills = listOfskills.filter((skill) =>
+    if (listOfdata?.skills_ids && allSkills.length > 0) {
+      const matchedSkills = allSkills.filter((skill) =>
         listOfdata.skills_ids.some((dataSkill) => dataSkill.id === skill.id)
       );
-      setListOfSkills(matchedSkills);
-      // console.log("Filtered Skills:", matchedSkills); // Debug
+      setFilteredSkills(matchedSkills);
     }
-  }, [listOfdata, listOfskills]);
+  }, [listOfdata, allSkills]);
+
+  useEffect(() => {
+    handleSkillsApiCall({ setListOfSkills: setAllSkills });
+  }, []);
 
   // API Calls
   useEffect(() => {
@@ -101,7 +107,7 @@ const Offer = ({ params }: { params: any }) => {
   const content =
     modifiedContent(
       mainService?.intro_detail || "",
-      listOfskills,
+      filteredSkills,
       listOfdata
     ) || "";
 
@@ -175,7 +181,7 @@ const Offer = ({ params }: { params: any }) => {
                           dangerouslySetInnerHTML={{
                             __html: modifiedContent(
                               mainService?.intro_main,
-                              listOfskills,
+                              filteredSkills,
                               listOfdata
                             ),
                           }}
@@ -201,7 +207,7 @@ const Offer = ({ params }: { params: any }) => {
                     {mainService?.skills?.length > 0 && (
                       <SkillsComponent
                         service={mainService}
-                        skillsList={listOfskills}
+                        skillsList={filteredSkills}
                       />
                     )}
                   </div>
@@ -216,7 +222,7 @@ const Offer = ({ params }: { params: any }) => {
                       index={index}
                       activeDropdown={activeDropdown}
                       setActiveDropdown={setActiveDropdown}
-                      listOfskills={listOfskills}
+                      listOfskills={filteredSkills}
                       listOfdata={listOfdata}
                     />
                   ))}

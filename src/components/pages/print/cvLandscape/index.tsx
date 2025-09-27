@@ -69,15 +69,21 @@ const CV_Landscape = ({ params }: { params: any }) => {
   };
 
   // Filter skills based on listOfdata.skills_ids
+  const [allSkills, setAllSkills] = useState([]);
+  const [filteredSkills, setFilteredSkills] = useState([]);
+
   useEffect(() => {
-    if (listOfdata?.skills_ids && listOfskills.length > 0) {
-      const matchedSkills = listOfskills.filter((skill) =>
+    if (listOfdata?.skills_ids && allSkills.length > 0) {
+      const matchedSkills = allSkills.filter((skill) =>
         listOfdata.skills_ids.some((dataSkill) => dataSkill.id === skill.id)
       );
-      setListOfSkills(matchedSkills);
-      // console.log("Filtered Skills:", matchedSkills); // Debug
+      setFilteredSkills(matchedSkills);
     }
-  }, [listOfdata, listOfskills]);
+  }, [listOfdata, allSkills]);
+
+  useEffect(() => {
+    handleSkillsApiCall({ setListOfSkills: setAllSkills });
+  }, []);
 
   useEffect(() => {
     setURLInfo(getRoutesDetails(params, searchParams));
@@ -267,7 +273,7 @@ const CV_Landscape = ({ params }: { params: any }) => {
                           dangerouslySetInnerHTML={{
                             __html: modifiedContent(
                               listOfdata?.skills,
-                              listOfskills,
+                              filteredSkills,
                               listOfdata
                             ),
                           }}
@@ -567,7 +573,7 @@ const CV_Landscape = ({ params }: { params: any }) => {
                                                   __html:
                                                     modifiedContent(
                                                       experience?.short_description,
-                                                      listOfskills,
+                                                      filteredSkills,
                                                       listOfdata
                                                     ) +
                                                     (experience
@@ -826,7 +832,7 @@ const CV_Landscape = ({ params }: { params: any }) => {
                                                   __html:
                                                     modifiedContent(
                                                       experience?.short_description,
-                                                      listOfskills,
+                                                      filteredSkills,
                                                       listOfdata
                                                     ) +
                                                     (experience
@@ -1085,7 +1091,7 @@ const CV_Landscape = ({ params }: { params: any }) => {
                                                   __html:
                                                     modifiedContent(
                                                       experience?.short_description,
-                                                      listOfskills,
+                                                      filteredSkills,
                                                       listOfdata
                                                     ) +
                                                     (experience

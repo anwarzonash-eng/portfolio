@@ -33,7 +33,6 @@ const CV = ({ params }: { params: any }) => {
   // Global state
   const [urlInfo, setURLInfo] = useState<any>(null);
   const [listOfdata, setListOfData] = useState<any>(null);
-  const [listOfskills, setListOfSkills] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   // Skills expansion
@@ -63,13 +62,7 @@ const CV = ({ params }: { params: any }) => {
     string | null
   >(null);
 
-  // Redux profile data (if needed)
-  const listOfdatas = useAppSelector(
-    (state) => state.profile.listOfProfileData
-  );
-
   // Derived values
-  const experiences = [...(listOfdata?.experiences_ids || [])].sort(sortByDate);
   const initialVisibleItems = 18; // 3 rows × 6
   const visibleSkills = showAll
     ? listOfdata?.skills_ids ?? []
@@ -109,15 +102,21 @@ const CV = ({ params }: { params: any }) => {
   }, [searchParams, listOfdata]);
 
   // Filter skills based on listOfdata.skills_ids
+  const [allSkills, setAllSkills] = useState([]);
+  const [filteredSkills, setFilteredSkills] = useState([]);
+
   useEffect(() => {
-    if (listOfdata?.skills_ids && listOfskills.length > 0) {
-      const matchedSkills = listOfskills.filter((skill) =>
+    if (listOfdata?.skills_ids && allSkills.length > 0) {
+      const matchedSkills = allSkills.filter((skill) =>
         listOfdata.skills_ids.some((dataSkill) => dataSkill.id === skill.id)
       );
-      setListOfSkills(matchedSkills);
-      // console.log("Filtered Skills:", matchedSkills); // Debug
+      setFilteredSkills(matchedSkills);
     }
-  }, [listOfdata, listOfskills]);
+  }, [listOfdata, allSkills]);
+
+  useEffect(() => {
+    handleSkillsApiCall({ setListOfSkills: setAllSkills });
+  }, []);
 
   // API Calls
   useEffect(() => {
@@ -135,14 +134,6 @@ const CV = ({ params }: { params: any }) => {
       });
     }
   }, [urlInfo]);
-
-  useEffect(() => {
-    handleSkillsApiCall({ setListOfSkills });
-  }, []);
-
-  // useEffect(() => {
-  //   console.log("Skills List:", listOfskills);
-  // }, [listOfskills]);
 
   useEffect(() => {
     if (listOfdata) {
@@ -180,7 +171,11 @@ const CV = ({ params }: { params: any }) => {
   };
 
   // Generate HTML for skills (overview section)
-  const rawHtml = modifiedContent(listOfdata?.skills, listOfskills, listOfdata);
+  const rawHtml = modifiedContent(
+    listOfdata?.skills,
+    filteredSkills,
+    listOfdata
+  );
   const parser = new DOMParser();
   const doc = parser.parseFromString(rawHtml, "text/html");
   const items = Array.from(doc.querySelectorAll("li")).map(
@@ -188,7 +183,6 @@ const CV = ({ params }: { params: any }) => {
   );
   const maxItems = isMobile ? 4 : 10;
   const visibleItems = !expanded ? items.slice(0, maxItems) : items;
-  console.log("Visible Items:", visibleItems);
 
   return (
     <>
@@ -331,7 +325,7 @@ const CV = ({ params }: { params: any }) => {
                                             <ExperienceSection
                                               experience={experience}
                                               index={index}
-                                              listOfskills={listOfskills}
+                                              listOfskills={filteredSkills}
                                               listOfdata={listOfdata}
                                               showMoreSkills={showMoreSkills}
                                               setShowMoreSkills={
@@ -449,7 +443,7 @@ const CV = ({ params }: { params: any }) => {
                                             <PortfolioCardContent
                                               portfolio={portfolio}
                                               thumbnailSize={"small"}
-                                              listOfskills={listOfskills} // FIX: Use filtered listOfskills
+                                              listOfskills={filteredSkills} // FIX: Use filtered
                                               listOfdata={{
                                                 primaryColor: "#1F4FE1",
                                                 companytype:

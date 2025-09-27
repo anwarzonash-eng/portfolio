@@ -242,7 +242,7 @@ const HomeSliderPrint: React.FC<HomeSliderPrintProps> = ({
                       // style={{ objectFit: "contain" }}
                       // className="rounded-[1.2rem] cursor-pointer"
                       sizes=" 100vw, 30rem"
-                      className="rounded-[1.2rem] object-fill w-full !h-[300px] lg:!h-[400px]"
+                      className="rounded-[1.2rem] object-fill w-full !h-[300px] lg:!h-[400px] border border-border border-solid"
                     />
                   </div>
                 )}

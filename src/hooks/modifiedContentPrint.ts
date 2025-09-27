@@ -3,7 +3,7 @@ import { getColors } from "./colors";
 export function modifiedContentPrint(content, skillsList, listOfdata) {
   const colors = getColors(listOfdata);
 
-  console.log("Skills List:", skillsList);
+  // console.log("Skills List:", skillsList);
 
   let modifiedContentInner = content
     ?.replace(/<h1>/g, `<h1 style="color:${colors.primary}">`)
