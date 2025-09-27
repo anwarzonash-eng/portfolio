@@ -119,8 +119,17 @@ const CV = ({ params }: { params: any }) => {
   }, []);
 
   // API Calls
+  // useEffect(() => {
+  //   setURLInfo(getRoutesDetails(params, searchParams));
+  // }, [params, searchParams]);
+
+  // Use getRoutesDetails
   useEffect(() => {
-    setURLInfo(getRoutesDetails(params, searchParams));
+    // 🛑 Must wrap in an async function and call it 🛑
+    const fetchRoutes = async () => {
+      setURLInfo(await getRoutesDetails(params, searchParams));
+    };
+    fetchRoutes();
   }, [params, searchParams]);
 
   console.log(urlInfo);

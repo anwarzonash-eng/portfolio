@@ -55,10 +55,19 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
     handleSkillsApiCall({ setListOfSkills: setAllSkills });
   }, []);
 
-  useEffect(() => {
-    // console.log({ allparams: params.value });
+  // useEffect(() => {
+  //   // console.log({ allparams: params.value });
 
-    setURLInfo(getRoutesDetails(params, searchParams));
+  //   setURLInfo(getRoutesDetails(params, searchParams));
+  // }, [params, searchParams]);
+
+  // Use getRoutesDetails
+  useEffect(() => {
+    // 🛑 Must wrap in an async function and call it 🛑
+    const fetchRoutes = async () => {
+      setURLInfo(await getRoutesDetails(params, searchParams));
+    };
+    fetchRoutes();
   }, [params, searchParams]);
 
   useEffect(() => {
@@ -68,10 +77,16 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
         urlInfo,
         setError,
         setLoading,
-        setListOfData,
-        itemID: params.id ? params?.id : JSON.parse(params.value).id,
+        setListOfData, // 🛑 CORRECTED LOGIC 🛑
+        itemID: params.id
+          ? params.id // Case 1: ID is directly in params.id
+          : Array.isArray(params.value)
+          ? params.value[0] // Case 2: ID is the first element of a catch-all array
+          : typeof params.value === "object" && params.value !== null
+          ? params.value.id // Case 3: ID is nested as an object property
+          : params.value, // 🛑 END CORRECTED LOGIC 🛑
       });
-  }, [urlInfo]);
+  }, [urlInfo, params.id, params.value]); //
 
   useEffect(() => {
     handleSkillsApiCall({ setListOfSkills });

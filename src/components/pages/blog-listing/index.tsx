@@ -32,8 +32,18 @@ const BlogListing = ({ params }: { params: any }) => {
 
   const searchParams = useSearchParams();
 
+  // Prev Code
+  // useEffect(() => {
+  //   setURLInfo(getRoutesDetails(params, searchParams));
+  // }, [params, searchParams]);
+
+  // New Code Use getRoutesDetails
   useEffect(() => {
-    setURLInfo(getRoutesDetails(params, searchParams));
+    // 🛑 Must wrap in an async function and call it 🛑
+    const fetchRoutes = async () => {
+      setURLInfo(await getRoutesDetails(params, searchParams));
+    };
+    fetchRoutes();
   }, [params, searchParams]);
 
   useEffect(() => {

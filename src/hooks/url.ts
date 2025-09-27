@@ -147,7 +147,124 @@
 //   return domain;
 // };
 
-import { getTargetURLFromTinyURL } from "@/apiHandlers/tinyURLApi";
+// import { getTargetURLFromTinyURL } from "@/apiHandlers/tinyURLApi";
+
+// // Type definitions
+// interface RoutesInfo {
+//   uniqueID: string;
+//   u: string | false; // "_" ya false
+//   a: string | false; // "_" ya false
+//   domain: string;
+// }
+
+// export const getRoutesDetails = (
+//   dynamicRoutes: { unique_id?: string } | null,
+//   routeParams: URLSearchParams | null
+// ): RoutesInfo => {
+//   const isAdmin = routeParams?.get("a") === "_";
+
+//   const routesInfo: RoutesInfo = {
+//     uniqueID: "",
+//     u: false,
+//     a: isAdmin ? "_" : false,
+//     domain: "",
+//   };
+
+//   if (isAdmin) {
+//     // ---------------- ADMIN MODE ----------------
+//     // u handling
+//     const routeIsU = routeParams?.get("u");
+//     if (routeIsU === "_") {
+//       routesInfo.u = "_"; // ✅ set true, not null
+//     }
+
+//     console.log(dynamicRoutes);
+
+//     // uniqueID handling
+//     if (dynamicRoutes?.unique_id) {
+//       routesInfo.uniqueID = dynamicRoutes.unique_id;
+//     } else {
+//       routesInfo.uniqueID = "a"; // default
+//     }
+
+//     // domain always from URL param "d"
+//     routesInfo.domain = routeParams?.get("d") || getCleanDomain();
+
+//     return routesInfo;
+//   }
+
+//   // ---------------- NON-ADMIN MODE ----------------
+//   // "u" handling
+//   const routeIsU = routeParams?.get("u");
+//   if (routeIsU === "_") {
+//     routesInfo.u = "_";
+//     localStorage.setItem("u", "_");
+//   } else if (localStorage.getItem("u") === "_") {
+//     routesInfo.u = "_";
+//   }
+
+//   // uniqueID handling
+//   // if (dynamicRoutes?.unique_id) {
+//   //   // store permanently
+//   //   routesInfo.uniqueID = dynamicRoutes.unique_id;
+//   //   localStorage.setItem("uniqueID", routesInfo.uniqueID);
+//   // } else {
+//   //   const storedUniqueID = localStorage.getItem("uniqueID");
+//   //   if (storedUniqueID) {
+//   //     routesInfo.uniqueID = storedUniqueID;
+//   //   } else {
+//   //     routesInfo.uniqueID = "a"; // default
+//   //     localStorage.setItem("uniqueID", "a");
+//   //   }
+//   // }
+
+//   // Correct Version
+//   // uniqueID handling
+//   const storedUniqueID = localStorage.getItem("uniqueID");
+
+//   if (!storedUniqueID) {
+//     // Nothing stored yet
+//     if (dynamicRoutes?.unique_id) {
+//       // First time uniqueID is provided -> save permanently
+//       routesInfo.uniqueID = dynamicRoutes.unique_id;
+//       localStorage.setItem("uniqueID", routesInfo.uniqueID);
+//     } else {
+//       // Default fallback
+//       routesInfo.uniqueID = "a";
+//       localStorage.setItem("uniqueID", "a");
+//     }
+//   } else {
+//     // Already stored -> ignore URL and always use stored
+//     routesInfo.uniqueID = storedUniqueID;
+//   }
+
+//   // domain handling
+//   if (routeParams?.get("d")) {
+//     routesInfo.domain = routeParams.get("d") as string;
+//     localStorage.setItem("domain", routesInfo.domain);
+//   } else if (localStorage.getItem("domain")) {
+//     routesInfo.domain = localStorage.getItem("domain") as string;
+//   } else {
+//     routesInfo.domain = getCleanDomain();
+//     localStorage.setItem("domain", routesInfo.domain);
+//   }
+
+//   return routesInfo;
+// };
+
+// // ---------------- Helpers ----------------
+// const getCleanDomain = (): string => {
+//   const url = new URL(window.location.href);
+//   let domain = url.host;
+
+//   if (domain.startsWith("www.")) {
+//     domain = domain.substring(4);
+//   }
+//   if (domain.startsWith("dev.")) {
+//     domain = domain.substring(4);
+//   }
+//   return domain;
+// };
 
 // Type definitions
 interface RoutesInfo {
@@ -157,10 +274,13 @@ interface RoutesInfo {
   domain: string;
 }
 
-export const getRoutesDetails = (
+// NOTE: 🛑 1. Function must be 'async' and return 'Promise<RoutesInfo>' 🛑
+export const getRoutesDetails = async (
   dynamicRoutes: { unique_id?: string } | null,
   routeParams: URLSearchParams | null
-): RoutesInfo => {
+): Promise<RoutesInfo> => {
+  // 2. AWAIT the dynamicRoutes to resolve the Next.js Promise
+  const resolvedDynamicRoutes = dynamicRoutes ? await dynamicRoutes : null;
   const isAdmin = routeParams?.get("a") === "_";
 
   const routesInfo: RoutesInfo = {
@@ -175,58 +295,46 @@ export const getRoutesDetails = (
     // u handling
     const routeIsU = routeParams?.get("u");
     if (routeIsU === "_") {
-      routesInfo.u = "_"; // ✅ set true, not null
+      routesInfo.u = "_";
     }
 
-    console.log(dynamicRoutes);
+    console.log(resolvedDynamicRoutes); // Log resolved object // uniqueID handling // 3. Use the RESOLVED dynamicRoutes
 
-    // uniqueID handling
-    if (dynamicRoutes?.unique_id) {
-      routesInfo.uniqueID = dynamicRoutes.unique_id;
+    if (resolvedDynamicRoutes?.unique_id) {
+      routesInfo.uniqueID = resolvedDynamicRoutes.unique_id;
     } else {
       routesInfo.uniqueID = "a"; // default
-    }
+    } // 🛑 4. CORRECTED DOMAIN HANDLING FOR ADMIN MODE 🛑
 
-    // domain always from URL param "d"
-    routesInfo.domain = routeParams?.get("d") || getCleanDomain();
-
+    if (routeParams?.get("d")) {
+      // Priority 1: Domain from the URL param "d"
+      routesInfo.domain = routeParams.get("d") as string;
+    } else if (localStorage.getItem("domain")) {
+      // Priority 2: Fallback to permanently stored domain from localStorage
+      routesInfo.domain = localStorage.getItem("domain") as string;
+    } else {
+      // Priority 3: Final fallback to the host/clean domain
+      routesInfo.domain = getCleanDomain();
+    } // 🛑 END CORRECTED DOMAIN HANDLING 🛑
     return routesInfo;
-  }
+  } // ---------------- NON-ADMIN MODE ---------------- // "u" handling
 
-  // ---------------- NON-ADMIN MODE ----------------
-  // "u" handling
   const routeIsU = routeParams?.get("u");
   if (routeIsU === "_") {
     routesInfo.u = "_";
     localStorage.setItem("u", "_");
   } else if (localStorage.getItem("u") === "_") {
     routesInfo.u = "_";
-  }
+  } // uniqueID handling
 
-  // uniqueID handling
-  // if (dynamicRoutes?.unique_id) {
-  //   // store permanently
-  //   routesInfo.uniqueID = dynamicRoutes.unique_id;
-  //   localStorage.setItem("uniqueID", routesInfo.uniqueID);
-  // } else {
-  //   const storedUniqueID = localStorage.getItem("uniqueID");
-  //   if (storedUniqueID) {
-  //     routesInfo.uniqueID = storedUniqueID;
-  //   } else {
-  //     routesInfo.uniqueID = "a"; // default
-  //     localStorage.setItem("uniqueID", "a");
-  //   }
-  // }
-
-  // Correct Version
-  // uniqueID handling
   const storedUniqueID = localStorage.getItem("uniqueID");
 
   if (!storedUniqueID) {
     // Nothing stored yet
-    if (dynamicRoutes?.unique_id) {
+    // 5. Use the RESOLVED dynamicRoutes
+    if (resolvedDynamicRoutes?.unique_id) {
       // First time uniqueID is provided -> save permanently
-      routesInfo.uniqueID = dynamicRoutes.unique_id;
+      routesInfo.uniqueID = resolvedDynamicRoutes.unique_id;
       localStorage.setItem("uniqueID", routesInfo.uniqueID);
     } else {
       // Default fallback
@@ -236,9 +344,8 @@ export const getRoutesDetails = (
   } else {
     // Already stored -> ignore URL and always use stored
     routesInfo.uniqueID = storedUniqueID;
-  }
+  } // domain handling (Non-Admin - uses and sets localStorage)
 
-  // domain handling
   if (routeParams?.get("d")) {
     routesInfo.domain = routeParams.get("d") as string;
     localStorage.setItem("domain", routesInfo.domain);

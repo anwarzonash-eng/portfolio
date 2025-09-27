@@ -33,8 +33,18 @@ const BlogDetails = ({ params }: { params: any }) => {
   const dispatch = useAppDispatch();
   const store = useAppSelector((state) => state);
 
+  // Prev Code
+  // useEffect(() => {
+  //   setURLInfo(getRoutesDetails(params, searchParams));
+  // }, [params, searchParams]);
+
+  // New Code Use getRoutesDetails
   useEffect(() => {
-    setURLInfo(getRoutesDetails(params, searchParams));
+    // 🛑 Must wrap in an async function and call it 🛑
+    const fetchRoutes = async () => {
+      setURLInfo(await getRoutesDetails(params, searchParams));
+    };
+    fetchRoutes();
   }, [params, searchParams]);
 
   useEffect(() => {

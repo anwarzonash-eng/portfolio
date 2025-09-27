@@ -53,8 +53,17 @@ const Home_p = ({ params }: { params: any }) => {
   const listOfdatas = useAppSelector(
     (state) => state.profile.listOfProfileData
   );
+  // useEffect(() => {
+  //   setURLInfo(getRoutesDetails(params, searchParams));
+  // }, [params, searchParams]);
+
+  // Use getRoutesDetails
   useEffect(() => {
-    setURLInfo(getRoutesDetails(params, searchParams));
+    // 🛑 Must wrap in an async function and call it 🛑
+    const fetchRoutes = async () => {
+      setURLInfo(await getRoutesDetails(params, searchParams));
+    };
+    fetchRoutes();
   }, [params, searchParams]);
 
   useEffect(() => {
