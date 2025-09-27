@@ -37,15 +37,21 @@ const PortfolioDetails = ({ params }: { params: any }) => {
   const skillsContainerRef = useRef<HTMLDivElement | null>(null);
 
   // Filter skills based on listOfdata.skills_ids
+  const [allSkills, setAllSkills] = useState([]);
+  const [filteredSkills, setFilteredSkills] = useState([]);
+
   useEffect(() => {
-    if (listOfdata?.skills_ids && listOfskills.length > 0) {
-      const matchedSkills = listOfskills.filter((skill) =>
+    if (listOfdata?.skills_ids && allSkills.length > 0) {
+      const matchedSkills = allSkills.filter((skill) =>
         listOfdata.skills_ids.some((dataSkill) => dataSkill.id === skill.id)
       );
-      setListOfSkills(matchedSkills);
-      // console.log("Filtered Skills:", matchedSkills); // Debug
+      setFilteredSkills(matchedSkills);
     }
-  }, [listOfdata, listOfskills]);
+  }, [listOfdata, allSkills]);
+
+  useEffect(() => {
+    handleSkillsApiCall({ setListOfSkills: setAllSkills });
+  }, []);
 
   useEffect(() => {
     // console.log({ allparams: params.value });
@@ -167,7 +173,7 @@ const PortfolioDetails = ({ params }: { params: any }) => {
                     height={1500}
                     width={3000}
                     alt="Banner"
-                    className="hidden lg:block h-[70rem] w-auto object-contain rounded-[1.5rem] border border-border border-solid"
+                    className="hidden lg:block h-[70rem] w-auto mx-auto object-contain rounded-[1.5rem] border border-border border-solid"
                   />
                   <Image
                     src={
@@ -178,7 +184,7 @@ const PortfolioDetails = ({ params }: { params: any }) => {
                     height={410}
                     width={800}
                     alt="Banner"
-                    className="object-contain lg:hidden rounded-[1rem] w-auto border border-border border-solid"
+                    className="object-contain lg:hidden rounded-[1rem] w-auto border border-border border-solid mx-auto"
                   />
                   <article className="mt-[6rem] flex gap-[4rem] flex-col items-center justify-center md:flex-row md:items-start md:justify-normal">
                     <aside className="rounded-[1rem] bg-white p-[2.4rem] md:max-w-[31.2rem] w-full flex flex-col gap-[3.2rem] ">
@@ -262,7 +268,7 @@ const PortfolioDetails = ({ params }: { params: any }) => {
                           dangerouslySetInnerHTML={{
                             __html: modifiedContent(
                               portfolioDetails?.tagline_1,
-                              listOfskills,
+                              filteredSkills,
                               listOfdata
                             ),
                           }}
@@ -273,7 +279,7 @@ const PortfolioDetails = ({ params }: { params: any }) => {
                           dangerouslySetInnerHTML={{
                             __html: modifiedContent(
                               portfolioDetails?.tagline_2,
-                              listOfskills,
+                              filteredSkills,
                               listOfdata
                             ),
                           }}
@@ -327,7 +333,7 @@ const PortfolioDetails = ({ params }: { params: any }) => {
                     dangerouslySetInnerHTML={{
                       __html: modifiedContent(
                         portfolioDetails?.features_short,
-                        listOfskills,
+                        filteredSkills,
                         listOfdata
                       ),
                     }}
@@ -351,7 +357,7 @@ const PortfolioDetails = ({ params }: { params: any }) => {
                     dangerouslySetInnerHTML={{
                       __html: modifiedContent(
                         portfolioDetails?.features_long,
-                        listOfskills,
+                        filteredSkills,
                         listOfdata
                       ),
                     }}

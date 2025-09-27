@@ -36,15 +36,21 @@ const PortfolioListing = ({ params }: { params: any }) => {
   const searchParams = useSearchParams();
 
   // Filter skills based on listOfdata.skills_ids
+  const [allSkills, setAllSkills] = useState([]);
+  const [filteredSkills, setFilteredSkills] = useState([]);
+
   useEffect(() => {
-    if (listOfdata?.skills_ids && listOfskills.length > 0) {
-      const matchedSkills = listOfskills.filter((skill) =>
+    if (listOfdata?.skills_ids && allSkills.length > 0) {
+      const matchedSkills = allSkills.filter((skill) =>
         listOfdata.skills_ids.some((dataSkill) => dataSkill.id === skill.id)
       );
-      setListOfSkills(matchedSkills);
-      // console.log("Filtered Skills:", matchedSkills); // Debug
+      setFilteredSkills(matchedSkills);
     }
-  }, [listOfdata, listOfskills]);
+  }, [listOfdata, allSkills]);
+
+  useEffect(() => {
+    handleSkillsApiCall({ setListOfSkills: setAllSkills });
+  }, []);
 
   useEffect(() => {
     setURLInfo(getRoutesDetails(params, searchParams));
@@ -149,7 +155,7 @@ const PortfolioListing = ({ params }: { params: any }) => {
         />
       )}
 
-      {listOfdata && listOfdata?.portfolios_ids?.length > 0 && (
+      {listOfdata && listOfdata?.portfolios_ids.length > 0 && (
         <>
           {/* Portfolio Timeline Section */}
           <div className="mainContainer mt-[-30rem] lg:mt-[-40rem] xl:mt-[-36rem] print:mt-0  w-full ">
@@ -209,7 +215,7 @@ const PortfolioListing = ({ params }: { params: any }) => {
                           <PortfolioCardContent
                             portfolio={portfolio}
                             thumbnailSize={"large"}
-                            listOfskills={listOfskills}
+                            listOfskills={filteredSkills}
                             listOfdata={listOfdata}
                             index={index}
                             showMoreSkills={showMoreSkills}

@@ -64,23 +64,6 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
     handleSkillsApiCall({ setListOfSkills });
   }, []);
 
-  const uniqueID = localStorage.getItem("uniqueID");
-
-  // Function to open the modal
-  const openModal = (pictures, thumbnail, child_hero_banner) => {
-    const portfolioImages = JSON.parse(pictures);
-    const allImages = [thumbnail, child_hero_banner, ...portfolioImages];
-    setSelectedPorfolioPicturesforPopup(allImages);
-
-    setIsModalOpen(true);
-  };
-
-  // Function to close the modal
-  const closeModal = () => {
-    setSelectedPorfolioPicturesforPopup(null);
-    setIsModalOpen(false);
-  };
-
   useEffect(() => {
     store.dispatch(setProfileUrlInfo(urlInfo));
   }, [urlInfo]);
