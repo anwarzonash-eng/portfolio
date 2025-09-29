@@ -22,7 +22,7 @@ const CVSkills: React.FC<CVSkillsProps> = ({ skillsforCV, listOfdata }) => {
   const [shouldExpand, setShouldExpand] = useState(false);
 
   // Number of items to display by default
-  const initialVisibleItemsDesktop = 24; // lg and above (≥1024px)
+  const initialVisibleItemsDesktop = 32; // lg and above (≥1024px)
   const initialVisibleItemsMobile = 12; // below lg (<1024px)
 
   // Determine the number of items to show based on screen size

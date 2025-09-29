@@ -94,7 +94,10 @@ const SkillsContainerPrint: React.FC<SkillsContainerPrintProps> = ({
                     />
                   </div>
                 )}
-                <p className="mt-[1.5rem] text-paragraph1 text-center text-[1.8rem] leading-[2.8rem] overflow-hidden text-ellipsis">
+                <p
+                  className="mt-[1rem] text-paragraph1 text-center text-[1.8rem] 
+                leading-[2rem] overflow-hidden text-ellipsis"
+                >
                   {skill.title}
                 </p>
               </Link>

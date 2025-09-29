@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import PortfolioPopUp from "../PortfolioPopUp";
 import { skillsGrouping } from "@/hooks/skillsGrouping";
-import { useRouter } from "next/navigation";
 
 type SkillType = {
   title: string;
@@ -73,13 +72,6 @@ const HomeSliderPrint: React.FC<HomeSliderPrintProps> = ({
   if (!portfolios || portfolios.length === 0) return null;
 
   const topTwoPortfolios = portfolios.slice(from, max);
-
-  const router = useRouter();
-
-  const handleSeeMore = () => {
-    // Navigate to portfolio detail with skills section scroll
-    router.push(`/portfolio/${portfolioId}?scroll=skills`);
-  };
 
   return (
     <div className="w-full flex flex-col items-center gap-6 mt-[2rem]">
@@ -181,12 +173,12 @@ const HomeSliderPrint: React.FC<HomeSliderPrintProps> = ({
                         ))}
 
                       {Object.values(skills).flat().length > 8 && (
-                        <button
-                          onClick={handleSeeMore}
+                        <Link
+                          href={`/portfolio/${portfolioId}?scroll=skills`}
                           className="hover:bg-white bg-primary text-white hover:text-primary capitalize text-center text-primary text-[1.3rem] font-medium py-[0.4rem] px-[2rem] flex items-center justify-center gap-[8px] rounded-[5rem] shadow opacity-0 animate-fadeIn relative group border border-transparent hover:border-primary"
                         >
                           See More
-                        </button>
+                        </Link>
                       )}
                     </div>
                   </div>

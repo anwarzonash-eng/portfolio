@@ -20,7 +20,7 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({ list }) => {
   const [showAll, setShowAll] = useState(false);
 
   // Number of items to display by default
-  const initialVisibleItemsDesktop = 24; // lg and above (≥1024px)
+  const initialVisibleItemsDesktop = 32; // lg and above (≥1024px)
   const initialVisibleItemsMobile = 12; // below lg (<1024px)
 
   // Determine the skills to show based on screen size and showAll state

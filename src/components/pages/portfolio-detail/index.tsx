@@ -168,17 +168,6 @@ const PortfolioDetails = ({ params }: { params: any }) => {
               {/* Blog Content Section */}
               <section className="mainContainer w-full relative top-0 lg:mt-[-55rem] ">
                 <div className="w-full mt-[1rem]">
-                  {/* <Image
-                    src={
-                      portfolioDetails?.title === "Velzon"
-                        ? "/VelzonThumbnail.PNG"
-                        : portfolioDetails?.thumbnail
-                    }
-                    height={1500}
-                    width={3000}
-                    alt="Banner"
-                    className="hidden lg:block h-[70rem] object-contain rounded-[2rem] border border-border border-solid"
-                  /> */}
                   <Image
                     src={
                       portfolioDetails?.title === "Velzon"

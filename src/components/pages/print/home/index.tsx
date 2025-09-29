@@ -784,20 +784,18 @@ const Home_p = ({ params }: { params: any }) => {
                                         <div className="space-y-[1rem] space-x-[9rem]">
                                           {/* Date and divider */}
                                           <div
-                                            className="mb-auto ml-auto print:mt-[3rem] absolute left-[-1.5rem]
-                                           z-10 text-[1.6rem] text-paragraph1 capitalize 
-                                           flex-col flex gap-1"
+                                            className="mb-auto ml-auto mt-[1rem] absolute left-[-4rem]
+                                           z-10 text-[1.4rem] text-paragraph1 capitalize 
+                                            flex gap-1"
                                           >
                                             <span>
-                                              From:{" "}
                                               {formatDate(
                                                 experience.starting_date,
                                                 dateFormatsOptions.shortMonthYear
                                               )}
                                             </span>
-
+                                            -
                                             <span>
-                                              To:{" "}
                                               {isNaN(
                                                 new Date(
                                                   experience.ending_Date
@@ -1005,7 +1003,7 @@ const Home_p = ({ params }: { params: any }) => {
                           <div className="max-w-[1550px] w-full mx-auto px-[4rem] flex items-center justify-center mt-[2rem] print:m-0 ">
                             <div className="relative print:flex flex-col gap-4">
                               {/* Vertical line */}
-                              <div className="absolute left-[10rem] top-[3rem] print:top-[5rem] w-[0.4rem] h-[calc(100%-78px)] bg-primary mx-[2.1rem]" />
+                              <div className="absolute left-[10rem] top-[3rem] print:top-[5rem] w-[0.4rem] h-[calc(100%-75px)] bg-primary mx-[2.1rem]" />
                               {listOfdata?.experiences_ids &&
                                 [...listOfdata.experiences_ids]
                                   ?.sort((a, b) => {
@@ -1054,20 +1052,18 @@ const Home_p = ({ params }: { params: any }) => {
                                         <div className="space-y-[1rem] space-x-[9rem]">
                                           {/* Date and divider */}
                                           <div
-                                            className="mb-auto ml-auto print:mt-[3rem] absolute left-[-1.5rem]
-                                           z-10 text-[1.6rem] text-paragraph1 capitalize 
-                                           flex-col flex gap-1"
+                                            className="mb-auto ml-auto mt-[1rem] absolute left-[-4rem]
+                                           z-10 text-[1.4rem] text-paragraph1 capitalize 
+                                            flex gap-1"
                                           >
                                             <span>
-                                              From:{" "}
                                               {formatDate(
                                                 experience.starting_date,
                                                 dateFormatsOptions.shortMonthYear
                                               )}
                                             </span>
-
+                                            -
                                             <span>
-                                              To:{" "}
                                               {isNaN(
                                                 new Date(
                                                   experience.ending_Date

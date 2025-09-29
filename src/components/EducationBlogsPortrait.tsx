@@ -50,12 +50,29 @@ const EducationBlogsPortrait = () => {
   );
 
   // ✅ getRoutesDetails needs both params + searchParams
+  /** STEP 1: derive URL info once (Asynchronously) */
   useEffect(() => {
+    // Only proceed if urlInfo hasn't been set yet (either in state or cache)
     if (!urlInfo) {
-      const info = getRoutesDetails({}, searchParams);
-      setURLInfo(info);
-      cache.urlInfo = info;
+      // 🛑 Define and call an async function inside useEffect 🛑
+      const fetchAndSetUrlInfo = async () => {
+        try {
+          // Await the asynchronous function call
+          const info = await getRoutesDetails({}, searchParams);
+
+          // Update state and cache with the resolved info object
+          setURLInfo(info);
+          cache.urlInfo = info;
+        } catch (e) {
+          // It's good practice to handle potential errors in the async operation
+          console.error("Failed to get URL details:", e);
+          setError("Failed to retrieve necessary URL parameters.");
+        }
+      };
+
+      fetchAndSetUrlInfo();
     }
+    // Dependencies are correct: [urlInfo, searchParams]
   }, [urlInfo, searchParams]);
 
   // Fetch CV data

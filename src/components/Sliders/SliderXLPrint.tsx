@@ -3,7 +3,7 @@ import React from "react";
 
 const SliderXLPrint = ({ portfolioPictures }) => {
   const images = JSON.parse(portfolioPictures);
-  const visibleImages = images.slice(0, 2);
+  const visibleImages = images.slice(0, 1);
 
   return (
     <>
@@ -13,7 +13,7 @@ const SliderXLPrint = ({ portfolioPictures }) => {
             key={index}
             src={img}
             alt={`Slide ${index + 1}`}
-            className="w-full rounded-[1.6rem] flex-shrink-0 object-cover h-[30rem]"
+            className="w-full rounded-[1.6rem] flex-shrink-0 object-cover h-[60rem] border border-border border-solid"
           />
         ))}
       </div>
