@@ -78,7 +78,7 @@ const PortfolioCardContent: React.FC<PortfolioCardContentProps> = ({
                 } lg:w-[800px] w-full object-cover rounded-[1.2rem] border border-solid border-border`}
               />
               <button
-                className="btn-primary text-white py-[1rem] mt-[1rem] px-[3.4rem] text-[1.8rem] font-medium relative z-[200]"
+                className="btn-primary text-white py-[1rem] mt-[1rem] px-[3.4rem] text-[1.8rem] font-medium relative z-[50]"
                 onClick={() =>
                   openModal(
                     portfolio?.pictures,

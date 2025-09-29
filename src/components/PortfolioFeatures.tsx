@@ -71,8 +71,8 @@ const PortfolioFeatures: React.FC<PortfolioFeaturesProps> = ({
   return (
     <div className="mt-[2rem]">
       {itemsToShow.length > 0 && (
-        <div
-          className="list-div pl-[2rem] mt-[2rem] text-heading text-[1.8rem]"
+        <ul
+          className="list-disc pl-[2rem] mt-[2rem] text-heading text-[1.8rem]"
           dangerouslySetInnerHTML={{ __html: itemsToShow.join("") }}
         />
       )}
