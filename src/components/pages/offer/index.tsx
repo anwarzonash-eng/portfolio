@@ -121,14 +121,17 @@ const Offer = ({ params }: { params: any }) => {
     ) || "";
 
   // Try to extract <li> elements
-  const items = content ? content.match(/<li[^>]*>.*?<\/li>/g) || [] : [];
 
   // If no <li>, fall back to treating content as one "block"
-  const visibleItems = items.length
-    ? expanded
-      ? items
-      : items.slice(0, 4)
-    : [content]; // fallback for <p> or plain text
+  const isMobile = window.innerWidth < 768;
+  const MOBILE_LIMIT = 4;
+  const DESKTOP_LIMIT = 10;
+  const displayLimit = isMobile ? MOBILE_LIMIT : DESKTOP_LIMIT;
+
+  // 3. Determine which items to show
+  const items = content ? content.match(/<li[^>]*>.*?<\/li>/g) || [] : [];
+  const visibleItems = expanded ? items : items.slice(0, displayLimit);
+  const showReadMoreButton = items.length > displayLimit;
 
   return (
     <div className="bg-[#EFF5FD] print:my-[3rem] ">
@@ -204,10 +207,10 @@ const Offer = ({ params }: { params: any }) => {
                           __html: visibleItems.join(""),
                         }}
                       />
-                      {items.length > 4 && (
+                      {showReadMoreButton && (
                         <button
                           onClick={() => setExpanded((prev) => !prev)}
-                          className="px-[4rem] py-[1.4rem] bg-primary rounded-[2.2rem] hover:bg-white hover:text-primary hover:border-primary border border-border border-solid text-center max-w-max text-white text-[1.4rem] font-medium font-Inter leading-tight mt-[2rem]"
+                          className="px-[4rem] py-[1.4rem] bg-primary rounded-[2.2rem] hover:bg-white hover:text-primary hover:border-primary border border-border border-solid text-center max-w-max text-white text-[1.4rem] font-medium font-Inter leading-tight"
                         >
                           {expanded ? "Read Less" : "Read More"}
                         </button>

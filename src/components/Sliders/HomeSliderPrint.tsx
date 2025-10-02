@@ -139,7 +139,7 @@ const HomeSliderPrint: React.FC<HomeSliderPrintProps> = ({
                         dangerouslySetInnerHTML={{
                           __html: portfolio.tagline_2,
                         }}
-                        className="text-[1.8rem] leading-[2.4rem] font-normal text-primary mt-[1rem] line-clamp-6"
+                        className="text-[1.8rem] leading-[2.4rem] font-normal text-primary mt-[1rem] line-clamp-4"
                       ></p>
                     </div>
                   </div>
@@ -219,7 +219,7 @@ const HomeSliderPrint: React.FC<HomeSliderPrintProps> = ({
                 } flex flex-col items-center justify-center`}
               >
                 {portfolio?.thumbnail && (
-                  <div className="relative w-full h-[300px] lg:h-[400px] rounded-[1.2rem] overflow-hidden">
+                  <div className="relative w-full h-[400px] rounded-[1.2rem] overflow-hidden">
                     <Image
                       src={
                         portfolio?.title === "Velzon"
@@ -233,8 +233,8 @@ const HomeSliderPrint: React.FC<HomeSliderPrintProps> = ({
                       fill
                       // style={{ objectFit: "contain" }}
                       // className="rounded-[1.2rem] cursor-pointer"
-                      sizes=" 100vw, 30rem"
-                      className="rounded-[1.2rem] object-fill w-full !h-[300px] lg:!h-[400px] border border-border border-solid"
+                      sizes=" 100vw, 40rem"
+                      className="rounded-[1.2rem] object-fill w-full !h-[400px] border border-border border-solid"
                     />
                   </div>
                 )}

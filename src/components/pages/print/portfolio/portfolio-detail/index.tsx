@@ -197,22 +197,15 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
 
               {/* Blog Content Section ✅ */}
               <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative flex-col">
-                <div
-                  className={`absolute z-[1000] top-10 hidden print:right-0 print:block px-20`}
-                >
-                  <Link
-                    className="text-white font-medium text-[2rem] underline ml-2"
-                    href={`https://www.${listOfdatas.domain}`}
-                  >
-                    {listOfdatas.domain}
-                  </Link>
-                </div>
+                <NoteDomainForPint
+                  direction={"hidden print:right-0 print:block"}
+                />
                 {/* Portfolio Detail Container */}
-                <div className="w-full h-[30rem] overflow-hidden  absolute top-0 left-0">
+                <div className="w-full min-h-screen overflow-hidden ">
                   {/* Background SVG */}
                   <Portfoliodetailbg />
                   {/* Hero Top Content */}
-                  <div className="absolute z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white font-medium ">
+                  <div className="absolute z-20 top-[5rem] left-1/2 -translate-x-1/2  text-white font-medium">
                     {/* info */}
                     <div className="text-center text-[1.4rem] leading-[2rem]">
                       <p className="">
@@ -227,21 +220,24 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
                       {portfolioDetails?.title}
                     </h1>
                   </div>
-                </div>
-                <div className="max-w-[1550px] w-full mx-auto px-[4rem] mt-[34rem] print:mt-[30rem]">
-                  {/* Blog Detail Pic*/}
-                  <Image
-                    src={portfolioDetails?.thumbnail}
-                    height={1500}
-                    width={3000}
-                    alt="Banner"
-                    className="w-full object-contain rounded-[1rem] print:h-[40rem] print:object-cover print:mt-5"
-                  />
+                  <div className="relative z-50 top-[18rem] max-w-[1000px] mx-auto w-full min-h-[700px]">
+                    {/* Blog Detail Pic*/}
+                    <Image
+                      src={portfolioDetails?.thumbnail}
+                      height={2000}
+                      width={2000}
+                      alt="Banner"
+                      className="rounded-[1rem] h-full w-full object-fill border border-solid border-border"
+                    />
+                  </div>
                 </div>
               </section>
 
               {/* Blog Detail Section */}
               <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative mt-10 print:m-0">
+                <NoteDomainForPint
+                  direction={"hidden print:right-0 print:block"}
+                />
                 <div className="max-w-[1550px] w-full mx-auto px-[4rem]">
                   <article className="flex gap-[4rem] flex-col items-center justify-between">
                     <div className="flex gap-[4rem]">
@@ -406,9 +402,9 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
                   direction={"hidden print:right-0 print:block"}
                 />
                 <div className="max-w-[1550px] w-full mx-auto px-[4rem] limit-height-portfolio-detail">
-                  {/* <h1 className="text-primary text-center text-[4rem] font-semibold">
-                    Features & Modules
-                  </h1> */}
+                  <h2 className="text-primary text-center text-[4rem] font-semibold my-[1rem]">
+                    Tech Stacks I worked On
+                  </h2>
                   {/* Paragraph Text */}
                   <div
                     dangerouslySetInnerHTML={{
@@ -438,9 +434,9 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
                     className="rounded-[1rem] h-[500px] object-cover mb-[6rem]"
                   /> */}
 
-                  <h1 className="text-primary text-center text-[4rem] font-semibold my-[1rem]">
+                  <h2 className="text-primary text-center text-[4rem] font-semibold my-[1rem]">
                     Features & Modules
-                  </h1>
+                  </h2>
                   <div
                     className="text-[1.8rem]"
                     dangerouslySetInnerHTML={{
@@ -482,6 +478,9 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
 
               {/* Slider  Sections ✅ */}
               <section className="px-[4rem] my-[5rem] print:h-screen print:section flex items-center justify-center relative">
+                <NoteDomainForPint
+                  direction={"hidden print:right-0 print:block"}
+                />
                 <div className="max-w-[1550px] w-full mx-auto px-[4rem]">
                   {portfolioDetails !== null && (
                     <SliderXLPrint

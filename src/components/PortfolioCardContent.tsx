@@ -75,10 +75,14 @@ const PortfolioCardContent: React.FC<PortfolioCardContentProps> = ({
                 width={800}
                 className={` ${
                   thumbnailSize === "small" ? "lg:h-[200px]" : "lg:h-[300px]"
-                } lg:w-[800px] w-full object-cover rounded-[1.2rem] border border-solid border-border`}
+                } lg:w-[800px] w-full object-fill rounded-[1.2rem] border border-solid border-border`}
               />
               <button
-                className="btn-primary text-white py-[1rem] mt-[1rem] px-[3.4rem] text-[1.8rem] font-medium relative z-[50]"
+                className={`btn-primary text-white mt-[1rem] font-medium relative z-[50]  ${
+                  thumbnailSize === "small"
+                    ? "py-[0.8rem] px-[2.2rem] text-[1.6rem]"
+                    : "py-[1rem] px-[3.4rem] text-[1.8rem]"
+                }`}
                 onClick={() =>
                   openModal(
                     portfolio?.pictures,
