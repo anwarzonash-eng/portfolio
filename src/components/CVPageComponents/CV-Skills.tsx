@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 
 type Skill = {
   title: string;
@@ -75,8 +76,9 @@ const CVSkills: React.FC<CVSkillsProps> = ({ skillsforCV, listOfdata }) => {
             mx-auto justify-center items-center ml-[1rem] overflow-hidden"
         >
           {visibleSkills.map((skill, i) => (
-            <div
+            <Link
               key={i}
+              href={skill.url}
               style={{ animationDelay: `${i * 0.03}s` }}
               className="mx-auto mb-[2rem] xl:mb-[4rem] flex flex-col items-center justify-start gap-[0.4rem] xl:gap-[0.8rem] max-w-[15rem] lg:max-w-[19rem] w-full animate-fadeIn opacity-0"
             >
@@ -94,7 +96,7 @@ const CVSkills: React.FC<CVSkillsProps> = ({ skillsforCV, listOfdata }) => {
               <p className="mt-[1.5rem] text-paragraph1 text-center line-clamp-1 text-[1.3rem] min-[500px]:text-[1.8rem] leading-[2.8rem] overflow-hidden text-ellipsis">
                 {skill.title}
               </p>
-            </div>
+            </Link>
           ))}
         </div>
 

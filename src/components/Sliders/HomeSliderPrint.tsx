@@ -31,6 +31,7 @@ type PortfolioType = {
 interface HomeSliderPrintProps {
   portfolios: PortfolioType[];
   isPortraitMode: boolean;
+  pageOrientation: string;
   companyType: string;
   locationLink: string;
   portfolioId: string;
@@ -44,6 +45,7 @@ const HomeSliderPrint: React.FC<HomeSliderPrintProps> = ({
   companyType,
   locationLink,
   portfolioId,
+  pageOrientation,
   from,
   max,
 }) => {
@@ -88,9 +90,14 @@ const HomeSliderPrint: React.FC<HomeSliderPrintProps> = ({
             className="flex flex-row rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden w-full bg-white"
           >
             <div
-              className={`flex ${
-                isPortraitMode ? "flex-col-reverse" : ""
-              } items-stretch bg-white rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden h-full w-full p-[3rem] gap-[4rem]`}
+              className={`flex 
+                ${isPortraitMode ? "flex-col-reverse" : ""} 
+                  ${
+                    pageOrientation === "portrait"
+                      ? "items-stretch"
+                      : "items-start"
+                  }
+                   bg-white rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden h-full w-full p-[3rem] gap-[4rem]`}
             >
               {/* Content Section */}
               <div
@@ -139,7 +146,7 @@ const HomeSliderPrint: React.FC<HomeSliderPrintProps> = ({
                         dangerouslySetInnerHTML={{
                           __html: portfolio.tagline_2,
                         }}
-                        className="text-[1.8rem] leading-[2.4rem] font-normal text-primary mt-[1rem] line-clamp-4"
+                        className="text-[1.8rem] leading-[2.4rem] font-normal text-primary mt-[1rem] line-clamp-3"
                       ></p>
                     </div>
                   </div>
@@ -219,7 +226,14 @@ const HomeSliderPrint: React.FC<HomeSliderPrintProps> = ({
                 } flex flex-col items-center justify-center`}
               >
                 {portfolio?.thumbnail && (
-                  <div className="relative w-full h-[400px] rounded-[1.2rem] overflow-hidden">
+                  <div
+                    className={`relative w-full 
+                      ${
+                        pageOrientation === "portrait"
+                          ? "h-[380px]"
+                          : "h-[300px]"
+                      } rounded-[1.2rem] overflow-hidden`}
+                  >
                     <Image
                       src={
                         portfolio?.title === "Velzon"
@@ -233,8 +247,17 @@ const HomeSliderPrint: React.FC<HomeSliderPrintProps> = ({
                       fill
                       // style={{ objectFit: "contain" }}
                       // className="rounded-[1.2rem] cursor-pointer"
-                      sizes=" 100vw, 40rem"
-                      className="rounded-[1.2rem] object-fill w-full !h-[400px] border border-border border-solid"
+                      sizes={`${
+                        pageOrientation === "portrait"
+                          ? " 100vw, 38rem"
+                          : "100vw, 30rem"
+                      }`}
+                      className={`rounded-[1.2rem] object-fill w-full border 
+                        ${
+                          pageOrientation === "portrait"
+                            ? "!h-[380px]"
+                            : "!h-[300px]"
+                        }border-border border-solid`}
                     />
                   </div>
                 )}

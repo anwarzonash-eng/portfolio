@@ -2,8 +2,16 @@
 import Link from "next/link";
 import React from "react";
 
-const SliderXLPrint = ({ portfolioPictures }) => {
-  const images = JSON.parse(portfolioPictures);
+interface SliderXLPrintProps {
+  portfolioPictures: string;
+  portfolioId?: string | number | null;
+}
+
+const SliderXLPrint: React.FC<SliderXLPrintProps> = ({
+  portfolioPictures,
+  portfolioId = null,
+}) => {
+  const images = JSON.parse(portfolioPictures || "[]");
   const visibleImages = images.slice(0, 1);
 
   return (
@@ -17,7 +25,13 @@ const SliderXLPrint = ({ portfolioPictures }) => {
             className="w-full rounded-[1.6rem] flex-shrink-0 object-fill h-[60rem] border border-border border-solid"
           />
         ))}
-        <Link href={"/cv"}>
+        <Link
+          href={
+            portfolioId
+              ? `/portfolio?sectionId=${portfolioId}&openGallery=true`
+              : "/portfolio"
+          }
+        >
           <button className="px-[4rem] py-[1.4rem] bg-primary rounded-[2.2rem] hover:bg-white hover:text-primary hover:border-primary border border-border text-white text-[1.4rem] font-medium font-Inter leading-tight absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-w-max shadow-xl">
             View Gallery
           </button>

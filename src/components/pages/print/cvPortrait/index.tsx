@@ -55,9 +55,9 @@ const CV_Portrait = ({ params }: { params: any }) => {
   const [error, setError] = useState<string | null>(null);
 
   // Filter skills based on listOfdata.skills_ids
-  // Filter skills based on listOfdata.skills_ids
   const [allSkills, setAllSkills] = useState([]);
   const [filteredSkills, setFilteredSkills] = useState([]);
+  const [skillsListCount, setSkillsListCount] = useState<number>(0);
 
   useEffect(() => {
     if (listOfdata?.skills_ids && allSkills.length > 0) {
@@ -68,22 +68,22 @@ const CV_Portrait = ({ params }: { params: any }) => {
     }
   }, [listOfdata, allSkills]);
 
+  // Count <li> occurrences in the skills HTML to determine whether the Read More button is needed
+  useEffect(() => {
+    try {
+      const skillsHtml = listOfdata?.skills || "";
+      const matches = skillsHtml.match(/<li\b/gi);
+      setSkillsListCount(matches ? matches.length : 0);
+    } catch (e) {
+      setSkillsListCount(0);
+    }
+  }, [listOfdata?.skills]);
+
   useEffect(() => {
     handleSkillsApiCall({ setListOfSkills: setAllSkills });
   }, []);
 
   const router = useRouter();
-  // Navigate to portfolio detail page -> skills section
-  const handleSeeMore = () => {
-    // Navigate to portfolio detail with skills section scroll
-    router.push(
-      `/portfolio/${listOfdata?.portfolios_ids[0]?.id}?scroll=skills`
-    );
-  };
-
-  const handleViewMore = () => {
-    router.push("/?scrollTo=experiences&expand=true");
-  };
 
   const [blogsList, setBlogsList] = useState([]);
   const [loadingblogs, setLoadingBlogs] = useState(false);
@@ -369,12 +369,14 @@ const CV_Portrait = ({ params }: { params: any }) => {
                         }}
                       ></div>
                       <div className="flex items-center justify-center w-full">
-                        <Link
-                          href={"/cv"}
-                          className="px-[4rem] py-[1.4rem] bg-primary rounded-[2.2rem] hover:bg-white hover:text-primary hover:border-primary border border-border border-solid text-center max-w-max text-white text-[1.4rem] font-medium font-Inter leading-tight mb-[2rem] block"
-                        >
-                          Read More
-                        </Link>
+                        {skillsListCount > 9 && (
+                          <Link
+                            href={"/cv"}
+                            className="px-[4rem] py-[1.4rem] bg-primary rounded-[2.2rem] hover:bg-white hover:text-primary hover:border-primary border border-border border-solid text-center max-w-max text-white text-[1.4rem] font-medium font-Inter leading-tight mb-[2rem] block"
+                          >
+                            Read More
+                          </Link>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -644,13 +646,13 @@ const CV_Portrait = ({ params }: { params: any }) => {
                                                           </React.Fragment>
                                                         )
                                                       )}
-                                                      <button
-                                                        onClick={handleSeeMore}
+                                                      <Link
+                                                        href={`/portfolio/${listOfdata?.portfolios_ids[0]?.id}?scroll=skills`}
                                                         className="hover:bg-white bg-primary text-white hover:text-primary capitalize text-center text-primary 
                                                           text-[1.2rem] font-medium py-[0.4rem] px-[1.5rem] inline-flex items-center justify-center gap-[8px] rounded-[5rem] shadow opacity-0 animate-fadeIn relative group border border-transparent hover:border-primary"
                                                       >
                                                         Show More Skills
-                                                      </button>
+                                                      </Link>
                                                     </div>
                                                   </div>
                                                 </div>
@@ -903,13 +905,13 @@ const CV_Portrait = ({ params }: { params: any }) => {
                                                           </React.Fragment>
                                                         )
                                                       )}
-                                                      <button
-                                                        onClick={handleSeeMore}
+                                                      <Link
+                                                        href={`/portfolio/${listOfdata?.portfolios_ids[0]?.id}?scroll=skills`}
                                                         className="hover:bg-white bg-primary text-white hover:text-primary capitalize text-center text-primary 
                                                           text-[1.2rem] font-medium py-[0.4rem] px-[1.5rem] inline-flex items-center justify-center gap-[8px] rounded-[5rem] shadow opacity-0 animate-fadeIn relative group border border-transparent hover:border-primary"
                                                       >
                                                         Show More Skills
-                                                      </button>
+                                                      </Link>
                                                     </div>
                                                   </div>
                                                 </div>
@@ -924,12 +926,12 @@ const CV_Portrait = ({ params }: { params: any }) => {
                         </div>
                       </div>
                       <div className="flex justify-center mt-8">
-                        <button
-                          onClick={handleViewMore}
+                        <Link
+                          href={`/cv?scrollTo=experiences&expand=true`}
                           className="btn-primary text-white py-[1rem] px-[3.4rem] text-[1.8rem] font-medium"
                         >
                           View All Experiences
-                        </button>
+                        </Link>
                       </div>
                     </div>
                   </section>
@@ -965,6 +967,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
                             companyType={listOfdata?.companytype}
                             locationLink={`/?sectionId=myWork`}
                             portfolioId={listOfdata?.portfolios_ids[0]?.id}
+                            pageOrientation="portrait"
                             from={0}
                             max={1}
                           />
@@ -1019,6 +1022,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
                             companyType={listOfdata?.companytype}
                             locationLink={`/?sectionId=myWork`}
                             portfolioId={listOfdata?.portfolios_ids[0]?.id}
+                            pageOrientation="portrait"
                             from={1}
                             max={2}
                           />
@@ -1052,6 +1056,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
                             companyType={listOfdata?.companytype}
                             locationLink={`/?sectionId=myWork`}
                             portfolioId={listOfdata?.portfolios_ids[0]?.id}
+                            pageOrientation="portrait"
                             from={2}
                             max={3}
                           />

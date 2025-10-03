@@ -61,7 +61,6 @@ export const viewport: Viewport = {
   themeColor: "#ffffff",
 };
 
-
 export default function RootLayout({
   children,
 }: {

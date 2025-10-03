@@ -129,7 +129,7 @@ const Home = ({ params }: { params: any }) => {
     [listOfdata]
   );
 
-  console.log("URL Info:", urlInfo);
+  // console.log("URL Info:", urlInfo);
 
   // Use getRoutesDetails
   useEffect(() => {

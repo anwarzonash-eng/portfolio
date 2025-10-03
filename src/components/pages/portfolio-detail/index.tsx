@@ -166,7 +166,7 @@ const PortfolioDetails = ({ params }: { params: any }) => {
                 </div>
               </section>
               {/* Blog Content Section */}
-              <section className="mainContainer w-full relative top-0 lg:mt-[-55rem] ">
+              <section className="mainContainer w-full relative top-0 lg:mt-[-67rem]">
                 <div className="w-full mt-[1rem]">
                   <Image
                     src={
@@ -333,16 +333,26 @@ const PortfolioDetails = ({ params }: { params: any }) => {
                       </div>
                     </div>
                   </article>
-                  <div
-                    dangerouslySetInnerHTML={{
-                      __html: modifiedContent(
-                        portfolioDetails?.features_short,
-                        filteredSkills,
-                        listOfdata
-                      ),
-                    }}
-                    className="w-full list-div my-[6.4rem] text-[2rem] leading-[3.2rem] text-paragraph1 font-normal"
-                  ></div>
+                  <div className="w-full my-[6.4rem]">
+                    <h2
+                      className="text-primary 
+                      text-center text-[4rem] 
+                      font-semibold mb-[3rem]"
+                    >
+                      Tech Stacks I worked On
+                    </h2>
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: modifiedContent(
+                          portfolioDetails?.features_short,
+                          filteredSkills,
+                          listOfdata
+                        ),
+                      }}
+                      className="w-full list-div 
+                     text-[2rem] leading-[3.2rem] text-paragraph1 font-normal"
+                    ></div>
+                  </div>
                   <div className="w-full h-auto">
                     <Image
                       src={
@@ -353,19 +363,28 @@ const PortfolioDetails = ({ params }: { params: any }) => {
                       height={1500}
                       width={1500}
                       alt="Banner"
-                      className=" object-contain rounded-[1rem] "
+                      className=" object-contain rounded-[1rem] border border-border border-solid"
                     />
                   </div>
-                  <div
-                    className="my-[6.4rem] list-div text-[2rem] "
-                    dangerouslySetInnerHTML={{
-                      __html: modifiedContent(
-                        portfolioDetails?.features_long,
-                        filteredSkills,
-                        listOfdata
-                      ),
-                    }}
-                  ></div>
+                  <div className="w-full my-[6.4rem]">
+                    <h2
+                      className="text-primary 
+                      text-center text-[2rem] xl:text-[4rem] 
+                      font-semibold mb-[2rem] xl:mb-[3rem]"
+                    >
+                      Features & Modules
+                    </h2>
+                    <div
+                      className=" list-div text-[2rem] "
+                      dangerouslySetInnerHTML={{
+                        __html: modifiedContent(
+                          portfolioDetails?.features_long,
+                          filteredSkills,
+                          listOfdata
+                        ),
+                      }}
+                    ></div>
+                  </div>
                   {/* My Tools and Technologies */}
                   <article className="my-[6.4rem]">
                     <div className="text-heading text-[2.4rem] xl:text-[3rem] font-medium leading-[2.8rem] text-center">

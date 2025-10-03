@@ -560,16 +560,16 @@ const Home_p = ({ params }: { params: any }) => {
                 {listOfdata && listOfdata?.skills_ids?.length > 0 && (
                   <>
                     {/* Skills Section Completed ✅ */}
-                    <section className="px-[4rem] my-[5rem] print:h-screen print:section flex items-center justify-center relative">
+                    <section className="px-[4rem] my-[5rem] print:h-screen print:section flex items-center justify-center relative flex-col">
+                      {/* Badge */}
+                      <div className="flex items-center justify-center mb-[5rem]">
+                        <div className="badge">Skills</div>
+                      </div>
                       {/* Note and Domain For Each Page */}
                       <NoteDomainForPint
                         direction={"hidden print:right-0 print:block"}
                       />
                       <div className="max-w-[1550px] w-full mx-auto">
-                        {/* Badge */}
-                        <div className="flex items-center justify-center mb-[1rem]">
-                          <div className="badge">Skills</div>
-                        </div>
                         {/* Heading */}
                         {/* <div
                           className="text-center text-heading text-[3rem] font-medium 
@@ -656,6 +656,7 @@ const Home_p = ({ params }: { params: any }) => {
                             companyType={listOfdata?.companytype}
                             portfolioId={listOfdata?.portfolios_ids[0]?.id}
                             locationLink={`/?sectionId=myWork`}
+                            pageOrientation="landscape"
                             from={0}
                             max={1}
                           />
@@ -676,6 +677,7 @@ const Home_p = ({ params }: { params: any }) => {
                             companyType={listOfdata?.companytype}
                             locationLink={`/?sectionId=myWork`}
                             portfolioId={listOfdata?.portfolios_ids[0]?.id}
+                            pageOrientation="landscape"
                             from={1}
                             max={2}
                           />
@@ -696,6 +698,7 @@ const Home_p = ({ params }: { params: any }) => {
                             companyType={listOfdata?.companytype}
                             locationLink={`/?sectionId=myWork`}
                             portfolioId={listOfdata?.portfolios_ids[0]?.id}
+                            pageOrientation="landscape"
                             from={2}
                             max={3}
                           />
@@ -974,12 +977,13 @@ const Home_p = ({ params }: { params: any }) => {
                                                               </React.Fragment>
                                                             )
                                                           )}
-                                                          <button
+                                                          <Link
+                                                            href={`/portfolio/${listOfdata?.portfolios_ids[0]?.id}?scroll=skills`}
                                                             className="hover:bg-white bg-primary text-white hover:text-primary capitalize text-center text-primary 
                                                           text-[1.2rem] font-medium py-[0.4rem] px-[1.5rem] inline-flex items-center justify-center gap-[8px] rounded-[5rem] shadow opacity-0 animate-fadeIn relative group border border-transparent hover:border-primary"
                                                           >
                                                             Show More Skills
-                                                          </button>
+                                                          </Link>
                                                         </div>
                                                       </div>
                                                     </div>
@@ -1243,12 +1247,13 @@ const Home_p = ({ params }: { params: any }) => {
                                                               </React.Fragment>
                                                             )
                                                           )}
-                                                          <button
+                                                          <Link
+                                                            href={`/portfolio/${listOfdata?.portfolios_ids[0]?.id}?scroll=skills`}
                                                             className="hover:bg-white bg-primary text-white hover:text-primary capitalize text-center text-primary 
                                                           text-[1.2rem] font-medium py-[0.4rem] px-[1.5rem] inline-flex items-center justify-center gap-[8px] rounded-[5rem] shadow opacity-0 animate-fadeIn relative group border border-transparent hover:border-primary"
                                                           >
                                                             Show More Skills
-                                                          </button>
+                                                          </Link>
                                                         </div>
                                                       </div>
                                                     </div>
@@ -1264,16 +1269,12 @@ const Home_p = ({ params }: { params: any }) => {
                           </div>
                           {listOfdata.experiences_ids.length > 3 && (
                             <div className="flex justify-center mt-8">
-                              <button
-                                onClick={() =>
-                                  setShowAllExperiences(!showAllExperiences)
-                                }
+                              <Link
+                                href={`/cv?scrollTo=experiences&expand=true`}
                                 className="btn-primary text-white py-[1rem] px-[3.4rem] text-[1.8rem] font-medium"
                               >
-                                {showAllExperiences
-                                  ? "Show Less"
-                                  : "View Full Career Timeline"}
-                              </button>
+                                View Full Career Timeline
+                              </Link>
                             </div>
                           )}
                         </div>

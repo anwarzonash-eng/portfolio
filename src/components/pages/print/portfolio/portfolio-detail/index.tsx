@@ -120,6 +120,80 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
     }[];
   } = skillsGrouping(portfolioDetails?.skills);
 
+  // Features (Tech Stacks) overflow detection for print-only "Read More"
+  const featuresRef = useRef<HTMLDivElement | null>(null);
+  const [featuresOverflow, setFeaturesOverflow] = useState(false);
+  const [featuresLiCount, setFeaturesLiCount] = useState(0);
+
+  useEffect(() => {
+    if (!portfolioDetails) return;
+    // Parse HTML to count <li> as a fallback
+    let totalLis = 0;
+    try {
+      const rawHtml = modifiedContent(
+        portfolioDetails?.features_short,
+        filteredSkills,
+        listOfdata
+      );
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(rawHtml || "", "text/html");
+      const lis = doc.querySelectorAll("li");
+      totalLis = lis.length;
+      setFeaturesLiCount(totalLis);
+    } catch (e) {
+      setFeaturesLiCount(0);
+    }
+
+    // DOM-based fit calculation: determine how many <li> fit into the visible area
+    const t = setTimeout(() => {
+      const el = featuresRef.current;
+      if (!el) return;
+
+      const lis = Array.from(el.querySelectorAll("li"));
+      if (lis.length === 0) {
+        // Nothing to do — no list items
+        setFeaturesOverflow(false);
+        return;
+      }
+
+      // Reserve 100px at bottom for the Read More button (as requested)
+      const reservedSpace = 100; // px
+      const availableHeight = el.clientHeight - reservedSpace;
+
+      let fitCount = 0;
+      for (let i = 0; i < lis.length; i++) {
+        const li = lis[i] as HTMLElement;
+        const bottom = li.offsetTop + li.offsetHeight;
+        if (bottom <= availableHeight) {
+          fitCount = i + 1;
+        } else {
+          break;
+        }
+      }
+
+      // Hide items beyond fitCount by setting display: none on them
+      lis.forEach((li, idx) => {
+        const elLi = li as HTMLElement;
+        if (fitCount === 0) {
+          // if none fit, hide nothing here — let overflow happen
+          elLi.style.display = "";
+        } else if (idx >= fitCount) {
+          elLi.style.display = "none";
+        } else {
+          elLi.style.display = "";
+        }
+      });
+
+      const hasHidden =
+        fitCount > 0
+          ? fitCount < lis.length
+          : el.scrollHeight > el.clientHeight + 2;
+      setFeaturesOverflow(hasHidden);
+    }, 80);
+
+    return () => clearTimeout(t);
+  }, [portfolioDetails, filteredSkills, listOfdata]);
+
   return (
     <div className="bg-[#EFF5FD]">
       <PageRendering
@@ -406,16 +480,32 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
                     Tech Stacks I worked On
                   </h2>
                   {/* Paragraph Text */}
-                  <div
-                    dangerouslySetInnerHTML={{
-                      __html: modifiedContent(
-                        portfolioDetails?.features_short,
-                        filteredSkills,
-                        listOfdata
-                      ),
-                    }}
-                    className="w-full list-div my-[6.4rem] leading-[3.2rem] font-normal"
-                  ></div>
+                  <div className="w-full relative">
+                    <div
+                      ref={featuresRef}
+                      dangerouslySetInnerHTML={{
+                        __html: modifiedContent(
+                          portfolioDetails?.features_short,
+                          filteredSkills,
+                          listOfdata
+                        ),
+                      }}
+                      className="w-full list-div my-[6.4rem] leading-[3.2rem] font-normal limit-features-height"
+                    ></div>
+
+                    {/* Print-only Read More: show when overflow detected or li-count heuristic triggers */}
+                    {(featuresOverflow || featuresLiCount > 6) && (
+                      <div className="print-only-show text-center mt-4">
+                        <Link
+                          href={`/portfolio/${portfolioDetails?.id}`}
+                          target="_blank"
+                          className="btn-primary text-white py-[1rem] px-[3.4rem] text-[1.8rem] font-medium"
+                        >
+                          Read More
+                        </Link>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </section>
 
@@ -471,7 +561,12 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
                     list={listOfdata?.skills_ids}
                     numColumns={6} // number of columns to display
                     numSkills={24} // number of skills to display
-                    portfolioId={listOfdata?.portfolios_ids[0]?.id}
+                    // Prefer the current portfolio's id, then the route param, then fallback to the first portfolio id
+                    portfolioId={
+                      portfolioDetails?.id ||
+                      params?.id ||
+                      listOfdata?.portfolios_ids?.[0]?.id
+                    }
                   />
                 </div>
               </section>
@@ -485,6 +580,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
                   {portfolioDetails !== null && (
                     <SliderXLPrint
                       portfolioPictures={portfolioDetails?.pictures}
+                      portfolioId={portfolioDetails?.id || params?.id}
                     />
                   )}
                 </div>

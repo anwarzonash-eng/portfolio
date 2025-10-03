@@ -150,7 +150,15 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
           <div className="bg-white max-w-[1550px] w-full mx-auto flex items-center justify-center">
             {/* Timeline items Container */}
             <div className="space-y-[3.5rem] print:space-y-0">
-              {listOfdata?.portfolios_ids?.map((portfolio, index) => {
+              {Array.from(
+                // Dedupe by id while preserving order
+                new Map(
+                  (listOfdata?.portfolios_ids || []).map((p) => [
+                    String(p?.id),
+                    p,
+                  ])
+                ).values()
+              ).map((portfolio: any, index: number) => {
                 const skills: {
                   [key: string]: {
                     title: string;
@@ -165,7 +173,7 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
                 return (
                   <section
                     className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative bg-white"
-                    key={index}
+                    key={String(portfolio?.id) || index}
                   >
                     <NoteDomainForPint
                       direction={"hidden print:right-0 print:block"}
@@ -178,6 +186,7 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
                         companyType={listOfdata?.companytype}
                         locationLink={`/?sectionId=myWork`}
                         portfolioId={portfolio?.id}
+                        pageOrientation="portrait"
                         from={0}
                         max={1}
                       />

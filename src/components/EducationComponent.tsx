@@ -23,7 +23,7 @@ const EducationComponent: React.FC = () => {
   const [error, setError] = useState<string | null>(cache.error ?? null);
   const [loading, setLoading] = useState(!cache.listOfdata);
 
-  console.log("Data:", listOfdata);
+  // console.log("Data:", listOfdata);
 
   /** STEP 1: derive URL info once (Asynchronously) */
   useEffect(() => {

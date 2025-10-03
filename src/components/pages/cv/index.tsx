@@ -82,6 +82,8 @@ const CV = ({ params }: { params: any }) => {
   useEffect(() => {
     const sectionId = searchParams.get("sectionId");
     const experienceId = searchParams.get("experienceId");
+    const expandParam = searchParams.get("expand");
+    const scrollTo = searchParams.get("scrollTo");
 
     if (experienceId) {
       setHighlightedExperienceId(experienceId); // Highlight the specific experience
@@ -98,6 +100,15 @@ const CV = ({ params }: { params: any }) => {
       }, 100); // Small delay to ensure DOM is rendered
     } else if (sectionId) {
       SmoothScroll(sectionId);
+    } else {
+      // If expand=true and scrollTo=experiences is provided, expand the experiences list and scroll
+      if (expandParam === "true" && scrollTo === "experiences") {
+        setShowAllExperiences(true);
+        // Small timeout to allow DOM to render before scrolling
+        setTimeout(() => {
+          SmoothScroll("experienceSection");
+        }, 120);
+      }
     }
   }, [searchParams, listOfdata]);
 
@@ -132,7 +143,7 @@ const CV = ({ params }: { params: any }) => {
     fetchRoutes();
   }, [params, searchParams]);
 
-  console.log(urlInfo);
+  // console.log(urlInfo);
 
   useEffect(() => {
     if (urlInfo) {

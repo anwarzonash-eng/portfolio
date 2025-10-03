@@ -37,7 +37,7 @@ const SkillsComponent = ({ service, skillsList, index = 0 }) => {
                       target="_blank"
                       rel="noopener noreferrer"
                       style={{
-                        animationDelay: `${i * 0.1}s`,
+                        animationDelay: `${i * 0.03}s`,
                       }}
                       className="hover:bg-primary capitaliz  print:!py-[1px] hover:text-white text-center text-primary text-[1.3rem] font-medium  py-[0.4rem] px-[2rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
                     >

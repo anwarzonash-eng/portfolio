@@ -485,6 +485,7 @@ const ContactMe = ({ listOfdata }) => {
                           <Link
                             href={`https://wa.me/${listOfdata?.phone_no}`}
                             target="_blank"
+                            className="flex items-center justify-center"
                           >
                             <Image
                               alt="WhatsApp"

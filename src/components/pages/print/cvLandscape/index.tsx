@@ -56,21 +56,12 @@ const CV_Landscape = ({ params }: { params: any }) => {
   );
 
   const router = useRouter();
-  // Navigate to portfolio detail page -> skills section
-  const handleSeeMore = () => {
-    // Navigate to portfolio detail with skills section scroll
-    router.push(
-      `/portfolio/${listOfdata?.portfolios_ids[0]?.id}?scroll=skills`
-    );
-  };
-
-  const handleViewMore = () => {
-    router.push("/?scrollTo=experiences&expand=true");
-  };
 
   // Filter skills based on listOfdata.skills_ids
   const [allSkills, setAllSkills] = useState([]);
   const [filteredSkills, setFilteredSkills] = useState([]);
+  // Count of skills/list items in the skills HTML (used to decide whether to show Read More)
+  const [skillsListCount, setSkillsListCount] = useState<number>(0);
 
   useEffect(() => {
     if (listOfdata?.skills_ids && allSkills.length > 0) {
@@ -80,6 +71,17 @@ const CV_Landscape = ({ params }: { params: any }) => {
       setFilteredSkills(matchedSkills);
     }
   }, [listOfdata, allSkills]);
+
+  // Count <li> occurrences in the skills HTML to determine whether the Read More button is needed
+  useEffect(() => {
+    try {
+      const skillsHtml = listOfdata?.skills || "";
+      const matches = skillsHtml.match(/<li\b/gi);
+      setSkillsListCount(matches ? matches.length : 0);
+    } catch (e) {
+      setSkillsListCount(0);
+    }
+  }, [listOfdata?.skills]);
 
   useEffect(() => {
     handleSkillsApiCall({ setListOfSkills: setAllSkills });
@@ -287,12 +289,15 @@ const CV_Landscape = ({ params }: { params: any }) => {
                             ),
                           }}
                         ></div>
-                        <Link
-                          href={"/cv"}
-                          className="px-[4rem] py-[1.4rem] bg-primary rounded-[2.2rem] hover:bg-white hover:text-primary hover:border-primary border border-border border-solid text-center max-w-max text-white text-[1.4rem] font-medium font-Inter leading-tight my-[2.5rem] block"
-                        >
-                          Read More
-                        </Link>
+                        {/** Only show Read More when actual list items exceed visible print limit **/}
+                        {skillsListCount > 9 && (
+                          <Link
+                            href={"/cv"}
+                            className="px-[4rem] py-[1.4rem] bg-primary rounded-[2.2rem] hover:bg-white hover:text-primary hover:border-primary border border-border border-solid text-center max-w-max text-white text-[1.4rem] font-medium font-Inter leading-tight my-[2.5rem] block"
+                          >
+                            Read More
+                          </Link>
+                        )}
                       </div>
                     )}
                   </div>
@@ -656,13 +661,13 @@ const CV_Landscape = ({ params }: { params: any }) => {
                                                           </React.Fragment>
                                                         )
                                                       )}
-                                                      <button
-                                                        onClick={handleSeeMore}
+                                                      <Link
+                                                        href={`/portfolio/${listOfdata?.portfolios_ids[0]?.id}?scroll=skills`}
                                                         className="hover:bg-white bg-primary text-white hover:text-primary capitalize text-center text-primary 
                                                           text-[1.2rem] font-medium py-[0.4rem] px-[1.5rem] inline-flex items-center justify-center gap-[8px] rounded-[5rem] shadow opacity-0 animate-fadeIn relative group border border-transparent hover:border-primary"
                                                       >
                                                         Show More Skills
-                                                      </button>
+                                                      </Link>
                                                     </div>
                                                   </div>
                                                 </div>
@@ -683,7 +688,7 @@ const CV_Landscape = ({ params }: { params: any }) => {
 
               {listOfdata && listOfdata?.experiences_ids?.length > 0 && (
                 <>
-                  {/* Professional Experience Timeline Section 1✅ */}
+                  {/* Professional Experience Timeline Section 2✅ */}
                   <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center p-[4rem] relative">
                     {/* Note and Domain For Each Page */}
                     <NoteDomainForPint
@@ -915,13 +920,13 @@ const CV_Landscape = ({ params }: { params: any }) => {
                                                           </React.Fragment>
                                                         )
                                                       )}
-                                                      <button
-                                                        onClick={handleSeeMore}
+                                                      <Link
+                                                        href={`/portfolio/${listOfdata?.portfolios_ids[0]?.id}?scroll=skills`}
                                                         className="hover:bg-white bg-primary text-white hover:text-primary capitalize text-center text-primary 
                                                           text-[1.2rem] font-medium py-[0.4rem] px-[1.5rem] inline-flex items-center justify-center gap-[8px] rounded-[5rem] shadow opacity-0 animate-fadeIn relative group border border-transparent hover:border-primary"
                                                       >
                                                         Show More Skills
-                                                      </button>
+                                                      </Link>
                                                     </div>
                                                   </div>
                                                 </div>
@@ -942,7 +947,7 @@ const CV_Landscape = ({ params }: { params: any }) => {
 
               {listOfdata && listOfdata?.experiences_ids?.length > 0 && (
                 <>
-                  {/* Professional Experience Timeline Section 1✅ */}
+                  {/* Professional Experience Timeline Section 3✅ */}
                   <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center p-[4rem] relative">
                     {/* Note and Domain For Each Page */}
                     <NoteDomainForPint
@@ -1174,13 +1179,13 @@ const CV_Landscape = ({ params }: { params: any }) => {
                                                           </React.Fragment>
                                                         )
                                                       )}
-                                                      <button
-                                                        onClick={handleSeeMore}
+                                                      <Link
+                                                        href={`/portfolio/${listOfdata?.portfolios_ids[0]?.id}?scroll=skills`}
                                                         className="hover:bg-white bg-primary text-white hover:text-primary capitalize text-center text-primary 
                                                           text-[1.2rem] font-medium py-[0.4rem] px-[1.5rem] inline-flex items-center justify-center gap-[8px] rounded-[5rem] shadow opacity-0 animate-fadeIn relative group border border-transparent hover:border-primary"
                                                       >
                                                         Show More Skills
-                                                      </button>
+                                                      </Link>
                                                     </div>
                                                   </div>
                                                 </div>
@@ -1195,12 +1200,12 @@ const CV_Landscape = ({ params }: { params: any }) => {
                         </div>
                       </div>
                       <div className="flex justify-center mt-8">
-                        <button
-                          onClick={handleViewMore}
+                        <Link
+                          href={`/cv?scrollTo=experiences&expand=true`}
                           className="btn-primary text-white py-[1rem] px-[3.4rem] text-[1.8rem] font-medium"
                         >
                           View All Experiences
-                        </button>
+                        </Link>
                       </div>
                     </div>
                   </section>
@@ -1283,6 +1288,7 @@ const CV_Landscape = ({ params }: { params: any }) => {
                             companyType={listOfdata?.companytype}
                             locationLink={`/?sectionId=myWork`}
                             portfolioId={listOfdata?.portfolios_ids[0]?.id}
+                            pageOrientation="landscape"
                             from={0}
                             max={1}
                           />
@@ -1337,6 +1343,7 @@ const CV_Landscape = ({ params }: { params: any }) => {
                             companyType={listOfdata?.companytype}
                             locationLink={`/?sectionId=myWork`}
                             portfolioId={listOfdata?.portfolios_ids[0]?.id}
+                            pageOrientation="landscape"
                             from={1}
                             max={2}
                           />
@@ -1391,6 +1398,7 @@ const CV_Landscape = ({ params }: { params: any }) => {
                             companyType={listOfdata?.companytype}
                             locationLink={`/?sectionId=myWork`}
                             portfolioId={listOfdata?.portfolios_ids[0]?.id}
+                            pageOrientation="landscape"
                             from={2}
                             max={3}
                           />

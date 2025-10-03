@@ -34,6 +34,7 @@ const PortfolioListing = ({ params }: { params: any }) => {
   );
   const [loading, setLoading] = useState(true);
   const searchParams = useSearchParams();
+  const hasOpenedFromQueryRef = React.useRef(false);
 
   // Filter skills based on listOfdata.skills_ids
   const [allSkills, setAllSkills] = useState([]);
@@ -76,6 +77,33 @@ const PortfolioListing = ({ params }: { params: any }) => {
       });
     }
   }, [urlInfo]);
+
+  // If the URL includes openGallery=true and a sectionId, open the modal
+  // for that portfolio once data has loaded.
+  useEffect(() => {
+    try {
+      const openGallery = searchParams.get("openGallery");
+      const sectionId = searchParams.get("sectionId");
+
+      if (
+        openGallery === "true" &&
+        sectionId &&
+        listOfdata?.portfolios_ids &&
+        !hasOpenedFromQueryRef.current
+      ) {
+        const found = listOfdata.portfolios_ids.find(
+          (p) => String(p.id) === String(sectionId)
+        );
+        if (found) {
+          // openModal expects (pictures, thumbnail, child_hero_banner)
+          openModal(found.pictures, found.thumbnail, found.child_hero_banner);
+          hasOpenedFromQueryRef.current = true;
+        }
+      }
+    } catch (e) {
+      // ignore parse/open errors
+    }
+  }, [searchParams, listOfdata]);
 
   useBodyBackgroundColor("#EFF5FD");
 
@@ -175,7 +203,14 @@ const PortfolioListing = ({ params }: { params: any }) => {
                 <div className="absolute left-[-1rem] print:hidden lg:left-[1rem] top-0 w-[2px] h-[100%] bg-[#7B869E;] mx-[2.1rem] " />
                 {/* Timeline items Container */}
                 <div className="space-y-[3.5rem]">
-                  {listOfdata?.portfolios_ids?.map((portfolio, index) => {
+                  {Array.from(
+                    new Map(
+                      (listOfdata?.portfolios_ids || []).map((p) => [
+                        String(p?.id),
+                        p,
+                      ])
+                    ).values()
+                  ).map((portfolio: any, index: number) => {
                     const skills: {
                       [key: string]: {
                         title: string;
@@ -190,7 +225,7 @@ const PortfolioListing = ({ params }: { params: any }) => {
                     return (
                       <div
                         className="relative flex items-start portfolio-item w-full"
-                        key={index}
+                        key={String(portfolio?.id) || index}
                       >
                         {/* Dot */}
                         <div className="absolute top-0 left-0 lg:left-[1.8rem] print:hidden ">

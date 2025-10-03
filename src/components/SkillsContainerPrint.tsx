@@ -59,8 +59,13 @@ const SkillsContainerPrint: React.FC<SkillsContainerPrintProps> = ({
   const router = useRouter();
   // Navigate to portfolio detail page -> skills section
   const handleSeeMore = () => {
-    // Navigate to portfolio detail with skills section scroll
-    router.push(`/portfolio/${portfolioId}?scroll=skills`);
+    // Navigate directly to the portfolio detail route so the skills scroll works on that page
+    if (portfolioId) {
+      router.push(`/portfolio/${portfolioId}?scroll=skills`);
+    } else {
+      // Fallback to the portfolio listing if no id is available
+      router.push(`/portfolio`);
+    }
   };
 
   // Generate grid columns class dynamically
@@ -78,28 +83,33 @@ const SkillsContainerPrint: React.FC<SkillsContainerPrintProps> = ({
                 target="_blank"
                 key={`${groupIndex}-${i}`}
                 style={{ animationDelay: `${i * 0.03}s` }}
-                className="mx-auto mb-[4rem] flex items-center justify-center flex-col gap-[0.8rem] max-w-[12rem] w-full animate-fadeIn opacity-0"
+                className="mx-auto mb-[4rem] flex flex-col items-center gap-[0.8rem] max-w-[12rem] w-full animate-fadeIn opacity-0"
               >
                 {skill.icon && (
                   <div
                     className="flex items-center justify-center 
                   h-[6.5rem] w-[6.5rem] print:h-[4.5rem] print:w-[4.5rem]"
+                    style={{
+                      // ensure the icon container doesn't grow when title wraps
+                      flex: "0 0 auto",
+                    }}
                   >
                     <Image
                       src={skill.icon}
                       alt={skill.title}
                       height={200}
                       width={200}
-                      className="object-cover h-full w-full"
+                      className="object-contain h-full w-full"
                     />
                   </div>
                 )}
-                <p
-                  className="mt-[1rem] text-paragraph1 text-center text-[1.8rem] 
-                leading-[2rem] overflow-hidden text-ellipsis"
-                >
-                  {skill.title}
-                </p>
+
+                {/* Title area: fixed min-height so image alignment stays consistent even when title wraps */}
+                <div className="mt-[1rem] min-h-[4.2rem] flex items-center justify-center px-2 text-center">
+                  <p className="text-paragraph1 text-[1.8rem] leading-[2rem] overflow-hidden text-ellipsis">
+                    {skill.title}
+                  </p>
+                </div>
               </Link>
             ))}
           </React.Fragment>
