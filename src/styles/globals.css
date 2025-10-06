@@ -304,8 +304,8 @@ body {
   content: "•"; /* Custom bullet for unordered lists */
   position: absolute;
   left: -2rem; /* Adjust this to control the marker's horizontal position */
-  top: 0.1rem; /* Adjust vertical alignment */
-  font-size: 1.7em; /* Match the marker size */
+  top: -0.2rem; /* Adjust vertical alignment */
+  font-size: 1.5em; /* Match the marker size */
 }
 
 .list-div ol li::before {

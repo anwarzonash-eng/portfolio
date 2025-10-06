@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import React, { useState } from "react";
 
 const SliderXL = ({ portfolioPictures }) => {
@@ -20,16 +21,18 @@ const SliderXL = ({ portfolioPictures }) => {
       <div className="relative w-full overflow-hidden rounded-[1.6rem]">
         {/* Slider container */}
         <div
-          className="flex transition-transform max-h-[700px] duration-700 rounded-[1.6rem]"
+          className="flex transition-transform h-[200px] lg:h-[700px] duration-700 rounded-[1.6rem]"
           style={{ transform: `translateX(-${currentSlide * 100}%)` }}
         >
           {images.map((img, index) => (
-            <img
-              key={index}
-              src={img}
-              alt={`Slide ${index + 1}`}
-              className="w-full rounded-[1.6rem] flex-shrink-0 object-fill 
-              border border-solid border-border"
+            <Image
+            height={1500}
+            width={3000}
+            key={index}
+            src={img}
+            alt={`Slide ${index + 1}`}
+            className="w-full h-full rounded-[1.6rem] flex-shrink-0 
+            object-fill border border-solid border-border"
             />
           ))}
         </div>
