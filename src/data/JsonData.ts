@@ -181,365 +181,414 @@ export const FaqsData = [
 ];
 export const FaqsDataUpdated = [
   {
-    "id": "8bc33b51-204f-4a85-9242-4a38c73e35aa",
-    "name": "Usman",
-    "faqs": [
+    id: "8bc33b51-204f-4a85-9242-4a38c73e35aa",
+    name: "Usman",
+    faqs: [
       {
-        "index": 0,
-        "type": "u",
-        "question": "How do you handle hiring a freelance developer?",
-        "answer": "Hiring me is straightforward! After you contact me with your project requirements, we’ll have a discussion to understand your goals, scope, and timeline. I’ll then provide a detailed estimate and a plan. Once we agree, I’ll begin working and keep you informed with regular updates.",
-        "altName": "Hiring"
+        index: 0,
+        type: "u",
+        question: "How do you handle hiring a freelance developer?",
+        answer:
+          "Hiring me is straightforward! After you contact me with your project requirements, we’ll have a discussion to understand your goals, scope, and timeline. I’ll then provide a detailed estimate and a plan. Once we agree, I’ll begin working and keep you informed with regular updates.",
+        altName: "Hiring",
       },
       {
-        "index": 1,
-        "type": "u",
-        "question": "Can I get a free trial to evaluate your skills?",
-        "answer": "Yes! To ensure you're confident in my abilities, I offer a 2-week free trial. This allows you to evaluate my development skills, work style, and how well I meet your project needs without any commitment.",
-        "altName": "Trial"
+        index: 1,
+        type: "u",
+        question: "Can I get a free trial to evaluate your skills?",
+        answer:
+          "Yes! To ensure you're confident in my abilities, I offer a 2-week free trial. This allows you to evaluate my development skills, work style, and how well I meet your project needs without any commitment.",
+        altName: "Trial",
       },
       {
-        "index": 2,
-        "type": "u",
-        "question": "How do you track project progress?",
-        "answer": "I use project management tools like Trello, Asana, or Monday.com to give you full visibility. You’ll receive weekly updates and milestone reports, and you can track my work in real-time. I also provide live communication via email or WhatsApp for any quick questions.",
-        "altName": "Tracking"
+        index: 2,
+        type: "u",
+        question: "How do you track project progress?",
+        answer:
+          "I use project management tools like Trello, Asana, or Monday.com to give you full visibility. You’ll receive weekly updates and milestone reports, and you can track my work in real-time. I also provide live communication via {email_link}email{end} or {whatsapp_link}WhatsApp{end} for any quick questions.",
+        altName: "Tracking",
       },
       {
-        "index": 3,
-        "type": "u",
-        "question": "What payment methods do you accept?",
-        "answer": "I accept a variety of payment methods, including PayPal, Stripe, Payoneer, and direct bank transfers. We can choose the most convenient option for you during our initial project discussion.",
-        "altName": "Payment"
+        index: 3,
+        type: "a",
+        question: "What payment methods do you accept?",
+        answer:
+          "I accept a variety of payment methods, including PayPal, Stripe, Payoneer, and direct bank transfers. We can choose the most convenient option for you during our initial project discussion.",
+        altName: "Payment",
       },
       {
-        "index": 4,
-        "type": "u",
-        "question": "What if I need changes after the project is finished?",
-        "answer": "I understand that revisions may be needed. I offer flexible post-project support and maintenance services. We can set up a maintenance plan or handle changes on an as-needed basis, depending on your requirements.",
-        "altName": "Revisions"
+        index: 4,
+        type: "u",
+        question: "What if I need changes after the project is finished?",
+        answer:
+          "I understand that revisions may be needed. I offer flexible post-project support and maintenance services. We can set up a maintenance plan or handle changes on an as-needed basis, depending on your requirements.",
+        altName: "Revisions",
       },
       {
-        "index": 5,
-        "type": "u",
-        "question": "How do you ensure the work is delivered on time?",
-        "answer": "I follow a structured timeline with clear milestones. We'll agree on deadlines from the start, and I’ll provide regular progress updates to ensure we stay on track. My 2-week free trial is also a great way to see my efficiency firsthand.",
-        "altName": "Timeliness"
+        index: 5,
+        type: "u",
+        question: "How do you ensure the work is delivered on time?",
+        answer:
+          "I follow a structured timeline with clear milestones. We'll agree on deadlines from the start, and I’ll provide regular progress updates to ensure we stay on track. My 2-week free trial is also a great way to see my efficiency firsthand.",
+        altName: "Timeliness",
       },
       {
-        "index": 6,
-        "type": "u",
-        "question": "How do I start using your services?",
-        "answer": "Getting started is simple! You can book a call using my Calendly link, click the quick chat button on my site, or contact me via email, WhatsApp, or the contact form. I’ll respond promptly to discuss your project.",
-        "altName": "Starting"
+        index: 6,
+        type: "u",
+        question: "How do I start using your services?",
+        answer:
+          "Getting started is simple! You can book a call using my {calendly_link}Calendly link{end}, click the quick chat button on my {website_link}site{end}, or contact me via {email_link}email{end}, {whatsapp_link}WhatsApp{end}, or the contact form. I’ll respond promptly to discuss your project.",
+        altName: "Starting",
       },
       {
-        "index": 7,
-        "type": "u",
-        "question": "Can I hire you through Upwork?",
-        "answer": "Yes, I have a verified Upwork profile where you can review my job history, ratings, and client feedback. If you prefer, just search for my profile and invite me to your project to start the conversation.",
-        "altName": "Upwork"
+        index: 7,
+        type: "u",
+        question: "Can I hire you through Upwork?",
+        answer:
+          "Yes, I have a verified {upwork_profile_link}Upwork profile{end} where you can review my job history, ratings, and client feedback. If you prefer, just search for my profile and invite me to your project to start the conversation.",
+        altName: "Upwork",
       },
       {
-        "index": 8,
-        "type": "u",
-        "question": "What is your development process?",
-        "answer": "My process begins with a deep consultation to understand your needs. I then move into project planning, wireframing, and design. After your approval, I start development, followed by thorough testing and deployment. I keep communication open and offer you opportunities for feedback at key stages.",
-        "altName": "Development_process"
+        index: 8,
+        type: "u",
+        question: "What is your development process?",
+        answer:
+          "My process begins with a deep consultation to understand your needs. I then move into project planning, wireframing, and design. After your approval, I start development, followed by thorough testing and deployment. I keep communication open and offer you opportunities for feedback at key stages.",
+        altName: "Development_process",
       },
       {
-        "index": 9,
-        "type": "u",
-        "question": "What is your bookkeeping process?",
-        "answer": "My bookkeeping process starts with a consultation to understand your financial goals. I then organize your data, set up accounting systems, and manage your records. My focus is on maintaining accuracy, followed by regular reviews and reporting. I ensure you can review and provide feedback at key stages.",
-        "altName": "bookkeeping_process"
+        index: 9,
+        type: "u",
+        question: "What is your bookkeeping process?",
+        answer:
+          "My bookkeeping process starts with a consultation to understand your financial goals. I then organize your data, set up accounting systems, and manage your records. My focus is on maintaining accuracy, followed by regular reviews and reporting. I ensure you can review and provide feedback at key stages.",
+        altName: "bookkeeping_process",
       },
       {
-        "index": 10,
-        "type": "u",
-        "question": "Do you have a LinkedIn profile?",
-        "answer": "Yes! You can explore my professional journey, skills, and recommendations on my LinkedIn profile. It's an excellent way to see my credibility and connect with me directly.",
-        "altName": "LinkedIn"
+        index: 10,
+        type: "u",
+        question: "Do you have a LinkedIn profile?",
+        answer:
+          "Yes! You can explore my professional journey, skills, and recommendations on my {linked_profile_link}LinkedIn profile{end}. It's an excellent way to see my credibility and connect with me directly.",
+        altName: "LinkedIn",
       },
       {
-        "index": 11,
-        "type": "u",
-        "question": "Can I see your work on GitHub?",
-        "answer": "Absolutely! My GitHub profile showcases real-world projects, code samples, and contributions. It’s the perfect place to evaluate my coding style and technical depth.",
-        "altName": "GitHub"
-      }
-    ]
+        index: 11,
+        type: "u",
+        question: "Can I see your work on GitHub?",
+        answer:
+          "Absolutely! My {github_profile_link}GitHub profile{end} showcases real-world projects, code samples, and contributions. It’s the perfect place to evaluate my coding style and technical depth.",
+        altName: "GitHub",
+      },
+    ],
   },
   {
-    "id": "df980eb7-8f8a-4e5c-adf2-37b23e5153ff",
-    "name": "Ahmed",
-    "faqs": [
+    id: "df980eb7-8f8a-4e5c-adf2-37b23e5153ff",
+    name: "Ahmad",
+    faqs: [
       {
-        "index": 0,
-        "type": "all",
-        "question": "How does hiring a freelance developer work?",
-        "answer": "The process is straightforward. We'll start with a chat to understand your project, scope, and goals. I'll then provide a detailed plan and a cost estimate. Once we agree on terms, I'll begin work and keep you updated on progress.",
-        "altName": "Hiring"
+        index: 0,
+        type: "all",
+        question:
+          "What’s the process for hiring a freelance developer like me?",
+        answer:
+          "It’s simple. We’ll start with a quick chat to outline your goals, scope, and timeline. I’ll then share a plan with clear deliverables and pricing. Once everything’s approved, I’ll get started and keep you updated as the work progresses.",
+        altName: "Hiring",
       },
       {
-        "index": 1,
-        "type": "all",
-        "question": "Do you offer a free trial to evaluate your skills?",
-        "answer": "Yes. To give you peace of mind, I offer a 2-week free trial. This allows you to assess my development abilities, work style, and see how well I can meet your project requirements before making any financial commitment.",
-        "altName": "Trial"
+        index: 1,
+        type: "all",
+        question: "Do you offer a free trial before starting?",
+        answer:
+          "Yes, I do. You can start with a 2-week free trial to see how I work, evaluate my development skills, and check how well I align with your project needs — no upfront cost involved.",
+        altName: "Trial",
       },
       {
-        "index": 2,
-        "type": "all",
-        "question": "How will I track my project's progress?",
-        "answer": "I use dedicated project management tools like Trello, Asana, or Monday.com to give you complete visibility. You'll receive weekly updates and milestone reports, and you can monitor the work in real-time. I also provide communication via email or WhatsApp for quick questions.",
-        "altName": "Tracking"
+        index: 2,
+        type: "all",
+        question: "How can I monitor the progress of my project?",
+        answer:
+          "I use project management tools like Trello, Asana, and Monday.com to keep everything transparent. You’ll get regular updates, milestone reports, and access to real-time progress. You can also reach me directly via {email_link}email{end} or {whatsapp_link}WhatsApp{end} whenever needed.",
+        altName: "Tracking",
       },
       {
-        "index": 3,
-        "type": "all",
-        "question": "What payment methods do you accept?",
-        "answer": "I accept multiple payment options, including PayPal, Stripe, Payoneer, and direct bank transfers. We can discuss and choose the most convenient method for you at the beginning of the project.",
-        "altName": "Payment"
+        index: 3,
+        type: "all",
+        question: "Which payment options do you support?",
+        answer:
+          "I accept multiple methods — PayPal, Stripe, Payoneer, and direct bank transfers. During our initial call, we’ll decide on whichever option works best for you.",
+        altName: "Payment",
       },
       {
-        "index": 4,
-        "type": "all",
-        "question": "What if I need revisions after the project is completed?",
-        "answer": "Revisions or tweaks are sometimes necessary. I provide flexible post-project support, including updates and maintenance services. We can set up a formal maintenance plan or simply handle changes on an ad-hoc basis, depending on your needs.",
-        "altName": "Revisions"
+        index: 4,
+        type: "all",
+        question: "What if I want changes after delivery?",
+        answer:
+          "That’s not a problem. I provide ongoing support even after the project wraps up. You can choose between a fixed maintenance plan or request updates whenever needed — totally flexible.",
+        altName: "Revisions",
       },
       {
-        "index": 5,
-        "type": "all",
-        "question": "How do you ensure timely delivery?",
-        "answer": "I work with a structured timeline with clear milestones and deadlines for each phase. I'll provide regular progress updates to ensure we stay on schedule. My 2-week free trial is also a great way to verify my efficiency.",
-        "altName": "Timeliness"
+        index: 5,
+        type: "all",
+        question: "How do you make sure projects are delivered on time?",
+        answer:
+          "I set clear milestones and stick to a defined timeline from day one. You’ll get regular progress updates to stay informed. My 2-week trial is also a good way to see how efficiently I work.",
+        altName: "Timeliness",
       },
       {
-        "index": 6,
-        "type": "all",
-        "question": "How do I start with your services?",
-        "answer": "Getting started is easy! You can schedule a call through my Calendly link, click the quick chat button on my website, or contact me via email or WhatsApp. I will respond quickly to discuss your project.",
-        "altName": "Starting"
+        index: 6,
+        type: "all",
+        question: "How do I get started with your services?",
+        answer:
+          "Getting started is easy. You can schedule a call through my {calendly_link}Calendly link{end}, use the chat button on my {website_link}website{end}, or reach me via {email_link}email{end} or {whatsapp_link}WhatsApp{end}. I usually reply quickly to discuss your project details.",
+        altName: "Starting",
       },
       {
-        "index": 7,
-        "type": "all",
-        "question": "Can I hire you on Upwork?",
-        "answer": "Yes, I have a verified profile on Upwork. You can view my job history, ratings, and client feedback there. If you prefer to hire me through Upwork, just find my profile and we can start the project conversation there.",
-        "altName": "Upwork"
+        index: 7,
+        type: "all",
+        question: "Is it possible to hire you through Upwork?",
+        answer:
+          "Yes. I have a verified {upwork_profile_link}Upwork profile{end} where you can view my portfolio, reviews, and job history. If you prefer working through Upwork, simply send me an invite and we’ll start there.",
+        altName: "Upwork",
       },
       {
-        "index": 8,
-        "type": "all",
-        "question": "What is your development process?",
-        "answer": "My process starts with a consultation to understand your needs. Then, I create a project plan, wireframes, and design concepts. Once approved, I begin development, followed by thorough testing and deployment. I keep communication open and give you opportunities to provide feedback at key stages.",
-        "altName": "Development_process"
+        index: 8,
+        type: "all",
+        question: "Can you describe your development process?",
+        answer:
+          "My workflow starts with understanding your requirements in detail. Then I prepare a project plan, design mockups, and get your approval. Once confirmed, I handle development, testing, and deployment — keeping communication open at every step.",
+        altName: "Development_process",
       },
       {
-        "index": 9,
-        "type": "all",
-        "question": "What is your bookkeeping process?",
-        "answer": "My bookkeeping process starts with an in-depth consultation to understand your financial needs. I'll then organize your financial data, set up accounting systems, and manage your records. I focus on accurate bookkeeping and provide thorough reviews and reports, ensuring you can review and provide feedback at key stages.",
-        "altName": "bookkeeping_process"
+        index: 9,
+        type: "all",
+        question: "How do you manage bookkeeping projects?",
+        answer:
+          "For bookkeeping, I begin with a detailed discussion to understand your financial structure. After that, I organize records, implement accounting tools, and ensure everything stays accurate with regular reviews and reports.",
+        altName: "bookkeeping_process",
       },
       {
-        "index": 10,
-        "type": "all",
-        "question": "Do you have a LinkedIn profile?",
-        "answer": "Yes! You can explore my professional experience, skills, and recommendations on my LinkedIn profile. It's an excellent way to see my credibility and connect directly.",
-        "altName": "LinkedIn"
+        index: 10,
+        type: "all",
+        question: "Can I find you on LinkedIn?",
+        answer:
+          "Yes, you can. My {linked_profile_link}LinkedIn profile{end} highlights my experience, professional background, and recommendations. It’s a great way to learn more about my work and connect directly.",
+        altName: "LinkedIn",
       },
       {
-        "index": 11,
-        "type": "all",
-        "question": "Do you have a GitHub profile?",
-        "answer": "Absolutely! My GitHub profile showcases my real-world projects, code samples, and contributions. It’s the perfect place to assess my coding style and technical proficiency.",
-        "altName": "GitHub"
-      }
-    ]
+        index: 11,
+        type: "all",
+        question: "Where can I see your code work?",
+        answer:
+          "You can check my {github_profile_link}GitHub profile{end} to explore my projects, repositories, and contributions. It’s the best place to see my technical approach and code quality in real-world work.",
+        altName: "GitHub",
+      },
+    ],
   },
   {
-    "id": "700bcf43-9158-4874-9747-74093d2ed9d1",
-    "name": "Usama",
-    "faqs": [
+    id: "700bcf43-9158-4874-9747-74093d2ed9d1",
+    name: "Usama",
+    faqs: [
       {
-        "index": 0,
-        "type": "not_u",
-        "question": "How does hiring a freelance developer work?",
-        "answer": "The process is straightforward. First, you'll contact me with your project requirements. We'll have a discussion to understand your goals, scope, and timeline. I'll then provide a detailed proposal and plan. Once we agree, I'll begin the work, keeping you updated with regular progress reports.",
-        "altName": "Hiring"
+        index: 0,
+        type: "not_u",
+        question: "What’s the process of hiring you for a project?",
+        answer:
+          "It starts with a quick chat about your project goals and requirements. Once I understand your scope, I’ll share a detailed proposal and estimated cost. After we agree on terms, I begin development and keep you updated with regular progress reports until completion.",
+        altName: "Hiring",
       },
       {
-        "index": 1,
-        "type": "not_u",
-        "question": "Do you offer a free trial to evaluate your skills?",
-        "answer": "Yes, to ensure the quality of my services and to help you assess my skills, I offer a 2-week free trial. This allows you to evaluate my development abilities, work style, and how well I meet your project needs without any upfront commitment.",
-        "altName": "Trial"
+        index: 1,
+        type: "not_u",
+        question: "Can I test your skills before committing?",
+        answer:
+          "Yes, I offer a 2-week free trial so you can get a feel for my work quality, communication style, and speed before making any payment. It’s a no-risk way to see if I’m the right fit for your project.",
+        altName: "Trial",
       },
       {
-        "index": 2,
-        "type": "not_u",
-        "question": "How do I track the progress of my project?",
-        "answer": "I use project management tools like Trello, Asana, or Monday.com to provide full visibility. You’ll receive weekly updates and milestone reports, and can track the work in real-time. I also maintain open communication via email or WhatsApp to answer any immediate questions.",
-        "altName": "Tracking"
+        index: 2,
+        type: "not_u",
+        question: "How will I know what progress is being made?",
+        answer:
+          "I use tools like Trello, Asana, or Monday.com to give you full transparency on each task. You’ll get weekly updates and milestone reports. You can also message me anytime through {email_link}email{end} or {whatsapp_link}WhatsApp{end} for quick updates.",
+        altName: "Tracking",
       },
       {
-        "index": 3,
-        "type": "not_u",
-        "question": "What payment methods do you accept?",
-        "answer": "I accept a variety of payment methods, including PayPal, Stripe, Payoneer, and direct bank transfers. During our initial discussion, we can choose the most convenient payment option for you.",
-        "altName": "Payment"
+        index: 3,
+        type: "not_u",
+        question: "Which payment methods can I use?",
+        answer:
+          "You can pay through PayPal, Stripe, Payoneer, or direct bank transfer — whatever works best for you. We’ll confirm the preferred option before starting the project.",
+        altName: "Payment",
       },
       {
-        "index": 4,
-        "type": "not_u",
-        "question": "What if I need changes after the project is completed?",
-        "answer": "I understand that revisions or tweaks may be needed. I offer flexible post-project support, including updates and maintenance services. We can set up a maintenance plan or handle changes on an ad-hoc basis, depending on your needs.",
-        "altName": "Revisions"
+        index: 4,
+        type: "not_u",
+        question: "Can I request updates after delivery?",
+        answer:
+          "Of course. I offer flexible post-project support for revisions, updates, and maintenance. You can either choose a small monthly maintenance plan or handle tweaks as needed — whatever fits your workflow.",
+        altName: "Revisions",
       },
       {
-        "index": 5,
-        "type": "not_u",
-        "question": "How do you ensure the work will be delivered on time?",
-        "answer": "I follow a structured timeline with clear milestones. We'll agree on deadlines for each phase of the project from the start. I’ll also provide regular progress updates to ensure we are on track. If you're unsure about my efficiency, you can use my 2-week free trial to see how I work firsthand.",
-        "altName": "Timeliness"
+        index: 5,
+        type: "not_u",
+        question: "How do you make sure projects finish on schedule?",
+        answer:
+          "I plan every project around clear milestones and deliverables. You’ll get timeline updates at each stage. My 2-week free trial also helps you gauge my speed and consistency early on.",
+        altName: "Timeliness",
       },
       {
-        "index": 6,
-        "type": "not_u",
-        "question": "How do I start with your services?",
-        "answer": "Getting started is simple! You can schedule a call using my Calendly link, click on the quick chat button in the bottom right corner, or contact me via email, WhatsApp, or the contact form on my website. I’ll respond promptly during my working hours to discuss your project.",
-        "altName": "Starting"
+        index: 6,
+        type: "not_u",
+        question: "What’s the best way to get started with you?",
+        answer:
+          "You can schedule a meeting through {calendly_link}Calendly link{end}, start a chat on my {website_link}website{end}, or message me directly via {email_link}email{end} or {whatsapp_link}WhatsApp{end}. I’ll get back to you quickly to discuss your idea and next steps.",
+        altName: "Starting",
       },
       {
-        "index": 7,
-        "type": "not_u",
-        "question": "Can I hire you on Upwork?",
-        "answer": "Yes, I have a verified profile on Upwork, where you can review my job history, ratings, and client feedback. If you'd prefer to hire me through Upwork, just search for my profile, invite me to your project, and we can start the conversation there.",
-        "altName": "Upwork"
+        index: 7,
+        type: "not_u",
+        question: "Do you work through Upwork too?",
+        answer:
+          "Yes, you can hire me via my {upwork_profile_link}Upwork profile{end} if you prefer using that platform. You’ll find my job history, reviews, and portfolio there — it’s a good way to see how I’ve delivered for past clients.",
+        altName: "Upwork",
       },
       {
-        "index": 8,
-        "type": "not_u",
-        "question": "What is your development process?",
-        "answer": "My development process begins with an in-depth consultation to understand your needs and goals. From there, I move into project planning, wireframing, and design. Once approved, I start development, followed by thorough testing, and then deployment. Throughout the process, I maintain open communication and offer you opportunities to provide feedback at key stages.",
-        "altName": "Development_process"
+        index: 8,
+        type: "not_u",
+        question: "How do you approach a development project?",
+        answer:
+          "I start by understanding your goals, then build a roadmap and wireframes. Once the plan is approved, I move into coding, testing, and deployment. I keep communication open throughout so you can give input at every milestone.",
+        altName: "Development_process",
       },
       {
-        "index": 9,
-        "type": "not_u",
-        "question": "What is your bookkeeping process?",
-        "answer": "My bookkeeping process begins with an in-depth consultation to understand your financial needs and goals. From there, I move into organizing your financial data, setting up accounting systems, and managing records. Once set, I focus on maintaining accurate bookkeeping, followed by thorough reviews and reporting. Throughout the process, I ensure open communication and offer you opportunities to review and provide feedback at key stages.",
-        "altName": "bookkeeping_process"
+        index: 9,
+        type: "not_u",
+        question: "What does your bookkeeping process look like?",
+        answer:
+          "I begin with a consultation to understand your financial structure, then organize data, set up systems, and handle records accurately. You’ll receive regular reports and have full visibility into all bookkeeping stages.",
+        altName: "bookkeeping_process",
       },
       {
-        "index": 10,
-        "type": "not_u",
-        "question": "Do you have a LinkedIn profile?",
-        "answer": "Yes! You can explore my professional journey, skills, and recommendations on LinkedIn. It’s a great way to see my credibility and connect with me directly.",
-        "altName": "LinkedIn"
+        index: 10,
+        type: "not_u",
+        question: "Where can I find you on LinkedIn?",
+        answer:
+          "You can connect with me and view my experience, skills, and endorsements through my {linked_profile_link}LinkedIn profile{end}. It’s the best place to see my professional background and reach out directly.",
+        altName: "LinkedIn",
       },
       {
-        "index": 11,
-        "type": "not_u",
-        "question": "Do you have a GitHub profile?",
-        "answer": "Absolutely! My GitHub showcases real-world projects, code samples, and contributions that reflect my hands-on expertise. It’s the perfect place to evaluate my coding style and technical depth.",
-        "altName": "GitHub"
-      }
-    ]
+        index: 11,
+        type: "not_u",
+        question: "Do you have any public GitHub projects?",
+        answer:
+          "Yes, my {github_profile_link}GitHub profile{end} features real-world projects, sample code, and active contributions. It’s a great way to explore my technical expertise and coding style.",
+        altName: "GitHub",
+      },
+    ],
   },
   {
-    "id": "4e567ac2-48d9-447f-a48e-635269db7802",
-    "name": "Farhan",
-    "faqs": [
+    id: "4e567ac2-48d9-447f-a48e-635269db7802",
+    name: "Farhan",
+    faqs: [
       {
-        "index": 0,
-        "type": "u",
-        "question": "How does hiring a freelance developer work?",
-        "answer": "Hiring me is straightforward! After you contact me with your project requirements, we’ll have an initial discussion to understand your goals, scope, and timeline. I’ll then provide a detailed estimate and plan. Once we agree on terms, I’ll begin working on your project. Regular updates will keep you informed throughout.",
-        "altName": "Hiring"
+        index: 0,
+        type: "u",
+        question: "How can I hire you for my project?",
+        answer:
+          "It’s simple. Once you share your project details, we’ll jump on a quick call to align on your goals, scope, and timeline. I’ll send you a clear proposal with costs and milestones. After approval, I’ll start development and keep you posted with regular updates until completion.",
+        altName: "Hiring",
       },
       {
-        "index": 1,
-        "type": "u",
-        "question": "Do you offer a free trial to evaluate your skills?",
-        "answer": "Yes! To ensure the quality of my services and to help you assess my skills, I offer a 2-week free trial. This allows you to evaluate my development abilities, work style, and how well I meet your project needs without any upfront commitment.",
-        "altName": "Trial"
+        index: 1,
+        type: "u",
+        question: "Do you provide a free trial before starting?",
+        answer:
+          "Yes, I offer a 2-week free trial so you can evaluate my coding skills, speed, and communication style without paying upfront. It’s a risk-free way to see if I’m the right fit for your project.",
+        altName: "Trial",
       },
       {
-        "index": 2,
-        "type": "u",
-        "question": "How do I track the progress of my project?",
-        "answer": "I use project management tools like Trello, Asana, or Monday.com to provide full visibility into your project’s progress. You’ll receive weekly updates, milestone reports, and can track the work in real-time. I also provide live communication through email or WhatsApp to answer any immediate questions.",
-        "altName": "Tracking"
+        index: 2,
+        type: "u",
+        question: "How will I stay updated on progress?",
+        answer:
+          "I use tools like Trello, Asana, or Monday.com so you can track everything in real time. You’ll also receive weekly summaries and milestone reports. For quick chats, you can reach me anytime through {email_link}email{end} or {whatsapp_link}WhatsApp{end}.",
+        altName: "Tracking",
       },
       {
-        "index": 3,
-        "type": "u",
-        "question": "What payment methods do you accept?",
-        "answer": "I accept a variety of payment methods, including PayPal, Stripe, Payoneer, and direct bank transfers. We can discuss and choose the most convenient payment option for you during the project’s initial discussion.",
-        "altName": "Payment"
+        index: 3,
+        type: "u",
+        question: "What payment options do you support?",
+        answer:
+          "You can pay via PayPal, Stripe, Payoneer, or direct bank transfer. During onboarding, we’ll finalize whichever method works best for you.",
+        altName: "Payment",
       },
       {
-        "index": 4,
-        "type": "u",
-        "question": "What if I need changes after the project is completed?",
-        "answer": "I understand that revisions or tweaks might be needed after completion. I offer flexible post-project support, including updates and maintenance services. We can set up a maintenance plan or handle changes on an ad-hoc basis, depending on your needs.",
-        "altName": "Revisions"
+        index: 4,
+        type: "u",
+        question: "Can I request updates or edits after the project is done?",
+        answer:
+          "Yes. I provide post-launch support for tweaks, improvements, or ongoing maintenance. You can opt for a dedicated maintenance plan or handle updates as needed.",
+        altName: "Revisions",
       },
       {
-        "index": 5,
-        "type": "u",
-        "question": "How do I ensure the work will be delivered on time?",
-        "answer": "I follow a structured timeline with clear milestones. From the start, we’ll agree on deadlines for each phase of the project, and I’ll provide regular progress updates to ensure we’re on track. If you’re unsure about my efficiency, you can take advantage of my 2-week free trial to see how I work firsthand.",
-        "altName": "Timeliness"
+        index: 5,
+        type: "u",
+        question: "How do you make sure deadlines are met?",
+        answer:
+          "I break projects into defined milestones with clear due dates. You’ll always know what’s happening and when. Plus, my 2-week free trial helps you see how efficiently I work before any long-term commitment.",
+        altName: "Timeliness",
       },
       {
-        "index": 6,
-        "type": "u",
-        "question": "How do I start with your services?",
-        "answer": "Getting started is simple! You can schedule a call using my Calendly link, click on the quick chat button in the bottom right corner, or contact me via email, WhatsApp, or the contact form on my website. I’ll respond promptly during my working hours to discuss your project.",
-        "altName": "Starting"
+        index: 6,
+        type: "u",
+        question: "How do I get started working with you?",
+        answer:
+          "You can schedule a call through {calendly_link}Calendly link{end}, start a chat on my {website_link}website{end}, or reach out via {email_link}email{end} or {whatsapp_link}WhatsApp{end}. Once you share a bit about your project, I’ll guide you through the next steps.",
+        altName: "Starting",
       },
       {
-        "index": 7,
-        "type": "u",
-        "question": "Can I hire you on Upwork?",
-        "answer": "Yes, I have a verified profile on Upwork, where you can review my job history, ratings, and client feedback. If you’d prefer to hire me through Upwork, just search for my profile, invite me to your project, and we can start the conversation there.",
-        "altName": "Upwork"
+        index: 7,
+        type: "u",
+        question: "Are you available for hire on Upwork?",
+        answer:
+          "Yes, you can hire me directly through my {upwork_profile_link}Upwork profile{end}. You’ll find client feedback, ratings, and past work history there. It’s a good option if you prefer using the Upwork platform for contracts and payments.",
+        altName: "Upwork",
       },
       {
-        "index": 8,
-        "type": "u",
-        "question": "What is your development process?",
-        "answer": "My development process begins with an in-depth consultation to understand your needs and goals. From there, I move into project planning, wireframing, and design. Once approved, I start development, followed by thorough testing, and then deployment. Throughout the process, I maintain open communication and offer you opportunities to provide feedback at key stages.",
-        "altName": "Development_process"
+        index: 8,
+        type: "u",
+        question: "How do you handle development from start to finish?",
+        answer:
+          "Every project begins with discovery and planning, followed by wireframes and design mockups. Once approved, I dive into coding, testing, and deployment. You’ll be involved throughout the process with full visibility and checkpoints for feedback.",
+        altName: "Development_process",
       },
       {
-        "index": 9,
-        "type": "u",
-        "question": "What is your bookkeeping process?",
-        "answer": "My bookkeeping process begins with an in-depth consultation to understand your financial needs and goals. From there, I move into organizing your financial data, setting up accounting systems, and managing records. Once set, I focus on maintaining accurate bookkeeping, followed by thorough reviews and reporting. Throughout the process, I ensure open communication and offer you opportunities to review and provide feedback at key stages.",
-        "altName": "bookkeeping_process"
+        index: 9,
+        type: "u",
+        question: "How do you manage bookkeeping work?",
+        answer:
+          "I start with an initial consultation to understand your financial goals. From there, I organize data, set up accounting systems, and handle records accurately. You’ll receive consistent reports and full transparency at every step.",
+        altName: "bookkeeping_process",
       },
       {
-        "index": 10,
-        "type": "u",
-        "question": "Do you have a LinkedIn profile?",
-        "answer": "Yes! You can explore my professional journey, skills, and recommendations on LinkedIn. It’s a great way to see my credibility and connect with me directly.",
-        "altName": "LinkedIn"
+        index: 10,
+        type: "u",
+        question: "Do you have a LinkedIn profile I can view?",
+        answer:
+          "Yes, my {linked_profile_link}LinkedIn profile{end} includes my experience, recommendations, and skills. It’s the best place to learn more about my background and connect professionally.",
+        altName: "LinkedIn",
       },
       {
-        "index": 11,
-        "type": "u",
-        "question": "Do you have a GitHub profile?",
-        "answer": "Absolutely! My GitHub showcases real-world projects, code samples, and contributions that reflect my hands-on expertise. It’s the perfect place to evaluate my coding style and technical depth.",
-        "altName": "GitHub"
-      }
-    ]
-  }
+        index: 11,
+        type: "u",
+        question: "Can I check your GitHub projects?",
+        answer:
+          "Definitely. My {github_profile_link}GitHub profile{end} features code samples, open-source contributions, and live projects — great for reviewing my technical depth and coding practices.",
+        altName: "GitHub",
+      },
+    ],
+  },
 ];
 
 export const cardData = [
