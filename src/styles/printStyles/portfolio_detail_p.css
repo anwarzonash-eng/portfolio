@@ -17,46 +17,9 @@
   page-break-after: auto !important;
 }
 
-/* Limit features height in print so we can detect overflow and show a Read More link */
-.limit-features-height {
-  /* On screen, allow natural height */
-  max-height: none;
-}
-
+/* print: show only first 9 list items inside the features container */
 @media print {
-  .limit-features-height {
-    /* Allow parent print container to define max height so we can show as many points as possible.
-       Keep overflow hidden and reserve bottom padding for the Read More button. */
-    max-height: none;
-    overflow: hidden !important;
-    position: relative; /* to position the read more button inside */
-    padding-bottom: 100px; /* reserve space for the print-only Read More */
-  }
-
-  /* Make sure print-only Read More container shows in print and sits in the reserved bottom area */
-  .print-only-show {
-    display: block !important;
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 100px; /* align with reservedSpace = 100px in JS */
-    text-align: center;
-    z-index: 30;
-  }
-
-  /* Make sure the button is visible in print even if the browser suppresses background colors */
-  .print-only-show .btn-primary {
-    background: transparent !important;
-    color: #000 !important; /* dark text for print */
-    border: 2px solid #000 !important; /* visible outline */
-    box-shadow: none !important;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-  }
-}
-
-@media screen {
-  .print-only-show {
+  .list-div li:nth-child(n+10) {
     display: none !important;
   }
 }

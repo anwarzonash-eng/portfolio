@@ -120,79 +120,31 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
     }[];
   } = skillsGrouping(portfolioDetails?.skills);
 
-  // Features (Tech Stacks) overflow detection for print-only "Read More"
+  // Simple print-only logic: count number of <li> items in features_short
   const featuresRef = useRef<HTMLDivElement | null>(null);
-  const [featuresOverflow, setFeaturesOverflow] = useState(false);
-  const [featuresLiCount, setFeaturesLiCount] = useState(0);
+  const [featuresItemCount, setFeaturesItemCount] = useState(0);
 
-  useEffect(() => {
-    if (!portfolioDetails) return;
-    // Parse HTML to count <li> as a fallback
-    let totalLis = 0;
-    try {
-      const rawHtml = modifiedContent(
-        portfolioDetails?.features_short,
-        filteredSkills,
-        listOfdata
-      );
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(rawHtml || "", "text/html");
-      const lis = doc.querySelectorAll("li");
-      totalLis = lis.length;
-      setFeaturesLiCount(totalLis);
-    } catch (e) {
-      setFeaturesLiCount(0);
-    }
+useEffect(() => {
+  if (!portfolioDetails) {
+    setFeaturesItemCount(0);
+    return;
+  }
+  try {
+    const rawHtml = modifiedContent(
+      portfolioDetails?.features_short,
+      filteredSkills,
+      listOfdata
+    );
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(rawHtml || "", "text/html");
+    const lis = doc.querySelectorAll("li");
+    setFeaturesItemCount(lis.length);
+  } catch (e) {
+    setFeaturesItemCount(0);
+  }
+}, [portfolioDetails, filteredSkills, listOfdata]);
 
-    // DOM-based fit calculation: determine how many <li> fit into the visible area
-    const t = setTimeout(() => {
-      const el = featuresRef.current;
-      if (!el) return;
-
-      const lis = Array.from(el.querySelectorAll("li"));
-      if (lis.length === 0) {
-        // Nothing to do — no list items
-        setFeaturesOverflow(false);
-        return;
-      }
-
-      // Reserve 100px at bottom for the Read More button (as requested)
-      const reservedSpace = 100; // px
-      const availableHeight = el.clientHeight - reservedSpace;
-
-      let fitCount = 0;
-      for (let i = 0; i < lis.length; i++) {
-        const li = lis[i] as HTMLElement;
-        const bottom = li.offsetTop + li.offsetHeight;
-        if (bottom <= availableHeight) {
-          fitCount = i + 1;
-        } else {
-          break;
-        }
-      }
-
-      // Hide items beyond fitCount by setting display: none on them
-      lis.forEach((li, idx) => {
-        const elLi = li as HTMLElement;
-        if (fitCount === 0) {
-          // if none fit, hide nothing here — let overflow happen
-          elLi.style.display = "";
-        } else if (idx >= fitCount) {
-          elLi.style.display = "none";
-        } else {
-          elLi.style.display = "";
-        }
-      });
-
-      const hasHidden =
-        fitCount > 0
-          ? fitCount < lis.length
-          : el.scrollHeight > el.clientHeight + 2;
-      setFeaturesOverflow(hasHidden);
-    }, 80);
-
-    return () => clearTimeout(t);
-  }, [portfolioDetails, filteredSkills, listOfdata]);
+ 
 
   return (
     <div className="bg-[#EFF5FD]">
@@ -270,10 +222,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
               </section>
 
               {/* Blog Content Section ✅ */}
-              <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative flex-col">
-                <NoteDomainForPint
-                  direction={"hidden print:right-0 print:block"}
-                />
+              <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative flex-col"> 
                 {/* Portfolio Detail Container */}
                 <div className="w-full min-h-screen overflow-hidden ">
                   {/* Background SVG */}
@@ -307,13 +256,13 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
                 </div>
               </section>
 
-              {/* Blog Detail Section */}
+              {/* Blog Detail Section ✅ */}
               <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative mt-10 print:m-0">
                 <NoteDomainForPint
                   direction={"hidden print:right-0 print:block"}
                 />
                 <div className="max-w-[1550px] w-full mx-auto px-[4rem]">
-                  <article className="flex gap-[4rem] flex-col items-center justify-between">
+                  <article className="flex  items-center justify-center">
                     <div className="flex gap-[4rem]">
                       <div className="flex flex-col gap-[1rem] min-w-[28rem]">
                         <aside
@@ -336,7 +285,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
                                 SERVICE I PROVIDE
                               </p>
                               <div
-                                className="text-[1.8rem] text-heading font-medium leading-[2.6rem] list-inside list-disc"
+                                className="text-[1.8rem] text-heading font-medium leading-[2.6rem] list-inside list-disc line-clamp-6"
                                 dangerouslySetInnerHTML={{
                                   __html: portfolioDetails?.services_i_provide,
                                 }}
@@ -409,10 +358,10 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
                               listOfdata
                             ),
                           }}
-                          className="text-[2rem] leading-[3.2rem] font-normal mt-[1rem] text-paragraph1 my-[3.2rem]"
+                          className="text-[2rem] leading-[3.2rem] font-normal mt-[1rem] text-paragraph1 my-[3.2rem] line-clamp-6"
                         ></p>
                         <p
-                          className="text-[2rem] list-div leading-[3.2rem] font-normal mt-[1rem] text-paragraph1 my-[3.2rem]"
+                          className="text-[2rem] list-div leading-[3.2rem] font-normal mt-[1rem] text-paragraph1 my-[3.2rem] line-clamp-3"
                           dangerouslySetInnerHTML={{
                             __html: modifiedContent(
                               portfolioDetails?.tagline_2,
@@ -421,8 +370,6 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
                             ),
                           }}
                         ></p>
-                      </div>
-                    </div>
                     <div className="w-full ">
                       <h4 className="text-primary text-[1.4rem] lg:text-[2rem] font-medium">
                         AREAS OF EXPERTISE I'VE WORKED IN:
@@ -432,7 +379,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
                           <>
                             {Object.values(skillsforDetailPortfolio)
                               .flat() // flatten nested groups into one array
-                              .slice(0, 16) // take only first 16
+                              .slice(0, 10) // take only first 10
                               .map((skill, i) => (
                                 <Link
                                   key={i}
@@ -465,11 +412,13 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
                         )}
                       </div>
                     </div>
+                      </div>
+                    </div>
                   </article>
                 </div>
               </section>
 
-              {/* Blog Detail Content ✅ */}
+              {/* Blog Tech Stacks I worked On  Section ✅  */}
               <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative mt-10 print:m-0">
                 {/* Note and Domain For Each Page */}
                 <NoteDomainForPint
@@ -490,21 +439,23 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
                           listOfdata
                         ),
                       }}
-                      className="w-full list-div my-[6.4rem] leading-[3.2rem] font-normal limit-features-height"
+                      className="w-full list-div my-[6.4rem] print:my-[2rem] leading-[3.2rem] font-normal limit-features-height"
                     ></div>
-
-                    {/* Print-only Read More: show when overflow detected or li-count heuristic triggers */}
-                    {(featuresOverflow || featuresLiCount > 6) && (
-                      <div className="print-only-show text-center mt-4">
+                    {/* Print-only Read More: show only in print and only if > 9 items */}
+                    {featuresItemCount > 9 && (
+                      <div className="print:flex print:text-center print:mt-4 items-center justify-center hidden">
                         <Link
-                          href={`/portfolio/${portfolioDetails?.id}`}
-                          target="_blank"
-                          className="btn-primary text-white py-[1rem] px-[3.4rem] text-[1.8rem] font-medium"
+                        // href={`/portfolio/${portfolioDetails?.id}`}
+                        href={`/portfolio/${portfolioDetails?.id}?scroll=points`}
+                        target="_blank"
+                        className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-center btn-primary inline-block max-w-max"
                         >
                           Read More
                         </Link>
-                      </div>
+                        </div>
                     )}
+
+                    
                   </div>
                 </div>
               </section>

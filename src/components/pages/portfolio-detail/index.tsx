@@ -35,6 +35,7 @@ const PortfolioDetails = ({ params }: { params: any }) => {
 
   // Ref for the SkillsContainer section
   const skillsContainerRef = useRef<HTMLDivElement | null>(null);
+  const techStacksRef = useRef<HTMLHeadingElement | null>(null);
 
   // Filter skills based on listOfdata.skills_ids
   const [allSkills, setAllSkills] = useState([]);
@@ -128,6 +129,34 @@ const PortfolioDetails = ({ params }: { params: any }) => {
       }, 100);
     }
   }, [searchParams, portfolioDetails]);
+
+  // Scroll to tech stacks when hash is present (#tech-stacks)
+  // ✅ Scroll to Tech Stack section when ?scroll=skills is in the URL
+useEffect(() => {
+  if (
+    portfolioDetails &&
+    searchParams.get("scroll") === "points" &&
+    techStacksRef.current
+  ) {
+    const scrollToTechStack = () => {
+      const headerOffset = 100; // adjust if you have a fixed navbar
+      const elementPosition =
+        techStacksRef.current.getBoundingClientRect().top + window.pageYOffset;
+      const offsetPosition = elementPosition - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    };
+
+    // Delay slightly to allow layout/images to render
+    const t = setTimeout(scrollToTechStack, 400);
+    return () => clearTimeout(t);
+  }
+}, [searchParams, portfolioDetails]);
+
+
 
   const skillsforDetailPortfolio: {
     [key: string]: {
@@ -336,13 +365,17 @@ const PortfolioDetails = ({ params }: { params: any }) => {
                   </article>
                   <div className="w-full my-[6.4rem]">
                     <h2
+                     
                       className="text-primary 
                       text-center text-[2rem] xl:text-[4rem] 
                       font-semibold mb-[2rem] xl:mb-[3rem]"
                     >
                       Tech Stacks I worked On
                     </h2>
+                     {/* Tech Stacks I worked On Section */}
                     <div
+                     id="tech-stacks"
+                      ref={techStacksRef}
                       dangerouslySetInnerHTML={{
                         __html: modifiedContent(
                           portfolioDetails?.features_short,

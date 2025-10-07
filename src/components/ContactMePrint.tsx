@@ -281,13 +281,13 @@ const ContactMePrint = ({ listOfdata }) => {
                             href={listOfdata?.calendly_link}
                             target="_blank"
                           >
-                            <div className="h-[4rem] w-[4rem] bg-[#006bff] rounded-lg flex items-center justify-center">
+                            <div className="h-[4rem] w-[4rem] bg-[#006bff] rounded-lg flex items-center justify-center relative">
                               <Image
                                 alt=""
                                 src="/images/calendlyicon.svg"
                                 width={100}
                                 height={100}
-                                className="h-[3rem] w-[3rem]"
+                                 className="h-[3rem] w-[3rem] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
                               />
                             </div>
                           </Link>

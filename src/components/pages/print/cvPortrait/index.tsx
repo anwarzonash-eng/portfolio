@@ -368,7 +368,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
                           ),
                         }}
                       ></div>
-                      <div className="flex items-center justify-center w-full">
+                      <div className="hidden print:flex items-center justify-center w-full">
                         {skillsListCount > 9 && (
                           <Link
                             href={"/cv"}
