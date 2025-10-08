@@ -6,8 +6,13 @@ import Link from "next/link";
 import ContactMe from "@/components/ContactMe";
 import FooterNewsLetter from "@/components/FooterNewsLetter";
 import { useAppSelector } from "@/store";
+import UpworkActivitySection from "@/components/UpworkActivitySection";
+import { usePathname } from "next/navigation";
+
 
 const Footer = () => {
+  const pathname = usePathname(); // Gets the current pathname
+
   interface FooterLink {
     href: string;
     title: string;
@@ -48,6 +53,14 @@ const Footer = () => {
               </div>
             </section>
           )}
+          {pathname.includes("/contact-me") &&
+          <div className="mt-[2rem] lg:mt-[4rem] w-full">
+          <UpworkActivitySection
+                urlInfo={urlInfo}
+                cvTrue={false}
+                />
+          </div>
+          }
           {/* Footer */}
           <footer className="print:block mt-[2rem] bg-sectionBG ">
             <div

@@ -55,7 +55,7 @@ function UpworkActivitySectionPrint({urlInfo}) {
 
     ]
 
-    console.log("URLInfo: ",urlInfo)
+    // console.log("URLInfo: ",urlInfo)
   return (
 
     <div className={`${urlInfo?.domain === "findusman.me" ? "w-full  py-10 px-[4rem]":"hidden"}`}>

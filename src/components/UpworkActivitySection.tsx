@@ -55,7 +55,7 @@ function UpworkActivitySection({urlInfo, cvTrue}) {
 
     ]
 
-    console.log("URLInfo: ",urlInfo)
+    // console.log("URLInfo: ",urlInfo)
   return (
 
     <section className={`${urlInfo?.domain === "findusman.me" ? "w-full ":"hidden"} ${cvTrue? "py-0":"py-10 bg-white"} `}>
