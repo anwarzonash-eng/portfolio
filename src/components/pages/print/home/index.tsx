@@ -35,6 +35,7 @@ import ShowmoreSkills from "@/components/showmoreSkills";
 import ContactMe from "@/components/ContactMe";
 import EducationBlogsLandscape from "@/components/EducationBlogsLandscape";
 import ContactMePrint from "@/components/ContactMePrint";
+import UpworkActivitySectionPrint from "@/components/UpworkActivitySectionPrint";
 
 const Home_p = ({ params }: { params: any }) => {
   useBodyBackgroundColor("#f8f9fa");
@@ -332,6 +333,7 @@ const Home_p = ({ params }: { params: any }) => {
                     </svg>
                   </div>
                 </div>
+                
 
                 {/* About Section for print ✅ */}
                 <section className="h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center p-[4rem] mt-20 print:mt-0 relative">
@@ -555,6 +557,16 @@ const Home_p = ({ params }: { params: any }) => {
                       </Link>
                     </div>
                   </div>
+                </section>
+
+                <section className="h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center p-[4rem] mt-20 print:mt-0 relative bg-white">
+                    {/* Note and Domain For Each Page */}
+                    <NoteDomainForPint
+                    direction={"hidden print:right-0 print:block"}
+                    />
+                    <div className="max-w-[1550px] w-full mx-auto flex items-center justify-center gap-[2rem]">
+                  <UpworkActivitySectionPrint urlInfo={urlInfo} />
+                    </div>
                 </section>
 
                 {listOfdata && listOfdata?.skills_ids?.length > 0 && (

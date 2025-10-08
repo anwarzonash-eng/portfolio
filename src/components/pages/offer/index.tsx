@@ -18,6 +18,7 @@ import SkillsComponent from "@/components/SkillsComponent";
 import ExpandableServiceCard from "@/components/ExpandableServiceCard";
 import EducationComponent from "@/components/EducationComponent";
 import { useUniquePortfolios } from "@/hooks/useUniquePortfolios";
+import UpworkActivitySection from "@/components/UpworkActivitySection";
 
 const Offer = ({ params }: { params: any }) => {
   useBodyBackgroundColor("#EFF5FD");
@@ -254,6 +255,10 @@ const Offer = ({ params }: { params: any }) => {
                   </div>
                 </section>
               )}
+
+              <div className="mt-[2rem] lg:mt-[3rem]">
+                <UpworkActivitySection urlInfo={urlInfo} cvTrue={false} />
+              </div>
 
               {/* Education Section */}
               <div id="education" className="my-[5rem]">

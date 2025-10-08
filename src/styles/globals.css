@@ -5,6 +5,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.upworkSectionDot {
+  @apply flex-shrink-0 w-[3rem] h-[3rem] inline-block bg-primary rounded-full mr-[1rem] mt-[1rem] lg:mr-[2rem]
+}
+
 /* Google Inter Font */
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 
@@ -170,6 +174,8 @@ body {
   @apply px-[2rem] py-[1rem] bg-white  rounded-[2.2rem] border border-border border-solid 
   text-center max-w-max text-heading text-[2rem] font-medium font-Inter leading-[2rem];
 }
+
+
 
 .footerLink {
   @apply relative inline-block text-white duration-300 text-opacity-80 hover:text-opacity-100 font-light text-[1.6rem];
@@ -518,3 +524,4 @@ body {
   scrollbar-width: thin;
   scrollbar-color: #aaa transparent;
 }
+

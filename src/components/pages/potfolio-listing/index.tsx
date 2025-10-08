@@ -17,6 +17,7 @@ import Background from "@/components/background";
 import { useAppSelector } from "@/store";
 import EmptyState from "@/components/EmptyState";
 import PortfolioCardContent from "@/components/PortfolioCardContent";
+import UpworkActivitySection from "@/components/UpworkActivitySection";
 
 const PortfolioListing = ({ params }: { params: any }) => {
   const [
@@ -195,7 +196,7 @@ const PortfolioListing = ({ params }: { params: any }) => {
       {listOfdata && listOfdata?.portfolios_ids.length > 0 && (
         <>
           {/* Portfolio Timeline Section */}
-          <div className="mainContainer mt-[-30rem] lg:mt-[-40rem] xl:mt-[-36rem] print:mt-0  w-full ">
+          <div className="mainContainer mt-[-30rem] lg:mt-[-40rem] xl:mt-[-36rem] print:mt-0  w-full mb-[4rem]">
             {/* Timeline */}
             <div className="flex items-center justify-center mt-[2rem]">
               <div className="relative">
@@ -274,6 +275,10 @@ const PortfolioListing = ({ params }: { params: any }) => {
               </div>
             </div>
           </div>
+
+          <UpworkActivitySection urlInfo={urlInfo} cvTrue={false}/>
+          
+
           {/* Our Blogs Section */}
           <div className="w-full my-[10rem] lg:my-[12rem] print:my-1">
             <OurBlogs domain={listOfdata?.domain} />

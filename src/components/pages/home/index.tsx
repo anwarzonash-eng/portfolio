@@ -26,6 +26,7 @@ import HeroSection from "@/components/HomePageComponents/HeroSection";
 import AboutSection from "@/components/HomePageComponents/AboutSection";
 import ServicesSection from "@/components/HomePageComponents/ServicesSection";
 import { useUniquePortfolios } from "@/hooks/useUniquePortfolios";
+import UpworkActivitySection from "@/components/UpworkActivitySection";
 
 const Home = ({ params }: { params: any }) => {
   useBodyBackgroundColor("#f8f9fa");
@@ -192,6 +193,11 @@ const Home = ({ params }: { params: any }) => {
                   urlInfo={urlInfo}
                   formatPhoneNumber={formatPhoneNumber}
                   downloadFile={downloadFile}
+                />
+
+                <UpworkActivitySection
+                urlInfo={urlInfo}
+                cvTrue={false}
                 />
 
                 {/* Custom Video Player Section */}

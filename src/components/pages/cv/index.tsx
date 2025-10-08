@@ -27,6 +27,7 @@ import PortfolioPopUp from "@/components/PortfolioPopUp";
 import WebsiteLoader from "@/components/WebsiteLoader";
 import Background from "@/components/background";
 import PortfolioCardContent from "@/components/PortfolioCardContent";
+import UpworkActivitySection from "@/components/UpworkActivitySection";
 
 const CV = ({ params }: { params: any }) => {
   const searchParams = useSearchParams();
@@ -485,6 +486,16 @@ const CV = ({ params }: { params: any }) => {
                                   </div>
                                 </div>
                               )}
+
+                              <div className="w-full relative">
+                                <div className="absolute top-0 left-[-1.3rem] block print:hidden">
+                                    <div className="w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center my-[3rem]">
+                                      <div className="w-[0.8rem] h-[0.8rem] bg-sectionBG rounded-full"></div>
+                                    </div>
+                                  </div>
+                              <UpworkActivitySection urlInfo={urlInfo} cvTrue={true}/>
+                              </div>
+                              
                             {listOfdata &&
                               listOfdata?.education_ids?.length > 0 && (
                                 <div className="relative flex items-start print:break-before-page print:w-full print:flex print:items-center print:justify-center">

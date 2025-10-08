@@ -21,6 +21,7 @@ import {
 } from "@/hooks/apihandlers/blogListingApiHandler";
 import EmptyState from "@/components/EmptyState";
 import EducationComponent from "@/components/EducationComponent";
+import UpworkActivitySection from "@/components/UpworkActivitySection";
 
 const BlogListing = ({ params }: { params: any }) => {
   const [urlInfo, setURLInfo] = useState<any>(null);
@@ -419,6 +420,13 @@ const BlogListing = ({ params }: { params: any }) => {
           {/* Newsletter */}
         </div>
       )}
+
+      <div className="mt-[2rem] lg:mt-[3rem]">
+        <UpworkActivitySection
+        urlInfo={urlInfo}
+        cvTrue={false}
+        />
+      </div>
 
       {/* Education Section */}
       <div id="education" className="my-[5rem]">

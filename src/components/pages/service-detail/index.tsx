@@ -12,6 +12,7 @@ import OurBlogs from "@/components/OurBlogs";
 import Newsletter from "@/components/Newsletter";
 import ExpandableServiceCard from "@/components/ExpandableServiceCard";
 import EducationComponent from "@/components/EducationComponent";
+import UpworkActivitySection from "@/components/UpworkActivitySection";
 
 const ServiceDetail = ({ params }: { params: any }) => {
   useBodyBackgroundColor("#EFF5FD");
@@ -120,6 +121,13 @@ const ServiceDetail = ({ params }: { params: any }) => {
         }}
       />
       <>
+      <div className="mt-[2rem] lg:mt-[3rem]">
+        <UpworkActivitySection
+        urlInfo={urlInfo}
+        cvTrue={false}
+        />
+      </div>
+      
         {/* Education Section */}
         <div id="education" className="my-[5rem]">
           <EducationComponent />

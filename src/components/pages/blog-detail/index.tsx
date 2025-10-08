@@ -20,6 +20,7 @@ import BlogDetailDesktopSVG from "@/components/BlogDetailDesktopSVG";
 import { getImageForIndex } from "@/utils/getImageForIndex";
 import { loadBlogs } from "@/hooks/apihandlers/blogListingApiHandler";
 import EducationComponent from "@/components/EducationComponent";
+import UpworkActivitySection from "@/components/UpworkActivitySection";
 
 const BlogDetails = ({ params }: { params: any }) => {
   const [urlInfo, setURLInfo] = useState(null);
@@ -190,6 +191,12 @@ const BlogDetails = ({ params }: { params: any }) => {
                   </div>
                 </div>
               </section>
+              <div>
+              <UpworkActivitySection
+                urlInfo={urlInfo}
+                cvTrue={false}
+                />
+              </div>
               {/* Education Section */}
               <div id="education" className="my-[5rem]">
                 <EducationComponent />

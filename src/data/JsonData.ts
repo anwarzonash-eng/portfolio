@@ -71,6 +71,7 @@ export const contactDetails = (listOfdata) => [
     href: `https://wa.me/${listOfdata?.phone_no}`,
   },
 ];
+
 export const socialLinks = (listOfdata) => [
   {
     platform: "Upwork",
@@ -179,6 +180,7 @@ export const FaqsData = [
     altName: "GitHub",
   },
 ];
+
 export const FaqsDataUpdated = [
   {
     id: "8bc33b51-204f-4a85-9242-4a38c73e35aa",

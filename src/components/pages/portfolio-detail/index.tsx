@@ -23,6 +23,7 @@ import SkillsContainer from "@/components/SkillsContainer";
 import { skillsGrouping } from "@/hooks/skillsGrouping";
 import EducationComponent from "@/components/EducationComponent";
 import SkillsContainerPortfolioDetail from "@/components/SkillsContainerPortfolioDetail";
+import UpworkActivitySection from "@/components/UpworkActivitySection";
 
 const PortfolioDetails = ({ params }: { params: any }) => {
   const searchParams = useSearchParams();
@@ -134,6 +135,7 @@ const PortfolioDetails = ({ params }: { params: any }) => {
   // ✅ Scroll to Tech Stack section when ?scroll=skills is in the URL
 useEffect(() => {
   if (
+    
     portfolioDetails &&
     searchParams.get("scroll") === "points" &&
     techStacksRef.current
@@ -419,6 +421,7 @@ useEffect(() => {
                       }}
                     ></div>
                   </div>
+                  <UpworkActivitySection urlInfo={urlInfo} cvTrue={true}/>
                   {/* My Tools and Technologies */}
                   <article className="my-[6.4rem]">
                     <div className="text-heading text-[2.4rem] xl:text-[3rem] font-medium leading-[2.8rem] text-center">
