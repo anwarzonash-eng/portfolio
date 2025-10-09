@@ -3,7 +3,6 @@ import Image from "next/image";
 import "@/styles/printStyles/home_p.css";
 import NoteClickable from "@/components/NoteClickable";
 import useBodyBackgroundColor from "@/hooks/useBodyBackgroundColor";
-import Faqs from "@/components/Faqs";
 import WorkProofLinks from "@/components/WorkProofLinks";
 import ContactMeLinks from "@/components/ContactMeLinks";
 import MyServices from "@/components/MyServicesCards";
@@ -36,6 +35,7 @@ import ContactMe from "@/components/ContactMe";
 import EducationBlogsLandscape from "@/components/EducationBlogsLandscape";
 import ContactMePrint from "@/components/ContactMePrint";
 import UpworkActivitySectionPrint from "@/components/UpworkActivitySectionPrint";
+import FaqsPrint from "@/components/FaqsPrint";
 
 const Home_p = ({ params }: { params: any }) => {
   useBodyBackgroundColor("#f8f9fa");
@@ -565,7 +565,7 @@ const Home_p = ({ params }: { params: any }) => {
                     direction={"hidden print:right-0 print:block"}
                     />
                     <div className="max-w-[1550px] w-full mx-auto flex items-center justify-center gap-[2rem]">
-                  <UpworkActivitySectionPrint urlInfo={urlInfo} />
+                  <UpworkActivitySectionPrint urlInfo={urlInfo}  data={listOfdata} />
                     </div>
                 </section>
 
@@ -1295,7 +1295,7 @@ const Home_p = ({ params }: { params: any }) => {
                   )}
 
                 {/* FAQ Section Completed ✅ */}
-                <Faqs
+                <FaqsPrint
                   urlInfo={urlInfo}
                   companyType={listOfdata?.companytype}
                   listOfdata={listOfdata}

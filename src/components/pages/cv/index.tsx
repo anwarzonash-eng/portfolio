@@ -255,11 +255,11 @@ const CV = ({ params }: { params: any }) => {
                     <div className="w-full print:mt-[5rem] print:pt-[5rem]">
                       <div className="flex items-center justify-center mt-[4rem] lg:mt-[6rem]">
                         <div className="relative">
-                          <div className="absolute left-0 top-0 w-[1.5px] h-[100%] bg-border print:hidden" />
+                          <div className="absolute left-0 top-0 w-[1.5px] h-[100%] bg-border print:hidden z-[50]" />
                           <div className="space-y-[1rem] lg:space-y-[2rem]">
                             {listOfdata?.skills && (
                               <div className="relative flex items-start print:break-before-page">
-                                <div className="absolute top-0 left-[-1.3rem] block print:hidden">
+                                <div className="absolute top-0 left-[-1.3rem] z-[60] block print:hidden">
                                   <div className="w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center">
                                     <div className="w-[0.8rem] h-[0.8rem] bg-sectionBG rounded-full"></div>
                                   </div>
@@ -295,7 +295,7 @@ const CV = ({ params }: { params: any }) => {
                                 id="skillsSection"
                                 className="relative flex items-start print:break-before-page"
                               >
-                                <div className="absolute top-0 left-[-1.3rem] block print:hidden">
+                                <div className="absolute top-0 left-[-1.3rem] z-[60] block print:hidden">
                                   <div className="w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center">
                                     <div className="w-[0.8rem] h-[0.8rem] bg-sectionBG rounded-full"></div>
                                   </div>
@@ -312,7 +312,7 @@ const CV = ({ params }: { params: any }) => {
                                   id="experienceSection"
                                   className="relative flex items-start print:break-before-page"
                                 >
-                                  <div className="absolute top-0 left-[-1.3rem]">
+                                  <div className="absolute top-0 left-[-1.3rem] z-[60]">
                                     <div className="w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center mt-[3rem] mb-[2rem]">
                                       <div className="w-[0.8rem] h-[0.8rem] bg-sectionBG rounded-full"></div>
                                     </div>
@@ -331,19 +331,18 @@ const CV = ({ params }: { params: any }) => {
                                           showAllExperiences
                                             ? listOfdata.experiences_ids.length
                                             : isMobile
-                                            ? 3
-                                            : 6
+                                              ? 3
+                                              : 6
                                         )
                                         .map((experience, index) => (
                                           <div
                                             key={index}
                                             id={`experience-${experience.id}`}
-                                            className={`relative ${
-                                              highlightedExperienceId ===
-                                              experience.id
+                                            className={`relative ${highlightedExperienceId ===
+                                                experience.id
                                                 ? "border border-primary rounded-[1rem]"
                                                 : ""
-                                            }`}
+                                              }`}
                                           >
                                             <ExperienceSection
                                               experience={experience}
@@ -382,7 +381,7 @@ const CV = ({ params }: { params: any }) => {
                                   id="portfolioSection"
                                   className="relative flex items-start print:break-before-page"
                                 >
-                                  <div className="absolute top-0 left-[-1.3rem] block print:hidden">
+                                  <div className="absolute top-0 left-[-1.3rem] z-[60] block print:hidden">
                                     <div className="w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center mt-[3rem] mb-[2rem]">
                                       <div className="w-[0.8rem] h-[0.8rem] bg-sectionBG rounded-full"></div>
                                     </div>
@@ -436,7 +435,7 @@ const CV = ({ params }: { params: any }) => {
                                             className="relative flex items-start mt-[2rem] print-section flex-col"
                                             key={index}
                                           >
-                                            <div className="absolute top-0 left-[-3.2rem] md:left-[-4.2rem] lg:left-[-6.2rem] block print:hidden">
+                                            <div className="absolute top-0 left-[-3.2rem] z-[60] md:left-[-4.2rem] lg:left-[-6.2rem] block print:hidden">
                                               <div className="w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center">
                                                 <div className="w-[0.8rem] h-[0.8rem] bg-sectionBG rounded-full"></div>
                                               </div>
@@ -456,11 +455,11 @@ const CV = ({ params }: { params: any }) => {
                                               )
                                                 ? portfolio.ending_Date
                                                 : new Date(
-                                                    portfolio.ending_Date
-                                                  ).toLocaleString("en-US", {
-                                                    month: "short",
-                                                    year: "numeric",
-                                                  })}
+                                                  portfolio.ending_Date
+                                                ).toLocaleString("en-US", {
+                                                  month: "short",
+                                                  year: "numeric",
+                                                })}
                                             </h1>
 
                                             <PortfolioCardContent
@@ -487,19 +486,22 @@ const CV = ({ params }: { params: any }) => {
                                 </div>
                               )}
 
-                              <div className="w-full relative">
-                                <div className="absolute top-0 left-[-1.3rem] block print:hidden">
-                                    <div className="w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center my-[3rem]">
-                                      <div className="w-[0.8rem] h-[0.8rem] bg-sectionBG rounded-full"></div>
-                                    </div>
-                                  </div>
-                              <UpworkActivitySection urlInfo={urlInfo} cvTrue={true}/>
+                            <div className="w-full relative">
+                              <div className="absolute top-0 left-[-1.3rem] z-[60] block print:hidden">
+                                <div className="w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center my-[3rem]">
+                                  <div className="w-[0.8rem] h-[0.8rem] bg-sectionBG rounded-full"></div>
+                                </div>
                               </div>
-                              
+                              <UpworkActivitySection urlInfo={urlInfo} cvTrue={true}
+                                data={listOfdata}
+
+                              />
+                            </div>
+
                             {listOfdata &&
                               listOfdata?.education_ids?.length > 0 && (
                                 <div className="relative flex items-start print:break-before-page print:w-full print:flex print:items-center print:justify-center">
-                                  <div className="absolute top-0 left-[-1.3rem] block print:hidden">
+                                  <div className="absolute top-0 left-[-1.3rem] z-[60] block print:hidden">
                                     <div className="w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center my-[3rem]">
                                       <div className="w-[0.8rem] h-[0.8rem] bg-sectionBG rounded-full"></div>
                                     </div>
@@ -515,7 +517,7 @@ const CV = ({ params }: { params: any }) => {
                               id="blogsSection"
                               className="relative flex items-start print:hidden"
                             >
-                              <div className="absolute top-0 left-[-1.3rem] block print:hidden">
+                              <div className="absolute top-0 left-[-1.3rem] z-[60] block print:hidden">
                                 <div className="w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center my-[3rem]">
                                   <div className="w-[0.8rem] h-[0.8rem] bg-sectionBG rounded-full"></div>
                                 </div>

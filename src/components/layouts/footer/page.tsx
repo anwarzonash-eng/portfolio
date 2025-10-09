@@ -54,19 +54,20 @@ const Footer = () => {
             </section>
           )}
           {pathname.includes("/contact-me") &&
-          <div className="mt-[2rem] lg:mt-[4rem] w-full">
-          <UpworkActivitySection
+            <div className="mt-[2rem] lg:mt-[4rem] w-full">
+              <UpworkActivitySection
                 urlInfo={urlInfo}
                 cvTrue={false}
-                />
-          </div>
+                data={listOfdata}
+
+              />
+            </div>
           }
           {/* Footer */}
           <footer className="print:block mt-[2rem] bg-sectionBG ">
             <div
-              className={`${
-                urlInfo?.u ? "" : ""
-              } w-full mainContainer text-[1.8rem] font-medium bg-sectionBG bg-Newslatter bg-no-repeat bg-contain bg-right`}
+              className={`${urlInfo?.u ? "" : ""
+                } w-full mainContainer text-[1.8rem] font-medium bg-sectionBG bg-Newslatter bg-no-repeat bg-contain bg-right`}
             >
               <div className="py-[3rem] w-full flex justify-between flex-col sm:flex-row">
                 {/* CTA Section */}

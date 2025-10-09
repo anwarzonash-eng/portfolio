@@ -276,7 +276,9 @@ const PortfolioListing = ({ params }: { params: any }) => {
             </div>
           </div>
 
-          <UpworkActivitySection urlInfo={urlInfo} cvTrue={false}/>
+          <UpworkActivitySection urlInfo={urlInfo} cvTrue={false}
+          data={listOfdata}
+          />
           
 
           {/* Our Blogs Section */}

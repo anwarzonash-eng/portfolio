@@ -6,7 +6,7 @@
 @tailwind utilities;
 
 .upworkSectionDot {
-  @apply flex-shrink-0 w-[3rem] h-[3rem] inline-block bg-primary rounded-full mr-[1rem] mt-[1rem] lg:mr-[2rem]
+  @apply flex-shrink-0 w-[2rem] h-[2rem] lg:w-[3rem] lg:h-[3rem] inline-block bg-primary rounded-full mt-[0.4rem] lg:mt-[1rem] mr-[1rem] lg:mr-[2rem]
 }
 
 /* Google Inter Font */

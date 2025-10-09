@@ -421,7 +421,9 @@ useEffect(() => {
                       }}
                     ></div>
                   </div>
-                  <UpworkActivitySection urlInfo={urlInfo} cvTrue={true}/>
+                  <UpworkActivitySection urlInfo={urlInfo} cvTrue={true}
+                  data={listOfdata}
+                   />
                   {/* My Tools and Technologies */}
                   <article className="my-[6.4rem]">
                     <div className="text-heading text-[2.4rem] xl:text-[3rem] font-medium leading-[2.8rem] text-center">

@@ -27,6 +27,7 @@ import AboutSection from "@/components/HomePageComponents/AboutSection";
 import ServicesSection from "@/components/HomePageComponents/ServicesSection";
 import { useUniquePortfolios } from "@/hooks/useUniquePortfolios";
 import UpworkActivitySection from "@/components/UpworkActivitySection";
+import FaqsTesting from "@/components/FaqsTesting";
 
 const Home = ({ params }: { params: any }) => {
   useBodyBackgroundColor("#f8f9fa");
@@ -39,6 +40,8 @@ const Home = ({ params }: { params: any }) => {
   // FIX: keep API result separate from filtered display list
   const [allSkills, setAllSkills] = useState<any[]>([]);
   const [filteredSkills, setFilteredSkills] = useState<any[]>([]);
+
+  // console.log("Data: ", listOfdata.upwork);
 
   const [loading, setLoading] = useState<boolean>(true);
   const searchParams = useSearchParams();
@@ -95,6 +98,8 @@ const Home = ({ params }: { params: any }) => {
       );
     }
   }, [filteredSkills]);
+
+  console.log("Data:", listOfdata)
 
   // Scroll to experiences section
   useEffect(() => {
@@ -198,6 +203,7 @@ const Home = ({ params }: { params: any }) => {
                 <UpworkActivitySection
                 urlInfo={urlInfo}
                 cvTrue={false}
+                data={listOfdata}
                 />
 
                 {/* Custom Video Player Section */}
@@ -329,8 +335,10 @@ const Home = ({ params }: { params: any }) => {
                 <Faqs
                   urlInfo={urlInfo}
                   companyType={listOfdata?.companytype}
-                  listOfdata={listOfdata}
-                />
+                  />
+
+
+                {/* <FaqsTesting/> */}
 
                 <div id="education" className="my-[5rem]">
                   <EducationComponent />

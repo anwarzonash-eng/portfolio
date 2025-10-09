@@ -102,7 +102,7 @@ const Offer = ({ params }: { params: any }) => {
       detailService.forEach((item) => {
         const category_id = item?.category_id;
         if (category_id) {
-          handleCategoryPicture(category_id, () => {}); // kept but no state storing
+          handleCategoryPicture(category_id, () => { }); // kept but no state storing
         }
       });
     }
@@ -257,7 +257,9 @@ const Offer = ({ params }: { params: any }) => {
               )}
 
               <div className="mt-[2rem] lg:mt-[3rem]">
-                <UpworkActivitySection urlInfo={urlInfo} cvTrue={false} />
+                <UpworkActivitySection urlInfo={urlInfo} cvTrue={false}
+                  data={listOfdata}
+                />
               </div>
 
               {/* Education Section */}

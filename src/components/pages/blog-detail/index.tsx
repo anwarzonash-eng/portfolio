@@ -195,6 +195,8 @@ const BlogDetails = ({ params }: { params: any }) => {
               <UpworkActivitySection
                 urlInfo={urlInfo}
                 cvTrue={false}
+                data={listOfdata}
+
                 />
               </div>
               {/* Education Section */}

@@ -125,6 +125,7 @@ const ServiceDetail = ({ params }: { params: any }) => {
         <UpworkActivitySection
         urlInfo={urlInfo}
         cvTrue={false}
+        data={listOfdata}
         />
       </div>
       
