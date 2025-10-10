@@ -113,7 +113,7 @@ export default function ChildWrapper({
       <GoogleAnalytics scriptNumber={listOfdata?.googleAnalyticsScript} />
       {/* WhatsApp Icon */}
       {!urlInfo?.u && listOfdata && listOfdata?.phone_no && (
-      <div className="fixed bottom-[10rem] right-[2.5rem] z-[1000]">
+      <div className="fixed bottom-[10rem] right-[2.5rem] z-[1000] print:hidden">
               <Tooltip text={`My Whatsapp`} key={"whatsapp"} >
                 <Link href={`https://wa.me/${listOfdata?.phone_no}`} target="_blank">
                 <Image src={"/images/whatsapp.svg"} height={60} width={60} alt={"whatsapp"} />

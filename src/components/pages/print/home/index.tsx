@@ -35,7 +35,7 @@ import ContactMe from "@/components/ContactMe";
 import EducationBlogsLandscape from "@/components/EducationBlogsLandscape";
 import ContactMePrint from "@/components/ContactMePrint";
 import UpworkActivitySectionPrint from "@/components/UpworkActivitySectionPrint";
-import FaqsPrint from "@/components/FaqsPrint";
+import Faqs from "@/components/Faqs";
 
 const Home_p = ({ params }: { params: any }) => {
   useBodyBackgroundColor("#f8f9fa");
@@ -1295,11 +1295,11 @@ const Home_p = ({ params }: { params: any }) => {
                   )}
 
                 {/* FAQ Section Completed ✅ */}
-                <FaqsPrint
+                <Faqs
                   urlInfo={urlInfo}
                   companyType={listOfdata?.companytype}
-                  listOfdata={listOfdata}
-                />
+                  apiData={listOfdata}
+                  />
 
                 {!urlInfo?.u && <ContactMePrint listOfdata={listOfdata} />}
 

@@ -106,80 +106,6 @@ export const socialLinks = (listOfdata) => [
   },
 ];
 
-export const FaqsData = [
-  {
-    question: "How does hiring a freelance developer work?",
-    answer:
-      "Hiring me is straightforward! After you contact me with your project requirements, we’ll have an initial discussion to understand your goals, scope, and timeline. I’ll then provide a detailed estimate and plan. Once we agree on terms, I’ll begin working on your project. Regular updates will keep you informed throughout.",
-    altName: "Hiring",
-  },
-  {
-    question: "Do you offer a free trial to evaluate your skills?",
-    answer:
-      "Yes! To ensure the quality of my services and to help you assess my skills, I offer a 2-week free trial. This allows you to evaluate my development abilities, work style, and how well I meet your project needs without any upfront commitment.",
-    altName: "Trial",
-  },
-  {
-    question: "How do I track the progress of my project?",
-    answer:
-      "I use project management tools like Trello, Asana, or Monday.com to provide full visibility into your project’s progress. You’ll receive weekly updates, milestone reports, and can track the work in real-time. I also provide live communication through email or WhatsApp to answer any immediate questions.",
-    altName: "Tracking",
-  },
-  {
-    question: "What payment methods do you accept?",
-    answer:
-      "I accept a variety of payment methods, including PayPal, Stripe, Payoneer, and direct bank transfers. We can discuss and choose the most convenient payment option for you during the project’s initial discussion.",
-    altName: "Payment",
-  },
-  {
-    question: "What if I need changes after the project is completed?",
-    answer:
-      "I understand that revisions or tweaks might be needed after completion. I offer flexible post-project support, including updates and maintenance services. We can set up a maintenance plan or handle changes on an ad-hoc basis, depending on your needs.",
-    altName: "Revisions",
-  },
-  {
-    question: "How do I ensure the work will be delivered on time?",
-    answer:
-      "I follow a structured timeline with clear milestones. From the start, we’ll agree on deadlines for each phase of the project, and I’ll provide regular progress updates to ensure we’re on track. If you’re unsure about my efficiency, you can take advantage of my 2-week free trial to see how I work firsthand.",
-    altName: "Timeliness",
-  },
-  {
-    question: "How do I start with your services?",
-    answer:
-      "Getting started is simple! You can schedule a call using my Calendly link, click on the quick chat button in the bottom right corner, or contact me via email, WhatsApp, or the contact form on my website. I’ll respond promptly during my working hours to discuss your project.",
-    altName: "Starting",
-  },
-  {
-    question: "Can I hire you on Upwork?",
-    answer:
-      "Yes, I have a verified profile on Upwork, where you can review my job history, ratings, and client feedback. If you’d prefer to hire me through Upwork, just search for my profile, invite me to your project, and we can start the conversation there.",
-    altName: "Upwork",
-  },
-  {
-    question: "What is your development process?",
-    answer:
-      "My development process begins with an in-depth consultation to understand your needs and goals. From there, I move into project planning, wireframing, and design. Once approved, I start development, followed by thorough testing, and then deployment. Throughout the process, I maintain open communication and offer you opportunities to provide feedback at key stages.",
-    altName: "Development_process",
-  },
-  {
-    question: "What is your bookkeeping process?",
-    answer:
-      "  My bookkeeping process begins with an in-depth consultation to understand your financial needs and goals. From there, I move into organizing your financial data, setting up accounting systems, and managing records. Once set, I focus on maintaining accurate bookkeeping, followed by thorough reviews and reporting. Throughout the process, I ensure open communication and offer you opportunities to review and provide feedback at key stages.",
-    altName: "bookkeeping_process",
-  },
-  {
-    question: "Do you have a LinkedIn profile?",
-    answer:
-      "Yes! You can explore my professional journey, skills, and recommendations on LinkedIn. It’s a great way to see my credibility and connect with me directly.",
-    altName: "LinkedIn",
-  },
-  {
-    question: "Do you have a GitHub profile?",
-    answer:
-      "Absolutely! My GitHub showcases real-world projects, code samples, and contributions that reflect my hands-on expertise. It’s the perfect place to evaluate my coding style and technical depth.",
-    altName: "GitHub",
-  },
-];
 
 export const FaqsDataUpdated = [
   {
@@ -212,7 +138,7 @@ export const FaqsDataUpdated = [
       },
       {
         index: 3,
-        type: "a",
+        type: "not_u",
         question: "What payment methods do you accept?",
         answer:
           "I accept a variety of payment methods, including PayPal, Stripe, Payoneer, and direct bank transfers. We can choose the most convenient option for you during our initial project discussion.",
