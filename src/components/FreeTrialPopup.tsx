@@ -70,7 +70,7 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
 
   return (
     <>
-      <div className="fixed top-0 left-0 w-full h-full bg-opacity-50 backdrop-blur-2xl z-[500]">
+      <div className="fixed top-0 left-0 w-full h-full bg-opacity-50 backdrop-blur-2xl z-[1500]">
         <div className="relative max-h-[90vh] overflow-y-auto w-full h-auto top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
           <Confetti />
           {/* Free Trial PopUp */}

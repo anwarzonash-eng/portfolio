@@ -233,7 +233,7 @@ export const FaqsDataUpdated = [
       },
       {
         index: 2,
-        type: "all",
+        type: "not_u",
         question: "How can I monitor the progress of my project?",
         answer:
           "I use project management tools like Trello, Asana, and Monday.com to keep everything transparent. You’ll get regular updates, milestone reports, and access to real-time progress. You can also reach me directly via {email_link}email{end} or {whatsapp_link}WhatsApp{end} whenever needed.",

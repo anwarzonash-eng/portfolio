@@ -95,7 +95,7 @@ const Home = ({ params }: { params: any }) => {
     }
   }, [filteredSkills]);
 
-  console.log("API Data:", listOfdata)
+  // console.log("API Data:", listOfdata)
 
   // Scroll to experiences section
   useEffect(() => {
