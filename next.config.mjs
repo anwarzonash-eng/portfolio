@@ -59,10 +59,8 @@ const nextConfig = {
         protocol: "https",
         hostname: "leewopbookkeeping.com",
       },
-      {
-      unoptimized: true,
-      }
     ],
+    unoptimized: true,
   },
 };
 
