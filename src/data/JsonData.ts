@@ -194,7 +194,7 @@ export const FaqsDataUpdated = [
       },
       {
         index: 10,
-        type: "u",
+        type: "not_u",
         question: "Do you have a LinkedIn profile?",
         answer:
           "Yes! You can explore my professional journey, skills, and recommendations on my {linked_profile_link}LinkedIn profile{end}. It's an excellent way to see my credibility and connect with me directly.",
@@ -202,7 +202,7 @@ export const FaqsDataUpdated = [
       },
       {
         index: 11,
-        type: "u",
+        type: "not_u",
         question: "Can I see your work on GitHub?",
         answer:
           "Absolutely! My {github_profile_link}GitHub profile{end} showcases real-world projects, code samples, and contributions. It’s the perfect place to evaluate my coding style and technical depth.",
@@ -216,7 +216,7 @@ export const FaqsDataUpdated = [
     faqs: [
       {
         index: 0,
-        type: "all",
+        type: "u",
         question:
           "What’s the process for hiring a freelance developer like me?",
         answer:
@@ -241,7 +241,7 @@ export const FaqsDataUpdated = [
       },
       {
         index: 3,
-        type: "all",
+        type: "not_u",
         question: "Which payment options do you support?",
         answer:
           "I accept multiple methods — PayPal, Stripe, Payoneer, and direct bank transfers. During our initial call, we’ll decide on whichever option works best for you.",
@@ -249,7 +249,7 @@ export const FaqsDataUpdated = [
       },
       {
         index: 4,
-        type: "all",
+        type: "u",
         question: "What if I want changes after delivery?",
         answer:
           "That’s not a problem. I provide ongoing support even after the project wraps up. You can choose between a fixed maintenance plan or request updates whenever needed — totally flexible.",
@@ -257,7 +257,7 @@ export const FaqsDataUpdated = [
       },
       {
         index: 5,
-        type: "all",
+        type: "u",
         question: "How do you make sure projects are delivered on time?",
         answer:
           "I set clear milestones and stick to a defined timeline from day one. You’ll get regular progress updates to stay informed. My 2-week trial is also a good way to see how efficiently I work.",
@@ -273,7 +273,7 @@ export const FaqsDataUpdated = [
       },
       {
         index: 7,
-        type: "all",
+        type: "u",
         question: "Is it possible to hire you through Upwork?",
         answer:
           "Yes. I have a verified {upwork_profile_link}Upwork profile{end} where you can view my portfolio, reviews, and job history. If you prefer working through Upwork, simply send me an invite and we’ll start there.",
@@ -281,7 +281,7 @@ export const FaqsDataUpdated = [
       },
       {
         index: 8,
-        type: "all",
+        type: "u",
         question: "Can you describe your development process?",
         answer:
           "My workflow starts with understanding your requirements in detail. Then I prepare a project plan, design mockups, and get your approval. Once confirmed, I handle development, testing, and deployment — keeping communication open at every step.",
@@ -289,7 +289,7 @@ export const FaqsDataUpdated = [
       },
       {
         index: 9,
-        type: "all",
+        type: "u",
         question: "How do you manage bookkeeping projects?",
         answer:
           "For bookkeeping, I begin with a detailed discussion to understand your financial structure. After that, I organize records, implement accounting tools, and ensure everything stays accurate with regular reviews and reports.",
@@ -297,7 +297,7 @@ export const FaqsDataUpdated = [
       },
       {
         index: 10,
-        type: "all",
+        type: "not_u",
         question: "Can I find you on LinkedIn?",
         answer:
           "Yes, you can. My {linked_profile_link}LinkedIn profile{end} highlights my experience, professional background, and recommendations. It’s a great way to learn more about my work and connect directly.",
@@ -305,7 +305,7 @@ export const FaqsDataUpdated = [
       },
       {
         index: 11,
-        type: "all",
+        type: "not_u",
         question: "Where can I see your code work?",
         answer:
           "You can check my {github_profile_link}GitHub profile{end} to explore my projects, repositories, and contributions. It’s the best place to see my technical approach and code quality in real-world work.",
@@ -319,7 +319,7 @@ export const FaqsDataUpdated = [
     faqs: [
       {
         index: 0,
-        type: "not_u",
+        type: "u",
         question: "What’s the process of hiring you for a project?",
         answer:
           "It starts with a quick chat about your project goals and requirements. Once I understand your scope, I’ll share a detailed proposal and estimated cost. After we agree on terms, I begin development and keep you updated with regular progress reports until completion.",
@@ -351,7 +351,7 @@ export const FaqsDataUpdated = [
       },
       {
         index: 4,
-        type: "all",
+        type: "u",
         question: "Can I request updates after delivery?",
         answer:
           "Of course. I offer flexible post-project support for revisions, updates, and maintenance. You can either choose a small monthly maintenance plan or handle tweaks as needed — whatever fits your workflow.",
@@ -359,7 +359,7 @@ export const FaqsDataUpdated = [
       },
       {
         index: 5,
-        type: "not_u",
+        type: "u",
         question: "How do you make sure projects finish on schedule?",
         answer:
           "I plan every project around clear milestones and deliverables. You’ll get timeline updates at each stage. My 2-week free trial also helps you gauge my speed and consistency early on.",
@@ -375,7 +375,7 @@ export const FaqsDataUpdated = [
       },
       {
         index: 7,
-        type: "all",
+        type: "u",
         question: "Do you work through Upwork too?",
         answer:
           "Yes, you can hire me via my {upwork_profile_link}Upwork profile{end} if you prefer using that platform. You’ll find my job history, reviews, and portfolio there — it’s a good way to see how I’ve delivered for past clients.",
@@ -383,7 +383,7 @@ export const FaqsDataUpdated = [
       },
       {
         index: 8,
-        type: "not_u",
+        type: "u",
         question: "How do you approach a development project?",
         answer:
           "I start by understanding your goals, then build a roadmap and wireframes. Once the plan is approved, I move into coding, testing, and deployment. I keep communication open throughout so you can give input at every milestone.",
@@ -391,7 +391,7 @@ export const FaqsDataUpdated = [
       },
       {
         index: 9,
-        type: "not_u",
+        type: "u",
         question: "What does your bookkeeping process look like?",
         answer:
           "I begin with a consultation to understand your financial structure, then organize data, set up systems, and handle records accurately. You’ll receive regular reports and have full visibility into all bookkeeping stages.",
@@ -429,7 +429,7 @@ export const FaqsDataUpdated = [
       },
       {
         index: 1,
-        type: "u",
+        type: "not_u",
         question: "Do you provide a free trial before starting?",
         answer:
           "Yes, I offer a 2-week free trial so you can evaluate my coding skills, speed, and communication style without paying upfront. It’s a risk-free way to see if I’m the right fit for your project.",
@@ -437,7 +437,7 @@ export const FaqsDataUpdated = [
       },
       {
         index: 2,
-        type: "u",
+        type: "not_u",
         question: "How will I stay updated on progress?",
         answer:
           "I use tools like Trello, Asana, or Monday.com so you can track everything in real time. You’ll also receive weekly summaries and milestone reports. For quick chats, you can reach me anytime through {email_link}email{end} or {whatsapp_link}WhatsApp{end}.",
@@ -445,7 +445,7 @@ export const FaqsDataUpdated = [
       },
       {
         index: 3,
-        type: "u",
+        type: "not_u",
         question: "What payment options do you support?",
         answer:
           "You can pay via PayPal, Stripe, Payoneer, or direct bank transfer. During onboarding, we’ll finalize whichever method works best for you.",
@@ -469,7 +469,7 @@ export const FaqsDataUpdated = [
       },
       {
         index: 6,
-        type: "u",
+        type: "not_u",
         question: "How do I get started working with you?",
         answer:
           "You can schedule a call through {calendly_link}Calendly link{end}, start a chat on my {website_link}website{end}, or reach out via {email_link}email{end} or {whatsapp_link}WhatsApp{end}. Once you share a bit about your project, I’ll guide you through the next steps.",
@@ -501,7 +501,7 @@ export const FaqsDataUpdated = [
       },
       {
         index: 10,
-        type: "u",
+        type: "not_u",
         question: "Do you have a LinkedIn profile I can view?",
         answer:
           "Yes, my {linked_profile_link}LinkedIn profile{end} includes my experience, recommendations, and skills. It’s the best place to learn more about my background and connect professionally.",
@@ -509,7 +509,7 @@ export const FaqsDataUpdated = [
       },
       {
         index: 11,
-        type: "u",
+        type: "not_u",
         question: "Can I check your GitHub projects?",
         answer:
           "Definitely. My {github_profile_link}GitHub profile{end} features code samples, open-source contributions, and live projects — great for reviewing my technical depth and coding practices.",
