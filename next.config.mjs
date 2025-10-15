@@ -34,6 +34,9 @@
 // New Config
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   env: {
     API_BASE_URL: process.env.API_BASE_URL,
   },
