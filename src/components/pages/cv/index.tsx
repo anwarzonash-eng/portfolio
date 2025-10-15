@@ -199,6 +199,9 @@ const CV = ({ params }: { params: any }) => {
     filteredSkills,
     listOfdata
   );
+
+  console.log("Data List: ", listOfdata?.skills,)
+  // console.log("Modified Raw HTML Data: ",rawHtml)
   const parser = new DOMParser();
   const doc = parser.parseFromString(rawHtml, "text/html");
   const items = Array.from(doc.querySelectorAll("li")).map(

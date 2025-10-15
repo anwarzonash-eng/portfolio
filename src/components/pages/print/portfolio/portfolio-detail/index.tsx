@@ -120,29 +120,111 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
     }[];
   } = skillsGrouping(portfolioDetails?.skills);
 
-  // Simple print-only logic: count number of <li> items in features_short
+  // Features parsing and truncation for screen/print
   const featuresRef = useRef<HTMLDivElement | null>(null);
   const [featuresItemCount, setFeaturesItemCount] = useState(0);
+  const [fullFeaturesHtml, setFullFeaturesHtml] = useState<string | null>(null);
+  const [defaultTruncatedHtml, setDefaultTruncatedHtml] = useState<string | null>(null); // 15 items for screen
+  const [printTruncatedHtml, setPrintTruncatedHtml] = useState<string | null>(null); // 12 items for print
+  const [isPrintMode, setIsPrintMode] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false); // screen expansion toggle
 
 useEffect(() => {
   if (!portfolioDetails) {
     setFeaturesItemCount(0);
+    setFullFeaturesHtml("");
+    setDefaultTruncatedHtml("");
+    setPrintTruncatedHtml("");
     return;
   }
+
   try {
     const rawHtml = modifiedContent(
       portfolioDetails?.features_short,
       filteredSkills,
       listOfdata
+    ) || "";
+
+    // DEBUG: inspect rawHtml and ensure it contains the expected <li> items
+    // Remove these logs after verification
+    console.log("[features] rawHtml length:", rawHtml.length);
+    const parserForCount = new DOMParser();
+    const docForCount = parserForCount.parseFromString(rawHtml, "text/html");
+    const allLis = Array.from(docForCount.querySelectorAll("li"));
+    setFeaturesItemCount(allLis.length);
+    setFullFeaturesHtml(rawHtml);
+
+    // Helper builds truncated HTML using a FRESH parser/document each call
+    const buildTruncated = (count: number) => {
+      if (!rawHtml) return "";
+
+      const parser = new DOMParser();
+      const tempDoc = parser.parseFromString(rawHtml, "text/html");
+
+      // get all list items from the source HTML (preserves order)
+      const lis = Array.from(tempDoc.querySelectorAll("li"));
+      if (lis.length === 0) {
+        // nothing to truncate, return raw source
+        return rawHtml;
+      }
+
+      // determine the type of the first list (ul or ol), fallback to 'ul'
+      const firstList = tempDoc.querySelector("ul, ol");
+      const listTag = firstList ? firstList.tagName.toLowerCase() : "ul";
+
+      // Create a new document to build safe HTML
+      const newDoc = document.implementation.createHTMLDocument("");
+      const container = newDoc.createElement("div");
+      const newList = newDoc.createElement(listTag);
+
+      // append clones of the first `count` <li> items
+      const take = Math.min(count, lis.length);
+      lis.slice(0, take).forEach((li) => {
+        newList.appendChild(li.cloneNode(true));
+      });
+
+      container.appendChild(newList);
+      return container.innerHTML;
+    };
+
+    // default screen truncated to 15
+    setDefaultTruncatedHtml(
+      allLis.length > 15 ? buildTruncated(15) : rawHtml
     );
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(rawHtml || "", "text/html");
-    const lis = doc.querySelectorAll("li");
-    setFeaturesItemCount(lis.length);
+
+    // print truncated to 12 (force up to 12)
+    setPrintTruncatedHtml(
+      allLis.length > 12 ? buildTruncated(12) : rawHtml
+    );
   } catch (e) {
+    console.error("[features] parse error:", e);
     setFeaturesItemCount(0);
+    setFullFeaturesHtml("");
+    setDefaultTruncatedHtml("");
+    setPrintTruncatedHtml("");
   }
 }, [portfolioDetails, filteredSkills, listOfdata]);
+
+  // Listen for print events to toggle print mode
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const onBefore = () => setIsPrintMode(true);
+    const onAfter = () => setIsPrintMode(false);
+
+    window.addEventListener("beforeprint", onBefore);
+    window.addEventListener("afterprint", onAfter);
+
+    // matchMedia fallback
+    const m = window.matchMedia?.("print");
+    const mmHandler = (e: MediaQueryListEvent) => setIsPrintMode(e.matches);
+    if (m && typeof m.addEventListener === "function") m.addEventListener("change", mmHandler);
+
+    return () => {
+      window.removeEventListener("beforeprint", onBefore);
+      window.removeEventListener("afterprint", onAfter);
+      if (m && typeof m.removeEventListener === "function") m.removeEventListener("change", mmHandler);
+    };
+  }, []);
 
  
 
@@ -424,7 +506,7 @@ useEffect(() => {
                 <NoteDomainForPint
                   direction={"hidden print:right-0 print:block"}
                 />
-                <div className="max-w-[1550px] w-full mx-auto px-[4rem] limit-height-portfolio-detail">
+                <div className="max-w-[1550px] w-full mx-auto px-[4rem]">
                   <h2 className="text-primary text-center text-[4rem] font-semibold my-[1rem]">
                     Tech Stacks I worked On
                   </h2>
@@ -432,27 +514,51 @@ useEffect(() => {
                   <div className="w-full relative">
                     <div
                       ref={featuresRef}
-                      dangerouslySetInnerHTML={{
-                        __html: modifiedContent(
-                          portfolioDetails?.features_short,
-                          filteredSkills,
-                          listOfdata
-                        ),
-                      }}
-                      className="w-full list-div my-[6.4rem] print:my-[2rem] leading-[3.2rem] font-normal limit-features-height"
-                    ></div>
-                    {/* Print-only Read More: show only in print and only if > 9 items */}
-                    {featuresItemCount > 9 && (
-                      <div className="print:flex print:text-center print:mt-4 items-center justify-center hidden">
+                      className="w-full list-div my-[6.4rem] print:my-[2rem] leading-[3.2rem] font-normal"
+                    >
+                      {/* Screen: show default truncated or full depending on isExpanded */}
+                      {!isPrintMode && (
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html: isExpanded ? (fullFeaturesHtml || "") : (defaultTruncatedHtml || ""),
+                          }}
+                        />
+                      )}
+
+                      {/* Print: show print truncated HTML */}
+                      {isPrintMode && (
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html: printTruncatedHtml || "",
+                          }}
+                        />
+                      )}
+                    </div>
+
+                    {/* Screen Read More: expand in-place when more than 15 items */}
+                    {!isPrintMode && featuresItemCount > 15 && (
+                      <div className="text-center mt-4">
+                        <button
+                          onClick={() => setIsExpanded((s) => !s)}
+                          className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-center btn-primary inline-block max-w-max"
+                        >
+                          {isExpanded ? "Show Less" : "Read More"}
+                        </button>
+                      </div>
+                    )}
+
+                    {/* Print-only Read More: show only in print and only if > 12 items */}
+                    {isPrintMode && featuresItemCount > 12 && (
+                      <div className="print:flex print:text-center mt-4
+                       items-center justify-center hidden">
                         <Link
-                        // href={`/portfolio/${portfolioDetails?.id}`}
-                        href={`/portfolio/${portfolioDetails?.id}?scroll=points`}
-                        target="_blank"
-                        className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-center btn-primary inline-block max-w-max"
+                          href={`/portfolio/${portfolioDetails?.id}#tech-stacks`}
+                          target="_blank"
+                          className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-center btn-primary inline-block max-w-max"
                         >
                           Read More
                         </Link>
-                        </div>
+                      </div>
                     )}
 
                     

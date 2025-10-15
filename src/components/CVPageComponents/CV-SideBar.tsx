@@ -33,6 +33,8 @@ const CVSideBar: React.FC<CVSideBarProps> = ({
   contactDetails,
   socialLinks,
 }) => {
+
+  console.log("Profile Image: ", listOfdata?.profile_photo_1)
   return (
     <aside className="lg:max-w-[40rem] print:w-full print:break-before-page w-full flex-shrink-0 bg-cvSideBg bg-no-repeat bg-cover pb-[2rem] pt-[5rem] print:pt-[2rem] px-[2rem] lg:px-[3rem]">
       <div className="flex flex-col items-center">
@@ -40,7 +42,7 @@ const CVSideBar: React.FC<CVSideBarProps> = ({
         <div className="print:flex flex flex-col items-center justify-center gap-4 print:w-full">
           <div className="print:flex flex flex-col print:flex-row items-center justify-center gap-4 print:w-full">
             <Link href="/" className="block">
-              <Image
+              <img
                 src={listOfdata?.profile_photo_1}
                 height={1200}
                 width={1200}

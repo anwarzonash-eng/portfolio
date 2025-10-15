@@ -1,4 +1,6 @@
 
+import { MoveUpRight } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
@@ -8,17 +10,17 @@ function UpworkActivitySectionPrint({ urlInfo, data }) {
     {
       id: 1,
       title: "5000+ Hour Tracked for clients",
-      content: "With over 2500 hours logged, we bring extensive experience in delivering exceptional web development projects that drive results."
+      content: "With over 2500 hours logged, I bring extensive experience in delivering exceptional web development projects that drive results."
     },
     {
       id: 2,
       title: "70+ Project Completed",
-      content: "Having successfully completed over 35 web development projects, we have a proven track record of building innovative and user-focused websites."
+      content: "Having successfully completed over 35 web development projects, I have a proven track record of building innovative and user-focused websites."
     },
     {
       id: 3,
       title: "Rated 5 stars by Clients",
-      content: "Rated 5 stars by our clients, we pride ourselves on exceeding expectations with high-quality web development services. Your satisfaction drives our commitment to excellence."
+      content: "Rated 5 stars by my clients, I pride ourselves on exceeding expectations with high-quality web development services. Your satisfaction drives my commitment to excellence."
     },
   ]
 
@@ -55,13 +57,34 @@ function UpworkActivitySectionPrint({ urlInfo, data }) {
   return (
 
     <div className={`${urlInfo?.domain === "findusman.me" ? "w-full  py-10 px-[4rem]" : "hidden"}`}>
+    
       {/* Top Content */}
-      <Link href={data?.upwork ?? "#"} target='_blank' className="py-2 inline-block">
-        <img src="/images/up-logo.png" alt="Upwork Logo" />
-      </Link>
+      <div className='flex items-center justify-between w-full'>
+        <Link href={data?.upwork ?? "#"} target='_blank' className="py-2 inline-block">
+          <img src="/images/up-logo.png" alt="Upwork Logo" />
+        </Link>
+        <div className='flex items-center gap-2'>
+        <Link href={data?.upwork ?? "#"} target='_blank' className="
+          bg-black text-white border border-transparent hover:border-primary hover:bg-white hover:text-primary duration-300
+          flex items-center justify-center
+          text-[2rem] rounded-[20rem] px-[2rem] py-[1rem] group">
+          <span>Check My</span>
+          <div className='h-[3rem] w-[3rem] rounded-full relative mx-2 inline-block'>
+          <Image
+            src="/images/upworkforContactComponent.svg"
+            alt="Upwork Logo" width={30} height={30} className='h-full w-full object-cover rounded-full group-hover:border-primary border border-transparent duration-300
+            absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2' />
+          </div>
+          <span>Profile</span>
+        </Link>
+        <Link href={data?.upwork ?? "#"} target='_blank'  className='h-[4rem] w-[4rem] rounded-full relative mx-2 bg-sectionBG text-white flex items-center justify-center animate-bounce cursor-pointer hover:bg-white hover:text-primary border border-transparent hover:border-primary duration-300'>
+          <MoveUpRight/>
+        </Link>
+        </div>
+      </div>
       {/* Bottom Content */}
       <div className="px-4 grid grid-cols-2 w-full gap-8">
-         {/*Financial Activity Column */}
+        {/*Financial Activity Column */}
         <div>
           <h2 className={`text-[3rem] font-bold mb-[1rem]`}>My <Link href={data?.upwork ?? "#"} target='_blank' className='text-primary'>Upwork</Link> Finanancial Activities</h2>
           <div className="space-y-4">

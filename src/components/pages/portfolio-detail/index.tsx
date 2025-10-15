@@ -33,6 +33,14 @@ const PortfolioDetails = ({ params }: { params: any }) => {
   const [listOfskills, setListOfSkills] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  // New States Start
+  const [featuresItemCount, setFeaturesItemCount] = useState(0);
+  const [fullFeaturesHtml, setFullFeaturesHtml] = useState<string | null>(null);
+  const [defaultTruncatedHtml, setDefaultTruncatedHtml] = useState<string | null>(null);
+  const [isExpanded, setIsExpanded] = useState(false); // screen expansion toggle
+  // End
+
+  
 
   // Ref for the SkillsContainer section
   const skillsContainerRef = useRef<HTMLDivElement | null>(null);
@@ -41,6 +49,64 @@ const PortfolioDetails = ({ params }: { params: any }) => {
   // Filter skills based on listOfdata.skills_ids
   const [allSkills, setAllSkills] = useState([]);
   const [filteredSkills, setFilteredSkills] = useState([]);
+
+  // SKills List Managmeent useEffect
+  useEffect(() => {
+  if (!portfolioDetails) {
+    setFeaturesItemCount(0);
+    setFullFeaturesHtml("");
+    setDefaultTruncatedHtml("");
+    return;
+  }
+
+  try {
+    const rawHtml = modifiedContent(
+      portfolioDetails?.features_short,
+      filteredSkills,
+      listOfdata
+    ) || "";
+
+    const parserForCount = new DOMParser();
+    const docForCount = parserForCount.parseFromString(rawHtml, "text/html");
+    const allLis = Array.from(docForCount.querySelectorAll("li"));
+    setFeaturesItemCount(allLis.length);
+    setFullFeaturesHtml(rawHtml);
+
+    // Helper builds truncated HTML
+    const buildTruncated = (count: number) => {
+      if (!rawHtml) return "";
+      const parser = new DOMParser();
+      const tempDoc = parser.parseFromString(rawHtml, "text/html");
+      const lis = Array.from(tempDoc.querySelectorAll("li"));
+      if (lis.length === 0) return rawHtml;
+
+      const firstList = tempDoc.querySelector("ul, ol");
+      const listTag = firstList ? firstList.tagName.toLowerCase() : "ul";
+
+      const newDoc = document.implementation.createHTMLDocument("");
+      const container = newDoc.createElement("div");
+      const newList = newDoc.createElement(listTag);
+
+      const take = Math.min(count, lis.length);
+      lis.slice(0, take).forEach((li) => {
+        newList.appendChild(li.cloneNode(true));
+      });
+
+      container.appendChild(newList);
+      return container.innerHTML;
+    };
+
+    // Truncate to 15 items for screen
+    setDefaultTruncatedHtml(
+      allLis.length > 15 ? buildTruncated(15) : rawHtml
+    );
+  } catch (e) {
+    console.error("[features] parse error:", e);
+    setFeaturesItemCount(0);
+    setFullFeaturesHtml("");
+    setDefaultTruncatedHtml("");
+  }
+}, [portfolioDetails, filteredSkills, listOfdata]);
 
   useEffect(() => {
     if (listOfdata?.skills_ids && allSkills.length > 0) {
@@ -365,7 +431,8 @@ useEffect(() => {
                       </div>
                     </div>
                   </article>
-                  <div className="w-full my-[6.4rem]">
+                  {/* OLd Section */}
+                  {/* <div className="w-full my-[6.4rem]">
                     <h2
                      
                       className="text-primary 
@@ -374,21 +441,51 @@ useEffect(() => {
                     >
                       Tech Stacks I worked On
                     </h2>
-                     {/* Tech Stacks I worked On Section */}
                     <div
-                     id="tech-stacks"
-                      ref={techStacksRef}
-                      dangerouslySetInnerHTML={{
-                        __html: modifiedContent(
+                    id="tech-stacks"
+                    ref={techStacksRef}
+                    dangerouslySetInnerHTML={{
+                      __html: modifiedContent(
                           portfolioDetails?.features_short,
                           filteredSkills,
                           listOfdata
                         ),
                       }}
-                      className="w-full list-div 
-                     text-[2rem] leading-[3.2rem] text-paragraph1 font-normal"
+                    className="w-full list-div 
+                    text-[2rem] leading-[3.2rem] text-paragraph1 font-normal"
                     ></div>
-                  </div>
+                  </div> */}
+
+                  {/* New Section */}
+                  <div className="w-full my-[6.4rem]">
+  <h2
+    ref={techStacksRef}
+    className="text-primary text-center text-[2rem] xl:text-[4rem] font-semibold mb-[2rem] xl:mb-[3rem]"
+  >
+    Tech Stacks I worked On
+  </h2>
+  <div className="w-full relative">
+    <div
+      id="tech-stacks"
+      dangerouslySetInnerHTML={{
+        __html: isExpanded ? (fullFeaturesHtml || "") : (defaultTruncatedHtml || ""),
+      }}
+      className="w-full list-div text-[2rem] leading-[3.2rem] text-paragraph1 font-normal"
+    ></div>
+
+    {/* Read More Button: show only if > 15 items */}
+    {featuresItemCount > 15 && (
+      <div className="text-center mt-4">
+        <button
+          onClick={() => setIsExpanded((s) => !s)}
+          className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-center btn-primary inline-block max-w-max"
+        >
+          {isExpanded ? "Show Less" : "Read More"}
+        </button>
+      </div>
+    )}
+  </div>
+</div>
                   <div className="w-full h-auto">
                     <Image
                       src={

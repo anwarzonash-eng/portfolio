@@ -274,10 +274,11 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
           )}
 
           {/* Expandable Content */}
-          <div className="mb-2 list-div">
+          <div className="mb-2 list-div" id="experiecnesPoints">
             {visibleItems.length > 0 && (
               <ul
-                className="mt-[2rem]  pl-[2rem] text-heading text-[1.6rem] leading-[2.4rem]"
+                className="mt-[2rem] pl-[2rem] text-heading text-[1.6rem]
+                leading-[3rem]"
                 dangerouslySetInnerHTML={{ __html: visibleItems.join("") }}
               />
             )}

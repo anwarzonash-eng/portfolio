@@ -243,6 +243,10 @@ body {
   @apply text-primary relative inline-block font-semibold  underline; /* Set as inline-block to apply ::before properly */
 }
 
+#experiecnesPoints li {
+  @apply mb-[-0.1rem];
+}
+
 .blogs-modified h1,
 .blogs-modified h2,
 .blogs-modified h3,
