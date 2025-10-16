@@ -117,7 +117,7 @@ export const FaqsDataUpdated = [
         type: "u",
         question: "How do you handle hiring a freelance developer?",
         answer:
-          "Hiring me is straightforward! After you contact me with your project requirements, we’ll have a discussion to understand your goals, scope, and timeline. I’ll then provide a detailed estimate and a plan. Once we agree, I’ll begin working and keep you informed with regular updates.",
+          "Hiring me is straightforward! After you {contactme_link}contact{end} me with your project requirements, we’ll have a discussion to understand your goals, scope, and timeline. I’ll then provide a detailed estimate and a plan. Once we agree, I’ll begin working and keep you informed with regular updates.",
         altName: "Hiring",
       },
       {
@@ -125,7 +125,7 @@ export const FaqsDataUpdated = [
         type: "not_u",
         question: "Can I get a free trial to evaluate your skills?",
         answer:
-          "Yes! To ensure you're confident in my abilities, I offer a 2-week free trial. This allows you to evaluate my development skills, work style, and how well I meet your project needs without any commitment.",
+          "Yes! To ensure you're confident in my abilities, I offer a 2-week free trial. This allows you to evaluate my development skills, work style, and how well I {calendly_link}meet{end} your project needs without any commitment.",
         altName: "Trial",
       },
       {
@@ -149,7 +149,7 @@ export const FaqsDataUpdated = [
         type: "u",
         question: "What if I need changes after the project is finished?",
         answer:
-          "I understand that revisions may be needed. I offer flexible post-project support and maintenance services. We can set up a maintenance plan or handle changes on an as-needed basis, depending on your requirements.",
+          "I understand that revisions may be needed. I offer flexible post-project {contactme_link}support{end} and maintenance services. We can set up a maintenance plan or handle changes on an as-needed basis, depending on your requirements.",
         altName: "Revisions",
       },
       {
@@ -157,7 +157,7 @@ export const FaqsDataUpdated = [
         type: "u",
         question: "How do you ensure the work is delivered on time?",
         answer:
-          "I follow a structured timeline with clear milestones. We'll agree on deadlines from the start, and I’ll provide regular progress updates to ensure we stay on track. My 2-week free trial is also a great way to see my efficiency firsthand.",
+          "I follow a structured timeline with clear milestones. We'll agree on deadlines from the start, and I’ll provide regular progress updates to ensure we stay on track. My {contactme_link}2-week free trial{end} is also a great way to see my efficiency firsthand.",
         altName: "Timeliness",
       },
       {
@@ -181,19 +181,11 @@ export const FaqsDataUpdated = [
         type: "u",
         question: "What is your development process?",
         answer:
-          "My process begins with a deep consultation to understand your needs. I then move into project planning, wireframing, and design. After your approval, I start development, followed by thorough testing and deployment. I keep communication open and offer you opportunities for feedback at key stages.",
+          "My process begins with a deep {contactme_link}consultation{end} to understand your needs. I then move into project planning, wireframing, and design. After your approval, I start development, followed by thorough testing and deployment. I keep communication open and offer you opportunities for feedback at key stages.",
         altName: "Development_process",
       },
       {
         index: 9,
-        type: "u",
-        question: "What is your bookkeeping process?",
-        answer:
-          "My bookkeeping process starts with a consultation to understand your financial goals. I then organize your data, set up accounting systems, and manage your records. My focus is on maintaining accuracy, followed by regular reviews and reporting. I ensure you can review and provide feedback at key stages.",
-        altName: "bookkeeping_process",
-      },
-      {
-        index: 10,
         type: "not_u",
         question: "Do you have a LinkedIn profile?",
         answer:
@@ -201,7 +193,7 @@ export const FaqsDataUpdated = [
         altName: "LinkedIn",
       },
       {
-        index: 11,
+        index: 10,
         type: "not_u",
         question: "Can I see your work on GitHub?",
         answer:
@@ -220,7 +212,7 @@ export const FaqsDataUpdated = [
         question:
           "What’s the process for hiring a freelance developer like me?",
         answer:
-          "It’s simple. We’ll start with a quick chat to outline your goals, scope, and timeline. I’ll then share a plan with clear deliverables and pricing. Once everything’s approved, I’ll get started and keep you updated as the work progresses.",
+          "It’s simple. We’ll start with a {email_link}quick chat{end} to outline your goals, scope, and timeline. I’ll then share a plan with clear deliverables and pricing. Once everything’s approved, I’ll get started and keep you updated as the work progresses.",
         altName: "Hiring",
       },
       {
@@ -228,7 +220,7 @@ export const FaqsDataUpdated = [
         type: "not_u",
         question: "Do you offer a free trial before starting?",
         answer:
-          "Yes, I do. You can start with a 2-week free trial to see how I work, evaluate my development skills, and check how well I align with your project needs — no upfront cost involved.",
+          "Yes, I do. You can start with a {contactme_link}2-week free trial{end} to see how I work, evaluate my development skills, and check how well I align with your project needs — no upfront cost involved.",
         altName: "Trial",
       },
       {
@@ -244,7 +236,7 @@ export const FaqsDataUpdated = [
         type: "not_u",
         question: "Which payment options do you support?",
         answer:
-          "I accept multiple methods — PayPal, Stripe, Payoneer, and direct bank transfers. During our initial call, we’ll decide on whichever option works best for you.",
+          "I accept multiple methods — PayPal, Stripe, Payoneer, and direct bank transfers. During our {calendly_link}initial call{end}, we’ll decide on whichever option works best for you.",
         altName: "Payment",
       },
       {
@@ -252,7 +244,7 @@ export const FaqsDataUpdated = [
         type: "u",
         question: "What if I want changes after delivery?",
         answer:
-          "That’s not a problem. I provide ongoing support even after the project wraps up. You can choose between a fixed maintenance plan or request updates whenever needed — totally flexible.",
+          "That’s not a problem. I provide ongoing {contactme_link}support{end} even after the project wraps up. You can choose between a fixed maintenance plan or request updates whenever needed — totally flexible.",
         altName: "Revisions",
       },
       {
@@ -260,7 +252,7 @@ export const FaqsDataUpdated = [
         type: "u",
         question: "How do you make sure projects are delivered on time?",
         answer:
-          "I set clear milestones and stick to a defined timeline from day one. You’ll get regular progress updates to stay informed. My 2-week trial is also a good way to see how efficiently I work.",
+          "I set clear milestones and stick to a defined timeline from day one. You’ll get regular progress updates to stay informed. My {contactme_link}2-week trial{end} is also a good way to see how efficiently I work.",
         altName: "Timeliness",
       },
       {
@@ -284,19 +276,11 @@ export const FaqsDataUpdated = [
         type: "u",
         question: "Can you describe your development process?",
         answer:
-          "My workflow starts with understanding your requirements in detail. Then I prepare a project plan, design mockups, and get your approval. Once confirmed, I handle development, testing, and deployment — keeping communication open at every step.",
+          "My workflow starts with understanding your {email_link}requirements{end} in detail. Then I prepare a project plan, design mockups, and get your approval. Once confirmed, I handle development, testing, and deployment — keeping communication open at every step.",
         altName: "Development_process",
       },
       {
         index: 9,
-        type: "u",
-        question: "How do you manage bookkeeping projects?",
-        answer:
-          "For bookkeeping, I begin with a detailed discussion to understand your financial structure. After that, I organize records, implement accounting tools, and ensure everything stays accurate with regular reviews and reports.",
-        altName: "bookkeeping_process",
-      },
-      {
-        index: 10,
         type: "not_u",
         question: "Can I find you on LinkedIn?",
         answer:
@@ -304,7 +288,7 @@ export const FaqsDataUpdated = [
         altName: "LinkedIn",
       },
       {
-        index: 11,
+        index: 10,
         type: "not_u",
         question: "Where can I see your code work?",
         answer:
@@ -322,7 +306,7 @@ export const FaqsDataUpdated = [
         type: "u",
         question: "What’s the process of hiring you for a project?",
         answer:
-          "It starts with a quick chat about your project goals and requirements. Once I understand your scope, I’ll share a detailed proposal and estimated cost. After we agree on terms, I begin development and keep you updated with regular progress reports until completion.",
+          "It starts with a quick {contactme_link}chat{end} about your project goals and requirements. Once I understand your scope, I’ll share a detailed proposal and estimated cost. After we agree on terms, I begin development and keep you updated with regular progress reports until completion.",
         altName: "Hiring",
       },
       {
@@ -330,7 +314,7 @@ export const FaqsDataUpdated = [
         type: "not_u",
         question: "Can I test your skills before committing?",
         answer:
-          "Yes, I offer a 2-week free trial so you can get a feel for my work quality, communication style, and speed before making any payment. It’s a no-risk way to see if I’m the right fit for your project.",
+          "Yes, I offer a {contactme_link}2-week free trial{end} so you can get a feel for my work quality, communication style, and speed before making any payment. It’s a no-risk way to see if I’m the right fit for your project.",
         altName: "Trial",
       },
       {
@@ -391,14 +375,6 @@ export const FaqsDataUpdated = [
       },
       {
         index: 9,
-        type: "u",
-        question: "What does your bookkeeping process look like?",
-        answer:
-          "I begin with a consultation to understand your financial structure, then organize data, set up systems, and handle records accurately. You’ll receive regular reports and have full visibility into all bookkeeping stages.",
-        altName: "bookkeeping_process",
-      },
-      {
-        index: 10,
         type: "not_u",
         question: "Where can I find you on LinkedIn?",
         answer:
@@ -406,7 +382,7 @@ export const FaqsDataUpdated = [
         altName: "LinkedIn",
       },
       {
-        index: 11,
+        index: 10,
         type: "not_u",
         question: "Do you have any public GitHub projects?",
         answer:
@@ -424,7 +400,7 @@ export const FaqsDataUpdated = [
         type: "u",
         question: "How can I hire you for my project?",
         answer:
-          "It’s simple. Once you share your project details, we’ll jump on a quick call to align on your goals, scope, and timeline. I’ll send you a clear proposal with costs and milestones. After approval, I’ll start development and keep you posted with regular updates until completion.",
+          "It’s simple. Once you share your project details, we’ll jump on a quick {contactme_link}call{end} to align on your goals, scope, and timeline. I’ll send you a clear proposal with costs and milestones. After approval, I’ll start development and keep you posted with regular updates until completion.",
         altName: "Hiring",
       },
       {
@@ -432,7 +408,7 @@ export const FaqsDataUpdated = [
         type: "not_u",
         question: "Do you provide a free trial before starting?",
         answer:
-          "Yes, I offer a 2-week free trial so you can evaluate my coding skills, speed, and communication style without paying upfront. It’s a risk-free way to see if I’m the right fit for your project.",
+          "Yes, I offer a {contactme_link}2-week free trial{end} so you can evaluate my coding skills, speed, and communication style without paying upfront. It’s a risk-free way to see if I’m the right fit for your project.",
         altName: "Trial",
       },
       {
@@ -440,7 +416,7 @@ export const FaqsDataUpdated = [
         type: "not_u",
         question: "How will I stay updated on progress?",
         answer:
-          "I use tools like Trello, Asana, or Monday.com so you can track everything in real time. You’ll also receive weekly summaries and milestone reports. For quick chats, you can reach me anytime through {email_link}email{end} or {whatsapp_link}WhatsApp{end}.",
+          "I use tools like Trello, Asana, or Monday.com so you can track everything in real time. You’ll also receive weekly summaries and milestone reports. For {contactme_link}quick chats{end}, you can reach me anytime through {email_link}email{end} or {whatsapp_link}WhatsApp{end}.",
         altName: "Tracking",
       },
       {
@@ -493,14 +469,6 @@ export const FaqsDataUpdated = [
       },
       {
         index: 9,
-        type: "u",
-        question: "How do you manage bookkeeping work?",
-        answer:
-          "I start with an initial consultation to understand your financial goals. From there, I organize data, set up accounting systems, and handle records accurately. You’ll receive consistent reports and full transparency at every step.",
-        altName: "bookkeeping_process",
-      },
-      {
-        index: 10,
         type: "not_u",
         question: "Do you have a LinkedIn profile I can view?",
         answer:
@@ -508,7 +476,7 @@ export const FaqsDataUpdated = [
         altName: "LinkedIn",
       },
       {
-        index: 11,
+        index: 10,
         type: "not_u",
         question: "Can I check your GitHub projects?",
         answer:
@@ -520,6 +488,7 @@ export const FaqsDataUpdated = [
 ];
 
 export const matchPlaceHolderList = [
+  "contactme_link",
   "profile_pic_url",
   "designation",
   "website_link",
