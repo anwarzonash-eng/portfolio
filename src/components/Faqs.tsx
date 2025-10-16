@@ -3,6 +3,7 @@ import { scrollToSection } from "@/hooks/scrollToSection";
 import { usePathname } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import NoteDomainForPint from "./NoteDomainForPint";
+import { json } from "stream/consumers";
 
 
 // Update FaqItem to include the new 'type' property
@@ -40,23 +41,28 @@ const Faqs: React.FC<FaqsProps> = ({ urlInfo, companyType, apiData }) => {
 
   const readyData = apiData ? apiData : {};
 
+  // console.log("API Data FAQs:", readyData)
+
   // Check if urlInfo.u is present
   const isUrlU = !!urlInfo?.u;
 
+  // const JSONSkillsData =  JSON.stringify(readyData?.skills)
+  // console.log("JSON Skill Data:", JSONSkillsData)
+
 
 const matchPlaceHolderList = {
-  profile_pic_url:readyData?.upwork,
-  designation:readyData?.upwork,
-  website_link:readyData?.upwork,
+  profile_pic_url:readyData?.profile_photo_1,
+  designation:readyData?.designation,
+  website_link:readyData?.domain,
   client_name:readyData?.upwork,
   upwork_profile_link:readyData?.upwork,
-  github_profile_link:readyData?.upwork,
-  linked_profile_link:readyData?.upwork,
-  cv_link:readyData?.upwork,
-  cv_download_link:readyData?.upwork,
-  tag_line_one:readyData?.upwork,
-  skills_names:readyData?.upwork,
-  services_names:readyData?.upwork,
+  github_profile_link:readyData?.github,
+  linked_profile_link:readyData?.linkedIn,
+  cv_link:"/cv",
+  cv_download_link:"/cv",
+  tag_line_one:readyData?.tag_line, //Done
+  skills_names:readyData?.upwork, // Redirect To Skills Section
+  services_names:readyData?.upwork, // Redirect To Services Section
   skills_link:readyData?.upwork,
   skill_1_pic:readyData?.upwork,
   skill_1_title_pic:readyData?.upwork,
@@ -101,12 +107,12 @@ const matchPlaceHolderList = {
   client_3_name:readyData?.upwork,
   client_3_designation:readyData?.upwork,
   client_3_company:readyData?.upwork,
-  all_portfolio:readyData?.upwork,
-  portfolio_1_picture:readyData?.upwork,
-  portfolio_1_title:readyData?.upwork,
-  portfolio_1_description:readyData?.upwork,
-  portfolio_1_link:readyData?.upwork,
-  portfolio_1_more_skills_count:readyData?.upwork,
+  all_portfolio:"/portfolio",
+  portfolio_1_picture:readyData?.portfolios_ids?.[0]?.thumbnail,
+  portfolio_1_title:readyData?.portfolios_ids?.[0]?.title,
+  portfolio_1_description:readyData?.portfolios_ids?.[0]?.tagline_2,
+  portfolio_1_link:readyData?.readyData?.portfolios_ids?.[0]?.link,
+  portfolio_1_more_skills_count:readyData?.readyData?.portfolios_ids?.[0]?.skills.length,
   portfolio_1_skill_1_pic:readyData?.upwork,
   portfolio_1_skill_1_title_pic:readyData?.upwork,
   portfolio_1_skill_2_pic:readyData?.upwork,
@@ -184,11 +190,11 @@ const matchPlaceHolderList = {
   blog_3_title:readyData?.upwork,
   blog_3_link:readyData?.upwork,
   blog_3_descirption:readyData?.upwork,
-  email_link:readyData?.upwork,
-  whatsapp_link:readyData?.upwork,
-  calendly_link:readyData?.upwork,
-  instagram_link:readyData?.upwork,
-  linkedIn_link:readyData?.upwork,
+  email_link: `mailto:${readyData?.email || "#"}`,
+  whatsapp_link: `https://wa.me/${readyData?.phone_no}`,
+  calendly_link:readyData?.calendly_link,
+  instagram_link:readyData?.instagram,
+  linkedIn_link:readyData?.linkedIn,
 }
 
   // ✅ Define the links once — they will be injected automatically
@@ -357,6 +363,7 @@ const matchPlaceHolderList = {
 
       <section className="w-full print:break-before-page">
         {/* FAQ Section Completed */}
+        {/* <div className="text-[4rem] text-primary">{readyData?.portfolios_ids?.[0]?.skills?.length || 0}</div> */}
         <div className="mainContainer mt-[10rem] mb-[5rem] flex flex-col md:flex-row gap-[4rem] lg:gap-[6rem] lg:justify-between print:mt-0">
           {/* Faq Bg - Hidden in print */}
           {/* Hide contact box for Upwork mode (effectiveStatus === "u") */}

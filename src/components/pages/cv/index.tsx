@@ -200,8 +200,9 @@ const CV = ({ params }: { params: any }) => {
     listOfdata
   );
 
-  console.log("Data List: ", listOfdata?.skills,)
-  // console.log("Modified Raw HTML Data: ",rawHtml)
+  // console.log("Data List: ", listOfdata?.skills,)
+  // console.log("Filtered Skills", filteredSkills)
+  // console.log("CV API Data: ", listOfdata)
   const parser = new DOMParser();
   const doc = parser.parseFromString(rawHtml, "text/html");
   const items = Array.from(doc.querySelectorAll("li")).map(
