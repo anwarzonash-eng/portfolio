@@ -165,7 +165,7 @@ export const FaqsDataUpdated = [
         type: "not_u",
         question: "How do I start using your services?",
         answer:
-          "Getting started is simple! You can book a call using my {calendly_link}Calendly link{end}, click the quick chat button on my {website_link}site{end}, or contact me via {email_link}email{end}, {whatsapp_link}WhatsApp{end}, or the contact form. I’ll respond promptly to discuss your project.",
+          "Getting started is simple! You can book a call using my {calendly_link}Calendly link{end}, click the quick chat button on my {website_link}website{end}, or contact me via {email_link}email{end}, {whatsapp_link}WhatsApp{end}, or the contact form. I’ll respond promptly to discuss your project.",
         altName: "Starting",
       },
       {

@@ -12,7 +12,6 @@ export function modifiedContent(content, skillsList, listOfdata) {
     ?.replace(/<h2>/g, `<h2 style="color:${colors.primary}">`)
     ?.replace(/<h3>/g, `<h3 style="color:${colors.primary}">`)
     ?.replace(/<h4>/g, `<h4 style="color:${colors.primary}">`)
-    ?.replace(/<strong >/g, `<strong style="color:${colors.primary}">`)
     ?.replace(/<strong>/g, `<strong style="color:${colors.primary}">`)
     ?.replace(/<u>(.*?)<\/u>/g, (_, match) => {
       const cleanedMatch = match.trim();

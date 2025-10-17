@@ -147,7 +147,7 @@ useEffect(() => {
 
     // DEBUG: inspect rawHtml and ensure it contains the expected <li> items
     // Remove these logs after verification
-    console.log("[features] rawHtml length:", rawHtml.length);
+    // console.log("[features] rawHtml length:", rawHtml.length);
     const parserForCount = new DOMParser();
     const docForCount = parserForCount.parseFromString(rawHtml, "text/html");
     const allLis = Array.from(docForCount.querySelectorAll("li"));

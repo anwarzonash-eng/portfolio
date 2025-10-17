@@ -6,8 +6,6 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { formikEnums } from "@/enums/formikEnums";
 import { addLeadsApi } from "@/apiHandlers/leadsApi";
-import Link from "next/link";
-import { openChat } from "@/hooks/openTawkTochat";
 import ThankyouPopup from "./ThankyouPopup";
 
 const Newsletter = ({ listOfdata }) => {
