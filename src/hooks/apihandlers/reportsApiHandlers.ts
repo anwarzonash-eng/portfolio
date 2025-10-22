@@ -268,6 +268,7 @@ const adjustSkilledDescriptionInServices = async (data) => {
   return data;
 };
 
+
 const shuffleArray = (array: any) => {
   if (!Array.isArray(array)) return []; // ✅ prevent crash
   const arr = [...array];
