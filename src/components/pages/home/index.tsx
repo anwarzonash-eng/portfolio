@@ -21,7 +21,7 @@ import { skillsGrouping } from "@/hooks/skillsGrouping";
 import { useMediaQuery } from "react-responsive";
 import ExperienceSection from "@/components/ExperienceSection";
 import { sortByDate } from "@/utils/sortByDate";
-import EducationComponent from "@/components/EducationComponent";
+// import EducationComponent from "@/components/EducationComponent";
 import HeroSection from "@/components/HomePageComponents/HeroSection";
 import AboutSection from "@/components/HomePageComponents/AboutSection";
 import ServicesSection from "@/components/HomePageComponents/ServicesSection";
@@ -197,9 +197,9 @@ const Home = ({ params }: { params: any }) => {
                 />
 
                 <UpworkActivitySection
-                urlInfo={urlInfo}
-                cvTrue={false}
-                data={listOfdata}
+                  urlInfo={urlInfo}
+                  cvTrue={false}
+                  data={listOfdata}
                 />
 
                 {/* Custom Video Player Section */}
@@ -332,11 +332,11 @@ const Home = ({ params }: { params: any }) => {
                   urlInfo={urlInfo}
                   companyType={listOfdata?.companytype}
                   apiData={listOfdata}
-                  />
+                />
 
-                <div id="education" className="my-[5rem]">
+                {/* <div id="education" className="my-[5rem]">
                   <EducationComponent />
-                </div>
+                </div> */}
 
                 <div id="ourBlogs" className="my-[5rem]">
                   <OurBlogs domain={listOfdata?.domain} />

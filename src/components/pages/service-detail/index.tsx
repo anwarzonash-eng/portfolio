@@ -121,14 +121,14 @@ const ServiceDetail = ({ params }: { params: any }) => {
         }}
       />
       <>
-      <div className="mt-[2rem] lg:mt-[3rem]">
-        <UpworkActivitySection
-        urlInfo={urlInfo}
-        cvTrue={false}
-        data={listOfdata}
-        />
-      </div>
-      
+        <div className="mt-[2rem] lg:mt-[3rem]">
+          <UpworkActivitySection
+            urlInfo={urlInfo}
+            cvTrue={false}
+            data={listOfdata}
+          />
+        </div>
+
         {/* Education Section */}
         <div id="education" className="my-[5rem]">
           <EducationComponent />

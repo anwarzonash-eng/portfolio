@@ -11,11 +11,11 @@ export const reportsApiHandler = async ({
   setError,
 }) => {
   const payload: { actionType: any; domain: any; uniqueId: any; itemID?: any } =
-    {
-      actionType: actionType,
-      domain: urlInfo?.domain,
-      uniqueId: urlInfo?.uniqueID,
-    };
+  {
+    actionType: actionType,
+    domain: urlInfo?.domain,
+    uniqueId: urlInfo?.uniqueID,
+  };
   if (itemID && itemID !== null) {
     payload.itemID = itemID;
   }
@@ -40,6 +40,7 @@ export const reportsApiHandler = async ({
     const statusStr = String(results?.status);
 
     if (/^2\d{2}$/.test(statusStr)) {
+
       let data = await adjustDynamicContent(results?.data?.data[0]);
       setListOfData(data);
       store.dispatch(setListOfProfileData(data));
@@ -57,14 +58,21 @@ export const reportsApiHandler = async ({
 };
 
 const adjustDynamicContent = async (data) => {
-  data = await adjustSkillsDescriptionForCV(data);
-  data = await adjustSkillsIDsInExperiencesAndPortflios(data);
-  data = await adjustSkillsDescriptionInExperiences(data);
-  data = await adjustSkillsDescriptionInPortfolios(data);
-  data = await adjustExperienceIntro(data);
-  data = await adjustSkilledDescriptionInServices(data);
+  try {
 
-  // Adjust the dynamic content based on the received data
+    data = await adjustSkillsDescriptionForCV(data);
+    data = await adjustSkillsIDsInExperiencesAndPortflios(data);
+    data = await adjustSkillsDescriptionInExperiences(data);
+    data = await adjustSkillsDescriptionInPortfolios(data);
+    data = await adjustExperienceIntro(data);
+    data = await adjustSkilledDescriptionInServices(data);
+    console.log({ data })
+  }
+  catch (error) {
+
+    console.log(error)
+
+  }
   return data;
 };
 
@@ -130,7 +138,7 @@ const adjustSkillsDescriptionInExperiences = async (data) => {
 const adjustSkillsDescriptionInPortfolios = async (data) => {
   const matchedGroups = getMatchedSkillsGroups(data);
 
-  data.portfolios_ids.forEach((portfolio, idx) => {
+  data.portfolios_ids?.forEach((portfolio, idx) => {
     const shuffledSkills = shuffleArray(data.skills_ids || []);
     const skillsString = shuffledSkills.map((skill) => skill.title).join(", ");
     portfolio.tagline_1 = portfolio.tagline_1?.replace(
@@ -194,14 +202,34 @@ const adjustSkilledDescriptionInServices = async (data) => {
   if (!Array.isArray(data.services) || !Array.isArray(data.skills_categories))
     return data;
 
+  console.log({ services_length_before: data.services.length });
+
   data.services.forEach((service) => {
+
+    const skillsWithID = service.skills.map((skill) => { return { id: skill } })
+
     const matchedGroups = getMatchedSkillsGroups({
       skills_groups: data.skills_groups,
-      skills_ids: service.skills,
+      skills_ids: skillsWithID,
     });
     let skills = `${matchedGroups
       .map((group) => `<li>${group.description}</li>`)
       .join("")}`;
+    console.log({ skills: data.skills_ids })
+    console.log({ skills_services: service.skills })
+
+    const transformedSkills = service.skills.map((skillId) => {
+      const matched_skill = data.skills_ids.find((skill_parent) =>
+        skill_parent.id === skillId
+      );
+
+      return {
+        id: skillId,
+        title: matched_skill ? matched_skill.title : ''
+      };
+    });
+
+    service.skills = transformedSkills;
 
     const shuffledSkills = shuffleArray(service.skills || []);
     const skillsString = shuffledSkills.map((skill) => skill.title).join(", ");
@@ -222,11 +250,19 @@ const adjustSkilledDescriptionInServices = async (data) => {
         "${Skills}",
         skillsString
       );
+      service.intro_main = service.intro_main?.replace(
+        "${formattedSkills}",
+        skillsString
+      );
+
+
       service.picture = matchedCategory.thumbnail;
       service.tagline = matchedCategory.tagline;
       service.title = matchedCategory.title;
     }
+    console.log({ from_service: data, services_skills_data: skills, matched_groups: matchedGroups, skillsWithID });
   });
+
 
   // Adjust the dynamic content based on the received data
   return data;

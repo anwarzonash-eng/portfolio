@@ -52,21 +52,21 @@ const EducationComponent: React.FC = () => {
 
   /** STEP 2: fetch education data */
   useEffect(() => {
-    if (urlInfo && !listOfdata) {
-      reportsApiHandler({
-        actionType: "cv",
-        urlInfo,
-        setError: (err: string | null) => {
-          setError(err);
-          cache.error = err;
-        },
-        setLoading,
-        setListOfData: (data: any) => {
-          setListOfData(data);
-          cache.listOfdata = data;
-        },
-      });
-    }
+    // if (urlInfo && !listOfdata) {
+    //   reportsApiHandler({
+    //     actionType: "cv",
+    //     urlInfo,
+    //     setError: (err: string | null) => {
+    //       setError(err);
+    //       cache.error = err;
+    //     },
+    //     setLoading,
+    //     setListOfData: (data: any) => {
+    //       setListOfData(data);
+    //       cache.listOfdata = data;
+    //     },
+    //   });
+    // }
   }, [urlInfo, listOfdata]);
 
   if (loading) {
