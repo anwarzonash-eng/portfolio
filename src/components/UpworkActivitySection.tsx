@@ -60,13 +60,13 @@ function UpworkActivitySection({ urlInfo, cvTrue, data }) {
       <div className={`${cvTrue ? "p-[2rem] lg:p-[3rem]" : "mainContainer"}`}>
 
         {/* Top Content */}
-        <div className='flex items-center justify-between w-full'>
+        <div className='flex items-center flex-wrap justify-center lg:justify-between w-full gap-5'>
           <Link href={data?.upwork ?? "#"} target='_blank' className="py-2 inline-block">
             <img src="/images/up-logo.png" alt="Upwork Logo" />
           </Link>
           <div className='flex items-center gap-2'>
             <Link href={data?.upwork ?? "#"} target='_blank' className="
-          bg-black text-white border border-transparent hover:border-primary hover:bg-white hover:text-primary duration-300
+          bg-black text-white border border-transparent hover:border-primary hover:bg-white hover:text-primary duration-300 text-nowrap
           flex items-center justify-center
           text-[2rem] rounded-[20rem] px-[2rem] py-[1rem] group">
               <span>Check My</span>
