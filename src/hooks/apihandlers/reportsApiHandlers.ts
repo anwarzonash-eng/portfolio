@@ -145,6 +145,7 @@ const adjustSkillsDescriptionInPortfolios = async (data) => {
       "{Skills}",
       skillsString
     );
+
     // Collect all portfolio_variationN for this index from all matched groups
     const variations = matchedGroups
       .map(
