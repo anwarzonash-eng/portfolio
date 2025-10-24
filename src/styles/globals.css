@@ -145,11 +145,26 @@
 }
 
 html {
-  font-size: 62.5%; /* 62.5% of the default 16px = 10px */
+  font-size: 62.5%;
+  /* 62.5% of the default 16px = 10px */
+}
+
+#main-scaler {
+  /* Apply the scale factor (e.g., 0.9 = 90% size) */
+  transform: scale(0.8);
+
+  /* Ensures content scales from the top-left corner */
+  transform-origin: 0 0;
+
+  /* Crucial: Adjusts the wrapper's dimensions to prevent extra scrollbars 
+       due to the content occupying a smaller space. */
+  width: calc(100% / 0.8);
+  min-height: calc(100vh / 0.8);
 }
 
 body {
   @apply font-sans;
+
 }
 
 /* Custom Classes */
@@ -158,11 +173,9 @@ body {
 }
 
 .primaryGradient {
-  background: radial-gradient(
-    100% 100% at 50% 0%,
-    rgba(255, 255, 255, 0.3) 0%,
-    rgba(255, 255, 255, 0) 100%
-  );
+  background: radial-gradient(100% 100% at 50% 0%,
+      rgba(255, 255, 255, 0.3) 0%,
+      rgba(255, 255, 255, 0) 100%);
   @apply bg-primary;
 }
 
@@ -171,8 +184,7 @@ body {
 }
 
 .badge {
-  @apply px-[2rem] py-[1rem] bg-white  rounded-[2.2rem] border border-border border-solid 
-  text-center max-w-max text-heading text-[2rem] font-medium font-Inter leading-[2rem];
+  @apply px-[2rem] py-[1rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[2rem] font-medium font-Inter leading-[2rem];
 }
 
 
@@ -239,8 +251,10 @@ body {
 .btn-secondary {
   @apply duration-300 rounded-[6px] border border-primary text-primary bg-transparent hover:bg-gradient-to-b hover:from-white/30 hover:to-transparent hover:bg-primary hover:text-white hover:border-white/[0.24] hover:shadow-[0px_0px_0px_1px_#FFF];
 }
+
 .modifiedText a {
-  @apply text-primary relative inline-block font-semibold  underline; /* Set as inline-block to apply ::before properly */
+  @apply text-primary relative inline-block font-semibold underline;
+  /* Set as inline-block to apply ::before properly */
 }
 
 #experiecnesPoints li {
@@ -302,35 +316,47 @@ body {
 /* New List Styles */
 .list-div ul,
 .list-div ol {
-  @apply text-heading text-[1.6rem] print:text-[1.8rem] leading-[2.4rem] flex flex-col gap-[1rem] pl-[3rem] list-none; /* Remove default list style */
+  @apply text-heading text-[1.6rem] print:text-[1.8rem] leading-[2.4rem] flex flex-col gap-[1rem] pl-[3rem] list-none;
+  /* Remove default list style */
 }
 
 .list-div li {
-  @apply pl-[1.3rem] relative list-none; /* Add relative positioning to the li for absolute positioning of the marker */
+  @apply pl-[1.3rem] relative list-none;
+  /* Add relative positioning to the li for absolute positioning of the marker */
 }
 
 .list-div ul li::before {
   @apply text-primary;
-  content: "•"; /* Custom bullet for unordered lists */
+  content: "•";
+  /* Custom bullet for unordered lists */
   position: absolute;
-  left: -2rem; /* Adjust this to control the marker's horizontal position */
-  top: -0.2rem; /* Adjust vertical alignment */
-  font-size: 1.5em; /* Match the marker size */
+  left: -2rem;
+  /* Adjust this to control the marker's horizontal position */
+  top: -0.2rem;
+  /* Adjust vertical alignment */
+  font-size: 1.5em;
+  /* Match the marker size */
 }
 
 .list-div ol li::before {
   @apply text-primary;
-  content: counter(list-item) "."; /* Use counter for ordered list numbers */
-  counter-increment: list-item; /* Increment the counter */
+  content: counter(list-item) ".";
+  /* Use counter for ordered list numbers */
+  counter-increment: list-item;
+  /* Increment the counter */
   position: absolute;
-  left: -2rem; /* Adjust this to control the marker's horizontal position */
-  top: 0.2rem; /* Adjust vertical alignment */
-  font-size: 1.7em; /* Match the marker size */
+  left: -2rem;
+  /* Adjust this to control the marker's horizontal position */
+  top: 0.2rem;
+  /* Adjust vertical alignment */
+  font-size: 1.7em;
+  /* Match the marker size */
 }
 
 /* Reset counter for ordered lists */
 .list-div ol {
-  counter-reset: list-item; /* Reset counter for each ordered list */
+  counter-reset: list-item;
+  /* Reset counter for each ordered list */
 }
 
 .list-div-portfolio ul {
@@ -362,11 +388,13 @@ body {
 .modalCloseButtonforCustomOffer button svg {
   font-size: 1.5rem;
 }
-.modalCloseButtonforCustomOffer:first-of-type > button:first-of-type,
-.modalCloseButtonforCustomOffer:first-of-type > button:first-of-type:hover {
+
+.modalCloseButtonforCustomOffer:first-of-type>button:first-of-type,
+.modalCloseButtonforCustomOffer:first-of-type>button:first-of-type:hover {
   background-color: #ffc300;
   margin: 10px 10px 0px 0px;
 }
+
 #tawkchat-container .tawk-we-are-here {
   display: none !important;
 }
@@ -378,18 +406,23 @@ body {
     display: block !important;
   }
 }
+
 @media print {
   .print-black-bg {
     background: black !important;
     background-image: none !important;
-    color: white !important; /* Ensure text is visible on black background */
+    color: white !important;
+    /* Ensure text is visible on black background */
   }
 }
+
 @media print {
   .print-section {
-    break-before: page; /* Ensures each section starts on a new page */
+    break-before: page;
+    /* Ensures each section starts on a new page */
   }
 }
+
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
@@ -398,11 +431,13 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
 @media print {
   @keyframes fadeIn {
     from {
       opacity: 1;
     }
+
     to {
       opacity: 1;
     }
@@ -413,15 +448,18 @@ body {
     opacity: 1 !important;
   }
 }
+
 @media print {
   @page {
     size: auto;
     margin: 10mm;
   }
+
   body {
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
+
   a {
     text-decoration: none !important;
   }
@@ -430,16 +468,18 @@ body {
 .print_hidden {
   @apply print:hidden;
 }
+
 .home_social_card {
   @apply print:py-[2.8rem] print:px-[4rem];
 }
 
 @media print {
   .services_main ul li {
-    @apply hidden print:!p-0;
+    /* @apply hidden print: !p-0; */
   }
+
   .services_main ul {
-    @apply print:!p-[1rem];
+    /* @apply print: !p-[1rem]; */
   }
 
   .services_main ul li:nth-child(1),
@@ -494,33 +534,42 @@ body {
 .skill_print_pedd {
   @apply print:py-[0.1rem];
 }
+
 .print_AREAS_EXPERTISE {
   @apply print:text-[1.1rem];
 }
+
 .landscape_print_page_height {
   @apply print:h-[1190.70px] print:m-0;
 }
+
 .landscape_print_page_pedding {
   @apply print:pt-[6rem];
 }
+
 .section_top_button {
   @apply print:px-[6rem] print:text-[3rem];
 }
+
 .print_p_m {
   @apply print:w-full print:p-0 print:m-0;
 }
+
 /* Tailored slim scrollbar */
 .custom-scrollbar::-webkit-scrollbar {
-  width: 3px; /* Slim */
+  width: 3px;
+  /* Slim */
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: #aaa; /* Scroll thumb color */
+  background-color: #aaa;
+  /* Scroll thumb color */
   border-radius: 10px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
-  background: transparent; /* or light grey */
+  background: transparent;
+  /* or light grey */
 }
 
 /* Firefox support */
@@ -528,4 +577,3 @@ body {
   scrollbar-width: thin;
   scrollbar-color: #aaa transparent;
 }
-

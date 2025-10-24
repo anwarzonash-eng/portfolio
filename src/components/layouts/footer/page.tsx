@@ -9,7 +9,6 @@ import { useAppSelector } from "@/store";
 import UpworkActivitySection from "@/components/UpworkActivitySection";
 import { usePathname } from "next/navigation";
 
-
 const Footer = () => {
   const pathname = usePathname(); // Gets the current pathname
 
@@ -53,21 +52,21 @@ const Footer = () => {
               </div>
             </section>
           )}
-          {pathname.includes("/contact-me") &&
+          {pathname.includes("/contact-me") && (
             <div className="mt-[2rem] lg:mt-[4rem] w-full">
               <UpworkActivitySection
                 urlInfo={urlInfo}
                 cvTrue={false}
                 data={listOfdata}
-
               />
             </div>
-          }
+          )}
           {/* Footer */}
           <footer className="print:block mt-[2rem] bg-sectionBG ">
             <div
-              className={`${urlInfo?.u ? "" : ""
-                } w-full mainContainer text-[1.8rem] font-medium bg-sectionBG bg-Newslatter bg-no-repeat bg-contain bg-right`}
+              className={`${
+                urlInfo?.u ? "" : ""
+              } w-full mainContainer text-[1.8rem] font-medium bg-sectionBG bg-Newslatter bg-no-repeat bg-contain bg-right`}
             >
               <div className="py-[3rem] w-full flex justify-between flex-col sm:flex-row">
                 {/* CTA Section */}
@@ -147,25 +146,26 @@ const Footer = () => {
                   </div>
 
                   {/* Services Column */}
-                  {services.length > 0 && (
-                    <div className="flex flex-col items-start gap-4">
-                      <h4 className="text-[2rem] font-medium text-pageBG">
-                        Servises
-                      </h4>
-                      {services.slice(0, 6).map((service, index) => (
-                        <Link
-                          // href={`/offer?service=${service?.title}`}
-                          href={`/service-detail?service=${encodeURIComponent(
-                            service?.title
-                          )}`}
-                          key={index}
-                          className="footerLink"
-                        >
-                          {service?.title}
-                        </Link>
-                      ))}
-                    </div>
-                  )}
+                  {process.env.IS_SERVICES_ALLOWED === "true" &&
+                    services.length > 0 && (
+                      <div className="flex flex-col items-start gap-4">
+                        <h4 className="text-[2rem] font-medium text-pageBG">
+                          Servises
+                        </h4>
+                        {services.slice(0, 6).map((service, index) => (
+                          <Link
+                            // href={`/offer?service=${service?.title}`}
+                            href={`/service-detail?service=${encodeURIComponent(
+                              service?.title
+                            )}`}
+                            key={index}
+                            className="footerLink"
+                          >
+                            {service?.title}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
                 </div>
               </div>
             </div>

@@ -39,6 +39,7 @@ const nextConfig = {
   },
   env: {
     API_BASE_URL: process.env.API_BASE_URL,
+    IS_SERVICES_ALLOWED: process.env.IS_SERVICES_ALLOWED
   },
   images: {
     remotePatterns: [

@@ -69,32 +69,36 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({ services }) => {
                       className="text-gray-300 text-[1.3rem] mb-6 print:mb-3 line-clamp-3 print:line-clamp-2 leading-relaxed print:text-[1.2rem]"
                     />
                     {/* CTA Button */}
-                    <Link
-                      href={`/service-detail?service=${encodeURIComponent(
-                        service?.title
-                      )}`}
-                      className="inline-flex items-center gap-2 text-white/90 hover:text-white transition-colors group"
-                    >
-                      <span className="font-bold text-[1.5rem] text-[#ffffff]">
-                        Discover more
-                      </span>
-                      <span className="group-hover:translate-x-1 transition-transform">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="20"
-                          height="20"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <path d="M5 12h14" />
-                          <path d="m12 5 7 7-7 7" />
-                        </svg>
-                      </span>
-                    </Link>
+                    {process.env.IS_SERVICES_ALLOWED === "true" ? (
+                      <Link
+                        href={`/service-detail?service=${encodeURIComponent(
+                          service?.title
+                        )}`}
+                        className="inline-flex items-center gap-2 text-white/90 hover:text-white transition-colors group"
+                      >
+                        <span className="font-bold text-[1.5rem] text-[#ffffff]">
+                          Discover more 1
+                        </span>
+                        <span className="group-hover:translate-x-1 transition-transform">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="20"
+                            height="20"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
+                            <path d="M5 12h14" />
+                            <path d="m12 5 7 7-7 7" />
+                          </svg>
+                        </span>
+                      </Link>
+                    ) : (
+                      ""
+                    )}
                   </div>
                 </div>
               );

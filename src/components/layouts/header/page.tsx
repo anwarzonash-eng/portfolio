@@ -42,14 +42,19 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
   const resourcesDropdownButtonRef = useRef(null);
   const resourcesDivRef = useRef(null);
   const servicesDivRef = useRef(null);
+  useEffect(() => {}, []);
 
   const headerLinks: HeaderLink[] = [
     { title: "Home", src: "/" },
-    ...(listOfdata?.services && listOfdata?.services?.length > 0
+    ...(process.env.IS_SERVICES_ALLOWED === "true" &&
+    listOfdata?.services &&
+    listOfdata?.services?.length > 0
       ? [{ title: "Cover Letter", src: "/offer" }]
       : []),
 
-    ...(listOfdata?.services && listOfdata?.services?.length > 0
+    ...(process.env.IS_SERVICES_ALLOWED === "true" &&
+    listOfdata?.services &&
+    listOfdata?.services?.length > 0
       ? [{ title: "Services", src: "#", isDropdown: true }]
       : []),
     { title: "Portfolios ", src: "/portfolio" },

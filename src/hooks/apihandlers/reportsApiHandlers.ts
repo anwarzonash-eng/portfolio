@@ -141,8 +141,8 @@ const adjustSkillsDescriptionInPortfolios = async (data) => {
   data.portfolios_ids?.forEach((portfolio, idx) => {
     const shuffledSkills = shuffleArray(data.skills_ids || []);
     const skillsString = shuffledSkills.map((skill) => skill.title).join(", ");
-    portfolio.tagline_1 = portfolio.tagline_1?.replace(
-      "${Skills}",
+    portfolio.tagline_2 = portfolio.tagline_2?.replace(
+      "{Skills}",
       skillsString
     );
     // Collect all portfolio_variationN for this index from all matched groups
