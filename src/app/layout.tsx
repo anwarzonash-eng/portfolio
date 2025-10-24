@@ -68,10 +68,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className} id="main-scaler">
-        <LinkInterceptor />
-        <ChildWrapperContainer>{children}</ChildWrapperContainer>
-        <GoogleAnalytics gaId="G-DPWJX7YHZH" />
+      <body className={inter.className}>
+        <div>
+          <LinkInterceptor />
+          <ChildWrapperContainer>{children}</ChildWrapperContainer>
+          <GoogleAnalytics gaId="G-DPWJX7YHZH" />
+        </div>
       </body>
     </html>
   );

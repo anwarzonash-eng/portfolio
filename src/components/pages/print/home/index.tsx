@@ -124,7 +124,7 @@ const Home_p = ({ params }: { params: any }) => {
             error,
             actualPage: (
               <>
-                <FreeTrialPopup listOfdata={listOfdata} urlInfo={urlInfo} />
+                {/* <FreeTrialPopup listOfdata={listOfdata} urlInfo={urlInfo} /> */}
                 {/* Welcome ✅ */}
                 <section className="h-screen print:section bg-bannerBG !w-full  print:FlexWrapContainer flex items-center justify-center relative">
                   {/* Note and Domain For Each Page */}
@@ -333,7 +333,6 @@ const Home_p = ({ params }: { params: any }) => {
                     </svg>
                   </div>
                 </div>
-                
 
                 {/* About Section for print ✅ */}
                 <section className="h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center p-[4rem] mt-20 print:mt-0 relative">
@@ -560,13 +559,16 @@ const Home_p = ({ params }: { params: any }) => {
                 </section>
 
                 <section className="h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center p-[4rem] mt-20 print:mt-0 relative bg-white">
-                    {/* Note and Domain For Each Page */}
-                    <NoteDomainForPint
+                  {/* Note and Domain For Each Page */}
+                  <NoteDomainForPint
                     direction={"hidden print:right-0 print:block"}
+                  />
+                  <div className="max-w-[1550px] w-full mx-auto flex items-center justify-center gap-[2rem]">
+                    <UpworkActivitySectionPrint
+                      urlInfo={urlInfo}
+                      data={listOfdata}
                     />
-                    <div className="max-w-[1550px] w-full mx-auto flex items-center justify-center gap-[2rem]">
-                  <UpworkActivitySectionPrint urlInfo={urlInfo}  data={listOfdata} />
-                    </div>
+                  </div>
                 </section>
 
                 {listOfdata && listOfdata?.skills_ids?.length > 0 && (
@@ -1299,7 +1301,7 @@ const Home_p = ({ params }: { params: any }) => {
                   urlInfo={urlInfo}
                   companyType={listOfdata?.companytype}
                   apiData={listOfdata}
-                  />
+                />
 
                 {!urlInfo?.u && <ContactMePrint listOfdata={listOfdata} />}
 

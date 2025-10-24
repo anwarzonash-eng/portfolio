@@ -176,7 +176,7 @@ const Home = ({ params }: { params: any }) => {
             error,
             actualPage: (
               <>
-                <FreeTrialPopup listOfdata={listOfdata} urlInfo={urlInfo} />
+                {/* <FreeTrialPopup listOfdata={listOfdata} urlInfo={urlInfo} /> */}
 
                 <HeroSection
                   listOfdata={listOfdata}

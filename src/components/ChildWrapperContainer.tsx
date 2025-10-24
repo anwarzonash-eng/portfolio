@@ -1,17 +1,17 @@
-'use client';
+"use client";
 
-import React, { Suspense } from 'react';
-import ReduxProvider from '@/store/redux-provider';
-import ChildWrapper from './ChildWrapper';
+import React, { Suspense } from "react";
+import ReduxProvider from "@/store/redux-provider";
+import ChildWrapper from "./ChildWrapper";
 
-import { AppProgressBar as ProgressBar } from 'next-nprogress-bar';
+import { AppProgressBar as ProgressBar } from "next-nprogress-bar";
 
 const ChildWrapperContainer = ({ children }) => {
   return (
-    <div>
+    <div id="main-scaler">
       <ProgressBar
-        height='4px'
-        color='primary'
+        height="4px"
+        color="primary"
         options={{ showSpinner: false }}
         shallowRouting
       />
