@@ -1,4 +1,4 @@
-// import { getTargetURLFromTinyURL } from "@/apiHandlers/tinyURLApi";
+import { getTargetURLFromTinyURL } from "@/apiHandlers/tinyURLApi";
 
 // // Type definitions
 // interface RoutesInfo {
@@ -266,6 +266,61 @@
 //   return domain;
 // };
 
+
+async function tinyURLNavigation(routesInfo: RoutesInfo) {
+  try {
+    const payload = {
+      uniqueId: decodeURIComponent(routesInfo.uniqueID),
+    };
+    console.log("TinyURL Navigation Payload:", payload);
+
+    const results = await getTargetURLFromTinyURL(payload);
+    console.log("TinyURL Navigation Results:", results);
+
+    if (results?.data?.status === "Error") {
+      window.location.href = "https://www.cypexsoft.com";
+    } else if (results?.data?.data?.target_link) {
+      window.location.href = results.data.data.target_link;
+    }
+  } catch (error) {
+    window.location.href = "https://www.cypexsoft.com";
+  }
+}
+
+// function adjustWithLocalStorage(
+//   routesInfo: RoutesInfo,
+//   routeParams: URLSearchParams | null
+// ) {
+//   const urlUniqueId = routesInfo.uniqueID;
+
+//   // ✅ Immediately overwrite
+//   localStorage.setItem("uniqueID", urlUniqueId);
+//   localStorage.setItem("uniqueID_timestamp", Date.now().toString());
+
+//   localStorage.setItem("u", routesInfo.u ? "_" : "");
+//   localStorage.setItem("a", routesInfo.a ? "_" : "");
+//   localStorage.setItem("domain", routesInfo.domain);
+
+//   // Expiry check
+//   const storedUniqueID = localStorage.getItem("uniqueID");
+//   const uniqueIDTimestamp = localStorage.getItem("uniqueID_timestamp");
+
+//   if (storedUniqueID && uniqueIDTimestamp) {
+//     const now = Date.now();
+//     const fifteenDaysInMs = 15 * 24 * 60 * 60 * 1000;
+
+//     if (now - parseInt(uniqueIDTimestamp) > fifteenDaysInMs) {
+//       // Expired, remove it
+//       localStorage.removeItem("uniqueID");
+//       localStorage.removeItem("uniqueID_timestamp");
+//     } else {
+//       // Still valid, use it
+//       if (!routeParams?.get("a")) {
+//         routesInfo.uniqueID = storedUniqueID;
+//       }
+//     }
+//   }
+
 // Type definitions
 interface RoutesInfo {
   uniqueID: string;
@@ -274,12 +329,12 @@ interface RoutesInfo {
   domain: string;
 }
 
-// NOTE: 🛑 1. Function must be 'async' and return 'Promise<RoutesInfo>' 🛑
+
 export const getRoutesDetails = async (
   dynamicRoutes: { unique_id?: string } | null,
   routeParams: URLSearchParams | null
 ): Promise<RoutesInfo> => {
-  // 2. AWAIT the dynamicRoutes to resolve the Next.js Promise
+
   const resolvedDynamicRoutes = dynamicRoutes ? await dynamicRoutes : null;
   const isAdmin = routeParams?.get("a") === "_";
 
@@ -290,70 +345,86 @@ export const getRoutesDetails = async (
     domain: "",
   };
 
+
+
   if (isAdmin) {
-    // ---------------- ADMIN MODE ----------------
-    // u handling
+
     const routeIsU = routeParams?.get("u");
     if (routeIsU === "_") {
       routesInfo.u = "_";
     }
 
-    console.log(resolvedDynamicRoutes); // Log resolved object // uniqueID handling // 3. Use the RESOLVED dynamicRoutes
-
     if (resolvedDynamicRoutes?.unique_id) {
       routesInfo.uniqueID = resolvedDynamicRoutes.unique_id;
     } else {
-      routesInfo.uniqueID = "a"; // default
-    } // 🛑 4. CORRECTED DOMAIN HANDLING FOR ADMIN MODE 🛑
+      routesInfo.uniqueID = "a";
+    }
 
     if (routeParams?.get("d")) {
-      // Priority 1: Domain from the URL param "d"
+
       routesInfo.domain = routeParams.get("d") as string;
-    } else if (localStorage.getItem("domain")) {
-      // Priority 2: Fallback to permanently stored domain from localStorage
-      routesInfo.domain = localStorage.getItem("domain") as string;
     } else {
-      // Priority 3: Final fallback to the host/clean domain
       routesInfo.domain = getCleanDomain();
-    } // 🛑 END CORRECTED DOMAIN HANDLING 🛑
+
+    }
+    if (routesInfo.domain === "gourls.link") {
+
+      await tinyURLNavigation(routesInfo);
+
+    }
     return routesInfo;
-  } // ---------------- NON-ADMIN MODE ---------------- // "u" handling
+  }
+
+  let isShortURL = false;
+
+  if (routeParams?.get("d")) {
+    routesInfo.domain = routeParams.get("d") as string;
+    if (routesInfo.domain === "gourls.link") {
+      isShortURL = true;
+    }
+
+  }
+  else {
+    routesInfo.domain = getCleanDomain();
+    if (routesInfo.domain === "gourls.link") {
+      isShortURL = true;
+    }
+  }
 
   const routeIsU = routeParams?.get("u");
-  if (routeIsU === "_") {
+  if (routeIsU && routeIsU === "_") {
     routesInfo.u = "_";
     localStorage.setItem("u", "_");
   } else if (localStorage.getItem("u") === "_") {
     routesInfo.u = "_";
-  } // uniqueID handling
+  }
 
-  const storedUniqueID = localStorage.getItem("uniqueID");
 
-  if (!storedUniqueID) {
-    // Nothing stored yet
-    // 5. Use the RESOLVED dynamicRoutes
-    if (resolvedDynamicRoutes?.unique_id) {
-      // First time uniqueID is provided -> save permanently
-      routesInfo.uniqueID = resolvedDynamicRoutes.unique_id;
-      localStorage.setItem("uniqueID", routesInfo.uniqueID);
+  if (isShortURL) {
+    routesInfo.uniqueID = resolvedDynamicRoutes.unique_id;
+  } else {
+    const storedUniqueID = localStorage.getItem("uniqueID");
+
+    if (!storedUniqueID) {
+
+      if (resolvedDynamicRoutes?.unique_id) {
+
+        routesInfo.uniqueID = resolvedDynamicRoutes.unique_id;
+        localStorage.setItem("uniqueID", routesInfo.uniqueID);
+      } else {
+
+        routesInfo.uniqueID = "a";
+        localStorage.setItem("uniqueID", "a");
+      }
     } else {
-      // Default fallback
-      routesInfo.uniqueID = "a";
-      localStorage.setItem("uniqueID", "a");
-    }
-  } else {
-    // Already stored -> ignore URL and always use stored
-    routesInfo.uniqueID = storedUniqueID;
-  } // domain handling (Non-Admin - uses and sets localStorage)
 
-  if (routeParams?.get("d")) {
-    routesInfo.domain = routeParams.get("d") as string;
-    localStorage.setItem("domain", routesInfo.domain);
-  } else if (localStorage.getItem("domain")) {
-    routesInfo.domain = localStorage.getItem("domain") as string;
-  } else {
-    routesInfo.domain = getCleanDomain();
-    localStorage.setItem("domain", routesInfo.domain);
+      routesInfo.uniqueID = storedUniqueID;
+    }
+  }
+
+
+  if (isShortURL) {
+    await tinyURLNavigation(routesInfo);
   }
 
   return routesInfo;
