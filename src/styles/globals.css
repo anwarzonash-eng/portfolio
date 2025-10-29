@@ -1,5 +1,5 @@
 @import url("nprogress.css");
-/* @import url("print.css"); */
+@import url("print.css");
 
 @tailwind base;
 @tailwind components;
