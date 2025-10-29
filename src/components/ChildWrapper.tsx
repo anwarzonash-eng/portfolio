@@ -74,6 +74,7 @@ export default function ChildWrapper({
     "/print/portfolio",
     "/print/cvPortrait",
     "/print/cvLandscape",
+    "/print/cvPortrait1",
   ];
 
   const isHiddenPaths =
@@ -113,17 +114,23 @@ export default function ChildWrapper({
       <GoogleAnalytics scriptNumber={listOfdata?.googleAnalyticsScript} />
       {/* WhatsApp Icon */}
       {!urlInfo?.u && listOfdata && listOfdata?.phone_no && (
-      <div className="fixed bottom-[10rem] right-[2.5rem] z-[1000] print:hidden">
-              <Tooltip text={`My Whatsapp`} key={"whatsapp"} >
-                <Link href={`https://wa.me/${listOfdata?.phone_no}`} target="_blank">
-                <Image src={"/images/whatsapp.svg"} height={60} width={60} alt={"whatsapp"} />
-                </Link>
-              </Tooltip>
-      </div>
-      )
-      }
-      {!urlInfo?.u  && <Tawkto />}
-
+        <div className="fixed bottom-[10rem] right-[2.5rem] z-[1000] print:hidden">
+          <Tooltip text={`My Whatsapp`} key={"whatsapp"}>
+            <Link
+              href={`https://wa.me/${listOfdata?.phone_no}`}
+              target="_blank"
+            >
+              <Image
+                src={"/images/whatsapp.svg"}
+                height={60}
+                width={60}
+                alt={"whatsapp"}
+              />
+            </Link>
+          </Tooltip>
+        </div>
+      )}
+      {!urlInfo?.u && <Tawkto />}
 
       {/* Offer Banner - conditionally shown */}
       {!urlInfo?.u && !isScrolled && (

@@ -33,7 +33,7 @@ export const dateFormatsOptions = {
   },
 };
 
-export const contactDetails = (listOfdata) => [
+export const contactDetails = (listOfdata, url = {}) => [
   {
     type: "Email",
     iconSrc: "/images/mail-icon.svg",
@@ -46,7 +46,7 @@ export const contactDetails = (listOfdata) => [
     iconSrc: "/images/link-icon.svg",
     alt: "Link",
     value: listOfdata?.domain,
-    href: listOfdata?.domain,
+    href: `https://${listOfdata?.domain}/${url?.uniqueID}`,
   },
   {
     type: "Phone",

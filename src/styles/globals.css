@@ -1,5 +1,5 @@
 @import url("nprogress.css");
-@import url("print.css");
+/* @import url("print.css"); */
 
 @tailwind base;
 @tailwind components;
@@ -7,6 +7,40 @@
 
 .upworkSectionDot {
   @apply flex-shrink-0 w-[2rem] h-[2rem] lg:w-[3rem] lg:h-[3rem] inline-block bg-primary rounded-full mt-[0.4rem] lg:mt-[1rem] mr-[1rem] lg:mr-[2rem]
+}
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+
+  #main-scaler {
+    transform: none !important;
+    transform-origin: top left !important;
+    width: 100% !important;
+    min-height: auto !important;
+  }
+
+
+}
+
+.page {
+  width: 210mm;
+  height: 297mm;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+
+  page-break-after: always;
+}
+
+.content {
+  max-height: 100%;
+  overflow: hidden;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 /* Google Inter Font */
@@ -150,14 +184,10 @@ html {
 }
 
 #main-scaler {
-  /* Apply the scale factor (e.g., 0.9 = 90% size) */
   transform: scale(0.8);
 
-  /* Ensures content scales from the top-left corner */
   transform-origin: 0 0;
 
-  /* Crucial: Adjusts the wrapper's dimensions to prevent extra scrollbars 
-       due to the content occupying a smaller space. */
   width: calc(100% / 0.8);
   min-height: calc(100vh / 0.8);
 }

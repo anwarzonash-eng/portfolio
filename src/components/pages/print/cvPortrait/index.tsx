@@ -111,6 +111,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
   }, [params, searchParams]);
 
   useEffect(() => {
+    console.log("URL Info changed:", urlInfo);
     urlInfo &&
       reportsApiHandler({
         actionType: "cv",
@@ -225,12 +226,11 @@ const CV_Portrait = ({ params }: { params: any }) => {
                     <div className="flex flex-col items-center justify-center print:w-full">
                       {/* Info */}
                       <p className="my-[4rem] text-[2rem] leading-[2.6rem] text-heading font-normal text-center">
-                        Reach out today and I'll provide you with my
-                        comprehensive full-time employment or Contract Based
-                        Jobs. This package covers various aspects that potential
-                        employers often inquire about, such as my salary
-                        expectations and the seamless integration process into
-                        your company.
+                        Reach out today, and I’ll share my comprehensive
+                        professional profile. It includes essential details that
+                        help potential collaborators understand my expertise,
+                        expectations, and how I can seamlessly integrate into
+                        your team or organization.
                       </p>
                     </div>
                   </div>
@@ -257,7 +257,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
                   <div className="flex w-full gap-[2rem] items-start px-[3rem]">
                     {/* Email, Website, Phone, Location */}
                     <div className="mb-[4rem] w-full flex flex-col gap-[2.6rem]">
-                      {contactDetails(listOfdata)
+                      {contactDetails(listOfdata, urlInfo)
                         .filter(({ alt }) =>
                           urlInfo?.u ? alt === "Location" : true
                         )

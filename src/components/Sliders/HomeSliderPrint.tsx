@@ -230,7 +230,7 @@ const HomeSliderPrint: React.FC<HomeSliderPrintProps> = ({
                     className={`relative w-full 
                       ${
                         pageOrientation === "portrait"
-                          ? "h-[380px]"
+                          ? "h-[569.95px]"
                           : "h-[300px]"
                       } rounded-[1.2rem] overflow-hidden`}
                   >
@@ -255,7 +255,7 @@ const HomeSliderPrint: React.FC<HomeSliderPrintProps> = ({
                       className={`rounded-[1.2rem] object-fill w-full border 
                         ${
                           pageOrientation === "portrait"
-                            ? "!h-[380px]"
+                            ? "!h-[569px]"
                             : "!h-[300px]"
                         }border-border border-solid`}
                     />
