@@ -33,7 +33,7 @@ export const dateFormatsOptions = {
   },
 };
 
-export const contactDetails = (listOfdata, url = {}) => [
+export const contactDetails = (listOfdata, url: any = {}) => [
   {
     type: "Email",
     iconSrc: "/images/mail-icon.svg",
