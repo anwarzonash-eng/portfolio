@@ -376,6 +376,7 @@ export const getRoutesDetails = async (
   }
 
   let isShortURL = false;
+  let isPrintURL = checkPrintURL();
 
   if (routeParams?.get("d")) {
     routesInfo.domain = routeParams.get("d") as string;
@@ -399,10 +400,17 @@ export const getRoutesDetails = async (
     routesInfo.u = "_";
   }
 
+  console.log({ isPrint: { isPrintURL, uniqueid: resolvedDynamicRoutes.unique_id } })
 
   if (isShortURL) {
     routesInfo.uniqueID = resolvedDynamicRoutes.unique_id;
-  } else {
+  }
+  else if (isPrintURL && resolvedDynamicRoutes?.unique_id) {
+    routesInfo.uniqueID = resolvedDynamicRoutes.unique_id;
+
+  }
+
+  else {
     const storedUniqueID = localStorage.getItem("uniqueID");
 
     if (!storedUniqueID) {
@@ -443,3 +451,15 @@ const getCleanDomain = (): string => {
   }
   return domain;
 };
+const checkPrintURL = (): boolean => {
+  const url = new URL(window.location.href);
+  let isPrintExist = false
+  if (url.pathname.includes('print'))
+    isPrintExist = true
+
+  console.log({ print: { url: url.pathname, isPrintExist } })
+
+
+  return isPrintExist;
+}
+
