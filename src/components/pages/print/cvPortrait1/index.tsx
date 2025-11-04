@@ -41,7 +41,7 @@ import NoteClickable from "@/components/NoteClickable";
 import PortfolioPopUp from "@/components/PortfolioPopUp";
 import EducationBlogsPortrait from "@/components/EducationBlogsPortrait";
 import HomeSliderPrint from "@/components/Sliders/HomeSliderPrint";
-import SkillsContainerPrint from "@/components/SkillsContainerPrint";
+
 type SkillType = {
   title: string;
   url?: string;

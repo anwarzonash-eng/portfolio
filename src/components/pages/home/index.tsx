@@ -239,7 +239,7 @@ const Home = ({ params }: { params: any }) => {
                     </div>
 
                     {/* FIX: pass filteredSkills to SkillsContainer */}
-                    <SkillsContainer list={filteredSkills} />
+                    <SkillsContainer list={filteredSkills} variant="default" />
                   </div>
                 )}
 

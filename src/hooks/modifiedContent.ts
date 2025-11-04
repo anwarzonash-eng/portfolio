@@ -33,7 +33,7 @@ export function modifiedContent(content, skillsList, listOfdata) {
       if (matchingSkill && matchingSkill.url) {
         modifiedText = `<span class="modifiedText"><a href='${matchingSkill.url}' target='_blank'>${cleanedMatch}</a></span>`;
       } else {
-        modifiedText = `<span class="modifiedText"><a href='${"#"}' target='_blank'>${cleanedMatch}</a></span>`;
+        modifiedText = `<span class="modifiedText">${cleanedMatch}</span>`;
       }
       if (match.startsWith(" ") || match.endsWith(" ")) {
         modifiedText = ` ${modifiedText} `;

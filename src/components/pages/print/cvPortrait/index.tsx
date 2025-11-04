@@ -40,7 +40,8 @@ import NoteClickable from "@/components/NoteClickable";
 import PortfolioPopUp from "@/components/PortfolioPopUp";
 import EducationBlogsPortrait from "@/components/EducationBlogsPortrait";
 import HomeSliderPrint from "@/components/Sliders/HomeSliderPrint";
-import SkillsContainerPrint from "@/components/SkillsContainerPrint";
+
+import SkillsContainer from "@/components/SkillsContainer";
 type SkillType = {
   title: string;
   url?: string;
@@ -396,10 +397,11 @@ const CV_Portrait = ({ params }: { params: any }) => {
                       <div className="flex items-center justify-center print:mb-[5rem]">
                         <div className="badge">Skills</div>
                       </div>
-                      <SkillsContainerPrint
+                      <SkillsContainer
                         list={listOfdata?.skills_ids}
-                        numColumns={6} // ✅ Dynamic columns (you can make this dynamic based on screen size or other conditions)
-                        numSkills={30} // ✅ Dynamic number of skills to display
+                        variant="print"
+                        numColumns={6}
+                        numSkills={30}
                         portfolioId={listOfdata?.portfolios_ids[0]?.id}
                       />
                     </div>

@@ -282,8 +282,8 @@ body {
   @apply duration-300 rounded-[6px] border border-primary text-primary bg-transparent hover:bg-gradient-to-b hover:from-white/30 hover:to-transparent hover:bg-primary hover:text-white hover:border-white/[0.24] hover:shadow-[0px_0px_0px_1px_#FFF];
 }
 
-.modifiedText a {
-  @apply text-primary relative inline-block font-semibold underline;
+.modifiedText {
+  @apply text-primary relative inline-block font-semibold;
   /* Set as inline-block to apply ::before properly */
 }
 

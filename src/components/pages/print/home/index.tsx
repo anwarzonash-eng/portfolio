@@ -24,7 +24,7 @@ import PageRendering from "@/components/PageRendering";
 import { scrollToSection } from "@/hooks/scrollToSection";
 import { skillsGrouping } from "@/hooks/skillsGrouping";
 import { useMediaQuery } from "react-responsive";
-import SkillsContainerPrint from "@/components/SkillsContainerPrint";
+
 import HomeSliderPrint from "@/components/Sliders/HomeSliderPrint";
 import NoteDomainForPint from "../../../NoteDomainForPint";
 import OurBlogsLandscape from "@/components/OurBlogsLandscape";
@@ -36,6 +36,7 @@ import EducationBlogsLandscape from "@/components/EducationBlogsLandscape";
 import ContactMePrint from "@/components/ContactMePrint";
 import UpworkActivitySectionPrint from "@/components/UpworkActivitySectionPrint";
 import Faqs from "@/components/Faqs";
+import SkillsContainer from "@/components/SkillsContainer";
 
 const Home_p = ({ params }: { params: any }) => {
   useBodyBackgroundColor("#f8f9fa");
@@ -594,10 +595,11 @@ const Home_p = ({ params }: { params: any }) => {
                             : " The skills, tools and technologies I am really good at:"}
                         </div> */}
                         {/* Skills Container */}
-                        <SkillsContainerPrint
+                        <SkillsContainer
                           list={listOfdata?.skills_ids}
-                          numColumns={6} // number of columns to display
-                          numSkills={24} // number of skills to display
+                          variant="print"
+                          numColumns={6}
+                          numSkills={24}
                           portfolioId={listOfdata?.portfolios_ids[0]?.id}
                         />
                       </div>

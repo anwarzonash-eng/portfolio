@@ -19,12 +19,13 @@ import { skillsGrouping } from "@/hooks/skillsGrouping";
 import WorkProofLinks from "@/components/WorkProofLinks";
 import ContactMeLinks from "@/components/ContactMeLinks";
 import SliderXLPrint from "@/components/Sliders/SliderXLPrint";
-import SkillsContainerPrint from "@/components/SkillsContainerPrint";
+
 import NoteDomainForPint from "@/components/NoteDomainForPint";
 import DesignationDomain from "@/components/DesignationDomain";
 import NoteClickable from "@/components/NoteClickable";
 import EducationBlogsPortrait from "@/components/EducationBlogsPortrait";
 import EducationBlogsLandscape from "@/components/EducationBlogsLandscape";
+import SkillsContainer from "@/components/SkillsContainer";
 
 const PortfolioDetails_p = ({ params }: { params: any }) => {
   const searchParams = useSearchParams();
@@ -304,7 +305,7 @@ useEffect(() => {
               </section>
 
               {/* Blog Content Section ✅ */}
-              <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative flex-col"> 
+              <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative flex-col">
                 {/* Portfolio Detail Container */}
                 <div className="w-full min-h-screen overflow-hidden ">
                   {/* Background SVG */}
@@ -452,48 +453,48 @@ useEffect(() => {
                             ),
                           }}
                         ></p>
-                    <div className="w-full ">
-                      <h4 className="text-primary text-[1.4rem] lg:text-[2rem] font-medium">
-                        AREAS OF EXPERTISE I'VE WORKED IN:
-                      </h4>
-                      <div className="flex items-center gap-[1rem] lg:gap-[0.7rem] text-nowrap flex-wrap text-[1.2rem] mb-[3.2rem] mt-[1rem]">
-                        {skillsforDetailPortfolio && (
-                          <>
-                            {Object.values(skillsforDetailPortfolio)
-                              .flat() // flatten nested groups into one array
-                              .slice(0, 10) // take only first 10
-                              .map((skill, i) => (
+                        <div className="w-full ">
+                          <h4 className="text-primary text-[1.4rem] lg:text-[2rem] font-medium">
+                            AREAS OF EXPERTISE I'VE WORKED IN:
+                          </h4>
+                          <div className="flex items-center gap-[1rem] lg:gap-[0.7rem] text-nowrap flex-wrap text-[1.2rem] mb-[3.2rem] mt-[1rem]">
+                            {skillsforDetailPortfolio && (
+                              <>
+                                {Object.values(skillsforDetailPortfolio)
+                                  .flat() // flatten nested groups into one array
+                                  .slice(0, 10) // take only first 10
+                                  .map((skill, i) => (
+                                    <Link
+                                      key={i}
+                                      href={skill?.url || "#"}
+                                      className="hover:bg-primary hover:text-white py-[0.4rem] px-[2rem] text-heading bg-[#A3DDD3] rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
+                                    >
+                                      {skill.title}
+                                    </Link>
+                                  ))}
+                              </>
+                            )}
+                          </div>
+                          <div className="flex flex-col text-nowrap  gap-[1.4rem]">
+                            {portfolioDetails?.link &&
+                              listOfdata?.companytype !== "leewop" && (
                                 <Link
-                                  key={i}
-                                  href={skill?.url || "#"}
-                                  className="hover:bg-primary hover:text-white py-[0.4rem] px-[2rem] text-heading bg-[#A3DDD3] rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
+                                  href={portfolioDetails?.link || "#"}
+                                  className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-center btn-primary inline-block max-w-max"
                                 >
-                                  {skill.title}
+                                  Launch Project - Live Preview
                                 </Link>
-                              ))}
-                          </>
-                        )}
-                      </div>
-                      <div className="flex flex-col text-nowrap  gap-[1.4rem]">
-                        {portfolioDetails?.link &&
-                          listOfdata?.companytype !== "leewop" && (
-                            <Link
-                              href={portfolioDetails?.link || "#"}
-                              className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-center btn-primary inline-block max-w-max"
-                            >
-                              Launch Project - Live Preview
-                            </Link>
-                          )}
-                        {portfolioDetails?.has_testimonial && (
-                          <Link
-                            href={"/"}
-                            className="text-primary  max-w-max text-[1.6rem] leading-[2.4rem] font-medium inline-block text-center"
-                          >
-                            Check Client Testimonial
-                          </Link>
-                        )}
-                      </div>
-                    </div>
+                              )}
+                            {portfolioDetails?.has_testimonial && (
+                              <Link
+                                href={"/"}
+                                className="text-primary  max-w-max text-[1.6rem] leading-[2.4rem] font-medium inline-block text-center"
+                              >
+                                Check Client Testimonial
+                              </Link>
+                            )}
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </article>
@@ -520,7 +521,9 @@ useEffect(() => {
                       {!isPrintMode && (
                         <div
                           dangerouslySetInnerHTML={{
-                            __html: isExpanded ? (fullFeaturesHtml || "") : (defaultTruncatedHtml || ""),
+                            __html: isExpanded
+                              ? fullFeaturesHtml || ""
+                              : defaultTruncatedHtml || "",
                           }}
                         />
                       )}
@@ -549,8 +552,10 @@ useEffect(() => {
 
                     {/* Print-only Read More: show only in print and only if > 12 items */}
                     {isPrintMode && featuresItemCount > 12 && (
-                      <div className="print:flex print:text-center mt-4
-                       items-center justify-center hidden">
+                      <div
+                        className="print:flex print:text-center mt-4
+                       items-center justify-center hidden"
+                      >
                         <Link
                           href={`/portfolio/${portfolioDetails?.id}#tech-stacks`}
                           target="_blank"
@@ -560,8 +565,6 @@ useEffect(() => {
                         </Link>
                       </div>
                     )}
-
-                    
                   </div>
                 </div>
               </section>
@@ -614,11 +617,11 @@ useEffect(() => {
                   </div>
 
                   {/* Skills Container */}
-                  <SkillsContainerPrint
+                  <SkillsContainer
                     list={listOfdata?.skills_ids}
-                    numColumns={6} // number of columns to display
-                    numSkills={24} // number of skills to display
-                    // Prefer the current portfolio's id, then the route param, then fallback to the first portfolio id
+                    variant="print"
+                    numColumns={6}
+                    numSkills={24}
                     portfolioId={
                       portfolioDetails?.id ||
                       params?.id ||

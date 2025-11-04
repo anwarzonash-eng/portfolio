@@ -32,7 +32,8 @@ import DesignationDomain from "@/components/DesignationDomain";
 import PortfolioPopUp from "@/components/PortfolioPopUp";
 import EducationBlogsLandscape from "@/components/EducationBlogsLandscape";
 import HomeSliderPrint from "@/components/Sliders/HomeSliderPrint";
-import SkillsContainerPrint from "@/components/SkillsContainerPrint";
+
+import SkillsContainer from "@/components/SkillsContainer";
 type SkillType = {
   title: string;
   url?: string;
@@ -411,11 +412,12 @@ const CV_Landscape = ({ params }: { params: any }) => {
                         <h2 className="badge">Skills</h2>
                       </div>
                       {/* Skills List */}
-                      <SkillsContainerPrint
+                      <SkillsContainer
                         list={listOfdata?.skills_ids}
-                        numColumns={5} // ✅ Dynamic columns (you can make this dynamic based on screen size or other conditions)
-                        numSkills={20} // ✅ Dynamic number of skills to display
-                        portfolioId={listOfdata?.portfolios_ids[0]?.id}
+                        variant="print"
+                        numColumns={5}
+                        numSkills={20}
+                       portfolioId={listOfdata?.portfolios_ids[0]?.id}
                       />
                     </div>
                   )}

@@ -22,7 +22,6 @@ import PageRendering from "@/components/PageRendering";
 import SkillsContainer from "@/components/SkillsContainer";
 import { skillsGrouping } from "@/hooks/skillsGrouping";
 import EducationComponent from "@/components/EducationComponent";
-import SkillsContainerPortfolioDetail from "@/components/SkillsContainerPortfolioDetail";
 import UpworkActivitySection from "@/components/UpworkActivitySection";
 
 const PortfolioDetails = ({ params }: { params: any }) => {
@@ -409,8 +408,10 @@ useEffect(() => {
                           </>
                         )}
                       </div>
-                      <div className="flex flex-col text-nowrap  
-                      gap-[1.4rem] max-lg:items-center">
+                      <div
+                        className="flex flex-col text-nowrap  
+                      gap-[1.4rem] max-lg:items-center"
+                      >
                         {portfolioDetails?.link &&
                           listOfdata?.companytype !== "leewop" && (
                             <Link
@@ -458,34 +459,36 @@ useEffect(() => {
 
                   {/* New Section */}
                   <div className="w-full my-[6.4rem]">
-  <h2
-    ref={techStacksRef}
-    className="text-primary text-center text-[2rem] xl:text-[4rem] font-semibold mb-[2rem] xl:mb-[3rem]"
-  >
-    Tech Stacks I worked On
-  </h2>
-  <div className="w-full relative">
-    <div
-      id="tech-stacks"
-      dangerouslySetInnerHTML={{
-        __html: isExpanded ? (fullFeaturesHtml || "") : (defaultTruncatedHtml || ""),
-      }}
-      className="w-full list-div text-[2rem] leading-[3.2rem] text-paragraph1 font-normal"
-    ></div>
+                    <h2
+                      ref={techStacksRef}
+                      className="text-primary text-center text-[2rem] xl:text-[4rem] font-semibold mb-[2rem] xl:mb-[3rem]"
+                    >
+                      Tech Stacks I worked On
+                    </h2>
+                    <div className="w-full relative">
+                      <div
+                        id="tech-stacks"
+                        dangerouslySetInnerHTML={{
+                          __html: isExpanded
+                            ? fullFeaturesHtml || ""
+                            : defaultTruncatedHtml || "",
+                        }}
+                        className="w-full list-div text-[2rem] leading-[3.2rem] text-paragraph1 font-normal"
+                      ></div>
 
-    {/* Read More Button: show only if > 15 items */}
-    {featuresItemCount > 15 && (
-      <div className="text-center mt-4">
-        <button
-          onClick={() => setIsExpanded((s) => !s)}
-          className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-center btn-primary inline-block max-w-max"
-        >
-          {isExpanded ? "Show Less" : "Read More"}
-        </button>
-      </div>
-    )}
-  </div>
-</div>
+                      {/* Read More Button: show only if > 15 items */}
+                      {featuresItemCount > 15 && (
+                        <div className="text-center mt-4">
+                          <button
+                            onClick={() => setIsExpanded((s) => !s)}
+                            className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-center btn-primary inline-block max-w-max"
+                          >
+                            {isExpanded ? "Show Less" : "Read More"}
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  </div>
                   <div className="w-full h-auto">
                     <Image
                       src={
@@ -518,17 +521,22 @@ useEffect(() => {
                       }}
                     ></div>
                   </div>
-                  <UpworkActivitySection urlInfo={urlInfo} cvTrue={true}
-                  data={listOfdata}
-                   />
+                  <UpworkActivitySection
+                    urlInfo={urlInfo}
+                    cvTrue={true}
+                    data={listOfdata}
+                  />
                   {/* My Tools and Technologies */}
                   <article className="my-[6.4rem]">
                     <div className="text-heading text-[2.4rem] xl:text-[3rem] font-medium leading-[2.8rem] text-center">
                       The skills, tools and technologies I used in this project:
                     </div>
                     <div ref={skillsContainerRef}>
-                      <SkillsContainerPortfolioDetail
+                      <SkillsContainer
                         list={portfolioDetails?.skills}
+                        variant="portfolio"
+                        autoExpandOnParam
+                        layoutType
                       />
                     </div>
                   </article>
