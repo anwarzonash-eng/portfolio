@@ -23,6 +23,7 @@ import SkillsContainer from "@/components/SkillsContainer";
 import { skillsGrouping } from "@/hooks/skillsGrouping";
 import EducationComponent from "@/components/EducationComponent";
 import UpworkActivitySection from "@/components/UpworkActivitySection";
+import AreasOfExpertiesSkillComponent from "@/components/AreasOfExpertiesSkillComponent";
 
 const PortfolioDetails = ({ params }: { params: any }) => {
   const searchParams = useSearchParams();
@@ -395,12 +396,13 @@ useEffect(() => {
                               (group, groupIndex) => (
                                 <React.Fragment key={groupIndex}>
                                   {group.map((skill, i) => (
-                                    <Link
-                                      href={skill?.url || "#"}
-                                      className="hover:bg-primary hover:text-white py-[0.4rem] px-[2rem] text-heading bg-[#A3DDD3] rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
-                                    >
-                                      {skill.title}
-                                    </Link>
+                                    <AreasOfExpertiesSkillComponent
+                                      key={`${groupIndex}-${i}`}
+                                      skill={skill}
+                                      index={i}
+                                      groupIndex={groupIndex}
+                                      variant="different"
+                                    />
                                   ))}
                                 </React.Fragment>
                               )

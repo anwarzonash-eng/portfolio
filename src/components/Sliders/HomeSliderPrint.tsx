@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import PortfolioPopUp from "../PortfolioPopUp";
 import { skillsGrouping } from "@/hooks/skillsGrouping";
+import AreasOfExpertiesSkillComponent from "../AreasOfExpertiesSkillComponent";
 
 type SkillType = {
   title: string;
@@ -161,22 +162,11 @@ const HomeSliderPrint: React.FC<HomeSliderPrintProps> = ({
                         .flat()
                         .slice(0, 5)
                         .map((skill: SkillType, i: number) => (
-                          <Link
-                            href={skill.url || "#"}
-                            legacyBehavior
-                            key={`skill-${i}`}
-                          >
-                            <a
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              style={{
-                                animationDelay: `${i * 0.1}s`,
-                              }}
-                              className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium py-[0.4rem] px-[2rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
-                            >
-                              {skill?.title}
-                            </a>
-                          </Link>
+                         <AreasOfExpertiesSkillComponent
+                         skill={skill}
+                         index={i}
+                         variant="medium"
+                         />
                         ))}
 
                       {Object.values(skills).flat().length > 8 && (

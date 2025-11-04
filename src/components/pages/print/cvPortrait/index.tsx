@@ -42,6 +42,7 @@ import EducationBlogsPortrait from "@/components/EducationBlogsPortrait";
 import HomeSliderPrint from "@/components/Sliders/HomeSliderPrint";
 
 import SkillsContainer from "@/components/SkillsContainer";
+import AreasOfExpertiesSkillComponent from "@/components/AreasOfExpertiesSkillComponent";
 type SkillType = {
   title: string;
   url?: string;
@@ -611,39 +612,16 @@ const CV_Portrait = ({ params }: { params: any }) => {
                                                             key={groupIndex}
                                                           >
                                                             {group.map(
-                                                              (skill, i) => {
-                                                                // Calculate the skill number (groupIndex+1).(i+1)
-                                                                const skillNumber = `${
-                                                                  groupIndex + 1
-                                                                }.${i + 1}`;
-
-                                                                return (
-                                                                  <Link
-                                                                    href={
-                                                                      skill.url ||
-                                                                      "#"
-                                                                    }
-                                                                    legacyBehavior
-                                                                    key={`${groupIndex}-${i}`}
-                                                                  >
-                                                                    <a
-                                                                      target="_blank"
-                                                                      rel="noopener noreferrer"
-                                                                      style={{
-                                                                        animationDelay: `${
-                                                                          i *
-                                                                          0.1
-                                                                        }s`,
-                                                                      }}
-                                                                      className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.2rem] font-medium py-[0.3rem] px-[1.5rem] bg-white flex items-center print:py-[0.2rem] print:px-[1.5rem] justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
-                                                                    >
-                                                                      {
-                                                                        skill?.title
-                                                                      }
-                                                                    </a>
-                                                                  </Link>
-                                                                );
-                                                              }
+                                                              (skill, i) => (
+                                                                <AreasOfExpertiesSkillComponent
+                                                                  key={`${groupIndex}-${i}`}
+                                                                  skill={skill}
+                                                                  index={i}
+                                                                  groupIndex={
+                                                                    groupIndex
+                                                                  }
+                                                                />
+                                                              )
                                                             )}
                                                           </React.Fragment>
                                                         )
@@ -668,6 +646,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
                               })}{" "}
                         </div>
                       </div>
+                      ;
                     </div>
                   </section>
                 </>
@@ -675,7 +654,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
 
               {listOfdata && listOfdata?.experiences_ids?.length > 0 && (
                 <>
-                  {/* Professional Experience Timeline Section 1✅ */}
+                  {/* Professional Experience Timeline Section 2✅ */}
                   <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center p-[4rem] relative">
                     {/* Note and Domain For Each Page */}
                     <NoteDomainForPint
@@ -870,39 +849,16 @@ const CV_Portrait = ({ params }: { params: any }) => {
                                                             key={groupIndex}
                                                           >
                                                             {group.map(
-                                                              (skill, i) => {
-                                                                // Calculate the skill number (groupIndex+1).(i+1)
-                                                                const skillNumber = `${
-                                                                  groupIndex + 1
-                                                                }.${i + 1}`;
-
-                                                                return (
-                                                                  <Link
-                                                                    href={
-                                                                      skill.url ||
-                                                                      "#"
-                                                                    }
-                                                                    legacyBehavior
-                                                                    key={`${groupIndex}-${i}`}
-                                                                  >
-                                                                    <a
-                                                                      target="_blank"
-                                                                      rel="noopener noreferrer"
-                                                                      style={{
-                                                                        animationDelay: `${
-                                                                          i *
-                                                                          0.1
-                                                                        }s`,
-                                                                      }}
-                                                                      className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.2rem] font-medium py-[0.3rem] px-[1.5rem] bg-white flex items-center print:py-[0.2rem] print:px-[1.5rem] justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
-                                                                    >
-                                                                      {
-                                                                        skill?.title
-                                                                      }
-                                                                    </a>
-                                                                  </Link>
-                                                                );
-                                                              }
+                                                              (skill, i) => (
+                                                                <AreasOfExpertiesSkillComponent
+                                                                  key={`${groupIndex}-${i}`}
+                                                                  skill={skill}
+                                                                  index={i}
+                                                                  groupIndex={
+                                                                    groupIndex
+                                                                  }
+                                                                />
+                                                              )
                                                             )}
                                                           </React.Fragment>
                                                         )
@@ -927,6 +883,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
                               })}{" "}
                         </div>
                       </div>
+
                       <div className="flex justify-center mt-8">
                         <Link
                           href={`/cv?scrollTo=experiences&expand=true`}

@@ -19,13 +19,13 @@ import { skillsGrouping } from "@/hooks/skillsGrouping";
 import WorkProofLinks from "@/components/WorkProofLinks";
 import ContactMeLinks from "@/components/ContactMeLinks";
 import SliderXLPrint from "@/components/Sliders/SliderXLPrint";
-
 import NoteDomainForPint from "@/components/NoteDomainForPint";
 import DesignationDomain from "@/components/DesignationDomain";
 import NoteClickable from "@/components/NoteClickable";
 import EducationBlogsPortrait from "@/components/EducationBlogsPortrait";
 import EducationBlogsLandscape from "@/components/EducationBlogsLandscape";
 import SkillsContainer from "@/components/SkillsContainer";
+import AreasOfExpertiesSkillComponent from "@/components/AreasOfExpertiesSkillComponent";
 
 const PortfolioDetails_p = ({ params }: { params: any }) => {
   const searchParams = useSearchParams();
@@ -464,13 +464,11 @@ useEffect(() => {
                                   .flat() // flatten nested groups into one array
                                   .slice(0, 10) // take only first 10
                                   .map((skill, i) => (
-                                    <Link
-                                      key={i}
-                                      href={skill?.url || "#"}
-                                      className="hover:bg-primary hover:text-white py-[0.4rem] px-[2rem] text-heading bg-[#A3DDD3] rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
-                                    >
-                                      {skill.title}
-                                    </Link>
+                                    <AreasOfExpertiesSkillComponent
+                                      skill={skill}
+                                      index={i}
+                                      variant="different"
+                                    />
                                   ))}
                               </>
                             )}

@@ -37,6 +37,7 @@ import ContactMePrint from "@/components/ContactMePrint";
 import UpworkActivitySectionPrint from "@/components/UpworkActivitySectionPrint";
 import Faqs from "@/components/Faqs";
 import SkillsContainer from "@/components/SkillsContainer";
+import AreasOfExpertiesSkillComponent from "@/components/AreasOfExpertiesSkillComponent";
 
 const Home_p = ({ params }: { params: any }) => {
   useBodyBackgroundColor("#f8f9fa");
@@ -293,7 +294,9 @@ const Home_p = ({ params }: { params: any }) => {
                                     .slice(0, 15)
                                     .map((skill, i) => {
                                       return (
-                                        <Link
+                                        <>
+                                        {skill.url  ? (
+                                          <Link
                                           href={skill.url || "#"}
                                           legacyBehavior
                                           key={i}
@@ -309,6 +312,18 @@ const Home_p = ({ params }: { params: any }) => {
                                             {skill?.title}
                                           </a>
                                         </Link>
+                                        ) : (
+                                          <div
+                                          key={i}
+                                            style={{
+                                              animationDelay: `${i * 0.1}s`,
+                                            }}
+                                            className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium px-[21px] py-[0.5rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
+                                          >
+                                            {skill?.title}
+                                        </div>
+                                        )}
+                                        </>
                                       );
                                     })}
                                 </div>
@@ -951,45 +966,14 @@ const Home_p = ({ params }: { params: any }) => {
                                                               <React.Fragment
                                                                 key={groupIndex}
                                                               >
-                                                                {group.map(
-                                                                  (
-                                                                    skill,
-                                                                    i
-                                                                  ) => {
-                                                                    // Calculate the skill number (groupIndex+1).(i+1)
-                                                                    const skillNumber = `${
-                                                                      groupIndex +
-                                                                      1
-                                                                    }.${i + 1}`;
-
-                                                                    return (
-                                                                      <Link
-                                                                        href={
-                                                                          skill.url ||
-                                                                          "#"
-                                                                        }
-                                                                        legacyBehavior
-                                                                        key={`${groupIndex}-${i}`}
-                                                                      >
-                                                                        <a
-                                                                          target="_blank"
-                                                                          rel="noopener noreferrer"
-                                                                          style={{
-                                                                            animationDelay: `${
-                                                                              i *
-                                                                              0.1
-                                                                            }s`,
-                                                                          }}
-                                                                          className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.2rem] font-medium py-[0.3rem] px-[1.5rem] bg-white flex items-center print:py-[0.2rem] print:px-[1.5rem] justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
-                                                                        >
-                                                                          {
-                                                                            skill?.title
-                                                                          }
-                                                                        </a>
-                                                                      </Link>
-                                                                    );
-                                                                  }
-                                                                )}
+                                                                {group.map((skill, i) => (
+                                                                  <AreasOfExpertiesSkillComponent
+                                                                  key={`${groupIndex}-${i}`}
+                                                                  skill={skill}
+                                                                  index={i}
+                                                                  groupIndex={groupIndex}
+                                                                  />
+                                                                  ))}
                                                               </React.Fragment>
                                                             )
                                                           )}
@@ -1221,45 +1205,14 @@ const Home_p = ({ params }: { params: any }) => {
                                                               <React.Fragment
                                                                 key={groupIndex}
                                                               >
-                                                                {group.map(
-                                                                  (
-                                                                    skill,
-                                                                    i
-                                                                  ) => {
-                                                                    // Calculate the skill number (groupIndex+1).(i+1)
-                                                                    const skillNumber = `${
-                                                                      groupIndex +
-                                                                      1
-                                                                    }.${i + 1}`;
-
-                                                                    return (
-                                                                      <Link
-                                                                        href={
-                                                                          skill.url ||
-                                                                          "#"
-                                                                        }
-                                                                        legacyBehavior
-                                                                        key={`${groupIndex}-${i}`}
-                                                                      >
-                                                                        <a
-                                                                          target="_blank"
-                                                                          rel="noopener noreferrer"
-                                                                          style={{
-                                                                            animationDelay: `${
-                                                                              i *
-                                                                              0.1
-                                                                            }s`,
-                                                                          }}
-                                                                          className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.2rem] font-medium py-[0.3rem] px-[1.5rem] bg-white flex items-center print:py-[0.2rem] print:px-[1.5rem] justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
-                                                                        >
-                                                                          {
-                                                                            skill?.title
-                                                                          }
-                                                                        </a>
-                                                                      </Link>
-                                                                    );
-                                                                  }
-                                                                )}
+                                                               {group.map((skill, i) => (
+                                                                  <AreasOfExpertiesSkillComponent
+                                                                  key={`${groupIndex}-${i}`}
+                                                                  skill={skill}
+                                                                  index={i}
+                                                                  groupIndex={groupIndex}
+                                                                  />
+                                                                  ))}
                                                               </React.Fragment>
                                                             )
                                                           )}

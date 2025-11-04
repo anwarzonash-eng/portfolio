@@ -181,22 +181,36 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                           const skillNumber = `${groupIndex + 1}.${i + 1}`;
 
                           return (
-                            <Link
-                              href={skill.url || "#"}
-                              legacyBehavior
-                              key={`${groupIndex}-${i}`}
-                            >
-                              <a
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                style={{
-                                  animationDelay: `${i * 0.1}s`,
-                                }}
-                                className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium px-[21px] py-[0.5rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
-                              >
-                                {skill?.title}
-                              </a>
-                            </Link>
+                            <>
+                              {skill.url ? (
+                                <Link
+                                  href={skill.url || "#"}
+                                  legacyBehavior
+                                  key={`${groupIndex}-${i}`}
+                                >
+                                  <a
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    style={{
+                                      animationDelay: `${i * 0.1}s`,
+                                    }}
+                                    className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium px-[21px] py-[0.5rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
+                                  >
+                                    {skill?.title}
+                                  </a>
+                                </Link>
+                              ) : (
+                                <div
+                                  key={`${groupIndex}-${i}`}
+                                  style={{
+                                    animationDelay: `${i * 0.1}s`,
+                                  }}
+                                  className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium px-[21px] py-[0.5rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
+                                >
+                                  {skill?.title}
+                                </div>
+                              )}
+                            </>
                           );
                         })}
                       </React.Fragment>
@@ -301,22 +315,36 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                             const skillNumber = `${groupIndex + 1}.${i + 1}`;
 
                             return (
-                              <Link
-                                href={skill.url || "#"}
-                                legacyBehavior
-                                key={`${groupIndex}-${i}`}
-                              >
-                                <a
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  style={{
-                                    animationDelay: `${i * 0.1}s`,
-                                  }}
-                                  className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium px-[21px] py-[0.5rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
-                                >
-                                  {skill?.title}
-                                </a>
-                              </Link>
+                              <>
+                                {skill?.url ? (
+                                  <Link
+                                    href={skill.url || "#"}
+                                    legacyBehavior
+                                    key={`${groupIndex}-${i}`}
+                                  >
+                                    <a
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      style={{
+                                        animationDelay: `${i * 0.1}s`,
+                                      }}
+                                      className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium px-[21px] py-[0.5rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
+                                    >
+                                      {skill?.title}
+                                    </a>
+                                  </Link>
+                                ) : (
+                                  <div
+                                    key={`${groupIndex}-${i}`}
+                                    style={{
+                                        animationDelay: `${i * 0.1}s`,
+                                      }}
+                                      className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium px-[21px] py-[0.5rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
+                                  >
+                                    {skill?.title}
+                                  </div>
+                                )}
+                              </>
                             );
                           })}
                         </React.Fragment>

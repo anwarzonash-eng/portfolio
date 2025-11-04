@@ -146,7 +146,9 @@ const PortfolioCardContent: React.FC<PortfolioCardContentProps> = ({
               {Array.isArray(skillsToShow) && skillsToShow.length > 0 && (
                 <React.Fragment>
                   {skillsToShow.map((skill: any, i: number) => (
-                    <Link
+                    <>
+                      {skill?.url ? (
+                      <Link
                       key={i}
                       href={skill.url || "#"}
                       target="_blank"
@@ -154,6 +156,15 @@ const PortfolioCardContent: React.FC<PortfolioCardContentProps> = ({
                     >
                       {skill.title}
                     </Link>
+                    ) : (
+                      <div
+                      key={i}
+                      className="hover:bg-primary hover:text-white py-[0.4rem] print:py-[0.1rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
+                    >
+                      {skill.title}
+                    </div>
+                    )}
+                    </>
                   ))}
                   {showMoreSkills[index] && <div className="w-full mb-[1px]" />}
                 </React.Fragment>
