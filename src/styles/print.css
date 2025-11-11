@@ -50,6 +50,39 @@
     height: auto !important;
   }
 
+  /* Orientation Page Wrappers */
+  .PagePortrait {
+    width: 210mm; /* A4 width */
+    height: 297mm; /* A4 height */
+    box-sizing: border-box;
+    page-break-after: always;
+    break-after: page;
+    position: relative;
+    background: blue !important;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  .PageLandscape {
+    width: 297mm; /* A4 height becomes width */
+    height: 210mm; /* A4 width becomes height */
+    box-sizing: border-box;
+    page-break-after: always;
+    break-after: page;
+    position: relative;
+    background: #fff;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  /* Avoid breaking packed dynamic components */
+  .break-inside-avoid {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
   /* Optional page break helpers */
   .page-break {
     page-break-before: always;

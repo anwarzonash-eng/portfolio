@@ -46,11 +46,6 @@ export const metadata: Metadata = {
     images: ["https://yourwebsite.com/og-image.jpg"],
     creator: "@yourtwitterhandle",
   },
-  icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon.ico",
-    apple: "/apple-touch-icon.png",
-  },
   manifest: "/site.webmanifest",
 };
 

@@ -1,53 +1,46 @@
 "use client";
-import React, { useEffect } from "react";
-import { useState } from "react";
-import Image from "next/image";
+import React, { useEffect, useState } from "react";
 import "@/styles/printStyles/portfolio_p.css";
-import Link from "next/link";
 import useBodyBackgroundColor from "@/hooks/useBodyBackgroundColor";
-import PortfolioPopUp from "@/components/PortfolioPopUp";
 import { useSearchParams } from "next/navigation";
 import { getRoutesDetails } from "@/hooks/url";
 import { reportsApiHandler } from "@/hooks/apihandlers/reportsApiHandlers";
 import { store } from "@/store";
 import { setProfileLoading, setProfileUrlInfo } from "@/store/profileSlice";
-import { modifiedContent } from "@/hooks/modifiedContent";
 import { handleSkillsApiCall } from "@/hooks/apihandlers/skillsApiHandlers";
-import { skillsGrouping } from "@/hooks/skillsGrouping";
-import ShowmoreSkills from "@/components/showmoreSkills";
 import { useAppSelector } from "@/store";
 import WorkProofLinks from "@/components/WorkProofLinks";
 import ContactMeLinks from "@/components/ContactMeLinks";
-import NoteDomainForPint from "@/components/NoteDomainForPint";
-import DesignationDomain from "@/components/DesignationDomain";
-import NoteClickable from "@/components/NoteClickable";
-import EducationBlogsPortrait from "@/components/EducationBlogsPortrait";
-import ContactMePrint from "@/components/ContactMePrint";
-import HomeSliderPrint from "@/components/Sliders/HomeSliderPrint";
+import { formatPhoneNumber } from "@/hooks/formatPhoneNumber";
+import { formatDate } from "@/hooks/formatdate";
+import { dateFormatsOptions } from "@/data/JsonData";
+import { getImageForIndex } from "@/utils/getImageForIndex";
+import { loadBlogs } from "@/hooks/apihandlers/blogListingApiHandler";
+import PrintPageRenderer, { ComponentConfig } from "@/utils/printPageRenderer";
+import {
+  PortfolioWelcome,
+  PortfolioContactMe,
+  EducationBlogPortfolio,
+  PortfolioCard,
+} from "@/components/PrintComponents/portfolioListingComponents";
 
 const PortfolioListing_p = ({ params }: { params: any }) => {
-  const [
-    selectedPorfolioPicturesforPopup,
-    setSelectedPorfolioPicturesforPopup,
-  ] = useState(null);
   const [showMoreSkills, setShowMoreSkills] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [urlInfo, setURLInfo] = useState(null);
   const [error, setError] = useState<string | null>(null);
-
   const [listOfdata, setListOfData] = useState(null);
   const [listOfskills, setListOfSkills] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
+  const [blogsList, setBlogsList] = useState([]);
+  const [loadingblogs, setLoadingBlogs] = useState(false);
+
   const listOfdatas = useAppSelector(
     (state) => state.profile.listOfProfileData
   );
-  const [loading, setLoading] = useState(true);
   const searchParams = useSearchParams();
 
-  // useEffect(() => {
-  //   setURLInfo(getRoutesDetails(params, searchParams));
-  // }, [params, searchParams]);
-
-  // Use getRoutesDetails
+  useBodyBackgroundColor("#EFF5FD");
   useEffect(() => {
     // 🛑 Must wrap in an async function and call it 🛑
     const fetchRoutes = async () => {
@@ -81,128 +74,207 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
     store.dispatch(setProfileLoading(loading));
   }, [loading]);
 
+  // Load blogs when data is available
+  useEffect(() => {
+    if (listOfdata) {
+      loadBlogs({
+        domain: listOfdata?.domain,
+        setBlogs: setBlogsList,
+        setLoading: setLoadingBlogs,
+      });
+    }
+  }, [listOfdata]);
+
+  // Image loading check for portfolio images
+  useEffect(() => {
+    if (listOfdata?.portfolios_ids?.length > 0) {
+      console.log('🖼️ Starting portfolio image loading check...');
+      
+      const checkImages = () => {
+        const images = document.querySelectorAll('img');
+        console.log(`📸 Found ${images.length} images to check`);
+        
+        let loadedCount = 0;
+        const totalImages = images.length;
+
+        if (totalImages === 0) {
+          console.log('✅ No images found, marking as loaded');
+          setImagesLoaded(true);
+          return;
+        }
+
+        const checkAllLoaded = (imgSrc: string, success: boolean) => {
+          loadedCount++;
+          console.log(`📸 Image ${success ? 'loaded' : 'failed'}: ${imgSrc} (${loadedCount}/${totalImages})`);
+          
+          if (loadedCount === totalImages) {
+            console.log('✅ All images processed, marking as loaded');
+            setImagesLoaded(true);
+          }
+        };
+
+        images.forEach((img, index) => {
+          if (img.complete) {
+            checkAllLoaded(img.src, !img.naturalWidth || img.naturalWidth > 0);
+          } else {
+            img.addEventListener('load', () => checkAllLoaded(img.src, true));
+            img.addEventListener('error', () => checkAllLoaded(img.src, false));
+          }
+        });
+
+        // Fallback timeout
+        setTimeout(() => {
+          console.log('⏰ Image loading timeout, forcing ready state');
+          setImagesLoaded(true);
+        }, 8000);
+      };
+      
+      // Small delay to ensure DOM is updated
+      setTimeout(checkImages, 500);
+    } else {
+      setImagesLoaded(true);
+    }
+  }, [listOfdata?.portfolios_ids]);
+
+  // Check if all data is ready for rendering
+  const isDataReady = React.useMemo(() => {
+    const hasBasicData = !loading && listOfdata && urlInfo;
+    const hasSkillsData = listOfskills.length > 0;
+    const hasPortfolios = listOfdata?.portfolios_ids?.length > 0;
+    const hasBlogsData = !loadingblogs;
+    const hasImages = imagesLoaded;
+    
+    console.log('🔍 Portfolio data readiness check:', {
+      hasBasicData,
+      hasSkillsData,
+      hasPortfolios,
+      hasBlogsData,
+      hasImages,
+      portfolioCount: listOfdata?.portfolios_ids?.length || 0,
+      blogsCount: blogsList.length
+    });
+    
+    return hasBasicData && hasSkillsData && hasPortfolios && hasBlogsData && hasImages;
+  }, [loading, listOfdata, urlInfo, listOfskills, loadingblogs, imagesLoaded, blogsList]);
+
+  // Get unique portfolios (deduplicated by ID)
+  const uniquePortfolios = React.useMemo(() => {
+    if (!listOfdata?.portfolios_ids) return [];
+    
+    return Array.from(
+      new Map(
+        listOfdata.portfolios_ids.map((p: any) => [String(p?.id), p])
+      ).values()
+    );
+  }, [listOfdata?.portfolios_ids]);
+
+  // Create components list for PrintPageRenderer
+  const componentsList: ComponentConfig[] = [
+    // Welcome/Intro component
+    {
+      componentType: "static" as const,
+      clickableNote: true,
+      component: (
+        <PortfolioWelcome
+          listOfdatas={listOfdatas}
+          listOfdata={listOfdata}
+          WorkProofLinks={WorkProofLinks}
+          urlInfo={urlInfo}
+          ContactMeLinks={ContactMeLinks}
+        />
+      ),
+    },
+
+    // Dynamic portfolio components - each portfolio on its own page
+    ...uniquePortfolios.slice(0, 5).map((portfolio: any, index: number) => ({
+      componentType: "dynamic" as const,
+      forceSolo: true, // Each portfolio gets its own page
+      maxPageLimit: 1,
+      renderOnEachpage: 1,
+      component: (
+        <PortfolioCard
+          key={portfolio.id}
+          portfolio={portfolio}
+          companyType={listOfdata?.companytype}
+          showMoreSkills={showMoreSkills}
+          index={index}
+        />
+      ),
+    })),
+
+    // Contact section (only if not urlInfo.u)
+    ...(urlInfo?.u ? [] : [{
+      componentType: "static" as const,
+      component: (
+        <PortfolioContactMe 
+          listOfdata={listOfdata}
+          formatPhoneNumber={formatPhoneNumber}
+        />
+      ),
+    }]),
+
+    // Education & Blogs section
+    {
+      componentType: "static" as const,
+      component: (
+        <EducationBlogPortfolio
+          listOfdata={listOfdata}
+          domain={listOfdata?.domain}
+          formatDate={formatDate}
+          dateFormatsOptions={dateFormatsOptions}
+          loadingblogs={loadingblogs}
+          blogsList={blogsList}
+          getImageForIndex={getImageForIndex}
+        />
+      ),
+    },
+  ];
+
   return (
-    <div className="bg-[#EFF5FD]">
-      {/* Welcome ✅ */}
-      <section className="print:h-screen print:section bg-bannerBG !w-full print:FlexWrapContainer flex items-center justify-center relative">
-        {/* Note For BTN */}
-        <NoteClickable />
-        {/* Welcome Card */}
-        <div className="text-center p-[4rem] print:p-0">
-          <div className="items-center justify-strat gap-[4rem] flex flex-col w-full">
-            <img
-              src={listOfdatas?.profile_photo_1}
-              alt=""
-              className="size-[245px] rounded-full"
-            />
-            <div className="flex items-start justify-start flex-col">
-              <h2 className="text-[7rem] font-bold"> {listOfdata?.name}</h2>
-              <div className="text-[4rem] font-medium flex items-center justify-center flex-wrap gap-[3px] w-full">
-                {" "}
-                {listOfdatas?.designation?.split("|").map((item, index) => (
-                  <div key={index} className="text-center">
-                    {item.trim()}
-                  </div>
-                ))}
-              </div>
-              <div className="flex items-center justify-center w-full">
-                <DesignationDomain />
-              </div>
-            </div>
-          </div>
-          <div className="flex items-center justify-center gap-[2.1rem] mt-[4rem] mb-[0.8rem] ">
-            {urlInfo?.u ? (
-              <WorkProofLinks
-                props={{
-                  upwork: listOfdata?.upwork,
-                  github: listOfdata?.github,
-                  linkedIn: listOfdata?.linkedIn,
-                  behance_link: listOfdata?.behance_link,
-                  u: urlInfo?.u,
-                }}
-              />
-            ) : (
-              <>
-                <WorkProofLinks
-                  props={{
-                    upwork: listOfdata?.upwork,
-                    github: listOfdata?.github,
-                    linkedIn: listOfdata?.linkedIn,
-                    behance_link: listOfdata?.behance_link,
-                    u: urlInfo?.u,
-                  }}
-                />
-                <ContactMeLinks
-                  props={{
-                    email: listOfdata?.email,
-                    phone_no: listOfdata?.phone_no,
-                  }}
-                />
-              </>
-            )}
+    <>
+      {/* Show error state if there's an error */}
+      {error ? (
+        <div className="flex items-center justify-center min-h-screen bg-[#EFF5FD]">
+          <div className="text-2xl text-red-500">
+            Error loading portfolio data: {error}
           </div>
         </div>
-      </section>
-
-      {listOfdata && listOfdata?.portfolios_ids?.length > 0 && (
-        <>
-          {/* Portfolio Timeline Section */}
-          <div className="bg-white max-w-[1550px] w-full mx-auto flex items-center justify-center">
-            {/* Timeline items Container */}
-            <div className="space-y-[3.5rem] print:space-y-0">
-              {Array.from(
-                // Dedupe by id while preserving order
-                new Map(
-                  (listOfdata?.portfolios_ids || []).map((p) => [
-                    String(p?.id),
-                    p,
-                  ])
-                ).values()
-              ).map((portfolio: any, index: number) => {
-                const skills: {
-                  [key: string]: {
-                    title: string;
-                    url?: string;
-                    order?: string;
-                  }[];
-                } = skillsGrouping(
-                  showMoreSkills[index]
-                    ? portfolio?.skills
-                    : portfolio?.skills?.slice(0, 15)
-                );
-                return (
-                  <section
-                    className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative bg-white"
-                    key={String(portfolio?.id) || index}
-                  >
-                    <NoteDomainForPint
-                      direction={"hidden print:right-0 print:block"}
-                    />
-
-                    <div className="max-w-[1550px] w-full mx-auto px-[4rem]">
-                      <HomeSliderPrint
-                        portfolios={[portfolio]}
-                        isPortraitMode={true}
-                        companyType={listOfdata?.companytype}
-                        locationLink={`/?sectionId=myWork`}
-                        portfolioId={portfolio?.id}
-                        pageOrientation="portrait"
-                        from={0}
-                        max={1}
-                      />
-                    </div>
-                  </section>
-                );
-              })}
+      ) : /* Show loading state while data is being fetched */
+      !isDataReady ? (
+        <div className="flex items-center justify-center min-h-screen bg-[#EFF5FD]">
+          <div className="text-center">
+            <div className="text-2xl text-heading mb-4">Loading portfolio data...</div>
+            <div className="text-sm text-gray-600 space-y-1">
+              <div className={`flex items-center justify-center gap-2 ${!loading && listOfdata && urlInfo ? 'text-green-600' : 'text-gray-500'}`}>
+                <span>{!loading && listOfdata && urlInfo ? '✅' : '⏳'}</span>
+                <span>Basic data loaded</span>
+              </div>
+              <div className={`flex items-center justify-center gap-2 ${listOfskills.length > 0 ? 'text-green-600' : 'text-gray-500'}`}>
+                <span>{listOfskills.length > 0 ? '✅' : '⏳'}</span>
+                <span>Skills data loaded ({listOfskills.length} skills)</span>
+              </div>
+              <div className={`flex items-center justify-center gap-2 ${listOfdata?.portfolios_ids?.length > 0 ? 'text-green-600' : 'text-gray-500'}`}>
+                <span>{listOfdata?.portfolios_ids?.length > 0 ? '✅' : '⏳'}</span>
+                <span>Portfolios loaded ({uniquePortfolios.length} portfolios)</span>
+              </div>
+              <div className={`flex items-center justify-center gap-2 ${!loadingblogs ? 'text-green-600' : 'text-gray-500'}`}>
+                <span>{!loadingblogs ? '✅' : '⏳'}</span>
+                <span>Blogs data loaded ({blogsList.length} blogs)</span>
+              </div>
+              <div className={`flex items-center justify-center gap-2 ${imagesLoaded ? 'text-green-600' : 'text-gray-500'}`}>
+                <span>{imagesLoaded ? '✅' : '⏳'}</span>
+                <span>Images loaded</span>
+              </div>
             </div>
           </div>
-          {!urlInfo?.u && <ContactMePrint listOfdata={listOfdata} />}
-
-          {/* Education & Blogs Section */}
-          <EducationBlogsPortrait />
-        </>
+        </div>
+      ) : (
+        <PrintPageRenderer
+          componentsList={componentsList}
+          orientation="Portrait"
+        />
       )}
-    </div>
+    </>
   );
 };
 

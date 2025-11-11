@@ -22,7 +22,6 @@
     min-height: auto !important;
   }
 
-
 }
 
 .page {
@@ -32,7 +31,6 @@
   align-items: center;
   justify-content: center;
   color: white;
-
   page-break-after: always;
 }
 
@@ -504,14 +502,7 @@ body {
 }
 
 @media print {
-  .services_main ul li {
-    /* @apply hidden print: !p-0; */
-  }
-
-  .services_main ul {
-    /* @apply print: !p-[1rem]; */
-  }
-
+  
   .services_main ul li:nth-child(1),
   .services_main ul li:nth-child(2),
   .services_main ul li:nth-child(3),
@@ -535,14 +526,6 @@ body {
   }
 }
 
-/* For cvPortrait */
-/* @media print {
-  .limit-height-portrait {
-    max-height: 800px;
-    height: 100%;
-    overflow: hidden;
-  }
-} */
 
 /* For cvLandscape */
 @media print {
