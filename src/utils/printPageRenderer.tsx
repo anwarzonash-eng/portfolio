@@ -31,7 +31,7 @@ const DYNAMIC_MARGIN = 20; // 20px margin for dynamic components
 
 // Convert pixels to mm (96 DPI standard)
 const pxToMm = (px: number) => px / (96 / 25.4);
-// const mmToPx = (mm: number) => mm * (96 / 25.4);
+const mmToPx = (mm: number) => mm * (96 / 25.4);
 
 const PrintPageRenderer: React.FC<PrintPageRendererProps> = ({
   componentsList,

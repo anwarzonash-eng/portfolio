@@ -311,3 +311,4 @@ const CV_Portrait = ({ params }: { params: any }) => {
   );
 };
 export default CV_Portrait;
+
