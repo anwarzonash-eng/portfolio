@@ -4,25 +4,15 @@ import "@/styles/printStyles/cvPortrait.css";
 import { formatDate } from "@/hooks/formatdate";
 import { modifiedContent } from "@/hooks/modifiedContent";
 import React, { useEffect, useState } from "react";
-import {
-  blogData,
-  contactDetails,
-  dateFormatsOptions,
-  socialLinks,
-} from "@/data/JsonData";
+import { dateFormatsOptions } from "@/data/JsonData";
 import { useRouter, useSearchParams } from "next/navigation";
 import { getRoutesDetails } from "@/hooks/url";
 import { reportsApiHandler } from "@/hooks/apihandlers/reportsApiHandlers";
 import { handleSkillsApiCall } from "@/hooks/apihandlers/skillsApiHandlers";
 import { store } from "@/store";
 import { setProfileLoading, setProfileUrlInfo } from "@/store/profileSlice";
-import {
-  blogsListing,
-  loadBlogs,
-} from "@/hooks/apihandlers/blogListingApiHandler";
-import ShowmoreSkills from "@/components/showmoreSkills";
+import { loadBlogs } from "@/hooks/apihandlers/blogListingApiHandler";
 import { useAppSelector } from "@/store";
-import NoteDomainForPint from "@/components/NoteDomainForPint";
 import { getImageForIndex } from "@/utils/getImageForIndex";
 import {
   EducationBlogCvPortrait,
@@ -31,14 +21,10 @@ import {
   PortfolioCvPortrait,
   SkillsCvPortrait,
 } from "@/components/PrintComponents/cvPortraitComponents";
-import { SingleExperienceItem, getSortedExperiences, ExperiencesPageRenderer } from "@/components/PrintComponents/cvPortraitComponents/ExperienceCvPortrait";
+import ExperienceCvPortrait from "@/components/PrintComponents/cvPortraitComponents/ExperienceCvPortrait";
 import PrintPageRenderer, { ComponentConfig } from "@/utils/printPageRenderer";
-
-type SkillType = {
-  title: string;
-  url?: string;
-  // add other properties if they exist
-};
+import ShowmoreSkills from "@/components/showmoreSkills";
+import { skillsGrouping } from "@/hooks/skillsGrouping";
 
 const CV_Portrait = ({ params }: { params: any }) => {
   const searchParams = useSearchParams();
@@ -95,10 +81,6 @@ const CV_Portrait = ({ params }: { params: any }) => {
     (state) => state.profile.listOfProfileData
   );
 
-  // useEffect(() => {
-  //   setURLInfo(getRoutesDetails(params, searchParams));
-  // }, [params, searchParams]);
-
   // Use getRoutesDetails
   useEffect(() => {
     // 🛑 Must wrap in an async function and call it 🛑
@@ -150,14 +132,6 @@ const CV_Portrait = ({ params }: { params: any }) => {
 
   const [expandedItems, setExpandedItems] = useState({});
 
-  // Toggle the "Show More" state for a specific item
-  const toggleShowMore = (index) => {
-    setExpandedItems((prev) => ({
-      ...prev,
-      [index]: !prev[index], // Toggle the specific item
-    }));
-  };
-
   const [isPrinting, setIsPrinting] = useState(false);
 
   useEffect(() => {
@@ -172,6 +146,18 @@ const CV_Portrait = ({ params }: { params: any }) => {
       window.removeEventListener("afterprint", handleAfterPrint);
     };
   }, []);
+
+  // Extract and sort experiences once for reuse across components
+  const sortedExperiences = React.useMemo(() => {
+    if (!listOfdata?.experiences_ids) {
+      return [];
+    }
+    return [...listOfdata.experiences_ids].sort((a, b) => {
+      const dateA = new Date(a.starting_date).getTime();
+      const dateB = new Date(b.starting_date).getTime();
+      return dateB - dateA;
+    });
+  }, [listOfdata?.experiences_ids]);
 
   const componentsList: ComponentConfig[] = [
     {
@@ -213,34 +199,88 @@ const CV_Portrait = ({ params }: { params: any }) => {
         </>
       ),
     },
+    
+    {
+      componentType: "dynamic",
+      badgeTitle: "Professional Experiences",
+      component: (
+        <>
+          {listOfdata && listOfdata?.experiences_ids?.length > 0 && (
+            <ExperienceCvPortrait
+              filteredSkills={filteredSkills}
+              listOfdata={listOfdata}
+              showMoreSkills={showMoreSkillsForExperiences}
+              skillsGrouping={skillsGrouping}
+              start={0}
+              end={1}
+            />
+          )}
+        </>
+      ),
+    },
 
-    // Dynamic experiences component - groups experiences per page with one badge per page
-    ...(listOfdata && listOfdata?.experiences_ids?.length > 0 
-      ? (() => {
-          const sortedExperiences = getSortedExperiences(listOfdata.experiences_ids);
-          const experiencesPerPage = 3; // Number of experiences per page
-          const totalPages = Math.ceil(sortedExperiences.length / experiencesPerPage);
-          
-          // Create one component config for each page of experiences
-          return Array.from({ length: totalPages }, (_, pageIndex) => ({
-            componentType: "dynamic" as const,
-            maxPageLimit: 1,
-            renderOnEachpage: 1,
-            badgeTitle: "Professional Experiences", // Badge shows once per page
-            component: (
-              <ExperiencesPageRenderer
-                key={`experiences-page-${pageIndex}`}
-                experiences={sortedExperiences}
-                pageIndex={pageIndex}
-                experiencesPerPage={experiencesPerPage}
-                ShowmoreSkills={showMoreSkillsForExperiences}
+     {
+      componentType: "dynamic",
+      badgeTitle: "Professional Experiences",
+      component: (
+        <>
+          {listOfdata && listOfdata?.experiences_ids?.length > 0 && (
+            <ExperienceCvPortrait
+              filteredSkills={filteredSkills}
+              listOfdata={listOfdata}
+              showMoreSkills={showMoreSkillsForExperiences}
+              skillsGrouping={skillsGrouping}
+              start={1}
+              end={2}
+            />
+          )}
+        </>
+      ),
+    },
+     {
+      componentType: "dynamic",
+      badgeTitle: "Professional Experiences",
+      component: (
+        <>
+          {listOfdata && listOfdata?.experiences_ids?.length > 0 && (
+            <ExperienceCvPortrait
+              filteredSkills={filteredSkills}
+              listOfdata={listOfdata}
+              showMoreSkills={showMoreSkillsForExperiences}
+              skillsGrouping={skillsGrouping}
+              start={2}
+              end={3}
+            />
+          )}
+        </>
+      ),
+    },
+     {
+      componentType: "dynamic",
+      badgeTitle: "Professional Experiences",
+      component: (
+        <>
+          {listOfdata && listOfdata?.experiences_ids?.length > 0 && (
+            <div>
+              <ExperienceCvPortrait
                 filteredSkills={filteredSkills}
                 listOfdata={listOfdata}
+                showMoreSkills={showMoreSkillsForExperiences}
+                skillsGrouping={skillsGrouping}
+                start={3}
+                end={4}
               />
-            ),
-          }));
-        })()
-      : []),
+              <div className="flex items-center justify-center w-full">
+              <button
+                className="hover:bg-white bg-primary text-white hover:text-primary capitalize text-center text-primary text-[1.4rem] font-medium py-[1rem] px-[2rem] inline-flex items-center justify-center gap-[8px] rounded-[5rem] relative border border-transparent hover:border-primary my-[1rem]"
+              >Read More</button>
+              </div>
+            </div>
+          )}
+        </>
+      ),
+    },
+    
 
     {
       componentType: "static",
@@ -284,8 +324,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
 
   // Check if all essential data is loaded
   const isDataReady = !loading && listOfdata && urlInfo && allSkills.length > 0;
-  console.log("Data Ready", isDataReady)
-
+  console.log("Data Ready", isDataReady);
 
   return (
     <>
@@ -311,4 +350,3 @@ const CV_Portrait = ({ params }: { params: any }) => {
   );
 };
 export default CV_Portrait;
-

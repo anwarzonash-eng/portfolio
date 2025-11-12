@@ -6,11 +6,11 @@
 }
 
 .section {
-  width: 210mm!important;
-  height: 297mm!important;
-  overflow: hidden!important;
+  width: 210mm !important;
+  height: 297mm !important;
+  overflow: hidden !important;
   box-sizing: border-box;
-  page-break-after: always;
+  page-break-after: page !important;
 }
 
 .section:last-of-type {

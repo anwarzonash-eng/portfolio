@@ -10,8 +10,7 @@ const EFFECTIVE_HEIGHT_MM = A4_HEIGHT_MM - (A4_DYNAMIC_MARGIN_MM * 2); // 297 - 
 const SHOW_BUTTON_MM = 220; // Adjusted for smaller effective height
 
 // Fine-tune these once (measure in DevTools → mm)
-const HEADING_HEIGHT_MM = 48; // h2 + margin ≈ 48mm
-const BUTTON_HEIGHT_MM = 25; // button + paddings + margins
+const BUTTON_HEIGHT_MM = 20; // button + paddings + margins
 const MARGIN_BOTTOM_MM = 5; // reduced extra safety
 
 const mmToPx = (mm: number) => mm * (96 / 25.4);
@@ -71,7 +70,7 @@ const OverviewCvPortrait = ({
   }, [listOfdata?.skills, filteredSkills, isPrinting]);
 
   return (
-    <div ref={containerRef} className="w-full">
+    <div ref={containerRef} className="w-full px-[2rem]">
       {/* Skills List */}
       <div
         className="list-div text-heading text-[1.6rem] leading-[2.4rem] flex flex-col gap-[1rem] mb-[2rem] list-inside"

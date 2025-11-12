@@ -80,7 +80,7 @@ const PortfolioCard: React.FC<PortfolioCardProps> = ({
   ) as Record<string, SkillType[]>;
 
   return (
-    <div className="w-full flex flex-col items-center gap-6 mt-[2rem]">
+    <div className="w-full p-[2rem] pt-0">
       <div className="flex flex-row rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden w-full bg-white">
         <div className="flex flex-col-reverse items-stretch bg-white rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden h-full w-full p-[3rem] gap-[4rem]">
           
@@ -177,7 +177,7 @@ const PortfolioCard: React.FC<PortfolioCardProps> = ({
                   // Height = width / 1.75
                   // For full page width: height ≈ 454px
                   height: `calc(100vw / 1.75)`,
-                  maxHeight: '454px', // fallback for A4 portrait
+                  maxHeight: '450px', // fallback for A4 portrait
                   minHeight: '400px'
                 }}
               >
@@ -192,7 +192,7 @@ const PortfolioCard: React.FC<PortfolioCardProps> = ({
                   alt="Project Image"
                   fill
                   sizes="100vw"
-                  className="rounded-[1.2rem] object-cover w-full h-full border border-border border-solid"
+                  className="rounded-[1.2rem] object-fill w-full h-full border border-border border-solid"
                 />
               </div>
             )}

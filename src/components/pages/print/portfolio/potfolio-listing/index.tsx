@@ -190,6 +190,7 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
       componentType: "dynamic" as const,
       forceSolo: true, // Each portfolio gets its own page
       maxPageLimit: 1,
+      badgeTitle:"Portfolio",
       renderOnEachpage: 1,
       component: (
         <PortfolioCard
@@ -217,7 +218,8 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
     {
       componentType: "static" as const,
       component: (
-        <EducationBlogPortfolio
+        <div className="p-[2rem]">
+          <EducationBlogPortfolio
           listOfdata={listOfdata}
           domain={listOfdata?.domain}
           formatDate={formatDate}
@@ -226,6 +228,7 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
           blogsList={blogsList}
           getImageForIndex={getImageForIndex}
         />
+        </div>
       ),
     },
   ];
@@ -244,28 +247,6 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
         <div className="flex items-center justify-center min-h-screen bg-[#EFF5FD]">
           <div className="text-center">
             <div className="text-2xl text-heading mb-4">Loading portfolio data...</div>
-            <div className="text-sm text-gray-600 space-y-1">
-              <div className={`flex items-center justify-center gap-2 ${!loading && listOfdata && urlInfo ? 'text-green-600' : 'text-gray-500'}`}>
-                <span>{!loading && listOfdata && urlInfo ? '✅' : '⏳'}</span>
-                <span>Basic data loaded</span>
-              </div>
-              <div className={`flex items-center justify-center gap-2 ${listOfskills.length > 0 ? 'text-green-600' : 'text-gray-500'}`}>
-                <span>{listOfskills.length > 0 ? '✅' : '⏳'}</span>
-                <span>Skills data loaded ({listOfskills.length} skills)</span>
-              </div>
-              <div className={`flex items-center justify-center gap-2 ${listOfdata?.portfolios_ids?.length > 0 ? 'text-green-600' : 'text-gray-500'}`}>
-                <span>{listOfdata?.portfolios_ids?.length > 0 ? '✅' : '⏳'}</span>
-                <span>Portfolios loaded ({uniquePortfolios.length} portfolios)</span>
-              </div>
-              <div className={`flex items-center justify-center gap-2 ${!loadingblogs ? 'text-green-600' : 'text-gray-500'}`}>
-                <span>{!loadingblogs ? '✅' : '⏳'}</span>
-                <span>Blogs data loaded ({blogsList.length} blogs)</span>
-              </div>
-              <div className={`flex items-center justify-center gap-2 ${imagesLoaded ? 'text-green-600' : 'text-gray-500'}`}>
-                <span>{imagesLoaded ? '✅' : '⏳'}</span>
-                <span>Images loaded</span>
-              </div>
-            </div>
           </div>
         </div>
       ) : (

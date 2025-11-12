@@ -3,7 +3,7 @@ import React from "react";
 
 const PortfolioWelcome = ({listOfdatas, listOfdata, WorkProofLinks, urlInfo, ContactMeLinks}) => {
   return (
-      <div className="text-center p-[2rem] bg-bannerBG !w-full  relative">
+      <div className="text-center bg-bannerBG relative !w-full !h-screen flex items-center justify-center flex-col gap-[2rem]">
         <div className="items-center justify-strat gap-[4rem] flex flex-col w-full">
           <img
             src={listOfdatas?.profile_photo_1}

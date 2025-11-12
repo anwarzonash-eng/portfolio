@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState, useRef } from 'react';
 import NoteDomainForPint from '@/components/NoteDomainForPint';
 import PrintComponentBadge from '@/components/PrintComponents/PrintGenerics/PrintComponentBadge';
@@ -10,8 +9,6 @@ export interface ComponentConfig {
   clickableNote?: boolean;
   componentTitle?: string;
   badgeTitle?: string;
-  maxPageLimit?: number;
-  renderOnEachpage?: number;
   forceSolo?: boolean; // Forces the component to be on its own page
   component: React.ReactNode;
 }
@@ -22,12 +19,13 @@ interface PrintPageRendererProps {
 }
 
 // Height constants (in mm)
-const PAGE_HEIGHT_PORTRAIT = 297; // A4 Portrait height
-const PAGE_HEIGHT_LANDSCAPE = 210; // A4 Landscape height
-const PAGE_WIDTH_PORTRAIT = 210; // A4 Portrait width
-const PAGE_WIDTH_LANDSCAPE = 297; // A4 Landscape width
-const COMPONENT_PADDING = 20; // Buffer space
-const DYNAMIC_MARGIN = 20; // 20px margin for dynamic components
+// All of them for A4 Page Dimensions Either Portrait or Landscape
+const PAGE_HEIGHT_PORTRAIT = 297; 
+const PAGE_HEIGHT_LANDSCAPE = 210; 
+const PAGE_WIDTH_PORTRAIT = 210; 
+const PAGE_WIDTH_LANDSCAPE = 297;
+const COMPONENT_PADDING = 0; // Buffer space
+const DYNAMIC_MARGIN = 0; // 20px margin for dynamic components
 
 // Convert pixels to mm (96 DPI standard)
 const pxToMm = (px: number) => px / (96 / 25.4);
@@ -70,7 +68,7 @@ const PrintPageRenderer: React.FC<PrintPageRendererProps> = ({
   const pageDimensions = getPageDimensions();
   const pageHeight = pageDimensions.height;
 
-  const renderComponent = (config: ComponentConfig, compIndex?: number, instanceIndex?: number): React.ReactNode => {
+  const renderComponent = (config: ComponentConfig, compIndex?: number, instanceIndex?: number, showBadge: boolean = true, showTitle: boolean = true): React.ReactNode => {
     const key = `${compIndex || 0}-${instanceIndex || 0}`;
     
     return (
@@ -84,13 +82,13 @@ const PrintPageRenderer: React.FC<PrintPageRendererProps> = ({
 
         {!config.clickableNote && <NoteDomainForPint direction="right-0" /> }
         
-        {/* Render badge title */}
-        {config.badgeTitle && (
+        {/* Render badge title - only if showBadge is true */}
+        {config.badgeTitle && showBadge && (
           <PrintComponentBadge badgeText={config.badgeTitle} />
         )}
         
-        {/* Render component title */}
-        {config.componentTitle && (
+        {/* Render component title - only if showTitle is true */}
+        {config.componentTitle && showTitle && (
           <PrintComponentTitle title={config.componentTitle} />
         )}
         
@@ -196,6 +194,8 @@ const PrintPageRenderer: React.FC<PrintPageRendererProps> = ({
     let currentPageHeight = 0;
     let componentIndex = 0;
     let currentPageHasDynamic = false; // Track if current page has dynamic components
+    let shownBadgesOnCurrentPage = new Set<string>(); // Track which badge texts have been shown on current page
+    let shownTitlesOnCurrentPage = new Set<string>(); // Track which component titles have been shown on current page
 
     const addCurrentPageToPages = () => {
       if (currentPageComponents.length > 0) {
@@ -218,6 +218,8 @@ const PrintPageRenderer: React.FC<PrintPageRendererProps> = ({
         currentPageComponents = [];
         currentPageHeight = 0;
         currentPageHasDynamic = false; // Reset for next page
+        shownBadgesOnCurrentPage = new Set<string>(); // Reset for new page
+        shownTitlesOnCurrentPage = new Set<string>(); // Reset for new page
       }
     };
 
@@ -228,6 +230,10 @@ const PrintPageRenderer: React.FC<PrintPageRendererProps> = ({
     while (componentIndex < componentsList.length) {
       const currentConfig = componentsList[componentIndex];
       console.log(`🔄 Processing component ${componentIndex}: ${currentConfig.componentType}`);
+      
+      // Determine if we should show badge and title based on whether they've been shown on current page
+      const shouldShowBadge = currentConfig.badgeTitle ? !shownBadgesOnCurrentPage.has(currentConfig.badgeTitle) : true;
+      const shouldShowTitle = currentConfig.componentTitle ? !shownTitlesOnCurrentPage.has(currentConfig.componentTitle) : true;
       
       if (currentConfig.componentType === 'static') {
         // Check if forceSolo is true or if component won't fit in current page
@@ -241,9 +247,21 @@ const PrintPageRenderer: React.FC<PrintPageRendererProps> = ({
           addCurrentPageToPages();
         }
         
+        // Determine if we should show badge/title after potential page break
+        const showBadge = currentConfig.badgeTitle ? !shownBadgesOnCurrentPage.has(currentConfig.badgeTitle) : true;
+        const showTitle = currentConfig.componentTitle ? !shownTitlesOnCurrentPage.has(currentConfig.componentTitle) : true;
+        
         // Add component to current page (static components don't affect margin flag)
-        currentPageComponents.push(renderComponent(currentConfig, componentIndex));
+        currentPageComponents.push(renderComponent(currentConfig, componentIndex, 0, showBadge, showTitle));
         currentPageHeight += componentHeight;
+        
+        // Mark badge and title as shown on current page
+        if (currentConfig.badgeTitle) {
+          shownBadgesOnCurrentPage.add(currentConfig.badgeTitle);
+        }
+        if (currentConfig.componentTitle) {
+          shownTitlesOnCurrentPage.add(currentConfig.componentTitle);
+        }
         
         // If forceSolo is true, finalize this page immediately
         if (currentConfig.forceSolo) {
@@ -252,53 +270,52 @@ const PrintPageRenderer: React.FC<PrintPageRendererProps> = ({
         
       } else if (currentConfig.componentType === 'dynamic') {
         const componentHeight = getComponentHeight(componentIndex);
-        const maxPageLimit = currentConfig.maxPageLimit || 1;
-        const renderOnEachPage = currentConfig.renderOnEachpage || 1;
         
-        console.log(`🔀 Dynamic component - Height: ${componentHeight}mm, Max pages: ${maxPageLimit}, Per page: ${renderOnEachPage}`);
+        console.log(`🔀 Dynamic component - Height: ${componentHeight}mm`);
         console.log(`📐 Adjusted page height for dynamic component: ${pageHeight}mm (original: ${orientation === 'Portrait' ? PAGE_HEIGHT_PORTRAIT : PAGE_HEIGHT_LANDSCAPE}mm)`);
         
-        // Calculate total instances needed across all pages
-        let totalInstancesNeeded = maxPageLimit * renderOnEachPage;
-        let instancesRendered = 0;
-        
-        // Try to fit instances in current page first
-        let instancesInCurrentPage = 0;
-        while (currentPageHeight + componentHeight <= pageHeight && instancesInCurrentPage < renderOnEachPage && totalInstancesNeeded > 0) {
-          console.log(`➕ Adding instance ${instancesRendered} to current page (height will be ${currentPageHeight + componentHeight}mm)`);
-          currentPageComponents.push(renderComponent(currentConfig, componentIndex, instancesRendered));
+        // Check if component fits on current page
+        if (currentPageHeight + componentHeight <= pageHeight) {
+          console.log(`➕ Adding dynamic component to current page (height will be ${currentPageHeight + componentHeight}mm)`);
+          
+          // Determine if we should show badge/title on current page
+          const showBadge = currentConfig.badgeTitle ? !shownBadgesOnCurrentPage.has(currentConfig.badgeTitle) : true;
+          const showTitle = currentConfig.componentTitle ? !shownTitlesOnCurrentPage.has(currentConfig.componentTitle) : true;
+          
+          currentPageComponents.push(renderComponent(currentConfig, componentIndex, 0, showBadge, showTitle));
           currentPageHeight += componentHeight;
           currentPageHasDynamic = true; // Mark this page as having dynamic content
-          instancesRendered++;
-          instancesInCurrentPage++;
-          totalInstancesNeeded--;
-        }
-        
-        // Handle remaining instances across new pages
-        let pagesUsed = instancesInCurrentPage > 0 ? 1 : 0;
-        
-        while (totalInstancesNeeded > 0 && pagesUsed < maxPageLimit) {
-          console.log(`📄 Creating new page for remaining ${totalInstancesNeeded} instances`);
+          
+          // Mark badge and title as shown on current page
+          if (currentConfig.badgeTitle) {
+            shownBadgesOnCurrentPage.add(currentConfig.badgeTitle);
+          }
+          if (currentConfig.componentTitle) {
+            shownTitlesOnCurrentPage.add(currentConfig.componentTitle);
+          }
+        } else {
+          console.log(`📄 Creating new page for dynamic component`);
           
           // Finalize current page if it has content
           if (currentPageComponents.length > 0) {
             addCurrentPageToPages();
           }
           
-          // Start new page and add instances
-          const instancesForThisPage = Math.min(renderOnEachPage, totalInstancesNeeded);
+          // Add component to new page (badge/title will show since it's a new page with reset Sets)
+          const showBadge = currentConfig.badgeTitle ? !shownBadgesOnCurrentPage.has(currentConfig.badgeTitle) : true;
+          const showTitle = currentConfig.componentTitle ? !shownTitlesOnCurrentPage.has(currentConfig.componentTitle) : true;
           
-          for (let i = 0; i < instancesForThisPage; i++) {
-            currentPageComponents.push(renderComponent(currentConfig, componentIndex, instancesRendered + i));
-          }
-          
-          instancesRendered += instancesForThisPage;
-          totalInstancesNeeded -= instancesForThisPage;
-          currentPageHeight = instancesForThisPage * componentHeight;
+          currentPageComponents.push(renderComponent(currentConfig, componentIndex, 0, showBadge, showTitle));
+          currentPageHeight = componentHeight;
           currentPageHasDynamic = true; // Mark this new page as having dynamic content
-          pagesUsed++;
           
-          console.log(`✅ Added ${instancesForThisPage} instances to new page (${pagesUsed}/${maxPageLimit})`);
+          // Mark badge and title as shown on this new page
+          if (currentConfig.badgeTitle) {
+            shownBadgesOnCurrentPage.add(currentConfig.badgeTitle);
+          }
+          if (currentConfig.componentTitle) {
+            shownTitlesOnCurrentPage.add(currentConfig.componentTitle);
+          }
         }
         
         // Check if next component can fit on current page
