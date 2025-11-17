@@ -25,6 +25,8 @@ import ExperienceCvPortrait from "@/components/PrintComponents/cvPortraitCompone
 import PrintPageRenderer, { ComponentConfig } from "@/utils/printPageRenderer";
 import ShowmoreSkills from "@/components/showmoreSkills";
 import { skillsGrouping } from "@/hooks/skillsGrouping";
+import { preloadImages } from "@/utils/preLoadImages";
+import Link from "next/link";
 
 const CV_Portrait = ({ params }: { params: any }) => {
   const searchParams = useSearchParams();
@@ -116,7 +118,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
     }
   }, [listOfdata]);
 
-  // console.log("List of Data:", listOfdata);
+  console.log("List of Data:", listOfdata);
 
   const domain = listOfdata?.domain;
 
@@ -192,16 +194,18 @@ const CV_Portrait = ({ params }: { params: any }) => {
             <SkillsCvPortrait
               list={listOfdata?.skills_ids}
               numColumns={6}
-              numSkills={24}
+              numSkills={30}
               portfolioId={listOfdata?.portfolios_ids[0]?.id}
             />
           )}
         </>
       ),
     },
-    
+
+    // Experience Section
+
     {
-      componentType: "dynamic",
+      componentType: "static",
       badgeTitle: "Professional Experiences",
       component: (
         <>
@@ -212,55 +216,19 @@ const CV_Portrait = ({ params }: { params: any }) => {
               showMoreSkills={showMoreSkillsForExperiences}
               skillsGrouping={skillsGrouping}
               start={0}
-              end={1}
-            />
-          )}
-        </>
-      ),
-    },
-
-     {
-      componentType: "dynamic",
-      badgeTitle: "Professional Experiences",
-      component: (
-        <>
-          {listOfdata && listOfdata?.experiences_ids?.length > 0 && (
-            <ExperienceCvPortrait
-              filteredSkills={filteredSkills}
-              listOfdata={listOfdata}
-              showMoreSkills={showMoreSkillsForExperiences}
-              skillsGrouping={skillsGrouping}
-              start={1}
-              end={2}
-            />
-          )}
-        </>
-      ),
-    },
-     {
-      componentType: "dynamic",
-      badgeTitle: "Professional Experiences",
-      component: (
-        <>
-          {listOfdata && listOfdata?.experiences_ids?.length > 0 && (
-            <ExperienceCvPortrait
-              filteredSkills={filteredSkills}
-              listOfdata={listOfdata}
-              showMoreSkills={showMoreSkillsForExperiences}
-              skillsGrouping={skillsGrouping}
-              start={2}
               end={3}
             />
           )}
         </>
       ),
     },
-     {
-      componentType: "dynamic",
+
+    {
+      componentType: "static",
       badgeTitle: "Professional Experiences",
       component: (
         <>
-          {listOfdata && listOfdata?.experiences_ids?.length > 0 && (
+          {listOfdata && listOfdata?.experiences_ids?.length > 3 && (
             <div>
               <ExperienceCvPortrait
                 filteredSkills={filteredSkills}
@@ -268,19 +236,27 @@ const CV_Portrait = ({ params }: { params: any }) => {
                 showMoreSkills={showMoreSkillsForExperiences}
                 skillsGrouping={skillsGrouping}
                 start={3}
-                end={4}
+                end={6}
               />
-              <div className="flex items-center justify-center w-full">
-              <button
-                className="hover:bg-white bg-primary text-white hover:text-primary capitalize text-center text-primary text-[1.4rem] font-medium py-[1rem] px-[2rem] inline-flex items-center justify-center gap-[8px] rounded-[5rem] relative border border-transparent hover:border-primary my-[1rem]"
-              >Read More</button>
+              <div className="hidden items-center justify-center w-full">
+                <button className="hover:bg-white bg-primary text-white hover:text-primary capitalize text-center text-primary text-[1.4rem] font-medium py-[1rem] px-[2rem] inline-flex items-center justify-center gap-[8px] rounded-[5rem] relative border border-transparent hover:border-primary my-[1rem]">
+                  Read More
+                </button>
+              </div>
+              <div className="flex justify-center mt-8">
+                <Link
+                  href={`/cv?scrollTo=experiences&expand=true`}
+                  className="btn-primary text-white py-[1rem] px-[3.4rem]
+                  text-[1.6rem] font-medium"
+                >
+                  View All Experiences
+                </Link>
               </div>
             </div>
           )}
         </>
       ),
     },
-    
 
     {
       componentType: "static",
@@ -322,31 +298,104 @@ const CV_Portrait = ({ params }: { params: any }) => {
     },
   ];
 
+  // Extract All image URLs Before Rendering
+  function extractAllImageUrls(listOfdata, blogsList) {
+    const urls = [];
+
+    // Profile image
+    if (listOfdata?.profile_photo_1) urls.push(listOfdata.profile_photo_1);
+
+    // skills HTML
+    const skillsHtml = listOfdata?.skills || "";
+    const htmlMatches = skillsHtml.match(/<img[^>]+src="([^">]+)"/g);
+    if (htmlMatches) {
+      htmlMatches.forEach((tag) => {
+        const match = tag.match(/src="([^">]+)"/);
+        if (match?.[1]) urls.push(match[1]);
+      });
+    }
+
+    // Experiences
+    listOfdata?.experiences_ids?.forEach((exp) => {
+      if (exp.company_logo) urls.push(exp.company_logo);
+    });
+
+    // Portfolio images
+    listOfdata?.portfolios_ids?.forEach((p) => {
+      if (p.thumbnail) urls.push(p.thumbnail);
+    });
+
+    // Blogs
+    blogsList?.forEach((blog) => {
+      if (blog.image) urls.push(blog.image);
+    });
+
+    return urls;
+  }
+
+
+  // ImagesReady Guard Before PrintPageRenderer
+ 
+  const [imagesReady, setImagesReady] = useState(false);
+  const [imageProgress, setImageProgress] = useState({ loaded: 0, total: 0 });
+
+  useEffect(() => {
+    if (!listOfdata || !allSkills.length) return;
+
+    async function run() {
+      const urls = extractAllImageUrls(listOfdata, blogsList);
+      console.log("Preloading URLs:", urls);
+
+      setImageProgress({ loaded: 0, total: urls.length });
+
+      await preloadImages(urls, (loaded, total) => {
+        setImageProgress({ loaded, total });
+      });
+
+      setImagesReady(true); // all images fully loaded
+    }
+
+    run();
+  }, [listOfdata, blogsList, allSkills]);
+
   // Check if all essential data is loaded
-  const isDataReady = !loading && listOfdata && urlInfo && allSkills.length > 0;
+  const isDataReady =
+    !loading && listOfdata && urlInfo && allSkills.length > 0 && imagesReady; // ensure images are fully loaded
+
   console.log("Data Ready", isDataReady);
 
-  return (
-    <>
-      {/* Show error state if there's an error */}
-      {error ? (
-        <div className="flex items-center justify-center min-h-screen bg-[#EFF5FD]">
-          <div className="text-2xl text-red-500">
-            Error loading CV data: {error}
+  if (error) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-[#EFF5FD]">
+        <div className="text-2xl text-red-500">
+          Error loading CV data: {error}
+        </div>
+      </div>
+    );
+  }
+
+  if (!listOfdata || !imagesReady || allSkills.length === 0) {
+    const { loaded, total } = imageProgress;
+    const percent = total > 0 ? Math.round((loaded / total) * 100) : 0;
+
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-[#EFF5FD] flex-col">
+        <div className="text-2xl text-heading mb-4">Loading CV data...</div>
+        {total > 0 && (
+          <div className="w-64 h-4 border border-gray-300 rounded overflow-hidden">
+            <div
+              className="h-full bg-primary transition-all duration-300"
+              style={{ width: `${percent}%` }}
+            />
           </div>
-        </div>
-      ) : /* Show loading state while data is being fetched */
-      !isDataReady ? (
-        <div className="flex items-center justify-center min-h-screen bg-[#EFF5FD]">
-          <div className="text-2xl text-heading">Loading CV data...</div>
-        </div>
-      ) : (
-        <PrintPageRenderer
-          componentsList={componentsList}
-          orientation="Portrait"
-        />
-      )}
-    </>
+        )}
+        {total > 0 && <div className="mt-2 text-sm">{percent}%</div>}
+      </div>
+    );
+  }
+
+  return (
+    <PrintPageRenderer componentsList={componentsList} orientation="Portrait" />
   );
 };
 export default CV_Portrait;

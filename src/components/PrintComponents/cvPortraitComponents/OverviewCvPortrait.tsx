@@ -10,8 +10,8 @@ const EFFECTIVE_HEIGHT_MM = A4_HEIGHT_MM - (A4_DYNAMIC_MARGIN_MM * 2); // 297 - 
 const SHOW_BUTTON_MM = 220; // Adjusted for smaller effective height
 
 // Fine-tune these once (measure in DevTools → mm)
-const BUTTON_HEIGHT_MM = 20; // button + paddings + margins
-const MARGIN_BOTTOM_MM = 5; // reduced extra safety
+const BUTTON_HEIGHT_MM = 0; // button + paddings + margins
+const MARGIN_BOTTOM_MM = 10; // reduced extra safety
 
 const mmToPx = (mm: number) => mm * (96 / 25.4);
 const pxToMm = (px: number) => px / (96 / 25.4);

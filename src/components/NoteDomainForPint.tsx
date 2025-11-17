@@ -19,10 +19,10 @@ function NoteDomainForPint({ direction }: NoteDomainForPintProps) {
 
   return (
     <div
-      className={`absolute top-5 z-[1000] ${positionClass} max-w-max px-20`}
+      className={`absolute top-0 z-[1000] ${positionClass} max-w-max px-4 py-2`}
     >
       <Link
-        className="text-primary font-medium text-[2rem] underline ml-2"
+        className="text-primary font-medium text-[1.5rem] underline"
         href={`https://www.${listOfdatas.domain}`}
       >
         {listOfdatas.domain}

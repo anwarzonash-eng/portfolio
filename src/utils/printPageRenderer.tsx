@@ -24,8 +24,8 @@ const PAGE_HEIGHT_PORTRAIT = 297;
 const PAGE_HEIGHT_LANDSCAPE = 210; 
 const PAGE_WIDTH_PORTRAIT = 210; 
 const PAGE_WIDTH_LANDSCAPE = 297;
-const COMPONENT_PADDING = 0; // Buffer space
-const DYNAMIC_MARGIN = 0; // 20px margin for dynamic components
+const COMPONENT_PADDING = 20; // Buffer space
+const DYNAMIC_MARGIN = 20; // 20px margin for dynamic components
 
 // Convert pixels to mm (96 DPI standard)
 const pxToMm = (px: number) => px / (96 / 25.4);
@@ -80,7 +80,7 @@ const PrintPageRenderer: React.FC<PrintPageRendererProps> = ({
           </div>
         )}
 
-        {!config.clickableNote && <NoteDomainForPint direction="right-0" /> }
+        {!config.clickableNote && <NoteDomainForPint /> }
         
         {/* Render badge title - only if showBadge is true */}
         {config.badgeTitle && showBadge && (
@@ -163,18 +163,18 @@ const PrintPageRenderer: React.FC<PrintPageRendererProps> = ({
   const renderPages = () => {
     if (!dataLoaded || componentHeights.length === 0) {
       return (
-        <div className="bg-[#EFF5FD] max-w-[1550px] w-full mx-auto">
+        <div className="bg-[#EFF5FD]  w-full mx-auto">
           {/* Hidden measurement container */}
           <div 
             ref={measurementRef}
             className="absolute -top-[9999px] left-0 opacity-0 pointer-events-none"
-            style={{ width: '1550px' }}
+            // style={{ width: '1550px' }}
           >
             {componentsList.map((config, index) => (
               <div 
                 key={index}
                 ref={el => { componentRefs.current[index] = el; }}
-                className="w-full"
+                className="w-full bg-red-500"
               >
                 {renderComponent(config, index, 0)}
               </div>
@@ -348,3 +348,4 @@ const PrintPageRenderer: React.FC<PrintPageRendererProps> = ({
 };
 
 export default PrintPageRenderer;
+

@@ -81,7 +81,7 @@ const SkillsCvPortrait: React.FC<SkillsContainerProps> = ({
     : `grid ${gridCols} ${gap} content-center place-items-center justify-items-center`;
 
   return (
-    <div className="flex flex-col w-full items-center justify-center">
+    <div className="flex flex-col w-full items-center justify-center mt-[3rem]">
       {/* === Skills Grid === */}
       <div className={containerClasses}>
         {Object.values(skills).map((group, groupIndex) => (
@@ -90,12 +90,15 @@ const SkillsCvPortrait: React.FC<SkillsContainerProps> = ({
               const Content = (
                 <>
                   {skill.icon && (
-                    <div className="flex items-center justify-center h-[4.5rem] w-[4.5rem]">
+                    <div className="flex items-center justify-center 
+                    h-[5.5rem] w-[5.5rem]">
                       <Image
                         src={skill.icon}
                         alt={skill.title}
-                        height={45}
-                        width={45}
+                        loading="eager"
+                        priority={true}
+                        height={55}
+                        width={55}
                         className="object-contain w-full h-full"
                       />
                     </div>

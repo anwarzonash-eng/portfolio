@@ -32,6 +32,8 @@ const EducationBlogCvPortrait = ({
                     {edu?.thumbnail && (
                       <Image
                         src={edu?.thumbnail}
+                        loading="eager"
+                        priority={true}
                         height={34}
                         width={34}
                         alt={edu.university_name}
@@ -81,7 +83,7 @@ const EducationBlogCvPortrait = ({
           </div>
 
           {blogsList
-            ?.slice(0, Math.min(2, blogsList.length))
+            ?.slice(0, Math.min(3, blogsList.length))
             .map((blog, index) => (
               <Link
                 href={`/blog-listing/${blog?.id}`}
@@ -89,9 +91,11 @@ const EducationBlogCvPortrait = ({
                 className="w-full flex items-start gap-[2rem] p-[1.2rem] bg-white shadow-lg mb-[1.2rem]"
               >
                 {blog?.featuredImage && (
-                  <div className="w-[20rem] h-[20rem] flex-shrink-0">
+                  <div className="size-[18rem] flex-shrink-0">
                     <Image
                       src={getImageForIndex(domain, index)}
+                      loading="eager"
+                      priority={true}
                       height={300}
                       width={300}
                       alt={`Blog ${index + 1}`}
@@ -118,13 +122,13 @@ const EducationBlogCvPortrait = ({
                   </div>
                   <h2
                     dangerouslySetInnerHTML={{ __html: blog?.title }}
-                    className="text-[2rem] font-medium leading-[3.2rem] text-heading mb-[1.2rem] line-clamp-1"
+                    className="text-[1.6rem] font-medium leading-[3.2rem] text-heading mb-[1.2rem] line-clamp-1"
                   />
                   <p
                     dangerouslySetInnerHTML={{
                       __html: blog?.excerpt,
                     }}
-                    className="text-[1.6rem] leading-[2.4rem] text-paragraph1 mb-[3rem]"
+                    className="text-[1.4rem] leading-[2.4rem] text-paragraph1 mb-[3rem]"
                   />
                 </div>
               </Link>

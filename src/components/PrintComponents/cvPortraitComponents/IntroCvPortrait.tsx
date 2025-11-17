@@ -15,6 +15,8 @@ const IntroCvPortrait = ({listOfdata, urlInfo}) => {
             <Link href="/" className=" block">
               <Image
                 src={listOfdata?.profile_photo_1}
+                 loading="eager"
+                 priority={true}
                 height={1200}
                 width={1200}
                 alt="Profile Picture"
@@ -83,6 +85,8 @@ const IntroCvPortrait = ({listOfdata, urlInfo}) => {
                       rounded-[50%] relative">
                       <Image
                         src={contact.iconSrc}
+                         loading="eager"
+                         priority={true}
                         height={24}
                         width={24}
                         alt={contact.alt}
@@ -125,6 +129,8 @@ const IntroCvPortrait = ({listOfdata, urlInfo}) => {
                   {social.iconSrc && (
                     <Image
                       src={social.iconSrc}
+                       loading="eager"
+                       priority={true}
                       height={35}
                       width={35}
                       alt={social.alt}

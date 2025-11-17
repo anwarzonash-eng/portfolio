@@ -74,7 +74,7 @@ const PortfolioCvPortrait: React.FC<PortfolioCvPortraitProps> = ({
   const topTwoPortfolios = portfolios.slice(from, max);
 
   return (
-      <div className="w-full px-[2rem]">
+      <div className="w-full px-[2rem] pb-[2rem]">
 
         {/* Portfolio Content */}
         <div className="w-full flex flex-col items-center gap-6 mt-[2rem]">
@@ -111,7 +111,7 @@ const PortfolioCvPortrait: React.FC<PortfolioCvPortraitProps> = ({
               >
                 <div
                   className={`flex flex-col-reverse items-stretch
-                       bg-white rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden h-full w-full p-[3rem] gap-[4rem]`}
+                       bg-white rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden h-full w-full p-[1.6rem] gap-[4rem]`}
                 >
                   {/* Content Section */}
                   <div
@@ -150,7 +150,7 @@ const PortfolioCvPortrait: React.FC<PortfolioCvPortraitProps> = ({
                             dangerouslySetInnerHTML={{
                               __html: portfolio.tagline_1,
                             }}
-                            className="text-[1.8rem] leading-[2.4rem] font-normal text-paragraph1 
+                            className="text-[1.5rem] leading-[2rem] font-normal text-paragraph1 
                             mt-[1rem] line-clamp-2"
                           ></p>
 
@@ -158,7 +158,7 @@ const PortfolioCvPortrait: React.FC<PortfolioCvPortraitProps> = ({
                             dangerouslySetInnerHTML={{
                               __html: portfolio.tagline_2,
                             }}
-                            className="text-[1.8rem] leading-[2.4rem] font-normal text-primary mt-[1rem] line-clamp-3"
+                            className="text-[1.6rem] leading-[2rem] font-normal text-primary mt-[1rem] line-clamp-3"
                           ></p>
                         </div>
                       </div>
@@ -225,12 +225,13 @@ const PortfolioCvPortrait: React.FC<PortfolioCvPortraitProps> = ({
                     {portfolio?.thumbnail && (
                       <div
                         className="relative w-full rounded-[1.2rem] overflow-hidden"
-                        style={{
-                          // Height = width / 1.75
-                          height: `calc(100vw / 1.75)`,
-                          maxHeight: '454px', // fallback for A4 portrait
-                          minHeight: '400px'
-                        }}
+                        // style={{
+                        //   // Height = width / 1.75
+                        //   height: `calc(100vw / 1.75)`,
+                        //   // maxHeight: '420px', // fallback for A4 portrait
+                        //   // minHeight: '370px'
+                        // }}
+                          style={{ aspectRatio: "16 / 9" }}
                       >
                         <Image
                           src={
@@ -243,8 +244,8 @@ const PortfolioCvPortrait: React.FC<PortfolioCvPortraitProps> = ({
                           }
                           alt="Project Image"
                           fill
-                          sizes="100vw"
-                          className="rounded-[1.2rem] object-cover w-full h-full border border-border border-solid"
+                          // sizes="100vw"
+                         className="object-fill w-full h-full rounded-[1.2rem] border border-border"
                         />
                       </div>
                     )}
