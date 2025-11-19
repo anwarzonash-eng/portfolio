@@ -1,14 +1,14 @@
 import PortfolioWelcome from "./PortfolioWelcome";
 import PortfolioContactMe from "./PortfolioContactMe";
 import EducationBlogPortfolio from "./EducationBlogPortfolio";
-import PortfolioCard from "./PortfolioCard";
+import PortfolioPortrait from "./PortfolioPortrait";
 import { SingleExperienceItemPortfolio, getSortedExperiencesPortfolio } from "./ExperiencePortfolioListing";
 
 export {
   PortfolioWelcome,
   PortfolioContactMe,
   EducationBlogPortfolio,
-  PortfolioCard,
+  PortfolioPortrait,
   SingleExperienceItemPortfolio,
   getSortedExperiencesPortfolio
 };

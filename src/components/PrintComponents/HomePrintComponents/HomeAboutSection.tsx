@@ -3,7 +3,15 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-const HomeAboutSection = ({listOfdata, urlInfo, formatPhoneNumber, WorkProofLinks, ContactMeLinks}) => {
+interface HomeAboutSectionProps {
+  listOfdata: any;
+  urlInfo: any;
+  formatPhoneNumber: any;
+  WorkProofLinks: any;
+  ContactMeLinks: any;
+}
+
+const HomeAboutSection: React.FC<HomeAboutSectionProps> = ({listOfdata, urlInfo, formatPhoneNumber, WorkProofLinks, ContactMeLinks}) => {
   return (
     <section className="h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center p-[4rem] mt-20 print:mt-0 relative">
       {/* Note and Domain For Each Page */}
@@ -162,6 +170,8 @@ const HomeAboutSection = ({listOfdata, urlInfo, formatPhoneNumber, WorkProofLink
                     src={"/images/ukFlag.svg"}
                     height={35}
                     width={35}
+                    loading="eager"
+                    priority={true}
                     className="h-[3rem] w-[3rem] rounded-full object-cover"
                     alt="Uk Flag"
                   />

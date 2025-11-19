@@ -10,23 +10,21 @@
   height: 210mm !important;
   overflow: hidden !important;
   box-sizing: border-box;
-  page-break-after: always;
+  page-break-after: page !important;
+}
+
+.sectionContent {
+  margin: 25px;
+  height: calc(100% - 50px); /* Subtract top and bottom margins */
+  box-sizing: border-box;
 }
 
 .section:last-of-type {
   page-break-after: auto !important;
 }
 
-/* print: show only first 9 list items inside the features container */
-/* @media print {
-  .list-div li:nth-child(n+10) {
-    display: none !important;
-  }
-} */
-
-
- @media print {
+@media print {
   .list-div li {
     line-clamp: 1;
   }
-} 
+}

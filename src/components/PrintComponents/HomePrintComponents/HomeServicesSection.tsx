@@ -8,16 +8,14 @@ const HomeServicesSection = ({ listOfdata, listOfdatas, services }) => {
       {listOfdata &&
         listOfdata?.services &&
         listOfdata?.services?.length > 0 && (
-          <section
-            className="
-                          w-full bg-sectionBG my-[5rem] print:m-0
-                          print:break-before-page flex items-center justify-center
-                          print:h-screen print:section print:FlexWrapContainer relative"
+          <div
+            className="w-full bg-sectionBG
+            m-0  flex items-center justify-center
+            h-screen relative"
           >
-            {/* Note and Domain For Each Page */}
-            <div className="absolute hidden print:block top-10 px-10  print:right-0">
+            <div className="absolute block px-4 py-2 top-0 right-0 z-[2000]">
               <Link
-                className="text-white font-medium text-[2rem] underline ml-2"
+                className="text-white font-medium text-[1.5rem] underline ml-2"
                 href={`https://www.${listOfdatas.domain}`}
               >
                 {listOfdatas.domain}
@@ -53,6 +51,8 @@ const HomeServicesSection = ({ listOfdata, listOfdatas, services }) => {
                               alt={service.title || "Service image"}
                               height={150}
                               width={150}
+                              loading="eager"
+                              priority={true}
                               className="object-cover transition-transform duration-500 z-10 group-hover:scale-110 w-[9.8rem] h-[9.8rem] print:object-center"
                               onError={(e) => {
                                 const target = e.target as HTMLImageElement;
@@ -117,7 +117,7 @@ const HomeServicesSection = ({ listOfdata, listOfdatas, services }) => {
                 </div>
               </div>
             </div>
-          </section>
+          </div>
         )}
     </>
   );

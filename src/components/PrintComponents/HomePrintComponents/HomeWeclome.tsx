@@ -1,4 +1,5 @@
 import DesignationDomain from "@/components/DesignationDomain";
+import Image from "next/image";
 import React from "react";
 
 const HomeWeclome = ({
@@ -13,9 +14,13 @@ const HomeWeclome = ({
       <div className="max-w-[1550px] w-full mx-auto flex items-center justify-center">
         <div className="text-center">
           <div className="items-center justify-strat gap-[4rem] flex w-full">
-            <img
+            <Image
               src={listOfdatas?.profile_photo_1}
-              alt=""
+              alt="Profile Photo"
+              height={245}
+              width={245}
+              loading="eager"
+              priority={true}
               className="size-[245px] rounded-full"
             />
             <div className="flex items-start justify-start flex-col">

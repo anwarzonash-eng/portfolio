@@ -16,6 +16,7 @@ export interface ComponentConfig {
 interface PrintPageRendererProps {
   componentsList: ComponentConfig[];
   orientation: 'Portrait' | 'Landscape';
+  isDataReady?: boolean;
 }
 
 // Height constants (in mm)
@@ -34,6 +35,7 @@ const mmToPx = (mm: number) => mm * (96 / 25.4);
 const PrintPageRenderer: React.FC<PrintPageRendererProps> = ({
   componentsList,
   orientation,
+  isDataReady = false,
 }) => {
   const [dataLoaded, setDataLoaded] = useState(false);
   const [componentHeights, setComponentHeights] = useState<number[]>([]);
@@ -164,6 +166,7 @@ const PrintPageRenderer: React.FC<PrintPageRendererProps> = ({
     if (!dataLoaded || componentHeights.length === 0) {
       return (
         <div className="bg-[#EFF5FD]  w-full mx-auto">
+          {isDataReady && <div id='dataReady'></div>}
           {/* Hidden measurement container */}
           <div 
             ref={measurementRef}
@@ -342,6 +345,7 @@ const PrintPageRenderer: React.FC<PrintPageRendererProps> = ({
 
   return (
     <div className="bg-[#EFF5FD] flex items-center justify-center flex-col">
+       {isDataReady && <div id="dataReady"></div>}
       {renderPages()}
     </div>
   );

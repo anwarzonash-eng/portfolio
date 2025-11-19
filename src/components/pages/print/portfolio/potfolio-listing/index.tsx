@@ -1,5 +1,6 @@
 "use client";
-import React, { useEffect, useState } from "react";
+
+import React, { useEffect, useState, useMemo } from "react";
 import "@/styles/printStyles/portfolio_p.css";
 import useBodyBackgroundColor from "@/hooks/useBodyBackgroundColor";
 import { useSearchParams } from "next/navigation";
@@ -21,36 +22,39 @@ import {
   PortfolioWelcome,
   PortfolioContactMe,
   EducationBlogPortfolio,
-  PortfolioCard,
+  PortfolioPortrait
 } from "@/components/PrintComponents/portfolioListingComponents";
+import { preloadImages } from "@/utils/preLoadImages";
 
 const PortfolioListing_p = ({ params }: { params: any }) => {
-  const [showMoreSkills, setShowMoreSkills] = useState([]);
-  const [urlInfo, setURLInfo] = useState(null);
+  const [urlInfo, setURLInfo] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
-  const [listOfdata, setListOfData] = useState(null);
-  const [listOfskills, setListOfSkills] = useState([]);
+  const [listOfdata, setListOfData] = useState<any>(null);
+  const [listOfskills, setListOfSkills] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [imagesLoaded, setImagesLoaded] = useState(false);
-  const [blogsList, setBlogsList] = useState([]);
+  const [blogsList, setBlogsList] = useState<any[]>([]);
   const [loadingblogs, setLoadingBlogs] = useState(false);
+  const [imagesReady, setImagesReady] = useState(false);
+  const [imageProgress, setImageProgress] = useState({ loaded: 0, total: 0 });
 
-  const listOfdatas = useAppSelector(
-    (state) => state.profile.listOfProfileData
-  );
+  const listOfdatas = useAppSelector((state) => state.profile.listOfProfileData);
   const searchParams = useSearchParams();
 
+  // Set background color once
   useBodyBackgroundColor("#EFF5FD");
+
+  // Fetch URL info
   useEffect(() => {
-    // 🛑 Must wrap in an async function and call it 🛑
     const fetchRoutes = async () => {
-      setURLInfo(await getRoutesDetails(params, searchParams));
+      const info = await getRoutesDetails(params, searchParams);
+      setURLInfo(info);
     };
     fetchRoutes();
   }, [params, searchParams]);
 
+  // Fetch profile/portfolio data
   useEffect(() => {
-    urlInfo &&
+    if (urlInfo) {
       reportsApiHandler({
         actionType: "portfolio",
         urlInfo,
@@ -58,14 +62,15 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
         setLoading,
         setListOfData,
       });
+    }
   }, [urlInfo]);
 
-  useBodyBackgroundColor("#EFF5FD");
-
+  // Fetch skills (global)
   useEffect(() => {
     handleSkillsApiCall({ setListOfSkills });
   }, []);
 
+  // Sync Redux
   useEffect(() => {
     store.dispatch(setProfileUrlInfo(urlInfo));
   }, [urlInfo]);
@@ -74,105 +79,64 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
     store.dispatch(setProfileLoading(loading));
   }, [loading]);
 
-  // Load blogs when data is available
+  // Load blogs when profile data is ready
   useEffect(() => {
-    if (listOfdata) {
+    if (listOfdata?.domain) {
       loadBlogs({
-        domain: listOfdata?.domain,
+        domain: listOfdata.domain,
         setBlogs: setBlogsList,
         setLoading: setLoadingBlogs,
       });
     }
-  }, [listOfdata]);
+  }, [listOfdata?.domain]);
 
-  // Image loading check for portfolio images
-  useEffect(() => {
-    if (listOfdata?.portfolios_ids?.length > 0) {
-      console.log('🖼️ Starting portfolio image loading check...');
-      
-      const checkImages = () => {
-        const images = document.querySelectorAll('img');
-        console.log(`📸 Found ${images.length} images to check`);
-        
-        let loadedCount = 0;
-        const totalImages = images.length;
+  const extractAllImageUrls = (data: any, blogs: any[]) => {
+    const urls = new Set<string>();
 
-        if (totalImages === 0) {
-          console.log('✅ No images found, marking as loaded');
-          setImagesLoaded(true);
-          return;
-        }
+    // Profile photo
+    if (data?.profile_photo_1) urls.add(data.profile_photo_1);
 
-        const checkAllLoaded = (imgSrc: string, success: boolean) => {
-          loadedCount++;
-          console.log(`📸 Image ${success ? 'loaded' : 'failed'}: ${imgSrc} (${loadedCount}/${totalImages})`);
-          
-          if (loadedCount === totalImages) {
-            console.log('✅ All images processed, marking as loaded');
-            setImagesLoaded(true);
-          }
-        };
-
-        images.forEach((img, index) => {
-          if (img.complete) {
-            checkAllLoaded(img.src, !img.naturalWidth || img.naturalWidth > 0);
-          } else {
-            img.addEventListener('load', () => checkAllLoaded(img.src, true));
-            img.addEventListener('error', () => checkAllLoaded(img.src, false));
-          }
-        });
-
-        // Fallback timeout
-        setTimeout(() => {
-          console.log('⏰ Image loading timeout, forcing ready state');
-          setImagesLoaded(true);
-        }, 8000);
-      };
-      
-      // Small delay to ensure DOM is updated
-      setTimeout(checkImages, 500);
-    } else {
-      setImagesLoaded(true);
-    }
-  }, [listOfdata?.portfolios_ids]);
-
-  // Check if all data is ready for rendering
-  const isDataReady = React.useMemo(() => {
-    const hasBasicData = !loading && listOfdata && urlInfo;
-    const hasSkillsData = listOfskills.length > 0;
-    const hasPortfolios = listOfdata?.portfolios_ids?.length > 0;
-    const hasBlogsData = !loadingblogs;
-    const hasImages = imagesLoaded;
-    
-    console.log('🔍 Portfolio data readiness check:', {
-      hasBasicData,
-      hasSkillsData,
-      hasPortfolios,
-      hasBlogsData,
-      hasImages,
-      portfolioCount: listOfdata?.portfolios_ids?.length || 0,
-      blogsCount: blogsList.length
+    // Company logos
+    data?.experiences_ids?.forEach((exp: any) => {
+      if (exp.company_logo) urls.add(exp.company_logo);
     });
-    
-    return hasBasicData && hasSkillsData && hasPortfolios && hasBlogsData && hasImages;
-  }, [loading, listOfdata, urlInfo, listOfskills, loadingblogs, imagesLoaded, blogsList]);
 
-  // Get unique portfolios (deduplicated by ID)
-  const uniquePortfolios = React.useMemo(() => {
-    if (!listOfdata?.portfolios_ids) return [];
-    
-    return Array.from(
-      new Map(
-        listOfdata.portfolios_ids.map((p: any) => [String(p?.id), p])
-      ).values()
-    );
-  }, [listOfdata?.portfolios_ids]);
+    // Portfolio thumbnails
+    data?.portfolios_ids?.forEach((p: any) => {
+      if (p.thumbnail) urls.add(p.thumbnail);
+    });
 
-  // Create components list for PrintPageRenderer
-  const componentsList: ComponentConfig[] = [
-    // Welcome/Intro component
+    // Blog images
+    blogs?.forEach((blog) => {
+      if (blog.image) urls.add(blog.image);
+    });
+
+    return Array.from(urls);
+  };
+
+  // Preload images when data is available
+  useEffect(() => {
+    if (!listOfdata || listOfskills.length === 0) return;
+
+    const urls = extractAllImageUrls(listOfdata, blogsList);
+    setImageProgress({ loaded: 0, total: urls.length });
+
+    if (urls.length === 0) {
+      setImagesReady(true);
+      return;
+    }
+
+    preloadImages(urls, (loaded, total) =>
+      setImageProgress({ loaded, total })
+    ).then(() => setImagesReady(true));
+    
+  }, [listOfdata, blogsList, listOfskills.length]);
+
+
+  // Final components list
+    const componentsList: ComponentConfig[] = [
     {
-      componentType: "static" as const,
+      componentType: "static",
       clickableNote: true,
       component: (
         <PortfolioWelcome
@@ -185,23 +149,168 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
       ),
     },
 
-    // Dynamic portfolio components - each portfolio on its own page
-    ...uniquePortfolios.slice(0, 5).map((portfolio: any, index: number) => ({
-      componentType: "dynamic" as const,
-      forceSolo: true, // Each portfolio gets its own page
-      maxPageLimit: 1,
-      badgeTitle:"Portfolio",
-      renderOnEachpage: 1,
+    {
+      componentType: "static",
+      badgeTitle: "Portfolios",
       component: (
-        <PortfolioCard
-          key={portfolio.id}
-          portfolio={portfolio}
-          companyType={listOfdata?.companytype}
-          showMoreSkills={showMoreSkills}
-          index={index}
-        />
+        <>
+          {listOfdata?.portfolios_ids?.length > 0 && (
+            <div
+              className="w-full relative"
+              key={listOfdata.portfolios_ids[0].id}
+            >
+              <PortfolioPortrait
+                portfolios={listOfdata.portfolios_ids}
+                companyType={listOfdata.companytype}
+                locationLink={`/?sectionId=myWork`}
+                portfolioId={listOfdata.portfolios_ids[0].id}
+                from={1}
+                max={2}
+              />
+            </div>
+          )}
+        </>
       ),
-    })),
+    },
+    {
+      componentType: "static",
+      badgeTitle: "Portfolios",
+      component: (
+        <>
+          {listOfdata?.portfolios_ids?.length > 0 && (
+            <div
+              className="w-full relative"
+              key={listOfdata.portfolios_ids[0].id}
+            >
+              <PortfolioPortrait
+                portfolios={listOfdata.portfolios_ids}
+                companyType={listOfdata.companytype}
+                locationLink={`/?sectionId=myWork`}
+                portfolioId={listOfdata.portfolios_ids[0].id}
+                from={2}
+                max={3}
+              />
+            </div>
+          )}
+        </>
+      ),
+    },
+    {
+      componentType: "static",
+      badgeTitle: "Portfolios",
+      component: (
+        <>
+          {listOfdata?.portfolios_ids?.length > 0 && (
+            <div
+              className="w-full relative"
+              key={listOfdata.portfolios_ids[0].id}
+            >
+              <PortfolioPortrait
+                portfolios={listOfdata.portfolios_ids}
+                companyType={listOfdata.companytype}
+                locationLink={`/?sectionId=myWork`}
+                portfolioId={listOfdata.portfolios_ids[0].id}
+                from={3}
+                max={4}
+              />
+            </div>
+          )}
+        </>
+      ),
+    },
+    {
+      componentType: "static",
+      badgeTitle: "Portfolios",
+      component: (
+        <>
+          {listOfdata?.portfolios_ids?.length > 0 && (
+            <div
+              className="w-full relative"
+              key={listOfdata.portfolios_ids[0].id}
+            >
+              <PortfolioPortrait
+                portfolios={listOfdata.portfolios_ids}
+                companyType={listOfdata.companytype}
+                locationLink={`/?sectionId=myWork`}
+                portfolioId={listOfdata.portfolios_ids[0].id}
+                from={4}
+                max={5}
+              />
+            </div>
+          )}
+        </>
+      ),
+    },
+    {
+      componentType: "static",
+      badgeTitle: "Portfolios",
+      component: (
+        <>
+          {listOfdata?.portfolios_ids?.length > 0 && (
+            <div
+              className="w-full relative"
+              key={listOfdata.portfolios_ids[0].id}
+            >
+              <PortfolioPortrait
+                portfolios={listOfdata.portfolios_ids}
+                companyType={listOfdata.companytype}
+                locationLink={`/?sectionId=myWork`}
+                portfolioId={listOfdata.portfolios_ids[0].id}
+                from={5}
+                max={6}
+              />
+            </div>
+          )}
+        </>
+      ),
+    },
+    {
+      componentType: "static",
+      badgeTitle: "Portfolios",
+      component: (
+        <>
+          {listOfdata?.portfolios_ids?.length > 0 && (
+            <div
+              className="w-full relative"
+              key={listOfdata.portfolios_ids[0].id}
+            >
+              <PortfolioPortrait
+                portfolios={listOfdata.portfolios_ids}
+                companyType={listOfdata.companytype}
+                locationLink={`/?sectionId=myWork`}
+                portfolioId={listOfdata.portfolios_ids[0].id}
+                from={6}
+                max={7}
+              />
+            </div>
+          )}
+        </>
+      ),
+    },
+    {
+      componentType: "static",
+      badgeTitle: "Portfolios",
+      component: (
+        <>
+          {listOfdata?.portfolios_ids?.length > 0 && (
+            <div
+              className="w-full relative"
+              key={listOfdata.portfolios_ids[0].id}
+            >
+              <PortfolioPortrait
+                portfolios={listOfdata.portfolios_ids}
+                companyType={listOfdata.companytype}
+                locationLink={`/?sectionId=myWork`}
+                portfolioId={listOfdata.portfolios_ids[0].id}
+                from={7}
+                max={8}
+              />
+            </div>
+          )}
+        </>
+      ),
+    },
+
 
     // Contact section (only if not urlInfo.u)
     ...(urlInfo?.u ? [] : [{
@@ -218,8 +327,7 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
     {
       componentType: "static" as const,
       component: (
-        <div className="p-[2rem]">
-          <EducationBlogPortfolio
+         <EducationBlogPortfolio
           listOfdata={listOfdata}
           domain={listOfdata?.domain}
           formatDate={formatDate}
@@ -228,35 +336,43 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
           blogsList={blogsList}
           getImageForIndex={getImageForIndex}
         />
-        </div>
       ),
     },
   ];
+ 
 
-  return (
-    <>
-      {/* Show error state if there's an error */}
-      {error ? (
-        <div className="flex items-center justify-center min-h-screen bg-[#EFF5FD]">
-          <div className="text-2xl text-red-500">
-            Error loading portfolio data: {error}
-          </div>
-        </div>
-      ) : /* Show loading state while data is being fetched */
-      !isDataReady ? (
-        <div className="flex items-center justify-center min-h-screen bg-[#EFF5FD]">
-          <div className="text-center">
-            <div className="text-2xl text-heading mb-4">Loading portfolio data...</div>
-          </div>
-        </div>
-      ) : (
-        <PrintPageRenderer
-          componentsList={componentsList}
-          orientation="Portrait"
-        />
-      )}
-    </>
-  );
+  // Loading / Error States
+  if (error) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-[#EFF5FD]">
+        <div className="text-2xl text-red-500">Error Loading Portfolio data: {error}</div>
+      </div>
+    );
+  }
+
+  if (!listOfdata || !imagesReady || listOfskills.length === 0) {
+    const { loaded, total } = imageProgress;
+    const percent = total > 0 ? Math.round((loaded / total) * 100) : 0;
+
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen bg-[#EFF5FD] gap-4">
+        <div className="text-2xl text-heading">Loading Portfolio data...</div>
+        {total > 0 && (
+          <>
+            <div className="w-64 h-4 border border-gray-300 rounded overflow-hidden bg-white">
+              <div
+                className="h-full bg-primary transition-all duration-300"
+                style={{ width: `${percent}%` }}
+              />
+            </div>
+            <div className="text-sm text-gray-600">{percent}%</div>
+          </>
+        )}
+      </div>
+    );
+  }
+
+  return <PrintPageRenderer componentsList={componentsList} orientation="Portrait"  />;
 };
 
 export default PortfolioListing_p;

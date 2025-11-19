@@ -265,7 +265,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
         <>
           {listOfdata?.portfolios_ids?.length > 0 && (
             <div
-              className="w-full relative"
+              className="w-full relative px-[2rem]"
               key={listOfdata.portfolios_ids[0].id}
             >
               <PortfolioCvPortrait
@@ -276,6 +276,111 @@ const CV_Portrait = ({ params }: { params: any }) => {
                 from={1}
                 max={2}
               />
+            </div>
+          )}
+        </>
+      ),
+    },
+
+    {
+      componentType: "static",
+      badgeTitle: "Portfolios",
+      component: (
+        <>
+          {listOfdata?.portfolios_ids?.length > 0 && (
+            <div
+              className="w-full relative px-[2rem]"
+              key={listOfdata.portfolios_ids[0].id}
+            >
+              <PortfolioCvPortrait
+                portfolios={listOfdata.portfolios_ids}
+                companyType={listOfdata.companytype}
+                locationLink={`/?sectionId=myWork`}
+                portfolioId={listOfdata.portfolios_ids[0].id}
+                from={2}
+                max={3}
+              />
+            </div>
+          )}
+        </>
+      ),
+    },
+
+    {
+      componentType: "static",
+      badgeTitle: "Portfolios",
+      component: (
+        <>
+          {listOfdata?.portfolios_ids?.length > 0 && (
+            <div
+              className="w-full relative px-[2rem]"
+              key={listOfdata.portfolios_ids[0].id}
+            >
+              <PortfolioCvPortrait
+                portfolios={listOfdata.portfolios_ids}
+                companyType={listOfdata.companytype}
+                locationLink={`/?sectionId=myWork`}
+                portfolioId={listOfdata.portfolios_ids[0].id}
+                from={3}
+                max={4}
+              />
+            </div>
+          )}
+        </>
+      ),
+    },
+
+    {
+      componentType: "static",
+      badgeTitle: "Portfolios",
+      component: (
+        <>
+          {listOfdata?.portfolios_ids?.length > 0 && (
+            <div
+              className="w-full relative px-[2rem]"
+              key={listOfdata.portfolios_ids[0].id}
+            >
+              <PortfolioCvPortrait
+                portfolios={listOfdata.portfolios_ids}
+                companyType={listOfdata.companytype}
+                locationLink={`/?sectionId=myWork`}
+                portfolioId={listOfdata.portfolios_ids[0].id}
+                from={4}
+                max={5}
+              />
+            </div>
+          )}
+        </>
+      ),
+    },
+
+    {
+      componentType: "static",
+      badgeTitle: "Portfolios",
+      component: (
+        <>
+          {listOfdata?.portfolios_ids?.length > 0 && (
+            <div
+              className="w-full relative px-[2rem]"
+              key={listOfdata.portfolios_ids[0].id}
+            >
+              <PortfolioCvPortrait
+                portfolios={listOfdata.portfolios_ids}
+                companyType={listOfdata.companytype}
+                locationLink={`/?sectionId=myWork`}
+                portfolioId={listOfdata.portfolios_ids[0].id}
+                from={5}
+                max={6}
+              />
+              <div className="flex justify-center items-center mt-[1.5rem]">
+                <Link
+                  href={`/portfolio`}
+                  className="btn-primary text-white py-[1rem] px-[3.4rem]
+                  text-[1.6rem] font-medium"
+                >
+                  View All Portfolios
+                </Link>
+              </div>
             </div>
           )}
         </>
@@ -335,7 +440,6 @@ const CV_Portrait = ({ params }: { params: any }) => {
 
 
   // ImagesReady Guard Before PrintPageRenderer
- 
   const [imagesReady, setImagesReady] = useState(false);
   const [imageProgress, setImageProgress] = useState({ loaded: 0, total: 0 });
 
@@ -363,6 +467,9 @@ const CV_Portrait = ({ params }: { params: any }) => {
     !loading && listOfdata && urlInfo && allSkills.length > 0 && imagesReady; // ensure images are fully loaded
 
   console.log("Data Ready", isDataReady);
+
+  console.log("All Skills:", allSkills);
+
 
   if (error) {
     return (
@@ -395,7 +502,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
   }
 
   return (
-    <PrintPageRenderer componentsList={componentsList} orientation="Portrait" />
+    <PrintPageRenderer componentsList={componentsList} orientation="Portrait" isDataReady={isDataReady} />
   );
 };
 export default CV_Portrait;

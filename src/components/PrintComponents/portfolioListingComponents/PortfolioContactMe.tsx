@@ -65,7 +65,7 @@ const PortfolioContactMe = ({ listOfdata, formatPhoneNumber }) => {
   return (
     <div
       id="contact"
-      className="bg-footerDesktop bg-no-repeat print:w-full bg-left-top ultra2x:border-[1.5rem] ultra2x:border-white print:border-none bg-cover rounded-[1rem] relative p-[1rem] gap-[2.4rem] shadow-lg print:shadow-none flex-shrink-0 h-screen !w-full flex items-center justify-center overflow-hidden"
+      className="bg-footerDesktop bg-no-repeat bg-left-top w-full  bg-cover rounded-[1rem] relative p-[2rem] gap-[2.4rem] flex-shrink-0 h-screen  flex items-center justify-center overflow-hidden"
     >
       {/* Contact Details */}
       <div className="w-full">
@@ -81,14 +81,16 @@ const PortfolioContactMe = ({ listOfdata, formatPhoneNumber }) => {
           Book either an appointment or explore following option for quick chat:
         </div>
         {/* Info Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2  gap-[1.5rem] mb-[2rem]">
+        <div className="grid grid-cols-2 gap-[1.5rem] mb-[2rem]">
           <div className="w-full border border-border border-solid p-[1.5rem] rounded-[0.8rem] flex items-center gap-[1.5rem]">
             <Image
               src={"/images/envelop.svg"}
               height={40}
               width={40}
+              loading="eager"
+              priority={true}
               alt="envelop"
-              className="print:h-[4rem] print:w-[4rem]"
+              className="h-[4rem] w-[4rem]"
             />
             <div className="overflow-hidden text-wrap break-words">
               <div className="w-full font-medium">
@@ -109,8 +111,10 @@ const PortfolioContactMe = ({ listOfdata, formatPhoneNumber }) => {
               src={"/images/phone.svg"}
               height={40}
               width={40}
+              loading="eager"
+              priority={true}
               alt="phone"
-              className="print:h-[4rem] print:w-[4rem]"
+              className="h-[4rem] w-[4rem]"
             />
             <Link href={`tel:${listOfdata?.phone_no}`}>
               <div className="w-full font-medium">
@@ -128,10 +132,12 @@ const PortfolioContactMe = ({ listOfdata, formatPhoneNumber }) => {
               src={"/images/location.svg"}
               height={40}
               width={40}
+              loading="eager"
+              priority={true}
               alt="location"
-              className="print:h-[4rem] print:w-[4rem]"
+              className="h-[4rem] w-[4rem]"
             />
-            <div className="w-full flex justify-between print:justify-start print:gap-8">
+            <div className="w-full flex justify-start gap-8">
               <div>
                 <div className=" font-medium">
                   <p className="text-paragraph1 text-[1.2rem] uppercase ">
@@ -153,13 +159,15 @@ const PortfolioContactMe = ({ listOfdata, formatPhoneNumber }) => {
                   src={"/images/ukFlag.svg"}
                   height={35}
                   width={35}
-                  className="h-[3rem] w-[3rem] rounded-full object-cover print:h-[4rem] print:w-[4rem]"
+                  loading="eager"
+                  priority={true}
+                  className="rounded-full object-cover h-[4rem] w-[4rem]"
                   alt="Uk Flag"
                 />
               )}
             </div>
           </div>
-          <div className="w-full border border-border border-solid p-[1.5rem] rounded-[0.8rem] flex items-center justify-around print:justify-start print:gap-8">
+          <div className="w-full border border-border border-solid p-[1.5rem] rounded-[0.8rem] flex items-center justify-start gap-8">
             {constactLinks.map(({ href, src, alt }) =>
               href ? (
                 <Tooltip
@@ -167,7 +175,14 @@ const PortfolioContactMe = ({ listOfdata, formatPhoneNumber }) => {
                   key={alt}
                 >
                   <Link href={href} target="_blank">
-                    <Image src={src} height={50} width={50} alt={alt} />
+                    <Image
+                      src={src}
+                      loading="eager"
+                      priority={true}
+                      height={50}
+                      width={50}
+                      alt={alt}
+                    />
                   </Link>
                 </Tooltip>
               ) : null
@@ -186,18 +201,18 @@ const PortfolioContactMe = ({ listOfdata, formatPhoneNumber }) => {
         listOfdata?.upwork ? (
           <>
             <hr className="w-full h-[1px] bg-border" />
-            <div className="flex justify-between">
+            <div className="flex justify-between items-start mt-[1rem] px-5">
               {listOfdata?.behance_link ||
               listOfdata?.twitter ||
               listOfdata?.instagram ||
               listOfdata?.facebook ? (
-                <div className="w-full px-[0.8rem] mt-[1.2rem]">
-                  <p className="text-[1.6rem] font-normal uppercase text-heading text-center sm:text-left">
+                <div className="w-full">
+                  <p className="text-[1.6rem] font-normal uppercase text-heading text-left">
                     Follow me on social media
                   </p>
                   {/* SVG Social Icons */}
                   <div>
-                    <div className="flex items-start justify-center sm:justify-normal flex-wrap gap-[1.6rem] mt-[1.4rem]">
+                    <div className="flex items-start justify-normal flex-wrap gap-[1.6rem] mt-[1.4rem]">
                       {socialMediaLinksForContactComponent?.map((C) => (
                         <>
                           {C.link && (
@@ -212,13 +227,13 @@ const PortfolioContactMe = ({ listOfdata, formatPhoneNumber }) => {
                 </div>
               ) : null}
 
-              <div className="w-full px-[0.8rem] mt-[1.2rem]">
-                <p className="mt-[3rem] sm:mt-0 md:mt-[3rem] xl:mt-0 text-[1.6rem] font-normal uppercase text-heading text-center sm:text-left">
+              <div className="w-full">
+                <p className="text-[1.6rem] font-normal uppercase text-heading text-left">
                   Contact Me
                 </p>
                 {/* SVG Social Icons */}
                 <div>
-                  <div className="flex items-start justify-center sm:justify-normal flex-wrap gap-[1.6rem] mt-[1.4rem]">
+                  <div className="flex items-start flex-wrap gap-[1.6rem] mt-[1.4rem]">
                     {listOfdata?.phone_no && (
                       <Tooltip text="My WhatsApp">
                         <Link
@@ -230,6 +245,8 @@ const PortfolioContactMe = ({ listOfdata, formatPhoneNumber }) => {
                             src="/images/whatsappforContactComponent.svg"
                             width={100}
                             height={100}
+                            loading="eager"
+                            priority={true}
                             className="h-[4rem] w-[4rem]"
                           />
                         </Link>
@@ -244,6 +261,8 @@ const PortfolioContactMe = ({ listOfdata, formatPhoneNumber }) => {
                             src="/images/upworkforContactComponent.svg"
                             width={100}
                             height={100}
+                            loading="eager"
+                            priority={true}
                             className="h-[4rem] w-[4rem]"
                           />
                         </Link>
@@ -261,6 +280,8 @@ const PortfolioContactMe = ({ listOfdata, formatPhoneNumber }) => {
                             src="/images/chatNowIcon.svg"
                             width={100}
                             height={100}
+                            loading="eager"
+                            priority={true}
                             className="h-[3rem] w-[3rem] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
                           />
                         </div>
@@ -276,6 +297,8 @@ const PortfolioContactMe = ({ listOfdata, formatPhoneNumber }) => {
                               src="/images/calendlyicon.svg"
                               width={100}
                               height={100}
+                              loading="eager"
+                              priority={true}
                               className="h-[3rem] w-[3rem] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
                             />
                           </div>

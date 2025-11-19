@@ -74,9 +74,7 @@ const PortfolioCvPortrait: React.FC<PortfolioCvPortraitProps> = ({
   const topTwoPortfolios = portfolios.slice(from, max);
 
   return (
-      <div className="w-full px-[2rem] pb-[2rem]">
-
-        {/* Portfolio Content */}
+        // {/* Portfolio Content */}
         <div className="w-full flex flex-col items-center gap-6 mt-[2rem]">
           {topTwoPortfolios.map((portfolio, index) => {
             // Smart skills display logic - adjust count based on skill name lengths
@@ -111,7 +109,8 @@ const PortfolioCvPortrait: React.FC<PortfolioCvPortraitProps> = ({
               >
                 <div
                   className={`flex flex-col-reverse items-stretch
-                       bg-white rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden h-full w-full p-[1.6rem] gap-[4rem]`}
+                       bg-white rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden h-full w-full p-[1.6rem] 
+                       gap-[2rem]`}
                 >
                   {/* Content Section */}
                   <div
@@ -225,13 +224,13 @@ const PortfolioCvPortrait: React.FC<PortfolioCvPortraitProps> = ({
                     {portfolio?.thumbnail && (
                       <div
                         className="relative w-full rounded-[1.2rem] overflow-hidden"
-                        // style={{
-                        //   // Height = width / 1.75
-                        //   height: `calc(100vw / 1.75)`,
-                        //   // maxHeight: '420px', // fallback for A4 portrait
-                        //   // minHeight: '370px'
-                        // }}
-                          style={{ aspectRatio: "16 / 9" }}
+                        style={{
+                          // Height = width / 1.75
+                          height: `calc(100vw / 1.75)`,
+                          // maxHeight: '420px', // fallback for A4 portrait
+                          // minHeight: '370px'
+                        }}
+                          // style={{ aspectRatio: "16 / 9" }}
                       >
                         <Image
                           src={
@@ -244,6 +243,8 @@ const PortfolioCvPortrait: React.FC<PortfolioCvPortraitProps> = ({
                           }
                           alt="Project Image"
                           fill
+                          loading="eager"
+                          priority={true}
                           // sizes="100vw"
                          className="object-fill w-full h-full rounded-[1.2rem] border border-border"
                         />
@@ -273,7 +274,6 @@ const PortfolioCvPortrait: React.FC<PortfolioCvPortraitProps> = ({
             />
           )}
         </div>
-      </div>
   );
 };
 

@@ -4,7 +4,6 @@ import { usePathname } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import NoteDomainForPint from "@/components/NoteDomainForPint";
 
-
 // Update FaqItem to include the new 'type' property
 interface FaqItem {
   index?: number;
@@ -30,8 +29,11 @@ interface FaqsProps {
 }
 // --- End Type Definitions ---
 
-
-const HomeFAQSection: React.FC<FaqsProps> = ({ urlInfo, companyType, apiData }) => {
+const HomeFAQSection: React.FC<FaqsProps> = ({
+  urlInfo,
+  companyType,
+  apiData,
+}) => {
   const [faqs, setFaqs] = useState<FaqItem[]>([]);
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
   const [isPrinting, setIsPrinting] = useState(false);
@@ -108,7 +110,8 @@ const HomeFAQSection: React.FC<FaqsProps> = ({ urlInfo, companyType, apiData }) 
     portfolio_1_title: readyData?.portfolios_ids?.[0]?.title,
     portfolio_1_description: readyData?.portfolios_ids?.[0]?.tagline_2,
     portfolio_1_link: readyData?.readyData?.portfolios_ids?.[0]?.link,
-    portfolio_1_more_skills_count: readyData?.readyData?.portfolios_ids?.[0]?.skills.length,
+    portfolio_1_more_skills_count:
+      readyData?.readyData?.portfolios_ids?.[0]?.skills.length,
     portfolio_1_skill_1_pic: readyData?.upwork,
     portfolio_1_skill_1_title_pic: readyData?.upwork,
     portfolio_1_skill_2_pic: readyData?.upwork,
@@ -192,8 +195,7 @@ const HomeFAQSection: React.FC<FaqsProps> = ({ urlInfo, companyType, apiData }) 
     instagram_link: readyData?.instagram,
     linkedIn_link: readyData?.linkedIn,
     contactme_link: "/contact-me",
-
-  }
+  };
 
   // ✅ Helper: converts placeholders like {github_profile_link}GitHub{end}
   const injectDynamicLinks = (text: string): string => {
@@ -210,22 +212,19 @@ const HomeFAQSection: React.FC<FaqsProps> = ({ urlInfo, companyType, apiData }) 
       // The regex captures the content $1 inside the curly braces
       const regex = new RegExp(`\\{${key}\\}(.*?)\\{end\\}`, "g");
 
-      result = result.replace(
-        regex,
-        (match, content) => {
-          // Capitalize the first character of the captured content ($1)
-          const capitalizedContent = capitalizeFirstLetter(content);
+      result = result.replace(regex, (match, content) => {
+        // Capitalize the first character of the captured content ($1)
+        const capitalizedContent = capitalizeFirstLetter(content);
 
-          // Check if a link exists for the key
-          if (injectLinks[key]) {
-            // If the link exists, return the <a> tag with the capitalized content
-            return `<a href="${injectLinks[key]}" target="_blank" rel="noopener noreferrer" class="text-primary underline">${capitalizedContent}</a>`;
-          } else {
-            // If the link does NOT exist, return just the capitalized content
-            return capitalizedContent;
-          }
+        // Check if a link exists for the key
+        if (injectLinks[key]) {
+          // If the link exists, return the <a> tag with the capitalized content
+          return `<a href="${injectLinks[key]}" target="_blank" rel="noopener noreferrer" class="text-primary underline">${capitalizedContent}</a>`;
+        } else {
+          // If the link does NOT exist, return just the capitalized content
+          return capitalizedContent;
         }
-      );
+      });
     });
 
     return result;
@@ -244,29 +243,16 @@ const HomeFAQSection: React.FC<FaqsProps> = ({ urlInfo, companyType, apiData }) 
     return "Usman"; // default fallback
   };
 
-
   const toggleFAQ = (index: number) => {
     setActiveFaq(activeFaq === index ? null : index);
   };
 
-  // Print mode detection
-  useEffect(() => {
-    const handleBeforePrint = () => setIsPrinting(true);
-    const handleAfterPrint = () => setIsPrinting(false);
-
-    window.addEventListener("beforeprint", handleBeforePrint);
-    window.addEventListener("afterprint", handleAfterPrint);
-
-    return () => {
-      window.removeEventListener("beforeprint", handleBeforePrint);
-      window.removeEventListener("afterprint", handleAfterPrint);
-    };
-  }, []);
-
   // Logic to load and filter the FAQs based on domain and the new 'type' logic
   useEffect(() => {
     const user = getFaqsByDomain();
-    const matchedGroup = (FaqsDataUpdated as UserFaqGroup[]).find((f) => f.name === user);
+    const matchedGroup = (FaqsDataUpdated as UserFaqGroup[]).find(
+      (f) => f.name === user
+    );
 
     if (matchedGroup) {
       // 1. Get the base FAQs (altName group filtering is REMOVED as requested)
@@ -298,57 +284,48 @@ const HomeFAQSection: React.FC<FaqsProps> = ({ urlInfo, companyType, apiData }) 
     }
   }, [isUrlU]); // Re-run when isUrlU changes. Removed urlInfo and companyType dependencies.
 
-
   const faqsToDisplay = isPrinting ? faqs.slice(0, 6) : faqs;
 
   return (
-       <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center p-[4rem] relative">
-          <NoteDomainForPint direction={"hidden print:right-0 print:block"} />
-          <div className="max-w-[1550px] w-full mx-auto">
-            <h2 className="text-[4rem] font-medium text-heading print:mb-4 hidden lg:block print:hidden">
-              FAQ
-            </h2>
+    <div className="w-full ">
+      {faqsToDisplay.map((faq, index) => (
+        <div
+          key={index}
+          className="border-b border-solid border-black b-[2rem]"
+        >
+          <button
+            className={`w-full gap-[2rem] flex justify-between items-center text-left text-[2rem] font-medium leading-[2.8rem] text-heading 
+              rounded-md focus:outline-none py-2 ${
+                isPrinting ? "pointer-events-none" : ""
+              }`}
+            onClick={() => !isPrinting && toggleFAQ(index)}
+          >
+            {faq.question}
+            {!isPrinting && (
+              <img
+                src={
+                  activeFaq === index ? "/images/minus.svg" : "/images/plus.svg"
+                }
+                alt={activeFaq === index ? "Collapse" : "Expand"}
+                className="w-[2.4rem] h-[2.4rem] duration-300"
+              />
+            )}
+          </button>
 
-            {faqsToDisplay.map((faq, index) => (
-              <div
-                key={index}
-                className="border-b border-solid border-border print:border-black print:mb-[2rem]"
-              >
-                <button
-                  className={`w-full gap-[2rem] flex justify-between items-center text-left text-[1.6rem] print:text-[2rem] font-medium leading-[2.8rem] text-heading py-[1rem] rounded-md focus:outline-none print:py-2 ${isPrinting ? "pointer-events-none" : ""
-                    }`}
-                  onClick={() => !isPrinting && toggleFAQ(index)}
-                >
-                  {faq.question}
-                  {!isPrinting && (
-                    <img
-                      src={
-                        activeFaq === index
-                          ? "/images/minus.svg"
-                          : "/images/plus.svg"
-                      }
-                      alt={activeFaq === index ? "Collapse" : "Expand"}
-                      className="w-[2.4rem] h-[2.4rem] duration-300"
-                    />
-                  )}
-                </button>
-
-                <div
-                  className={`overflow-hidden transition-all duration-300 ease-out ${isPrinting || activeFaq === index
-                      ? "max-h-[500px] pt-2 pb-2 print:max-h-none"
-                      : "max-h-0"
-                    }`}
-                >
-                  <div
-                    className="text-[1.4rem] font-normal text-paragraph1 mt-2 duration-300 print:text-sm print:mt-0"
-                    // CORRECTED: Use faq.answer and apply dynamic links
-                    dangerouslySetInnerHTML={{ __html: injectDynamicLinks(faq.answer) }}
-                  />
-                </div>
-              </div>
-            ))}
+          <div
+            className={`overflow-hidden transition-all duration-300 ease-out pt-2 pb-2 `}
+          >
+            <div
+              className="text-[1.4rem] font-normal text-paragraph1 duration-300 text-sm mt-0"
+              // CORRECTED: Use faq.answer and apply dynamic links
+              dangerouslySetInnerHTML={{
+                __html: injectDynamicLinks(faq.answer),
+              }}
+            />
           </div>
-        </section>
+        </div>
+      ))}
+    </div>
   );
 };
 

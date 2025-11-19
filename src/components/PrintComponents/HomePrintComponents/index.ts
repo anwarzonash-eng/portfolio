@@ -4,11 +4,12 @@ import HomeAboutSection from "./HomeAboutSection";
 import HomeUpworkSection from "./HomeUpworkSection";
 import HomeSkillsSection from "./HomeSkillsSection";
 import HomeServicesSection from "./HomeServicesSection";
-import HomePortfolioSection from "./HomePortfolioSection";
+import HomePortfolioSection from "./HomePortfolioCard";
 import HomeExperienceSection from "./HomeExperienceSection";
 import HomeFAQSection from "./HomeFAQSection";
 import HomeContactMeSection from "./HomeContactMeSection";
 import HomeEducationComponent from "./HomeEducationComponent";
+import HomePortfolioCard from "./HomePortfolioCard";
 
 export {
   HomeWeclome,
@@ -22,4 +23,5 @@ export {
   HomeFAQSection,
   HomeContactMeSection,
   HomeEducationComponent,
+  HomePortfolioCard
 };  

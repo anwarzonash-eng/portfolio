@@ -1,4 +1,3 @@
-
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
@@ -29,7 +28,7 @@ type PortfolioType = {
   ending_Date?: string;
 };
 
-interface PortfolioCardProps {
+interface HomePortfolioCardProps {
   portfolios: PortfolioType[];
   companyType: string;
   locationLink: string;
@@ -39,12 +38,12 @@ interface PortfolioCardProps {
 }
 
 // Simple Skills Component
-const SkillComponent: React.FC<{ skill: SkillType; index: number }> = ({ 
-  skill, 
-  index 
+const SkillComponent: React.FC<{ skill: SkillType; index: number }> = ({
+  skill,
+  index,
 }) => {
   const animationDelay = `${index * 0.1}s`;
-  
+
   if (skill.url) {
     return (
       <Link
@@ -69,7 +68,7 @@ const SkillComponent: React.FC<{ skill: SkillType; index: number }> = ({
   );
 };
 
-const PortfolioCard: React.FC<PortfolioCardProps> = ({
+const HomePortfolioCard: React.FC<HomePortfolioCardProps> = ({
   portfolios,
   companyType,
   locationLink,
@@ -108,25 +107,35 @@ const PortfolioCard: React.FC<PortfolioCardProps> = ({
                       </Link>
                     </div>
                     <p className="text-[2rem] font-medium text-heading">
-                      {new Date(portfolio.starting_date).toLocaleString("en-US", {
-                        month: "short",
-                        year: "numeric",
-                      })}{" "}
+                      {new Date(portfolio.starting_date).toLocaleString(
+                        "en-US",
+                        {
+                          month: "short",
+                          year: "numeric",
+                        }
+                      )}{" "}
                       -{" "}
                       {isNaN(new Date(portfolio.ending_Date).getTime())
                         ? portfolio.ending_Date
-                        : new Date(portfolio.ending_Date).toLocaleString("en-US", {
-                            month: "short",
-                            year: "numeric",
-                          })}
+                        : new Date(portfolio.ending_Date).toLocaleString(
+                            "en-US",
+                            {
+                              month: "short",
+                              year: "numeric",
+                            }
+                          )}
                     </p>
                     <div>
                       <p
-                        dangerouslySetInnerHTML={{ __html: portfolio.tagline_1 }}
+                        dangerouslySetInnerHTML={{
+                          __html: portfolio.tagline_1,
+                        }}
                         className="text-[1.8rem] leading-[2.4rem] font-normal text-paragraph1 mt-[1rem] line-clamp-2"
                       />
                       <p
-                        dangerouslySetInnerHTML={{ __html: portfolio.tagline_2 }}
+                        dangerouslySetInnerHTML={{
+                          __html: portfolio.tagline_2,
+                        }}
                         className="text-[1.8rem] leading-[2.4rem] font-normal text-primary mt-[1rem] line-clamp-3"
                       />
                     </div>
@@ -134,11 +143,13 @@ const PortfolioCard: React.FC<PortfolioCardProps> = ({
 
                   <hr className="w-full my-[2rem] h-px bg-border" />
                   <div className="text-black text-[1.8rem] leading-[2.8rem] font-medium">
-                    <p className="mb-[1rem]">AREAS OF EXPERTISE I'VE WORKED IN:</p>
+                    <p className="mb-[1rem]">
+                      AREAS OF EXPERTISE I'VE WORKED IN:
+                    </p>
                     <div className="flex items-center gap-[0.7rem] text-nowrap flex-wrap">
                       {Object.values(skills)
                         .flat()
-                        .slice(0, 5)
+                        .slice(0, 4)
                         .map((skill: SkillType, i: number) => (
                           <SkillComponent key={i} skill={skill} index={i} />
                         ))}
@@ -193,11 +204,14 @@ const PortfolioCard: React.FC<PortfolioCardProps> = ({
                           ? "/VelzonThumbnail.PNG"
                           : portfolio?.title === "Beyond Competitions"
                           ? "/BeyondCompetetionThumbnail.webp"
-                          : portfolio?.thumbnail || "/images/dummy_port_img.webp"
+                          : portfolio?.thumbnail ||
+                            "/images/dummy_port_img.webp"
                       }
                       alt="Project Image"
                       fill
                       sizes="100vw, 30rem"
+                      loading="eager"
+                      priority={true}
                       className="rounded-[1.2rem] object-fill w-full border !h-[300px] border-border border-solid"
                     />
                   </div>
@@ -233,86 +247,5 @@ const PortfolioCard: React.FC<PortfolioCardProps> = ({
   );
 };
 
-const HomePortfolioSection = ({ listOfdata }) => {
-  return (
-    <>
-      {listOfdata &&
-        listOfdata.portfolios_ids &&
-        listOfdata.portfolios_ids.length > 0 && (
-          <>
-            {/* My Work Section Slider 1 ✅ */}
-            <section className="h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center p-[4rem] relative">
-              {/* Note and Domain For Each Page */}
-              <NoteDomainForPint
-                direction={"hidden print:right-0 print:block"}
-              />
-              <div className="max-w-[1550px] w-full mx-auto">
 
-                {/* Home Page Slider */}
-                <PortfolioCard
-                  portfolios={listOfdata?.portfolios_ids}
-                  companyType={listOfdata?.companytype}
-                  portfolioId={listOfdata?.portfolios_ids[0]?.id}
-                  locationLink={`/?sectionId=myWork`}
-                  from={0}
-                  max={1}
-                />
-              </div>
-            </section>
-
-            {/* My Work Section Slider 2 ✅ */}
-            <section className="h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center p-[4rem] relative">
-              {/* Note and Domain For Each Page */}
-              <NoteDomainForPint
-                direction={"hidden print:right-0 print:block"}
-              />
-              <div className="max-w-[1550px] w-full mx-auto">
-                {/* Home Page Slider */}
-                <PortfolioCard
-                  portfolios={listOfdata?.portfolios_ids}
-                  companyType={listOfdata?.companytype}
-                  locationLink={`/?sectionId=myWork`}
-                  portfolioId={listOfdata?.portfolios_ids[0]?.id}
-                  from={1}
-                  max={2}
-                />
-              </div>
-            </section>
-
-            {/* My Work Section Slider 3 ✅ */}
-            <section className="h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center p-[4rem] relative flex-col gap-[3rem]">
-              {/* Note and Domain For Each Page */}
-              <NoteDomainForPint
-                direction={"hidden print:right-0 print:block"}
-              />
-              <div className="max-w-[1550px] w-full mx-auto">
-                {/* Home Page Slider */}
-                <PortfolioCard
-                  portfolios={listOfdata?.portfolios_ids}
-                  companyType={listOfdata?.companytype}
-                  locationLink={`/?sectionId=myWork`}
-                  portfolioId={listOfdata?.portfolios_ids[0]?.id}
-                  from={2}
-                  max={3}
-                />
-              </div>
-
-              <div className="mt-[2rem]">
-                <Link
-                  href={`/portfolio`}
-                  target="_blank"
-                  className={
-                    "bg-primary text-white py-[1rem] px-[2rem] border border-primary border-solid hover:text-primary hover:bg-white rounded-[0.5rem] text-[1.8rem] font-medium leading-normal"
-                  }
-                >
-                  View all Projects
-                </Link>
-              </div>
-            </section>
-          </>
-        )}
-    </>
-  );
-};
-
-export default HomePortfolioSection;
+export default HomePortfolioCard;

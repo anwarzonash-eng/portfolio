@@ -1,14 +1,19 @@
 import DesignationDomain from "@/components/DesignationDomain";
+import Image from "next/image";
 import React from "react";
 
 const PortfolioWelcome = ({listOfdatas, listOfdata, WorkProofLinks, urlInfo, ContactMeLinks}) => {
   return (
       <div className="text-center bg-bannerBG relative !w-full !h-screen flex items-center justify-center flex-col gap-[2rem]">
         <div className="items-center justify-strat gap-[4rem] flex flex-col w-full">
-          <img
-            src={listOfdatas?.profile_photo_1}
-            alt=""
-            className="size-[245px] rounded-full"
+          <Image
+          loading="eager"
+          priority={true}
+          src={listOfdatas?.profile_photo_1}
+          alt={listOfdata?.name}
+          height={245}
+          width={245}
+          className="size-[245px] rounded-full"
           />
           <div className="flex items-start justify-start flex-col">
             <h2 className="text-[7rem] font-bold"> {listOfdata?.name}</h2>

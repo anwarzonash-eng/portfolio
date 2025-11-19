@@ -4,7 +4,26 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-const HomeHeroSection = ({listOfdata, isOverflowing, scrollToSection, skillsContainerRef, skills }) => {
+interface Skill {
+  title: string;
+  url?: string | null;
+}
+
+interface HomeHeroSectionProps {
+  listOfdata: any;
+  isOverflowing: boolean;
+  scrollToSection: (key: string) => void;
+  skillsContainerRef: React.RefObject<HTMLDivElement>;
+  skills: Record<string, Skill[]>;   // 👈 FIX HERE
+}
+
+const HomeHeroSection: React.FC<HomeHeroSectionProps> = ({
+  listOfdata,
+  isOverflowing,
+  scrollToSection,
+  skillsContainerRef,
+  skills,
+}) => {
   return (
     <div className="print:h-screen print:section bg-bannerBG !w-full overflow-hidden relative">
       {/* Note and Domain For Each Page */}
@@ -39,7 +58,9 @@ const HomeHeroSection = ({listOfdata, isOverflowing, scrollToSection, skillsCont
             <Image
               width={731}
               height={707}
-              alt=""
+              alt="Profile Photo"
+              loading="eager"
+              priority={true}
               src={listOfdata?.profile_photo_2}
               className="mr-[12rem]"
             />

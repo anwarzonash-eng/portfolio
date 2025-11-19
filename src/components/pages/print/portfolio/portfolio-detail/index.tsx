@@ -1,7 +1,5 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
 import "@/styles/printStyles/portfolio_detail_p.css";
 import useBodyBackgroundColor from "@/hooks/useBodyBackgroundColor";
 import { useSearchParams } from "next/navigation";
@@ -14,27 +12,37 @@ import { getRoutesDetails } from "@/hooks/url";
 import { handleSkillsApiCall } from "@/hooks/apihandlers/skillsApiHandlers";
 import { store, useAppSelector } from "@/store";
 import { setProfileLoading, setProfileUrlInfo } from "@/store/profileSlice";
-import PageRendering from "@/components/PageRendering";
 import { skillsGrouping } from "@/hooks/skillsGrouping";
 import WorkProofLinks from "@/components/WorkProofLinks";
 import ContactMeLinks from "@/components/ContactMeLinks";
-import SliderXLPrint from "@/components/Sliders/SliderXLPrint";
-import NoteDomainForPint from "@/components/NoteDomainForPint";
-import DesignationDomain from "@/components/DesignationDomain";
-import NoteClickable from "@/components/NoteClickable";
-import EducationBlogsPortrait from "@/components/EducationBlogsPortrait";
-import EducationBlogsLandscape from "@/components/EducationBlogsLandscape";
-import SkillsContainer from "@/components/SkillsContainer";
-import AreasOfExpertiesSkillComponent from "@/components/AreasOfExpertiesSkillComponent";
+import {
+  BlogTechStackPoint,
+  EducationBlogPortfolioDetail,
+  HeroPortfolioDetail,
+  IntroPortfolioDetail,
+  PortfolioBlogDetail,
+  PortfolioDetailKeyModule,
+  PortfolioDetailSKills,
+  PortfolioDetailSliderSection,
+  PortfolioDetailUpworkSection,
+} from "@/components/PrintComponents/portfolioDetailComponents";
+import { getImageForIndex } from "@/utils/getImageForIndex";
+import { loadBlogs } from "@/hooks/apihandlers/blogListingApiHandler";
+import PrintPageRenderer, { ComponentConfig } from "@/utils/printPageRenderer";
+import { preloadImages } from "@/utils/preLoadImages";
 
 const PortfolioDetails_p = ({ params }: { params: any }) => {
   const searchParams = useSearchParams();
   const [portfolioDetails, setPortfolioDetails] = useState(null);
+  const [blogsList, setBlogsList] = useState<any[]>([]);
+  const [loadingblogs, setLoadingBlogs] = useState(false);
   const [urlInfo, setURLInfo] = useState(null);
   const [listOfdata, setListOfData] = useState(null);
   const [listOfskills, setListOfSkills] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [imagesReady, setImagesReady] = useState(false);
+  const [imageProgress, setImageProgress] = useState({ loaded: 0, total: 0 });
 
   const listOfdatas = useAppSelector(
     (state) => state.profile.listOfProfileData
@@ -125,86 +133,100 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
   const featuresRef = useRef<HTMLDivElement | null>(null);
   const [featuresItemCount, setFeaturesItemCount] = useState(0);
   const [fullFeaturesHtml, setFullFeaturesHtml] = useState<string | null>(null);
-  const [defaultTruncatedHtml, setDefaultTruncatedHtml] = useState<string | null>(null); // 15 items for screen
-  const [printTruncatedHtml, setPrintTruncatedHtml] = useState<string | null>(null); // 12 items for print
+  const [defaultTruncatedHtml, setDefaultTruncatedHtml] = useState<
+    string | null
+  >(null); // 15 items for screen
+  const [printTruncatedHtml, setPrintTruncatedHtml] = useState<string | null>(
+    null
+  ); // 12 items for print
   const [isPrintMode, setIsPrintMode] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false); // screen expansion toggle
 
-useEffect(() => {
-  if (!portfolioDetails) {
-    setFeaturesItemCount(0);
-    setFullFeaturesHtml("");
-    setDefaultTruncatedHtml("");
-    setPrintTruncatedHtml("");
-    return;
-  }
-
-  try {
-    const rawHtml = modifiedContent(
-      portfolioDetails?.features_short,
-      filteredSkills,
-      listOfdata
-    ) || "";
-
-    // DEBUG: inspect rawHtml and ensure it contains the expected <li> items
-    // Remove these logs after verification
-    // console.log("[features] rawHtml length:", rawHtml.length);
-    const parserForCount = new DOMParser();
-    const docForCount = parserForCount.parseFromString(rawHtml, "text/html");
-    const allLis = Array.from(docForCount.querySelectorAll("li"));
-    setFeaturesItemCount(allLis.length);
-    setFullFeaturesHtml(rawHtml);
-
-    // Helper builds truncated HTML using a FRESH parser/document each call
-    const buildTruncated = (count: number) => {
-      if (!rawHtml) return "";
-
-      const parser = new DOMParser();
-      const tempDoc = parser.parseFromString(rawHtml, "text/html");
-
-      // get all list items from the source HTML (preserves order)
-      const lis = Array.from(tempDoc.querySelectorAll("li"));
-      if (lis.length === 0) {
-        // nothing to truncate, return raw source
-        return rawHtml;
-      }
-
-      // determine the type of the first list (ul or ol), fallback to 'ul'
-      const firstList = tempDoc.querySelector("ul, ol");
-      const listTag = firstList ? firstList.tagName.toLowerCase() : "ul";
-
-      // Create a new document to build safe HTML
-      const newDoc = document.implementation.createHTMLDocument("");
-      const container = newDoc.createElement("div");
-      const newList = newDoc.createElement(listTag);
-
-      // append clones of the first `count` <li> items
-      const take = Math.min(count, lis.length);
-      lis.slice(0, take).forEach((li) => {
-        newList.appendChild(li.cloneNode(true));
+  // Load blogs when profile data is ready
+  useEffect(() => {
+    if (listOfdata?.domain) {
+      loadBlogs({
+        domain: listOfdata.domain,
+        setBlogs: setBlogsList,
+        setLoading: setLoadingBlogs,
       });
+    }
+  }, [listOfdata?.domain]);
 
-      container.appendChild(newList);
-      return container.innerHTML;
-    };
+  useEffect(() => {
+    if (!portfolioDetails) {
+      setFeaturesItemCount(0);
+      setFullFeaturesHtml("");
+      setDefaultTruncatedHtml("");
+      setPrintTruncatedHtml("");
+      return;
+    }
 
-    // default screen truncated to 15
-    setDefaultTruncatedHtml(
-      allLis.length > 15 ? buildTruncated(15) : rawHtml
-    );
+    try {
+      const rawHtml =
+        modifiedContent(
+          portfolioDetails?.features_short,
+          filteredSkills,
+          listOfdata
+        ) || "";
 
-    // print truncated to 12 (force up to 12)
-    setPrintTruncatedHtml(
-      allLis.length > 12 ? buildTruncated(12) : rawHtml
-    );
-  } catch (e) {
-    console.error("[features] parse error:", e);
-    setFeaturesItemCount(0);
-    setFullFeaturesHtml("");
-    setDefaultTruncatedHtml("");
-    setPrintTruncatedHtml("");
-  }
-}, [portfolioDetails, filteredSkills, listOfdata]);
+      // DEBUG: inspect rawHtml and ensure it contains the expected <li> items
+      // Remove these logs after verification
+      // console.log("[features] rawHtml length:", rawHtml.length);
+      const parserForCount = new DOMParser();
+      const docForCount = parserForCount.parseFromString(rawHtml, "text/html");
+      const allLis = Array.from(docForCount.querySelectorAll("li"));
+      setFeaturesItemCount(allLis.length);
+      setFullFeaturesHtml(rawHtml);
+
+      // Helper builds truncated HTML using a FRESH parser/document each call
+      const buildTruncated = (count: number) => {
+        if (!rawHtml) return "";
+
+        const parser = new DOMParser();
+        const tempDoc = parser.parseFromString(rawHtml, "text/html");
+
+        // get all list items from the source HTML (preserves order)
+        const lis = Array.from(tempDoc.querySelectorAll("li"));
+        if (lis.length === 0) {
+          // nothing to truncate, return raw source
+          return rawHtml;
+        }
+
+        // determine the type of the first list (ul or ol), fallback to 'ul'
+        const firstList = tempDoc.querySelector("ul, ol");
+        const listTag = firstList ? firstList.tagName.toLowerCase() : "ul";
+
+        // Create a new document to build safe HTML
+        const newDoc = document.implementation.createHTMLDocument("");
+        const container = newDoc.createElement("div");
+        const newList = newDoc.createElement(listTag);
+
+        // append clones of the first `count` <li> items
+        const take = Math.min(count, lis.length);
+        lis.slice(0, take).forEach((li) => {
+          newList.appendChild(li.cloneNode(true));
+        });
+
+        container.appendChild(newList);
+        return container.innerHTML;
+      };
+
+      // default screen truncated to 15
+      setDefaultTruncatedHtml(
+        allLis.length > 15 ? buildTruncated(15) : rawHtml
+      );
+
+      // print truncated to 12 (force up to 12)
+      setPrintTruncatedHtml(allLis.length > 12 ? buildTruncated(12) : rawHtml);
+    } catch (e) {
+      console.error("[features] parse error:", e);
+      setFeaturesItemCount(0);
+      setFullFeaturesHtml("");
+      setDefaultTruncatedHtml("");
+      setPrintTruncatedHtml("");
+    }
+  }, [portfolioDetails, filteredSkills, listOfdata]);
 
   // Listen for print events to toggle print mode
   useEffect(() => {
@@ -218,439 +240,208 @@ useEffect(() => {
     // matchMedia fallback
     const m = window.matchMedia?.("print");
     const mmHandler = (e: MediaQueryListEvent) => setIsPrintMode(e.matches);
-    if (m && typeof m.addEventListener === "function") m.addEventListener("change", mmHandler);
+    if (m && typeof m.addEventListener === "function")
+      m.addEventListener("change", mmHandler);
 
     return () => {
       window.removeEventListener("beforeprint", onBefore);
       window.removeEventListener("afterprint", onAfter);
-      if (m && typeof m.removeEventListener === "function") m.removeEventListener("change", mmHandler);
+      if (m && typeof m.removeEventListener === "function")
+        m.removeEventListener("change", mmHandler);
     };
   }, []);
 
- 
+  
+  const componentsList: ComponentConfig[] = [
+    {
+      componentType: "static",
+      clickableNote: true,
+      component: (
+        <IntroPortfolioDetail
+          ContactMeLinks={ContactMeLinks}
+          WorkProofLinks={WorkProofLinks}
+          listOfdata={listOfdata}
+          listOfdatas={listOfdatas}
+          urlInfo={urlInfo}
+        />
+      ),
+    },
+
+    {
+      componentType: "static",
+      component: (
+        <HeroPortfolioDetail
+          portfolioDetails={portfolioDetails}
+          formatDate={formatDate}
+          dateFormatsOptions={dateFormatsOptions}
+          Portfoliodetailbg={Portfoliodetailbg}
+        />
+      ),
+    },
+    {
+      componentType: "static",
+      component: (
+        <PortfolioBlogDetail
+          portfolioDetails={portfolioDetails}
+          formatDate={formatDate}
+          dateFormatsOptions={dateFormatsOptions}
+          modifiedContent={modifiedContent}
+          filteredSkills={filteredSkills}
+          listOfdata={listOfdata}
+          skillsforDetailPortfolio={skillsforDetailPortfolio}
+        />
+      ),
+    },
+    {
+      componentType: "static",
+      component: (
+        <BlogTechStackPoint
+          featuresItemCount={featuresItemCount}
+          printTruncatedHtml={printTruncatedHtml}
+          portfolioId={
+            portfolioDetails?.id ||
+            params?.id ||
+            listOfdata?.portfolios_ids?.[0]?.id
+          }
+        />
+      ),
+    },
+    {
+      componentType: "static",
+      component: (
+        <PortfolioDetailKeyModule
+          modifiedContent={modifiedContent}
+          portfolioDetails={portfolioDetails}
+          filteredSkills={filteredSkills}
+          listOfdata={listOfdata}
+        />
+      ),
+    },
+    {
+      componentType: "static",
+      component: (
+        <PortfolioDetailUpworkSection
+          listOfdata={listOfdata}
+          urlInfo={urlInfo}
+        />
+      ),
+    },
+    {
+      componentType: "static",
+      badgeTitle: "Tech Stack I have worked on",
+      component: (
+        <PortfolioDetailSKills
+          list={listOfdata?.skills_ids}
+          numColumns={8}
+          numSkills={40}
+          portfolioId={listOfdata?.portfolios_ids[0]?.id}
+        />
+      ),
+    },
+    {
+      componentType: "static",
+      component: (
+        <PortfolioDetailSliderSection
+          portfolioDetails={portfolioDetails}
+          params={params}
+        />
+      ),
+    },
+    {
+      componentType: "static",
+      component: (
+        <EducationBlogPortfolioDetail
+          listOfdata={listOfdata}
+          domain={listOfdata?.domain}
+          formatDate={formatDate}
+          dateFormatsOptions={dateFormatsOptions}
+          loadingblogs={loadingblogs}
+          blogsList={blogsList}
+          getImageForIndex={getImageForIndex}
+        />
+      ),
+    },
+  ];
+
+  const extractAllImageUrls = (data: any, blogs: any[]) => {
+    const urls = new Set<string>();
+
+    // Profile photo
+    if (data?.profile_photo_1) urls.add(data.profile_photo_1);
+
+    // Company logos
+    data?.experiences_ids?.forEach((exp: any) => {
+      if (exp.company_logo) urls.add(exp.company_logo);
+    });
+
+    // Portfolio thumbnails
+    data?.portfolios_ids?.forEach((p: any) => {
+      if (p.thumbnail) urls.add(p.thumbnail);
+    });
+
+    // Blog images
+    blogs?.forEach((blog) => {
+      if (blog.image) urls.add(blog.image);
+    });
+
+    return Array.from(urls);
+  };
+
+  // Preload images when data is available
+  useEffect(() => {
+    if (!listOfdata || listOfskills.length === 0) return;
+
+    const urls = extractAllImageUrls(listOfdata, blogsList);
+    setImageProgress({ loaded: 0, total: urls.length });
+
+    if (urls.length === 0) {
+      setImagesReady(true);
+      return;
+    }
+
+    preloadImages(urls, (loaded, total) =>
+      setImageProgress({ loaded, total })
+    ).then(() => setImagesReady(true));
+  }, [listOfdata, blogsList, listOfskills.length]);
+
+  // Loading / Error States
+  if (error) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-[#EFF5FD]">
+        <div className="text-2xl text-red-500">
+          Error Loading Portfolio data: {error}
+        </div>
+      </div>
+    );
+  }
+
+  if (!listOfdata || !imagesReady || listOfskills.length === 0) {
+    const { loaded, total } = imageProgress;
+    const percent = total > 0 ? Math.round((loaded / total) * 100) : 0;
+
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen bg-[#EFF5FD] gap-4">
+        <div className="text-2xl text-heading">Loading Portfolio data...</div>
+        {total > 0 && (
+          <>
+            <div className="w-64 h-4 border border-gray-300 rounded overflow-hidden bg-white">
+              <div
+                className="h-full bg-primary transition-all duration-300"
+                style={{ width: `${percent}%` }}
+              />
+            </div>
+            <div className="text-sm text-gray-600">{percent}%</div>
+          </>
+        )}
+      </div>
+    );
+  }
 
   return (
-    <div className="bg-[#EFF5FD]">
-      <PageRendering
-        props={{
-          list: portfolioDetails,
-          loading: loading,
-          actualPage: (
-            <>
-              {/* Welcome ✅ */}
-              <section className="h-screen print:section bg-bannerBG !w-full  print:FlexWrapContainer flex items-center justify-center relative">
-                {/* Note and Domain For Each Page */}
-                <NoteClickable />
-                <div className="max-w-[1550px] w-full mx-auto flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="items-center justify-strat gap-[4rem] flex w-full">
-                      <img
-                        src={listOfdatas?.profile_photo_1}
-                        alt=""
-                        className="size-[245px] rounded-full"
-                      />
-                      <div className="flex items-start justify-start flex-col">
-                        <h2 className="text-[7rem] font-bold">
-                          {" "}
-                          {listOfdata?.name}
-                        </h2>
-                        <div className="text-[4rem] font-medium flex items-center justify-center flex-wrap gap-[3px]">
-                          {" "}
-                          {listOfdatas?.designation
-                            ?.split("|")
-                            .map((item, index) => (
-                              <div key={index} className="text-center">
-                                {item.trim()}
-                              </div>
-                            ))}
-                        </div>
-
-                        {/* Designation Domain */}
-                        <DesignationDomain />
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-[2rem] mb-[0.8rem] justify-start ml-[280px]">
-                      {urlInfo?.u ? (
-                        <WorkProofLinks
-                          props={{
-                            upwork: listOfdata?.upwork,
-                            github: listOfdata?.github,
-                            linkedIn: listOfdata?.linkedIn,
-                            behance_link: listOfdata?.behance_link,
-                            u: urlInfo?.u,
-                          }}
-                        />
-                      ) : (
-                        <>
-                          <WorkProofLinks
-                            props={{
-                              upwork: listOfdata?.upwork,
-                              github: listOfdata?.github,
-                              linkedIn: listOfdata?.linkedIn,
-                              behance_link: listOfdata?.behance_link,
-                              u: urlInfo?.u,
-                            }}
-                          />
-                          <ContactMeLinks
-                            props={{
-                              email: listOfdata?.email,
-                              phone_no: listOfdata?.phone_no,
-                            }}
-                          />
-                        </>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </section>
-
-              {/* Blog Content Section ✅ */}
-              <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative flex-col">
-                {/* Portfolio Detail Container */}
-                <div className="w-full min-h-screen overflow-hidden ">
-                  {/* Background SVG */}
-                  <Portfoliodetailbg />
-                  {/* Hero Top Content */}
-                  <div className="absolute z-20 top-[5rem] left-1/2 -translate-x-1/2  text-white font-medium">
-                    {/* info */}
-                    <div className="text-center text-[1.4rem] leading-[2rem]">
-                      <p className="">
-                        {formatDate(
-                          portfolioDetails?.updated_date,
-                          dateFormatsOptions.dayMonthYear
-                        )}
-                      </p>
-                    </div>
-                    {/* Heading */}
-                    <h1 className="text-[5rem] leading-[5rem] mt-[1.6rem] text-center">
-                      {portfolioDetails?.title}
-                    </h1>
-                  </div>
-                  <div className="relative z-50 top-[18rem] max-w-[1000px] mx-auto w-full min-h-[700px]">
-                    {/* Blog Detail Pic*/}
-                    <Image
-                      src={portfolioDetails?.thumbnail}
-                      height={2000}
-                      width={2000}
-                      alt="Banner"
-                      className="rounded-[1rem] h-full w-full object-fill border border-solid border-border"
-                    />
-                  </div>
-                </div>
-              </section>
-
-              {/* Blog Detail Section ✅ */}
-              <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative mt-10 print:m-0">
-                <NoteDomainForPint
-                  direction={"hidden print:right-0 print:block"}
-                />
-                <div className="max-w-[1550px] w-full mx-auto px-[4rem]">
-                  <article className="flex  items-center justify-center">
-                    <div className="flex gap-[4rem]">
-                      <div className="flex flex-col gap-[1rem] min-w-[28rem]">
-                        <aside
-                          className="rounded-[1rem] bg-white p-[2.4rem] 
-                        w-full flex flex-col gap-[3.2rem]"
-                        >
-                          {portfolioDetails?.my_role && (
-                            <div className="">
-                              <p className="text-[1.4rem] font-normal text-paragraph1 leading-[2rem] mb-[0.8rem]">
-                                MY ROLE
-                              </p>
-                              <ul className="text-[1.8rem] text-heading font-medium leading-[2.6rem] list-inside list-disc">
-                                {portfolioDetails?.my_role}
-                              </ul>
-                            </div>
-                          )}
-                          {portfolioDetails?.services_i_provide && (
-                            <div className="">
-                              <p className="text-[1.4rem] font-normal text-paragraph1 leading-[2rem] mb-[0.8rem]">
-                                SERVICE I PROVIDE
-                              </p>
-                              <div
-                                className="text-[1.8rem] text-heading font-medium leading-[2.6rem] list-inside list-disc line-clamp-6"
-                                dangerouslySetInnerHTML={{
-                                  __html: portfolioDetails?.services_i_provide,
-                                }}
-                              ></div>
-                            </div>
-                          )}
-                          <div className="">
-                            <p className="text-[1.4rem] font-normal text-paragraph1 leading-[2rem] mb-[0.8rem]">
-                              PROJECT DURATION
-                            </p>
-                            <ul className="text-[1.8rem] text-heading font-medium leading-[2.6rem]">
-                              <li>
-                                {formatDate(
-                                  portfolioDetails?.starting_date,
-                                  dateFormatsOptions.shortMonthYear
-                                )}{" "}
-                                -{" "}
-                                {formatDate(
-                                  portfolioDetails?.ending_Date,
-                                  dateFormatsOptions.shortMonthYear
-                                )}
-                              </li>
-                            </ul>
-                          </div>
-                          {portfolioDetails?.client_name && (
-                            <div className="">
-                              <p className="text-[1.4rem] font-normal text-paragraph1 leading-[2rem] mb-[0.8rem]">
-                                Client
-                              </p>
-                              <ul className="text-[1.8rem] text-heading font-medium leading-[2.6rem]">
-                                <li>{portfolioDetails?.client_name}</li>
-                              </ul>
-                            </div>
-                          )}
-                          {portfolioDetails?.has_testimonial && (
-                            <div className="">
-                              <p className="text-[1.4rem] font-normal text-paragraph1 leading-[2rem] mb-[0.8rem]">
-                                CLIENT DESIGNATION
-                              </p>
-                              <ul className="text-[1.8rem] text-heading font-medium leading-[2.6rem]">
-                                <li>
-                                  This slide is 100% editable. Adapt it to your
-                                  needs and capture your audience’s attention.
-                                </li>
-                              </ul>
-                            </div>
-                          )}
-                        </aside>
-                        <Link href={"/cv"}>
-                          <button className="w-full btn-primary rounded-[0.6rem] text-white py-[2rem] px-[5rem] text-[1.8rem] font-medium border border-solid border-custom">
-                            View CV Online
-                          </button>
-                        </Link>
-                      </div>
-                      <div className="text-heading">
-                        <Link
-                          href={portfolioDetails?.link || "#"}
-                          className="text-primary  text-[1.6rem] leading-[2.4rem] font-medium max-sm:w-full text-center mb-[1.2rem]"
-                        >
-                          {portfolioDetails?.title}
-                        </Link>
-                        <h1 className="text-[3.2rem] font-medium leading-[4rem]">
-                          Client/Project Brief Description
-                        </h1>
-                        <p
-                          dangerouslySetInnerHTML={{
-                            __html: modifiedContent(
-                              portfolioDetails?.tagline_1,
-                              filteredSkills,
-                              listOfdata
-                            ),
-                          }}
-                          className="text-[2rem] leading-[3.2rem] font-normal mt-[1rem] text-paragraph1 my-[3.2rem] line-clamp-6"
-                        ></p>
-                        <p
-                          className="text-[2rem] list-div leading-[3.2rem] font-normal mt-[1rem] text-paragraph1 my-[3.2rem] line-clamp-3"
-                          dangerouslySetInnerHTML={{
-                            __html: modifiedContent(
-                              portfolioDetails?.tagline_2,
-                              filteredSkills,
-                              listOfdata
-                            ),
-                          }}
-                        ></p>
-                        <div className="w-full ">
-                          <h4 className="text-primary text-[1.4rem] lg:text-[2rem] font-medium">
-                            AREAS OF EXPERTISE I'VE WORKED IN:
-                          </h4>
-                          <div className="flex items-center gap-[1rem] lg:gap-[0.7rem] text-nowrap flex-wrap text-[1.2rem] mb-[3.2rem] mt-[1rem]">
-                            {skillsforDetailPortfolio && (
-                              <>
-                                {Object.values(skillsforDetailPortfolio)
-                                  .flat() // flatten nested groups into one array
-                                  .slice(0, 10) // take only first 10
-                                  .map((skill, i) => (
-                                    <AreasOfExpertiesSkillComponent
-                                      skill={skill}
-                                      index={i}
-                                      variant="different"
-                                    />
-                                  ))}
-                              </>
-                            )}
-                          </div>
-                          <div className="flex flex-col text-nowrap  gap-[1.4rem]">
-                            {portfolioDetails?.link &&
-                              listOfdata?.companytype !== "leewop" && (
-                                <Link
-                                  href={portfolioDetails?.link || "#"}
-                                  className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-center btn-primary inline-block max-w-max"
-                                >
-                                  Launch Project - Live Preview
-                                </Link>
-                              )}
-                            {portfolioDetails?.has_testimonial && (
-                              <Link
-                                href={"/"}
-                                className="text-primary  max-w-max text-[1.6rem] leading-[2.4rem] font-medium inline-block text-center"
-                              >
-                                Check Client Testimonial
-                              </Link>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </article>
-                </div>
-              </section>
-
-              {/* Blog Tech Stacks I worked On  Section ✅  */}
-              <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative mt-10 print:m-0">
-                {/* Note and Domain For Each Page */}
-                <NoteDomainForPint
-                  direction={"hidden print:right-0 print:block"}
-                />
-                <div className="max-w-[1550px] w-full mx-auto px-[4rem]">
-                  <h2 className="text-primary text-center text-[4rem] font-semibold my-[1rem]">
-                    Tech Stacks I worked On
-                  </h2>
-                  {/* Paragraph Text */}
-                  <div className="w-full relative">
-                    <div
-                      ref={featuresRef}
-                      className="w-full list-div my-[6.4rem] print:my-[2rem] leading-[3.2rem] font-normal"
-                    >
-                      {/* Screen: show default truncated or full depending on isExpanded */}
-                      {!isPrintMode && (
-                        <div
-                          dangerouslySetInnerHTML={{
-                            __html: isExpanded
-                              ? fullFeaturesHtml || ""
-                              : defaultTruncatedHtml || "",
-                          }}
-                        />
-                      )}
-
-                      {/* Print: show print truncated HTML */}
-                      {isPrintMode && (
-                        <div
-                          dangerouslySetInnerHTML={{
-                            __html: printTruncatedHtml || "",
-                          }}
-                        />
-                      )}
-                    </div>
-
-                    {/* Screen Read More: expand in-place when more than 15 items */}
-                    {!isPrintMode && featuresItemCount > 15 && (
-                      <div className="text-center mt-4">
-                        <button
-                          onClick={() => setIsExpanded((s) => !s)}
-                          className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-center btn-primary inline-block max-w-max"
-                        >
-                          {isExpanded ? "Show Less" : "Read More"}
-                        </button>
-                      </div>
-                    )}
-
-                    {/* Print-only Read More: show only in print and only if > 12 items */}
-                    {isPrintMode && featuresItemCount > 12 && (
-                      <div
-                        className="print:flex print:text-center mt-4
-                       items-center justify-center hidden"
-                      >
-                        <Link
-                          href={`/portfolio/${portfolioDetails?.id}#tech-stacks`}
-                          target="_blank"
-                          className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-center btn-primary inline-block max-w-max"
-                        >
-                          Read More
-                        </Link>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </section>
-
-              {/* Key Modules and Contributions ✅ */}
-              <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center overflow-hidden relative mt-10 print:m-0">
-                {/* Note and Domain For Each Page */}
-                <NoteDomainForPint
-                  direction={"hidden print:right-0 print:block"}
-                />
-                <div className="max-w-[1550px] w-full mx-auto px-[4rem] limit-height-portfolio-detail">
-                  {/* <Image
-                    src={portfolioDetails?.thumbnail}
-                    height={1500}
-                    width={1500}
-                    alt="Banner"
-                    className="rounded-[1rem] h-[500px] object-cover mb-[6rem]"
-                  /> */}
-
-                  <h2 className="text-primary text-center text-[4rem] font-semibold my-[1rem]">
-                    Features & Modules
-                  </h2>
-                  <div
-                    className="text-[1.8rem]"
-                    dangerouslySetInnerHTML={{
-                      __html: modifiedContent(
-                        portfolioDetails?.features_long,
-                        filteredSkills,
-                        listOfdata
-                      ),
-                    }}
-                  ></div>
-                </div>
-              </section>
-
-              {/* Skills & Tool Chain Section ✅ */}
-              <section className="px-[4rem] my-[5rem] print:h-screen print:section flex items-center justify-center relative">
-                {/* Note and Domain For Each Page */}
-                <NoteDomainForPint
-                  direction={"hidden print:right-0 print:block"}
-                />
-                {/* My Tools and Technologies */}
-                <div className="max-w-[1550px] w-full mx-auto px-[4rem] ">
-                  {/* Badge */}
-                  <div
-                    className="px-[4rem] my-[2rem] py-[1.4rem] bg-white rounded-[100px] border border-border border-solid text-center max-w-max text-heading
-                    text-[2rem] font-medium font-Inter leading-[2rem] mx-auto"
-                  >
-                    Skills
-                  </div>
-
-                  {/* Skills Container */}
-                  <SkillsContainer
-                    list={listOfdata?.skills_ids}
-                    variant="print"
-                    numColumns={6}
-                    numSkills={24}
-                    portfolioId={
-                      portfolioDetails?.id ||
-                      params?.id ||
-                      listOfdata?.portfolios_ids?.[0]?.id
-                    }
-                  />
-                </div>
-              </section>
-
-              {/* Slider  Sections ✅ */}
-              <section className="px-[4rem] my-[5rem] print:h-screen print:section flex items-center justify-center relative">
-                <NoteDomainForPint
-                  direction={"hidden print:right-0 print:block"}
-                />
-                <div className="max-w-[1550px] w-full mx-auto px-[4rem]">
-                  {portfolioDetails !== null && (
-                    <SliderXLPrint
-                      portfolioPictures={portfolioDetails?.pictures}
-                      portfolioId={portfolioDetails?.id || params?.id}
-                    />
-                  )}
-                </div>
-              </section>
-
-              {/* Education & Blogs Section */}
-              <EducationBlogsLandscape />
-            </>
-          ),
-        }}
-      />
-    </div>
+    <PrintPageRenderer
+      componentsList={componentsList}
+      orientation="Landscape"
+    />
   );
 };
 
