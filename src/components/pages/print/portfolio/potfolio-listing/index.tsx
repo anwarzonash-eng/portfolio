@@ -22,7 +22,7 @@ import {
   PortfolioWelcome,
   PortfolioContactMe,
   EducationBlogPortfolio,
-  PortfolioPortrait
+  PortfolioPortrait,
 } from "@/components/PrintComponents/portfolioListingComponents";
 import { preloadImages } from "@/utils/preLoadImages";
 
@@ -37,7 +37,9 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
   const [imagesReady, setImagesReady] = useState(false);
   const [imageProgress, setImageProgress] = useState({ loaded: 0, total: 0 });
 
-  const listOfdatas = useAppSelector((state) => state.profile.listOfProfileData);
+  const listOfdatas = useAppSelector(
+    (state) => state.profile.listOfProfileData
+  );
   const searchParams = useSearchParams();
 
   // Set background color once
@@ -93,22 +95,37 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
   const extractAllImageUrls = (data: any, blogs: any[]) => {
     const urls = new Set<string>();
 
-    // Profile photo
+    // 1. PortfolioWelcome: Profile photo
     if (data?.profile_photo_1) urls.add(data.profile_photo_1);
 
-    // Company logos
-    data?.experiences_ids?.forEach((exp: any) => {
-      if (exp.company_logo) urls.add(exp.company_logo);
+    // 2. PortfolioPortrait: Portfolio thumbnails with special handling
+    data?.portfolios_ids?.forEach((portfolio: any) => {
+      if (portfolio?.thumbnail) {
+        // Handle special cases for specific portfolio titles
+        if (portfolio?.title === "Velzon") {
+          urls.add("/VelzonThumbnail.PNG");
+        } else if (portfolio?.title === "Beyond Competitions") {
+          urls.add("/BeyondCompetetionThumbnail.webp");
+        } else if (portfolio?.thumbnail) {
+          urls.add(portfolio.thumbnail);
+        } else {
+          urls.add("/images/dummy_port_img.webp");
+        }
+      }
     });
 
-    // Portfolio thumbnails
-    data?.portfolios_ids?.forEach((p: any) => {
-      if (p.thumbnail) urls.add(p.thumbnail);
+    // 3. EducationBlogPortfolio: Education thumbnails
+    data?.education_ids?.forEach((edu: any) => {
+      if (edu?.thumbnail) urls.add(edu.thumbnail);
     });
 
-    // Blog images
-    blogs?.forEach((blog) => {
-      if (blog.image) urls.add(blog.image);
+    // 4. EducationBlogPortfolio: Blog images (using getImageForIndex logic)
+    // Component shows slice(0, 3) blogs
+    blogs?.slice(0, 3).forEach((blog, index) => {
+      if (blog?.featuredImage) {
+        const blogImage = getImageForIndex(data?.domain || '', index);
+        if (blogImage) urls.add(blogImage);
+      }
     });
 
     return Array.from(urls);
@@ -119,6 +136,7 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
     if (!listOfdata || listOfskills.length === 0) return;
 
     const urls = extractAllImageUrls(listOfdata, blogsList);
+    console.log("Portfolio Listing - Preloading URLs:", urls);
     setImageProgress({ loaded: 0, total: urls.length });
 
     if (urls.length === 0) {
@@ -129,12 +147,10 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
     preloadImages(urls, (loaded, total) =>
       setImageProgress({ loaded, total })
     ).then(() => setImagesReady(true));
-    
   }, [listOfdata, blogsList, listOfskills.length]);
 
-
   // Final components list
-    const componentsList: ComponentConfig[] = [
+  const componentsList: ComponentConfig[] = [
     {
       componentType: "static",
       clickableNote: true,
@@ -311,23 +327,26 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
       ),
     },
 
-
     // Contact section (only if not urlInfo.u)
-    ...(urlInfo?.u ? [] : [{
-      componentType: "static" as const,
-      component: (
-        <PortfolioContactMe 
-          listOfdata={listOfdata}
-          formatPhoneNumber={formatPhoneNumber}
-        />
-      ),
-    }]),
+    ...(urlInfo?.u
+      ? []
+      : [
+          {
+            componentType: "static" as const,
+            component: (
+              <PortfolioContactMe
+                listOfdata={listOfdata}
+                formatPhoneNumber={formatPhoneNumber}
+              />
+            ),
+          },
+        ]),
 
     // Education & Blogs section
     {
       componentType: "static" as const,
       component: (
-         <EducationBlogPortfolio
+        <EducationBlogPortfolio
           listOfdata={listOfdata}
           domain={listOfdata?.domain}
           formatDate={formatDate}
@@ -339,13 +358,14 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
       ),
     },
   ];
- 
 
   // Loading / Error States
   if (error) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-[#EFF5FD]">
-        <div className="text-2xl text-red-500">Error Loading Portfolio data: {error}</div>
+        <div className="text-2xl text-red-500">
+          Error Loading Portfolio data: {error}
+        </div>
       </div>
     );
   }
@@ -372,7 +392,13 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
     );
   }
 
-  return <PrintPageRenderer componentsList={componentsList} orientation="Portrait"  />;
+  return (
+    <PrintPageRenderer
+      componentsList={componentsList}
+      orientation="Portrait"
+      isDataReady={!loading && listOfdata && urlInfo && imagesReady}
+    />
+  );
 };
 
 export default PortfolioListing_p;

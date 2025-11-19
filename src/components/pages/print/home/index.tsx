@@ -19,6 +19,7 @@ import { skillsGrouping } from "@/hooks/skillsGrouping";
 import { useMediaQuery } from "react-responsive";
 import { loadBlogs } from "@/hooks/apihandlers/blogListingApiHandler";
 import { getImageForIndex } from "@/utils/getImageForIndex";
+import { preloadImages } from "@/utils/preLoadImages";
 
 // Components Imports
 import {
@@ -74,6 +75,8 @@ const Home_p = ({ params }: { params: any }) => {
         setListOfData,
       });
   }, [urlInfo]);
+
+  
 
   useEffect(() => {
     const skillsContainer = skillsContainerRef?.current;
@@ -218,7 +221,7 @@ const Home_p = ({ params }: { params: any }) => {
           <HomePortfolioCard
             portfolios={listOfdata.portfolios_ids}
             companyType={listOfdata.companytype}
-            portfolioId={listOfdata.portfolios_ids[0]?.id}
+            portfolioId={listOfdata.portfolios_ids[1]?.id}
             locationLink="/?sectionId=myWork"
             from={1}
             max={2}
@@ -234,7 +237,7 @@ const Home_p = ({ params }: { params: any }) => {
           <HomePortfolioCard
             portfolios={listOfdata.portfolios_ids}
             companyType={listOfdata.companytype}
-            portfolioId={listOfdata.portfolios_ids[0]?.id}
+            portfolioId={listOfdata.portfolios_ids[2]?.id}
             locationLink="/?sectionId=myWork"
             from={2}
             max={3}
@@ -271,20 +274,7 @@ const Home_p = ({ params }: { params: any }) => {
         />
       ),
     },
-    {
-      componentType: "static",
-      badgeTitle: "Professional Experience",
-      component: (
-        <HomeExperienceSection
-          listOfdata={listOfdata}
-          skillsGrouping={skillsGrouping}
-          showMoreSkills={showMoreSkills}
-          listOfskills={listOfskills}
-          start={4}
-          end={6}
-        />
-      ),
-    },
+    
 
     // {
     //   componentType: "dynamic",
@@ -327,10 +317,95 @@ const Home_p = ({ params }: { params: any }) => {
     },
   ];
 
+  // Extract All image URLs Before Rendering
+  function extractAllImageUrls(listOfdata, blogsList) {
+    const urls = [];
+
+    // 1. Profile image (used in HomeWeclome)
+    if (listOfdata?.profile_photo_1) urls.push(listOfdata.profile_photo_1);
+
+    // 2. Skills HTML images (used in HomeHeroSection via modifiedContent if applicable)
+    const skillsHtml = listOfdata?.skills || "";
+    const htmlMatches = skillsHtml.match(/<img[^>]+src="([^"]+)"/g);
+    if (htmlMatches) {
+      htmlMatches.forEach((tag) => {
+        const match = tag.match(/src="([^"]+)"/);
+        if (match?.[1]) urls.push(match[1]);
+      });
+    }
+
+    // 3. Skills icons (used in HomeSkillsSection) - first 40 skills based on numSkills
+    const visibleSkills = listOfdata?.skills_ids?.slice(0, 40) || [];
+    visibleSkills.forEach((skill) => {
+      if (skill.icon) urls.push(skill.icon);
+    });
+
+    // 4. Experience thumbnails (used in ExperienceCard within HomeExperienceSection)
+    listOfdata?.experiences_ids?.forEach((exp) => {
+      if (exp.thumbnail) urls.push(exp.thumbnail);
+    });
+
+    // 5. Portfolio thumbnails with special cases (used in HomePortfolioCard)
+    // Only first 3 portfolios based on the component logic (from 0 to 3)
+    const visiblePortfolios = listOfdata?.portfolios_ids?.slice(0, 3) || [];
+    visiblePortfolios.forEach((portfolio) => {
+      if (portfolio?.title === "Velzon") {
+        urls.push("/VelzonThumbnail.PNG");
+      } else if (portfolio?.title === "Beyond Competitions") {
+        urls.push("/BeyondCompetetionThumbnail.webp");
+      } else if (portfolio?.thumbnail) {
+        urls.push(portfolio.thumbnail);
+      }
+    });
+
+    // 6. Education thumbnails (used in HomeEducationComponent)
+    listOfdata?.education_ids?.forEach((edu) => {
+      if (edu.thumbnail) urls.push(edu.thumbnail);
+    });
+
+    // 7. Blog images via getImageForIndex (first 2 blogs only in HomeEducationComponent)
+    if (blogsList?.length > 0) {
+      const blogsToShow = blogsList.slice(0, Math.min(2, blogsList.length));
+      blogsToShow.forEach((blog, index) => {
+        if (blog?.featuredImage) {
+          const imageUrl = getImageForIndex(listOfdata?.domain, index);
+          if (imageUrl) urls.push(imageUrl);
+        }
+      });
+    }
+
+    console.log("Home_p - Extracted Image URLs:", urls);
+    return urls;
+  }
+
+  // ImagesReady Guard Before PrintPageRenderer
+  const [imagesReady, setImagesReady] = useState(false);
+  const [imageProgress, setImageProgress] = useState({ loaded: 0, total: 0 });
+
+  useEffect(() => {
+    if (!listOfdata || !listOfskills.length) return;
+
+    async function run() {
+      const urls = extractAllImageUrls(listOfdata, blogsList);
+      console.log("Preloading URLs:", urls);
+
+      setImageProgress({ loaded: 0, total: urls.length });
+
+      await preloadImages(urls, (loaded, total) => {
+        setImageProgress({ loaded, total });
+      });
+
+      setImagesReady(true); // all images fully loaded
+    }
+
+    run();
+  }, [listOfdata, blogsList, listOfskills]);
+
   // Check if all essential data is loaded
-  const isDataReady = !loading && listOfdata && urlInfo;
+  const isDataReady = !loading && listOfdata && urlInfo && imagesReady;
   console.log("Data Ready", isDataReady);
 
+  console.log("URL Info From Home Page:", urlInfo);
   return (
     <>
       {/* Show error state if there's an error */}
@@ -342,13 +417,30 @@ const Home_p = ({ params }: { params: any }) => {
         </div>
       ) : /* Show loading state while data is being fetched */
       !isDataReady ? (
-        <div className="flex items-center justify-center min-h-screen bg-[#EFF5FD]">
-          <div className="text-2xl text-heading">Loading Home data...</div>
-        </div>
+        (() => {
+          const { loaded, total } = imageProgress;
+          const percent = total > 0 ? Math.round((loaded / total) * 100) : 0;
+
+          return (
+            <div className="flex items-center justify-center min-h-screen bg-[#f8f9fa] flex-col">
+              <div className="text-2xl text-heading mb-4">Loading Home data...</div>
+              {total > 0 && (
+                <div className="w-64 h-4 border border-gray-300 rounded overflow-hidden">
+                  <div
+                    className="h-full bg-primary transition-all duration-300"
+                    style={{ width: `${percent}%` }}
+                  />
+                </div>
+              )}
+              {total > 0 && <div className="mt-2 text-sm">{percent}%</div>}
+            </div>
+          );
+        })()
       ) : (
         <PrintPageRenderer
           componentsList={componentsList}
           orientation="Landscape"
+          isDataReady={isDataReady}
         />
       )}
     </>

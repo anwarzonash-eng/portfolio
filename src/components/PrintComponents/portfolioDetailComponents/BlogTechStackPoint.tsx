@@ -18,11 +18,11 @@ const BlogTechStackPoint: React.FC<BlogTechStackPointProps> = ({
 
   return (
     <div className="w-full px-[2rem]">
-      <h2 className="text-primary text-center text-[4rem] font-semibold my-[1rem]">
+      <h2 className="text-primary text-center text-[4rem] font-semibold my-[2rem]">
         Tech Stacks I Have Worked On
       </h2>
 
-      <div className="w-full relative">
+      <div className="w-full relative mt-[3rem]">
         {/* Main list container */}
         <div
           ref={featuresRef}

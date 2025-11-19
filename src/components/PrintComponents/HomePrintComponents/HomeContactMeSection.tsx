@@ -201,7 +201,8 @@ const HomeContactMeSection = ({ listOfdata, formatPhoneNumber }) => {
         listOfdata?.upwork ? (
           <>
             <hr className="w-full h-[1px] bg-border" />
-            <div className="flex justify-between items-start mt-[1rem] px-5">
+            <div className="flex justify-between items-start mt-[4rem]
+            px-5">
               {listOfdata?.behance_link ||
               listOfdata?.twitter ||
               listOfdata?.instagram ||

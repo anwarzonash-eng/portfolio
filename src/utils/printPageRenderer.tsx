@@ -166,7 +166,6 @@ const PrintPageRenderer: React.FC<PrintPageRendererProps> = ({
     if (!dataLoaded || componentHeights.length === 0) {
       return (
         <div className="bg-[#EFF5FD]  w-full mx-auto">
-          {isDataReady && <div id='dataReady'></div>}
           {/* Hidden measurement container */}
           <div 
             ref={measurementRef}
@@ -352,4 +351,3 @@ const PrintPageRenderer: React.FC<PrintPageRendererProps> = ({
 };
 
 export default PrintPageRenderer;
-

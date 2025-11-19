@@ -23,12 +23,12 @@ const PortfolioDetailKeyModule: React.FC<PortfolioDetailKeyModuleProps> = ({
 }) => {
   return (
     <div className="w-full  limit-height-portfolio-detail px-[2rem]">
-      <h2 className="text-primary text-center text-[4rem] font-semibold my-[1rem]">
+      <h2 className="text-primary text-center text-[4rem] font-semibold my-[2rem]">
         Features & Modules
       </h2>
 
       <div
-        className="text-[1.8rem]"
+        className="text-[1.8rem] mt-[3rem]"
         dangerouslySetInnerHTML={{
           __html: modifiedContent(
             portfolioDetails?.features_long || "",

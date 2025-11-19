@@ -80,6 +80,66 @@ const HomePortfolioCard: React.FC<HomePortfolioCardProps> = ({
 
   const topTwoPortfolios = portfolios.slice(from, max);
 
+  // Function to calculate how many skills can fit in two lines
+  const calculateSkillsToShow = (skillsArray: SkillType[]) => {
+    const containerWidth = 520; // 520px container width
+    const seeMoreButtonWidth = 160; // Approximate width of "See More" button
+    const gapWidth = 7; // 0.7rem gap between items
+    
+    // Estimate skill button width based on text length
+    const estimateSkillWidth = (skillTitle: string) => {
+      const baseWidth = 40; // padding (4rem total) + border
+      const charWidth = 7; // approximate width per character at 1.3rem font size
+      return baseWidth + (skillTitle.length * charWidth);
+    };
+
+    let currentLineWidth = 0;
+    let skillsToShow = 0;
+    let linesUsed = 0;
+    const maxLines = 2;
+
+    for (let i = 0; i < skillsArray.length; i++) {
+      const skillWidth = estimateSkillWidth(skillsArray[i].title);
+      const gapWidthForThisItem = skillsToShow > 0 ? gapWidth : 0;
+      
+      // Check if we need "See More" button space (only on the last line)
+      const isLastSkill = i === skillsArray.length - 1;
+      const hasMoreSkills = !isLastSkill;
+      const spaceForSeeMore = hasMoreSkills && (linesUsed === maxLines - 1) ? seeMoreButtonWidth + gapWidth : 0;
+      
+      const requiredWidth = currentLineWidth + gapWidthForThisItem + skillWidth + spaceForSeeMore;
+      
+      // If skill doesn't fit on current line, try next line
+      if (requiredWidth > containerWidth) {
+        linesUsed++;
+        
+        // If we've used all available lines, stop
+        if (linesUsed >= maxLines) {
+          break;
+        }
+        
+        // Start new line with this skill
+        currentLineWidth = skillWidth;
+        // Check if "See More" button fits on this new line
+        const seeMoreSpaceNewLine = hasMoreSkills && (linesUsed === maxLines - 1) ? seeMoreButtonWidth + gapWidth : 0;
+        if (currentLineWidth + seeMoreSpaceNewLine > containerWidth) {
+          break;
+        }
+      } else {
+        // Skill fits on current line
+        currentLineWidth = requiredWidth - spaceForSeeMore; // Don't include "See More" in line width yet
+      }
+      
+      skillsToShow++;
+      
+      // Safety check to prevent showing too many skills
+      if (skillsToShow >= 16) break;
+    }
+
+    // Ensure we show at least 2 skills if available
+    return Math.max(2, Math.min(skillsToShow, skillsArray.length));
+  };
+
   return (
     <div className="w-full flex flex-col items-center gap-6 mt-[2rem]">
       {topTwoPortfolios.map((portfolio, index) => {
@@ -89,12 +149,18 @@ const HomePortfolioCard: React.FC<HomePortfolioCardProps> = ({
             : portfolio.skills.slice(0, 15)
         ) as Record<string, SkillType[]>;
 
+        // Get flattened skills array and calculate how many to show
+        const flatSkills = Object.values(skills).flat();
+        const skillsToDisplay = calculateSkillsToShow(flatSkills);
+        const visibleSkills = flatSkills.slice(0, skillsToDisplay);
+        const hasMoreSkills = flatSkills.length > skillsToDisplay;
+
         return (
           <div
             key={index}
             className="flex flex-row rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden w-full bg-white"
           >
-            <div className="flex bg-white rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden h-full w-full p-[3rem] gap-[4rem]">
+            <div className="flex bg-white rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden h-full w-full p-[3rem] gap-[4rem] items-start">
               {/* Content Section */}
               <div className="w-1/2 flex flex-col items-center justify-center">
                 <div className="flex items-start w-full flex-col justify-between h-full">
@@ -126,35 +192,40 @@ const HomePortfolioCard: React.FC<HomePortfolioCardProps> = ({
                           )}
                     </p>
                     <div>
-                      <p
+                      {/* <p
                         dangerouslySetInnerHTML={{
                           __html: portfolio.tagline_1,
                         }}
-                        className="text-[1.8rem] leading-[2.4rem] font-normal text-paragraph1 mt-[1rem] line-clamp-2"
-                      />
+                        className="text-[1.8rem] leading-[2.4rem] font-normal text-paragraph1 mt-[1rem] line-clamp-4"
+                      /> */}
                       <p
                         dangerouslySetInnerHTML={{
                           __html: portfolio.tagline_2,
                         }}
-                        className="text-[1.8rem] leading-[2.4rem] font-normal text-primary mt-[1rem] line-clamp-3"
+                        className="text-[1.8rem] leading-[2.4rem] font-normal text-primary mt-[1rem] line-clamp-6"
                       />
+                      <Link
+                          href={`/portfolio/${portfolioId}?scroll=skills`}
+                          className="hover:bg-white bg-primary text-white hover:text-primary capitalize text-center text-primary text-[1.3rem] font-medium py-[0.4rem] px-[2rem] flex items-center justify-center gap-[8px] rounded-[5rem] shadow opacity-0 animate-fadeIn relative group border border-transparent hover:border-primary max-w-max mt-[2rem]"
+                        >
+                          <button >
+                          Read More
+                          </button>
+                        </Link>
                     </div>
                   </div>
 
                   <hr className="w-full my-[2rem] h-px bg-border" />
-                  <div className="text-black text-[1.8rem] leading-[2.8rem] font-medium">
+                  <div className="text-black text-[1.8rem] leading-[2.8rem] font-medium w-[520px] overflow-hidden">
                     <p className="mb-[1rem]">
                       AREAS OF EXPERTISE I'VE WORKED IN:
                     </p>
-                    <div className="flex items-center gap-[0.7rem] text-nowrap flex-wrap">
-                      {Object.values(skills)
-                        .flat()
-                        .slice(0, 4)
-                        .map((skill: SkillType, i: number) => (
-                          <SkillComponent key={i} skill={skill} index={i} />
-                        ))}
+                    <div className="flex items-center gap-[0.7rem] flex-wrap">
+                      {visibleSkills.map((skill: SkillType, i: number) => (
+                        <SkillComponent key={i} skill={skill} index={i} />
+                      ))}
 
-                      {Object.values(skills).flat().length > 8 && (
+                      {hasMoreSkills && (
                         <Link
                           href={`/portfolio/${portfolioId}?scroll=skills`}
                           className="hover:bg-white bg-primary text-white hover:text-primary capitalize text-center text-primary text-[1.3rem] font-medium py-[0.4rem] px-[2rem] flex items-center justify-center gap-[8px] rounded-[5rem] shadow opacity-0 animate-fadeIn relative group border border-transparent hover:border-primary"

@@ -93,13 +93,13 @@ const PortfolioDetailUpworkSection = ({ listOfdata, urlInfo }) => {
               </div>
               <span>Profile</span>
             </Link>
-            <Link
+            {/* <Link
               href={listOfdata?.upwork ?? "#"}
               target="_blank"
               className="h-[4rem] w-[4rem] rounded-full relative mx-2 bg-sectionBG text-white flex items-center justify-center animate-bounce cursor-pointer hover:bg-white hover:text-primary border border-transparent hover:border-primary duration-300"
             >
               <MoveUpRight />
-            </Link>
+            </Link> */}
           </div>
         </div>
         {/* Bottom Content */}

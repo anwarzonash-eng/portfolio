@@ -119,6 +119,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
   }, [listOfdata]);
 
   console.log("List of Data:", listOfdata);
+  console.log("URL Info:", urlInfo);
 
   const domain = listOfdata?.domain;
 
@@ -407,10 +408,10 @@ const CV_Portrait = ({ params }: { params: any }) => {
   function extractAllImageUrls(listOfdata, blogsList) {
     const urls = [];
 
-    // Profile image
+    // 1. Profile image (used in IntroCvPortrait)
     if (listOfdata?.profile_photo_1) urls.push(listOfdata.profile_photo_1);
 
-    // skills HTML
+    // 2. Skills HTML images (used in OverviewCvPortrait via modifiedContent)
     const skillsHtml = listOfdata?.skills || "";
     const htmlMatches = skillsHtml.match(/<img[^>]+src="([^">]+)"/g);
     if (htmlMatches) {
@@ -420,24 +421,46 @@ const CV_Portrait = ({ params }: { params: any }) => {
       });
     }
 
-    // Experiences
+    // 3. Skills icons (used in SkillsCvPortrait)
+    listOfdata?.skills_ids?.forEach((skill) => {
+      if (skill.icon) urls.push(skill.icon);
+    });
+
+    // 4. Experience thumbnails (used in ExperienceCvPortrait)
     listOfdata?.experiences_ids?.forEach((exp) => {
-      if (exp.company_logo) urls.push(exp.company_logo);
+      if (exp.thumbnail) urls.push(exp.thumbnail);
     });
 
-    // Portfolio images
-    listOfdata?.portfolios_ids?.forEach((p) => {
-      if (p.thumbnail) urls.push(p.thumbnail);
+    // 5. Portfolio thumbnails with special cases (used in PortfolioCvPortrait)
+    listOfdata?.portfolios_ids?.forEach((portfolio) => {
+      if (portfolio?.title === "Velzon") {
+        urls.push("/VelzonThumbnail.PNG");
+      } else if (portfolio?.title === "Beyond Competitions") {
+        urls.push("/BeyondCompetetionThumbnail.webp");
+      } else if (portfolio?.thumbnail) {
+        urls.push(portfolio.thumbnail);
+      }
     });
 
-    // Blogs
-    blogsList?.forEach((blog) => {
-      if (blog.image) urls.push(blog.image);
+    // 6. Education thumbnails (used in EducationBlogCvPortrait)
+    listOfdata?.education_ids?.forEach((edu) => {
+      if (edu.thumbnail) urls.push(edu.thumbnail);
     });
 
+    // 7. Blog images via getImageForIndex (first 3 blogs only in EducationBlogCvPortrait)
+    if (blogsList?.length > 0) {
+      const blogsToShow = blogsList.slice(0, Math.min(3, blogsList.length));
+      blogsToShow.forEach((blog, index) => {
+        if (blog?.featuredImage) {
+          const imageUrl = getImageForIndex(listOfdata?.domain, index);
+          if (imageUrl) urls.push(imageUrl);
+        }
+      });
+    }
+
+    console.log("cvPortrait - Extracted Image URLs:", urls);
     return urls;
   }
-
 
   // ImagesReady Guard Before PrintPageRenderer
   const [imagesReady, setImagesReady] = useState(false);
@@ -470,7 +493,6 @@ const CV_Portrait = ({ params }: { params: any }) => {
 
   console.log("All Skills:", allSkills);
 
-
   if (error) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-[#EFF5FD]">
@@ -502,7 +524,11 @@ const CV_Portrait = ({ params }: { params: any }) => {
   }
 
   return (
-    <PrintPageRenderer componentsList={componentsList} orientation="Portrait" isDataReady={isDataReady} />
+    <PrintPageRenderer
+      componentsList={componentsList}
+      orientation="Portrait"
+      isDataReady={isDataReady}
+    />
   );
 };
 export default CV_Portrait;

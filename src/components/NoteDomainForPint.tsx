@@ -10,12 +10,22 @@ function NoteDomainForPint({ direction }: NoteDomainForPintProps) {
   const listOfdatas = useAppSelector(
     (state) => state.profile.listOfProfileData
   );
+  
+  const urlInfo = useAppSelector(
+    (state) => state.profile.profileUrlInfo
+  );
+
+  console.log("listOfdatas in NoteDomainForPint:", listOfdatas);
+  console.log("urlInfo in NoteDomainForPint:", urlInfo);
 
   // 🛑 NULL CHECK
-  if (!listOfdatas || !listOfdatas.domain) return null;
+  if (!listOfdatas || !listOfdatas.domain || !urlInfo?.uniqueID) return null;
 
   // ✅ Fallback to default direction if not provided
   const positionClass = direction ? direction : "right-0";
+
+  // Create the exact link format: https://${listOfdata?.domain}/${url?.uniqueID}
+  const linkHref = `https://${listOfdatas.domain}/${urlInfo.uniqueID}`;
 
   return (
     <div
@@ -23,7 +33,7 @@ function NoteDomainForPint({ direction }: NoteDomainForPintProps) {
     >
       <Link
         className="text-primary font-medium text-[1.5rem] underline"
-        href={`https://www.${listOfdatas.domain}`}
+        href={linkHref}
       >
         {listOfdatas.domain}
       </Link>

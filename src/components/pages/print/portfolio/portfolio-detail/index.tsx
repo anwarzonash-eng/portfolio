@@ -363,25 +363,61 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
     },
   ];
 
-  const extractAllImageUrls = (data: any, blogs: any[]) => {
+  const extractAllImageUrls = (data: any, blogs: any[], portfolioDetails: any) => {
     const urls = new Set<string>();
 
-    // Profile photo
+    // 1. IntroPortfolioDetail: Profile photo
     if (data?.profile_photo_1) urls.add(data.profile_photo_1);
 
-    // Company logos
-    data?.experiences_ids?.forEach((exp: any) => {
-      if (exp.company_logo) urls.add(exp.company_logo);
+    // 2. HeroPortfolioDetail: Portfolio thumbnail
+    if (portfolioDetails?.thumbnail) urls.add(portfolioDetails.thumbnail);
+
+    // 3. PortfolioDetailSliderSection: Portfolio pictures (JSON array)
+    if (portfolioDetails?.pictures) {
+      try {
+        const pictures = JSON.parse(portfolioDetails.pictures || "[]");
+        if (Array.isArray(pictures)) {
+          // Only add first image as component shows slice(0, 1)
+          pictures.slice(0, 1).forEach((pic) => {
+            if (pic && typeof pic === 'string') urls.add(pic);
+          });
+        }
+      } catch (e) {
+        console.warn("Error parsing portfolio pictures:", e);
+      }
+    }
+
+    // 4. EducationBlogPortfolioDetail: Education thumbnails
+    data?.education_ids?.forEach((edu: any) => {
+      if (edu.thumbnail) urls.add(edu.thumbnail);
     });
 
-    // Portfolio thumbnails
-    data?.portfolios_ids?.forEach((p: any) => {
-      if (p.thumbnail) urls.add(p.thumbnail);
+    // 5. EducationBlogPortfolioDetail: Blog images (using getImageForIndex logic)
+    blogs?.slice(0, 2).forEach((blog, index) => {
+      if (blog.featuredImage) {
+        const blogImage = getImageForIndex(data?.domain || '', index);
+        if (blogImage) urls.add(blogImage);
+      }
     });
 
-    // Blog images
-    blogs?.forEach((blog) => {
-      if (blog.image) urls.add(blog.image);
+    // 6. Other potential images from modifiedContent (features_short, key_modules, etc.)
+    const htmlFields = [
+      portfolioDetails?.features_short,
+      portfolioDetails?.key_modules,
+      portfolioDetails?.short_description
+    ];
+
+    htmlFields.forEach((htmlContent) => {
+      if (htmlContent) {
+        const processedHtml = modifiedContent(htmlContent, filteredSkills, data) || '';
+        const htmlMatches = processedHtml.match(/<img[^>]+src=["']([^"']+)["'][^>]*>/g);
+        if (htmlMatches) {
+          htmlMatches.forEach((tag) => {
+            const match = tag.match(/src=["']([^"']+)["']/);
+            if (match?.[1]) urls.add(match[1]);
+          });
+        }
+      }
     });
 
     return Array.from(urls);
@@ -391,7 +427,8 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
   useEffect(() => {
     if (!listOfdata || listOfskills.length === 0) return;
 
-    const urls = extractAllImageUrls(listOfdata, blogsList);
+    const urls = extractAllImageUrls(listOfdata, blogsList, portfolioDetails);
+    console.log("Portfolio Detail - Preloading URLs:", urls);
     setImageProgress({ loaded: 0, total: urls.length });
 
     if (urls.length === 0) {
@@ -402,7 +439,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
     preloadImages(urls, (loaded, total) =>
       setImageProgress({ loaded, total })
     ).then(() => setImagesReady(true));
-  }, [listOfdata, blogsList, listOfskills.length]);
+  }, [listOfdata, blogsList, listOfskills.length, portfolioDetails, filteredSkills]);
 
   // Loading / Error States
   if (error) {
@@ -441,6 +478,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
     <PrintPageRenderer
       componentsList={componentsList}
       orientation="Landscape"
+      isDataReady={!loading && listOfdata && urlInfo && imagesReady && listOfskills.length > 0}
     />
   );
 };

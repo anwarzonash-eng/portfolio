@@ -19,7 +19,7 @@ const EducationBlogCvPortrait = ({
         {/* Education Section */}
         {listOfdata?.education_ids?.length > 0 && (
           <div className="w-full ">
-            <h2 className="text-heading text-[3.67rem] font-medium pl-[0.5rem] py-[3rem]">
+            <h2 className="text-heading text-[3.67rem] font-medium pl-[0.5rem] py-[3rem] text-center">
               Education
             </h2>
             <div className="grid grid-cols-2 gap-[1.2rem] w-full">
@@ -77,7 +77,7 @@ const EducationBlogCvPortrait = ({
             </h2>
             <Link href={"/blog-listing"}>
               <button className="btn-primary text-white py-[1rem] px-[3.4rem] text-[1.8rem] font-medium">
-                View All Blogs
+                Read All Blogs
               </button>
             </Link>
           </div>
