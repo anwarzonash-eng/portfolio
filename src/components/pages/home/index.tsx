@@ -63,21 +63,48 @@ const Home = ({ params }: { params: any }) => {
     string | null
   >(null);
 
-  // Centralized scroll function to prevent conflicts
+  // Centralized scroll function with guaranteed viewport centering
   const scrollToSectionWithCenter = useCallback((elementId: string, offset: number = 100) => {
     const element = document.getElementById(elementId);
     if (element) {
-      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
-      const centerOffset = window.innerHeight / 2 - element.offsetHeight / 2;
-      const finalPosition = elementPosition - Math.max(offset, centerOffset);
+      // Get current viewport dimensions
+      const viewportHeight = window.innerHeight;
+      const viewportWidth = window.innerWidth;
       
-      window.scrollTo({
-        top: Math.max(0, finalPosition),
-        behavior: "smooth",
+      // Get element dimensions and position
+      const elementRect = element.getBoundingClientRect();
+      const elementHeight = elementRect.height;
+      const elementTop = elementRect.top + window.pageYOffset;
+      
+      // Calculate perfect center position
+      // Place element center at viewport center
+      const viewportCenter = viewportHeight / 2;
+      const elementCenter = elementHeight / 2;
+      const targetScrollPosition = elementTop - (viewportCenter - elementCenter);
+      
+      // Apply minimum offset from top (for header/navbar)
+      const finalPosition = Math.max(offset, targetScrollPosition);
+      
+      console.log(`🎯 Scrolling ${elementId}:`, {
+        viewportHeight,
+        elementHeight,
+        elementTop,
+        targetScrollPosition,
+        finalPosition,
+        currentScroll: window.pageYOffset
+      });
+      
+      // Use requestAnimationFrame for smoother scrolling
+      requestAnimationFrame(() => {
+        window.scrollTo({
+          top: finalPosition,
+          behavior: "smooth",
+        });
       });
       
       return true;
     }
+    console.warn(`❌ Element not found: ${elementId}`);
     return false;
   }, []);
 
@@ -128,7 +155,7 @@ const Home = ({ params }: { params: any }) => {
   const skills = skillsGrouping(listOfdata?.skills_ids);
   const uniqueList = useUniquePortfolios(listOfdata?.portfolios_ids);
 
-  // Enhanced scroll navigation with unique handling and better centering
+  // Enhanced scroll navigation with guaranteed viewport centering
   useEffect(() => {
     // Skip if no data loaded yet
     if (!listOfdata) return;
@@ -139,11 +166,30 @@ const Home = ({ params }: { params: any }) => {
     const scrollTo = searchParams.get("scrollTo");
     const expand = searchParams.get("expand");
 
-    console.log("Navigation params:", { sectionId, experienceId, portfolioId, scrollTo, expand });
+    console.log("🚀 Navigation params:", { sectionId, experienceId, portfolioId, scrollTo, expand });
 
     // Clear any existing highlights first
     setHighlightedExperienceId(null);
     setHighlightedPortfolioId(null);
+
+    // Helper function to wait for element to be ready
+    const waitForElement = (elementId: string, maxAttempts = 10): Promise<HTMLElement | null> => {
+      return new Promise((resolve) => {
+        let attempts = 0;
+        const checkElement = () => {
+          const element = document.getElementById(elementId);
+          if (element && element.offsetHeight > 0) {
+            resolve(element);
+          } else if (attempts < maxAttempts) {
+            attempts++;
+            setTimeout(checkElement, 100);
+          } else {
+            resolve(null);
+          }
+        };
+        checkElement();
+      });
+    };
 
     // PRIORITY 1: Portfolio-specific navigation (highest priority)
     if (portfolioId && scrollTo === "myWork") {
@@ -157,11 +203,17 @@ const Home = ({ params }: { params: any }) => {
         window.dispatchEvent(new CustomEvent('setCarouselSlide', { detail: { slideIndex: portfolioIndex } }));
       }
       
-      // Scroll to portfolio section with better centering
-      setTimeout(() => {
-        console.log("🔄 Scrolling to portfolio section");
-        scrollToSectionWithCenter("myWork", 80);
-      }, 150);
+      // Wait for element and then scroll
+      setTimeout(async () => {
+        console.log("🔄 Waiting for portfolio section to render...");
+        const element = await waitForElement("myWork");
+        if (element) {
+          console.log("✅ Portfolio section ready, scrolling...");
+          scrollToSectionWithCenter("myWork", 80);
+        } else {
+          console.log("❌ Portfolio section not found after waiting");
+        }
+      }, 200);
       return;
     }
 
@@ -171,16 +223,23 @@ const Home = ({ params }: { params: any }) => {
       setHighlightedExperienceId(experienceId);
       setShowAllExperiences(true);
       
-      setTimeout(() => {
-        const experienceElement = document.getElementById(`experience-${experienceId}`);
+      setTimeout(async () => {
+        console.log("🔄 Waiting for experience element to render...");
+        const experienceElement = await waitForElement(`experience-${experienceId}`);
         if (experienceElement) {
-          console.log("📍 Scrolling to specific experience element");
+          console.log("✅ Experience element ready, scrolling to specific experience...");
           scrollToSectionWithCenter(`experience-${experienceId}`, 120);
         } else {
-          console.log("📍 Experience element not found, scrolling to section");
-          scrollToSectionWithCenter("experienceSection", 100);
+          console.log("🔄 Experience element not found, scrolling to section...");
+          const sectionElement = await waitForElement("experienceSection");
+          if (sectionElement) {
+            console.log("✅ Experience section ready, scrolling...");
+            scrollToSectionWithCenter("experienceSection", 100);
+          } else {
+            console.log("❌ Experience section not found after waiting");
+          }
         }
-      }, 400); // Longer timeout for DOM updates
+      }, 500); // Longer timeout for experience expansion
       return;
     }
 
@@ -192,19 +251,32 @@ const Home = ({ params }: { params: any }) => {
         setShowAllExperiences(true);
       }
       
-      setTimeout(() => {
-        console.log("📍 Scrolling to experience section");
-        scrollToSectionWithCenter("experienceSection", 100);
-      }, expand === "true" ? 300 : 150);
+      setTimeout(async () => {
+        console.log("🔄 Waiting for experience section to render...");
+        const element = await waitForElement("experienceSection");
+        if (element) {
+          console.log("✅ Experience section ready, scrolling...");
+          scrollToSectionWithCenter("experienceSection", 100);
+        } else {
+          console.log("❌ Experience section not found after waiting");
+        }
+      }, expand === "true" ? 400 : 200);
       return;
     }
 
     // PRIORITY 4: Other section navigation (lowest priority)
     if (sectionId && sectionId !== "experienceSection") {
       console.log("🎯 General Section Navigation:", sectionId);
-      setTimeout(() => {
-        scrollToSectionWithCenter(sectionId, 100);
-      }, 100);
+      setTimeout(async () => {
+        console.log(`🔄 Waiting for section ${sectionId} to render...`);
+        const element = await waitForElement(sectionId);
+        if (element) {
+          console.log(`✅ Section ${sectionId} ready, scrolling...`);
+          scrollToSectionWithCenter(sectionId, 100);
+        } else {
+          console.log(`❌ Section ${sectionId} not found after waiting`);
+        }
+      }, 200);
       return;
     }
   }, [searchParams, listOfdata, uniqueList, scrollToSectionWithCenter]);
