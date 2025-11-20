@@ -251,7 +251,7 @@ const Offer = ({ params }: { params: any }) => {
                     <div className="text-center text-heading text-[3rem] font-medium leading-[2.8rem] mt-[2rem]">
                       Explore My Technical Endeavors
                     </div>
-                    <HomeSlider portfolios={uniqueList} />
+                    <HomeSlider portfolios={uniqueList} highlightedPortfolioId={null} />
                   </div>
                 </section>
               )}
