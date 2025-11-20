@@ -4,7 +4,9 @@ import React from "react";
 
 const PortfolioWelcome = ({listOfdatas, listOfdata, WorkProofLinks, urlInfo, ContactMeLinks}) => {
   return (
-      <div className="text-center bg-bannerBG relative !w-full !h-screen flex items-center justify-center flex-col gap-[2rem]">
+    // Before Gradient BG: bg-bannerBG
+      <div className="text-center  bg-cvSideBg bg-no-repeat bg-cover relative !w-full !h-screen flex items-center justify-center flex-col gap-[2rem]">
+        
         <div className="items-center justify-strat gap-[4rem] flex flex-col w-full">
           <Image
           loading="eager"
@@ -15,6 +17,11 @@ const PortfolioWelcome = ({listOfdatas, listOfdata, WorkProofLinks, urlInfo, Con
           width={245}
           className="size-[245px] rounded-full"
           />
+          <div
+            className="bg-primary text-white font-bold text-[3rem]  rounded-[100px] max-w-max px-10 tracking-wider"
+          >
+            Portfolio
+          </div>
           <div className="flex items-start justify-start flex-col">
             <h2 className="text-[7rem] font-bold"> {listOfdata?.name}</h2>
             <div className="text-[4rem] font-medium flex items-center justify-center flex-wrap gap-[3px] w-full">
@@ -30,6 +37,7 @@ const PortfolioWelcome = ({listOfdatas, listOfdata, WorkProofLinks, urlInfo, Con
             </div>
           </div>
         </div>
+        
         <div className="flex items-center justify-center gap-[2.1rem] mt-[4rem] mb-[0.8rem] ">
           {urlInfo?.u ? (
             <WorkProofLinks

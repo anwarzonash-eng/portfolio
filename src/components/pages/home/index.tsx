@@ -3,7 +3,7 @@ import useBodyBackgroundColor from "@/hooks/useBodyBackgroundColor";
 import HomeSlider from "@/components/Sliders/HomeSlider";
 import Faqs from "@/components/Faqs";
 import FreeTrialPopup from "@/components/FreeTrialPopup";
-import React, { useEffect, useRef, useState, useMemo } from "react";
+import React, { useEffect, useRef, useState, useMemo, useCallback } from "react";
 import { formatPhoneNumber } from "@/hooks/formatPhoneNumber";
 import { useSearchParams } from "next/navigation";
 import { getRoutesDetails } from "@/hooks/url";
@@ -16,6 +16,7 @@ import OurBlogs from "@/components/OurBlogs";
 import Newsletter from "@/components/Newsletter";
 import PageRendering from "@/components/PageRendering";
 import { scrollToSection } from "@/hooks/scrollToSection";
+import { SmoothScroll } from "@/hooks/SmoothScroll";
 import SkillsContainer from "@/components/SkillsContainer";
 import { skillsGrouping } from "@/hooks/skillsGrouping";
 import { useMediaQuery } from "react-responsive";
@@ -53,6 +54,32 @@ const Home = ({ params }: { params: any }) => {
   // Experiences Section Timeline View Logic:
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const [showAllExperiences, setShowAllExperiences] = useState<boolean>(false);
+  // Highlight specific experience
+  const [highlightedExperienceId, setHighlightedExperienceId] = useState<
+    string | null
+  >(null);
+  // Highlight specific portfolio
+  const [highlightedPortfolioId, setHighlightedPortfolioId] = useState<
+    string | null
+  >(null);
+
+  // Centralized scroll function to prevent conflicts
+  const scrollToSectionWithCenter = useCallback((elementId: string, offset: number = 100) => {
+    const element = document.getElementById(elementId);
+    if (element) {
+      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+      const centerOffset = window.innerHeight / 2 - element.offsetHeight / 2;
+      const finalPosition = elementPosition - Math.max(offset, centerOffset);
+      
+      window.scrollTo({
+        top: Math.max(0, finalPosition),
+        behavior: "smooth",
+      });
+      
+      return true;
+    }
+    return false;
+  }, []);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 1024); // breakpoint: < lg
@@ -97,31 +124,90 @@ const Home = ({ params }: { params: any }) => {
 
   // console.log("API Data:", listOfdata)
 
-  // Scroll to experiences section
+  // grouping used elsewhere — keep as is
+  const skills = skillsGrouping(listOfdata?.skills_ids);
+  const uniqueList = useUniquePortfolios(listOfdata?.portfolios_ids);
+
+  // Enhanced scroll navigation with unique handling and better centering
   useEffect(() => {
+    // Skip if no data loaded yet
+    if (!listOfdata) return;
+
+    const sectionId = searchParams.get("sectionId");
+    const experienceId = searchParams.get("experienceId");
+    const portfolioId = searchParams.get("portfolioId");
     const scrollTo = searchParams.get("scrollTo");
     const expand = searchParams.get("expand");
 
-    if (
-      scrollTo === "experiences" &&
-      experiencesRef.current &&
-      listOfdata?.experiences_ids?.length > 0
-    ) {
-      const headerOffset = 100;
-      const elementPosition =
-        experiencesRef.current.getBoundingClientRect().top + window.pageYOffset;
-      const offsetPosition = elementPosition - headerOffset;
+    console.log("Navigation params:", { sectionId, experienceId, portfolioId, scrollTo, expand });
 
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth",
-      });
+    // Clear any existing highlights first
+    setHighlightedExperienceId(null);
+    setHighlightedPortfolioId(null);
 
+    // PRIORITY 1: Portfolio-specific navigation (highest priority)
+    if (portfolioId && scrollTo === "myWork") {
+      console.log("🎯 Portfolio Navigation:", portfolioId);
+      setHighlightedPortfolioId(portfolioId);
+      
+      // Find portfolio index to set active slide
+      const portfolioIndex = uniqueList?.findIndex(p => p.id === portfolioId);
+      if (portfolioIndex !== -1) {
+        console.log("📍 Setting carousel slide:", portfolioIndex);
+        window.dispatchEvent(new CustomEvent('setCarouselSlide', { detail: { slideIndex: portfolioIndex } }));
+      }
+      
+      // Scroll to portfolio section with better centering
+      setTimeout(() => {
+        console.log("🔄 Scrolling to portfolio section");
+        scrollToSectionWithCenter("myWork", 80);
+      }, 150);
+      return;
+    }
+
+    // PRIORITY 2: Experience-specific navigation
+    if (experienceId && experiencesRef.current) {
+      console.log("🎯 Experience Navigation:", experienceId);
+      setHighlightedExperienceId(experienceId);
+      setShowAllExperiences(true);
+      
+      setTimeout(() => {
+        const experienceElement = document.getElementById(`experience-${experienceId}`);
+        if (experienceElement) {
+          console.log("📍 Scrolling to specific experience element");
+          scrollToSectionWithCenter(`experience-${experienceId}`, 120);
+        } else {
+          console.log("📍 Experience element not found, scrolling to section");
+          scrollToSectionWithCenter("experienceSection", 100);
+        }
+      }, 400); // Longer timeout for DOM updates
+      return;
+    }
+
+    // PRIORITY 3: Experience section navigation
+    if ((sectionId === "experienceSection" || scrollTo === "experiences") && experiencesRef.current) {
+      console.log("🎯 Experience Section Navigation");
+      
       if (expand === "true") {
         setShowAllExperiences(true);
       }
+      
+      setTimeout(() => {
+        console.log("📍 Scrolling to experience section");
+        scrollToSectionWithCenter("experienceSection", 100);
+      }, expand === "true" ? 300 : 150);
+      return;
     }
-  }, [searchParams, listOfdata]);
+
+    // PRIORITY 4: Other section navigation (lowest priority)
+    if (sectionId && sectionId !== "experienceSection") {
+      console.log("🎯 General Section Navigation:", sectionId);
+      setTimeout(() => {
+        scrollToSectionWithCenter(sectionId, 100);
+      }, 100);
+      return;
+    }
+  }, [searchParams, listOfdata, uniqueList, scrollToSectionWithCenter]);
 
   // how many to show initially
   const initialCount = isMobile ? 3 : 6;
@@ -163,8 +249,6 @@ const Home = ({ params }: { params: any }) => {
   }, [loading]);
 
   // grouping used elsewhere — keep as is
-  const skills = skillsGrouping(listOfdata?.skills_ids);
-  const uniqueList = useUniquePortfolios(listOfdata?.portfolios_ids);
 
   return (
     <>
@@ -271,7 +355,7 @@ const Home = ({ params }: { params: any }) => {
                           Explore My Technical Endeavors
                         </div>
 
-                        <HomeSlider portfolios={uniqueList} />
+                        <HomeSlider portfolios={uniqueList} highlightedPortfolioId={highlightedPortfolioId} />
                       </div>
                     </section>
                   )}
@@ -281,6 +365,7 @@ const Home = ({ params }: { params: any }) => {
                   listOfdata.experiences_ids &&
                   listOfdata.experiences_ids.length > 0 && (
                     <section
+                      id="experienceSection"
                       ref={experiencesRef} // FIX: ref on section wrapper
                       className="w-full print_p_m print:h-screen print:break-before-page print:bg-[#a3ddd3]"
                     >
@@ -300,7 +385,13 @@ const Home = ({ params }: { params: any }) => {
                               : initialCount
                           )
                           .map((experience) => (
-                            <div key={experience.id}>
+                            <div 
+                              key={experience.id}
+                              id={`experience-${experience.id}`}
+                              className={highlightedExperienceId === experience.id
+                                ? "border border-primary rounded-[1rem] p-4"
+                                : ""}
+                            >
                               <ExperienceSection
                                 index={experience.id}
                                 experience={experience}

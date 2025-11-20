@@ -375,7 +375,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
               />
               <div className="flex justify-center items-center mt-[1.5rem]">
                 <Link
-                  href={`/portfolio`}
+                  href={`/cv?scrollTo=portfolios&expand=true`}
                   className="btn-primary text-white py-[1rem] px-[3.4rem]
                   text-[1.6rem] font-medium"
                 >

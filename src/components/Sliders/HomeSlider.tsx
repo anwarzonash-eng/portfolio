@@ -9,7 +9,7 @@ import PortfolioCardContent from "../PortfolioCardContent";
 const SLIDE_INTERVAL = 5000; // default autoplay
 const INACTIVITY_DELAY = 5000; // after interaction
 
-const HomeSlider = ({ portfolios }) => {
+const HomeSlider = ({ portfolios, highlightedPortfolioId }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -27,6 +27,23 @@ const HomeSlider = ({ portfolios }) => {
   const carouselRef = useRef<HTMLDivElement>(null);
   const slideRefs = useRef<(HTMLDivElement | null)[]>([]);
   const inactivityTimer = useRef<NodeJS.Timeout | null>(null);
+
+  // Listen for carousel slide change events
+  useEffect(() => {
+    const handleSetCarouselSlide = (event: CustomEvent) => {
+      const { slideIndex } = event.detail;
+      if (slideIndex >= 0 && slideIndex < portfolios.length) {
+        setCurrentSlide(slideIndex);
+        setProgress(0);
+      }
+    };
+
+    window.addEventListener('setCarouselSlide', handleSetCarouselSlide as EventListener);
+    
+    return () => {
+      window.removeEventListener('setCarouselSlide', handleSetCarouselSlide as EventListener);
+    };
+  }, [portfolios.length]);
 
   if (!portfolios?.length) return <PortfolioImagesLoader />;
 
@@ -225,29 +242,34 @@ const HomeSlider = ({ portfolios }) => {
           className="flex items-start transition-transform duration-700 ease-in-out"
           style={{ transform: `translateX(-${currentSlide * 100}%)` }}
         >
-          {portfolios.map((portfolio, index) => (
-            <div
-              key={portfolio.id}
-              className="w-full flex-shrink-0 rounded-[1rem]"
-              ref={(el) => {
-                slideRefs.current[index] = el;
-              }}
-            >
-              <PortfolioCardContent
-                portfolio={portfolio}
-                thumbnailSize={"large"}
-                listOfskills={portfolio.skills || []}
-                listOfdata={{
-                  primaryColor: "#1F4FE1",
-                  companytype: portfolio.companytype || "",
+          {portfolios.map((portfolio, index) => {
+            const isHighlighted = highlightedPortfolioId === portfolio.id;
+            return (
+              <div
+                key={portfolio.id}
+                className={`w-full flex-shrink-0 rounded-[1rem] transition-all duration-300 ${
+                  isHighlighted ? 'ring-4 ring-primary ring-opacity-50 bg-primary bg-opacity-5' : ''
+                }`}
+                ref={(el) => {
+                  slideRefs.current[index] = el;
                 }}
-                index={index}
-                showMoreSkills={showMoreSkills}
-                setShowMoreSkills={setShowMoreSkills}
-                openModal={openModal}
-              />
-            </div>
-          ))}
+              >
+                <PortfolioCardContent
+                  portfolio={portfolio}
+                  thumbnailSize={"large"}
+                  listOfskills={portfolio.skills || []}
+                  listOfdata={{
+                    primaryColor: "#1F4FE1",
+                    companytype: portfolio.companytype || "",
+                  }}
+                  index={index}
+                  showMoreSkills={showMoreSkills}
+                  setShowMoreSkills={setShowMoreSkills}
+                  openModal={openModal}
+                />
+              </div>
+            );
+          })}
         </div>
 
         {/* Navigation */}

@@ -106,11 +106,20 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({
       ? "text-[1.4rem] leading-[2rem] font-medium text-heading"
       : "text-[1.8rem] leading-[2.8rem] text-paragraph1";
 
+  // Conditional layout based on number of skills (similar to HomeSkillsSection)
+  const totalVisibleSkills = visibleSkills?.length || 0;
+  const useFlex = totalVisibleSkills <= 10;
+  
+  // Apply different styles based on skill count
+  const containerClasses = useFlex 
+    ? `flex items-center justify-center flex-wrap ${gap} w-full`
+    : `grid ${gridCols} ${gap} content-center place-items-center`;
+
   return (
     <div className="flex flex-col w-full items-center justify-center mt-[3rem]">
       {/* === Skills Grid === */}
       <div
-        className={`grid ${gridCols} ${gap} content-center place-items-center ${
+        className={`${containerClasses} ${
           variant === "default" ? "print:hidden" : ""
         }`}
       >

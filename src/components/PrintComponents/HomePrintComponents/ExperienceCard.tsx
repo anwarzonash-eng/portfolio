@@ -216,7 +216,7 @@ const ExperienceCard = ({
                 }}
               />
               <Link
-                href={`/cv?sectionId=experienceSection&experienceId=${experience.id}`} // Navigate to CV page with experience ID
+                href={`/?experienceId=${experience.id}&scrollTo=experiences&nav=experience`} // Navigate to Home page with experience ID
                 className="hover:bg-white bg-primary text-white hover:text-primary capitalize text-center text-primary text-[1.2rem] font-medium py-[0.4rem] px-[1.5rem] inline-flex items-center justify-center gap-[8px] rounded-[5rem] shadow opacity-0 animate-fadeIn relative group border border-transparent hover:border-primary mt-[1rem]"
               >
                 Read More
@@ -248,7 +248,7 @@ const ExperienceCard = ({
                     )}
                     {shouldShowMoreButton && (
                       <Link
-                        href={`/portfolio/${listOfdata?.portfolios_ids?.[0]?.id}?scroll=skills`}
+                        href={`/?experienceId=${experience.id}&scrollTo=experiences&nav=experience`} 
                         className="hover:bg-white bg-primary text-white hover:text-primary capitalize text-center text-primary text-[1.2rem] font-medium py-[0.4rem] px-[1.5rem] inline-flex items-center justify-center gap-[8px] rounded-[5rem] shadow opacity-0 animate-fadeIn relative group border border-transparent hover:border-primary"
                       >
                         Show More Skills

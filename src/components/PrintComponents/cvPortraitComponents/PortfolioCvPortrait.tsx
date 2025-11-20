@@ -145,13 +145,13 @@ const PortfolioCvPortrait: React.FC<PortfolioCvPortraitProps> = ({
                               )}
                         </p>
                         <div className="">
-                          <p
+                          {/* <p
                             dangerouslySetInnerHTML={{
                               __html: portfolio.tagline_1,
                             }}
                             className="text-[1.5rem] leading-[2rem] font-normal text-paragraph1 
                             mt-[1rem] line-clamp-2"
-                          ></p>
+                          ></p> */}
 
                           <p
                             dangerouslySetInnerHTML={{
@@ -159,6 +159,14 @@ const PortfolioCvPortrait: React.FC<PortfolioCvPortraitProps> = ({
                             }}
                             className="text-[1.6rem] leading-[2rem] font-normal text-primary mt-[1rem] line-clamp-3"
                           ></p>
+                          <div className="w-full flex items-start mt-[2rem]">
+                          <Link
+                              href={`/cv?sectionId=portfolioSection&portfolioId=${portfolio.id}`}
+                              className="hover:bg-white bg-primary text-white hover:text-primary capitalize text-center text-primary text-[1.3rem] font-medium py-[0.4rem] px-[2rem] flex items-center justify-center gap-[8px] rounded-[5rem] shadow opacity-0 animate-fadeIn relative group border border-transparent hover:border-primary"
+                            >
+                              Read More
+                            </Link>
+                          </div>
                         </div>
                       </div>
 
@@ -179,7 +187,7 @@ const PortfolioCvPortrait: React.FC<PortfolioCvPortraitProps> = ({
 
                           {shouldShowSeeMore && (
                             <Link
-                              href={`/portfolio/${portfolioId}?scroll=skills`}
+                              href={`/cv?sectionId=portfolioSection&portfolioId=${portfolio.id}`}
                               className="hover:bg-white bg-primary text-white hover:text-primary capitalize text-center text-primary text-[1.3rem] font-medium py-[0.4rem] px-[2rem] flex items-center justify-center gap-[8px] rounded-[5rem] shadow opacity-0 animate-fadeIn relative group border border-transparent hover:border-primary"
                             >
                               See More
@@ -227,8 +235,8 @@ const PortfolioCvPortrait: React.FC<PortfolioCvPortraitProps> = ({
                         style={{
                           // Height = width / 1.75
                           height: `calc(100vw / 1.75)`,
-                          // maxHeight: '420px', // fallback for A4 portrait
-                          // minHeight: '370px'
+                          maxHeight: '420px', // fallback for A4 portrait
+                          minHeight: '370px'
                         }}
                           // style={{ aspectRatio: "16 / 9" }}
                       >

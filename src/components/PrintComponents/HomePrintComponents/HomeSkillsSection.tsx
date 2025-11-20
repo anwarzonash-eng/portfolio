@@ -91,14 +91,14 @@ const HomeSkillsSection: React.FC<SkillsContainerProps> = ({
                 <>
                   {skill.icon && (
                     <div className="flex items-center justify-center 
-                    h-[4.5rem] w-[4.5rem]">
+                    h-[5.5rem] w-[5.5rem]">
                       <Image
                         src={skill.icon}
                         alt={skill.title}
                         loading="eager"
                         priority={true}
-                        height={45}
-                        width={45}
+                        height={55}
+                        width={55}
                         className="object-contain w-full h-full"
                       />
                     </div>

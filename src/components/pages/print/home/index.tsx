@@ -36,6 +36,7 @@ import {
   HomePortfolioCard,
 } from "@/components/PrintComponents/HomePrintComponents";
 import PrintPageRenderer, { ComponentConfig } from "@/utils/printPageRenderer";
+import Link from "next/link";
 
 const Home_p = ({ params }: { params: any }) => {
   useBodyBackgroundColor("#f8f9fa");
@@ -181,7 +182,7 @@ const Home_p = ({ params }: { params: any }) => {
           autoExpandOnParam={true}
           list={listOfdata?.skills_ids}
           numColumns={8}
-          numSkills={40}
+          numSkills={32}
           portfolioId={listOfdata?.portfolios_ids[0]?.id}
           useLinks={true}
         />
@@ -264,17 +265,26 @@ const Home_p = ({ params }: { params: any }) => {
       componentType: "static",
       badgeTitle: "Professional Experience",
       component: (
-        <HomeExperienceSection
-          listOfdata={listOfdata}
-          skillsGrouping={skillsGrouping}
-          showMoreSkills={showMoreSkills}
-          listOfskills={listOfskills}
-          start={2}
-          end={4}
-        />
+        <>
+          <HomeExperienceSection
+            listOfdata={listOfdata}
+            skillsGrouping={skillsGrouping}
+            showMoreSkills={showMoreSkills}
+            listOfskills={listOfskills}
+            start={2}
+            end={4}
+          />
+          <div className="flex items-center justify-center">
+            <Link
+              href={`/?scrollTo=experiences&expand=true&nav=experience`}
+              className="btn-primary text-white py-[1rem] mt-[2rem] px-[3.4rem] text-[1.8rem] font-medium"
+            >
+              View All Experiences
+            </Link>
+          </div>
+        </>
       ),
     },
-    
 
     // {
     //   componentType: "dynamic",

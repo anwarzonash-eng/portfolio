@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState, useMemo } from "react";
+import Link from "next/link";
 import "@/styles/printStyles/portfolio_p.css";
 import useBodyBackgroundColor from "@/hooks/useBodyBackgroundColor";
 import { useSearchParams } from "next/navigation";
@@ -321,6 +322,15 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
                 from={7}
                 max={8}
               />
+              <div className="flex justify-center items-center mt-[1.5rem]">
+                <Link
+                  href={`/portfolio?scrollTo=portfolios&expand=true`}
+                  className="btn-primary text-white py-[1rem] px-[3.4rem]
+                  text-[1.6rem] font-medium"
+                >
+                  View All Portfolios
+                </Link>
+              </div>
             </div>
           )}
         </>

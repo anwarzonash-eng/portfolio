@@ -2,36 +2,53 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useAppSelector } from "@/store";
 
 const LinkInterceptor = () => {
   const router = useRouter();
+  
+  // Add try-catch to handle Redux context not being available yet
+  let urlInfo = null;
+  try {
+    urlInfo = useAppSelector(
+      (state) => state.profile.profileUrlInfo
+    );
+  } catch (error) {
+    console.log("Redux store not available yet in LinkInterceptor");
+    // Fallback to manual URL parsing when Redux isn't available
+    urlInfo = null;
+  }
 
   useEffect(() => {
     const rewriteAllHrefs = () => {
       const currentUrl = new URL(window.location.href);
       const searchParams = currentUrl.searchParams;
 
-      // ✅ Determine Admin Mode from URL only
-      const isAdmin = searchParams.get("a") === "_";
-
       let uniqueID: string | null = null;
       let isU = false;
-      let domainParam: string | null = null; // Initialize domain param
+      let isAdmin = false;
+      let domainParam: string | null = null;
 
-      if (isAdmin) {
-        // ---------------- ADMIN MODE ----------------
-        // uniqueID from path, 'a' if not present
-        uniqueID = currentUrl.pathname.split("/")[1] || "a";
-        // u from URL
-        isU = searchParams.get("u") === "_";
-        // Get 'd' from URL to persist
-        domainParam = searchParams.get("d");
+      if (urlInfo?.uniqueID) {
+        // Use URLInfo from Redux store when available
+        uniqueID = urlInfo.uniqueID;
+        isU = urlInfo.u === "_";
+        isAdmin = urlInfo.a === "_";
+        domainParam = urlInfo.d;
+        console.log("LinkInterceptor URLInfo from Redux:", { uniqueID, isU, isAdmin, domainParam });
       } else {
-        // ---------------- NON-ADMIN MODE ----------------
-        // uniqueID from localStorage
-        uniqueID = localStorage.getItem("uniqueID") || "a";
-        // u from localStorage
-        isU = localStorage.getItem("u") === "_";
+        // Fallback to manual URL parsing when Redux isn't available yet
+        isAdmin = searchParams.get("a") === "_";
+        
+        if (isAdmin) {
+          uniqueID = currentUrl.pathname.split("/")[1] || "a";
+          isU = searchParams.get("u") === "_";
+          domainParam = searchParams.get("d");
+        } else {
+          uniqueID = localStorage.getItem("uniqueID") || "a";
+          isU = localStorage.getItem("u") === "_";
+        }
+        console.log("LinkInterceptor using fallback URL parsing:", { uniqueID, isU, isAdmin, domainParam });
       }
 
       if (!uniqueID) return;
@@ -54,11 +71,10 @@ const LinkInterceptor = () => {
           sp.append("a", "_");
         }
 
-        // 🛑 FIXED LOGIC: Persist 'd' parameter in Admin Mode
+        // Persist 'd' parameter in Admin Mode
         if (isAdmin && domainParam && !sp.has("d")) {
           sp.append("d", domainParam);
         }
-        // 🛑 END FIXED LOGIC
 
         // ✅ build href with uniqueID
         let newPath = `/${uniqueID}${url.pathname}`;
@@ -107,7 +123,7 @@ const LinkInterceptor = () => {
       document.removeEventListener("click", clickHandler);
       observer.disconnect();
     };
-  }, [router]);
+  }, [router, urlInfo]); // Add urlInfo as dependency
 
   return null;
 };

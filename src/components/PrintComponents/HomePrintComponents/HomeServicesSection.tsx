@@ -32,12 +32,11 @@ const HomeServicesSection = ({ listOfdata, listOfdatas, services }) => {
 
               {/* Services Cards */}
               <div className="w-full flex items-center justify-center gap-10 flex-col">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mt-12 px-4  print:grid-cols-4">
-                  {services.map((service, index) => {
+                <div className="grid grid-cols-4 gap-8 mt-12 px-4">
+                  {services.slice(0, 8).map((service, index) => {
                     const truncatedTagline =
                       service?.tagline?.split(" ")?.slice(0, 12)?.join(" ") +
                       (service?.tagline?.split(" ").length > 12 ? "..." : "");
-
                     return (
                       <div
                         key={index}

@@ -13,6 +13,7 @@ import { setProfileLoading, setProfileUrlInfo } from "@/store/profileSlice";
 import OurBlogs from "@/components/OurBlogs";
 import { handleSkillsApiCall } from "@/hooks/apihandlers/skillsApiHandlers";
 import { skillsGrouping } from "@/hooks/skillsGrouping";
+import { SmoothScroll } from "@/hooks/SmoothScroll";
 import Background from "@/components/background";
 import { useAppSelector } from "@/store";
 import EmptyState from "@/components/EmptyState";
@@ -36,6 +37,10 @@ const PortfolioListing = ({ params }: { params: any }) => {
   const [loading, setLoading] = useState(true);
   const searchParams = useSearchParams();
   const hasOpenedFromQueryRef = React.useRef(false);
+  // Highlight specific portfolio
+  const [highlightedPortfolioId, setHighlightedPortfolioId] = useState<
+    string | null
+  >(null);
 
   // Filter skills based on listOfdata.skills_ids
   const [allSkills, setAllSkills] = useState([]);
@@ -103,6 +108,38 @@ const PortfolioListing = ({ params }: { params: any }) => {
       }
     } catch (e) {
       // ignore parse/open errors
+    }
+  }, [searchParams, listOfdata]);
+
+  // Handle navigation to specific portfolios or sections
+  useEffect(() => {
+    const sectionId = searchParams.get("sectionId");
+    const portfolioId = searchParams.get("portfolioId");
+    const expandParam = searchParams.get("expand");
+    const scrollTo = searchParams.get("scrollTo");
+
+    if (portfolioId) {
+      setHighlightedPortfolioId(portfolioId); // Highlight the specific portfolio
+      setTimeout(() => {
+        const portfolioElement = document.getElementById(
+          `portfolio-${portfolioId}`
+        );
+        if (portfolioElement) {
+          portfolioElement.scrollIntoView({ behavior: "smooth" });
+        } else if (sectionId) {
+          SmoothScroll(sectionId);
+        }
+      }, 100); // Small delay to ensure DOM is rendered
+    } else if (sectionId) {
+      SmoothScroll(sectionId);
+    } else {
+      // If expand=true and scrollTo=portfolios is provided, scroll to portfolio section
+      if (expandParam === "true" && scrollTo === "portfolios") {
+        // Small timeout to allow DOM to render before scrolling
+        setTimeout(() => {
+          SmoothScroll("portfolioSection");
+        }, 120);
+      }
     }
   }, [searchParams, listOfdata]);
 
@@ -196,7 +233,10 @@ const PortfolioListing = ({ params }: { params: any }) => {
       {listOfdata && listOfdata?.portfolios_ids.length > 0 && (
         <>
           {/* Portfolio Timeline Section */}
-          <div className="mainContainer mt-[-30rem] lg:mt-[-40rem] xl:mt-[-36rem] print:mt-0  w-full mb-[4rem]">
+          <div 
+            id="portfolioSection"
+            className="mainContainer mt-[-30rem] lg:mt-[-40rem] xl:mt-[-36rem] print:mt-0  w-full mb-[4rem]"
+          >
             {/* Timeline */}
             <div className="flex items-center justify-center mt-[2rem]">
               <div className="relative">
@@ -225,7 +265,11 @@ const PortfolioListing = ({ params }: { params: any }) => {
                     );
                     return (
                       <div
-                        className="relative flex items-start portfolio-item w-full"
+                        id={`portfolio-${portfolio.id}`}
+                        className={`relative flex items-start portfolio-item w-full ${highlightedPortfolioId === portfolio.id
+                            ? "border border-primary rounded-[1rem] p-4"
+                            : ""
+                          }`}
                         key={String(portfolio?.id) || index}
                       >
                         {/* Dot */}

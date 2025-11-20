@@ -10,9 +10,16 @@ const IntroPortfolioDetail = ({
   ContactMeLinks,
 }) => {
   return (
-    <section className="h-screen print:section bg-bannerBG !w-full  print:FlexWrapContainer flex items-center justify-center relative">
-      <div className="max-w-[1550px] w-full mx-auto flex items-center justify-center">
+    // Before Gradient BG: bg-bannerBG
+    <section className="h-screen bg-cvSideBg bg-no-repeat bg-cover w-full  flex items-center justify-center relative">
         <div className="text-center">
+           <div className="flex items-center justify-center w-full">
+          <div
+            className="bg-primary text-white font-bold text-[3rem]  rounded-[100px] max-w-max px-10 tracking-wider"
+          >
+            Portfolio
+          </div>
+        </div>
           <div className="items-center justify-strat gap-[4rem] flex w-full">
             <Image
               src={listOfdatas?.profile_photo_1}
@@ -70,7 +77,6 @@ const IntroPortfolioDetail = ({
             )}
           </div>
         </div>
-      </div>
     </section>
   );
 };

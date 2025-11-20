@@ -62,6 +62,10 @@ const CV = ({ params }: { params: any }) => {
   const [highlightedExperienceId, setHighlightedExperienceId] = useState<
     string | null
   >(null);
+  // Highlight specific portfolio
+  const [highlightedPortfolioId, setHighlightedPortfolioId] = useState<
+    string | null
+  >(null);
 
   // Derived values
   const initialVisibleItems = 18; // 3 rows × 6
@@ -83,6 +87,7 @@ const CV = ({ params }: { params: any }) => {
   useEffect(() => {
     const sectionId = searchParams.get("sectionId");
     const experienceId = searchParams.get("experienceId");
+    const portfolioId = searchParams.get("portfolioId");
     const expandParam = searchParams.get("expand");
     const scrollTo = searchParams.get("scrollTo");
 
@@ -99,6 +104,18 @@ const CV = ({ params }: { params: any }) => {
           SmoothScroll(sectionId);
         }
       }, 100); // Small delay to ensure DOM is rendered
+    } else if (portfolioId) {
+      setHighlightedPortfolioId(portfolioId); // Highlight the specific portfolio
+      setTimeout(() => {
+        const portfolioElement = document.getElementById(
+          `portfolio-${portfolioId}`
+        );
+        if (portfolioElement) {
+          portfolioElement.scrollIntoView({ behavior: "smooth" });
+        } else if (sectionId) {
+          SmoothScroll(sectionId);
+        }
+      }, 100); // Small delay to ensure DOM is rendered
     } else if (sectionId) {
       SmoothScroll(sectionId);
     } else {
@@ -108,6 +125,13 @@ const CV = ({ params }: { params: any }) => {
         // Small timeout to allow DOM to render before scrolling
         setTimeout(() => {
           SmoothScroll("experienceSection");
+        }, 120);
+      }
+      // If expand=true and scrollTo=portfolios is provided, scroll to portfolio section
+      else if (expandParam === "true" && scrollTo === "portfolios") {
+        // Small timeout to allow DOM to render before scrolling
+        setTimeout(() => {
+          SmoothScroll("portfolioSection");
         }, 120);
       }
     }
@@ -436,8 +460,12 @@ const CV = ({ params }: { params: any }) => {
                                         );
                                         return (
                                           <div
-                                            className="relative flex items-start mt-[2rem] print-section flex-col"
                                             key={index}
+                                            id={`portfolio-${portfolio.id}`}
+                                            className={`relative flex items-start mt-[2rem] print-section flex-col ${highlightedPortfolioId === portfolio.id
+                                                ? "border border-primary rounded-[1rem]"
+                                                : ""
+                                              }`}
                                           >
                                             <div className="absolute top-0 left-[-3.2rem] z-[60] md:left-[-4.2rem] lg:left-[-6.2rem] block print:hidden">
                                               <div className="w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center">

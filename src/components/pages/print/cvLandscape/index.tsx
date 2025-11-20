@@ -1342,7 +1342,7 @@ const CV_Landscape = ({ params }: { params: any }) => {
                   })}
                   <div className="flex justify-center mt-8">
                     <Link
-                      href={"/portfolio"}
+                      href={`/cv?scrollTo=portfolios&expand=true`}
                       className="btn-primary text-white py-[1rem] px-[3.4rem] text-[1.8rem] font-medium"
                     >
                       View All Portfolios
