@@ -35,7 +35,7 @@ const LinkInterceptor = () => {
         isU = urlInfo.u === "_";
         isAdmin = urlInfo.a === "_";
         domainParam = urlInfo.d;
-        console.log("LinkInterceptor URLInfo from Redux:", { uniqueID, isU, isAdmin, domainParam });
+        // console.log("LinkInterceptor URLInfo from Redux:", { uniqueID, isU, isAdmin, domainParam });
       } else {
         // Fallback to manual URL parsing when Redux isn't available yet
         isAdmin = searchParams.get("a") === "_";
@@ -48,7 +48,7 @@ const LinkInterceptor = () => {
           uniqueID = localStorage.getItem("uniqueID") || "a";
           isU = localStorage.getItem("u") === "_";
         }
-        console.log("LinkInterceptor using fallback URL parsing:", { uniqueID, isU, isAdmin, domainParam });
+        // console.log("LinkInterceptor using fallback URL parsing:", { uniqueID, isU, isAdmin, domainParam });
       }
 
       if (!uniqueID) return;

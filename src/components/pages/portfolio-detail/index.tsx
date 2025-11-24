@@ -197,32 +197,38 @@ const PortfolioDetails = ({ params }: { params: any }) => {
     }
   }, [searchParams, portfolioDetails]);
 
-  // Scroll to tech stacks when hash is present (#tech-stacks)
-  // ✅ Scroll to Tech Stack section when ?scroll=skills is in the URL
-useEffect(() => {
-  if (
-    
-    portfolioDetails &&
-    searchParams.get("scroll") === "points" &&
-    techStacksRef.current
-  ) {
-    const scrollToTechStack = () => {
-      const headerOffset = 100; // adjust if you have a fixed navbar
-      const elementPosition =
-        techStacksRef.current.getBoundingClientRect().top + window.pageYOffset;
-      const offsetPosition = elementPosition - headerOffset;
+  // ✅ Scroll to Tech Stack section when ?scroll=points is in the URL
+  useEffect(() => {
+    if (!portfolioDetails || searchParams.get("scroll") !== "points") {
+      return;
+    }
 
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth",
-      });
+    const scrollToTechStack = () => {
+      // Try to find the element by ref first, then by ID
+      const targetElement = techStacksRef.current || document.getElementById("tech-stacks-heading");
+      
+      if (targetElement) {
+        const headerOffset = 100;
+        const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+        const offsetPosition = elementPosition - headerOffset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth",
+        });
+      }
     };
 
-    // Delay slightly to allow layout/images to render
-    const t = setTimeout(scrollToTechStack, 400);
-    return () => clearTimeout(t);
-  }
-}, [searchParams, portfolioDetails]);
+    // Wait for images and content to load before scrolling
+    const timeoutId = setTimeout(() => {
+      scrollToTechStack();
+      
+      // Fallback scroll attempt in case the first one fails
+      setTimeout(scrollToTechStack, 500);
+    }, 800);
+
+    return () => clearTimeout(timeoutId);
+  }, [searchParams, portfolioDetails]);
 
 
 
@@ -463,9 +469,10 @@ useEffect(() => {
                   <div className="w-full my-[6.4rem]">
                     <h2
                       ref={techStacksRef}
+                      id="tech-stacks-heading"
                       className="text-primary text-center text-[2rem] xl:text-[4rem] font-semibold mb-[2rem] xl:mb-[3rem]"
                     >
-                      Tech Stacks I worked On
+                      Tech Stacks I Have Worked On
                     </h2>
                     <div className="w-full relative">
                       <div

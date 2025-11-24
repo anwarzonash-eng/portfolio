@@ -38,6 +38,8 @@ import {
 import PrintPageRenderer, { ComponentConfig } from "@/utils/printPageRenderer";
 import Link from "next/link";
 
+
+
 const Home_p = ({ params }: { params: any }) => {
   useBodyBackgroundColor("#f8f9fa");
   const [showMoreSkills, setShowMoreSkills] = useState([]);
@@ -183,7 +185,7 @@ const Home_p = ({ params }: { params: any }) => {
           list={listOfdata?.skills_ids}
           numColumns={8}
           numSkills={32}
-          portfolioId={listOfdata?.portfolios_ids[0]?.id}
+          portfolioId={listOfdata && listOfdata?.portfolios_ids[0]?.id}
           useLinks={true}
         />
       ),

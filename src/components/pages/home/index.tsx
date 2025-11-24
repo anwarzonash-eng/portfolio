@@ -155,131 +155,160 @@ const Home = ({ params }: { params: any }) => {
   const skills = skillsGrouping(listOfdata?.skills_ids);
   const uniqueList = useUniquePortfolios(listOfdata?.portfolios_ids);
 
-  // Enhanced scroll navigation with guaranteed viewport centering
+  // Portfolio section navigation - specific for portfolio ID targeting
   useEffect(() => {
-    // Skip if no data loaded yet
-    if (!listOfdata) return;
-
-    const sectionId = searchParams.get("sectionId");
-    const experienceId = searchParams.get("experienceId");
-    const portfolioId = searchParams.get("portfolioId");
-    const scrollTo = searchParams.get("scrollTo");
-    const expand = searchParams.get("expand");
-
-    console.log("🚀 Navigation params:", { sectionId, experienceId, portfolioId, scrollTo, expand });
-
-    // Clear any existing highlights first
-    setHighlightedExperienceId(null);
-    setHighlightedPortfolioId(null);
-
-    // Helper function to wait for element to be ready
-    const waitForElement = (elementId: string, maxAttempts = 10): Promise<HTMLElement | null> => {
-      return new Promise((resolve) => {
-        let attempts = 0;
-        const checkElement = () => {
-          const element = document.getElementById(elementId);
-          if (element && element.offsetHeight > 0) {
-            resolve(element);
-          } else if (attempts < maxAttempts) {
-            attempts++;
-            setTimeout(checkElement, 100);
-          } else {
-            resolve(null);
-          }
-        };
-        checkElement();
-      });
-    };
-
-    // PRIORITY 1: Portfolio-specific navigation (highest priority)
-    if (portfolioId && scrollTo === "myWork") {
+    if (
+      listOfdata &&
+      searchParams.get("portfolioId") &&
+      (searchParams.get("sectionId") === "myWork" || 
+       searchParams.get("scrollTo") === "myWork" ||
+       searchParams.get("nav") === "portfolio")
+    ) {
+      const portfolioId = searchParams.get("portfolioId");
       console.log("🎯 Portfolio Navigation:", portfolioId);
+      
       setHighlightedPortfolioId(portfolioId);
       
       // Find portfolio index to set active slide
       const portfolioIndex = uniqueList?.findIndex(p => p.id === portfolioId);
       if (portfolioIndex !== -1) {
-        console.log("📍 Setting carousel slide:", portfolioIndex);
-        window.dispatchEvent(new CustomEvent('setCarouselSlide', { detail: { slideIndex: portfolioIndex } }));
+        setTimeout(() => {
+          window.dispatchEvent(new CustomEvent('setCarouselSlide', { detail: { slideIndex: portfolioIndex } }));
+        }, 100);
       }
       
-      // Wait for element and then scroll
-      setTimeout(async () => {
-        console.log("🔄 Waiting for portfolio section to render...");
-        const element = await waitForElement("myWork");
+      setTimeout(() => {
+        const element = document.getElementById("myWork");
         if (element) {
-          console.log("✅ Portfolio section ready, scrolling...");
-          scrollToSectionWithCenter("myWork", 80);
-        } else {
-          console.log("❌ Portfolio section not found after waiting");
-        }
-      }, 200);
-      return;
-    }
+          const headerOffset = 80;
+          const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+          const offsetPosition = elementPosition - headerOffset;
 
-    // PRIORITY 2: Experience-specific navigation
-    if (experienceId && experiencesRef.current) {
-      console.log("🎯 Experience Navigation:", experienceId);
-      setHighlightedExperienceId(experienceId);
-      setShowAllExperiences(true);
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth",
+          });
+        }
+      }, 300);
+    }
+  }, [searchParams, listOfdata, uniqueList]);
+
+  // Experience section navigation - specific for experience targeting
+  useEffect(() => {
+    if (
+      listOfdata &&
+      (searchParams.get("experienceId") || 
+       (searchParams.get("nav") === "experience" && 
+        (searchParams.get("scrollTo") === "experiences" || searchParams.get("sectionId") === "experienceSection")))
+    ) {
+      const experienceId = searchParams.get("experienceId");
+      const expand = searchParams.get("expand");
       
-      setTimeout(async () => {
-        console.log("🔄 Waiting for experience element to render...");
-        const experienceElement = await waitForElement(`experience-${experienceId}`);
-        if (experienceElement) {
-          console.log("✅ Experience element ready, scrolling to specific experience...");
-          scrollToSectionWithCenter(`experience-${experienceId}`, 120);
-        } else {
-          console.log("🔄 Experience element not found, scrolling to section...");
-          const sectionElement = await waitForElement("experienceSection");
-          if (sectionElement) {
-            console.log("✅ Experience section ready, scrolling...");
-            scrollToSectionWithCenter("experienceSection", 100);
-          } else {
-            console.log("❌ Experience section not found after waiting");
-          }
-        }
-      }, 500); // Longer timeout for experience expansion
-      return;
-    }
-
-    // PRIORITY 3: Experience section navigation
-    if ((sectionId === "experienceSection" || scrollTo === "experiences") && experiencesRef.current) {
-      console.log("🎯 Experience Section Navigation");
+      console.log("🎯 Experience Navigation:", { experienceId, expand });
       
       if (expand === "true") {
         setShowAllExperiences(true);
       }
-      
-      setTimeout(async () => {
-        console.log("🔄 Waiting for experience section to render...");
-        const element = await waitForElement("experienceSection");
-        if (element) {
-          console.log("✅ Experience section ready, scrolling...");
-          scrollToSectionWithCenter("experienceSection", 100);
-        } else {
-          console.log("❌ Experience section not found after waiting");
-        }
-      }, expand === "true" ? 400 : 200);
-      return;
-    }
 
-    // PRIORITY 4: Other section navigation (lowest priority)
-    if (sectionId && sectionId !== "experienceSection") {
-      console.log("🎯 General Section Navigation:", sectionId);
-      setTimeout(async () => {
-        console.log(`🔄 Waiting for section ${sectionId} to render...`);
-        const element = await waitForElement(sectionId);
-        if (element) {
-          console.log(`✅ Section ${sectionId} ready, scrolling...`);
-          scrollToSectionWithCenter(sectionId, 100);
-        } else {
-          console.log(`❌ Section ${sectionId} not found after waiting`);
-        }
-      }, 200);
-      return;
+      if (experienceId) {
+        setHighlightedExperienceId(experienceId);
+        setShowAllExperiences(true);
+        
+        setTimeout(() => {
+          const experienceElement = document.getElementById(`experience-${experienceId}`);
+          if (experienceElement) {
+            const headerOffset = 120;
+            const elementPosition = experienceElement.getBoundingClientRect().top + window.pageYOffset;
+            const offsetPosition = elementPosition - headerOffset;
+
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: "smooth",
+            });
+          } else {
+            // Fallback to section
+            const sectionElement = document.getElementById("experienceSection");
+            if (sectionElement) {
+              const headerOffset = 100;
+              const elementPosition = sectionElement.getBoundingClientRect().top + window.pageYOffset;
+              const offsetPosition = elementPosition - headerOffset;
+
+              window.scrollTo({
+                top: offsetPosition,
+                behavior: "smooth",
+              });
+            }
+          }
+        }, expand === "true" ? 800 : 500);
+      } else {
+        // General experience section navigation
+        setTimeout(() => {
+          const element = document.getElementById("experienceSection");
+          if (element) {
+            const headerOffset = 100;
+            const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+            const offsetPosition = elementPosition - headerOffset;
+
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: "smooth",
+            });
+          }
+        }, expand === "true" ? 800 : 400);
+      }
     }
-  }, [searchParams, listOfdata, uniqueList, scrollToSectionWithCenter]);
+  }, [searchParams, listOfdata]);
+
+  // Skills section navigation - specific for skills targeting
+  useEffect(() => {
+    if (
+      listOfdata &&
+      (searchParams.get("sectionId") === "skillSection" || searchParams.get("scrollTo") === "skills" || searchParams.get("scroll") === "skills") &&
+      searchParams.get("nav") !== "portfolio" &&
+      searchParams.get("nav") !== "experience"
+    ) {
+      setTimeout(() => {
+        const element = document.getElementById("skillSection");
+        if (element) {
+          const headerOffset = 100;
+          const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+          const offsetPosition = elementPosition - headerOffset;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth",
+          });
+        }
+      }, 300);
+    }
+  }, [searchParams, listOfdata]);
+
+  // General section navigation - for other sections
+  useEffect(() => {
+    const sectionId = searchParams.get("sectionId");
+    if (
+      listOfdata &&
+      sectionId &&
+      !["myWork", "experienceSection", "skillSection"].includes(sectionId) &&
+      !searchParams.get("nav") &&
+      !searchParams.get("portfolioId") &&
+      !searchParams.get("experienceId")
+    ) {
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          const headerOffset = 100;
+          const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+          const offsetPosition = elementPosition - headerOffset;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth",
+          });
+        }
+      }, 300);
+    }
+  }, [searchParams, listOfdata]);
 
   // how many to show initially
   const initialCount = isMobile ? 3 : 6;
@@ -395,7 +424,7 @@ const Home = ({ params }: { params: any }) => {
                     </div>
 
                     {/* FIX: pass filteredSkills to SkillsContainer */}
-                    <SkillsContainer list={filteredSkills} variant="default" />
+                    <SkillsContainer list={filteredSkills} variant="default" autoExpandOnParam={true} />
                   </div>
                 )}
 

@@ -332,8 +332,8 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
       component: (
         <PortfolioDetailSKills
           list={listOfdata?.skills_ids}
-          numColumns={8}
-          numSkills={40}
+          numColumns={7}
+          numSkills={35}
           portfolioId={listOfdata?.portfolios_ids[0]?.id}
         />
       ),

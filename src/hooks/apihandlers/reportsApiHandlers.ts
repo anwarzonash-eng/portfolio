@@ -216,8 +216,8 @@ const adjustSkilledDescriptionInServices = async (data) => {
     let skills = `${matchedGroups
       .map((group) => `<li>${group.description}</li>`)
       .join("")}`;
-    console.log({ skills: data.skills_ids })
-    console.log({ skills_services: service.skills })
+    // console.log({ skills: data.skills_ids })
+    // console.log({ skills_services: service.skills })
 
     const transformedSkills = service.skills.map((skillId) => {
       const matched_skill = data.skills_ids.find((skill_parent) =>
@@ -261,7 +261,7 @@ const adjustSkilledDescriptionInServices = async (data) => {
       service.tagline = matchedCategory.tagline;
       service.title = matchedCategory.title;
     }
-    console.log({ from_service: data, services_skills_data: skills, matched_groups: matchedGroups, skillsWithID });
+    // console.log({ from_service: data, services_skills_data: skills, matched_groups: matchedGroups, skillsWithID });
   });
 
 
