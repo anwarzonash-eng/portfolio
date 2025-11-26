@@ -63,51 +63,7 @@ const Home = ({ params }: { params: any }) => {
     string | null
   >(null);
 
-  // Centralized scroll function with guaranteed viewport centering
-  const scrollToSectionWithCenter = useCallback((elementId: string, offset: number = 100) => {
-    const element = document.getElementById(elementId);
-    if (element) {
-      // Get current viewport dimensions
-      const viewportHeight = window.innerHeight;
-      const viewportWidth = window.innerWidth;
-      
-      // Get element dimensions and position
-      const elementRect = element.getBoundingClientRect();
-      const elementHeight = elementRect.height;
-      const elementTop = elementRect.top + window.pageYOffset;
-      
-      // Calculate perfect center position
-      // Place element center at viewport center
-      const viewportCenter = viewportHeight / 2;
-      const elementCenter = elementHeight / 2;
-      const targetScrollPosition = elementTop - (viewportCenter - elementCenter);
-      
-      // Apply minimum offset from top (for header/navbar)
-      const finalPosition = Math.max(offset, targetScrollPosition);
-      
-      console.log(`🎯 Scrolling ${elementId}:`, {
-        viewportHeight,
-        elementHeight,
-        elementTop,
-        targetScrollPosition,
-        finalPosition,
-        currentScroll: window.pageYOffset
-      });
-      
-      // Use requestAnimationFrame for smoother scrolling
-      requestAnimationFrame(() => {
-        window.scrollTo({
-          top: finalPosition,
-          behavior: "smooth",
-        });
-      });
-      
-      return true;
-    }
-    console.warn(`❌ Element not found: ${elementId}`);
-    return false;
-  }, []);
-
+ 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 1024); // breakpoint: < lg
     checkMobile();
@@ -155,160 +111,126 @@ const Home = ({ params }: { params: any }) => {
   const skills = skillsGrouping(listOfdata?.skills_ids);
   const uniqueList = useUniquePortfolios(listOfdata?.portfolios_ids);
 
-  // Portfolio section navigation - specific for portfolio ID targeting
+  // Unified navigation system - handles all scroll-to-section logic
   useEffect(() => {
-    if (
-      listOfdata &&
-      searchParams.get("portfolioId") &&
-      (searchParams.get("sectionId") === "myWork" || 
-       searchParams.get("scrollTo") === "myWork" ||
-       searchParams.get("nav") === "portfolio")
-    ) {
-      const portfolioId = searchParams.get("portfolioId");
-      console.log("🎯 Portfolio Navigation:", portfolioId);
-      
-      setHighlightedPortfolioId(portfolioId);
-      
-      // Find portfolio index to set active slide
-      const portfolioIndex = uniqueList?.findIndex(p => p.id === portfolioId);
-      if (portfolioIndex !== -1) {
-        setTimeout(() => {
-          window.dispatchEvent(new CustomEvent('setCarouselSlide', { detail: { slideIndex: portfolioIndex } }));
-        }, 100);
-      }
-      
-      setTimeout(() => {
-        const element = document.getElementById("myWork");
-        if (element) {
-          const headerOffset = 80;
-          const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
-          const offsetPosition = elementPosition - headerOffset;
+    if (!listOfdata) return;
 
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: "smooth",
-          });
-        }
-      }, 300);
-    }
-  }, [searchParams, listOfdata, uniqueList]);
+    const portfolioId = searchParams.get("portfolioId");
+    const experienceId = searchParams.get("experienceId");
+    const sectionId = searchParams.get("sectionId");
+    const scrollTo = searchParams.get("scrollTo");
+    const scroll = searchParams.get("scroll");
+    const nav = searchParams.get("nav");
+    const expand = searchParams.get("expand");
 
-  // Experience section navigation - specific for experience targeting
-  useEffect(() => {
-    if (
-      listOfdata &&
-      (searchParams.get("experienceId") || 
-       (searchParams.get("nav") === "experience" && 
-        (searchParams.get("scrollTo") === "experiences" || searchParams.get("sectionId") === "experienceSection")))
-    ) {
-      const experienceId = searchParams.get("experienceId");
-      const expand = searchParams.get("expand");
-      
-      console.log("🎯 Experience Navigation:", { experienceId, expand });
-      
-      if (expand === "true") {
-        setShowAllExperiences(true);
-      }
+    console.log("🚀 Navigation System:", { portfolioId, experienceId, sectionId, scrollTo, scroll, nav, expand });
 
-      if (experienceId) {
-        setHighlightedExperienceId(experienceId);
-        setShowAllExperiences(true);
-        
-        setTimeout(() => {
-          const experienceElement = document.getElementById(`experience-${experienceId}`);
-          if (experienceElement) {
-            const headerOffset = 120;
-            const elementPosition = experienceElement.getBoundingClientRect().top + window.pageYOffset;
-            const offsetPosition = elementPosition - headerOffset;
-
-            window.scrollTo({
-              top: offsetPosition,
-              behavior: "smooth",
-            });
+    // Helper function to wait for element to exist and be rendered
+    const waitForElement = (elementId: string): Promise<HTMLElement | null> => {
+      return new Promise((resolve) => {
+        const checkElement = () => {
+          const element = document.getElementById(elementId);
+          if (element && element.offsetHeight > 0) {
+            resolve(element);
           } else {
-            // Fallback to section
-            const sectionElement = document.getElementById("experienceSection");
-            if (sectionElement) {
-              const headerOffset = 100;
-              const elementPosition = sectionElement.getBoundingClientRect().top + window.pageYOffset;
-              const offsetPosition = elementPosition - headerOffset;
+            // Use requestAnimationFrame for better performance than setTimeout
+            requestAnimationFrame(checkElement);
+          }
+        };
+        checkElement();
+      });
+    };
 
-              window.scrollTo({
-                top: offsetPosition,
-                behavior: "smooth",
-              });
+    // Scroll to element with proper offset
+    const scrollToElement = (element: HTMLElement, offset: number = 100) => {
+      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+      const offsetPosition = Math.max(0, elementPosition - offset);
+      
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    };
+
+    // Navigation logic in priority order
+    const handleNavigation = async () => {
+      try {
+        // 1. Portfolio-specific navigation (highest priority)
+        if (portfolioId && (sectionId === "myWork" || scrollTo === "myWork" || nav === "portfolio")) {
+          console.log("📍 Portfolio Navigation");
+          setHighlightedPortfolioId(portfolioId);
+          
+          // Set carousel slide if portfolio exists
+          if (uniqueList?.length > 0) {
+            const portfolioIndex = uniqueList.findIndex(p => p.id === portfolioId);
+            if (portfolioIndex !== -1) {
+              window.dispatchEvent(new CustomEvent('setCarouselSlide', { 
+                detail: { slideIndex: portfolioIndex } 
+              }));
             }
           }
-        }, expand === "true" ? 800 : 500);
-      } else {
-        // General experience section navigation
-        setTimeout(() => {
-          const element = document.getElementById("experienceSection");
-          if (element) {
-            const headerOffset = 100;
-            const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
-            const offsetPosition = elementPosition - headerOffset;
+          
+          const element = await waitForElement("myWork");
+          if (element) scrollToElement(element, 80);
+          return;
+        }
 
-            window.scrollTo({
-              top: offsetPosition,
-              behavior: "smooth",
-            });
+        // 2. Experience-specific navigation
+        if (experienceId || (nav === "experience" && (scrollTo === "experiences" || sectionId === "experienceSection"))) {
+          console.log("📍 Experience Navigation");
+          
+          if (expand === "true") setShowAllExperiences(true);
+          
+          if (experienceId) {
+            setHighlightedExperienceId(experienceId);
+            setShowAllExperiences(true);
+            
+            // Wait for experience expansion if needed
+            if (expand === "true") {
+              await new Promise(resolve => setTimeout(resolve, 100)); // Brief wait for state update
+            }
+            
+            const specificElement = await waitForElement(`experience-${experienceId}`);
+            if (specificElement) {
+              scrollToElement(specificElement, 120);
+              return;
+            }
           }
-        }, expand === "true" ? 800 : 400);
+          
+          // Fallback to section
+          const sectionElement = await waitForElement("experienceSection");
+          if (sectionElement) scrollToElement(sectionElement, 100);
+          return;
+        }
+
+        // 3. Skills section navigation
+        if ((sectionId === "skillSection" || scrollTo === "skills" || scroll === "skills") && 
+            nav !== "portfolio" && nav !== "experience") {
+          console.log("📍 Skills Navigation");
+          
+          const element = await waitForElement("skillSection");
+          if (element) scrollToElement(element, 100);
+          return;
+        }
+
+        // 4. General section navigation
+        if (sectionId && !["myWork", "experienceSection", "skillSection"].includes(sectionId) && 
+            !nav && !portfolioId && !experienceId) {
+          console.log("📍 General Section Navigation:", sectionId);
+          
+          const element = await waitForElement(sectionId);
+          if (element) scrollToElement(element, 100);
+          return;
+        }
+
+        console.log("ℹ️ No navigation action needed");
+      } catch (error) {
+        console.error("Navigation error:", error);
       }
-    }
-  }, [searchParams, listOfdata]);
+    };
 
-  // Skills section navigation - specific for skills targeting
-  useEffect(() => {
-    if (
-      listOfdata &&
-      (searchParams.get("sectionId") === "skillSection" || searchParams.get("scrollTo") === "skills" || searchParams.get("scroll") === "skills") &&
-      searchParams.get("nav") !== "portfolio" &&
-      searchParams.get("nav") !== "experience"
-    ) {
-      setTimeout(() => {
-        const element = document.getElementById("skillSection");
-        if (element) {
-          const headerOffset = 100;
-          const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
-          const offsetPosition = elementPosition - headerOffset;
-
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: "smooth",
-          });
-        }
-      }, 300);
-    }
-  }, [searchParams, listOfdata]);
-
-  // General section navigation - for other sections
-  useEffect(() => {
-    const sectionId = searchParams.get("sectionId");
-    if (
-      listOfdata &&
-      sectionId &&
-      !["myWork", "experienceSection", "skillSection"].includes(sectionId) &&
-      !searchParams.get("nav") &&
-      !searchParams.get("portfolioId") &&
-      !searchParams.get("experienceId")
-    ) {
-      setTimeout(() => {
-        const element = document.getElementById(sectionId);
-        if (element) {
-          const headerOffset = 100;
-          const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
-          const offsetPosition = elementPosition - headerOffset;
-
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: "smooth",
-          });
-        }
-      }, 300);
-    }
-  }, [searchParams, listOfdata]);
+    handleNavigation();
+  }, [searchParams, listOfdata, uniqueList]);
 
   // how many to show initially
   const initialCount = isMobile ? 3 : 6;

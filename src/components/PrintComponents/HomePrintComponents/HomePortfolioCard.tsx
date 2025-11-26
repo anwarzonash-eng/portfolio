@@ -220,6 +220,8 @@ const HomePortfolioCard: React.FC<HomePortfolioCardProps> = ({
                     <p className="mb-[1rem]">
                       AREAS OF EXPERTISE I'VE WORKED IN:
                     </p>
+                  <hr className="w-full my-[2rem] h-px bg-border" />
+
                     <div className="flex items-center gap-[0.7rem] flex-wrap">
                       {visibleSkills.map((skill: SkillType, i: number) => (
                         <SkillComponent key={i} skill={skill} index={i} />
