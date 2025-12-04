@@ -230,7 +230,7 @@ const PortfolioListing = ({ params }: { params: any }) => {
         />
       )}
 
-      {listOfdata && listOfdata?.portfolios_ids.length > 0 && (
+      {listOfdata && listOfdata?.portfolios_ids?.length > 0 && (
         <>
           {/* Portfolio Timeline Section */}
           <div 
@@ -320,21 +320,27 @@ const PortfolioListing = ({ params }: { params: any }) => {
             </div>
           </div>
 
-          <UpworkActivitySection urlInfo={urlInfo} cvTrue={false}
-          data={listOfdata}
-          />
+          {/* Upwork Activity Section - only if data exists */}
+          {listOfdata && (
+            <UpworkActivitySection urlInfo={urlInfo} cvTrue={false}
+            data={listOfdata}
+            />
+          )}
           
 
-          {/* Our Blogs Section */}
-          <div className="w-full my-[10rem] lg:my-[12rem] print:my-1">
-            <OurBlogs domain={listOfdata?.domain} />
-          </div>
-          {/* Newsletter */}
-          {!urlInfo?.u && (
+          {/* Our Blogs Section - only if domain exists */}
+          {listOfdata?.domain && (
+            <div className="w-full my-[10rem] lg:my-[12rem] print:my-1">
+              <OurBlogs domain={listOfdata?.domain} />
+            </div>
+          )}
+          
+          {/* Newsletter - only if not user profile and data exists */}
+          {!urlInfo?.u && listOfdata && (
             <div className="w-full mb-[5rem]">
               <Newsletter listOfdata={listOfdata} />
             </div>
-          )}{" "}
+          )}
         </>
       )}
     </div>
