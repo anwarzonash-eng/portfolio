@@ -129,7 +129,7 @@ const Home_p = ({ params }: { params: any }) => {
     }[];
   } = skillsGrouping(listOfdata?.skills_ids);
 
-  const componentsList: ComponentConfig[] = [
+  const allComponents: ComponentConfig[] = [
     {
       componentType: "static",
       clickableNote: true,
@@ -176,8 +176,9 @@ const Home_p = ({ params }: { params: any }) => {
         <HomeUpworkSection listOfdata={listOfdata} urlInfo={urlInfo} />
       ),
     },
-    {
-      componentType: "dynamic",
+    // Skills Section - only if portfolios exist
+    ...(listOfdata?.portfolios_ids?.length > 0 ? [{
+      componentType: "dynamic" as const,
       badgeTitle: "Skills",
       component: (
         <HomeSkillsSection
@@ -189,9 +190,10 @@ const Home_p = ({ params }: { params: any }) => {
           useLinks={true}
         />
       ),
-    },
-    {
-      componentType: "static",
+    }] : []),
+    // Services Section - only if services exist
+    ...(listOfdata?.services?.length > 0 ? [{
+      componentType: "static" as const,
       component: (
         <HomeServicesSection
           listOfdata={listOfdata}
@@ -199,11 +201,13 @@ const Home_p = ({ params }: { params: any }) => {
           services={listOfdata?.services}
         />
       ),
-    },
-    {
-      componentType: "static",
+    }] : []),
+
+    // Portfolio Section 1 - only if first portfolio exists
+    ...(listOfdata?.portfolios_ids?.length > 0 ? [{
+      componentType: "static" as const,
       badgeTitle: "Explore My Technical Endeavors",
-      component: listOfdata?.portfolios_ids?.length > 0 && (
+      component: (
         <div className="w-full p-[2rem]">
           <HomePortfolioCard
             portfolios={listOfdata.portfolios_ids}
@@ -215,11 +219,12 @@ const Home_p = ({ params }: { params: any }) => {
           />
         </div>
       ),
-    },
-    {
-      componentType: "static",
+    }] : []),
+    // Portfolio Section 2 - only if second portfolio exists
+    ...(listOfdata?.portfolios_ids?.length > 1 ? [{
+      componentType: "static" as const,
       badgeTitle: "Explore My Technical Endeavors",
-      component: listOfdata?.portfolios_ids?.length > 0 && (
+      component: (
         <div className="w-full p-[2rem]">
           <HomePortfolioCard
             portfolios={listOfdata.portfolios_ids}
@@ -231,11 +236,12 @@ const Home_p = ({ params }: { params: any }) => {
           />
         </div>
       ),
-    },
-    {
-      componentType: "static",
+    }] : []),
+    // Portfolio Section 3 - only if third portfolio exists
+    ...(listOfdata?.portfolios_ids?.length > 2 ? [{
+      componentType: "static" as const,
       badgeTitle: "Explore My Technical Endeavors",
-      component: listOfdata?.portfolios_ids?.length > 0 && (
+      component: (
         <div className="w-full p-[2rem]">
           <HomePortfolioCard
             portfolios={listOfdata.portfolios_ids}
@@ -247,10 +253,11 @@ const Home_p = ({ params }: { params: any }) => {
           />
         </div>
       ),
-    },
+    }] : []),
 
-    {
-      componentType: "static",
+    // Experience Sections - only if experiences exist
+    ...(listOfdata?.experiences_ids?.length > 0 ? [{
+      componentType: "static" as const,
       badgeTitle: "Professional Experience",
       component: (
         <HomeExperienceSection
@@ -262,9 +269,9 @@ const Home_p = ({ params }: { params: any }) => {
           end={2}
         />
       ),
-    },
-    {
-      componentType: "static",
+    }] : []),
+    ...(listOfdata?.experiences_ids?.length > 2 ? [{
+      componentType: "static" as const,
       badgeTitle: "Professional Experience",
       component: (
         <>
@@ -286,35 +293,22 @@ const Home_p = ({ params }: { params: any }) => {
           </div>
         </>
       ),
-    },
+    }] : []),
 
-    // {
-    //   componentType: "dynamic",
-    //   badgeTitle: "FAQ's",
-    //   component: (
-    //     <HomeFAQSection
-    //       urlInfo={urlInfo}
-    //       companyType={listOfdata?.companytype}
-    //       apiData={listOfdata}
-    //     />
-    //   ),
-    // },
-    {
-      componentType: "static",
+    // Contact Me Section - only if not a user profile
+    ...(!urlInfo?.u ? [{
+      componentType: "static" as const,
       component: (
-        <>
-          {!urlInfo?.u && (
-            <HomeContactMeSection
-              listOfdata={listOfdata}
-              formatPhoneNumber={formatPhoneNumber}
-            />
-          )}
-        </>
+        <HomeContactMeSection
+          listOfdata={listOfdata}
+          formatPhoneNumber={formatPhoneNumber}
+        />
       ),
-    },
+    }] : []),
 
-    {
-      componentType: "static",
+    // Education Section - only if education data exists
+    ...(listOfdata?.education_ids?.length > 0 || blogsList?.length > 0 ? [{
+      componentType: "static" as const,
       component: (
         <HomeEducationComponent
           domain={domain}
@@ -326,8 +320,13 @@ const Home_p = ({ params }: { params: any }) => {
           loadingblogs={loadingblogs}
         />
       ),
-    },
+    }] : []),
   ];
+
+  // Filter out any components with null/undefined component property
+  const componentsList: ComponentConfig[] = allComponents.filter(
+    (config) => config.component !== null && config.component !== undefined
+  );
 
   // Extract All image URLs Before Rendering
   function extractAllImageUrls(listOfdata, blogsList) {
@@ -386,7 +385,7 @@ const Home_p = ({ params }: { params: any }) => {
       });
     }
 
-    console.log("Home_p - Extracted Image URLs:", urls);
+    // console.log("Home_p - Extracted Image URLs:", urls);
     return urls;
   }
 
@@ -399,7 +398,7 @@ const Home_p = ({ params }: { params: any }) => {
 
     async function run() {
       const urls = extractAllImageUrls(listOfdata, blogsList);
-      console.log("Preloading URLs:", urls);
+      // console.log("Preloading URLs:", urls);
 
       setImageProgress({ loaded: 0, total: urls.length });
 
@@ -415,9 +414,9 @@ const Home_p = ({ params }: { params: any }) => {
 
   // Check if all essential data is loaded
   const isDataReady = !loading && listOfdata && urlInfo && imagesReady;
-  console.log("Data Ready", isDataReady);
+  // console.log("Data Ready", isDataReady);
 
-  console.log("URL Info From Home Page:", urlInfo);
+  // console.log("URL Info From Home Page:", urlInfo);
   return (
     <>
       {/* Show error state if there's an error */}

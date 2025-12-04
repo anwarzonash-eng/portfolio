@@ -428,7 +428,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
     if (!listOfdata || listOfskills.length === 0) return;
 
     const urls = extractAllImageUrls(listOfdata, blogsList, portfolioDetails);
-    console.log("Portfolio Detail - Preloading URLs:", urls);
+    // console.log("Portfolio Detail - Preloading URLs:", urls);
     setImageProgress({ loaded: 0, total: urls.length });
 
     if (urls.length === 0) {
