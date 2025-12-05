@@ -208,7 +208,8 @@ const PortfolioCvPortrait: React.FC<PortfolioCvPortraitProps> = ({
                       </Link>
                       {companyType !== "leewop" && (
                         <Link
-                          href={portfolio?.link}
+                          href={portfolio?.link ? portfolio?.link : "#" }
+                          // href={portfolio?.link}
                           className="py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-primary border border-solid hover:border-transparent border-primary duration-300 hover:bg-primary hover:text-white rounded-[0.6rem] text-center max-w-max text-nowrap"
                         >
                           Launch Project - Live Preview

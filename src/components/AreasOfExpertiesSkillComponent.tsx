@@ -47,7 +47,7 @@ const AreasOfExpertiesSkillComponent: React.FC<
   if (skill.url) {
     return (
       <Link
-        href={skill.url || "#"}
+        href={skill.url ? skill.url : "#"}
         legacyBehavior
         key={key}
       >

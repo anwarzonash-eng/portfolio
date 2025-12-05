@@ -118,7 +118,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
     }
   }, [listOfdata]);
 
-  // console.log("List of Data:", listOfdata);
+  // console.log("List of Data:", listOfdata?.portfolios_ids);
   // console.log("URL Info:", urlInfo);
 
   const domain = listOfdata?.domain;
@@ -265,6 +265,8 @@ const CV_Portrait = ({ params }: { params: any }) => {
         </div>
       ),
     }] : []),
+
+    
 
     // Portfolio Section 2 - only if more than 1 portfolio exists
     ...(listOfdata?.portfolios_ids?.length > 1 ? [{

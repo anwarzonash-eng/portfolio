@@ -427,7 +427,7 @@ const ContactMe = ({ listOfdata }) => {
                     text={`My ${alt.charAt(0).toUpperCase() + alt.slice(1)}`}
                     key={alt}
                   >
-                    <Link href={href} target="_blank">
+                    <Link href={href ? href : "#"} target="_blank">
                       <Image src={src} height={50} width={50} alt={alt} />
                     </Link>
                   </Tooltip>
@@ -462,7 +462,7 @@ const ContactMe = ({ listOfdata }) => {
                         {socialMediaLinksForContactComponent?.map((C, i) => (
                           <>
                             {C.link && (
-                              <Link href={C.link} target="_blank" key={i}>
+                              <Link href={C.link ? C.link : "#"} target="_blank" key={i}>
                                 <C.SVG />
                               </Link>
                             )}

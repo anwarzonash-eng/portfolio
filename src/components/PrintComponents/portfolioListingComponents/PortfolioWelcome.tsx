@@ -22,7 +22,7 @@ const PortfolioWelcome = ({listOfdatas, listOfdata, WorkProofLinks, urlInfo, Con
           >
             Portfolio
           </div>
-          <div className="flex items-start justify-start flex-col">
+          <div className="flex items-center justify-start flex-col">
             <h2 className="text-[7rem] font-bold"> {listOfdata?.name}</h2>
             <div className="text-[4rem] font-medium flex items-center justify-center flex-wrap gap-[3px] w-full">
               {" "}

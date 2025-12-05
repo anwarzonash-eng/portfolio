@@ -189,7 +189,7 @@ const PortfolioCardContent: React.FC<PortfolioCardContentProps> = ({
               </Link>
               {listOfdata?.companytype !== "leewop" && (
                 <a
-                  href={portfolio?.link}
+                  href={portfolio?.link ? portfolio?.link : "#" }
                   target="_blank"
                   className="py-[1rem] px-[2rem] text-[1.6rem] leading-[2.4rem] font-medium text-primary border border-solid hover:border-transparent border-primary print:!text-primary duration-300 hover:bg-primary hover:text-white rounded-[0.6rem] max-sm:w-full text-center text-nowrap"
                 >

@@ -48,7 +48,6 @@ const Home_p = ({ params }: { params: any }) => {
   const [listOfskills, setListOfSkills] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
   const searchParams = useSearchParams();
   const skillsContainerRef = useRef(null);
   const [blogsList, setBlogsList] = useState([]);

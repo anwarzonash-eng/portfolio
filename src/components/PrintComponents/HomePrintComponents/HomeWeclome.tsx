@@ -32,7 +32,7 @@ const HomeWeclome = ({
           />
           <div className="flex items-start justify-start flex-col">
             <h2 className="text-[7rem] font-bold"> {listOfdata?.name}</h2>
-            <div className="text-[4rem] font-medium flex items-center justify-center flex-wrap gap-[3px]">
+            <div className="text-[4rem] font-medium flex flex-wrap gap-[3px] mb-[1rem]">
               {" "}
               {listOfdatas?.designation?.split("|").map((item, index) => (
                 <div key={index} className="text-center">
@@ -42,7 +42,10 @@ const HomeWeclome = ({
             </div>
 
             {/* Designation Domain */}
-            <DesignationDomain />
+            <div className="mb-[1rem]">
+              <DesignationDomain />
+            </div>
+
           </div>
         </div>
         <div className="flex items-center gap-[2rem] mb-[0.8rem] justify-start ml-[280px]">

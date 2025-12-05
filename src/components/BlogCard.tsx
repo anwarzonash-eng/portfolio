@@ -54,7 +54,7 @@ const BlogCard: React.FC<BlogCardProps> = ({
           <h2 className="text-[2.4rem] font-medium leading-[3.2rem] text-heading">
             {title}
           </h2>
-          <Link href={link} className="hover:rotate-90 duration-300">
+          <Link href={link ? link : "#"} className="hover:rotate-90 duration-300">
             {/* Arrow */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
