@@ -3,7 +3,13 @@ import useBodyBackgroundColor from "@/hooks/useBodyBackgroundColor";
 import HomeSlider from "@/components/Sliders/HomeSlider";
 import Faqs from "@/components/Faqs";
 import FreeTrialPopup from "@/components/FreeTrialPopup";
-import React, { useEffect, useRef, useState, useMemo, useCallback } from "react";
+import React, {
+  useEffect,
+  useRef,
+  useState,
+  useMemo,
+  useCallback,
+} from "react";
 import { formatPhoneNumber } from "@/hooks/formatPhoneNumber";
 import { useSearchParams } from "next/navigation";
 import { getRoutesDetails } from "@/hooks/url";
@@ -28,6 +34,7 @@ import AboutSection from "@/components/HomePageComponents/AboutSection";
 import ServicesSection from "@/components/HomePageComponents/ServicesSection";
 import { useUniquePortfolios } from "@/hooks/useUniquePortfolios";
 import UpworkActivitySection from "@/components/UpworkActivitySection";
+import { useSortedSkills } from "@/hooks/useSortedSkills";
 
 const Home = ({ params }: { params: any }) => {
   useBodyBackgroundColor("#f8f9fa");
@@ -63,51 +70,6 @@ const Home = ({ params }: { params: any }) => {
     string | null
   >(null);
 
-  // Centralized scroll function with guaranteed viewport centering
-  const scrollToSectionWithCenter = useCallback((elementId: string, offset: number = 100) => {
-    const element = document.getElementById(elementId);
-    if (element) {
-      // Get current viewport dimensions
-      const viewportHeight = window.innerHeight;
-      const viewportWidth = window.innerWidth;
-      
-      // Get element dimensions and position
-      const elementRect = element.getBoundingClientRect();
-      const elementHeight = elementRect.height;
-      const elementTop = elementRect.top + window.pageYOffset;
-      
-      // Calculate perfect center position
-      // Place element center at viewport center
-      const viewportCenter = viewportHeight / 2;
-      const elementCenter = elementHeight / 2;
-      const targetScrollPosition = elementTop - (viewportCenter - elementCenter);
-      
-      // Apply minimum offset from top (for header/navbar)
-      const finalPosition = Math.max(offset, targetScrollPosition);
-      
-      console.log(`🎯 Scrolling ${elementId}:`, {
-        viewportHeight,
-        elementHeight,
-        elementTop,
-        targetScrollPosition,
-        finalPosition,
-        currentScroll: window.pageYOffset
-      });
-      
-      // Use requestAnimationFrame for smoother scrolling
-      requestAnimationFrame(() => {
-        window.scrollTo({
-          top: finalPosition,
-          behavior: "smooth",
-        });
-      });
-      
-      return true;
-    }
-    console.warn(`❌ Element not found: ${elementId}`);
-    return false;
-  }, []);
-
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 1024); // breakpoint: < lg
     checkMobile();
@@ -126,6 +88,9 @@ const Home = ({ params }: { params: any }) => {
     }
   }, [listOfdata]);
 
+  // console.log("The Skills Section Data: ", listOfdata?.skills_ids)
+
+  // This was Prev Logic
   useEffect(() => {
     if (listOfdata?.skills_ids && allSkills.length > 0) {
       const matchedSkills = allSkills.filter((skill) =>
@@ -139,6 +104,12 @@ const Home = ({ params }: { params: any }) => {
     }
   }, [listOfdata, allSkills]);
 
+  // Here im Using Custom Hook in useSortedSkills
+  const sortedSkills = useSortedSkills({
+    skillsIdsWithOrder: listOfdata?.skills_ids,
+    allSkills,
+  });
+
   // FIX: single overflow check, trigger when filtered skills change (removed duplicate)
   useEffect(() => {
     const skillsContainer = skillsContainerRef?.current;
@@ -149,137 +120,170 @@ const Home = ({ params }: { params: any }) => {
     }
   }, [filteredSkills]);
 
+  // console.log("Filtered Skills: ", filteredSkills);
+
   // console.log("API Data:", listOfdata)
 
   // grouping used elsewhere — keep as is
   const skills = skillsGrouping(listOfdata?.skills_ids);
   const uniqueList = useUniquePortfolios(listOfdata?.portfolios_ids);
 
-  // Enhanced scroll navigation with guaranteed viewport centering
+  // Unified navigation system - handles all scroll-to-section logic
   useEffect(() => {
-    // Skip if no data loaded yet
     if (!listOfdata) return;
 
-    const sectionId = searchParams.get("sectionId");
-    const experienceId = searchParams.get("experienceId");
     const portfolioId = searchParams.get("portfolioId");
+    const experienceId = searchParams.get("experienceId");
+    const sectionId = searchParams.get("sectionId");
     const scrollTo = searchParams.get("scrollTo");
+    const scroll = searchParams.get("scroll");
+    const nav = searchParams.get("nav");
     const expand = searchParams.get("expand");
 
-    console.log("🚀 Navigation params:", { sectionId, experienceId, portfolioId, scrollTo, expand });
+    console.log("🚀 Navigation System:", {
+      portfolioId,
+      experienceId,
+      sectionId,
+      scrollTo,
+      scroll,
+      nav,
+      expand,
+    });
 
-    // Clear any existing highlights first
-    setHighlightedExperienceId(null);
-    setHighlightedPortfolioId(null);
-
-    // Helper function to wait for element to be ready
-    const waitForElement = (elementId: string, maxAttempts = 10): Promise<HTMLElement | null> => {
+    // Helper function to wait for element to exist and be rendered
+    const waitForElement = (elementId: string): Promise<HTMLElement | null> => {
       return new Promise((resolve) => {
-        let attempts = 0;
         const checkElement = () => {
           const element = document.getElementById(elementId);
           if (element && element.offsetHeight > 0) {
             resolve(element);
-          } else if (attempts < maxAttempts) {
-            attempts++;
-            setTimeout(checkElement, 100);
           } else {
-            resolve(null);
+            // Use requestAnimationFrame for better performance than setTimeout
+            requestAnimationFrame(checkElement);
           }
         };
         checkElement();
       });
     };
 
-    // PRIORITY 1: Portfolio-specific navigation (highest priority)
-    if (portfolioId && scrollTo === "myWork") {
-      console.log("🎯 Portfolio Navigation:", portfolioId);
-      setHighlightedPortfolioId(portfolioId);
-      
-      // Find portfolio index to set active slide
-      const portfolioIndex = uniqueList?.findIndex(p => p.id === portfolioId);
-      if (portfolioIndex !== -1) {
-        console.log("📍 Setting carousel slide:", portfolioIndex);
-        window.dispatchEvent(new CustomEvent('setCarouselSlide', { detail: { slideIndex: portfolioIndex } }));
-      }
-      
-      // Wait for element and then scroll
-      setTimeout(async () => {
-        console.log("🔄 Waiting for portfolio section to render...");
-        const element = await waitForElement("myWork");
-        if (element) {
-          console.log("✅ Portfolio section ready, scrolling...");
-          scrollToSectionWithCenter("myWork", 80);
-        } else {
-          console.log("❌ Portfolio section not found after waiting");
-        }
-      }, 200);
-      return;
-    }
+    // Scroll to element with proper offset
+    const scrollToElement = (element: HTMLElement, offset: number = 100) => {
+      const elementPosition =
+        element.getBoundingClientRect().top + window.pageYOffset;
+      const offsetPosition = Math.max(0, elementPosition - offset);
 
-    // PRIORITY 2: Experience-specific navigation
-    if (experienceId && experiencesRef.current) {
-      console.log("🎯 Experience Navigation:", experienceId);
-      setHighlightedExperienceId(experienceId);
-      setShowAllExperiences(true);
-      
-      setTimeout(async () => {
-        console.log("🔄 Waiting for experience element to render...");
-        const experienceElement = await waitForElement(`experience-${experienceId}`);
-        if (experienceElement) {
-          console.log("✅ Experience element ready, scrolling to specific experience...");
-          scrollToSectionWithCenter(`experience-${experienceId}`, 120);
-        } else {
-          console.log("🔄 Experience element not found, scrolling to section...");
-          const sectionElement = await waitForElement("experienceSection");
-          if (sectionElement) {
-            console.log("✅ Experience section ready, scrolling...");
-            scrollToSectionWithCenter("experienceSection", 100);
-          } else {
-            console.log("❌ Experience section not found after waiting");
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    };
+
+    // Navigation logic in priority order
+    const handleNavigation = async () => {
+      try {
+        // 1. Portfolio-specific navigation (highest priority)
+        if (
+          portfolioId &&
+          (sectionId === "myWork" ||
+            scrollTo === "myWork" ||
+            nav === "portfolio")
+        ) {
+          console.log("📍 Portfolio Navigation");
+          setHighlightedPortfolioId(portfolioId);
+
+          // Set carousel slide if portfolio exists
+          if (uniqueList?.length > 0) {
+            const portfolioIndex = uniqueList.findIndex(
+              (p) => p.id === portfolioId
+            );
+            if (portfolioIndex !== -1) {
+              window.dispatchEvent(
+                new CustomEvent("setCarouselSlide", {
+                  detail: { slideIndex: portfolioIndex },
+                })
+              );
+            }
           }
-        }
-      }, 500); // Longer timeout for experience expansion
-      return;
-    }
 
-    // PRIORITY 3: Experience section navigation
-    if ((sectionId === "experienceSection" || scrollTo === "experiences") && experiencesRef.current) {
-      console.log("🎯 Experience Section Navigation");
-      
-      if (expand === "true") {
-        setShowAllExperiences(true);
+          const element = await waitForElement("myWork");
+          if (element) scrollToElement(element, 80);
+          return;
+        }
+
+        // 2. Experience-specific navigation
+        if (
+          experienceId ||
+          (nav === "experience" &&
+            (scrollTo === "experiences" || sectionId === "experienceSection"))
+        ) {
+          console.log("📍 Experience Navigation");
+
+          if (expand === "true") setShowAllExperiences(true);
+
+          if (experienceId) {
+            setHighlightedExperienceId(experienceId);
+            setShowAllExperiences(true);
+
+            // Wait for experience expansion if needed
+            if (expand === "true") {
+              await new Promise((resolve) => setTimeout(resolve, 100)); // Brief wait for state update
+            }
+
+            const specificElement = await waitForElement(
+              `experience-${experienceId}`
+            );
+            if (specificElement) {
+              scrollToElement(specificElement, 120);
+              return;
+            }
+          }
+
+          // Fallback to section
+          const sectionElement = await waitForElement("experienceSection");
+          if (sectionElement) scrollToElement(sectionElement, 100);
+          return;
+        }
+
+        // 3. Skills section navigation
+        if (
+          (sectionId === "skillSection" ||
+            scrollTo === "skills" ||
+            scroll === "skills") &&
+          nav !== "portfolio" &&
+          nav !== "experience"
+        ) {
+          console.log("📍 Skills Navigation");
+
+          const element = await waitForElement("skillSection");
+          if (element) scrollToElement(element, 100);
+          return;
+        }
+
+        // 4. General section navigation
+        if (
+          sectionId &&
+          !["myWork", "experienceSection", "skillSection"].includes(
+            sectionId
+          ) &&
+          !nav &&
+          !portfolioId &&
+          !experienceId
+        ) {
+          console.log("📍 General Section Navigation:", sectionId);
+
+          const element = await waitForElement(sectionId);
+          if (element) scrollToElement(element, 100);
+          return;
+        }
+
+        console.log("ℹ️ No navigation action needed");
+      } catch (error) {
+        console.error("Navigation error:", error);
       }
-      
-      setTimeout(async () => {
-        console.log("🔄 Waiting for experience section to render...");
-        const element = await waitForElement("experienceSection");
-        if (element) {
-          console.log("✅ Experience section ready, scrolling...");
-          scrollToSectionWithCenter("experienceSection", 100);
-        } else {
-          console.log("❌ Experience section not found after waiting");
-        }
-      }, expand === "true" ? 400 : 200);
-      return;
-    }
+    };
 
-    // PRIORITY 4: Other section navigation (lowest priority)
-    if (sectionId && sectionId !== "experienceSection") {
-      console.log("🎯 General Section Navigation:", sectionId);
-      setTimeout(async () => {
-        console.log(`🔄 Waiting for section ${sectionId} to render...`);
-        const element = await waitForElement(sectionId);
-        if (element) {
-          console.log(`✅ Section ${sectionId} ready, scrolling...`);
-          scrollToSectionWithCenter(sectionId, 100);
-        } else {
-          console.log(`❌ Section ${sectionId} not found after waiting`);
-        }
-      }, 200);
-      return;
-    }
-  }, [searchParams, listOfdata, uniqueList, scrollToSectionWithCenter]);
+    handleNavigation();
+  }, [searchParams, listOfdata, uniqueList]);
 
   // how many to show initially
   const initialCount = isMobile ? 3 : 6;
@@ -333,7 +337,6 @@ const Home = ({ params }: { params: any }) => {
             actualPage: (
               <>
                 {/* <FreeTrialPopup listOfdata={listOfdata} urlInfo={urlInfo} /> */}
-
                 <HeroSection
                   listOfdata={listOfdata}
                   // FIX: pass filteredSkills to show only profile-specific skills
@@ -352,11 +355,13 @@ const Home = ({ params }: { params: any }) => {
                   downloadFile={downloadFile}
                 />
 
-                <UpworkActivitySection
-                  urlInfo={urlInfo}
-                  cvTrue={false}
-                  data={listOfdata}
-                />
+                <div className="mb-[20px] lg:mb-[90px]">
+                  <UpworkActivitySection
+                    urlInfo={urlInfo}
+                    cvTrue={false}
+                    data={listOfdata}
+                  />
+                </div>
 
                 {/* Custom Video Player Section */}
                 {listOfdata?.video_attached?.videoURL && (
@@ -395,7 +400,11 @@ const Home = ({ params }: { params: any }) => {
                     </div>
 
                     {/* FIX: pass filteredSkills to SkillsContainer */}
-                    <SkillsContainer list={filteredSkills} variant="default" />
+                    <SkillsContainer
+                      list={sortedSkills}
+                      variant="default"
+                      autoExpandOnParam={true}
+                    />
                   </div>
                 )}
 
@@ -427,7 +436,10 @@ const Home = ({ params }: { params: any }) => {
                           Explore My Technical Endeavors
                         </div>
 
-                        <HomeSlider portfolios={uniqueList} highlightedPortfolioId={highlightedPortfolioId} />
+                        <HomeSlider
+                          portfolios={uniqueList}
+                          highlightedPortfolioId={highlightedPortfolioId}
+                        />
                       </div>
                     </section>
                   )}
@@ -449,7 +461,7 @@ const Home = ({ params }: { params: any }) => {
                           My Professional Career Journey
                         </div>
 
-                        {experiences
+                        {/* {experiences
                           .slice(
                             0,
                             showAllExperiences
@@ -464,21 +476,74 @@ const Home = ({ params }: { params: any }) => {
                                 ? "border border-primary rounded-[1rem] p-4"
                                 : ""}
                             >
-                              <ExperienceSection
+                              {
+                                const isLastItem = index === experiencesData.length - 1;
+                                return (
+                                  <ExperienceSection
                                 index={experience.id}
                                 experience={experience}
-                                listOfskills={filteredSkills} // FIX: pass filteredSkills
+                                listOfskills={listOfdata?.skills_ids} // FIX: pass filteredSkills
                                 listOfdata={listOfdata}
                                 showMoreSkills={showMoreSkills}
                                 setShowMoreSkills={setShowMoreSkills}
+                                isLast={isLastItem}
                                 variant="timeline"
                               />
+                                )
+                              }
+                            
                             </div>
-                          ))}
+                          ))} */}
+
+                        {experiences
+                          .slice(
+                            0,
+                            showAllExperiences
+                              ? experiences.length
+                              : initialCount
+                          )
+                          .map((experience, index) => {
+                            // ⬅️ IMPORTANT: Add 'index' to the map callback arguments
+
+                            // 1. Declare the variable and logic inside the map function's body.
+                            const isLastItem =
+                              index ===
+                              experiences.slice(
+                                0,
+                                showAllExperiences
+                                  ? experiences.length
+                                  : initialCount
+                              ).length -
+                                1;
+
+                            // 2. Return the JSX element.
+                            return (
+                              <div
+                                key={experience.id}
+                                id={`experience-${experience.id}`}
+                                className={
+                                  highlightedExperienceId === experience.id
+                                    ? "border border-primary rounded-[1rem] p-4"
+                                    : ""
+                                }
+                              >
+                                <ExperienceSection
+                                  index={index} // Changed this to the array index, as it is usually required for showMoreSkills array index
+                                  experience={experience}
+                                  listOfskills={listOfdata?.skills_ids}
+                                  listOfdata={listOfdata}
+                                  showMoreSkills={showMoreSkills}
+                                  setShowMoreSkills={setShowMoreSkills}
+                                  isLast={isLastItem} // ⬅️ Passed the correctly calculated isLast prop
+                                  variant="timeline"
+                                />
+                              </div>
+                            );
+                          })}
 
                         {!showAllExperiences &&
                           experiences.length > initialCount && (
-                            <div className="flex items-center justify-center">
+                            <div className="flex items-center justify-center lg:ml-20">
                               <button
                                 onClick={() => setShowAllExperiences(true)}
                                 className="btn-primary text-white py-[1rem] mt-[2rem] px-[3.4rem] text-[1.8rem] font-medium"

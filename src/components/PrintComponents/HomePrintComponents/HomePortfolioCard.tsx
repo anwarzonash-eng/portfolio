@@ -220,6 +220,8 @@ const HomePortfolioCard: React.FC<HomePortfolioCardProps> = ({
                     <p className="mb-[1rem]">
                       AREAS OF EXPERTISE I'VE WORKED IN:
                     </p>
+                  <hr className="w-full my-[2rem] h-px bg-border" />
+
                     <div className="flex items-center gap-[0.7rem] flex-wrap">
                       {visibleSkills.map((skill: SkillType, i: number) => (
                         <SkillComponent key={i} skill={skill} index={i} />
@@ -248,7 +250,7 @@ const HomePortfolioCard: React.FC<HomePortfolioCardProps> = ({
                   </Link>
                   {companyType !== "leewop" && (
                     <Link
-                      href={portfolio?.link}
+                      href={portfolio?.link ? portfolio?.link : "#" }
                       className="py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-primary border border-solid hover:border-transparent border-primary duration-300 hover:bg-primary hover:text-white rounded-[0.6rem] text-center max-w-max text-nowrap"
                     >
                       Launch Project - Live Preview

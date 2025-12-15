@@ -34,7 +34,7 @@ const CVSideBar: React.FC<CVSideBarProps> = ({
   socialLinks,
 }) => {
 
-  console.log("Profile Image: ", listOfdata?.profile_photo_1)
+  // console.log("Profile Image: ", listOfdata?.profile_photo_1)
   return (
     <aside className="lg:max-w-[40rem] print:w-full print:break-before-page w-full flex-shrink-0 bg-cvSideBg bg-no-repeat bg-cover pb-[2rem] pt-[5rem] print:pt-[2rem] px-[2rem] lg:px-[3rem]">
       <div className="flex flex-col items-center">

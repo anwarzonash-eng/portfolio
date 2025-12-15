@@ -4,6 +4,7 @@ import "@/styles/globals.css";
 import ChildWrapperContainer from "@/components/ChildWrapperContainer";
 import LinkInterceptor from "@/components/LinkInterceptor";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import GlobalErrorBoundary from "@/components/GlobalErrorBoundary";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -64,11 +65,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div>
+        <GlobalErrorBoundary>
           <LinkInterceptor />
           <ChildWrapperContainer>{children}</ChildWrapperContainer>
           <GoogleAnalytics gaId="G-DPWJX7YHZH" />
-        </div>
+        </GlobalErrorBoundary>
       </body>
     </html>
   );

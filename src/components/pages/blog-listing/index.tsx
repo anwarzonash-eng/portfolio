@@ -98,8 +98,9 @@ const BlogListing = ({ params }: { params: any }) => {
       {/* Hero Banner */}
       <section className="w-full relative">
         <div
-          className={`mainContainer ${!loading && "h-[60.7rem] lg:h-[77rem]"
-            } w-full relative`}
+          className={`mainContainer ${
+            !loading && "h-[60.7rem] lg:h-[77rem]"
+          } w-full relative`}
         >
           {/* Background SVG */}
           <div className="absolute top-0 left-0 w-full h-auto">
@@ -425,13 +426,18 @@ const BlogListing = ({ params }: { params: any }) => {
           urlInfo={urlInfo}
           cvTrue={false}
           data={listOfdata}
-
         />
       </div>
 
       {/* Education Section */}
       <div id="education" className="my-[5rem]">
-        <EducationComponent />
+        {listOfdata && (
+          <EducationComponent
+            listOfdata={listOfdata}
+            formatDate={formatDate}
+            dateFormatsOptions={dateFormatsOptions}
+          />
+        )}
       </div>
 
       {!urlInfo?.u && (

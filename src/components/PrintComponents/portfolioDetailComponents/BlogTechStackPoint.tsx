@@ -41,9 +41,9 @@ const BlogTechStackPoint: React.FC<BlogTechStackPointProps> = ({
         
         {/* PRINT: Read More link (only if too many items) */}
         {featuresItemCount > 12 && (
-          <div className="hidden print:flex items-center justify-center text-center mt-4">
+          <div className="flex items-center justify-center text-center mt-4">
             <Link
-              href={`/portfolio/${portfolioId}#tech-stacks`}
+              href={`/portfolio/${portfolioId}?scroll=points`}
               target="_blank"
               className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] font-medium btn-primary inline-block max-w-max"
             >

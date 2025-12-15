@@ -13,6 +13,38 @@ const PortfolioPopUp = ({ isModalOpen, closeModal, portfolioImages }) => {
   const pressTimerRef = useRef(null);
   const thumbnailsContainerRef = useRef(null);
 
+  // Scroll popup to top when modal opens
+  // useEffect(() => {
+  //   if (isModalOpen) {
+  //     // Small delay ensures modal DOM is rendered
+  //     const timeout = setTimeout(() => {
+  //       window.scrollTo({
+  //         top: 0,
+  //         behavior: "smooth",
+  //       });
+  //     }, 10);
+
+  //     return () => clearTimeout(timeout);
+  //   }
+  // }, [isModalOpen]);
+
+  // Prevent body scroll when modal is open
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = "hidden";
+      document.body.style.paddingRight = "0px"; // Prevent layout shift
+    } else {
+      document.body.style.overflow = "unset";
+      document.body.style.paddingRight = "0px";
+    }
+
+    // Cleanup on unmount
+    return () => {
+      document.body.style.overflow = "unset";
+      document.body.style.paddingRight = "0px";
+    };
+  }, [isModalOpen]);
+
   // Auto-scroll thumbnails
   useEffect(() => {
     if (thumbnailsContainerRef.current) {
@@ -98,11 +130,11 @@ const PortfolioPopUp = ({ isModalOpen, closeModal, portfolioImages }) => {
     <>
       {isModalOpen && (
         <div
-          className="fixed top-0 left-0 w-full h-full bg-opacity-50 backdrop-blur-2xl z-[500]"
+          className="fixed top-0 left-0 w-full h-full bg-opacity-50 backdrop-blur-2xl z-[550]"
           onTouchStart={handleTouchStartSwipe}
           onTouchEnd={handleTouchEndSwipe}
         >
-          <div className="min-h-screen flex items-center justify-center">
+          <div className="h-screen flex items-center justify-center">
             <div className="absolute inset-0" onClick={closeModal}></div>
             <div className="relative max-w-[35rem] lg:max-w-[1000px] w-full mx-auto bg-white p-6 rounded-lg shadow-lg">
               {/* Progress bars */}
@@ -198,7 +230,7 @@ const PortfolioPopUp = ({ isModalOpen, closeModal, portfolioImages }) => {
                   {/* Thumbnails (pause on hold too) */}
                   <div
                     ref={thumbnailsContainerRef}
-                    className="flex gap-2 mt-4 overflow-x-auto max-w-full scrollbar-hidden"
+                    className="flex gap-[10px] mt-4 overflow-x-auto max-w-full scrollbar-hidden"
                   >
                     {images.map((src, index) => (
                       <img
@@ -209,10 +241,10 @@ const PortfolioPopUp = ({ isModalOpen, closeModal, portfolioImages }) => {
                         onMouseDown={handleMouseDown}
                         onMouseUp={handleMouseUp}
                         onMouseLeave={handleMouseLeave}
-                        className={`h-40 w-40 object-contain object-center rounded-md cursor-pointer border-2 flex-shrink-0 ${
+                        className={`h-40 w-40 object-contain object-center rounded-[8px] cursor-pointer border-2 flex-shrink-0 ${
                           index === currentImageIndex
                             ? "border-primary"
-                            : "border-transparent"
+                            : "border-gray-400"
                         }`}
                       />
                     ))}

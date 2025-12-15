@@ -13,8 +13,8 @@ function DesignationDomain() {
     (state) => state.profile.profileUrlInfo
   );
 
-  console.log("listOfdatas in DesignationDomain:", listOfdatas);
-  console.log("urlInfo in DesignationDomain:", urlInfo);
+  // console.log("listOfdatas in DesignationDomain:", listOfdatas);
+  // console.log("urlInfo in DesignationDomain:", urlInfo);
 
   // 🛑 NULL CHECK
   if (!listOfdatas || !listOfdatas.domain || !urlInfo?.uniqueID) return null;

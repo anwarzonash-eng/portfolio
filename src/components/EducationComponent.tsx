@@ -1,96 +1,32 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { useSearchParams } from "next/navigation";
-import { formatDate } from "@/hooks/formatdate";
-import { dateFormatsOptions } from "@/data/JsonData";
-import { getRoutesDetails } from "@/hooks/url";
-import { reportsApiHandler } from "@/hooks/apihandlers/reportsApiHandlers";
+import Link from "next/link";
 
-/** ---------- SIMPLE IN-MEMORY CACHE ---------- **/
-const cache: {
-  urlInfo?: any;
-  listOfdata?: any;
-  error?: string | null;
-} = {};
-
-const EducationComponent: React.FC = () => {
-  const searchParams = useSearchParams();
-
-  const [urlInfo, setURLInfo] = useState<any>(cache.urlInfo ?? null);
-  const [listOfdata, setListOfData] = useState<any>(cache.listOfdata ?? null);
-  const [error, setError] = useState<string | null>(cache.error ?? null);
-  const [loading, setLoading] = useState(!cache.listOfdata);
-
-  // console.log("Data:", listOfdata);
-
-  /** STEP 1: derive URL info once (Asynchronously) */
-  useEffect(() => {
-    // Only proceed if urlInfo hasn't been set yet (either in state or cache)
-    if (!urlInfo) {
-      // 🛑 Define and call an async function inside useEffect 🛑
-      const fetchAndSetUrlInfo = async () => {
-        try {
-          // Await the asynchronous function call
-          const info = await getRoutesDetails({}, searchParams);
-
-          // Update state and cache with the resolved info object
-          setURLInfo(info);
-          cache.urlInfo = info;
-        } catch (e) {
-          // It's good practice to handle potential errors in the async operation
-          console.error("Failed to get URL details:", e);
-          setError("Failed to retrieve necessary URL parameters.");
-        }
-      };
-
-      fetchAndSetUrlInfo();
-    }
-    // Dependencies are correct: [urlInfo, searchParams]
-  }, [urlInfo, searchParams]);
-
-  /** STEP 2: fetch education data */
-  useEffect(() => {
-    // if (urlInfo && !listOfdata) {
-    //   reportsApiHandler({
-    //     actionType: "cv",
-    //     urlInfo,
-    //     setError: (err: string | null) => {
-    //       setError(err);
-    //       cache.error = err;
-    //     },
-    //     setLoading,
-    //     setListOfData: (data: any) => {
-    //       setListOfData(data);
-    //       cache.listOfdata = data;
-    //     },
-    //   });
-    // }
-  }, [urlInfo, listOfdata]);
-
-  if (loading) {
-    return <p className="text-center py-6">Loading education...</p>;
-  }
-
-  if (error) {
-    return <p className="text-center py-6 text-red-500">Error: {error}</p>;
-  }
-
+const EducationComponent = ({
+  listOfdata,
+  formatDate,
+  dateFormatsOptions,
+  // domain,
+  // loadingblogs,
+  // blogsList,
+  // getImageForIndex,
+}) => {
+  // ✅ FIX 1: Safety Check / Early Return
+  // If listOfdata is missing OR education_ids is missing/empty, don't render anything.
   if (!listOfdata?.education_ids?.length) {
-    return null;
+     return <p className=" text-center">Loading...</p> 
   }
-
   return (
     <section className="w-full mainContainer">
       {/* Title */}
       <h2 className="text-heading leading-[3.56rem] text-[3.67rem] font-medium pl-[0.5rem] py-[3rem]">
-        Education
+        Education & Certifications
       </h2>
 
       {/* Education Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-[1.2rem] w-full">
-        {listOfdata.education_ids.map((edu: any) => (
+        {listOfdata && listOfdata.education_ids.map((edu: any) => (
           <div
             key={edu.id}
             className="p-[2rem] w-full rounded-[0.8rem] border border-solid border-[#E2E6EE] bg-[#F7F9FC] border-b-[4px]"

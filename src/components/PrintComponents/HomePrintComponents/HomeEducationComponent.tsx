@@ -37,7 +37,7 @@ const HomeEducationComponent: React.FC<HomeEducationComponentProps> = ({
         {listOfdata?.education_ids?.length > 0 && (
           <div className="w-full">
             <h2 className="text-heading text-[3.67rem] font-medium pl-[0.5rem] py-[2rem] text-center">
-              Education
+              Education & Certifications
             </h2>
 
             <div className="grid grid-cols-2 gap-[1.2rem] w-full">

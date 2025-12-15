@@ -34,11 +34,7 @@ const HomeSkillsSection: React.FC<SkillsContainerProps> = ({
   const router = useRouter();
 
   const handleSeeMorePrint = () => {
-    if (portfolioId) {
-      router.push(`/portfolio/${portfolioId}?scroll=skills`);
-    } else {
-      router.push(`/portfolio`);
-    }
+    router.push(`/?scroll=skills&expand=true`);
   };
 
   const getGridCols = (count: number) => {
@@ -138,12 +134,7 @@ const HomeSkillsSection: React.FC<SkillsContainerProps> = ({
       {/* === See More Button === */}
       {showSeeMoreButton && (
         <Link
-          href={
-            portfolioId
-              ? `/portfolio/${portfolioId}?scroll=skills`
-              : `/portfolio`
-          }
-          onClick={handleSeeMorePrint}
+          href="/?scroll=skills&expand=true"
           className="px-[4rem] py-[1.4rem] bg-primary rounded-[2.2rem] hover:bg-white hover:text-primary hover:border-primary border border-border text-white text-[1.4rem] font-medium leading-tight mx-auto mt-[1rem]"
         >
           See More Skills

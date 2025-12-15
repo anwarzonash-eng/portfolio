@@ -160,12 +160,12 @@ const TestimonialSlider: React.FC = () => {
                   <hr className="hidden lg:block w-[0.1rem] h-[2.5rem] bg-border mx-[1rem]" />
                   {/* Link */}
                   <div className="flex items-center gap-[0.52rem]">
-                    <Image
+                    {/* <Image
                       src={"./images/link.svg"}
                       height={18}
                       width={18}
                       alt="Link"
-                    />
+                    /> */}
                     <Link
                       href={slide.projectLink}
                       className="text-[#1F4FE1] text-[1.6rem]"
