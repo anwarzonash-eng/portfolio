@@ -232,9 +232,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({
           </h1>
           {/* Badge */}
           <div className="relative z-[50] mt-[1rem] flex items-center justify-start">
-            <div className="inline-block px-[2rem] py-[1.5rem] lg:py-[1rem] lg:px-[4rem] bg-primary lg:max-w-[45rem] rounded-[5rem] text-center text-[1.6rem] lg:text-[2.4rem] font-bold text-white border-none outline-none mb-[2rem]">
+            <div className={`inline-block px-[2rem] py-[1.5rem] lg:py-[1rem] lg:px-[4rem] bg-primary lg:max-w-[45rem] rounded-[5rem] border-none outline-none mb-[2rem]`}>
               {listOfdata?.designation?.split("|").map((item, index) => (
-                <div key={index} className="text-center">
+                <div key={index} className={`text-center ${index === 0 ? "text-[1.6rem] lg:text-[2.4rem] font-bold text-white": "text-[1.4rem] lg:text-[1.6em] font-semibold text-gray-300"}`}>
                   {item.trim()}
                 </div>
               ))}

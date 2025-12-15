@@ -192,16 +192,21 @@ const BlogDetails = ({ params }: { params: any }) => {
                 </div>
               </section>
               <div>
-              <UpworkActivitySection
-                urlInfo={urlInfo}
-                cvTrue={false}
-                data={listOfdata}
-
+                <UpworkActivitySection
+                  urlInfo={urlInfo}
+                  cvTrue={false}
+                  data={listOfdata}
                 />
               </div>
               {/* Education Section */}
               <div id="education" className="my-[5rem]">
-                <EducationComponent />
+                {listOfdata && (
+                  <EducationComponent
+                    listOfdata={listOfdata}
+                    formatDate={formatDate}
+                    dateFormatsOptions={dateFormatsOptions}
+                  />
+                )}
               </div>
 
               <div className="w-full my-[5rem]">

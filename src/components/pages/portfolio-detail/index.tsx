@@ -24,6 +24,7 @@ import { skillsGrouping } from "@/hooks/skillsGrouping";
 import EducationComponent from "@/components/EducationComponent";
 import UpworkActivitySection from "@/components/UpworkActivitySection";
 import AreasOfExpertiesSkillComponent from "@/components/AreasOfExpertiesSkillComponent";
+import { useSortedSkills } from "@/hooks/useSortedSkills";
 
 const PortfolioDetails = ({ params }: { params: any }) => {
   const searchParams = useSearchParams();
@@ -36,11 +37,11 @@ const PortfolioDetails = ({ params }: { params: any }) => {
   // New States Start
   const [featuresItemCount, setFeaturesItemCount] = useState(0);
   const [fullFeaturesHtml, setFullFeaturesHtml] = useState<string | null>(null);
-  const [defaultTruncatedHtml, setDefaultTruncatedHtml] = useState<string | null>(null);
+  const [defaultTruncatedHtml, setDefaultTruncatedHtml] = useState<
+    string | null
+  >(null);
   const [isExpanded, setIsExpanded] = useState(false); // screen expansion toggle
   // End
-
-  
 
   // Ref for the SkillsContainer section
   const skillsContainerRef = useRef<HTMLDivElement | null>(null);
@@ -52,61 +53,62 @@ const PortfolioDetails = ({ params }: { params: any }) => {
 
   // SKills List Managmeent useEffect
   useEffect(() => {
-  if (!portfolioDetails) {
-    setFeaturesItemCount(0);
-    setFullFeaturesHtml("");
-    setDefaultTruncatedHtml("");
-    return;
-  }
+    if (!portfolioDetails) {
+      setFeaturesItemCount(0);
+      setFullFeaturesHtml("");
+      setDefaultTruncatedHtml("");
+      return;
+    }
 
-  try {
-    const rawHtml = modifiedContent(
-      portfolioDetails?.features_short,
-      filteredSkills,
-      listOfdata
-    ) || "";
+    try {
+      const rawHtml =
+        modifiedContent(
+          portfolioDetails?.features_short,
+          filteredSkills,
+          listOfdata
+        ) || "";
 
-    const parserForCount = new DOMParser();
-    const docForCount = parserForCount.parseFromString(rawHtml, "text/html");
-    const allLis = Array.from(docForCount.querySelectorAll("li"));
-    setFeaturesItemCount(allLis.length);
-    setFullFeaturesHtml(rawHtml);
+      const parserForCount = new DOMParser();
+      const docForCount = parserForCount.parseFromString(rawHtml, "text/html");
+      const allLis = Array.from(docForCount.querySelectorAll("li"));
+      setFeaturesItemCount(allLis.length);
+      setFullFeaturesHtml(rawHtml);
 
-    // Helper builds truncated HTML
-    const buildTruncated = (count: number) => {
-      if (!rawHtml) return "";
-      const parser = new DOMParser();
-      const tempDoc = parser.parseFromString(rawHtml, "text/html");
-      const lis = Array.from(tempDoc.querySelectorAll("li"));
-      if (lis.length === 0) return rawHtml;
+      // Helper builds truncated HTML
+      const buildTruncated = (count: number) => {
+        if (!rawHtml) return "";
+        const parser = new DOMParser();
+        const tempDoc = parser.parseFromString(rawHtml, "text/html");
+        const lis = Array.from(tempDoc.querySelectorAll("li"));
+        if (lis.length === 0) return rawHtml;
 
-      const firstList = tempDoc.querySelector("ul, ol");
-      const listTag = firstList ? firstList.tagName.toLowerCase() : "ul";
+        const firstList = tempDoc.querySelector("ul, ol");
+        const listTag = firstList ? firstList.tagName.toLowerCase() : "ul";
 
-      const newDoc = document.implementation.createHTMLDocument("");
-      const container = newDoc.createElement("div");
-      const newList = newDoc.createElement(listTag);
+        const newDoc = document.implementation.createHTMLDocument("");
+        const container = newDoc.createElement("div");
+        const newList = newDoc.createElement(listTag);
 
-      const take = Math.min(count, lis.length);
-      lis.slice(0, take).forEach((li) => {
-        newList.appendChild(li.cloneNode(true));
-      });
+        const take = Math.min(count, lis.length);
+        lis.slice(0, take).forEach((li) => {
+          newList.appendChild(li.cloneNode(true));
+        });
 
-      container.appendChild(newList);
-      return container.innerHTML;
-    };
+        container.appendChild(newList);
+        return container.innerHTML;
+      };
 
-    // Truncate to 15 items for screen
-    setDefaultTruncatedHtml(
-      allLis.length > 15 ? buildTruncated(15) : rawHtml
-    );
-  } catch (e) {
-    console.error("[features] parse error:", e);
-    setFeaturesItemCount(0);
-    setFullFeaturesHtml("");
-    setDefaultTruncatedHtml("");
-  }
-}, [portfolioDetails, filteredSkills, listOfdata]);
+      // Truncate to 15 items for screen
+      setDefaultTruncatedHtml(
+        allLis.length > 15 ? buildTruncated(15) : rawHtml
+      );
+    } catch (e) {
+      console.error("[features] parse error:", e);
+      setFeaturesItemCount(0);
+      setFullFeaturesHtml("");
+      setDefaultTruncatedHtml("");
+    }
+  }, [portfolioDetails, filteredSkills, listOfdata]);
 
   useEffect(() => {
     if (listOfdata?.skills_ids && allSkills.length > 0) {
@@ -205,11 +207,13 @@ const PortfolioDetails = ({ params }: { params: any }) => {
 
     const scrollToTechStack = () => {
       // Try to find the element by ref first, then by ID
-      const targetElement = techStacksRef.current || document.getElementById("tech-stacks-heading");
-      
+      const targetElement =
+        techStacksRef.current || document.getElementById("tech-stacks-heading");
+
       if (targetElement) {
         const headerOffset = 100;
-        const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+        const elementPosition =
+          targetElement.getBoundingClientRect().top + window.pageYOffset;
         const offsetPosition = elementPosition - headerOffset;
 
         window.scrollTo({
@@ -222,15 +226,13 @@ const PortfolioDetails = ({ params }: { params: any }) => {
     // Wait for images and content to load before scrolling
     const timeoutId = setTimeout(() => {
       scrollToTechStack();
-      
+
       // Fallback scroll attempt in case the first one fails
       setTimeout(scrollToTechStack, 500);
     }, 800);
 
     return () => clearTimeout(timeoutId);
   }, [searchParams, portfolioDetails]);
-
-
 
   const skillsforDetailPortfolio: {
     [key: string]: {
@@ -239,6 +241,14 @@ const PortfolioDetails = ({ params }: { params: any }) => {
       order?: string;
     }[];
   } = skillsGrouping(portfolioDetails?.skills);
+
+  // Here im Using Custom Hook in useSortedSkills
+  const sortedSkills = useSortedSkills({
+    skillsIdsWithOrder: listOfdata?.skills_ids,
+    allSkills,
+  });
+
+  // console.log("Sorted SKills:", sortedSkills);
 
   // console.log("portfolioDetails", portfolioDetails);
 
@@ -530,11 +540,7 @@ const PortfolioDetails = ({ params }: { params: any }) => {
                       }}
                     ></div>
                   </div>
-                  <UpworkActivitySection
-                    urlInfo={urlInfo}
-                    cvTrue={true}
-                    data={listOfdata}
-                  />
+                  
                   {/* My Tools and Technologies */}
                   <article className="my-[6.4rem]">
                     <div className="text-heading text-[2.4rem] xl:text-[3rem] font-medium leading-[2.8rem] text-center">
@@ -542,7 +548,7 @@ const PortfolioDetails = ({ params }: { params: any }) => {
                     </div>
                     <div ref={skillsContainerRef}>
                       <SkillsContainer
-                        list={portfolioDetails?.skills}
+                        list={sortedSkills}
                         variant="portfolio"
                         autoExpandOnParam
                         layoutType
@@ -552,10 +558,23 @@ const PortfolioDetails = ({ params }: { params: any }) => {
                   {portfolioDetails !== null && (
                     <SliderXL portfolioPictures={portfolioDetails?.pictures} />
                   )}
+                  <div className="mt-[5rem] lg:mt-[10rem]">
+                  <UpworkActivitySection
+                    urlInfo={urlInfo}
+                    cvTrue={true}
+                    data={listOfdata}
+                  />
+                  </div>
                 </div>
               </section>
               <div className="my-[5rem]">
-                <EducationComponent />
+                {listOfdata && (
+                  <EducationComponent
+                    listOfdata={listOfdata}
+                    formatDate={formatDate}
+                    dateFormatsOptions={dateFormatsOptions}
+                  />
+                )}
               </div>
               <div className="w-full my-[5rem]">
                 <OurBlogs domain={listOfdata?.domain} />

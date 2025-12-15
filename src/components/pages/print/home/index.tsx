@@ -37,6 +37,7 @@ import {
 } from "@/components/PrintComponents/HomePrintComponents";
 import PrintPageRenderer, { ComponentConfig } from "@/utils/printPageRenderer";
 import Link from "next/link";
+import { sortSkillsByOrder } from "@/hooks/sortSkillsByOrder";
 
 
 
@@ -116,6 +117,9 @@ const Home_p = ({ params }: { params: any }) => {
     }
   }, [listOfdata]);
 
+const sortedSkills = sortSkillsByOrder(listOfdata?.skills_ids);
+
+
   // console.log("List of Data:", listOfdata);
 
   const domain = listOfdata?.domain;
@@ -182,7 +186,7 @@ const Home_p = ({ params }: { params: any }) => {
       component: (
         <HomeSkillsSection
           autoExpandOnParam={true}
-          list={listOfdata?.skills_ids}
+          list={sortedSkills}
           numColumns={8}
           numSkills={32}
           portfolioId={listOfdata && listOfdata?.portfolios_ids[0]?.id}

@@ -27,6 +27,7 @@ import ShowmoreSkills from "@/components/showmoreSkills";
 import { skillsGrouping } from "@/hooks/skillsGrouping";
 import { preloadImages } from "@/utils/preLoadImages";
 import Link from "next/link";
+import { sortSkillsByOrder } from "@/hooks/sortSkillsByOrder";
 
 const CV_Portrait = ({ params }: { params: any }) => {
   const searchParams = useSearchParams();
@@ -162,6 +163,10 @@ const CV_Portrait = ({ params }: { params: any }) => {
     });
   }, [listOfdata?.experiences_ids]);
 
+
+  const sortedSkills = sortSkillsByOrder(listOfdata?.skills_ids);
+  // console.log("Sorted Skills: ", sortedSkills)
+
   const allComponents: ComponentConfig[] = [
     {
       componentType: "static",
@@ -189,7 +194,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
       badgeTitle: "Skills",
       component: (
         <SkillsCvPortrait
-          list={listOfdata?.skills_ids}
+          list={sortedSkills}
           numColumns={6}
           numSkills={30}
           portfolioId={listOfdata?.portfolios_ids[0]?.id}

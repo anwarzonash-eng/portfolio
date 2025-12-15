@@ -130,7 +130,7 @@ const PortfolioCardContent: React.FC<PortfolioCardContentProps> = ({
             </Link>
             <p
               dangerouslySetInnerHTML={{ __html: portfolio.tagline_2 || "" }}
-              className="text-[1.6rem] leading-[150%] font-medium mt-[1rem] text-primary"
+              className="text-[1.6rem] leading-[150%] font-medium mt-[1rem]"
             />
             <PortfolioFeatures
               features_short={portfolio.features_short || ""}

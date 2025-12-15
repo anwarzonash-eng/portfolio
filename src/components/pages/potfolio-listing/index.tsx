@@ -178,6 +178,8 @@ const PortfolioListing = ({ params }: { params: any }) => {
     return <EmptyState message={error || "Something went wrong."} />;
   }
 
+  console.log("Portfolio Ids: ", listOfdata?.portfolios_ids)
+
   return (
     <div className="bg-[#EFF5FD]">
       {/* Hero Banner */}

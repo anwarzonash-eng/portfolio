@@ -28,6 +28,7 @@ import WebsiteLoader from "@/components/WebsiteLoader";
 import Background from "@/components/background";
 import PortfolioCardContent from "@/components/PortfolioCardContent";
 import UpworkActivitySection from "@/components/UpworkActivitySection";
+import { useSortedSkills } from "@/hooks/useSortedSkills";
 
 const CV = ({ params }: { params: any }) => {
   const searchParams = useSearchParams();
@@ -74,7 +75,9 @@ const CV = ({ params }: { params: any }) => {
     : (listOfdata?.skills_ids ?? []).slice(0, initialVisibleItems);
   const skillsforCV = skillsGrouping(visibleSkills);
   const domain = listOfdata?.domain || "default-domain";
+  // console.log("SKlls For CV:", skillsforCV)
 
+ 
   // Check screen size
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 1024);
@@ -149,6 +152,13 @@ const CV = ({ params }: { params: any }) => {
       setFilteredSkills(matchedSkills);
     }
   }, [listOfdata, allSkills]);
+
+  // SKills For CV
+    const sortedSkills = useSortedSkills({
+    skillsIdsWithOrder: listOfdata?.skills_ids,
+    allSkills,
+  });
+
 
   useEffect(() => {
     handleSkillsApiCall({ setListOfSkills: setAllSkills });
@@ -248,8 +258,8 @@ const CV = ({ params }: { params: any }) => {
                 <div className="mainContainer h-[60.7rem] lg:h-[65rem] print:h-auto w-full relative ">
                   <Background />
                   <div className="max-w-[1024px] mx-auto text-center px-[2rem] pt-[8rem] relative z-20">
-                    <div className="text-center text-primary text-[4rem] lg:text-[6rem] font-medium leading-[5rem] lg:leading-[6rem] mt-[1.6rem]">
-                      CV
+                    <div className="text-center text-primary text-[4rem] lg:text-[10rem] font-medium leading-[5rem] lg:leading-[6rem] mt-[1.6rem]">
+                      Cv
                     </div>
                     {loading && <WebsiteLoader height="h-[30rem]" />}
                   </div>
@@ -526,7 +536,6 @@ const CV = ({ params }: { params: any }) => {
                               </div>
                               <UpworkActivitySection urlInfo={urlInfo} cvTrue={true}
                                 data={listOfdata}
-
                               />
                             </div>
 

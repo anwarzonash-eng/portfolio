@@ -9,6 +9,7 @@ import { formatDate } from "@/hooks/formatdate";
 import { dateFormatsOptions } from "@/data/JsonData";
 import { modifiedContent } from "@/hooks/modifiedContent";
 import useIsDesktop from "@/hooks/useIsDesktop";
+import { MoveUpRight } from "lucide-react";
 
 interface SkillType {
   title: string;
@@ -25,6 +26,7 @@ interface ExperienceSectionProps {
   showMoreSkills: boolean[];
   setShowMoreSkills: React.Dispatch<React.SetStateAction<boolean[]>>;
   variant?: "timeline" | "list"; // controls styling
+  isLast?: boolean;
 }
 
 const ExperienceSection: React.FC<ExperienceSectionProps> = ({
@@ -35,6 +37,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
   showMoreSkills,
   setShowMoreSkills,
   variant = "list",
+  isLast = false,
 }) => {
   const skills = experience?.skills || [];
   const isSkillsNested =
@@ -152,8 +155,12 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
     >
       {variant === "timeline" && (
         <>
-          <div className="absolute left-[10rem] top-[4rem] h-[90%] bottom-0 w-[0.4rem] bg-border hidden xl:block" />
-          <div className="absolute top-[2.5rem] left-[9rem] hidden xl:block">
+          <div
+            className={`absolute left-[10rem] top-[4rem] ${
+              isLast ? "h-[93%]" : "h-[100%]"
+            }  bottom-0 w-[0.4rem] bg-border hidden xl:block`}
+          />
+          <div className="absolute top-[1.5rem] left-[9rem] hidden xl:block">
             <div className="w-[2.6rem] h-[2.6rem] bg-white rounded-full flex items-center shadow-md justify-center">
               <div className="w-[0.7rem] h-[0.7rem] bg-heading rounded-full"></div>
             </div>
@@ -224,18 +231,12 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
             {/* Website link */}
             {experience?.company_website && (
               <div className="flex justify-center md:justify-end w-full md:w-auto">
-                <div className="flex flex-col-reverse gap-[1rem] max-w-max">
-                  <div className="py-[0.4rem] px-[2rem] bg-white border border-[#E2E6EE] text-[#47516B] rounded-[2rem] text-[1.5rem] font-medium leading-[0.8rem]">
+                <div className="flex flex-col-reverse gap-[1rem] max-w-max">                    {!experience.company_website.includes("upwork")  && 
+                  <div className="py-[0.4rem] px-[2rem] bg-white border border-[#E2E6EE] text-[#47516B] rounded-[2rem] text-[1.5rem] font-medium leading-[0.8rem] hover:bg-sectionBG hover:text-white duration-300">
                     <Link
                       href={experience.company_website}
-                      className="flex gap-2 items-center"
+                      className="flex gap-2 items-center p-4 text-[2rem]"
                     >
-                      <Image
-                        src={"/images/link.svg"}
-                        height={18}
-                        width={18}
-                        alt="Link"
-                      />
                       {
                         experience.company_website
                           .replace(/^(https?:\/\/)?(www\.)?/, "")
@@ -243,13 +244,38 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                       }
                     </Link>
                   </div>
+                  }
                   {experience.company_website.includes("upwork") && (
-                    <Link
-                      href={experience.company_website}
-                      className="hover:bg-primary hover:text-white py-[0.4rem] px-[1rem] text-heading bg-[#A3DDD3] rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
-                    >
-                      View My Freelance Profile
-                    </Link>
+                    <div className="flex items-center gap-2">
+                      <Link
+                        href={experience.company_website ?? "#"}
+                        target="_blank"
+                        className="
+                              bg-black text-white border border-transparent hover:border-primary hover:bg-white hover:text-primary duration-300 text-nowrap
+                              flex items-center justify-center
+                              text-[1.4rem] lg:text-[1.6rem] lg:font-medium rounded-[20rem] p-[1rem] group"
+                      >
+                        <span>Check My</span>
+                        <div className="h-[2.5rem] w-[2.5rem] rounded-full relative mx-2 inline-block">
+                          <Image
+                            src="/images/upworkforContactComponent.svg"
+                            alt="Upwork Logo"
+                            width={25}
+                            height={25}
+                            className="h-full w-full object-cover rounded-full group-hover:border-primary border border-transparent duration-300
+                                absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                          />
+                        </div>
+                        <span>Profile</span>
+                      </Link>
+                      <Link
+                        href={experience.company_website ?? "#"}
+                        target="_blank"
+                        className="h-[3rem] w-[3rem] rounded-full relative mx-2 bg-sectionBG text-white flex items-center justify-center animate-bounce cursor-pointer hover:bg-white hover:text-primary border border-transparent hover:border-primary duration-300"
+                      >
+                        <MoveUpRight className="size-[2rem]" />
+                      </Link>
+                    </div>
                   )}
                 </div>
               </div>
@@ -313,24 +339,23 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                   <React.Fragment>
                     {skillsToShow.map((skill: any, i: number) => (
                       <>
-                      {skill?.url ? (
-                        <Link
-                        key={i}
-                        href={skill.url || "#"}
-                        target="_blank"
-                        className="hover:bg-primary hover:text-white py-[0.4rem] print:py-[0.1rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
-                      >
-                        {skill.title}
-                      </Link>
-                      ) : (
-                        <div
-                        key={i}
-                        
-                        className="hover:bg-primary hover:text-white py-[0.4rem] print:py-[0.1rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
-                      >
-                        {skill.title}
-                      </div>
-                      )} 
+                        {skill?.url ? (
+                          <Link
+                            key={i}
+                            href={skill.url || "#"}
+                            target="_blank"
+                            className="hover:bg-primary hover:text-white py-[0.4rem] print:py-[0.1rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
+                          >
+                            {skill.title}
+                          </Link>
+                        ) : (
+                          <div
+                            key={i}
+                            className="hover:bg-primary hover:text-white py-[0.4rem] print:py-[0.1rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
+                          >
+                            {skill.title}
+                          </div>
+                        )}
                       </>
                     ))}
                     {showMoreSkills[index] && (

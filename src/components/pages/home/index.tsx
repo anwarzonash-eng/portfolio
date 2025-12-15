@@ -3,7 +3,13 @@ import useBodyBackgroundColor from "@/hooks/useBodyBackgroundColor";
 import HomeSlider from "@/components/Sliders/HomeSlider";
 import Faqs from "@/components/Faqs";
 import FreeTrialPopup from "@/components/FreeTrialPopup";
-import React, { useEffect, useRef, useState, useMemo, useCallback } from "react";
+import React, {
+  useEffect,
+  useRef,
+  useState,
+  useMemo,
+  useCallback,
+} from "react";
 import { formatPhoneNumber } from "@/hooks/formatPhoneNumber";
 import { useSearchParams } from "next/navigation";
 import { getRoutesDetails } from "@/hooks/url";
@@ -28,6 +34,7 @@ import AboutSection from "@/components/HomePageComponents/AboutSection";
 import ServicesSection from "@/components/HomePageComponents/ServicesSection";
 import { useUniquePortfolios } from "@/hooks/useUniquePortfolios";
 import UpworkActivitySection from "@/components/UpworkActivitySection";
+import { useSortedSkills } from "@/hooks/useSortedSkills";
 
 const Home = ({ params }: { params: any }) => {
   useBodyBackgroundColor("#f8f9fa");
@@ -63,7 +70,6 @@ const Home = ({ params }: { params: any }) => {
     string | null
   >(null);
 
- 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 1024); // breakpoint: < lg
     checkMobile();
@@ -82,6 +88,9 @@ const Home = ({ params }: { params: any }) => {
     }
   }, [listOfdata]);
 
+  // console.log("The Skills Section Data: ", listOfdata?.skills_ids)
+
+  // This was Prev Logic
   useEffect(() => {
     if (listOfdata?.skills_ids && allSkills.length > 0) {
       const matchedSkills = allSkills.filter((skill) =>
@@ -95,6 +104,12 @@ const Home = ({ params }: { params: any }) => {
     }
   }, [listOfdata, allSkills]);
 
+  // Here im Using Custom Hook in useSortedSkills
+  const sortedSkills = useSortedSkills({
+    skillsIdsWithOrder: listOfdata?.skills_ids,
+    allSkills,
+  });
+
   // FIX: single overflow check, trigger when filtered skills change (removed duplicate)
   useEffect(() => {
     const skillsContainer = skillsContainerRef?.current;
@@ -104,6 +119,8 @@ const Home = ({ params }: { params: any }) => {
       );
     }
   }, [filteredSkills]);
+
+  // console.log("Filtered Skills: ", filteredSkills);
 
   // console.log("API Data:", listOfdata)
 
@@ -123,7 +140,15 @@ const Home = ({ params }: { params: any }) => {
     const nav = searchParams.get("nav");
     const expand = searchParams.get("expand");
 
-    console.log("🚀 Navigation System:", { portfolioId, experienceId, sectionId, scrollTo, scroll, nav, expand });
+    console.log("🚀 Navigation System:", {
+      portfolioId,
+      experienceId,
+      sectionId,
+      scrollTo,
+      scroll,
+      nav,
+      expand,
+    });
 
     // Helper function to wait for element to exist and be rendered
     const waitForElement = (elementId: string): Promise<HTMLElement | null> => {
@@ -143,9 +168,10 @@ const Home = ({ params }: { params: any }) => {
 
     // Scroll to element with proper offset
     const scrollToElement = (element: HTMLElement, offset: number = 100) => {
-      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+      const elementPosition =
+        element.getBoundingClientRect().top + window.pageYOffset;
       const offsetPosition = Math.max(0, elementPosition - offset);
-      
+
       window.scrollTo({
         top: offsetPosition,
         behavior: "smooth",
@@ -156,47 +182,62 @@ const Home = ({ params }: { params: any }) => {
     const handleNavigation = async () => {
       try {
         // 1. Portfolio-specific navigation (highest priority)
-        if (portfolioId && (sectionId === "myWork" || scrollTo === "myWork" || nav === "portfolio")) {
+        if (
+          portfolioId &&
+          (sectionId === "myWork" ||
+            scrollTo === "myWork" ||
+            nav === "portfolio")
+        ) {
           console.log("📍 Portfolio Navigation");
           setHighlightedPortfolioId(portfolioId);
-          
+
           // Set carousel slide if portfolio exists
           if (uniqueList?.length > 0) {
-            const portfolioIndex = uniqueList.findIndex(p => p.id === portfolioId);
+            const portfolioIndex = uniqueList.findIndex(
+              (p) => p.id === portfolioId
+            );
             if (portfolioIndex !== -1) {
-              window.dispatchEvent(new CustomEvent('setCarouselSlide', { 
-                detail: { slideIndex: portfolioIndex } 
-              }));
+              window.dispatchEvent(
+                new CustomEvent("setCarouselSlide", {
+                  detail: { slideIndex: portfolioIndex },
+                })
+              );
             }
           }
-          
+
           const element = await waitForElement("myWork");
           if (element) scrollToElement(element, 80);
           return;
         }
 
         // 2. Experience-specific navigation
-        if (experienceId || (nav === "experience" && (scrollTo === "experiences" || sectionId === "experienceSection"))) {
+        if (
+          experienceId ||
+          (nav === "experience" &&
+            (scrollTo === "experiences" || sectionId === "experienceSection"))
+        ) {
           console.log("📍 Experience Navigation");
-          
+
           if (expand === "true") setShowAllExperiences(true);
-          
+
           if (experienceId) {
             setHighlightedExperienceId(experienceId);
             setShowAllExperiences(true);
-            
+
             // Wait for experience expansion if needed
             if (expand === "true") {
-              await new Promise(resolve => setTimeout(resolve, 100)); // Brief wait for state update
+              await new Promise((resolve) => setTimeout(resolve, 100)); // Brief wait for state update
             }
-            
-            const specificElement = await waitForElement(`experience-${experienceId}`);
+
+            const specificElement = await waitForElement(
+              `experience-${experienceId}`
+            );
             if (specificElement) {
               scrollToElement(specificElement, 120);
               return;
             }
           }
-          
+
           // Fallback to section
           const sectionElement = await waitForElement("experienceSection");
           if (sectionElement) scrollToElement(sectionElement, 100);
@@ -204,20 +245,32 @@ const Home = ({ params }: { params: any }) => {
         }
 
         // 3. Skills section navigation
-        if ((sectionId === "skillSection" || scrollTo === "skills" || scroll === "skills") && 
-            nav !== "portfolio" && nav !== "experience") {
+        if (
+          (sectionId === "skillSection" ||
+            scrollTo === "skills" ||
+            scroll === "skills") &&
+          nav !== "portfolio" &&
+          nav !== "experience"
+        ) {
           console.log("📍 Skills Navigation");
-          
+
           const element = await waitForElement("skillSection");
           if (element) scrollToElement(element, 100);
           return;
         }
 
         // 4. General section navigation
-        if (sectionId && !["myWork", "experienceSection", "skillSection"].includes(sectionId) && 
-            !nav && !portfolioId && !experienceId) {
+        if (
+          sectionId &&
+          !["myWork", "experienceSection", "skillSection"].includes(
+            sectionId
+          ) &&
+          !nav &&
+          !portfolioId &&
+          !experienceId
+        ) {
           console.log("📍 General Section Navigation:", sectionId);
-          
+
           const element = await waitForElement(sectionId);
           if (element) scrollToElement(element, 100);
           return;
@@ -284,7 +337,6 @@ const Home = ({ params }: { params: any }) => {
             actualPage: (
               <>
                 {/* <FreeTrialPopup listOfdata={listOfdata} urlInfo={urlInfo} /> */}
-
                 <HeroSection
                   listOfdata={listOfdata}
                   // FIX: pass filteredSkills to show only profile-specific skills
@@ -303,11 +355,13 @@ const Home = ({ params }: { params: any }) => {
                   downloadFile={downloadFile}
                 />
 
-                <UpworkActivitySection
-                  urlInfo={urlInfo}
-                  cvTrue={false}
-                  data={listOfdata}
-                />
+                <div className="mb-[20px] lg:mb-[90px]">
+                  <UpworkActivitySection
+                    urlInfo={urlInfo}
+                    cvTrue={false}
+                    data={listOfdata}
+                  />
+                </div>
 
                 {/* Custom Video Player Section */}
                 {listOfdata?.video_attached?.videoURL && (
@@ -346,7 +400,11 @@ const Home = ({ params }: { params: any }) => {
                     </div>
 
                     {/* FIX: pass filteredSkills to SkillsContainer */}
-                    <SkillsContainer list={filteredSkills} variant="default" autoExpandOnParam={true} />
+                    <SkillsContainer
+                      list={sortedSkills}
+                      variant="default"
+                      autoExpandOnParam={true}
+                    />
                   </div>
                 )}
 
@@ -378,7 +436,10 @@ const Home = ({ params }: { params: any }) => {
                           Explore My Technical Endeavors
                         </div>
 
-                        <HomeSlider portfolios={uniqueList} highlightedPortfolioId={highlightedPortfolioId} />
+                        <HomeSlider
+                          portfolios={uniqueList}
+                          highlightedPortfolioId={highlightedPortfolioId}
+                        />
                       </div>
                     </section>
                   )}
@@ -400,7 +461,7 @@ const Home = ({ params }: { params: any }) => {
                           My Professional Career Journey
                         </div>
 
-                        {experiences
+                        {/* {experiences
                           .slice(
                             0,
                             showAllExperiences
@@ -415,21 +476,74 @@ const Home = ({ params }: { params: any }) => {
                                 ? "border border-primary rounded-[1rem] p-4"
                                 : ""}
                             >
-                              <ExperienceSection
+                              {
+                                const isLastItem = index === experiencesData.length - 1;
+                                return (
+                                  <ExperienceSection
                                 index={experience.id}
                                 experience={experience}
-                                listOfskills={filteredSkills} // FIX: pass filteredSkills
+                                listOfskills={listOfdata?.skills_ids} // FIX: pass filteredSkills
                                 listOfdata={listOfdata}
                                 showMoreSkills={showMoreSkills}
                                 setShowMoreSkills={setShowMoreSkills}
+                                isLast={isLastItem}
                                 variant="timeline"
                               />
+                                )
+                              }
+                            
                             </div>
-                          ))}
+                          ))} */}
+
+                        {experiences
+                          .slice(
+                            0,
+                            showAllExperiences
+                              ? experiences.length
+                              : initialCount
+                          )
+                          .map((experience, index) => {
+                            // ⬅️ IMPORTANT: Add 'index' to the map callback arguments
+
+                            // 1. Declare the variable and logic inside the map function's body.
+                            const isLastItem =
+                              index ===
+                              experiences.slice(
+                                0,
+                                showAllExperiences
+                                  ? experiences.length
+                                  : initialCount
+                              ).length -
+                                1;
+
+                            // 2. Return the JSX element.
+                            return (
+                              <div
+                                key={experience.id}
+                                id={`experience-${experience.id}`}
+                                className={
+                                  highlightedExperienceId === experience.id
+                                    ? "border border-primary rounded-[1rem] p-4"
+                                    : ""
+                                }
+                              >
+                                <ExperienceSection
+                                  index={index} // Changed this to the array index, as it is usually required for showMoreSkills array index
+                                  experience={experience}
+                                  listOfskills={listOfdata?.skills_ids}
+                                  listOfdata={listOfdata}
+                                  showMoreSkills={showMoreSkills}
+                                  setShowMoreSkills={setShowMoreSkills}
+                                  isLast={isLastItem} // ⬅️ Passed the correctly calculated isLast prop
+                                  variant="timeline"
+                                />
+                              </div>
+                            );
+                          })}
 
                         {!showAllExperiences &&
                           experiences.length > initialCount && (
-                            <div className="flex items-center justify-center">
+                            <div className="flex items-center justify-center lg:ml-20">
                               <button
                                 onClick={() => setShowAllExperiences(true)}
                                 className="btn-primary text-white py-[1rem] mt-[2rem] px-[3.4rem] text-[1.8rem] font-medium"

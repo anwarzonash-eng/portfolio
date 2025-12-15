@@ -24,7 +24,7 @@ const CVEducation: React.FC<CVEducationProps> = ({ educationList }) => {
     <div className="overflow-hidden ml-[2rem] md:ml-[3rem] lg:ml-[5rem] print_p_m print:flex print:flex-col items-start justify-center">
       {/* Title */}
       <h2 className="text-heading leading-[3.56rem] text-[3.67rem] font-medium pl-[0.5rem] py-[3rem]">
-        Education
+        Education & Certifications
       </h2>
 
       {/* Desktop Grid */}

@@ -13,7 +13,7 @@ type SkillType = {
 };
 
 interface SkillsContainerProps {
-  list?: SkillType[] | null;
+  list?: SkillType[] | any;
   variant?: "default" | "portfolio" | "print";
   layoutType?: boolean;
   useLinks?: boolean;
@@ -24,7 +24,7 @@ interface SkillsContainerProps {
 }
 
 const SkillsContainer: React.FC<SkillsContainerProps> = ({
-  list = [],
+  list,
   variant = "default",
   layoutType = false,
   useLinks = true,

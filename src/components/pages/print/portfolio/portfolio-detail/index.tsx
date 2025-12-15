@@ -30,6 +30,7 @@ import { getImageForIndex } from "@/utils/getImageForIndex";
 import { loadBlogs } from "@/hooks/apihandlers/blogListingApiHandler";
 import PrintPageRenderer, { ComponentConfig } from "@/utils/printPageRenderer";
 import { preloadImages } from "@/utils/preLoadImages";
+import { sortSkillsByOrder } from "@/hooks/sortSkillsByOrder";
 
 const PortfolioDetails_p = ({ params }: { params: any }) => {
   const searchParams = useSearchParams();
@@ -251,6 +252,8 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
     };
   }, []);
 
+  const sortedSkills = sortSkillsByOrder(listOfdata?.skills_ids);
+  
   
   const componentsList: ComponentConfig[] = [
     {
@@ -331,7 +334,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
       badgeTitle: "Tech Stack I have worked on",
       component: (
         <PortfolioDetailSKills
-          list={listOfdata?.skills_ids}
+          list={sortedSkills}
           numColumns={7}
           numSkills={35}
           portfolioId={listOfdata?.portfolios_ids[0]?.id}
