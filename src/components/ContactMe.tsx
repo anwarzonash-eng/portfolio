@@ -99,6 +99,8 @@ const ContactMe = ({ listOfdata }) => {
     };
 
     // console.log("Payload: ", payload);
+    // console.log("Leads API Payload Respone: ", payload)
+
 
     const res = await addLeadsApi(payload);
     if (/^2\d{2}$/.test(res?.status)) {
@@ -107,6 +109,7 @@ const ContactMe = ({ listOfdata }) => {
       setUploadedFile(null); // ✅ clear file after submit
     }
   };
+
 
   // Contact Links
   const constactLinks: ConstactLinks[] = [

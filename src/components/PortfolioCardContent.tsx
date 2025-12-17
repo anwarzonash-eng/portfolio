@@ -4,6 +4,7 @@ import Link from "next/link";
 import PortfolioFeatures from "./PortfolioFeatures";
 import ShowmoreSkills from "./showmoreSkills";
 import useIsDesktop from "@/hooks/useIsDesktop";
+import { modifiedContent } from "@/hooks/modifiedContent";
 
 interface PortfolioCardContentProps {
   portfolio: {
@@ -128,10 +129,16 @@ const PortfolioCardContent: React.FC<PortfolioCardContentProps> = ({
                 </Link>
               </div>
             </Link>
-            <p
-              dangerouslySetInnerHTML={{ __html: portfolio.tagline_2 || "" }}
-              className="text-[1.6rem] leading-[150%] font-medium mt-[1rem]"
-            />
+            <div
+              dangerouslySetInnerHTML={{
+                __html: modifiedContent(
+                  portfolio.tagline_2,
+                  listOfskills,
+                  listOfdata
+                ),
+              }}
+              className="p-[2rem] offer_main list-div text-[1.6rem] rounded-[1rem]"
+            ></div>
             <PortfolioFeatures
               features_short={portfolio.features_short || ""}
               skillsList={listOfskills}
@@ -148,22 +155,22 @@ const PortfolioCardContent: React.FC<PortfolioCardContentProps> = ({
                   {skillsToShow.map((skill: any, i: number) => (
                     <>
                       {skill?.url ? (
-                      <Link
-                      key={i}
-                      href={skill.url || "#"}
-                      target="_blank"
-                      className="hover:bg-primary hover:text-white py-[0.4rem] print:py-[0.1rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
-                    >
-                      {skill.title}
-                    </Link>
-                    ) : (
-                      <div
-                      key={i}
-                      className="hover:bg-primary hover:text-white py-[0.4rem] print:py-[0.1rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
-                    >
-                      {skill.title}
-                    </div>
-                    )}
+                        <Link
+                          key={i}
+                          href={skill.url || "#"}
+                          target="_blank"
+                          className="hover:bg-primary hover:text-white py-[0.4rem] print:py-[0.1rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
+                        >
+                          {skill.title}
+                        </Link>
+                      ) : (
+                        <div
+                          key={i}
+                          className="hover:bg-primary hover:text-white py-[0.4rem] print:py-[0.1rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
+                        >
+                          {skill.title}
+                        </div>
+                      )}
                     </>
                   ))}
                   {showMoreSkills[index] && <div className="w-full mb-[1px]" />}
@@ -189,7 +196,7 @@ const PortfolioCardContent: React.FC<PortfolioCardContentProps> = ({
               </Link>
               {listOfdata?.companytype !== "leewop" && (
                 <a
-                  href={portfolio?.link ? portfolio?.link : "#" }
+                  href={portfolio?.link ? portfolio?.link : "#"}
                   target="_blank"
                   className="py-[1rem] px-[2rem] text-[1.6rem] leading-[2.4rem] font-medium text-primary border border-solid hover:border-transparent border-primary print:!text-primary duration-300 hover:bg-primary hover:text-white rounded-[0.6rem] max-sm:w-full text-center text-nowrap"
                 >

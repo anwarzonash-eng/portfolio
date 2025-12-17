@@ -140,7 +140,7 @@ const adjustSkillsDescriptionInPortfolios = async (data) => {
 
   data.portfolios_ids?.forEach((portfolio, idx) => {
     const shuffledSkills = shuffleArray(data.skills_ids || []);
-    const skillsString = shuffledSkills.map((skill) => skill.title).join(", ");
+    const skillsString = shuffledSkills.map((skill) => `<u>${skill.title}</u>`).join(", ");
     portfolio.tagline_2 = portfolio.tagline_2?.replace(
       "{Skills}",
       skillsString
