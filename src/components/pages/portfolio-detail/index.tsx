@@ -550,7 +550,7 @@ const PortfolioDetails = ({ params }: { params: any }) => {
                       <SkillsContainer
                         list={sortedSkills}
                         variant="portfolio"
-                        autoExpandOnParam
+                        autoExpandOnParam={true}
                         layoutType
                       />
                     </div>

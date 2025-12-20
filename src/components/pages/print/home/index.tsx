@@ -217,6 +217,8 @@ const sortedSkills = sortSkillsByOrder(listOfdata?.skills_ids);
             companyType={listOfdata.companytype}
             portfolioId={listOfdata.portfolios_ids[0]?.id}
             locationLink="/?sectionId=myWork"
+            listOfskills={listOfskills}
+            listOfdata={listOfdata}
             from={0}
             max={1}
           />
@@ -234,6 +236,8 @@ const sortedSkills = sortSkillsByOrder(listOfdata?.skills_ids);
             companyType={listOfdata.companytype}
             portfolioId={listOfdata.portfolios_ids[1]?.id}
             locationLink="/?sectionId=myWork"
+            listOfskills={listOfskills}
+            listOfdata={listOfdata}
             from={1}
             max={2}
           />
@@ -251,6 +255,8 @@ const sortedSkills = sortSkillsByOrder(listOfdata?.skills_ids);
             companyType={listOfdata.companytype}
             portfolioId={listOfdata.portfolios_ids[2]?.id}
             locationLink="/?sectionId=myWork"
+            listOfskills={listOfskills}
+            listOfdata={listOfdata}
             from={2}
             max={3}
           />

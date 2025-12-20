@@ -76,6 +76,38 @@ const adjustDynamicContent = async (data) => {
   return data;
 };
 
+
+// Donwload CV Test BY Passing test-CV.pdf
+// const adjustDynamicContent = async (data) => {
+//   try {
+//     data = await adjustSkillsDescriptionForCV(data);
+//     data = await adjustSkillsIDsInExperiencesAndPortflios(data);
+//     data = await adjustSkillsDescriptionInExperiences(data);
+//     data = await adjustSkillsDescriptionInPortfolios(data);
+//     data = await adjustExperienceIntro(data);
+//     data = await adjustSkilledDescriptionInServices(data);
+
+//     // ✅ ADD THIS BLOCK (IMMUTABLE)
+//     data = {
+//       ...data,
+//       pdf_urls: {
+//         ...data?.pdf_urls,
+//         urls: data?.pdf_urls?.urls?.map(item =>
+//           item.type === "cv_with_u"
+//             ? { ...item, url: "/test-cv.pdf" }
+//             : item
+//         ),
+//       },
+//     };
+
+//     console.log({ data });
+//   } catch (error) {
+//     console.log(error);
+//   }
+
+//   return data;
+// };
+
 const adjustSkillsDescriptionForCV = async (data) => {
   const matchedGroups = getMatchedSkillsGroups(data);
   data.skills = `<ul>${matchedGroups

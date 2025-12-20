@@ -35,6 +35,94 @@ import ServicesSection from "@/components/HomePageComponents/ServicesSection";
 import { useUniquePortfolios } from "@/hooks/useUniquePortfolios";
 import UpworkActivitySection from "@/components/UpworkActivitySection";
 import { useSortedSkills } from "@/hooks/useSortedSkills";
+import TestimonialsSection from "@/components/HomePageComponents/TestimonialsSection";
+
+// Test
+// types.ts or directly in your component file
+interface Prototype {
+  video?: string;
+}
+
+interface Testimonial {
+  client_company: string;
+  client_company_website: string;
+  client_designation: string;
+  client_name: string;
+  client_pic: string;
+  id: string;
+  linkedin: string;
+  portfolio_id: number;
+  review_text: string;
+  Prototype?: Prototype[];
+  upwork?: string;
+  website_purpose?: string | null;
+  twitter?: string;
+}
+
+// Dummy data matching your real backend structure
+const dummyTestimonials: Testimonial[] = [
+  {
+    id: "801c609d-8324-41d8-8a3b-5de35f171e0b",
+    client_name: "Ken Deckinger",
+    client_designation: "CEO",
+    client_company: "BigPhotoHunt.com",
+    client_company_website: "https://www.bigphotohunt.com/",
+    client_pic:
+      "https://personalimageList.s3.eu-north-1.amazonaws.com/1765838065931_1765838065931_c.jpg",
+    linkedin: "https://www.linkedin.com/in/ken-deckinger-443156/",
+    review_text:
+      "<p>Usman/us is a highly capable (designation), and I had the pleasure of working with him on a project.</p>",
+    portfolio_id: 1,
+    Prototype: [
+      {
+        video:
+          "https://personalimageList.s3.eu-north-1.amazonaws.com/1765838422160_1765838422069_Usman.mp4",
+      },
+    ],
+    upwork: "https://www.upwork.com/freelancers/findusman",
+    website_purpose: null,
+    twitter: "",
+  },
+  {
+    id: "2",
+    client_name: "Sarah Johnson",
+    client_designation: "Product Manager",
+    client_company: "TechFlow Inc.",
+    client_company_website: "https://www.techflow.com/",
+    client_pic:
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=80&auto=format&fit=crop",
+    linkedin: "https://www.linkedin.com/in/sarahjohnson/",
+    review_text:
+      "<p>Outstanding designer with great attention to detail. Delivered pixel-perfect UI ahead of schedule and was very responsive throughout the project.</p>",
+    portfolio_id: 2,
+    Prototype: [],
+    upwork: "https://images.unsplash.com/photo-1519389951293-3a42a6363e3e?w=1200&q=80&auto=format&fit=crop",
+    website_purpose: null,
+    twitter: null,
+  },
+  {
+    id: "3",
+    client_name: "Michael Chen",
+    client_designation: "Founder & CTO",
+    client_company: "NovaStart",
+    client_company_website: "https://novastart.io",
+    client_pic:
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80&auto=format&fit=crop",
+    linkedin: "https://www.linkedin.com/in/michaelchen/",
+    review_text:
+      "<p>Usman is a top-tier UI/UX designer who truly understands user needs and business goals. Excellent communication and flawless execution.</p>",
+    portfolio_id: 3,
+    Prototype: [
+      {
+        video: "https://example.com/demo-video-3.mp4",
+      },
+    ],
+    upwork: null,
+    website_purpose: "Startup Landing Page & Dashboard",
+    twitter: "https://twitter.com/michaelchen",
+  },
+];
+// End
 
 const Home = ({ params }: { params: any }) => {
   useBodyBackgroundColor("#f8f9fa");
@@ -122,7 +210,9 @@ const Home = ({ params }: { params: any }) => {
 
   // console.log("Filtered Skills: ", filteredSkills);
 
-  // console.log("API Data:", listOfdata)
+  console.log("API Data:", listOfdata)
+  // console.log("PDF URL's Data:", listOfdata && listOfdata?.pdf_urls?.urls)
+ 
 
   // grouping used elsewhere — keep as is
   const skills = skillsGrouping(listOfdata?.skills_ids);
@@ -325,6 +415,7 @@ const Home = ({ params }: { params: any }) => {
   }, [loading]);
 
   // grouping used elsewhere — keep as is
+  console.log("URL Info:", urlInfo)
 
   return (
     <>
@@ -347,6 +438,8 @@ const Home = ({ params }: { params: any }) => {
                   isOverflowing={isOverflowing}
                   scrollToSection={scrollToSection}
                 />
+
+                
 
                 <AboutSection
                   listOfdata={listOfdata}
@@ -399,7 +492,6 @@ const Home = ({ params }: { params: any }) => {
                         : " The skills, tools and technologies I am really good at:"}
                     </div>
 
-                    {/* FIX: pass filteredSkills to SkillsContainer */}
                     <SkillsContainer
                       list={sortedSkills}
                       variant="default"
@@ -555,6 +647,13 @@ const Home = ({ params }: { params: any }) => {
                       </div>
                     </section>
                   )}
+
+                  {
+                    listOfdata?.testimonials && (
+                      <TestimonialsSection testimonials={listOfdata?.testimonials}/>
+                    )
+                  }
+
 
                 <Faqs
                   urlInfo={urlInfo}

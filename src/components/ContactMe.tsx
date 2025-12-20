@@ -5,7 +5,7 @@ import { useState } from "react";
 import { formatPhoneNumber } from "@/hooks/formatPhoneNumber";
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 import * as Yup from "yup";
-import { addLeadsApi } from "@/apiHandlers/leadsApi";
+// import { addLeadsApi } from "@/apiHandlers/leadsApi";
 import { ErrorComponent } from "./errorComponent";
 import { formikEnums } from "@/enums/formikEnums";
 import { openChat } from "@/hooks/openTawkTochat";
@@ -13,6 +13,23 @@ import ThankyouPopup from "./ThankyouPopup";
 import Tooltip from "./Tooltip";
 import { Behance, Facebook, Instagram, Twitter, LinkedIn } from "./SVGI-Icons";
 import { ChevronDown, ChevronUp } from "lucide-react";
+
+// Just For Testing
+const addLeadsApi = async (payload: any) => {
+  const response = await fetch("https://cypexsoft.net/leads/manual-add", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+
+  const data = await response.json();
+  return {
+    status: response.status,
+    data,
+  };
+};
 
 declare global {
   interface Window {
@@ -34,17 +51,18 @@ const ContactMe = ({ listOfdata }) => {
 
   // ✅ Yup Validation
   const validationSchema = Yup.object({
-    fullName: Yup.string().required(formikEnums.Name.FullNameRequired),
-    email: Yup.string()
-      .email(formikEnums.Email.Invalid)
-      .required(formikEnums.Email.Required),
-    phone: Yup.string()
-      .matches(/^\+?[0-9]{7,15}$/, formikEnums.Phone.Invalid)
-      .required(formikEnums.Phone.Required),
-    subject: Yup.string().required(formikEnums.Subject),
-    projectLength: Yup.string().required(formikEnums.ProjectLength),
+    fullName: Yup.string(),
+    email: Yup.string().email(formikEnums.Email.Invalid),
+    phone: Yup.string().matches(/^\+?[0-9]{7,15}$/, formikEnums.Phone.Invalid),
     message: Yup.string().required(formikEnums.Message),
-  });
+  }).test(
+    "email-or-phone",
+    "Either Provide Email or Phone number is required",
+    function (values) {
+      const { email, phone } = values || {};
+      return !!(email || phone);
+    }
+  );
 
   const initialValues = {
     fullName: "",
@@ -82,34 +100,50 @@ const ContactMe = ({ listOfdata }) => {
     setUploadedFile(null);
   };
 
-  // ✅ Submit Handler
+  // ✅ Submit Handler Updated
   const handleContactFormSubmit = async (
     values: typeof initialValues,
     { resetForm }: FormikHelpers<typeof initialValues>
   ) => {
+    // Default project length if not selected
+    const projectLength = values.projectLength || "2-weeks";
+
     const payload = {
-      name: values.fullName,
-      email: values.email,
-      phone: values.phone,
-      subject: values.subject,
-      projectLength: values.projectLength,
-      message: values.message,
-      upload: uploadedFile,
-      source_category: "contact",
+      action_type: "add",
+      title: "tmp leads from personal",
+      description: "tmp leads from personal.",
+      contact: [
+        {
+          email: values.email.trim() || "",
+          name: values.fullName.trim() || "Anonymous",
+          contact: values.phone.trim() || "",
+          source: "personal_website",
+          website: "findusman.me",
+          // Optional extra fields you can include
+          project_details: values.message,
+          subject: values.subject,
+          project_length: values.projectLength || "2-weeks",
+        },
+      ],
+      lead_source: "personal_website",
     };
 
-    // console.log("Payload: ", payload);
-    // console.log("Leads API Payload Respone: ", payload)
+    try {
+      const res = await addLeadsApi(payload);
 
-
-    const res = await addLeadsApi(payload);
-    if (/^2\d{2}$/.test(res?.status)) {
-      setIsModalOpen(true);
-      resetForm();
-      setUploadedFile(null); // ✅ clear file after submit
+      if (res?.status === 201 || res?.data?.statusCode === 201) {
+        setIsModalOpen(true);
+        resetForm();
+        setUploadedFile(null);
+        console.log("Uploaded Response:", res);
+      } else {
+        console.error("Lead submission failed:", res.data);
+        // Optionally show error to user
+      }
+    } catch (error) {
+      console.error("Error submitting lead:", error);
     }
   };
-
 
   // Contact Links
   const constactLinks: ConstactLinks[] = [
@@ -192,16 +226,27 @@ const ContactMe = ({ listOfdata }) => {
                 </p>
               </div>
 
-              {/* FullName & Email */}
+              {/* Full Name */}
+              <div className="my-4">
+                <Field
+                  type="text"
+                  name="fullName"
+                  placeholder="Full Name"
+                  className="border border-border rounded-[0.4rem] px-[1.6rem] py-[1.2rem] w-full text-[1.6rem] outline-none focus:border-primary duration-300"
+                />
+                <ErrorMessage name="fullName" component={ErrorComponent} />
+              </div>
+
+              {/* Email & Phone */}
               <div className="flex flex-col md:flex-row items-center justify-center gap-4 w-full mb-4">
                 <div className="w-full flex-col">
                   <Field
-                    type="text"
-                    name="fullName"
-                    placeholder="Full Name"
+                    type="tel"
+                    name="phone"
+                    placeholder="Phone Number"
                     className="border border-border rounded-[0.4rem] px-[1.6rem] py-[1.2rem] w-full text-[1.6rem] outline-none focus:border-primary duration-300"
                   />
-                  <ErrorMessage name="fullName" component={ErrorComponent} />
+                  <ErrorMessage name="phone" component={ErrorComponent} />
                 </div>
                 <div className="w-full flex-col">
                   <Field
@@ -212,17 +257,10 @@ const ContactMe = ({ listOfdata }) => {
                   />
                   <ErrorMessage name="email" component={ErrorComponent} />
                 </div>
-              </div>
-
-              {/* Phone Number */}
-              <div className="my-4">
-                <Field
-                  type="tel"
-                  name="phone"
-                  placeholder="Phone Number"
-                  className="border border-border rounded-[0.4rem] px-[1.6rem] py-[1.2rem] w-full text-[1.6rem] outline-none focus:border-primary duration-300"
-                />
-                <ErrorMessage name="phone" component={ErrorComponent} />
+                {/* After email and phone fields */}
+                <div className="text-red-500 text-sm mt-1">
+                  <ErrorMessage name="email-or-phone" />
+                </div>
               </div>
 
               {/* Subject */}
@@ -465,7 +503,11 @@ const ContactMe = ({ listOfdata }) => {
                         {socialMediaLinksForContactComponent?.map((C, i) => (
                           <>
                             {C.link && (
-                              <Link href={C.link ? C.link : "#"} target="_blank" key={i}>
+                              <Link
+                                href={C.link ? C.link : "#"}
+                                target="_blank"
+                                key={i}
+                              >
                                 <C.SVG />
                               </Link>
                             )}

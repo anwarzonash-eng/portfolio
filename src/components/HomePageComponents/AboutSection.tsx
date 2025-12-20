@@ -20,7 +20,7 @@ interface AboutSectionProps {
     linkedIn?: string;
     behance_link?: string;
     is_pdf_generated?: boolean;
-    pdf_download_links?: { type: string; cvFileUrl: string }[];
+    pdf_urls?: { urls: { type: string; url: string }[] };
   };
   urlInfo?: { u?: string };
   formatPhoneNumber: (phone: string | undefined) => string;
@@ -33,6 +33,10 @@ const AboutSection: React.FC<AboutSectionProps> = ({
   formatPhoneNumber,
   downloadFile,
 }) => {
+  const cvLink = listOfdata?.pdf_urls?.urls?.find((link) =>
+  (urlInfo?.u ? link.type === "cv_with_u" : link.type === "cv") && link.url
+  );
+
   return (
     <section
       id="about"
@@ -235,21 +239,30 @@ const AboutSection: React.FC<AboutSectionProps> = ({
                 View CV Online
               </button>
             </Link>
-            {listOfdata?.is_pdf_generated &&
-              listOfdata?.pdf_download_links?.length > 0 &&
-              listOfdata.pdf_download_links
-                .filter((link) => link.type === "CV")
+            {/* {listOfdata?.pdf_urls?.urls.length > 0 &&
+              listOfdata?.pdf_urls?.urls
+                .filter((link) => link.type === "cv")
                 .map((cvLink, index) => (
                   <button
                     key={index}
                     onClick={() =>
-                      downloadFile(cvLink.cvFileUrl, `${listOfdata?.name} - CV`)
+                      downloadFile(cvLink.url, `${listOfdata?.name} - CV`)
                     }
                     className="w-full md:max-w-max mt-5 md:mt-0 btn-primary rounded-[0.6rem] text-white py-[2rem] px-[5.6rem] text-[1.8rem] font-medium border border-solid border-custom"
                   >
                     Download CV
                   </button>
-                ))}
+                ))} */}
+            {cvLink && (
+              <button
+                onClick={() =>
+                  downloadFile(cvLink.url, `${listOfdata?.name} - CV`)
+                }
+                className="w-full md:max-w-max mt-5 md:mt-0 btn-primary rounded-[0.6rem] text-white py-[2rem] px-[5.6rem] text-[1.8rem] font-medium border border-solid border-custom"
+              >
+                Download CV
+              </button>
+            )}
           </div>
         </div>
       </div>

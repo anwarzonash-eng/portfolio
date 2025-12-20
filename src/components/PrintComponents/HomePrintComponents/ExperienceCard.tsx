@@ -116,6 +116,7 @@ const ExperienceCard = ({
     return showMoreSkills[index] ? skills : skills.slice(0, skillsToShow);
   };
 
+
   return (
     <div className="relative w-full px-[2rem] mb-[2rem] space-y-[20px]">
       {experiencesToShow.map((experience, index) => {

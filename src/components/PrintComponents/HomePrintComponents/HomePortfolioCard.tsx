@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { skillsGrouping } from "@/hooks/skillsGrouping";
 import NoteDomainForPint from "@/components/NoteDomainForPint";
+import { modifiedContent } from "@/hooks/modifiedContent";
 
 type SkillType = {
   title: string;
@@ -33,6 +34,8 @@ interface HomePortfolioCardProps {
   companyType: string;
   locationLink: string;
   portfolioId: string;
+  listOfskills:any,
+  listOfdata: any,
   from: number;
   max?: number;
 }
@@ -73,6 +76,8 @@ const HomePortfolioCard: React.FC<HomePortfolioCardProps> = ({
   companyType,
   locationLink,
   portfolioId,
+  listOfskills,
+  listOfdata,
   from,
   max,
 }) => {
@@ -198,20 +203,24 @@ const HomePortfolioCard: React.FC<HomePortfolioCardProps> = ({
                         }}
                         className="text-[1.8rem] leading-[2.4rem] font-normal text-paragraph1 mt-[1rem] line-clamp-4"
                       /> */}
-                      <p
+
+                      {/* Correct Code Dynamically Links Injected */}
+                      <div
                         dangerouslySetInnerHTML={{
-                          __html: portfolio.tagline_2,
+                          __html: modifiedContent(
+                            portfolio.tagline_2,
+                            listOfskills,
+                            listOfdata
+                          ),
                         }}
-                        className="text-[1.8rem] leading-[2.4rem] font-normal text-primary mt-[1rem] line-clamp-6"
-                      />
+                         className="text-[1.8rem] leading-[2.4rem] font-normal mt-[1rem] line-clamp-6"
+                      ></div>
                       <Link
-                          href={`/?portfolioId=${portfolio.id}&scrollTo=myWork&nav=portfolio`}
-                          className="hover:bg-white bg-primary text-white hover:text-primary capitalize text-center text-primary text-[1.3rem] font-medium py-[0.4rem] px-[2rem] flex items-center justify-center gap-[8px] rounded-[5rem] shadow opacity-0 animate-fadeIn relative group border border-transparent hover:border-primary max-w-max mt-[2rem]"
-                        >
-                          <button >
-                          Read More
-                          </button>
-                        </Link>
+                        href={`/?portfolioId=${portfolio.id}&scrollTo=myWork&nav=portfolio`}
+                        className="hover:bg-white bg-primary text-white hover:text-primary capitalize text-center text-primary text-[1.3rem] font-medium py-[0.4rem] px-[2rem] flex items-center justify-center gap-[8px] rounded-[5rem] shadow opacity-0 animate-fadeIn relative group border border-transparent hover:border-primary max-w-max mt-[2rem]"
+                      >
+                        <button>Read More</button>
+                      </Link>
                     </div>
                   </div>
 
@@ -220,7 +229,7 @@ const HomePortfolioCard: React.FC<HomePortfolioCardProps> = ({
                     <p className="mb-[1rem]">
                       AREAS OF EXPERTISE I'VE WORKED IN:
                     </p>
-                  <hr className="w-full my-[2rem] h-px bg-border" />
+                    <hr className="w-full my-[2rem] h-px bg-border" />
 
                     <div className="flex items-center gap-[0.7rem] flex-wrap">
                       {visibleSkills.map((skill: SkillType, i: number) => (
@@ -250,7 +259,7 @@ const HomePortfolioCard: React.FC<HomePortfolioCardProps> = ({
                   </Link>
                   {companyType !== "leewop" && (
                     <Link
-                      href={portfolio?.link ? portfolio?.link : "#" }
+                      href={portfolio?.link ? portfolio?.link : "#"}
                       className="py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-primary border border-solid hover:border-transparent border-primary duration-300 hover:bg-primary hover:text-white rounded-[0.6rem] text-center max-w-max text-nowrap"
                     >
                       Launch Project - Live Preview
