@@ -1,6 +1,6 @@
 <svg width="1550" height="241" viewBox="0 0 1550 241" fill="none" xmlns="http://www.w3.org/2000/svg">
 <mask id="mask0_411_2285" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="1551" height="241">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M0 0C252.636 129.495 916.326 310.789 1550 0V240.496H0V0Z" fill="#00473C"/>
+<path fillRule="evenodd" clip-rule="evenodd" d="M0 0C252.636 129.495 916.326 310.789 1550 0V240.496H0V0Z" fill="#00473C"/>
 </mask>
 <g mask="url(#mask0_411_2285)">
 <path d="M-103.165 -98.6123L1721.35 -98.6123L1721.35 650.612L-103.165 650.612L-103.165 -98.6123Z" fill="#00473C"/>

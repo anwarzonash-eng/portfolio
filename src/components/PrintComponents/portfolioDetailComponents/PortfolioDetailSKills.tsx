@@ -13,7 +13,7 @@ type SkillType = {
 };
 
 interface SkillsContainerProps {
-  list?: SkillType[] | null;
+  list?: any[] | null;
   layoutType?: boolean;
   useLinks?: boolean;
   autoExpandOnParam?: boolean;

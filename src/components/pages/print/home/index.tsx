@@ -6,7 +6,6 @@ import ContactMeLinks from "@/components/ContactMeLinks";
 import React, { useEffect, useRef, useState } from "react";
 import { formatPhoneNumber } from "@/hooks/formatPhoneNumber";
 import { formatDate } from "@/hooks/formatdate";
-import { modifiedContent } from "@/hooks/modifiedContent";
 import { dateFormatsOptions } from "@/data/JsonData";
 import { useSearchParams } from "next/navigation";
 import { getRoutesDetails } from "@/hooks/url";
@@ -37,7 +36,7 @@ import {
 } from "@/components/PrintComponents/HomePrintComponents";
 import PrintPageRenderer, { ComponentConfig } from "@/utils/printPageRenderer";
 import Link from "next/link";
-import { sortSkillsByOrder } from "@/hooks/sortSkillsByOrder";
+import { useSortedSkills } from "@/hooks/useSortedSkills";
 
 
 
@@ -92,10 +91,6 @@ const Home_p = ({ params }: { params: any }) => {
   }, [listOfdata?.skills_ids]);
 
   useEffect(() => {
-    if (listOfdata) {
-      // // console.log(listOfdata);
-      // skillsSyncApi({ setListOfSkills });
-    }
     listOfdata && handleSkillsApiCall({ setListOfSkills });
   }, [listOfdata]);
 
@@ -117,10 +112,15 @@ const Home_p = ({ params }: { params: any }) => {
     }
   }, [listOfdata]);
 
-const sortedSkills = sortSkillsByOrder(listOfdata?.skills_ids);
+
+ // console.log("Unsorted Skills Print Home Page:", listOfdata?.skills_ids)
+ // Here im Using Custom Hook in useSortedSkills
+  const sortedSkills = useSortedSkills({
+    skillsIdsWithOrder: listOfdata?.skills_ids,
+    allSkills: listOfskills
+  });
 
 
-  // console.log("List of Data:", listOfdata);
 
   const domain = listOfdata?.domain;
 

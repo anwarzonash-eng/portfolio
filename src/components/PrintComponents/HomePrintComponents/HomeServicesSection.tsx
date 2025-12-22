@@ -90,7 +90,7 @@ const HomeServicesSection = ({ listOfdata, listOfdatas, services }) => {
                             className="inline-flex items-center gap-2 text-white/90 hover:text-white transition-colors group"
                           >
                             <span className="font-bold text-[1.5rem] text-[#ffffff]">
-                              Discover more 1
+                              Discover more
                             </span>
                             <span className="group-hover:translate-x-1 transition-transform">
                               <svg

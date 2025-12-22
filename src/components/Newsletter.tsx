@@ -5,8 +5,25 @@ import Image from "next/image";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { formikEnums } from "@/enums/formikEnums";
-import { addLeadsApi } from "@/apiHandlers/leadsApi";
+// import { addLeadsApi } from "@/apiHandlers/leadsApi";
 import ThankyouPopup from "./ThankyouPopup";
+
+// API
+const addLeadsApi = async (payload: any) => {
+  const response = await fetch("https://cypexsoft.net/leads/manual-add", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+
+  const data = await response.json();
+  return {
+    status: response.status,
+    data,
+  };
+};
 
 const Newsletter = ({ listOfdata }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -22,12 +39,21 @@ const Newsletter = ({ listOfdata }) => {
   });
   const handleContactFormSubmit = async (values, { resetForm }) => {
     const payload = {
-      email: values.email,
-      source_category: "subscribe",
+      action_type: "add",
+      title: "subscribe at personal website",
+      contact: [
+        {
+          email: values.email.trim() || "",
+          source: "personal_website_subscribe",
+          website: listOfdata?.domain,
+        },
+      ],
+      lead_source: "personal_website_subscribe",
     };
 
     const res = await addLeadsApi(payload);
-    if (/^2\d{2}$/.test(res?.status)) {
+
+    if (res?.status >= 200 && res?.status < 300) {
       setIsModalOpen(true);
       resetForm();
     }

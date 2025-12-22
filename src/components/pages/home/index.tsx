@@ -210,7 +210,7 @@ const Home = ({ params }: { params: any }) => {
 
   // console.log("Filtered Skills: ", filteredSkills);
 
-  console.log("API Data:", listOfdata)
+  // console.log("API Data:", listOfdata)
   // console.log("PDF URL's Data:", listOfdata && listOfdata?.pdf_urls?.urls)
  
 

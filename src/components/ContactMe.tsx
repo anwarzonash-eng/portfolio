@@ -5,7 +5,6 @@ import { useState } from "react";
 import { formatPhoneNumber } from "@/hooks/formatPhoneNumber";
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 import * as Yup from "yup";
-// import { addLeadsApi } from "@/apiHandlers/leadsApi";
 import { ErrorComponent } from "./errorComponent";
 import { formikEnums } from "@/enums/formikEnums";
 import { openChat } from "@/hooks/openTawkTochat";
@@ -14,7 +13,7 @@ import Tooltip from "./Tooltip";
 import { Behance, Facebook, Instagram, Twitter, LinkedIn } from "./SVGI-Icons";
 import { ChevronDown, ChevronUp } from "lucide-react";
 
-// Just For Testing
+//API
 const addLeadsApi = async (payload: any) => {
   const response = await fetch("https://cypexsoft.net/leads/manual-add", {
     method: "POST",
@@ -44,25 +43,33 @@ const ContactMe = ({ listOfdata }) => {
     alt: string;
   }
 
+
+  console.log("Leads API Data:", listOfdata)
+
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [dragActive, setDragActive] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
-  // ✅ Yup Validation
+  // ✅ Yup Updated Validation Schema
   const validationSchema = Yup.object({
     fullName: Yup.string(),
-    email: Yup.string().email(formikEnums.Email.Invalid),
-    phone: Yup.string().matches(/^\+?[0-9]{7,15}$/, formikEnums.Phone.Invalid),
+    subject: Yup.string(),
+    projectLength: Yup.string(),
+
     message: Yup.string().required(formikEnums.Message),
-  }).test(
-    "email-or-phone",
-    "Either Provide Email or Phone number is required",
-    function (values) {
-      const { email, phone } = values || {};
-      return !!(email || phone);
-    }
-  );
+
+    email: Yup.string().email(formikEnums.Email.Invalid),
+
+    phone: Yup.string()
+      .matches(/^\+?[0-9]{7,15}$/, formikEnums.Phone.Invalid)
+      .when("email", {
+        is: (email: string) => !email || email.trim() === "",
+        then: (schema) =>
+          schema.required("Either Email or Phone number is required"),
+        otherwise: (schema) => schema.nullable().notRequired(),
+      }),
+  });
 
   const initialValues = {
     fullName: "",
@@ -100,29 +107,22 @@ const ContactMe = ({ listOfdata }) => {
     setUploadedFile(null);
   };
 
-  // ✅ Submit Handler Updated
+  // ✅ Updated Submit Handler with Correct Payload
   const handleContactFormSubmit = async (
     values: typeof initialValues,
     { resetForm }: FormikHelpers<typeof initialValues>
   ) => {
-    // Default project length if not selected
-    const projectLength = values.projectLength || "2-weeks";
-
     const payload = {
       action_type: "add",
-      title: "tmp leads from personal",
-      description: "tmp leads from personal.",
+      title: values.subject.trim() || "Inquiry from personal website",
+      description: values.message.trim(),
       contact: [
         {
           email: values.email.trim() || "",
           name: values.fullName.trim() || "Anonymous",
           contact: values.phone.trim() || "",
           source: "personal_website",
-          website: "findusman.me",
-          // Optional extra fields you can include
-          project_details: values.message,
-          subject: values.subject,
-          project_length: values.projectLength || "2-weeks",
+          website: listOfdata?.domain,
         },
       ],
       lead_source: "personal_website",
@@ -135,10 +135,9 @@ const ContactMe = ({ listOfdata }) => {
         setIsModalOpen(true);
         resetForm();
         setUploadedFile(null);
-        console.log("Uploaded Response:", res);
       } else {
         console.error("Lead submission failed:", res.data);
-        // Optionally show error to user
+        // You can add a user-facing error here if needed
       }
     } catch (error) {
       console.error("Error submitting lead:", error);
@@ -199,14 +198,14 @@ const ContactMe = ({ listOfdata }) => {
         className="flex print:break-before-page items-center justify-center flex-wrap lg:flex-nowrap bg-footerMobile md:bg-footerDesktop bg-no-repeat print:bg-none print:w-full bg-left-top ultra2x:border-[1.5rem] ultra2x:border-white print:border-none bg-cover rounded-[1rem] relative  p-[1rem] sm:p-[2rem] gap-[2.4rem] shadow-lg print:shadow-none"
       >
         {/* Contact Form */}
+
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
           onSubmit={handleContactFormSubmit}
         >
-          {({ isSubmitting }) => (
+          {({ isSubmitting, errors, touched }) => (
             <Form className="bg-white print:hidden rounded-[0.6rem] p-[2rem] shadow-lg lg:max-w-[44.7rem] w-full">
-              {/* Heading */}
               <div className="mb-[2rem] flex flex-col gap-[1rem]">
                 <h4 className="text-[2.4rem] leading-loose font-medium text-heading">
                   Contact Form
@@ -238,28 +237,24 @@ const ContactMe = ({ listOfdata }) => {
               </div>
 
               {/* Email & Phone */}
-              <div className="flex flex-col md:flex-row items-center justify-center gap-4 w-full mb-4">
-                <div className="w-full flex-col">
+              <div className="">
+                <div className="flex flex-col md:flex-row items-center justify-center gap-4 w-full mb-4">
                   <Field
                     type="tel"
                     name="phone"
                     placeholder="Phone Number"
                     className="border border-border rounded-[0.4rem] px-[1.6rem] py-[1.2rem] w-full text-[1.6rem] outline-none focus:border-primary duration-300"
                   />
-                  <ErrorMessage name="phone" component={ErrorComponent} />
-                </div>
-                <div className="w-full flex-col">
                   <Field
                     type="email"
                     name="email"
                     placeholder="Email Address"
                     className="border border-border rounded-[0.4rem] px-[1.6rem] py-[1.2rem] w-full text-[1.6rem] outline-none focus:border-primary duration-300"
                   />
-                  <ErrorMessage name="email" component={ErrorComponent} />
                 </div>
-                {/* After email and phone fields */}
-                <div className="text-red-500 text-sm mt-1">
-                  <ErrorMessage name="email-or-phone" />
+                <div className="flex items-center justify-between gap-[1rem]">
+                  <ErrorMessage name="phone" component={ErrorComponent} />
+                  <ErrorMessage name="email" component={ErrorComponent} />
                 </div>
               </div>
 
@@ -277,21 +272,20 @@ const ContactMe = ({ listOfdata }) => {
               {/* Project Length Dropdown */}
               <div className="my-4 relative">
                 <div className="relative">
+                  <p className="text-[1.4rem] font-medium m-[0.5rem]">Project Length</p>
                   <Field
                     as="select"
                     name="projectLength"
                     onClick={() => setIsOpen(!isOpen)}
                     className="appearance-none border border-border rounded-[0.4rem] px-[1.6rem] py-[1.2rem] w-full text-[1.6rem] outline-none focus:border-primary duration-300 pr-10 cursor-pointer bg-white"
                   >
-                    <option value="">Select Project Length</option>
+                    {/* <option value="">Select Project Length</option> */}
                     <option value="2-weeks">2 Weeks</option>
                     <option value="4-weeks">4 Weeks</option>
                     <option value="2-months">2 Months</option>
                     <option value="4-months">4 Months</option>
                     <option value="6plus-months">More Than 6 Months</option>
                   </Field>
-
-                  {/* Arrow Icon */}
                   <span className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none transition-transform duration-300">
                     {isOpen ? (
                       <ChevronUp className="w-8 h-8 text-primary" />
@@ -300,7 +294,6 @@ const ContactMe = ({ listOfdata }) => {
                     )}
                   </span>
                 </div>
-
                 <ErrorMessage name="projectLength" component={ErrorComponent} />
               </div>
 
@@ -315,8 +308,7 @@ const ContactMe = ({ listOfdata }) => {
                 <ErrorMessage name="message" component={ErrorComponent} />
               </div>
 
-              {/* Drag & Drop Multiple Upload */}
-              {/* Drag & Drop Single Upload */}
+              {/* File Upload (unchanged) */}
               <div
                 className={`flex flex-col items-center justify-center gap-[1rem] lg:max-w-[40.7rem] w-full mb-[1.5rem] border-2 border-dashed rounded-[0.6rem] p-6 cursor-pointer ${
                   dragActive ? "border-primary bg-blue-50" : "border-border"
@@ -339,7 +331,6 @@ const ContactMe = ({ listOfdata }) => {
                   <span className="text-primary font-semibold">Browse</span>
                 </label>
 
-                {/* File Preview */}
                 {uploadedFile && (
                   <div className="mt-3 w-full text-[1.4rem] text-paragraph1 flex justify-between items-center border-b border-border py-1">
                     <span>{uploadedFile.name}</span>
@@ -354,7 +345,7 @@ const ContactMe = ({ listOfdata }) => {
                 )}
               </div>
 
-              {/* Submit */}
+              {/* Submit Button */}
               <button
                 className={`btn-primary w-full lg:max-w-max text-white py-[2rem] px-[5.6rem] text-[1.8rem] font-medium ${
                   isSubmitting && "cursor-not-allowed"
