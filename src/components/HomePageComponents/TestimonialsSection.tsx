@@ -6,13 +6,13 @@ import { ArrowLeft, ArrowRight, Link, Pause, Play } from "lucide-react";
 import { Facebook, Instagram, Twitter, LinkedIn } from "../SVGI-Icons";
 
 import { processReviewText } from "@/hooks/processReviewText";
-import Image from "next/image";
 
 // Define the TypeScript interface based on your backend data
 interface Testimonial {
   client_company: string;
   client_company_website: string;
   client_designation: string;
+  designation: string;
   client_name: string;
   client_pic: string;
   id: string;
@@ -29,12 +29,12 @@ interface Testimonial {
 
 interface TestimonialsSectionProps {
   testimonials: Testimonial[];
+  designation: string;
 }
-
-
 
 const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
   testimonials,
+  designation
 }) => {
   const swiperRef = useRef<any>(null);
   const [isPaused, setIsPaused] = useState(false);
@@ -51,9 +51,6 @@ const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
     }
   };
 
-
-
-
   return (
     <section className="w-full bg-primary lg:px-[4rem]  lg:py-[8rem] px-0 py-[2rem] my-[8rem]">
       <div className="mainContainer">
@@ -61,7 +58,7 @@ const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
           {/* Heading */}
           <div className="flex flex-col gap-2 z-10 lg:absolute lg:top-[2rem]">
             <div className="max-lg:flex items-center justify-center">
-            <div className="badge">Testimonials</div>
+              <div className="badge">Testimonials</div>
             </div>
             <h3 className="text-[2rem] lg:text-[3rem] font-medium text-white max-lg:text-center max-lg:my-[1.5rem]">
               See what my clients say about me
@@ -81,8 +78,11 @@ const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
           >
             {testimonials.map((t) => {
               const processedReview = useMemo(() => {
-    return processReviewText(t.review_text, t.client_designation);
-  }, [t.review_text, t.client_designation]);
+                return processReviewText(
+                  t.review_text,
+                  designation
+                );
+              }, [t.review_text, designation]);
               // Extract video URL: prefer Prototype[0].video → fallback to upwork
               const videoThumb =
                 t.Prototype?.[0]?.video || t.upwork || "/placeholder-video.jpg";
@@ -99,8 +99,8 @@ const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
                           alt="quote"
                         />
                         <div
-                          dangerouslySetInnerHTML={{ __html: processedReview}}
-                           className="text-[1.4rem] lg:text-[2.5rem] leading-normal  mb-0"
+                          dangerouslySetInnerHTML={{ __html: processedReview }}
+                          className="text-[1.4rem] lg:text-[2.5rem] leading-normal  mb-0"
                         />
 
                         {/* <hr className="mb-[2rem] border-white/40" /> */}
@@ -204,55 +204,55 @@ const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
           </Swiper>
           {/* Play/Pause/Next/Prev Buttons */}
           {testimonials.length > 1 && (
-          <div className=" absolute left-1/2 -translate-x-1/2  z-10 w-full flex items-center justify-center gap-[2rem] lg:bottom-[3rem] bottom-[-1rem]">
-            {/* Play/Pause Button - Centered Below Slider */}
-            <div className="flex justify-center">
-              <button
-                onClick={togglePause}
-                className="size-14 rounded-full bg-white/10 backdrop-blur-sm border border-white/30 flex items-center justify-center hover:bg-white/20 transition-all duration-300"
-                aria-label={isPaused ? "Play slideshow" : "Pause slideshow"}
-              >
-                {isPaused ? (
-                  <Play className="text-white size-7 ml-1" fill="white" />
-                ) : (
-                  <Pause className="text-white size-7" />
-                )}
-              </button>
-            </div>
+            <div className=" absolute left-1/2 -translate-x-1/2  z-10 w-full flex items-center justify-center gap-[2rem] lg:bottom-[3rem] bottom-[-1rem]">
+              {/* Play/Pause Button - Centered Below Slider */}
+              <div className="flex justify-center">
+                <button
+                  onClick={togglePause}
+                  className="size-14 rounded-full bg-white/10 backdrop-blur-sm border border-white/30 flex items-center justify-center hover:bg-white/20 transition-all duration-300"
+                  aria-label={isPaused ? "Play slideshow" : "Pause slideshow"}
+                >
+                  {isPaused ? (
+                    <Play className="text-white size-7 ml-1" fill="white" />
+                  ) : (
+                    <Pause className="text-white size-7" />
+                  )}
+                </button>
+              </div>
 
-            {/* Desktop Navigation Arrows */}
-            <div className="flex gap-4">
-              <button
-                onClick={() => {
-                  swiperRef.current?.slidePrev();
-                  setActiveBtn("prev");
-                  setTimeout(() => setActiveBtn(null), 300);
-                }}
-                className={`w-12 h-12 rounded-full border flex items-center justify-center transition-all ${
-                  activeBtn === "prev"
-                    ? "bg-white text-black border-white"
-                    : "border-white text-white hover:bg-white/10"
-                }`}
-              >
-                <ArrowLeft className="size-5" />
-              </button>
+              {/* Desktop Navigation Arrows */}
+              <div className="flex gap-4">
+                <button
+                  onClick={() => {
+                    swiperRef.current?.slidePrev();
+                    setActiveBtn("prev");
+                    setTimeout(() => setActiveBtn(null), 300);
+                  }}
+                  className={`w-12 h-12 rounded-full border flex items-center justify-center transition-all ${
+                    activeBtn === "prev"
+                      ? "bg-white text-black border-white"
+                      : "border-white text-white hover:bg-white/10"
+                  }`}
+                >
+                  <ArrowLeft className="size-5" />
+                </button>
 
-              <button
-                onClick={() => {
-                  swiperRef.current?.slideNext();
-                  setActiveBtn("next");
-                  setTimeout(() => setActiveBtn(null), 300);
-                }}
-                className={`w-12 h-12 rounded-full border flex items-center justify-center transition-all ${
-                  activeBtn === "next"
-                    ? "bg-white text-black border-white"
-                    : "border-white text-white hover:bg-white/10"
-                }`}
-              >
-                <ArrowRight className="size-5" />
-              </button>
+                <button
+                  onClick={() => {
+                    swiperRef.current?.slideNext();
+                    setActiveBtn("next");
+                    setTimeout(() => setActiveBtn(null), 300);
+                  }}
+                  className={`w-12 h-12 rounded-full border flex items-center justify-center transition-all ${
+                    activeBtn === "next"
+                      ? "bg-white text-black border-white"
+                      : "border-white text-white hover:bg-white/10"
+                  }`}
+                >
+                  <ArrowRight className="size-5" />
+                </button>
+              </div>
             </div>
-          </div>
           )}
         </div>
       </div>
@@ -261,4 +261,3 @@ const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
 };
 
 export default TestimonialsSection;
-

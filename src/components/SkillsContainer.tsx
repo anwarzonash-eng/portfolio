@@ -15,6 +15,7 @@ type SkillType = {
 interface SkillsContainerProps {
   list?: SkillType[] | any;
   variant?: "default" | "portfolio" | "print";
+  // pageType?: "home" | "portfolio" | "cv";
   layoutType?: boolean;
   useLinks?: boolean;
   autoExpandOnParam?: boolean;
@@ -27,6 +28,7 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({
   list,
   variant = "default",
   layoutType = false,
+  // pageType = "home",
   useLinks = true,
   autoExpandOnParam = false,
   portfolioId,
@@ -66,7 +68,9 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({
       ? list
       : list?.slice(0, initialVisibleItems);
 
-  const skills: Record<string, SkillType[]> = skillsGrouping(visibleSkills || []);
+  const skills: Record<string, SkillType[]> = skillsGrouping(
+    visibleSkills || []
+  );
 
   const showToggleButton =
     variant !== "print" && list && list.length > initialVisibleItems;
@@ -99,7 +103,10 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({
     return colMap[count] || "grid-cols-6";
   };
 
-  const gridCols = variant === "print" ? getGridCols(numColumns) : "grid-cols-3 lg:grid-cols-6 xl:grid-cols-8";
+  const gridCols =
+    variant === "print"
+      ? getGridCols(numColumns)
+      : "grid-cols-3 lg:grid-cols-6 xl:grid-cols-8";
   const gap = variant === "portfolio" ? "gap-[2rem]" : "gap-[1.5rem]";
   const textSize =
     variant === "portfolio"
@@ -109,9 +116,9 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({
   // Conditional layout based on number of skills (similar to HomeSkillsSection)
   const totalVisibleSkills = visibleSkills?.length || 0;
   const useFlex = totalVisibleSkills <= 10;
-  
+
   // Apply different styles based on skill count
-  const containerClasses = useFlex 
+  const containerClasses = useFlex
     ? `flex items-center justify-center flex-wrap ${gap} w-full`
     : `grid ${gridCols} ${gap} content-center place-items-center`;
 
@@ -131,7 +138,9 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({
                   {skill.icon && (
                     <div
                       className={`flex items-center justify-center h-[6.4rem] w-[6.4rem] ${
-                        variant === "print" ? "print:h-[4.5rem] print:w-[4.5rem]" : ""
+                        variant === "print"
+                          ? "print:h-[4.5rem] print:w-[4.5rem]"
+                          : ""
                       }`}
                     >
                       <Image
@@ -193,6 +202,31 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({
           )}
         </>
       )}
+
+      {/* In Progress Working */}
+      {/* {list && list.length > numSkills && (
+        <Link
+          href={
+            pageType === "cv"
+              ? "/cv?scroll=skills" // ← Go to CV page
+              : portfolioId
+              ? `/portfolio/${portfolioId}?scroll=skills`
+              : `/portfolio`
+          }
+          onClick={(e) => {
+            if (pageType === "cv") {
+              e.preventDefault();
+              router.push("/cv?scroll=skills");
+            } else if (!portfolioId) {
+              e.preventDefault();
+              router.push("/portfolio");
+            }
+          }}
+          className="px-[4rem] py-[1.4rem] ..."
+        >
+          See More Skills
+        </Link>
+      )} */}
 
       {/* === Toggle Button for Default/Portfolio === */}
       {showToggleButton && (

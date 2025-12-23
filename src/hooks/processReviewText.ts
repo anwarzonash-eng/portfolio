@@ -1,54 +1,72 @@
-// @/hooks/processReviewText.ts or wherever you keep it
-
-export function processReviewText(reviewText: string, clientDesignation: string): string {
+export function processReviewText(reviewText: string, designation: string): string {
   if (!reviewText) return "";
 
   let processed = reviewText;
 
-  // Step 1: Replace {designation} placeholder
-  processed = processed.replace(/{designation}/g, clientDesignation);
+  // Step 1: Replace {designation} with a temporary marker first
+  const DESIGNATION_MARKER = "__DESIGNATION_PLACEHOLDER__";
+  processed = processed.replace(/{designation}/gi, DESIGNATION_MARKER);
 
-  // Step 2: Process all <u>...</u> tags
+  // Step 2: Process all <u>...</u> tags (same as before)
   processed = processed.replace(/<u[^>]*>([\s\S]*?)<\/u>/gi, (match, innerContent) => {
     const text = innerContent.trim();
 
-    // Skip if empty
     if (!text) return match;
 
-    // Strong URL/domain detection
     const isUrlLike = (() => {
-      // Full URL: http://example.com or https://...
       if (/^https?:\/\//i.test(text)) return true;
-
-      // Domain: example.com, subdomain.site.co.uk, etc.
       if (/^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$/.test(text)) {
         return true;
       }
-
-      // Common cases like BigPhotoHunt.com
       if (/\.[a-zA-Z]{2,}$/.test(text) && !text.includes(" ")) {
         return true;
       }
-
       return false;
     })();
 
     if (isUrlLike) {
-      // Normalize URL
       let url = text;
       if (!/^https?:\/\//i.test(url)) {
         url = "https://" + url;
       }
 
-      // Return as clickable link
-      return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="text-white font-semibold">
+      return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="text-white font-semibold hover:underline">
         ${text}
       </a>`;
     }
 
-    // Not a URL → keep as styled underline or just return original
     return `<span class="text-white font-semibold">${text}</span>`;
   });
+
+  // Step 3: Now replace the marker with styled designation
+  // Apply the SAME logic: check if designation looks like a URL
+  const isDesignationUrlLike = (() => {
+    if (/^https?:\/\//i.test(designation)) return true;
+    if (/^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$/.test(designation)) {
+      return true;
+    }
+    if (/\.[a-zA-Z]{2,}$/.test(designation) && !designation.includes(" ")) {
+      return true;
+    }
+    return false;
+  })();
+
+  let styledDesignation: string;
+
+  if (isDesignationUrlLike) {
+    let url = designation;
+    if (!/^https?:\/\//i.test(url)) {
+      url = "https://" + url;
+    }
+    styledDesignation = `<a href="${url}" target="_blank" rel="noopener noreferrer" class="text-white font-semibold hover:underline">
+      ${designation}
+    </a>`;
+  } else {
+    styledDesignation = `<span class="text-white font-semibold">${designation}</span>`;
+  }
+
+  // Final replacement
+  processed = processed.replace(new RegExp(DESIGNATION_MARKER, 'g'), styledDesignation);
 
   return processed;
 }
