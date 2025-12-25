@@ -43,7 +43,7 @@ const WorkProofLinks = ({ props }) => {
       {workProofLinks
         .filter(({ alt }) =>
           props.u
-            ? alt === "upwork" || alt === "github" || alt === "linkedin"
+            ? alt === "upwork" || alt === "github" 
             : true
         )
         .map(({ href, src, alt, label }) =>

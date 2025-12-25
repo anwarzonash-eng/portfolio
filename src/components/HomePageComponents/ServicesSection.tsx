@@ -41,7 +41,7 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({ services }) => {
                   {service.picture && (
                     <div className="relative h-[17rem] print:h-[14rem] w-full flex items-center justify-center overflow-hidden group">
                       <Image
-                        src={service.picture}
+                        src={service.picture.trim()}
                         alt={service.title || "Service image"}
                         height={150}
                         width={150}

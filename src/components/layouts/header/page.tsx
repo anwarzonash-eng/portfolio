@@ -407,15 +407,15 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
                           ref={resourcesDivRef}
                           className={`rounded-[0.8rem] duration-300 shadow-md bg-white absolute top-[4rem] left-[50%] ${
                             urlInfo?.u
-                              ? "translate-x-[-70%]"
-                              : "translate-x-[-50%]"
+                              ? "translate-x-[-70%] max-w-max"
+                              : "translate-x-[-50%] w-full"
                           } z-50
                          ${isResourceOpen ? "opacity-100" : "opacity-0"}
                          p-[2rem] text-primary text-[1.6rem] font-normal leading-normal flex flex-col gap-[1.5rem] w-[29.6rem] text-nowrap`}
                         >
                           {/* Work Proof */}
                           <div className="w-full">
-                            <div className="w-full flex items-center gap-[1.4rem]">
+                            <div className={`flex items-center gap-[1.4rem]`}>
                               <WorkProofLinks
                                 props={{
                                   upwork: listOfdata?.upwork,
@@ -426,7 +426,7 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
                                 }}
                               />
                             </div>
-                            <p className="text-[1.4rem] font-normal text-paragraph1 mt-[1.6rem]">
+                            <p className={`text-[1.4rem] font-normal  text-paragraph1 mt-[1.6rem] text-center`}>
                               My Work Proof
                             </p>
                           </div>

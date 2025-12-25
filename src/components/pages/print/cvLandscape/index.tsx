@@ -375,7 +375,6 @@ const CV_Landscape = ({ params }: { params: any }) => {
                           .filter(({ alt }) =>
                             urlInfo?.u
                               ? alt === "Github" ||
-                                alt === "Linkedin" ||
                                 alt === "Upwork"
                               : true
                           )

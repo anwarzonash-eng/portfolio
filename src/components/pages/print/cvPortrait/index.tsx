@@ -70,6 +70,8 @@ const CV_Portrait = ({ params }: { params: any }) => {
   //   __html: modifiedContent(listOfdata?.skills, filteredSkills, listOfdata),
   // });
 
+  console.log("CV Portrait Testing:", listOfdata?.portfolios_ids)
+
   const router = useRouter();
 
   const [blogsList, setBlogsList] = useState([]);

@@ -20,7 +20,11 @@ interface AboutSectionProps {
     linkedIn?: string;
     behance_link?: string;
     is_pdf_generated?: boolean;
-    pdf_urls?: { urls: { type: string; url: string }[] };
+     pdf_urls?: { type: string; url: string | null }[];
+    // pdf_urls?: Array<{
+    //   type: string;
+    //   url: string | null;
+    // }>;
   };
   urlInfo?: { u?: string };
   formatPhoneNumber: (phone: string | undefined) => string;
@@ -33,9 +37,41 @@ const AboutSection: React.FC<AboutSectionProps> = ({
   formatPhoneNumber,
   downloadFile,
 }) => {
-  const cvLink = listOfdata?.pdf_urls?.urls?.find((link) =>
-  (urlInfo?.u ? link.type === "cv_with_u" : link.type === "cv") && link.url
+  const cvLink = listOfdata?.pdf_urls?.find(
+    (link) =>
+      (urlInfo?.u ? link.type === "cv_with_u" : link.type === "cv") && link.url
   );
+
+  console.log("About Section Data:", listOfdata);
+  console.log("CV Link:", cvLink);
+
+  // Response Structure Sample 
+  // let pdf_urls = [
+  //   {
+  //     type: "home",
+  //     url: null,
+  //   },
+  //   {
+  //     type: "home_with_u",
+  //     url: null,
+  //   },
+  //   {
+  //     type: "cv",
+  //     url: "https://personalwebsites-pdfs.s3.eu-north-1.amazonaws.com/1766654279959_document-2025-12-25T09-17-32-008Z-cv.pdf",
+  //   },
+  //   {
+  //     type: "cv_with_u",
+  //     url: "https://personalwebsites-pdfs.s3.eu-north-1.amazonaws.com/1766654304420_document-2025-12-25T09-18-01-360Z-cv_with_u.pdf",
+  //   },
+  //   {
+  //     type: "portfolio_main",
+  //     url: null,
+  //   },
+  //   {
+  //     type: "portfolio_main_with_u",
+  //     url: null,
+  //   },
+  // ];
 
   return (
     <section

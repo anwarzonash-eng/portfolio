@@ -165,7 +165,7 @@ const CVSideBar: React.FC<CVSideBarProps> = ({
           {socialLinks(listOfdata)
             .filter(({ alt }) =>
               urlInfo?.u
-                ? alt === "Github" || alt === "Linkedin" || alt === "Upwork"
+                ? alt === "Github" || alt === "Upwork"
                 : true
             )
             .map((social, index) =>
@@ -242,7 +242,7 @@ const CVSideBar: React.FC<CVSideBarProps> = ({
             {socialLinks(listOfdata)
               .filter(({ alt }) =>
                 urlInfo?.u
-                  ? alt === "Github" || alt === "Upwork" || alt === "Linkedin"
+                  ? alt === "Github" || alt === "Upwork"
                   : true
               )
               .map((social, index) => (

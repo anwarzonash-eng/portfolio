@@ -98,6 +98,10 @@ const Footer = () => {
                           "Contact Me",
                         ].includes(title)
                       )
+                      .filter(({ title }) =>
+                        // if urlInfo.u is true, exclude "Schedule a Call"
+                        urlInfo?.u && title === "Contact Me" ? false : true
+                      )
                       .map(({ href, title }) =>
                         href ? (
                           <Link
@@ -129,7 +133,7 @@ const Footer = () => {
                       )
                       .filter(({ title }) =>
                         // if urlInfo.u is true, exclude "Schedule a Call"
-                        urlInfo?.u && title === "Schedule Call" ? false : true
+                        urlInfo?.u && title === "Schedule Call" || title === "LinkedIn" ? false : true
                       )
                       .map(({ href, title }) =>
                         href ? (
