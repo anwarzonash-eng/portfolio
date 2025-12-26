@@ -28,8 +28,8 @@ const SkillsCvPortrait: React.FC<SkillsContainerProps> = ({
   useLinks = true,
   autoExpandOnParam = false,
   portfolioId,
-  numColumns = 6,
-  numSkills = 24,
+  numColumns = 5,
+  numSkills = 20,
 }) => {
   const router = useRouter();
 
@@ -61,24 +61,22 @@ const SkillsCvPortrait: React.FC<SkillsContainerProps> = ({
 
   // Determine visible skills - always use print logic with numSkills
   const visibleSkills = list?.slice(0, numSkills);
-  const skills: Record<string, SkillType[]> = skillsGrouping(visibleSkills || []);
-  
+  const skills: Record<string, SkillType[]> = skillsGrouping(
+    visibleSkills || []
+  );
+
   // Show "See More" button if there are more skills than displayed
   const showSeeMoreButton = list && list.length > numSkills;
 
   // Apply print styles permanently
   const gridCols = getGridCols(numColumns);
   const gap = "gap-[1.5rem]";
-  const textSize = "text-[1.8rem] leading-[2.8rem] text-paragraph1";
+  const textSize = "text-[2rem] leading-[2.8rem] text-paragraph1";
 
-  // Conditional layout based on number of skills
-  const totalVisibleSkills = visibleSkills?.length || 0;
-  const useFlex = totalVisibleSkills <= 10;
-  
+
+
   // Apply different styles based on skill count
-  const containerClasses = useFlex 
-    ? "flex items-center justify-center flex-wrap gap-[2rem] w-full"
-    : `grid ${gridCols} ${gap} content-center place-items-center justify-items-center`;
+  const containerClasses = `grid ${gridCols} ${gap} content-center place-items-center justify-items-center`;
 
   return (
     <div className="flex flex-col w-full items-center justify-center mt-[3rem]">
@@ -90,15 +88,17 @@ const SkillsCvPortrait: React.FC<SkillsContainerProps> = ({
               const Content = (
                 <>
                   {skill.icon && (
-                    <div className="flex items-center justify-center 
-                    h-[5.5rem] w-[5.5rem]">
+                    <div
+                      className="flex items-center justify-center 
+                    h-[8rem] w-[8rem]"
+                    >
                       <Image
                         src={skill.icon}
                         alt={skill.title}
                         loading="eager"
                         priority={true}
-                        height={55}
-                        width={55}
+                        height={80}
+                        width={80}
                         className="object-contain w-full h-full"
                       />
                     </div>

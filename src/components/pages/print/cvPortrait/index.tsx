@@ -70,7 +70,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
   //   __html: modifiedContent(listOfdata?.skills, filteredSkills, listOfdata),
   // });
 
-  console.log("CV Portrait Testing:", listOfdata?.portfolios_ids)
+  // console.log("CV Portrait Testing:", listOfdata?.portfolios_ids)
 
   const router = useRouter();
 
@@ -206,8 +206,8 @@ const CV_Portrait = ({ params }: { params: any }) => {
             component: (
               <SkillsCvPortrait
                 list={sortedSkills}
-                numColumns={6}
-                numSkills={30}
+                numColumns={5}
+                numSkills={20}
                 portfolioId={listOfdata?.portfolios_ids[0]?.id}
               />
             ),
