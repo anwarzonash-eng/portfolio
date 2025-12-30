@@ -13,14 +13,14 @@ const HomeServicesSection = ({ listOfdata, listOfdatas, services }) => {
             m-0  flex items-center justify-center
             h-screen relative"
           >
-            <div className="absolute block px-4 py-2 top-0 right-0 z-[2000]">
+            {/* <div className="absolute block px-4 py-2 top-0 right-0 z-[2000]">
               <Link
                 className="text-white font-medium text-[1.5rem] underline ml-2"
                 href={`https://www.${listOfdatas.domain}`}
               >
                 {listOfdatas.domain}
               </Link>
-            </div>
+            </div> */}
             <div
               className="max-w-[1550px] w-full mx-auto 
                             px-[4rem] py-[5rem] print:py-0"
@@ -46,7 +46,7 @@ const HomeServicesSection = ({ listOfdata, listOfdatas, services }) => {
                         {service.picture && (
                           <div className="relative h-[17rem] print:h-[14rem] w-full flex items-center justify-center overflow-hidden group">
                             <Image
-                              src={service.picture}
+                              src={service.picture.trim()}
                               alt={service.title || "Service image"}
                               height={150}
                               width={150}

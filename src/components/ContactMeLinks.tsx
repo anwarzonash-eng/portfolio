@@ -48,7 +48,7 @@ const ContactMeLinks = ({ props }) => {
           <Tooltip text={label} key={alt}>
             <Link href={href} target="_blank">
               <Image
-                src={src}
+                src={src.trim()}
                 height={45}
                 width={45}
                 alt={alt}

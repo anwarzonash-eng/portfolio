@@ -197,6 +197,7 @@ const Home_p = ({ params }: { params: any }) => {
     // Services Section - only if services exist
     ...(listOfdata?.services?.length > 0 ? [{
       componentType: "static" as const,
+      hasDarkBackground: true,
       component: (
         <HomeServicesSection
           listOfdata={listOfdata}

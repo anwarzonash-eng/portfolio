@@ -61,7 +61,7 @@ const HomeHeroSection: React.FC<HomeHeroSectionProps> = ({
               alt="Profile Photo"
               loading="eager"
               priority={true}
-              src={listOfdata?.profile_photo_2}
+              src={listOfdata?.profile_photo_2.trim()}
               className="mr-[12rem]"
             />
 

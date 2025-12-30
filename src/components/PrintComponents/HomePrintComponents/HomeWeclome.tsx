@@ -22,7 +22,7 @@ const HomeWeclome = ({
         </div>
         <div className="items-center justify-strat gap-[4rem] flex w-full">
           <Image
-            src={listOfdatas?.profile_photo_1}
+            src={listOfdatas?.profile_photo_1.trim()}
             alt="Profile Photo"
             height={245}
             width={245}

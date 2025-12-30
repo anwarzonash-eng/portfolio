@@ -435,7 +435,7 @@ const ContactMeMultipleFileUpload = ({ listOfdata }) => {
                     key={alt}
                   >
                     <Link href={href} target="_blank">
-                      <Image src={src} height={50} width={50} alt={alt} />
+                      <Image src={src.trim()} height={50} width={50} alt={alt} />
                     </Link>
                   </Tooltip>
                 ) : null

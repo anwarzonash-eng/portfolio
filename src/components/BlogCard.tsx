@@ -23,7 +23,7 @@ const BlogCard: React.FC<BlogCardProps> = ({
   return (
     <div className="max-w-[41.8rem] w-full p-[2.4rem] bg-white shadow-lg mb-[1.6rem]">
       {/* Card Image */}
-      <Image src={imageSrc} height={240} width={370} alt={title} />
+      <Image src={imageSrc.trim()} height={240} width={370} alt={title} />
       {/* Card Content */}
       <div className="mt-[3.2rem]">
         {/* Date */}

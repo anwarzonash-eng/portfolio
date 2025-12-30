@@ -143,7 +143,7 @@ const ExperienceCard = ({
                   {experience?.thumbnail && (
                     <div className="h-[3.5rem] w-[3.5rem] bg-[#D1E9FF] rounded-[0.4rem] relative">
                       <Image
-                        src={experience?.thumbnail}
+                        src={experience?.thumbnail.trim()}
                         loading="eager"
                         priority={true}
                         height={26}
