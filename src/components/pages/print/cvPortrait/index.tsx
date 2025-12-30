@@ -138,20 +138,20 @@ const CV_Portrait = ({ params }: { params: any }) => {
 
   const [expandedItems, setExpandedItems] = useState({});
 
-  const [isPrinting, setIsPrinting] = useState(false);
+  // const [isPrinting, setIsPrinting] = useState(false);
 
-  useEffect(() => {
-    const handleBeforePrint = () => setIsPrinting(true);
-    const handleAfterPrint = () => setIsPrinting(false);
+  // useEffect(() => {
+  //   const handleBeforePrint = () => setIsPrinting(true);
+  //   const handleAfterPrint = () => setIsPrinting(false);
 
-    window.addEventListener("beforeprint", handleBeforePrint);
-    window.addEventListener("afterprint", handleAfterPrint);
+  //   window.addEventListener("beforeprint", handleBeforePrint);
+  //   window.addEventListener("afterprint", handleAfterPrint);
 
-    return () => {
-      window.removeEventListener("beforeprint", handleBeforePrint);
-      window.removeEventListener("afterprint", handleAfterPrint);
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener("beforeprint", handleBeforePrint);
+  //     window.removeEventListener("afterprint", handleAfterPrint);
+  //   };
+  // }, []);
 
   // Extract and sort experiences once for reuse across components
   const sortedExperiences = React.useMemo(() => {
@@ -189,7 +189,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
               <OverviewCvPortrait
                 filteredSkills={filteredSkills}
                 listOfdata={listOfdata}
-                isPrinting={isPrinting}
+                // isPrinting={isPrinting}
               />
             ),
           },

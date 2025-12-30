@@ -116,7 +116,6 @@ const ExperienceCard = ({
     return showMoreSkills[index] ? skills : skills.slice(0, skillsToShow);
   };
 
-
   return (
     <div className="relative w-full px-[2rem] mb-[2rem] space-y-[20px]">
       {experiencesToShow.map((experience, index) => {
@@ -166,47 +165,49 @@ const ExperienceCard = ({
 
                 {/* Link */}
                 <div className="flex justify-end w-auto">
-                    <div className="flex flex-col-reverse gap-[1rem] max-w-max">
-                      {experience.company_website.includes("upwork") && (
-                        <div className="flex items-center gap-2">
-                          <Link
-                            href={experience.company_website ?? "#"}
-                            target="_blank"
-                            className="
+                  <div className="flex flex-col-reverse gap-[1rem] max-w-max">
+                    {experience.company_website.includes("upwork") && (
+                      <div className="flex items-center gap-2">
+                        <Link
+                          href={experience.company_website ?? "#"}
+                          target="_blank"
+                          className="
                                                   bg-black text-white border border-transparent hover:border-primary hover:bg-white hover:text-primary duration-300 text-nowrap
                                                   flex items-center justify-center
                                                   text-[1.4rem] font-medium rounded-[20rem] p-[1rem] py-[0.5rem] group"
-                          >
-                            <span>Check My</span>
-                            <div className="h-[2.5rem] w-[2.5rem] rounded-full relative mx-2 inline-block">
-                              <Image
-                                src="/images/upworkforContactComponent.svg"
-                                alt="Upwork Logo"
-                                width={25}
-                                height={25}
-                                className="h-full w-full object-cover rounded-full group-hover:border-primary border border-transparent duration-300
+                        >
+                          <span>Check My</span>
+                          <div className="h-[2.5rem] w-[2.5rem] rounded-full relative mx-2 inline-block">
+                            <Image
+                              src="/images/upworkforContactComponent.svg"
+                              alt="Upwork Logo"
+                              width={25}
+                              height={25}
+                              loading="eager"
+                              priority={true}
+                              className="h-full w-full object-cover rounded-full group-hover:border-primary border border-transparent duration-300
                                                     absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-                              />
-                            </div>
-                            <span>Profile</span>
-                          </Link>
-                        </div>
-                      )}
-                      {!experience.company_website.includes("upwork") && (
-                        <div className="bg-white border border-[#E2E6EE] text-[#47516B] rounded-[2rem] text-[1.5rem] font-medium leading-[0.8rem] hover:bg-sectionBG hover:text-white duration-300">
-                          <Link
-                            href={experience.company_website}
-                            className="flex gap-2 items-center p-4"
-                          >
-                            {
-                              experience.company_website
-                                .replace(/^(https?:\/\/)?(www\.)?/, "")
-                                .split("/")[0]
-                            }
-                          </Link>
-                        </div>
-                      )}
-                    </div>
+                            />
+                          </div>
+                          <span>Profile</span>
+                        </Link>
+                      </div>
+                    )}
+                    {!experience.company_website.includes("upwork") && (
+                      <div className="bg-white border border-[#E2E6EE] text-[#47516B] rounded-[2rem] text-[1.5rem] font-medium leading-[0.8rem] hover:bg-sectionBG hover:text-white duration-300">
+                        <Link
+                          href={experience.company_website}
+                          className="flex gap-2 items-center p-4"
+                        >
+                          {
+                            experience.company_website
+                              .replace(/^(https?:\/\/)?(www\.)?/, "")
+                              .split("/")[0]
+                          }
+                        </Link>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
               <h1 className="mb-[1rem] text-primary text-[1.8rem] leading-[2rem] font-bold">

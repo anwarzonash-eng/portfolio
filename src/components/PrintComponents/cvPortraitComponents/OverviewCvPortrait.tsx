@@ -6,7 +6,7 @@ import React, { useEffect, useRef, useState } from "react";
 
 const A4_HEIGHT_MM = 297;
 const A4_DYNAMIC_MARGIN_MM = 20; // Margin applied by printPageRenderer for dynamic components
-const EFFECTIVE_HEIGHT_MM = A4_HEIGHT_MM - (A4_DYNAMIC_MARGIN_MM * 2); // 297 - 40 = 257mm
+const EFFECTIVE_HEIGHT_MM = A4_HEIGHT_MM - A4_DYNAMIC_MARGIN_MM * 2; // 297 - 40 = 257mm
 const SHOW_BUTTON_MM = 220; // Adjusted for smaller effective height
 
 // Fine-tune these once (measure in DevTools → mm)
@@ -19,14 +19,14 @@ const pxToMm = (px: number) => px / (96 / 25.4);
 interface OverviewCvPortraitProps {
   listOfdata: any;
   filteredSkills: any;
-  isPrinting: boolean;
+  // isPrinting: boolean;
 }
 
 const OverviewCvPortrait = ({
   listOfdata,
   filteredSkills,
-  isPrinting,
-}: OverviewCvPortraitProps) => {
+}: // isPrinting,
+OverviewCvPortraitProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLAnchorElement>(null);
 
@@ -51,10 +51,10 @@ const OverviewCvPortrait = ({
     // --- Show button logic ---
     setShowButton(listNaturalMm > SHOW_BUTTON_MM);
 
-    if (!isPrinting) {
-      setMaxListHeightPx(undefined);
-      return;
-    }
+    // if (!isPrinting) {
+    //   setMaxListHeightPx(undefined);
+    //   return;
+    // }
 
     // --- Total space taken by fixed parts ---
     const fixedHeightMm = BUTTON_HEIGHT_MM + MARGIN_BOTTOM_MM;
@@ -67,7 +67,7 @@ const OverviewCvPortrait = ({
     } else {
       setMaxListHeightPx(undefined);
     }
-  }, [listOfdata?.skills, filteredSkills, isPrinting]);
+  }, [listOfdata?.skills, filteredSkills]);
 
   return (
     <div ref={containerRef} className="w-full px-[2rem]">
@@ -75,7 +75,7 @@ const OverviewCvPortrait = ({
       <div
         className="list-div text-heading text-[1.6rem] leading-[2.4rem] flex flex-col gap-[1rem] mb-[2rem] list-inside"
         style={
-          isPrinting && maxListHeightPx
+          maxListHeightPx
             ? { maxHeight: `${maxListHeightPx}px`, overflow: "hidden" }
             : {}
         }

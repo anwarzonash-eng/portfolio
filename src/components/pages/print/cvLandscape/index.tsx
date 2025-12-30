@@ -554,6 +554,8 @@ const CV_Landscape = ({ params }: { params: any }) => {
                                                               alt="Upwork Logo"
                                                               width={25}
                                                               height={25}
+                                                              loading="eager"
+                                                              priority={true}
                                                               className="h-full w-full object-cover rounded-full group-hover:border-primary border border-transparent duration-300
                                 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
                                                             />

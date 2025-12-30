@@ -87,6 +87,8 @@ const PortfolioDetailUpworkSection = ({ listOfdata, urlInfo }) => {
                   alt="Upwork Logo"
                   width={30}
                   height={30}
+                  loading="eager"
+                  priority={true}
                   className="h-full w-full object-cover rounded-full group-hover:border-primary border border-transparent duration-300
             absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
                 />
