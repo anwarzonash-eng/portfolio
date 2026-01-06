@@ -130,20 +130,18 @@ const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
                             <div className="font-semibold text-white text-[1.4rem]">
                               {t.client_name}
                             </div>
-                            <div className="flex max-lg:flex-col">
-                              <span className="text-[1.4rem] text-white">
-                                {t.client_designation}
-                              </span>
+                            <div className="flex max-lg:flex-col lg:items-center">
+                              <span className="text-[1.4rem] text-white inline-flex items-center mr-[0.5rem] lg:mb-1">
+                                {t.client_designation} @
+                              </span> 
                               {t.client_company_website && (
                                 <>
-                                  <span className="hidden lg:inline-block mx-[1rem] text-white font-medium text-[1.4rem]">
-                                    |
-                                  </span>
                                   <a
                                     href={t.client_company_website}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="text-[#5981fa] underline  items-center gap-[1rem] inline-flex text-[1.4rem] lg:text-[1.6rem]"
+                                    className="text-[#5981fa] underline  items-center
+                                     gap-[0.5rem] inline-flex text-[1.4rem] lg:text-[1.6rem]"
                                   >
                                     <Link className="size-[1.4rem]" />
                                     {new URL(

@@ -37,6 +37,7 @@ import {
 import PrintPageRenderer, { ComponentConfig } from "@/utils/printPageRenderer";
 import Link from "next/link";
 import { useSortedSkills } from "@/hooks/useSortedSkills";
+import HomeTestimonialSection from "@/components/PrintComponents/HomePrintComponents/HomeTestimonialSection";
 
 
 
@@ -111,6 +112,8 @@ const Home_p = ({ params }: { params: any }) => {
       });
     }
   }, [listOfdata]);
+
+  console.log("Testimonial Data:", listOfdata?.testimonials)
 
 
  // console.log("Unsorted Skills Print Home Page:", listOfdata?.skills_ids)
@@ -305,6 +308,34 @@ const Home_p = ({ params }: { params: any }) => {
       ),
     }] : []),
 
+
+    // Home Testimonial Section
+    // ...(!urlInfo?.u ? [{
+    //   componentType: "static" as const,
+    //   hasDarkBackground: true,
+    //   component: (
+    //     <HomeTestimonialSection 
+    //     testimonials={listOfdata?.testimonials}
+    //     designation={listOfdata?.designation}
+    //     />
+    //   ),
+    // }] : []),
+
+    ...([{
+      componentType: "static" as const,
+      hasDarkBackground: true,
+      component: (
+        <>
+        {listOfdata?.testimonials && (
+          <HomeTestimonialSection 
+          testimonials={listOfdata?.testimonials}
+          designation={listOfdata?.designation}
+          />
+        )}
+        </>
+      ),
+    }]),
+
     // Contact Me Section - only if not a user profile
     ...(!urlInfo?.u ? [{
       componentType: "static" as const,
@@ -315,6 +346,7 @@ const Home_p = ({ params }: { params: any }) => {
         />
       ),
     }] : []),
+
 
     // Education Section - only if education data exists
     ...(listOfdata?.education_ids?.length > 0 || blogsList?.length > 0 ? [{
