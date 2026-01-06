@@ -286,7 +286,9 @@ const CV = ({ params }: { params: any }) => {
                     contactDetails={contactDetails}
                     socialLinks={socialLinks}
                   />
-                  <section className="w-full mt-[-2rem] lg:mt-0 md:pt-[7rem]">
+                  <section
+                  id="skillsSection"
+                   className="w-full mt-[-2rem] lg:mt-0 md:pt-[7rem]">
                     <div
                       dangerouslySetInnerHTML={{ __html: listOfdata?.tag_line }}
                       className="py-[5rem] px-[3.4rem] print:hidden block primaryGradient text-white text-[2.2rem] leading-[3.1rem] font-bold rounded-[1rem] text-center"
@@ -331,7 +333,6 @@ const CV = ({ params }: { params: any }) => {
                             )}
                             {listOfdata?.skills_ids && (
                               <div
-                                id="skillsSection"
                                 className="relative flex items-start print:break-before-page"
                               >
                                 <div className="absolute top-0 left-[-1.3rem] z-[60] block print:hidden">

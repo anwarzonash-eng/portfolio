@@ -77,14 +77,6 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({
 
   const handleToggleExpand = () => setIsExpanded((prev) => !prev);
 
-  const handleSeeMorePrint = () => {
-    if (portfolioId) {
-      router.push(`/portfolio/${portfolioId}?scroll=skills`);
-    } else {
-      router.push(`/portfolio`);
-    }
-  };
-
   const getGridCols = (count: number) => {
     const colMap: Record<number, string> = {
       1: "grid-cols-1",
@@ -189,12 +181,7 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({
         <>
           {list && list.length > numSkills && (
             <Link
-              href={
-                portfolioId
-                  ? `/portfolio/${portfolioId}?scroll=skills`
-                  : `/portfolio`
-              }
-              onClick={handleSeeMorePrint}
+              href={"/cv"}
               className="px-[4rem] py-[1.4rem] bg-primary rounded-[2.2rem] hover:bg-white hover:text-primary hover:border-primary border border-border text-white text-[1.4rem] font-medium leading-tight mx-auto mt-[1rem]"
             >
               See More Skills

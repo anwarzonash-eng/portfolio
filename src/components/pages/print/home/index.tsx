@@ -180,7 +180,7 @@ const Home_p = ({ params }: { params: any }) => {
       ),
     },
     // Skills Section - only if portfolios exist
-    ...(listOfdata?.portfolios_ids?.length > 0 ? [{
+    ...([{
       componentType: "dynamic" as const,
       badgeTitle: "Skills",
       component: (
@@ -189,11 +189,11 @@ const Home_p = ({ params }: { params: any }) => {
           list={sortedSkills}
           numColumns={8}
           numSkills={32}
-          portfolioId={listOfdata && listOfdata?.portfolios_ids[0]?.id}
+          // portfolioId={listOfdata && listOfdata?.portfolios_ids[0]?.id}
           useLinks={true}
         />
       ),
-    }] : []),
+    }]),
     // Services Section - only if services exist
     ...(listOfdata?.services?.length > 0 ? [{
       componentType: "static" as const,

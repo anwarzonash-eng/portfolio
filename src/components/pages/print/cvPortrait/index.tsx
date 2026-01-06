@@ -197,8 +197,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
       : []),
 
     // Skills Section - only if skills_ids exist
-    ...(listOfdata?.skills_ids?.length > 0 &&
-    listOfdata?.portfolios_ids?.length > 0
+    ...(listOfdata?.skills_ids?.length > 0 
       ? [
           {
             componentType: "dynamic" as const,
@@ -208,7 +207,6 @@ const CV_Portrait = ({ params }: { params: any }) => {
                 list={sortedSkills}
                 numColumns={5}
                 numSkills={20}
-                portfolioId={listOfdata?.portfolios_ids[0]?.id}
               />
             ),
           },

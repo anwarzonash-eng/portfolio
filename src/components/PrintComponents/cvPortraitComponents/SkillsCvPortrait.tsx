@@ -27,19 +27,10 @@ const SkillsCvPortrait: React.FC<SkillsContainerProps> = ({
   layoutType = false,
   useLinks = true,
   autoExpandOnParam = false,
-  portfolioId,
   numColumns = 5,
   numSkills = 20,
 }) => {
   const router = useRouter();
-
-  const handleSeeMorePrint = () => {
-    if (portfolioId) {
-      router.push(`/portfolio/${portfolioId}?scroll=skills`);
-    } else {
-      router.push(`/portfolio`);
-    }
-  };
 
   const getGridCols = (count: number) => {
     const colMap: Record<number, string> = {
@@ -138,12 +129,7 @@ const SkillsCvPortrait: React.FC<SkillsContainerProps> = ({
       {/* === See More Button === */}
       {showSeeMoreButton && (
         <Link
-          href={
-            portfolioId
-              ? `/portfolio/${portfolioId}?scroll=skills`
-              : `/portfolio`
-          }
-          onClick={handleSeeMorePrint}
+          href="/cv"
           className="px-[4rem] py-[1.4rem] bg-primary rounded-[2.2rem] hover:bg-white hover:text-primary hover:border-primary border border-border text-white text-[1.4rem] font-medium leading-tight mx-auto mt-[1rem]"
         >
           See More Skills
