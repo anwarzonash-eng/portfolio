@@ -2,8 +2,13 @@ import { MoveUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import UpworkIdentity from "./UpworkIdentity";
+
 
 function UpworkActivitySection({ urlInfo, cvTrue, data }) {
+
+console.log("Upwork Profile Pic:", data?.profile_photo_1,)
+
   const upworkActivityList = [
     {
       id: 1,
@@ -63,7 +68,10 @@ function UpworkActivitySection({ urlInfo, cvTrue, data }) {
     >
       <div className={`${cvTrue ? "p-[2rem] lg:p-[3rem]" : "mainContainer"}`}>
         {/* Top Content */}
-        <div className="flex items-center flex-wrap justify-center lg:justify-between w-full gap-5">
+        <div className="flex items-center flex-col lg:flex-row flex-wrap justify-center lg:justify-between lg:items-start w-full gap-5">
+          {/* Upwork Identity */}
+            <UpworkIdentity data={data} />
+            <div className="lg:basis-1/2">
           <Link
             href={data?.upwork ?? "#"}
             target="_blank"
@@ -71,36 +79,8 @@ function UpworkActivitySection({ urlInfo, cvTrue, data }) {
           >
             <img src="/images/up-logo.png" alt="Upwork Logo" />
           </Link>
-          <div className="flex items-center gap-2">
-            <Link
-              href={data?.upwork ?? "#"}
-              target="_blank"
-              className="
-          bg-black text-white border border-transparent hover:border-primary hover:bg-white hover:text-primary duration-300 text-nowrap
-          flex items-center justify-center
-          text-[2rem] rounded-[20rem] px-[2rem] py-[1rem] group"
-            >
-              <span>Check My</span>
-              <div className="h-[3rem] w-[3rem] rounded-full relative mx-2 inline-block">
-                <Image
-                  src="/images/upworkforContactComponent.svg"
-                  alt="Upwork Logo"
-                  width={30}
-                  height={30}
-                  className="h-full w-full object-cover rounded-full group-hover:border-primary border border-transparent duration-300
-            absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-                />
-              </div>
-              <span>Profile</span>
-            </Link>
-            <Link
-              href={data?.upwork ?? "#"}
-              target="_blank"
-              className="h-[4rem] w-[4rem] rounded-full relative mx-2 bg-sectionBG text-white flex items-center justify-center animate-bounce cursor-pointer hover:bg-white hover:text-primary border border-transparent hover:border-primary duration-300"
-            >
-              <MoveUpRight />
-            </Link>
-          </div>
+            </div>
+         
         </div>
 
         {/* Bottom Content */}

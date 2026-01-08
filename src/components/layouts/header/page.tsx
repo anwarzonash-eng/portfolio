@@ -9,6 +9,7 @@ import ContactMeLinks from "@/components/ContactMeLinks";
 import { useAppSelector } from "@/store";
 import { scrollToSection } from "@/hooks/scrollToSection";
 import OfferBanner from "@/components/OfferBanner";
+import UpworkIdentity from "@/components/UpworkIdentity";
 
 interface HeaderLink {
   title: string;
@@ -411,14 +412,17 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
                               : "translate-x-[-50%] w-full"
                           } z-50
                          ${isResourceOpen ? "opacity-100" : "opacity-0"}
-                         p-[2rem] text-primary text-[1.6rem] font-normal leading-normal flex flex-col gap-[1.5rem] w-[29.6rem] text-nowrap`}
+                         p-[2rem] text-primary text-[1.6rem] font-normal leading-normal flex flex-col gap-[1.5rem] w-[35rem] text-nowrap`}
                         >
+                          <div>
+                          <UpworkIdentity data={listOfdata} columnFormat={true} />
+                          </div>
                           {/* Work Proof */}
                           <div className="w-full">
                             <div className={`flex items-center gap-[1.4rem]`}>
                               <WorkProofLinks
                                 props={{
-                                  upwork: listOfdata?.upwork,
+                                  // upwork: listOfdata?.upwork,
                                   github: listOfdata?.github,
                                   linkedIn: listOfdata?.linkedIn,
                                   behance_link: listOfdata?.behance_link,
@@ -426,7 +430,7 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
                                 }}
                               />
                             </div>
-                            <p className={`text-[1.4rem] font-normal  text-paragraph1 mt-[1.6rem] text-center`}>
+                            <p className={`text-[1.4rem] font-normal  text-paragraph1 mt-[1.6rem] `}>
                               My Work Proof
                             </p>
                           </div>
@@ -435,7 +439,7 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
                               <hr className="h-[0.1rem] w-full bg-border" />
                               {/* Contact Me */}
                               <div className="w-full">
-                                <div className="w-full flex items-center gap-[1.4rem]">
+                                <div className="flex items-center gap-[1.4rem] ">
                                   <ContactMeLinks
                                     props={{
                                       email: listOfdata?.email,

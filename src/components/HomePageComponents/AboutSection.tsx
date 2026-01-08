@@ -42,8 +42,8 @@ const AboutSection: React.FC<AboutSectionProps> = ({
       (urlInfo?.u ? link.type === "cv_with_u" : link.type === "cv") && link.url
   );
 
-  console.log("About Section Data:", listOfdata);
-  console.log("CV Link:", cvLink);
+  // console.log("About Section Data:", listOfdata);
+  // console.log("CV Link:", cvLink);
 
   // Response Structure Sample 
   // let pdf_urls = [

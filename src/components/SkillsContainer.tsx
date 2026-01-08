@@ -112,7 +112,7 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({
   // Apply different styles based on skill count
   const containerClasses = useFlex
     ? `flex items-center justify-center flex-wrap ${gap} w-full`
-    : `grid ${gridCols} ${gap} content-center place-items-center`;
+    : `grid ${gridCols} ${gap} content-center`;
 
   return (
     <div className="flex flex-col w-full items-center justify-center mt-[3rem]">
@@ -129,7 +129,7 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({
                 <>
                   {skill.icon && (
                     <div
-                      className={`flex items-center justify-center h-[6.4rem] w-[6.4rem] ${
+                      className={`h-[6.4rem] w-[6.4rem] mx-auto ${
                         variant === "print"
                           ? "print:h-[4.5rem] print:w-[4.5rem]"
                           : ""
@@ -144,7 +144,7 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({
                       />
                     </div>
                   )}
-                  <div className="mt-[1rem] min-h-[4rem] flex items-center justify-center px-2 text-center">
+                  <div className="mt-[1rem] min-h-[4rem] flex items-start justify-center px-2 text-center">
                     <p className={`${textSize} overflow-hidden text-ellipsis`}>
                       {skill.title === "Nest.js" ? "NestJs" : skill.title}
                     </p>
@@ -156,7 +156,7 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({
                 <div
                   key={`${groupIndex}-${i}`}
                   style={{ animationDelay: `${i * 0.03}s` }}
-                  className={`mx-auto mb-[4rem] flex flex-col items-center justify-start gap-[0.8rem] max-w-[13rem] animate-fadeIn opacity-0`}
+                  className={`mx-auto mb-[4rem] max-w-[13rem]  animate-fadeIn opacity-0`}
                 >
                   {useLinks && skill.url ? (
                     <Link
@@ -167,7 +167,9 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({
                       {Content}
                     </Link>
                   ) : (
-                    Content
+                    <div className="flex flex-col items-center justify-center">
+                    {Content}
+                    </div>
                   )}
                 </div>
               );
@@ -189,31 +191,6 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({
           )}
         </>
       )}
-
-      {/* In Progress Working */}
-      {/* {list && list.length > numSkills && (
-        <Link
-          href={
-            pageType === "cv"
-              ? "/cv?scroll=skills" // ← Go to CV page
-              : portfolioId
-              ? `/portfolio/${portfolioId}?scroll=skills`
-              : `/portfolio`
-          }
-          onClick={(e) => {
-            if (pageType === "cv") {
-              e.preventDefault();
-              router.push("/cv?scroll=skills");
-            } else if (!portfolioId) {
-              e.preventDefault();
-              router.push("/portfolio");
-            }
-          }}
-          className="px-[4rem] py-[1.4rem] ..."
-        >
-          See More Skills
-        </Link>
-      )} */}
 
       {/* === Toggle Button for Default/Portfolio === */}
       {showToggleButton && (

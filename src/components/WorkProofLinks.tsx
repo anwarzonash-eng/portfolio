@@ -48,14 +48,14 @@ const WorkProofLinks = ({ props }) => {
         )
         .map(({ href, src, alt, label }) =>
           href ? (
-            <Tooltip text={label} key={alt}>
+            <Tooltip text={label} key={alt} >
               <Link href={href} target="_blank">
                 <Image
                   src={src}
                   height={45}
                   width={45}
                   alt={alt}
-                  className="size-[50px] print:size-[40px]"
+                  className="size-[5rem] print:size-[40px]"
                 />
               </Link>
             </Tooltip>

@@ -88,7 +88,7 @@ const HomeAboutSection: React.FC<HomeAboutSectionProps> = ({listOfdata, urlInfo,
               dangerouslySetInnerHTML={{
                 __html: listOfdata?.tag_line,
               }}
-              className="text-heading text-[2.4rem] mt-[2rem] mb-[1.2rem] font-medium leading-[2.8rem] lg:text-[3rem] lg:leading-[3.8rem]"
+              className="text-heading text-[2.4rem] mt-[2rem] mb-[1.2rem] font-medium leading-[2.8rem] lg:text-[3rem] lg:leading-[3.8rem] line-clamp-4"
             ></div>
             {/* Paragraph */}
             {listOfdata?.designation && (
