@@ -12,8 +12,10 @@ const SliderXL = ({ portfolioPictures }) => {
   const [progress, setProgress] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [preloaded, setPreloaded] = useState(false);
+  const [isInView, setIsInView] = useState(false);
 
   const thumbnailsContainerRef = useRef<HTMLDivElement>(null);
+  const sliderContainerRef = useRef<HTMLDivElement>(null);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   // Preload all images
@@ -40,45 +42,84 @@ const SliderXL = ({ portfolioPictures }) => {
     });
   }, [images]);
 
-  // Auto-advance with progress bar
+  // Intersection Observer: Start/stop auto-play when component enters/leaves viewport
   useEffect(() => {
-    if (!preloaded || images.length <= 1) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        console.log("🎬 SliderXL Visibility:", entry.isIntersecting ? "IN VIEW ✅" : "OUT OF VIEW ❌");
+        setIsInView(entry.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
 
-    setProgress(0);
-    let elapsed = 0;
-
-    intervalRef.current = setInterval(() => {
-      if (!isPaused) {
-        elapsed += 100;
-        setProgress((elapsed / 5000) * 100); // 5 seconds per slide
-
-        if (elapsed >= 5000) {
-          clearInterval(intervalRef.current!);
-          nextSlide();
-        }
-      }
-    }, 100);
+    if (sliderContainerRef.current) {
+      observer.observe(sliderContainerRef.current);
+    }
 
     return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
+      if (sliderContainerRef.current) {
+        observer.unobserve(sliderContainerRef.current);
+      }
+      observer.disconnect();
     };
-  }, [currentSlide, isPaused, preloaded, images.length]);
+  }, []);
 
-  // Auto-scroll thumbnails to active
+  // Auto-advance with progress bar (only when in view and not paused)
+  useEffect(() => {
+    const shouldAutoPlay = preloaded && images.length > 1 && isInView && !isPaused;
+    
+    console.log("🎞️  Auto-Slide Status:", {
+      preloaded,
+      "images.length": images.length,
+      isInView,
+      isPaused,
+      "Should Auto-Play": shouldAutoPlay,
+    });
+
+    if (!shouldAutoPlay) return;
+
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+      setProgress(0);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [currentSlide, isPaused, preloaded, images.length, isInView]);
+
+  // Auto-scroll thumbnails to active (without page scroll)
   useEffect(() => {
     if (thumbnailsContainerRef.current) {
       const activeThumb = thumbnailsContainerRef.current.children[
         currentSlide
       ] as HTMLElement;
       if (activeThumb) {
-        activeThumb.scrollIntoView({
+        // Scroll only within the thumbnail container, not the page
+        const scrollLeft = activeThumb.offsetLeft - thumbnailsContainerRef.current.offsetWidth / 2 + activeThumb.offsetWidth / 2;
+        
+        thumbnailsContainerRef.current.scrollTo({
+          left: scrollLeft,
           behavior: "smooth",
-          inline: "center",
-          block: "nearest",
         });
       }
     }
   }, [currentSlide]);
+
+  // Progress bar effect - independent of auto-advance
+  useEffect(() => {
+    if (!isInView || isPaused || images.length <= 1) {
+      setProgress(0);
+      return;
+    }
+
+    const progressInterval = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 100) return 0;
+        return prev + (100 / 50); // 5000ms / 100 = 50 intervals
+      });
+    }, 100);
+
+    return () => clearInterval(progressInterval);
+  }, [isInView, isPaused, images.length]);
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev === images.length - 1 ? 0 : prev + 1));
@@ -105,7 +146,7 @@ const SliderXL = ({ portfolioPictures }) => {
   }
 
   return (
-    <div className="relative w-full">
+    <div ref={sliderContainerRef} className="relative w-full max-lg:pb-[2rem]">
       {/* Progress Timeline Bars */}
       <div className="absolute top-0 left-0 right-0 z-10 flex gap-1 p-3">
         {images.map((_: any, index: number) => (
@@ -152,7 +193,6 @@ const SliderXL = ({ portfolioPictures }) => {
             />
           ))}
         </div>
-
       </div>
 
       {/* Thumbnails */}
@@ -196,25 +236,27 @@ const SliderXL = ({ portfolioPictures }) => {
         }
       `}</style>
 
-         {/* Prev Button - Desktop (outside slider) */}
-        <button
-          onClick={prevSlide}
-          className={`absolute top-1/2 -left-[3.6rem] -translate-y-1/2 
-             bg-[#EFF5FD] hover:bg-primary hover:text-white rounded-full shadow-xl flex items-center justify-center 
-             h-[7.2rem] w-[7.2rem] transition-all duration-300`}
-        >
-         <ArrowLeft/>
-        </button>
+      {/* Navigation Buttons */}
 
-        {/* Next Button - Desktop (outside slider) */}
-        <button
-          onClick={nextSlide}
-          className={`absolute flex items-center justify-center top-1/2 -right-[3.6rem] -translate-y-1/2 
-             bg-[#EFF5FD] hover:bg-primary hover:text-white rounded-full shadow-xl  
-             h-[7.2rem] w-[7.2rem] transition-all duration-300`}
-        >
-          <ArrowRight/>
-        </button>
+      {/* Prev Button - Desktop (outside slider) */}
+      <button
+        onClick={prevSlide}
+        className={`absolute left-[100px] bottom-[-50px] lg:top-1/2 lg:-left-[3.6rem] -translate-y-1/2 
+             bg-[#EFF5FD] hover:bg-primary active:bg-primary hover:text-white active:text-white rounded-full shadow-xl flex items-center justify-center 
+             lg:h-[7.2rem] lg:w-[7.2rem] h-[4.5rem] w-[4.5rem] transition-all duration-300`}
+      >
+        <ArrowLeft />
+      </button>
+
+      {/* Next Button - Desktop (outside slider) */}
+      <button
+        onClick={nextSlide}
+        className={`absolute flex items-center justify-center right-[100px] bottom-[-50px]  lg:top-1/2 lg:-right-[3.6rem] -translate-y-1/2 
+             bg-[#EFF5FD] hover:bg-primary active:bg-primary hover:text-white active:text-white rounded-full shadow-xl  
+             lg:h-[7.2rem] lg:w-[7.2rem] h-[4.5rem] w-[4.5rem] transition-all duration-300`}
+      >
+        <ArrowRight />
+      </button>
     </div>
   );
 };

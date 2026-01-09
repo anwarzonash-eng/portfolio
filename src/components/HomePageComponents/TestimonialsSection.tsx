@@ -20,7 +20,8 @@ interface Testimonial {
   instagram: string;
   portfolio_id: number;
   review_text: string;
-  video: string; // We'll extract from Prototype[0].video or upwork
+  video: string; // Video URL
+  thumbnail?: string; // Optional thumbnail URL from API
   Prototype?: Array<{ video?: string }>;
   upwork?: string;
   website_purpose?: string | null;
@@ -31,6 +32,48 @@ interface TestimonialsSectionProps {
   testimonials: Testimonial[];
   designation: string;
 }
+
+interface VideoPlayerProps {
+  src: string;
+  poster?: string;
+}
+
+const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, poster }) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const handlePlay = () => {
+    if (videoRef.current) {
+      videoRef.current.play();
+      setIsPlaying(true);
+    }
+  };
+
+  return (
+    <div className="relative rounded-[20px] overflow-hidden group">
+      <video
+        ref={videoRef}
+        src={src}
+        className="w-full h-[30rem] lg:h-[56rem] object-cover"
+        poster={poster || "/placeholder-thumbnail.jpg"}
+        controls={isPlaying}
+        muted
+        playsInline
+        preload="metadata"
+        onPause={() => setIsPlaying(false)}
+      />
+      {!isPlaying && (
+        <button
+          onClick={handlePlay}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white/50 rounded-full p-4 flex items-center justify-center hover:bg-white/70 transition-all"
+          aria-label="Play video"
+        >
+          <Play className="size-10 text-black" fill="black" />
+        </button>
+      )}
+    </div>
+  );
+};
 
 const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
   testimonials,
@@ -83,9 +126,10 @@ const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
                   designation
                 );
               }, [t.review_text, designation]);
-              // Extract video URL: prefer Prototype[0].video → fallback to upwork
-              const videoThumb =
-                t.Prototype?.[0]?.video || t.upwork || "/placeholder-video.jpg";
+              // Extract video URL: prefer Prototype[0].video → fallback to upwork → video field
+              const videoUrl = t.video || t.Prototype?.[0]?.video || t.upwork || "";
+              // Use thumbnail if available from API, fallback to client_pic or placeholder
+              const thumbnail = t.thumbnail ||  "/images/placeholder-video.jpg";
 
               return (
                 <SwiperSlide key={t.id}>
@@ -119,7 +163,7 @@ const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
                       </div>
 
                       {/* Client Info */}
-                      <div className="flex items-center justify-between mt-8">
+                      <div className="mt-8">
                         <div className="flex items-center gap-4">
                           <img
                             src={t.client_pic}
@@ -140,8 +184,8 @@ const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
                                     href={t.client_company_website}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="text-[#5981fa] underline  items-center
-                                     gap-[0.5rem] inline-flex text-[1.4rem] lg:text-[1.6rem]"
+                                    className="text-white  items-center
+                                     gap-[0.5rem] inline-flex text-[1.4rem] lg:text-[1.6rem] font-medium"
                                   >
                                     <Link className="size-[1.4rem]" />
                                     {new URL(
@@ -151,10 +195,10 @@ const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
                                 </>
                               )}
                             </div>
+                            
                           </div>
                         </div>
-
-                        <div className="flex items-center gap-[1rem]">
+                        <div className="flex items-center gap-[1rem] ml-[6.4rem]">
                           {/* LinkedIn Link (if available) */}
                           {t.linked_in && (
                             <a
@@ -178,22 +222,14 @@ const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
                             </a>
                           )}
                         </div>
+
+                        
                       </div>
                     </div>
 
                     {/* Video Container */}
                     <div className="w-full lg:max-w-[40rem]">
-                      <div className="relative rounded-[20px] overflow-hidden group">
-                        <video
-                          src={t.video}
-                          className="w-full h-[30rem] lg:h-[56rem] object-cover"
-                          muted
-                          playsInline
-                          controls={true} // Set to true if you want visible controls
-                          // poster={t.client_pic || "/placeholder-thumbnail.jpg"} // Optional: thumbnail before play
-                          preload="metadata" // Loads only metadata initially (faster page load)
-                        ></video>
-                      </div>
+                      <VideoPlayer src={videoUrl} poster={thumbnail} />
                     </div>
                   </div>
                 </SwiperSlide>
