@@ -67,7 +67,7 @@ const SkillsCvPortrait: React.FC<SkillsContainerProps> = ({
 
 
   // Apply different styles based on skill count
-  const containerClasses = `grid ${gridCols} ${gap} content-center place-items-center justify-items-center`;
+  const containerClasses = `grid ${gridCols} ${gap} content-center place-items-start justify-items-center`;
 
   return (
     <div className="flex flex-col w-full items-center justify-center mt-[3rem]">
@@ -80,8 +80,7 @@ const SkillsCvPortrait: React.FC<SkillsContainerProps> = ({
                 <>
                   {skill.icon && (
                     <div
-                      className="flex items-center justify-center 
-                    h-[8rem] w-[8rem]"
+                      className="h-[8rem] w-[8rem] mx-auto"
                     >
                       <Image
                         src={skill.icon}
@@ -94,7 +93,7 @@ const SkillsCvPortrait: React.FC<SkillsContainerProps> = ({
                       />
                     </div>
                   )}
-                  <div className="mt-[1rem] min-h-[4rem] flex items-center justify-center px-2 text-center">
+                  <div className="my-[1rem] min-h-[4rem] flex items-start justify-center px-2 text-center">
                     <p className={`${textSize} overflow-hidden text-ellipsis`}>
                       {skill.title === "Nest.js" ? "NestJs" : skill.title}
                     </p>
@@ -117,7 +116,9 @@ const SkillsCvPortrait: React.FC<SkillsContainerProps> = ({
                       {Content}
                     </Link>
                   ) : (
-                    Content
+                   <div className="flex flex-col items-center justify-center">
+                    {Content}
+                    </div>
                   )}
                 </div>
               );

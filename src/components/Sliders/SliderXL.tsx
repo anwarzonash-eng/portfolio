@@ -3,6 +3,9 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import React, { useState, useEffect, useRef } from "react";
 
+const SLIDE_INTERVAL = 2500; // milliseconds — change to 2000 or 3000 as desired
+const PROGRESS_TICK_MS = 100; // progress update tick
+
 const SliderXL = ({ portfolioPictures }) => {
   const images = JSON.parse(portfolioPictures).filter(
     (src: string | null) => src !== null
@@ -16,7 +19,6 @@ const SliderXL = ({ portfolioPictures }) => {
 
   const thumbnailsContainerRef = useRef<HTMLDivElement>(null);
   const sliderContainerRef = useRef<HTMLDivElement>(null);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   // Preload all images
   useEffect(() => {
@@ -46,10 +48,9 @@ const SliderXL = ({ portfolioPictures }) => {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        console.log("🎬 SliderXL Visibility:", entry.isIntersecting ? "IN VIEW ✅" : "OUT OF VIEW ❌");
         setIsInView(entry.isIntersecting);
       },
-      { threshold: 0.1 }
+      { threshold: 0.25 }
     );
 
     if (sliderContainerRef.current) {
@@ -64,62 +65,62 @@ const SliderXL = ({ portfolioPictures }) => {
     };
   }, []);
 
-  // Auto-advance with progress bar (only when in view and not paused)
+  // Auto-advance with interval (only when in view and not paused)
   useEffect(() => {
     const shouldAutoPlay = preloaded && images.length > 1 && isInView && !isPaused;
-    
-    console.log("🎞️  Auto-Slide Status:", {
-      preloaded,
-      "images.length": images.length,
-      isInView,
-      isPaused,
-      "Should Auto-Play": shouldAutoPlay,
-    });
+    if (!shouldAutoPlay) {
+      return;
+    }
 
-    if (!shouldAutoPlay) return;
-
-    const interval = setInterval(() => {
+    const id = setInterval(() => {
       setCurrentSlide((prev) => (prev === images.length - 1 ? 0 : prev + 1));
-      setProgress(0);
-    }, 5000);
+      // progress is reset in the progress effect when currentSlide changes
+    }, SLIDE_INTERVAL);
 
-    return () => clearInterval(interval);
-  }, [currentSlide, isPaused, preloaded, images.length, isInView]);
+    return () => clearInterval(id);
+  }, [preloaded, images.length, isInView, isPaused]);
 
   // Auto-scroll thumbnails to active (without page scroll)
   useEffect(() => {
-    if (thumbnailsContainerRef.current) {
-      const activeThumb = thumbnailsContainerRef.current.children[
-        currentSlide
-      ] as HTMLElement;
-      if (activeThumb) {
-        // Scroll only within the thumbnail container, not the page
-        const scrollLeft = activeThumb.offsetLeft - thumbnailsContainerRef.current.offsetWidth / 2 + activeThumb.offsetWidth / 2;
-        
-        thumbnailsContainerRef.current.scrollTo({
-          left: scrollLeft,
-          behavior: "smooth",
-        });
-      }
+    const container = thumbnailsContainerRef.current;
+    if (!container) return;
+    const activeThumb = container.children[currentSlide] as HTMLElement;
+    if (!activeThumb) return;
+
+    // Only scroll horizontally within the thumbnails container when it can scroll
+    if (container.scrollWidth > container.clientWidth) {
+      const scrollLeft =
+        activeThumb.offsetLeft - container.offsetWidth / 2 + activeThumb.offsetWidth / 2;
+      container.scrollTo({ left: scrollLeft, behavior: "auto" });
     }
   }, [currentSlide]);
 
-  // Progress bar effect - independent of auto-advance
+  // Progress bar effect — matches SLIDE_INTERVAL and resets on slide change
   useEffect(() => {
-    if (!isInView || isPaused || images.length <= 1) {
+    if (!isInView || isPaused || images.length <= 1 || !preloaded) {
       setProgress(0);
       return;
     }
 
-    const progressInterval = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) return 0;
-        return prev + (100 / 50); // 5000ms / 100 = 50 intervals
-      });
-    }, 100);
+    const steps = Math.max(1, Math.ceil(SLIDE_INTERVAL / PROGRESS_TICK_MS));
+    const increment = 100 / steps;
+    let current = 0;
+    setProgress(0);
 
-    return () => clearInterval(progressInterval);
-  }, [isInView, isPaused, images.length]);
+    const progressId = setInterval(() => {
+      current += increment;
+      if (current >= 100) {
+        // cap at 100 until auto-advance sets currentSlide and this effect resets progress
+        setProgress(100);
+        current = 0;
+      } else {
+        setProgress(current);
+      }
+    }, PROGRESS_TICK_MS);
+
+    return () => clearInterval(progressId);
+    // include currentSlide so progress resets when slide changes
+  }, [isInView, isPaused, images.length, preloaded, currentSlide]);
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev === images.length - 1 ? 0 : prev + 1));
@@ -146,7 +147,7 @@ const SliderXL = ({ portfolioPictures }) => {
   }
 
   return (
-    <div ref={sliderContainerRef} className="relative w-full max-lg:pb-[2rem]">
+    <div ref={sliderContainerRef} className="relative w-full max-lg:pb-[2rem] sliderxl-root">
       {/* Progress Timeline Bars */}
       <div className="absolute top-0 left-0 right-0 z-10 flex gap-1 p-3">
         {images.map((_: any, index: number) => (
@@ -198,7 +199,7 @@ const SliderXL = ({ portfolioPictures }) => {
       {/* Thumbnails */}
       <div
         ref={thumbnailsContainerRef}
-        className="flex gap-3 mt-8 overflow-x-auto scrollbar-hidden py-[1rem] px-4 "
+        className="flex gap-3 mt-8 overflow-x-auto scrollbar-hidden sliderxl-thumbnails py-[1rem] px-4 "
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUpOrLeave}
         onMouseLeave={handleMouseUpOrLeave}
@@ -233,6 +234,11 @@ const SliderXL = ({ portfolioPictures }) => {
         .scrollbar-hidden {
           -ms-overflow-style: none;
           scrollbar-width: none;
+        }
+        /* Prevent scroll anchoring causing page jumps when slides update */
+        .sliderxl-root,
+        .sliderxl-thumbnails {
+          overflow-anchor: none;
         }
       `}</style>
 
