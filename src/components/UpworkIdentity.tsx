@@ -122,7 +122,7 @@ const UpworkIdentity: React.FC<UpworkIdentityProps> = ({
             <span>Check My</span>
             <div className="h-[3rem] w-[3rem] rounded-full relative mx-2 inline-block">
               <Image
-                src="/images/upworkforContactComponent.svg"
+                src="/images/upwork.svg"
                 alt="Upwork Logo"
                 width={30}
                 height={30}

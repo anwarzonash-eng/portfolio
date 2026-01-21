@@ -350,6 +350,7 @@ const Home = ({ params }: { params: any }) => {
 
   // grouping used elsewhere — keep as is
   console.log("URL Info:", urlInfo);
+  console.log("List of Data:", listOfdata);
 
   return (
     <>

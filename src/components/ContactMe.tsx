@@ -5,6 +5,7 @@ import { useState } from "react";
 import { formatPhoneNumber } from "@/hooks/formatPhoneNumber";
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 import * as Yup from "yup";
+import { addLeadsApi } from "@/apiHandlers/leadsApi";
 import { ErrorComponent } from "./errorComponent";
 import { formikEnums } from "@/enums/formikEnums";
 import { openChat } from "@/hooks/openTawkTochat";
@@ -13,27 +14,11 @@ import Tooltip from "./Tooltip";
 import { Behance, Facebook, Instagram, Twitter, LinkedIn } from "./SVGI-Icons";
 import { ChevronDown, ChevronUp } from "lucide-react";
 
-//API
-const addLeadsApi = async (payload: any) => {
-  const response = await fetch("https://cypexsoft.net/leads/manual-add", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(payload),
-  });
-
-  const data = await response.json();
-  return {
-    status: response.status,
-    data,
-  };
-};
 
 declare global {
   interface Window {
     Tawk_API?: any;
-  }
+  } 
 }
 
 const ContactMe = ({ listOfdata }) => {
@@ -43,8 +28,7 @@ const ContactMe = ({ listOfdata }) => {
     alt: string;
   }
 
-
-  console.log("Leads API Data:", listOfdata)
+  console.log("Leads API Data:", listOfdata);
 
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [dragActive, setDragActive] = useState(false);
@@ -96,7 +80,7 @@ const ContactMe = ({ listOfdata }) => {
 
   const handleDrag = (
     e: React.DragEvent<HTMLDivElement>,
-    isActive: boolean
+    isActive: boolean,
   ) => {
     e.preventDefault();
     e.stopPropagation();
@@ -110,7 +94,7 @@ const ContactMe = ({ listOfdata }) => {
   // ✅ Updated Submit Handler with Correct Payload
   const handleContactFormSubmit = async (
     values: typeof initialValues,
-    { resetForm }: FormikHelpers<typeof initialValues>
+    { resetForm }: FormikHelpers<typeof initialValues>,
   ) => {
     const payload = {
       action_type: "add",
@@ -130,6 +114,7 @@ const ContactMe = ({ listOfdata }) => {
 
     try {
       const res = await addLeadsApi(payload);
+      console.log("Leads API Response:", res);
 
       if (res?.status === 201 || res?.data?.statusCode === 201) {
         setIsModalOpen(true);
@@ -272,7 +257,9 @@ const ContactMe = ({ listOfdata }) => {
               {/* Project Length Dropdown */}
               <div className="my-4 relative">
                 <div className="relative">
-                  <p className="text-[1.4rem] font-medium m-[0.5rem]">Project Length</p>
+                  <p className="text-[1.4rem] font-medium m-[0.5rem]">
+                    Project Length
+                  </p>
                   <Field
                     as="select"
                     name="projectLength"
@@ -460,10 +447,15 @@ const ContactMe = ({ listOfdata }) => {
                     key={alt}
                   >
                     <Link href={href ? href : "#"} target="_blank">
-                      <Image src={src.trim()} height={50} width={50} alt={alt} />
+                      <Image
+                        src={src.trim()}
+                        height={50}
+                        width={50}
+                        alt={alt}
+                      />
                     </Link>
                   </Tooltip>
-                ) : null
+                ) : null,
               )}
             </div>
           </div>

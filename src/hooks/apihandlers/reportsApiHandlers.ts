@@ -41,7 +41,7 @@ export const reportsApiHandler = async ({
 
     if (/^2\d{2}$/.test(statusStr)) {
 
-      let data = await adjustDynamicContent(results?.data?.data[0]);
+      let data = await adjustDynamicContent(results?.data?.data[0][0]);
       setListOfData(data);
       store.dispatch(setListOfProfileData(data));
     } else {
