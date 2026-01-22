@@ -178,9 +178,9 @@ const ExperienceCvPortrait = ({
                                 text-[1.4rem] font-medium rounded-[20rem] p-[1rem] py-[0.5rem] group"
                           >
                             <span>Check My</span>
-                            <div className="h-[2.5rem] w-[2.5rem] rounded-full relative mx-2 inline-block">
+                            {/* <div className="h-[2.5rem] w-[2.5rem] rounded-full relative mx-2 inline-block">
                               <Image
-                                src="/images/upworkforContactComponent.svg"
+                                src="/images/upwork-text-logo.png"
                                 alt="Upwork Logo"
                                 width={25}
                                 height={25}
@@ -189,7 +189,17 @@ const ExperienceCvPortrait = ({
                                 className="h-full w-full object-cover rounded-full group-hover:border-primary border border-transparent duration-300
                                   absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
                               />
-                            </div>
+                            </div> */}
+                            <div className="h-[3rem] w-[8rem] relative mx-2 inline-block overflow-hidden rounded-[10rem] px-2 bg-white">
+                                          <Image
+                                            src="/images/upwork-text-logo.png"
+                                            alt="Upwork Logo"
+                                            width={80}
+                                            height={30}
+                                            className="h-full w-full object-cover object-center 
+                                                         border-transparent absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                                          />
+                                        </div>
                             <span>Profile</span>
                           </Link>
                         </div>

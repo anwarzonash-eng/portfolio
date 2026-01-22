@@ -133,7 +133,7 @@ const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
 
               return (
                 <SwiperSlide key={t.id}>
-                  <div className="flex flex-col-reverse lg:flex-row gap-[2rem] lg:gap-[5rem] items-end justify-center">
+                  <div className="flex flex-col-reverse lg:flex-row gap-[2rem] lg:gap-[5rem] items-end justify-center lg:mt-[2rem]">
                     {/* Left Side: Info Container */}
                     <div className="flex-1 mb-[3rem]">
                       <div className="bg-white/20 rounded-xl p-[1rem] lg:p-[2rem] text-white  backdrop-blur-xl">
@@ -198,7 +198,7 @@ const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
                             
                           </div>
                         </div>
-                        <div className="flex items-center gap-[1rem] ml-[6.4rem]">
+                        <div className="flex items-center gap-[1rem] mt-[1rem] ml-[7.4rem] lg:ml-[6.4rem]">
                           {/* LinkedIn Link (if available) */}
                           {t.linked_in && (
                             <a

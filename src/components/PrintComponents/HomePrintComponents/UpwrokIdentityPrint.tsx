@@ -107,32 +107,33 @@ const UpwrokIdentityPrint: React.FC<UpwrokIdentityPrintProps> = ({
         </div>
 
         {/* Check My Upwork Profile Section */}
-        <div className="flex items-center gap-4 mt-6">
+        <div className="flex items-center justify-end gap-4 mt-6">
           <Link
             href={data.upwork ?? "#"}
             target="_blank"
             className="bg-black text-white border border-transparent hover:border-primary hover:bg-white hover:text-primary duration-300 text-nowrap flex items-center justify-center text-[1.4rem] rounded-[20rem] px-[1rem] py-[0.5rem] group"
           >
             <span>Check My</span>
-            <div className="h-[3rem] w-[3rem] rounded-full relative mx-2 inline-block">
+            <div className="h-[3rem] w-[8rem] relative mx-2 inline-block overflow-hidden rounded-[10rem] px-2 bg-white">
               <Image
-                src="/images/upworkforContactComponent.svg"
+                src="/images/upwork-text-logo.png"
                 alt="Upwork Logo"
-                width={30}
+                width={80}
                 height={30}
-                className="h-full w-full object-cover rounded-full group-hover:border-primary border border-transparent duration-300 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                className="h-full w-full object-cover object-center 
+                 border-transparent absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
               />
             </div>
             <span>Profile</span>
           </Link>
 
-          <Link
+          {/* <Link
             href={data.upwork ?? "#"}
             target="_blank"
             className="h-[3rem] w-[3rem] rounded-full relative bg-sectionBG text-white flex items-center justify-center animate-bounce cursor-pointer hover:bg-white hover:text-primary border border-transparent hover:border-primary duration-300"
           >
             <MoveUpRight className="w-8 h-8" />
-          </Link>
+          </Link> */}
         </div>
       </div>
     </div>

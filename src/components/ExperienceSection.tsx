@@ -76,9 +76,9 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
       modifiedContent(
         experience.long_description || "",
         listOfskills,
-        listOfdata
+        listOfdata,
       ) || "", // Fallback to empty string
-    [experience.long_description, listOfskills, listOfdata]
+    [experience.long_description, listOfskills, listOfdata],
   );
 
   // console.log("Experiences:", experience);
@@ -111,7 +111,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
 
   const visibleItems = useMemo(
     () => items.slice(0, visibleCount),
-    [items, visibleCount]
+    [items, visibleCount],
   );
 
   // Handle toggle logic
@@ -231,22 +231,24 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
             {/* Website link */}
             {experience?.company_website && (
               <div className="flex justify-center md:justify-end w-full md:w-auto">
-                <div className="flex flex-col-reverse gap-[1rem] max-w-max">                    {!experience.company_website.includes("upwork")  && 
-                  <div className="py-[0.4rem] px-[2rem] bg-white border border-[#E2E6EE] text-[#47516B] rounded-[2rem] text-[1.5rem] font-medium leading-[0.8rem] hover:bg-sectionBG hover:text-white duration-300">
-                    <Link
-                      href={experience.company_website}
-                      className="flex gap-2 items-center p-4 text-[2rem]"
-                    >
-                      {
-                        experience.company_website
-                          .replace(/^(https?:\/\/)?(www\.)?/, "")
-                          .split("/")[0]
-                      }
-                    </Link>
-                  </div>
-                  }
+                <div className="flex flex-col-reverse gap-[1rem] max-w-max">
+                  {" "}
+                  {!experience.company_website.includes("upwork") && (
+                    <div className="py-[0.4rem] px-[2rem] bg-white border border-[#E2E6EE] text-[#47516B] rounded-[2rem] text-[1.5rem] font-medium leading-[0.8rem] hover:bg-sectionBG hover:text-white duration-300">
+                      <Link
+                        href={experience.company_website}
+                        className="flex gap-2 items-center p-4 text-[2rem]"
+                      >
+                        {
+                          experience.company_website
+                            .replace(/^(https?:\/\/)?(www\.)?/, "")
+                            .split("/")[0]
+                        }
+                      </Link>
+                    </div>
+                  )}
                   {experience.company_website.includes("upwork") && (
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center max-lg:justify-center justify-end gap-2">
                       <Link
                         href={experience.company_website ?? "#"}
                         target="_blank"
@@ -256,7 +258,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                               text-[1.4rem] lg:text-[1.6rem] lg:font-medium rounded-[20rem] p-[1rem] group"
                       >
                         <span>Check My</span>
-                        <div className="h-[2.5rem] w-[2.5rem] rounded-full relative mx-2 inline-block">
+                        {/* <div className="h-[2.5rem] w-[2.5rem] rounded-full relative mx-2 inline-block">
                           <Image
                             src="/images/upworkforContactComponent.svg"
                             alt="Upwork Logo"
@@ -265,16 +267,26 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                             className="h-full w-full object-cover rounded-full group-hover:border-primary border border-transparent duration-300
                                 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
                           />
+                        </div> */}
+                        <div className="h-[3rem] w-[8rem] relative mx-2 inline-block overflow-hidden rounded-[10rem] px-2 bg-white">
+                          <Image
+                            src="/images/upwork-text-logo.png"
+                            alt="Upwork Logo"
+                            width={80}
+                            height={30}
+                            className="h-full w-full object-cover object-center 
+                                         border-transparent absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                          />
                         </div>
                         <span>Profile</span>
                       </Link>
-                      <Link
+                      {/* <Link
                         href={experience.company_website ?? "#"}
                         target="_blank"
                         className="h-[3rem] w-[3rem] rounded-full relative mx-2 bg-sectionBG text-white flex items-center justify-center animate-bounce cursor-pointer hover:bg-white hover:text-primary border border-transparent hover:border-primary duration-300"
                       >
                         <MoveUpRight className="size-[2rem]" />
-                      </Link>
+                      </Link> */}
                     </div>
                   )}
                 </div>
