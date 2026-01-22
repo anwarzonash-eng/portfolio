@@ -279,8 +279,17 @@ async function tinyURLNavigation(routesInfo: RoutesInfo) {
 
     if (results?.data?.status === "Error") {
       window.location.href = "https://www.cypexsoft.com";
-    } else if (results?.data?.data?.target_link) {
-      window.location.href = results.data.data.target_link;
+    } else {
+      const responseData = results?.data?.data;
+      const resolvedData = Array.isArray(responseData)
+        ? responseData[0]
+        : responseData;
+
+      const targetLink = resolvedData?.target_link;
+
+      if (targetLink) {
+        window.location.href = targetLink;
+      }
     }
   } catch (error) {
     window.location.href = "https://www.cypexsoft.com";
