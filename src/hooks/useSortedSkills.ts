@@ -10,6 +10,8 @@ interface Skill {
   // ... other skill properties
 }
 
+
+
 interface UseSortedSkillsParams {
   skillsIdsWithOrder: SkillFromList[] | undefined;
   allSkills: Skill[];

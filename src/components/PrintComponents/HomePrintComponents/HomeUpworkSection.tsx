@@ -1,14 +1,13 @@
 import React from "react";
-import Image from "next/image";
-import { MoveUpRight } from "lucide-react";
 import NoteDomainForPint from "@/components/NoteDomainForPint";
 import Link from "next/link";
+import UpwrokIdentityPrint from "./UpwrokIdentityPrint";
 
 const HomeUpworkSection = ({ listOfdata, urlInfo }) => {
   const upworkActivityList = [
     {
       id: 1,
-      title: "5000+ Hour Tracked for clients",
+      title: "10000+ Hour Tracked for clients",
       content:
         "With over 2500 hours logged, I bring extensive experience in delivering exceptional web development projects that drive results.",
     },
@@ -36,12 +35,12 @@ const HomeUpworkSection = ({ listOfdata, urlInfo }) => {
     {
       id: 2,
       title: "Total earned",
-      content: "$100K+",
+      content: "$200K+",
     },
     {
       id: 3,
       title: "Total hours completed on Upwork",
-      content: "5,000+",
+      content: "10,000+",
     },
     {
       id: 4,
@@ -67,7 +66,9 @@ const HomeUpworkSection = ({ listOfdata, urlInfo }) => {
           }`}
         >
           {/* Top Content */}
-          <div className="flex items-center justify-between w-full">
+          <div className="flex items-center justify-between w-full gap-5 mb-[2rem]">
+            {/* Upwork Identity */}
+            <UpwrokIdentityPrint data={listOfdata} />
             <Link
               href={listOfdata?.upwork ?? "#"}
               target="_blank"
@@ -75,39 +76,8 @@ const HomeUpworkSection = ({ listOfdata, urlInfo }) => {
             >
               <img src="/images/up-logo.png" alt="Upwork Logo" />
             </Link>
-            <div className="flex items-center gap-2">
-              <Link
-                href={listOfdata?.upwork ?? "#"}
-                target="_blank"
-                className="
-          bg-black text-white border border-transparent hover:border-primary hover:bg-white hover:text-primary duration-300
-          flex items-center justify-center
-          text-[2rem] rounded-[20rem] px-[2rem] py-[1rem] group"
-              >
-                <span>Check My</span>
-                <div className="h-[3rem] w-[3rem] rounded-full relative mx-2 inline-block">
-                  <Image
-                    src="/images/upworkforContactComponent.svg"
-                    alt="Upwork Logo"
-                    width={30}
-                    height={30}
-                    loading="eager"
-                    priority={true}
-                    className="h-full w-full object-cover rounded-full group-hover:border-primary border border-transparent duration-300
-            absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-                  />
-                </div>
-                <span>Profile</span>
-              </Link>
-              {/* <Link
-                href={listOfdata?.upwork ?? "#"}
-                target="_blank"
-                className="h-[4rem] w-[4rem] rounded-full relative mx-2 bg-sectionBG text-white flex items-center justify-center animate-bounce cursor-pointer hover:bg-white hover:text-primary border border-transparent hover:border-primary duration-300"
-              >
-                <MoveUpRight />
-              </Link> */}
-            </div>
           </div>
+
           {/* Bottom Content */}
           <div className="px-4 grid grid-cols-2 w-full gap-8">
             {/*Financial Activity Column */}

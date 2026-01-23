@@ -15,6 +15,7 @@ type SkillType = {
 interface SkillsContainerProps {
   list?: SkillType[] | any;
   variant?: "default" | "portfolio" | "print";
+  // pageType?: "home" | "portfolio" | "cv";
   layoutType?: boolean;
   useLinks?: boolean;
   autoExpandOnParam?: boolean;
@@ -27,6 +28,7 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({
   list,
   variant = "default",
   layoutType = false,
+  // pageType = "home",
   useLinks = true,
   autoExpandOnParam = false,
   portfolioId,
@@ -66,20 +68,14 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({
       ? list
       : list?.slice(0, initialVisibleItems);
 
-  const skills: Record<string, SkillType[]> = skillsGrouping(visibleSkills || []);
+  const skills: Record<string, SkillType[]> = skillsGrouping(
+    visibleSkills || []
+  );
 
   const showToggleButton =
     variant !== "print" && list && list.length > initialVisibleItems;
 
   const handleToggleExpand = () => setIsExpanded((prev) => !prev);
-
-  const handleSeeMorePrint = () => {
-    if (portfolioId) {
-      router.push(`/portfolio/${portfolioId}?scroll=skills`);
-    } else {
-      router.push(`/portfolio`);
-    }
-  };
 
   const getGridCols = (count: number) => {
     const colMap: Record<number, string> = {
@@ -99,7 +95,10 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({
     return colMap[count] || "grid-cols-6";
   };
 
-  const gridCols = variant === "print" ? getGridCols(numColumns) : "grid-cols-3 lg:grid-cols-6 xl:grid-cols-8";
+  const gridCols =
+    variant === "print"
+      ? getGridCols(numColumns)
+      : "grid-cols-3 lg:grid-cols-6 xl:grid-cols-8";
   const gap = variant === "portfolio" ? "gap-[2rem]" : "gap-[1.5rem]";
   const textSize =
     variant === "portfolio"
@@ -109,11 +108,11 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({
   // Conditional layout based on number of skills (similar to HomeSkillsSection)
   const totalVisibleSkills = visibleSkills?.length || 0;
   const useFlex = totalVisibleSkills <= 10;
-  
+
   // Apply different styles based on skill count
-  const containerClasses = useFlex 
+  const containerClasses = useFlex
     ? `flex items-center justify-center flex-wrap ${gap} w-full`
-    : `grid ${gridCols} ${gap} content-center place-items-center`;
+    : `grid ${gridCols} ${gap} content-center`;
 
   return (
     <div className="flex flex-col w-full items-center justify-center mt-[3rem]">
@@ -130,8 +129,10 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({
                 <>
                   {skill.icon && (
                     <div
-                      className={`flex items-center justify-center h-[6.4rem] w-[6.4rem] ${
-                        variant === "print" ? "print:h-[4.5rem] print:w-[4.5rem]" : ""
+                      className={`h-[6.4rem] w-[6.4rem] mx-auto ${
+                        variant === "print"
+                          ? "print:h-[4.5rem] print:w-[4.5rem]"
+                          : ""
                       }`}
                     >
                       <Image
@@ -143,7 +144,7 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({
                       />
                     </div>
                   )}
-                  <div className="mt-[1rem] min-h-[4rem] flex items-center justify-center px-2 text-center">
+                  <div className="mt-[1rem] min-h-[4rem] flex items-start justify-center px-2 text-center">
                     <p className={`${textSize} overflow-hidden text-ellipsis`}>
                       {skill.title === "Nest.js" ? "NestJs" : skill.title}
                     </p>
@@ -155,7 +156,7 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({
                 <div
                   key={`${groupIndex}-${i}`}
                   style={{ animationDelay: `${i * 0.03}s` }}
-                  className={`mx-auto mb-[4rem] flex flex-col items-center justify-start gap-[0.8rem] max-w-[13rem] animate-fadeIn opacity-0`}
+                  className={`mx-auto mb-[4rem] max-w-[13rem]  animate-fadeIn opacity-0`}
                 >
                   {useLinks && skill.url ? (
                     <Link
@@ -166,7 +167,9 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({
                       {Content}
                     </Link>
                   ) : (
-                    Content
+                    <div className="flex flex-col items-center justify-center">
+                    {Content}
+                    </div>
                   )}
                 </div>
               );
@@ -180,12 +183,7 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({
         <>
           {list && list.length > numSkills && (
             <Link
-              href={
-                portfolioId
-                  ? `/portfolio/${portfolioId}?scroll=skills`
-                  : `/portfolio`
-              }
-              onClick={handleSeeMorePrint}
+              href={"/cv"}
               className="px-[4rem] py-[1.4rem] bg-primary rounded-[2.2rem] hover:bg-white hover:text-primary hover:border-primary border border-border text-white text-[1.4rem] font-medium leading-tight mx-auto mt-[1rem]"
             >
               See More Skills

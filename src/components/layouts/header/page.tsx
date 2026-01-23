@@ -9,6 +9,7 @@ import ContactMeLinks from "@/components/ContactMeLinks";
 import { useAppSelector } from "@/store";
 import { scrollToSection } from "@/hooks/scrollToSection";
 import OfferBanner from "@/components/OfferBanner";
+import UpworkIdentity from "@/components/UpworkIdentity";
 
 interface HeaderLink {
   title: string;
@@ -409,16 +410,17 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
                             urlInfo?.u
                               ? "translate-x-[-70%]"
                               : "translate-x-[-50%]"
-                          } z-50
-                         ${isResourceOpen ? "opacity-100" : "opacity-0"}
-                         p-[2rem] text-primary text-[1.6rem] font-normal leading-normal flex flex-col gap-[1.5rem] w-[29.6rem] text-nowrap`}
+                          } z-50 p-[2rem] text-primary text-[1.6rem] font-normal leading-normal flex flex-col gap-[1.5rem] w-[40rem]`}
                         >
+                          <div>
+                          <UpworkIdentity data={listOfdata} columnFormat={true} />
+                          </div>
                           {/* Work Proof */}
                           <div className="w-full">
-                            <div className="w-full flex items-center gap-[1.4rem]">
+                            <div className={`flex items-center gap-[1.4rem]`}>
                               <WorkProofLinks
                                 props={{
-                                  upwork: listOfdata?.upwork,
+                                  // upwork: listOfdata?.upwork,
                                   github: listOfdata?.github,
                                   linkedIn: listOfdata?.linkedIn,
                                   behance_link: listOfdata?.behance_link,
@@ -426,7 +428,7 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
                                 }}
                               />
                             </div>
-                            <p className="text-[1.4rem] font-normal text-paragraph1 mt-[1.6rem]">
+                            <p className={`text-[1.4rem] font-normal  text-paragraph1 mt-[1.6rem] `}>
                               My Work Proof
                             </p>
                           </div>
@@ -435,7 +437,7 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
                               <hr className="h-[0.1rem] w-full bg-border" />
                               {/* Contact Me */}
                               <div className="w-full">
-                                <div className="w-full flex items-center gap-[1.4rem]">
+                                <div className="flex items-center gap-[1.4rem] ">
                                   <ContactMeLinks
                                     props={{
                                       email: listOfdata?.email,
@@ -518,7 +520,7 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
                 />
                 {/* Positioned Sidebar */}
                 <div
-                  className={`fixed top-[7.2rem] w-[30rem] right-0 z-[100] h-full bg-white shadow-lg  duration-300  ${
+                  className={`fixed top-[7.2rem] w-[35rem] right-0 z-[100] h-full bg-white shadow-lg  duration-300  ${
                     sideBarOpen
                       ? "translate-x-0 opacity-100"
                       : "translate-x-[30rem] opacity-0"
@@ -624,18 +626,15 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
                             {/* Positioned DropDown Menu */}
                             {isResourceOpen && (
                               <nav
-                                className={`rounded-[0.8rem] duration-300 shadow-md bg-white z-50
-                  ${
-                    isResourceOpen ? "h-[21.5rem] opacity-100" : "h-0 opacity-0"
-                  }
-                
-                     p-[2rem] text-primary text-[1.6rem] font-normal leading-normal flex flex-col gap-[1.5rem] max-w-[32rem] w-full text-nowrap`}
+                                className="rounded-[0.8rem] duration-300 shadow-md bg-white z-50 p-[2rem] text-primary text-[1.6rem] font-normal leading-normal flex flex-col gap-[1.5rem] w-full"
                               >
+                                <div>
+                                  <UpworkIdentity data={listOfdata} columnFormat={true} />
+                                </div>
                                 <div className="w-full">
                                   <div className="w-full flex items-center gap-[1.4rem]">
                                     <WorkProofLinks
                                       props={{
-                                        upwork: listOfdata?.upwork,
                                         github: listOfdata?.github,
                                         linkedIn: listOfdata?.linkedIn,
                                         behance_link: listOfdata?.behance_link,

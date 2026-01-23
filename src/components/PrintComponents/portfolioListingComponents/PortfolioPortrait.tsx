@@ -6,6 +6,7 @@ import PortfolioPopUp from "@/components/PortfolioPopUp";
 import { skillsGrouping } from "@/hooks/skillsGrouping";
 import AreasOfExpertiesSkillComponent from "@/components/AreasOfExpertiesSkillComponent";
 import {ArrowRight } from "lucide-react";
+import { modifiedContent } from "@/hooks/modifiedContent";
 
 type SkillType = {
   title: string;
@@ -35,6 +36,8 @@ interface PortfolioPortraitProps {
   companyType: string;
   locationLink: string;
   portfolioId: string;
+  listOfskills: any;
+  listOfdata: any;
   from: number;
   max?: number;
 }
@@ -44,6 +47,8 @@ const PortfolioPortrait: React.FC<PortfolioPortraitProps> = ({
   companyType,
   locationLink,
   portfolioId,
+  listOfskills,
+  listOfdata,
   from,
   max,
 }) => {
@@ -154,14 +159,24 @@ const PortfolioPortrait: React.FC<PortfolioPortraitProps> = ({
                             mt-[1rem] line-clamp-2"
                           ></p> */}
 
-                          <p
+                          {/* <p
                             dangerouslySetInnerHTML={{
                               __html: portfolio.tagline_2,
                             }}
                             className="text-[1.6rem] leading-[2rem] font-normal text-primary mt-[1rem] line-clamp-3"
-                          ></p>
-                           <div className="w-full flex items-start mt-[2rem]">
-                          <Link
+                          ></p> */}
+                          <div
+                            dangerouslySetInnerHTML={{
+                              __html: modifiedContent(
+                                portfolio.tagline_2,
+                                listOfskills,
+                                listOfdata
+                              ),
+                            }}
+                            className="text-[1.6rem] leading-[2rem] font-normal text-primary mt-[1rem] line-clamp-3"
+                          ></div>
+                          <div className="w-full flex items-start mt-[2rem]">
+                            <Link
                               href={`/portfolio?sectionId=portfolioSection&portfolioId=${portfolio.id}`}
                               className="hover:bg-white bg-primary text-white hover:text-primary capitalize text-center text-primary text-[1.3rem] font-medium py-[0.4rem] px-[2rem] flex items-center justify-center gap-[8px] rounded-[5rem] shadow opacity-0 animate-fadeIn relative group border border-transparent hover:border-primary"
                             >
@@ -177,14 +192,16 @@ const PortfolioPortrait: React.FC<PortfolioPortraitProps> = ({
                           AREAS OF EXPERTISE I'VE WORKED IN:
                         </p>
                         <div className="flex items-center gap-[0.7rem] text-nowrap flex-wrap">
-                          {skillsToDisplay.map((skill: SkillType, i: number) => (
-                             <AreasOfExpertiesSkillComponent
-                             key={i}
-                             skill={skill}
-                             index={i}
-                             variant="medium"
-                             />
-                            ))}
+                          {skillsToDisplay.map(
+                            (skill: SkillType, i: number) => (
+                              <AreasOfExpertiesSkillComponent
+                                key={i}
+                                skill={skill}
+                                index={i}
+                                variant="medium"
+                              />
+                            )
+                          )}
 
                           {shouldShowSeeMore && (
                             <Link
@@ -209,7 +226,7 @@ const PortfolioPortrait: React.FC<PortfolioPortraitProps> = ({
                       </Link>
                       {companyType !== "leewop" && (
                         <Link
-                          href={portfolio?.link ? portfolio?.link : "#" }
+                          href={portfolio?.link ? portfolio?.link : "#"}
                           className="py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-primary border border-solid hover:border-transparent border-primary duration-300 hover:bg-primary hover:text-white rounded-[0.6rem] text-center max-w-max text-nowrap"
                         >
                           Launch Project - Live Preview
@@ -239,7 +256,7 @@ const PortfolioPortrait: React.FC<PortfolioPortraitProps> = ({
                         //   // maxHeight: '420px', // fallback for A4 portrait
                         //   // minHeight: '370px'
                         // }}
-                          style={{ aspectRatio: "16 / 9" }}
+                        style={{ aspectRatio: "16 / 9" }}
                       >
                         <Image
                           src={
@@ -255,7 +272,7 @@ const PortfolioPortrait: React.FC<PortfolioPortraitProps> = ({
                           loading="eager"
                           priority={true}
                           // sizes="100vw"
-                         className="object-fill w-full h-full rounded-[1.2rem] border border-border"
+                          className="object-fill w-full h-full rounded-[1.2rem] border border-border"
                         />
                       </div>
                     )}
@@ -266,7 +283,7 @@ const PortfolioPortrait: React.FC<PortfolioPortraitProps> = ({
                     >
                       <span className="relative z-10 flex items-center justify-center gap-2">
                         Explore the Gallery
-                        <ArrowRight/>
+                        <ArrowRight />
                       </span>
                       <span className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
                     </Link>

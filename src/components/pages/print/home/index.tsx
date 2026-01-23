@@ -6,7 +6,6 @@ import ContactMeLinks from "@/components/ContactMeLinks";
 import React, { useEffect, useRef, useState } from "react";
 import { formatPhoneNumber } from "@/hooks/formatPhoneNumber";
 import { formatDate } from "@/hooks/formatdate";
-import { modifiedContent } from "@/hooks/modifiedContent";
 import { dateFormatsOptions } from "@/data/JsonData";
 import { useSearchParams } from "next/navigation";
 import { getRoutesDetails } from "@/hooks/url";
@@ -37,7 +36,8 @@ import {
 } from "@/components/PrintComponents/HomePrintComponents";
 import PrintPageRenderer, { ComponentConfig } from "@/utils/printPageRenderer";
 import Link from "next/link";
-import { sortSkillsByOrder } from "@/hooks/sortSkillsByOrder";
+import { useSortedSkills } from "@/hooks/useSortedSkills";
+import HomeTestimonialSection from "@/components/PrintComponents/HomePrintComponents/HomeTestimonialSection";
 
 
 
@@ -92,10 +92,6 @@ const Home_p = ({ params }: { params: any }) => {
   }, [listOfdata?.skills_ids]);
 
   useEffect(() => {
-    if (listOfdata) {
-      // // console.log(listOfdata);
-      // skillsSyncApi({ setListOfSkills });
-    }
     listOfdata && handleSkillsApiCall({ setListOfSkills });
   }, [listOfdata]);
 
@@ -117,10 +113,17 @@ const Home_p = ({ params }: { params: any }) => {
     }
   }, [listOfdata]);
 
-const sortedSkills = sortSkillsByOrder(listOfdata?.skills_ids);
+  console.log("Testimonial Data:", listOfdata?.testimonials)
 
 
-  // console.log("List of Data:", listOfdata);
+ // console.log("Unsorted Skills Print Home Page:", listOfdata?.skills_ids)
+ // Here im Using Custom Hook in useSortedSkills
+  const sortedSkills = useSortedSkills({
+    skillsIdsWithOrder: listOfdata?.skills_ids,
+    allSkills: listOfskills
+  });
+
+
 
   const domain = listOfdata?.domain;
 
@@ -180,7 +183,7 @@ const sortedSkills = sortSkillsByOrder(listOfdata?.skills_ids);
       ),
     },
     // Skills Section - only if portfolios exist
-    ...(listOfdata?.portfolios_ids?.length > 0 ? [{
+    ...([{
       componentType: "dynamic" as const,
       badgeTitle: "Skills",
       component: (
@@ -189,14 +192,15 @@ const sortedSkills = sortSkillsByOrder(listOfdata?.skills_ids);
           list={sortedSkills}
           numColumns={8}
           numSkills={32}
-          portfolioId={listOfdata && listOfdata?.portfolios_ids[0]?.id}
+          // portfolioId={listOfdata && listOfdata?.portfolios_ids[0]?.id}
           useLinks={true}
         />
       ),
-    }] : []),
+    }]),
     // Services Section - only if services exist
     ...(listOfdata?.services?.length > 0 ? [{
       componentType: "static" as const,
+      hasDarkBackground: true,
       component: (
         <HomeServicesSection
           listOfdata={listOfdata}
@@ -217,6 +221,8 @@ const sortedSkills = sortSkillsByOrder(listOfdata?.skills_ids);
             companyType={listOfdata.companytype}
             portfolioId={listOfdata.portfolios_ids[0]?.id}
             locationLink="/?sectionId=myWork"
+            listOfskills={listOfskills}
+            listOfdata={listOfdata}
             from={0}
             max={1}
           />
@@ -234,6 +240,8 @@ const sortedSkills = sortSkillsByOrder(listOfdata?.skills_ids);
             companyType={listOfdata.companytype}
             portfolioId={listOfdata.portfolios_ids[1]?.id}
             locationLink="/?sectionId=myWork"
+            listOfskills={listOfskills}
+            listOfdata={listOfdata}
             from={1}
             max={2}
           />
@@ -251,6 +259,8 @@ const sortedSkills = sortSkillsByOrder(listOfdata?.skills_ids);
             companyType={listOfdata.companytype}
             portfolioId={listOfdata.portfolios_ids[2]?.id}
             locationLink="/?sectionId=myWork"
+            listOfskills={listOfskills}
+            listOfdata={listOfdata}
             from={2}
             max={3}
           />
@@ -298,6 +308,34 @@ const sortedSkills = sortSkillsByOrder(listOfdata?.skills_ids);
       ),
     }] : []),
 
+
+    // Home Testimonial Section
+    // ...(!urlInfo?.u ? [{
+    //   componentType: "static" as const,
+    //   hasDarkBackground: true,
+    //   component: (
+    //     <HomeTestimonialSection 
+    //     testimonials={listOfdata?.testimonials}
+    //     designation={listOfdata?.designation}
+    //     />
+    //   ),
+    // }] : []),
+
+    ...([{
+      componentType: "static" as const,
+      hasDarkBackground: true,
+      component: (
+        <>
+        {listOfdata?.testimonials && (
+          <HomeTestimonialSection 
+          testimonials={listOfdata?.testimonials}
+          designation={listOfdata?.designation}
+          />
+        )}
+        </>
+      ),
+    }]),
+
     // Contact Me Section - only if not a user profile
     ...(!urlInfo?.u ? [{
       componentType: "static" as const,
@@ -308,6 +346,7 @@ const sortedSkills = sortSkillsByOrder(listOfdata?.skills_ids);
         />
       ),
     }] : []),
+
 
     // Education Section - only if education data exists
     ...(listOfdata?.education_ids?.length > 0 || blogsList?.length > 0 ? [{

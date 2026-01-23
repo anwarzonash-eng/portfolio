@@ -1,13 +1,13 @@
-import Image from "next/image";
-import { MoveUpRight } from "lucide-react";
+import React from "react";
 import NoteDomainForPint from "@/components/NoteDomainForPint";
 import Link from "next/link";
+import UpwrokIdentityPrint from "../HomePrintComponents/UpwrokIdentityPrint";
 
 const PortfolioDetailUpworkSection = ({ listOfdata, urlInfo }) => {
   const upworkActivityList = [
     {
       id: 1,
-      title: "5000+ Hour Tracked for clients",
+      title: "10000+ Hour Tracked for clients",
       content:
         "With over 2500 hours logged, I bring extensive experience in delivering exceptional web development projects that drive results.",
     },
@@ -35,12 +35,12 @@ const PortfolioDetailUpworkSection = ({ listOfdata, urlInfo }) => {
     {
       id: 2,
       title: "Total earned",
-      content: "$100K+",
+      content: "$200K+",
     },
     {
       id: 3,
       title: "Total hours completed on Upwork",
-      content: "5,000+",
+      content: "10,000+",
     },
     {
       id: 4,
@@ -54,108 +54,92 @@ const PortfolioDetailUpworkSection = ({ listOfdata, urlInfo }) => {
     },
   ];
   return (
-    <div className="bg-white h-screen w-full flex items-center justify-center">
-      <div
-        className={`${
-          urlInfo?.domain === "findusman.me"
-            ? "w-full  py-10 px-[4rem] "
-            : "hidden"
-        }`}
-      >
-        {/* Top Content */}
-        <div className="flex items-center justify-between w-full">
-          <Link
-            href={listOfdata?.upwork ?? "#"}
-            target="_blank"
-            className="py-2 inline-block"
-          >
-            <img src="/images/up-logo.png" alt="Upwork Logo" />
-          </Link>
-          <div className="flex items-center gap-2">
+    <section className="h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center p-[4rem] mt-20 print:mt-0 relative bg-white">
+      {/* Note and Domain For Each Page */}
+      <NoteDomainForPint direction={"hidden print:right-0 print:block"} />
+      <div className="max-w-[1550px] w-full mx-auto flex items-center justify-center gap-[2rem]">
+        <div
+          className={`${
+            urlInfo?.domain === "findusman.me"
+              ? "w-full  py-10 px-[4rem]"
+              : "hidden"
+          }`}
+        >
+          {/* Top Content */}
+          <div className="flex items-center justify-between w-full gap-5 mb-[2rem]">
+            {/* Upwork Identity */}
+            <UpwrokIdentityPrint data={listOfdata} />
             <Link
               href={listOfdata?.upwork ?? "#"}
               target="_blank"
-              className="
-          bg-black text-white border border-transparent hover:border-primary hover:bg-white hover:text-primary duration-300
-          flex items-center justify-center
-          text-[2rem] rounded-[20rem] px-[2rem] py-[1rem] group"
+              className="py-2 inline-block"
             >
-              <span>Check My</span>
-              <div className="h-[3rem] w-[3rem] rounded-full relative mx-2 inline-block">
-                <Image
-                  src="/images/upworkforContactComponent.svg"
-                  alt="Upwork Logo"
-                  width={30}
-                  height={30}
-                  className="h-full w-full object-cover rounded-full group-hover:border-primary border border-transparent duration-300
-            absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-                />
-              </div>
-              <span>Profile</span>
+              <img src="/images/up-logo.png" alt="Upwork Logo" />
             </Link>
-            {/* <Link
-              href={listOfdata?.upwork ?? "#"}
-              target="_blank"
-              className="h-[4rem] w-[4rem] rounded-full relative mx-2 bg-sectionBG text-white flex items-center justify-center animate-bounce cursor-pointer hover:bg-white hover:text-primary border border-transparent hover:border-primary duration-300"
-            >
-              <MoveUpRight />
-            </Link> */}
-          </div>
-        </div>
-        {/* Bottom Content */}
-        <div className="px-4 grid grid-cols-2 w-full gap-8">
-          {/*Financial Activity Column */}
-          <div>
-            <h2 className={`text-[3rem] font-bold mb-[1rem]`}>
-              My{" "}
-              <Link
-                href={listOfdata?.upwork ?? "#"}
-                target="_blank"
-                className="text-primary"
-              >
-                Upwork
-              </Link>{" "}
-              Finanancial Activities
-            </h2>
-            <div className="space-y-4">
-              {upworkFinancialActivityList.map((item) => (
-                <div key={item.id}>
-                  <p className="text-heading text-[1.8rem]">{item.title}</p>
-                  <p className="text-[2.4rem] font-semibold">{item.content}</p>
-                </div>
-              ))}
-            </div>
           </div>
 
-          {/* Upwork Activity Column */}
-          <div>
-            <h2 className={`text-[3rem] font-bold mb-[1rem]`}>
-              My{" "}
-              <Link
-                href={listOfdata?.upwork ?? "#"}
-                target="_blank"
-                className="text-primary"
-              >
-                Upwork
-              </Link>{" "}
-              Activities
-            </h2>
-            <ul className="space-y-4">
-              {upworkActivityList.map((item) => (
-                <li className="flex" key={item.id}>
-                  <span className="upworkSectionDot"></span>
-                  <div>
-                    <p className="text-[2.4rem] font-semibold">{item.title}</p>
-                    <p className="text-heading text-[1.5rem]">{item.content}</p>
+          {/* Bottom Content */}
+          <div className="px-4 grid grid-cols-2 w-full gap-8">
+            {/*Financial Activity Column */}
+            <div>
+              <h2 className={`text-[3rem] font-bold mb-[1rem]`}>
+                My{" "}
+                <Link
+                  href={listOfdata?.upwork ?? "#"}
+                  target="_blank"
+                  className="text-primary"
+                >
+                  Upwork
+                </Link>{" "}
+                Finanancial Activities
+              </h2>
+              <div className="space-y-4">
+                {upworkFinancialActivityList.map((item) => (
+                  <div key={item.id}>
+                    <p className="text-heading text-[1.8rem]">{item.title}</p>
+                    <p className="text-[2.4rem] font-semibold">
+                      {item.content}
+                    </p>
                   </div>
-                </li>
-              ))}
-            </ul>
+                ))}
+              </div>
+            </div>
+
+            {/* Upwork Activity Column */}
+            <div>
+              <h2 className={`text-[3rem] font-bold mb-[1rem]`}>
+                My{" "}
+                <Link
+                  href={listOfdata?.upwork ?? "#"}
+                  target="_blank"
+                  className="text-primary"
+                >
+                  Upwork
+                </Link>{" "}
+                Activities
+              </h2>
+              <ul className="space-y-4">
+                {upworkActivityList.map((item) => (
+                  <li className="flex" key={item.id}>
+                    <span className="upworkSectionDot"></span>
+                    <div>
+                      <p className="text-[2.4rem] font-semibold">
+                        {item.title}
+                      </p>
+                      <p className="text-heading text-[1.5rem]">
+                        {item.content}
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
 export default PortfolioDetailUpworkSection;
+

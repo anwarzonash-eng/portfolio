@@ -266,12 +266,12 @@ const PortfolioDetails = ({ params }: { params: any }) => {
                 <Portfoliodetailbg />
                 <div className="mainContainer w-full flex items-center justify-center flex-col text-center pt-[6.5rem] pb-[8rem] relative z-20 ">
                   <div className="flex items-center text-white text-[1.4rem] leading-[2rem] font-medium">
-                    <p className="">
+                    {/* <p className="">
                       {formatDate(
                         portfolioDetails?.updated_date,
                         dateFormatsOptions.dayMonthYear
                       )}
-                    </p>
+                    </p> */}
                   </div>
                   <h1 className="text-[4rem] lg:text-[6rem] leading-[5rem] lg:leading-[8rem] font-medium break-all text-white mt-[1.6rem] mb-[2.4rem]">
                     {portfolioDetails?.title}
@@ -550,7 +550,7 @@ const PortfolioDetails = ({ params }: { params: any }) => {
                       <SkillsContainer
                         list={sortedSkills}
                         variant="portfolio"
-                        autoExpandOnParam
+                        autoExpandOnParam={true}
                         layoutType
                       />
                     </div>

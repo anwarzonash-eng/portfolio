@@ -30,7 +30,7 @@ import { getImageForIndex } from "@/utils/getImageForIndex";
 import { loadBlogs } from "@/hooks/apihandlers/blogListingApiHandler";
 import PrintPageRenderer, { ComponentConfig } from "@/utils/printPageRenderer";
 import { preloadImages } from "@/utils/preLoadImages";
-import { sortSkillsByOrder } from "@/hooks/sortSkillsByOrder";
+import { useSortedSkills } from "@/hooks/useSortedSkills";
 
 const PortfolioDetails_p = ({ params }: { params: any }) => {
   const searchParams = useSearchParams();
@@ -252,9 +252,11 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
     };
   }, []);
 
-  const sortedSkills = sortSkillsByOrder(listOfdata?.skills_ids);
-  
-  
+  const sortedSkills = useSortedSkills({
+    skillsIdsWithOrder: listOfdata?.skills_ids,
+    allSkills: listOfskills,
+  });
+
   const componentsList: ComponentConfig[] = [
     {
       componentType: "static",
@@ -366,7 +368,11 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
     },
   ];
 
-  const extractAllImageUrls = (data: any, blogs: any[], portfolioDetails: any) => {
+  const extractAllImageUrls = (
+    data: any,
+    blogs: any[],
+    portfolioDetails: any
+  ) => {
     const urls = new Set<string>();
 
     // 1. IntroPortfolioDetail: Profile photo
@@ -382,7 +388,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
         if (Array.isArray(pictures)) {
           // Only add first image as component shows slice(0, 1)
           pictures.slice(0, 1).forEach((pic) => {
-            if (pic && typeof pic === 'string') urls.add(pic);
+            if (pic && typeof pic === "string") urls.add(pic);
           });
         }
       } catch (e) {
@@ -398,7 +404,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
     // 5. EducationBlogPortfolioDetail: Blog images (using getImageForIndex logic)
     blogs?.slice(0, 2).forEach((blog, index) => {
       if (blog.featuredImage) {
-        const blogImage = getImageForIndex(data?.domain || '', index);
+        const blogImage = getImageForIndex(data?.domain || "", index);
         if (blogImage) urls.add(blogImage);
       }
     });
@@ -407,13 +413,16 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
     const htmlFields = [
       portfolioDetails?.features_short,
       portfolioDetails?.key_modules,
-      portfolioDetails?.short_description
+      portfolioDetails?.short_description,
     ];
 
     htmlFields.forEach((htmlContent) => {
       if (htmlContent) {
-        const processedHtml = modifiedContent(htmlContent, filteredSkills, data) || '';
-        const htmlMatches = processedHtml.match(/<img[^>]+src=["']([^"']+)["'][^>]*>/g);
+        const processedHtml =
+          modifiedContent(htmlContent, filteredSkills, data) || "";
+        const htmlMatches = processedHtml.match(
+          /<img[^>]+src=["']([^"']+)["'][^>]*>/g
+        );
         if (htmlMatches) {
           htmlMatches.forEach((tag) => {
             const match = tag.match(/src=["']([^"']+)["']/);
@@ -442,7 +451,13 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
     preloadImages(urls, (loaded, total) =>
       setImageProgress({ loaded, total })
     ).then(() => setImagesReady(true));
-  }, [listOfdata, blogsList, listOfskills.length, portfolioDetails, filteredSkills]);
+  }, [
+    listOfdata,
+    blogsList,
+    listOfskills.length,
+    portfolioDetails,
+    filteredSkills,
+  ]);
 
   // Loading / Error States
   if (error) {
@@ -481,7 +496,13 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
     <PrintPageRenderer
       componentsList={componentsList}
       orientation="Landscape"
-      isDataReady={!loading && listOfdata && urlInfo && imagesReady && listOfskills.length > 0}
+      isDataReady={
+        !loading &&
+        listOfdata &&
+        urlInfo &&
+        imagesReady &&
+        listOfskills.length > 0
+      }
     />
   );
 };

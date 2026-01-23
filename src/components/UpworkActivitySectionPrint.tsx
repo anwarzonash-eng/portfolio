@@ -9,7 +9,7 @@ function UpworkActivitySectionPrint({ urlInfo, data }) {
   const upworkActivityList = [
     {
       id: 1,
-      title: "5000+ Hour Tracked for clients",
+      title: "10000+ Hour Tracked for clients",
       content: "With over 2500 hours logged, I bring extensive experience in delivering exceptional web development projects that drive results."
     },
     {
@@ -34,12 +34,12 @@ function UpworkActivitySectionPrint({ urlInfo, data }) {
     {
       id: 2,
       title: "Total earned",
-      content: "$100K+"
+      content: "$200K+"
     },
     {
       id: 3,
       title: "Total hours completed on Upwork",
-      content: "5,000+"
+      content: "10,000+"
     },
     {
       id: 4,

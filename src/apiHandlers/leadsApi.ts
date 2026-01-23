@@ -1,10 +1,10 @@
 import { apigateway } from "@/gateways/apigateway";
 
-export const addLeadsApi = async (payload) => {
+export const addLeadsApi = async (payload: any) => {
   return apigateway({
-    endpoint: "/leads/add",
+    endpoint: "/leads/manual-add",
     method: "POST",
-    payload: payload,
-    contentType: "multipart/form-data",
+    payload: { jobBody: payload },
+    contentType: "application/json",
   });
 };

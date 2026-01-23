@@ -16,7 +16,6 @@ import { contactDetails } from "@/data/JsonData";
 import { socialLinks } from "@/data/JsonData";
 import useBodyBackgroundColor from "@/hooks/useBodyBackgroundColor";
 import CVSideBar from "@/components/CVPageComponents/CV-SideBar";
-import CVSkills from "@/components/CVPageComponents/CV-Skills";
 import ExperienceSection from "@/components/ExperienceSection";
 import CVPortfolio from "@/components/CVPageComponents/CV-Portfolio";
 import CVEducation from "@/components/CVPageComponents/CV-Education";
@@ -29,6 +28,7 @@ import Background from "@/components/background";
 import PortfolioCardContent from "@/components/PortfolioCardContent";
 import UpworkActivitySection from "@/components/UpworkActivitySection";
 import { useSortedSkills } from "@/hooks/useSortedSkills";
+import SkillsContainer from "@/components/SkillsContainer";
 
 const CV = ({ params }: { params: any }) => {
   const searchParams = useSearchParams();
@@ -153,11 +153,12 @@ const CV = ({ params }: { params: any }) => {
     }
   }, [listOfdata, allSkills]);
 
-  // SKills For CV
+  // Sorted SKills
     const sortedSkills = useSortedSkills({
     skillsIdsWithOrder: listOfdata?.skills_ids,
     allSkills,
   });
+  
 
 
   useEffect(() => {
@@ -285,7 +286,9 @@ const CV = ({ params }: { params: any }) => {
                     contactDetails={contactDetails}
                     socialLinks={socialLinks}
                   />
-                  <section className="w-full mt-[-2rem] lg:mt-0 md:pt-[7rem]">
+                  <section
+                  id="skillsSection"
+                   className="w-full mt-[-2rem] lg:mt-0 md:pt-[7rem]">
                     <div
                       dangerouslySetInnerHTML={{ __html: listOfdata?.tag_line }}
                       className="py-[5rem] px-[3.4rem] print:hidden block primaryGradient text-white text-[2.2rem] leading-[3.1rem] font-bold rounded-[1rem] text-center"
@@ -330,7 +333,6 @@ const CV = ({ params }: { params: any }) => {
                             )}
                             {listOfdata?.skills_ids && (
                               <div
-                                id="skillsSection"
                                 className="relative flex items-start print:break-before-page"
                               >
                                 <div className="absolute top-0 left-[-1.3rem] z-[60] block print:hidden">
@@ -338,9 +340,11 @@ const CV = ({ params }: { params: any }) => {
                                     <div className="w-[0.8rem] h-[0.8rem] bg-sectionBG rounded-full"></div>
                                   </div>
                                 </div>
-                                <CVSkills
-                                  skillsforCV={skillsforCV}
-                                  listOfdata={listOfdata}
+
+                                <SkillsContainer
+                                  list={sortedSkills}
+                                  variant="default"
+                                  autoExpandOnParam={true}
                                 />
                               </div>
                             )}
@@ -369,18 +373,19 @@ const CV = ({ params }: { params: any }) => {
                                           showAllExperiences
                                             ? listOfdata.experiences_ids.length
                                             : isMobile
-                                              ? 3
-                                              : 6
+                                            ? 3
+                                            : 6
                                         )
                                         .map((experience, index) => (
                                           <div
                                             key={index}
                                             id={`experience-${experience.id}`}
-                                            className={`relative ${highlightedExperienceId ===
-                                                experience.id
+                                            className={`relative ${
+                                              highlightedExperienceId ===
+                                              experience.id
                                                 ? "border border-primary rounded-[1rem]"
                                                 : ""
-                                              }`}
+                                            }`}
                                           >
                                             <ExperienceSection
                                               experience={experience}
@@ -472,10 +477,12 @@ const CV = ({ params }: { params: any }) => {
                                           <div
                                             key={index}
                                             id={`portfolio-${portfolio.id}`}
-                                            className={`relative flex items-start mt-[2rem] print-section flex-col ${highlightedPortfolioId === portfolio.id
+                                            className={`relative flex items-start mt-[2rem] print-section flex-col ${
+                                              highlightedPortfolioId ===
+                                              portfolio.id
                                                 ? "border border-primary rounded-[1rem]"
                                                 : ""
-                                              }`}
+                                            }`}
                                           >
                                             <div className="absolute top-0 left-[-3.2rem] z-[60] md:left-[-4.2rem] lg:left-[-6.2rem] block print:hidden">
                                               <div className="w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center">
@@ -497,11 +504,11 @@ const CV = ({ params }: { params: any }) => {
                                               )
                                                 ? portfolio.ending_Date
                                                 : new Date(
-                                                  portfolio.ending_Date
-                                                ).toLocaleString("en-US", {
-                                                  month: "short",
-                                                  year: "numeric",
-                                                })}
+                                                    portfolio.ending_Date
+                                                  ).toLocaleString("en-US", {
+                                                    month: "short",
+                                                    year: "numeric",
+                                                  })}
                                             </h1>
 
                                             <PortfolioCardContent
@@ -534,7 +541,9 @@ const CV = ({ params }: { params: any }) => {
                                   <div className="w-[0.8rem] h-[0.8rem] bg-sectionBG rounded-full"></div>
                                 </div>
                               </div>
-                              <UpworkActivitySection urlInfo={urlInfo} cvTrue={true}
+                              <UpworkActivitySection
+                                urlInfo={urlInfo}
+                                cvTrue={true}
                                 data={listOfdata}
                               />
                             </div>

@@ -13,7 +13,7 @@ type SkillType = {
 };
 
 interface SkillsContainerProps {
-  list?: SkillType[] | null;
+  list?: any[] | null;
   layoutType?: boolean;
   useLinks?: boolean;
   autoExpandOnParam?: boolean;
@@ -61,8 +61,10 @@ const PortfolioDetailSKills: React.FC<SkillsContainerProps> = ({
 
   // Determine visible skills - always use print logic with numSkills
   const visibleSkills = list?.slice(0, numSkills);
-  const skills: Record<string, SkillType[]> = skillsGrouping(visibleSkills || []);
-  
+  const skills: Record<string, SkillType[]> = skillsGrouping(
+    visibleSkills || []
+  );
+
   // Show "See More" button if there are more skills than displayed
   const showSeeMoreButton = list && list.length > numSkills;
 
@@ -74,11 +76,11 @@ const PortfolioDetailSKills: React.FC<SkillsContainerProps> = ({
   // Conditional layout based on number of skills
   const totalVisibleSkills = visibleSkills?.length || 0;
   const useFlex = totalVisibleSkills <= 10;
-  
+
   // Apply different styles based on skill count
-  const containerClasses = useFlex 
+  const containerClasses = useFlex
     ? "flex items-center justify-center flex-wrap gap-[2rem] w-full my-[2rem]"
-    : `grid ${gridCols} ${gap} content-center place-items-center justify-items-center my-[2rem]`;
+    : `grid ${gridCols} ${gap} content-center place-items-start justify-items-center my-[2rem]`;
 
   return (
     <div className="flex flex-col w-full items-center justify-center mt-[2rem]">
@@ -90,20 +92,22 @@ const PortfolioDetailSKills: React.FC<SkillsContainerProps> = ({
               const Content = (
                 <>
                   {skill.icon && (
-                    <div className="flex items-center justify-center 
-                    h-[4.5rem] w-[4.5rem]">
+                    <div
+                      className="flex items-center justify-center 
+                          h-[4rem] w-[4rem] mb-[1rem]"
+                    >
                       <Image
-                        src={skill.icon}
+                        src={skill.icon.trim()}
                         alt={skill.title}
                         loading="eager"
                         priority={true}
-                        height={45}
-                        width={45}
+                        height={40}
+                        width={40}
                         className="object-contain w-full h-full"
                       />
                     </div>
                   )}
-                  <div className="mt-[1rem] min-h-[4.5rem] flex items-center justify-center px-2 text-center">
+                  <div className="mb-[1rem] min-h-[4rem] flex items-start justify-center  px-2 text-center">
                     <p className={`${textSize} overflow-hidden text-ellipsis`}>
                       {skill.title === "Nest.js" ? "NestJs" : skill.title}
                     </p>
@@ -126,7 +130,9 @@ const PortfolioDetailSKills: React.FC<SkillsContainerProps> = ({
                       {Content}
                     </Link>
                   ) : (
-                    Content
+                    <div className="flex flex-col items-center justify-center">
+                      {Content}
+                    </div>
                   )}
                 </div>
               );

@@ -120,7 +120,7 @@ const IntroCvPortrait = ({listOfdata, urlInfo}) => {
             {socialLinks(listOfdata)
               .filter(({ alt }) =>
                 urlInfo?.u
-                  ? alt === "Github" || alt === "Upwork" || alt === "Linkedin"
+                  ? alt === "Github" || alt === "Upwork"
                   : true
               )
               .slice(0, 3)

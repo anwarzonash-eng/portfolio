@@ -41,7 +41,7 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({ services }) => {
                   {service.picture && (
                     <div className="relative h-[17rem] print:h-[14rem] w-full flex items-center justify-center overflow-hidden group">
                       <Image
-                        src={service.picture}
+                        src={service.picture.trim()}
                         alt={service.title || "Service image"}
                         height={150}
                         width={150}
@@ -69,7 +69,7 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({ services }) => {
                       className="text-gray-300 text-[1.3rem] mb-6 print:mb-3 line-clamp-3 print:line-clamp-2 leading-relaxed print:text-[1.2rem]"
                     />
                     {/* CTA Button */}
-                    {process.env.IS_SERVICES_ALLOWED === "true" ? (
+                    {process.env.IS_SERVICES_ALLOWED !== "true" ? (
                       <Link
                         href={`/service-detail?service=${encodeURIComponent(
                           service?.title
@@ -77,7 +77,7 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({ services }) => {
                         className="inline-flex items-center gap-2 text-white/90 hover:text-white transition-colors group"
                       >
                         <span className="font-bold text-[1.5rem] text-[#ffffff]">
-                          Discover more 1
+                          Discover more 
                         </span>
                         <span className="group-hover:translate-x-1 transition-transform">
                           <svg

@@ -180,6 +180,8 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
             companyType={listOfdata.companytype}
             locationLink={`/?sectionId=myWork`}
             portfolioId={listOfdata.portfolios_ids[0].id}
+            listOfskills={listOfskills}
+            listOfdata={listOfdata}
             from={1}
             max={2}
           />
@@ -201,6 +203,8 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
             companyType={listOfdata.companytype}
             locationLink={`/?sectionId=myWork`}
             portfolioId={listOfdata.portfolios_ids[0].id}
+            listOfskills={listOfskills}
+            listOfdata={listOfdata}
             from={2}
             max={3}
           />
@@ -222,6 +226,8 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
             companyType={listOfdata.companytype}
             locationLink={`/?sectionId=myWork`}
             portfolioId={listOfdata.portfolios_ids[0].id}
+            listOfskills={listOfskills}
+            listOfdata={listOfdata}
             from={3}
             max={4}
           />
@@ -243,6 +249,8 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
             companyType={listOfdata.companytype}
             locationLink={`/?sectionId=myWork`}
             portfolioId={listOfdata.portfolios_ids[0].id}
+            listOfskills={listOfskills}
+            listOfdata={listOfdata}
             from={4}
             max={5}
           />
@@ -264,6 +272,8 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
             companyType={listOfdata.companytype}
             locationLink={`/?sectionId=myWork`}
             portfolioId={listOfdata.portfolios_ids[0].id}
+            listOfskills={listOfskills}
+            listOfdata={listOfdata}
             from={5}
             max={6}
           />
@@ -285,6 +295,8 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
             companyType={listOfdata.companytype}
             locationLink={`/?sectionId=myWork`}
             portfolioId={listOfdata.portfolios_ids[0].id}
+            listOfskills={listOfskills}
+            listOfdata={listOfdata}
             from={6}
             max={7}
           />
@@ -306,6 +318,8 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
             companyType={listOfdata.companytype}
             locationLink={`/?sectionId=myWork`}
             portfolioId={listOfdata.portfolios_ids[0].id}
+            listOfskills={listOfskills}
+            listOfdata={listOfdata}
             from={7}
             max={8}
           />

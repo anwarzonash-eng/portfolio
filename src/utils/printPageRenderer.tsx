@@ -10,6 +10,7 @@ export interface ComponentConfig {
   componentTitle?: string;
   badgeTitle?: string;
   forceSolo?: boolean; // Forces the component to be on its own page
+  hasDarkBackground?: boolean; // Explicitly mark components with dark/primary background
   component: React.ReactNode;
 }
 
@@ -72,6 +73,9 @@ const PrintPageRenderer: React.FC<PrintPageRendererProps> = ({
 
   const renderComponent = (config: ComponentConfig, compIndex?: number, instanceIndex?: number, showBadge: boolean = true, showTitle: boolean = true): React.ReactNode => {
     const key = `${compIndex || 0}-${instanceIndex || 0}`;
+
+    // Use the explicit flag — much more reliable than guessing from title
+    const isPrimary = config.hasDarkBackground === true;
     
     return (
       <div key={key} className="w-full">
@@ -82,7 +86,7 @@ const PrintPageRenderer: React.FC<PrintPageRendererProps> = ({
           </div>
         )}
 
-        {!config.clickableNote && <NoteDomainForPint /> }
+        {!config.clickableNote && <NoteDomainForPint isPrimary={isPrimary} /> }
         
         {/* Render badge title - only if showBadge is true */}
         {config.badgeTitle && showBadge && (

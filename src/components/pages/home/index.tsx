@@ -35,6 +35,29 @@ import ServicesSection from "@/components/HomePageComponents/ServicesSection";
 import { useUniquePortfolios } from "@/hooks/useUniquePortfolios";
 import UpworkActivitySection from "@/components/UpworkActivitySection";
 import { useSortedSkills } from "@/hooks/useSortedSkills";
+import TestimonialsSection from "@/components/HomePageComponents/TestimonialsSection";
+
+// Test
+// types.ts or directly in your component file
+interface Prototype {
+  video?: string;
+}
+
+interface Testimonial {
+  client_company: string;
+  client_company_website: string;
+  client_designation: string;
+  client_name: string;
+  client_pic: string;
+  id: string;
+  linkedin: string;
+  portfolio_id: number;
+  review_text: string;
+  Prototype?: Prototype[];
+  upwork?: string;
+  website_purpose?: string | null;
+  twitter?: string;
+}
 
 const Home = ({ params }: { params: any }) => {
   useBodyBackgroundColor("#f8f9fa");
@@ -123,6 +146,7 @@ const Home = ({ params }: { params: any }) => {
   // console.log("Filtered Skills: ", filteredSkills);
 
   // console.log("API Data:", listOfdata)
+  // console.log("PDF URL's Data:", listOfdata && listOfdata?.pdf_urls?.urls)
 
   // grouping used elsewhere — keep as is
   const skills = skillsGrouping(listOfdata?.skills_ids);
@@ -325,6 +349,8 @@ const Home = ({ params }: { params: any }) => {
   }, [loading]);
 
   // grouping used elsewhere — keep as is
+  console.log("URL Info:", urlInfo);
+  console.log("List of Data:", listOfdata);
 
   return (
     <>
@@ -399,7 +425,6 @@ const Home = ({ params }: { params: any }) => {
                         : " The skills, tools and technologies I am really good at:"}
                     </div>
 
-                    {/* FIX: pass filteredSkills to SkillsContainer */}
                     <SkillsContainer
                       list={sortedSkills}
                       variant="default"
@@ -555,6 +580,13 @@ const Home = ({ params }: { params: any }) => {
                       </div>
                     </section>
                   )}
+
+                {listOfdata?.testimonials && (
+                  <TestimonialsSection
+                    testimonials={listOfdata?.testimonials}
+                    designation={listOfdata?.designation}
+                  />
+                )}
 
                 <Faqs
                   urlInfo={urlInfo}

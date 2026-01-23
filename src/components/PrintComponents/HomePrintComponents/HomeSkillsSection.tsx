@@ -13,7 +13,7 @@ type SkillType = {
 };
 
 interface SkillsContainerProps {
-  list?: SkillType[] | null;
+  list?: any[] | null;
   layoutType?: boolean;
   useLinks?: boolean;
   autoExpandOnParam?: boolean;
@@ -87,9 +87,9 @@ const HomeSkillsSection: React.FC<SkillsContainerProps> = ({
                 <>
                   {skill.icon && (
                     <div className="flex items-center justify-center 
-                    h-[5.5rem] w-[5.5rem]">
+                    h-[5.5rem] w-[5.5rem] mb-[1rem]">
                       <Image
-                        src={skill.icon}
+                        src={skill.icon.trim()}
                         alt={skill.title}
                         loading="eager"
                         priority={true}
@@ -99,7 +99,7 @@ const HomeSkillsSection: React.FC<SkillsContainerProps> = ({
                       />
                     </div>
                   )}
-                  <div className="mt-[1rem] min-h-[4.5rem] flex items-center justify-center px-2 text-center">
+                  <div className="mb-[1rem] min-h-[4.5rem] flex items-start justify-center  px-2 text-center">
                     <p className={`${textSize} overflow-hidden text-ellipsis`}>
                       {skill.title === "Nest.js" ? "NestJs" : skill.title}
                     </p>
@@ -122,7 +122,9 @@ const HomeSkillsSection: React.FC<SkillsContainerProps> = ({
                       {Content}
                     </Link>
                   ) : (
-                    Content
+                    <div className="flex flex-col items-center justify-center">
+                    {Content}
+                    </div>
                   )}
                 </div>
               );

@@ -7,9 +7,17 @@ import ShowmoreSkills from "./showmoreSkills";
 const SkillsComponent = ({ service, skillsList, index = 0 }) => {
   const [showMoreSkills, setShowMoreSkills] = useState([]);
 
+  console.log("Service inside the SkillsComponent:", service)
+
   const skills: {
     [key: string]: {
-      title: string;
+      id?: {
+      id?: string;
+      title?: string;
+      category?: string;
+      url?: string;
+    };
+      title?: string;
       url?: string;
       order?: string;
     }[];
@@ -41,7 +49,7 @@ const SkillsComponent = ({ service, skillsList, index = 0 }) => {
                       }}
                       className="hover:bg-primary capitaliz  print:!py-[1px] hover:text-white text-center text-primary text-[1.3rem] font-medium  py-[0.4rem] px-[2rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
                     >
-                      {skill?.title}
+                      {skill?.id?.title}
                     </a>
                   </Link>
                 );

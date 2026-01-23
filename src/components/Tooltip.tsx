@@ -18,12 +18,16 @@ const Tooltip: React.FC<TooltipProps> = ({ text, children }) => {
       {children}
 
       {visible && (
-        <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 
+        <div
+          className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 
                         whitespace-nowrap bg-gray-900 text-white text-xs px-2 py-1 
-                        rounded-md shadow-lg z-50">
+                        rounded-md shadow-lg z-50"
+        >
           {text}
-          <div className="absolute top-full left-1/2 -translate-x-1/2 w-2 h-2 
-                          bg-gray-900 rotate-45"></div>
+          <div
+            className="absolute top-full left-1/2 -translate-x-1/2 w-2 h-2 
+                          bg-gray-900 rotate-45"
+          ></div>
         </div>
       )}
     </div>

@@ -2,8 +2,8 @@ import { apigateway } from '@/gateways/apigateway';
 
 export const skillsSyncApi = async (payload) => {
   return apigateway({
-    endpoint: '/skill/sync',
-    method: 'POST',
-    payload: payload,
+    endpoint: '/skills',
+    method: 'GET',
+    // payload: payload,
   });
 };
