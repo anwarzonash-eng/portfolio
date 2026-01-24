@@ -14,12 +14,17 @@ interface BlogType {
   featuredImage?: string;
   title: string;
   excerpt: string;
+
+
+  
   date: string;
 }
 
 interface CVBlogsProps {
   blogsList: BlogType[];
   loadingblogs: boolean;
+
+
   domain: string;
 }
 
