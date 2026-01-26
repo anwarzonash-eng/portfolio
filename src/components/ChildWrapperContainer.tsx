@@ -10,24 +10,24 @@ import { AppProgressBar as ProgressBar } from "next-nprogress-bar";
 const ChildWrapperContainer = ({ children }) => {
   const pathname = usePathname();
 
-  const hideHeaderFooterPaths = [
-    "/print/home",
-    "/print/portfolio",
-    "/print/cvPortrait",
-    "/print/cvLandscape",
-    "/print/cvPortrait1",
-  ];
+  // const hideHeaderFooterPaths = [
+  //   "/print/home",
+  //   "/print/portfolio",
+  //   "/print/cvPortrait",
+  //   "/print/cvLandscape",
+  //   "/print/cvPortrait1",
+  // ];
 
-  const isHiddenPaths =
-    hideHeaderFooterPaths.includes(pathname) ||
-    pathname.includes("/print/portfolio") ||
-    pathname.includes("/print/home") ||
-    pathname.includes("/print/cvPortrait") ||
-    pathname.includes("/print/cvLandscape") ||
-    pathname.includes("/print/cvPortrait1");
+  // const isHiddenPaths =
+  //   hideHeaderFooterPaths.includes(pathname) ||
+  //   pathname.includes("/print/portfolio") ||
+  //   pathname.includes("/print/home") ||
+  //   pathname.includes("/print/cvPortrait") ||
+  //   pathname.includes("/print/cvLandscape") ||
+  //   pathname.includes("/print/cvPortrait1");
 
   return (
-    <div id={isHiddenPaths ? undefined : "main-scaler"}>
+    <div>
       <ProgressBar
         height="4px"
         color="primary"

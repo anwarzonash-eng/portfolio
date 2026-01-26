@@ -180,7 +180,7 @@ const ExperienceCvPortrait = ({
                             <span>Check My</span>
                             {/* <div className="h-[2.5rem] w-[2.5rem] rounded-full relative mx-2 inline-block">
                               <Image
-                                src="/images/upwork-text-logo.png"
+                                src="/images/upworkText.svg"
                                 alt="Upwork Logo"
                                 width={25}
                                 height={25}
@@ -190,16 +190,16 @@ const ExperienceCvPortrait = ({
                                   absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
                               />
                             </div> */}
-                            <div className="h-[3rem] w-[8rem] relative mx-2 inline-block overflow-hidden rounded-[10rem] px-2 bg-white">
-                                          <Image
-                                            src="/images/upwork-text-logo.png"
-                                            alt="Upwork Logo"
-                                            width={80}
-                                            height={30}
-                                            className="h-full w-full object-cover object-center 
-                                                         border-transparent absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-                                          />
-                                        </div>
+                           <div className="h-[3.5rem] w-[10rem] relative mx-2 inline-block overflow-hidden rounded-[10rem] px-2 bg-white">
+                                         <Image
+                                           src="/images/upworkText.svg"
+                                           alt="Upwork Logo"
+                                           width={100}
+                                           height={35}
+                                           className="h-full w-full object-contain object-center p-[0.5rem]
+                                                        border-transparent absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                                         />
+                                       </div>
                             <span>Profile</span>
                           </Link>
                         </div>

@@ -260,7 +260,7 @@ const CV = ({ params }: { params: any }) => {
                   <Background />
                   <div className="max-w-[1024px] mx-auto text-center px-[2rem] pt-[8rem] relative z-20">
                     <div className="text-center text-primary text-[4rem] lg:text-[10rem] font-medium leading-[5rem] lg:leading-[6rem] mt-[1.6rem]">
-                      Cv
+                      CV
                     </div>
                     {loading && <WebsiteLoader height="h-[30rem]" />}
                   </div>

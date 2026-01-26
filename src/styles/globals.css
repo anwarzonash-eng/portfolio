@@ -9,6 +9,11 @@
   @apply flex-shrink-0 w-[2rem] h-[2rem] lg:w-[3rem] lg:h-[3rem] inline-block bg-primary rounded-full mt-[0.4rem] lg:mt-[1rem] mr-[1rem] lg:mr-[2rem]
 }
 
+
+body {
+  zoom: 80%;
+}
+
 @media print {
   @page {
     size: A4 portrait;
@@ -212,6 +217,10 @@ body {
 .badge {
   @apply px-[2rem] py-[1rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[2rem] font-medium font-Inter leading-[2rem];
 }
+.CVLatestHeading {
+  @apply text-[2.2rem] font-semibold leading-tight text-heading uppercase
+}
+
 
 
 

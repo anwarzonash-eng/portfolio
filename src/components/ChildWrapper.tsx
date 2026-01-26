@@ -74,7 +74,7 @@ export default function ChildWrapper({
     "/print/portfolio",
     "/print/cvPortrait",
     "/print/cvLandscape",
-    "/print/cvPortrait1",
+    "/cvLatest",
   ];
 
   const isHiddenPaths =
@@ -82,7 +82,8 @@ export default function ChildWrapper({
   pathname.includes("/print/portfolio") ||
     pathname.includes("/print/cvPortrait") ||
     pathname.includes("/print/cvLandscape") ||
-    pathname.includes("/print/home");
+    pathname.includes("/print/home") ||
+    pathname.includes("/cvLatest");
 
   useEffect(() => {
     const handleScroll = () => {

@@ -29,7 +29,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   scrollToSection,
 }) => {
   return (
-    <div className="w-full overflow-hidden relative bg-bannerBG print:break-before-page print:h-screen print:m-0">
+    <div className="w-full overflow-hidden relative bg-bannerBG print:break-before-page print:h-screen print:m-0" >
       {/* Hero Section For Mobile and Tablet Devices */}
       <div className="mainContainer relative xl:hidden print:hidden">
         {/* Hero Section Mobile Content */}
