@@ -23,7 +23,7 @@ import {
   CVLatestSummary,
 } from "@/components/CVLatestPageComponents";
 
-import WebsiteLoader from "@/components/WebsiteLoader";
+import { preloadImages } from "@/utils/preLoadImages";
 import { useSortedSkills } from "@/hooks/useSortedSkills";
 import { GithubIcon, Linkedin, Mail, MapPin, Phone } from "lucide-react";
 
@@ -45,7 +45,7 @@ const CVLatest = ({ params }: { params: any }) => {
   const name = listOfdata?.name;
   const designation = listOfdata?.designation;
   const headerInfo = [
-    listOfdata?.phone && { icon: Phone, value: listOfdata.phone },
+    listOfdata?.phone_no && { icon: Phone, value: listOfdata.phone_no },
     listOfdata?.email && { icon: Mail, value: listOfdata.email },
     listOfdata?.location && { icon: MapPin, value: listOfdata.location },
     listOfdata?.github && { icon: GithubIcon, value: listOfdata.github },
@@ -56,6 +56,10 @@ const CVLatest = ({ params }: { params: any }) => {
  
   // Filter skills based on listOfdata.skills_ids
   const [allSkills, setAllSkills] = useState([]);
+
+  // Images preloading
+  const [imagesReady, setImagesReady] = useState(false);
+  const [imageProgress, setImageProgress] = useState({ loaded: 0, total: 0 });
 
   // Sorted SKills
   const sortedSkills = useSortedSkills({
@@ -105,6 +109,69 @@ const CVLatest = ({ params }: { params: any }) => {
   // Styling
   useBodyBackgroundColor("#FFFFFF");
 
+  // Extract All image URLs Before Rendering
+  function extractAllImageUrls(listOfdata, allSkills) {
+    const urls = [];
+
+    // 1. Profile image (used in CVLatestHeader)
+    if (listOfdata?.profile_photo_1) urls.push(listOfdata.profile_photo_1);
+
+    // 2. Skills HTML images (used in CVLatestSummary via modifiedContent)
+    const skillsHtml = listOfdata?.skills || "";
+    const htmlMatches = skillsHtml.match(/<img[^>]+src="([^">]+)"/g);
+    if (htmlMatches) {
+      htmlMatches.forEach((tag) => {
+        const match = tag.match(/src="([^">]+)"/);
+        if (match?.[1]) urls.push(match[1]);
+      });
+    }
+
+    // 3. Skills icons (used in CVLatestSkills)
+    listOfdata?.skills_ids?.forEach((skill) => {
+      if (skill.icon) urls.push(skill.icon);
+    });
+
+    // 4. Experience thumbnails (used in CVLatestExperiences)
+    listOfdata?.experiences_ids?.forEach((exp) => {
+      if (exp.thumbnail) urls.push(exp.thumbnail);
+    });
+
+    // 5. Portfolio thumbnails (used in CVLatestProjects)
+    listOfdata?.portfolios_ids?.forEach((portfolio) => {
+      if (portfolio?.thumbnail) urls.push(portfolio.thumbnail);
+    });
+
+    // 6. Education thumbnails (used in CVLatestEducation)
+    listOfdata?.education_ids?.forEach((edu) => {
+      if (edu.thumbnail) urls.push(edu.thumbnail);
+    });
+
+    return urls;
+  }
+
+  // ImagesReady Guard Before Rendering
+  useEffect(() => {
+    if (!listOfdata || !allSkills.length) return;
+
+    async function run() {
+      const urls = extractAllImageUrls(listOfdata, allSkills);
+
+      setImageProgress({ loaded: 0, total: urls.length });
+
+      await preloadImages(urls, (loaded, total) => {
+        setImageProgress({ loaded, total });
+      });
+
+      setImagesReady(true); // all images fully loaded
+    }
+
+    run();
+  }, [listOfdata, allSkills]);
+
+  // Check if all essential data is loaded
+  const isDataReady =
+    !loading && listOfdata && urlInfo && allSkills.length > 0 && imagesReady;
+
   // Generate HTML for skills (overview section)
   const rawHtml = modifiedContent(
     listOfdata?.skills,
@@ -145,10 +212,24 @@ const CVLatest = ({ params }: { params: any }) => {
     );
   }
 
-  if (loading && !listOfdata) {
-    return <div className="h-dvh w-full flex items-center justify-center">
-      <WebsiteLoader height="h-[30rem]" />
-    </div>
+  if (!isDataReady) {
+    const { loaded, total } = imageProgress;
+    const percent = total > 0 ? Math.round((loaded / total) * 100) : 0;
+
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-white flex-col">
+        <div className="text-2xl text-heading mb-4">Loading CV data...</div>
+        {total > 0 && (
+          <div className="w-64 h-4 border border-gray-300 rounded overflow-hidden">
+            <div
+              className="h-full bg-primary transition-all duration-300"
+              style={{ width: `${percent}%` }}
+            />
+          </div>
+        )}
+        {total > 0 && <div className="mt-2 text-sm">{percent}%</div>}
+      </div>
+    );
   }
 
   return (
@@ -182,13 +263,6 @@ const CVLatest = ({ params }: { params: any }) => {
 
         {/* Projects Section */}
         <CVLatestProjects portfolios={listOfdata?.portfolios_ids} />
-
-        <footer className="mt-[2.4rem] pt-[1.2rem] border-t border-[#E5E7EB] flex items-center justify-between text-[1.1rem] text-[#6B7280]">
-          <span>www.enhancv.com</span>
-          <span className="inline-flex items-center gap-[0.6rem]">
-            Powered by Enhancv
-          </span>
-        </footer>
       </div>
     </div>
   );

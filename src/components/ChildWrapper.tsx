@@ -24,42 +24,6 @@ export default function ChildWrapper({
 }: {
   children: React.ReactNode;
 }) {
-  // const listOfdata = useAppSelector((state) => state.profile.listOfProfileData);
-  // const [isScrolled, setIsScrolled] = useState(false);
-  // const urlInfo = useAppSelector((state) => state.profile.profileUrlInfo);
-  // const colors = getColors(listOfdata);
-
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     setIsScrolled(window.scrollY > 10); // Adjust threshold as needed
-  //   };
-
-  //   window.addEventListener("scroll", handleScroll);
-  //   return () => window.removeEventListener("scroll", handleScroll);
-  // }, []);
-
-  // useEffect(() => {
-  //   document.title = listOfdata?.name;
-
-  //   const updateFavicon = (url: string | undefined) => {
-  //     let favicon = document.querySelector(
-  //       'link[rel="icon"]'
-  //     ) as HTMLLinkElement;
-  //     if (!favicon) {
-  //       favicon = document.createElement("link");
-  //       favicon.rel = "icon";
-  //       document.head.appendChild(favicon);
-  //     }
-  //     favicon.href = url || "";
-  //   };
-
-  //   // Update favicon based on listOfData
-  //   updateFavicon(listOfdata?.profile_photo_1);
-  // }, [listOfdata]);
-
-  // useEffect(() => {
-  //   updateCSSVariables(colors);
-  // }, [colors]);
   const pathname = usePathname();
 
   const listOfdata = useAppSelector((state) => state.profile.listOfProfileData);
@@ -94,19 +58,29 @@ export default function ChildWrapper({
   }, []);
 
   useEffect(() => {
-    document.title = listOfdata?.name;
+    if (listOfdata?.name) {
+      document.title = listOfdata.name;
+    }
+
     const updateFavicon = (url: string | undefined) => {
-      let favicon = document.querySelector(
-        'link[rel="icon"]'
-      ) as HTMLLinkElement;
-      if (!favicon) {
-        favicon = document.createElement("link");
+      if (!url) return;
+      
+      const distinctFavicons = document.querySelectorAll('link[rel*="icon"]');
+      if (distinctFavicons.length > 0) {
+        distinctFavicons.forEach((icon) => {
+           (icon as HTMLLinkElement).href = url;
+        });
+      } else {
+        const favicon = document.createElement("link");
         favicon.rel = "icon";
+        favicon.href = url;
         document.head.appendChild(favicon);
       }
-      favicon.href = url || "";
     };
-    updateFavicon(listOfdata?.profile_photo_1);
+    
+    if (listOfdata?.profile_photo_1) {
+      updateFavicon(listOfdata?.profile_photo_1);
+    }
   }, [listOfdata]);
 
   useEffect(() => {

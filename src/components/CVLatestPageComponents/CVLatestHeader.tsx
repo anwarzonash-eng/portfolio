@@ -35,7 +35,7 @@ const CVLatestHeader = ({
                   className="inline-flex items-center gap-[0.5rem]"
                 >
                   <IconComponent className="size-[1.6rem] text-primary" />
-                  <span className="text-[1.5rem]">{value}</span>
+                  <span className="text-[1.6rem]">{value}</span>
                 </span>
               );
             })}

@@ -1,15 +1,15 @@
-import CVLatestEducation from "./CVLatestEducation";
-import CVLatestExperiences from "./CVLatestExperiences";
-import CVLatestHeader from "./CVLatestHeader";
-import CVLatestProjects from "./CVLatestProjects";
-import CVLatestSkills from "./CVLatestSkills";
-import CVLatestSummary from "./CVLatestSummary";
+import CVLatestEducationPrint from "./CVLatestEducationPrint";
+import CVLatestExperiencesPrint from "./CVLatestExperiencesPrint";
+import CVLatestHeaderPrint from "./CVLatestHeaderPrint";
+import CVLatestProjectsPrint from "./CVLatestProjectsPrint";
+import CVLatestSkillsPrint from "./CVLatestSkillsPrint";
+import CVLatestSummaryPrint from "./CVLatestSummaryPrint";
 
 export {
-    CVLatestEducation,
-    CVLatestExperiences,
-    CVLatestHeader,
-    CVLatestProjects,
-    CVLatestSkills,
-    CVLatestSummary
+    CVLatestEducationPrint,
+    CVLatestExperiencesPrint,
+    CVLatestHeaderPrint,
+    CVLatestProjectsPrint,
+    CVLatestSkillsPrint,
+    CVLatestSummaryPrint
 }

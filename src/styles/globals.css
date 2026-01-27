@@ -10,8 +10,26 @@
 }
 
 
-body {
-  zoom: 80%;
+/* 1. Set the zoom for regular screen viewing ONLY */
+@media screen {
+  body {
+    zoom: 80%;
+  }
+}
+
+/* 2. Set the zoom for Printing ONLY */
+@media print {
+  body {
+    zoom: 100% !important;
+    /* We add !important to ensure it overrides any other styles */
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  
+  /* Optional: Ensure the html tag isn't scaling things down either */
+  html {
+    zoom: 100% !important;
+  }
 }
 
 @media print {
@@ -19,13 +37,6 @@ body {
     size: A4 portrait;
     margin: 0;
   }
-
-  /* #main-scaler {
-    transform: none !important;
-    transform-origin: top left !important;
-    width: 100% !important;
-    min-height: auto !important;
-  } */
 
 }
 
@@ -218,7 +229,7 @@ body {
   @apply px-[2rem] py-[1rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[2rem] font-medium font-Inter leading-[2rem];
 }
 .CVLatestHeading {
-  @apply text-[2.2rem] font-semibold leading-tight text-heading uppercase
+  @apply text-[2.5rem] font-semibold leading-tight text-heading uppercase
 }
 
 

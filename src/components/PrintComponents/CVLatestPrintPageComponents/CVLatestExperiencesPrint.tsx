@@ -29,7 +29,7 @@ const toMonthYear = (value: any) => {
     : formatDate(value, dateFormatsOptions.shortMonthYear);
 };
 
-const CVLatestExperiences: React.FC<Props> = ({
+const CVLatestExperiencesPrint: React.FC<Props> = ({
   rawExperiences = [],
   listOfdata,
   isMobile = false,
@@ -38,9 +38,7 @@ const CVLatestExperiences: React.FC<Props> = ({
 
   const filtered = (rawExperiences || []).filter((exp: any) => {
     if (!exp) return false;
-    const company = (
-      exp.company_name || exp.company || exp.companyname || ""
-    )
+    const company = (exp.company_name || exp.company || exp.companyname || "")
       .toString()
       .toLowerCase();
     if (company.includes("upwork")) return false;
@@ -68,7 +66,7 @@ const CVLatestExperiences: React.FC<Props> = ({
       longBullets.length > 0
         ? longBullets
         : extractBulletsFromHtml(exp?.short_description)
-    ).slice(0, 7); // limit to 7 bullets
+    ).slice(0, 15); // limit to 15 bullets
 
     return {
       id: exp.id,
@@ -84,23 +82,25 @@ const CVLatestExperiences: React.FC<Props> = ({
   if (!experiences || experiences.length === 0) return null;
 
   return (
-    <section className="mt-[1.8rem]">
-      <h2 className="text-[1.6rem] font-semibold text-heading tracking-wide">
-        EXPERIENCE
-      </h2>
+    <div className="w-full">
+      <h2 className="CVLatestHeading">EXPERIENCE</h2>
       <div className="mt-[1rem] space-y-[1.6rem]">
         {experiences.map((exp, index) => (
           <div key={exp.id || index} className="flex gap-[1.6rem]">
-            <div className="w-[16rem] flex-shrink-0 text-[1.2rem] text-[#4B5563]">
+            <div className="w-[16rem] flex-shrink-0 text-[1.5rem] text-[#4B5563]">
               <div className="font-semibold text-heading">{exp.date}</div>
               <div className="mt-[0.4rem]">{exp.location}</div>
             </div>
             <div className="flex-1 border-l border-[#E5E7EB] pl-[1.6rem] relative">
-              <span className="absolute -left-[0.45rem] top-[0.35rem] h-[0.8rem] w-[0.8rem] rounded-full bg-[#C98B12]" />
-              <div className="text-[1.4rem] font-semibold text-heading">{exp.title}</div>
-              <div className="text-[1.3rem] text-primary font-medium">{exp.company}</div>
+              <span className="absolute -left-[0.8rem] top-[0.3rem] h-[1.2rem] w-[1.2rem] rounded-full bg-primary" />
+              <div className="text-[1.6rem] font-semibold text-heading">
+                {exp.title}
+              </div>
+              <div className="text-[1.5rem] text-primary font-medium">
+                {exp.company}
+              </div>
               {exp.bullets?.length > 0 && (
-                <ul className="mt-[0.8rem] list-disc pl-[1.6rem] text-[1.2rem] text-[#4B5563] space-y-[0.4rem]">
+                <ul className="mt-[0.8rem] list-disc pl-[1.6rem] text-[1.4rem] text-[#4B5563] space-y-[0.4rem]">
                   {exp.bullets.map((bullet: string, i: number) => (
                     <li key={i}>{bullet}</li>
                   ))}
@@ -112,39 +112,38 @@ const CVLatestExperiences: React.FC<Props> = ({
                   <h4 className="text-primary text-[1.5rem] font-medium mb-[1.2rem]">
                     AREAS OF EXPERTISE I'VE WORKED IN
                   </h4>
-                  <div className="flex items-center gap-[1rem] mt-3 lg:gap-[0.7rem] flex-wrap text-[1.2rem] w-full">
-                          {(() => {
-                            const skills = exp.skills || [];
-                            const isSkillsNested =
-                              Array.isArray(skills) && skills.length > 0 && Array.isArray(skills[0]);
-                            const flatSkills = isSkillsNested ? skills.flat() : skills;
-                            const initialSkillLimit = isMobile ? 6 : 15;
-                            const skillsToShow = flatSkills.slice(0, initialSkillLimit);
+                  <div className="flex items-center gap-[1rem] mt-3 lg:gap-[0.7rem] flex-wrap text-[1.4rem] w-full">
+                    {(() => {
+                      const skills = exp.skills || [];
+                      const isSkillsNested =
+                        Array.isArray(skills) &&
+                        skills.length > 0 &&
+                        Array.isArray(skills[0]);
+                      const flatSkills = isSkillsNested
+                        ? skills.flat()
+                        : skills;
+                      const initialSkillLimit = isMobile ? 6 : 15;
+                      const skillsToShow = flatSkills.slice(
+                        0,
+                        initialSkillLimit,
+                      );
 
-                            return (
-                              Array.isArray(skillsToShow) &&
-                              skillsToShow.length > 0 &&
-                              skillsToShow.map((skill: any, i: number) => (
-                                skill?.url ? (
-                                  <Link
-                                    key={skill.url || skill.title || i}
-                                    href={skill.url || "#"}
-                                    target="_blank"
-                                    className="hover:bg-primary hover:text-white py-[0.4rem] print:py-[0.1rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
-                                  >
-                                    {skill.title}
-                                  </Link>
-                                ) : (
-                                  <div
-                                    key={skill.title || i}
-                                    className="hover:bg-primary hover:text-white py-[0.4rem] print:py-[0.1rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
-                                  >
-                                    {skill.title}
-                                  </div>
-                                )
-                              ))
-                            );
-                          })()}
+                      return (
+                        Array.isArray(skillsToShow) &&
+                        skillsToShow.length > 0 &&
+                        skillsToShow.map(
+                          (skill: any, i: number) =>
+                            skill?.url && (
+                              <div
+                                key={skill.url || skill.title || i}
+                                className="hover:bg-primary hover:text-white py-[0.4rem] print:py-[0.1rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
+                              >
+                                {skill.title}
+                              </div>
+                            ),
+                        )
+                      );
+                    })()}
                   </div>
                 </div>
               )}
@@ -152,8 +151,8 @@ const CVLatestExperiences: React.FC<Props> = ({
           </div>
         ))}
       </div>
-    </section>
+    </div>
   );
 };
 
-export default CVLatestExperiences;
+export default CVLatestExperiencesPrint;

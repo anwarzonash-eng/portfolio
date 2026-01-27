@@ -11,10 +11,10 @@ const CVLatestSummary = ({ summary, visibleItems }: CVLatestSummaryProps) => {
       <h2 className="CVLatestHeading">
         SUMMARY
       </h2>
-      <p className="mt-[0.6rem] text-[1.5rem] leading-relaxed text-[#4B5563] ">
+      <p className="my-[1rem] text-[2rem] font-medium leading-relaxed text-[#4B5563] ">
         {summary}
       </p>
-      <div className="text-heading services_main list-div text-[1.2rem] leading-[1.6rem] flex flex-col gap-[1rem] mb-[5rem] list-inside w-full max-w-full">
+      <div className="text-heading list-div leading-[1.6rem]">
         <ul
           dangerouslySetInnerHTML={{
             __html: visibleItems.join(""),
