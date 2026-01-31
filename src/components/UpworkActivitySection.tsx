@@ -67,7 +67,7 @@ console.log("Upwork Profile Pic:", data?.profile_photo_1,)
     >
       <div className={`${cvTrue ? "p-[2rem] lg:p-[3rem]" : "mainContainer"}`}>
         {/* Top Content */}
-        <div className="flex items-center flex-col lg:flex-row flex-wrap justify-center lg:justify-between lg:items-start w-full gap-5">
+        <div className="flex items-center flex-col lg:flex-row flex-wrap justify-center lg:justify-between w-full gap-5">
           {/* Upwork Identity */}
             <UpworkIdentity data={data} />
             <div className="lg:basis-1/2">

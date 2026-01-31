@@ -1,4 +1,8 @@
-export function processReviewText(reviewText: string, designation: string): string {
+export function processReviewText(
+  reviewText: string,
+  designation: string,
+  textColorClass: string = "text-white"
+): string {
   if (!reviewText) return "";
 
   let processed = reviewText;
@@ -24,18 +28,18 @@ export function processReviewText(reviewText: string, designation: string): stri
       return false;
     })();
 
-    if (isUrlLike) {
+      if (isUrlLike) {
       let url = text;
       if (!/^https?:\/\//i.test(url)) {
         url = "https://" + url;
       }
 
-      return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="text-white font-semibold hover:underline">
+      return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="${textColorClass} font-semibold hover:underline">
         ${text}
       </a>`;
     }
 
-    return `<span class="text-white font-semibold">${text}</span>`;
+    return `<span class="${textColorClass} font-semibold">${text}</span>`;
   });
 
   // Step 3: Now replace the marker with styled designation
@@ -58,11 +62,11 @@ export function processReviewText(reviewText: string, designation: string): stri
     if (!/^https?:\/\//i.test(url)) {
       url = "https://" + url;
     }
-    styledDesignation = `<a href="${url}" target="_blank" rel="noopener noreferrer" class="text-white font-semibold hover:underline">
+    styledDesignation = `<a href="${url}" target="_blank" rel="noopener noreferrer" class="${textColorClass} font-semibold hover:underline">
       ${designation}
     </a>`;
   } else {
-    styledDesignation = `<span class="text-white font-semibold">${designation}</span>`;
+    styledDesignation = `<span class="${textColorClass} font-semibold">${designation}</span>`;
   }
 
   // Final replacement

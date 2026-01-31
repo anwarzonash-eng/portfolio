@@ -137,7 +137,7 @@ const PortfolioCardContent: React.FC<PortfolioCardContentProps> = ({
                   listOfdata
                 ),
               }}
-              className="p-[2rem] offer_main list-div text-[1.6rem] rounded-[1rem]"
+              className="p-[2rem] pl-0 offer_main list-div text-[1.6rem] rounded-[1rem]"
             ></div>
             <PortfolioFeatures
               features_short={portfolio.features_short || ""}

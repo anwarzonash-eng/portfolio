@@ -1,7 +1,4 @@
 import React from "react";
-import { formatDate } from "@/hooks/formatdate";
-import { dateFormatsOptions } from "@/data/JsonData";
-import Link from "next/link";
 
 type Props = {
   rawExperiences?: any[];
@@ -24,12 +21,14 @@ const extractBulletsFromHtml = (html?: string) => {
 const toMonthYear = (value: any) => {
   if (!value) return "";
   const d = new Date(value);
-  return isNaN(d.getTime())
-    ? String(value)
-    : formatDate(value, dateFormatsOptions.shortMonthYear);
+  if (isNaN(d.getTime())) return String(value);
+  // format as MM/YYYY (e.g., 01/2023)
+  const month = String(d.getMonth() + 1).padStart(2, "0");
+  const year = String(d.getFullYear());
+  return `${month}/${year}`;
 };
 
-const CVLatestExperiences: React.FC<Props> = ({
+const CV2Experiences: React.FC<Props> = ({
   rawExperiences = [],
   listOfdata,
   isMobile = false,
@@ -51,6 +50,15 @@ const CVLatestExperiences: React.FC<Props> = ({
     return Date.now() - d.getTime() <= FIVE_YEARS_MS;
   });
 
+  const shuffleArray = (arr: string[]) => {
+    const a = Array.isArray(arr) ? arr.slice() : [];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  };
+
   const experiences = filtered.map((exp: any) => {
     const startLabel = toMonthYear(
       exp?.starting_date ?? exp?.start_date ?? exp?.startDate,
@@ -62,11 +70,12 @@ const CVLatestExperiences: React.FC<Props> = ({
         : toMonthYear(endRaw);
 
     const longBullets = extractBulletsFromHtml(exp?.long_description);
-    const bullets = (
+    const allBullets =
       longBullets.length > 0
         ? longBullets
-        : extractBulletsFromHtml(exp?.short_description)
-    ).slice(0, 10); // limit to 10 bullets
+        : extractBulletsFromHtml(exp?.short_description);
+
+    const bullets = shuffleArray(allBullets).slice(0, 5); // pick 5 random bullets
 
     return {
       id: exp.id,
@@ -82,17 +91,16 @@ const CVLatestExperiences: React.FC<Props> = ({
   if (!experiences || experiences.length === 0) return null;
 
   return (
-    <section className="mt-[1.8rem]">
-      <h2 className="CVLatestHeading">EXPERIENCE</h2>
-      <div className="mt-[1rem] space-y-[1.6rem]">
+    <section className="mt-[1.2rem]">
+      <div className="mt-[1rem] space-y-[1.4rem]">
         {experiences.map((exp, index) => (
           <div key={exp.id || index} className="flex gap-[1.6rem]">
-            <div className="w-[16rem] flex-shrink-0 text-[1.5rem] text-[#4B5563]">
-              <div className="font-semibold text-heading">{exp.date}</div>
-              <div className="mt-[0.4rem]">{exp.location}</div>
+            <div className="w-[16rem] flex-shrink-0">
+              <div className="cv2SDateStyles">{exp.date}</div>
+              <div className="mt-[0.4rem] text-[1.4rem] text-paragraph1">{exp.location}</div>
             </div>
             <div className="flex-1 border-l border-[#E5E7EB] pl-[1.6rem] relative">
-              <span className="absolute -left-[0.8rem] top-[0.3rem] h-[1.2rem] w-[1.2rem] rounded-full bg-primary" />
+              <span className="absolute -left-[0.7rem] top-0 h-[1.2rem] w-[1.2rem] rounded-full bg-primary" />
               <div className="text-[1.6rem] font-semibold text-heading">
                 {exp.title}
               </div>
@@ -100,7 +108,7 @@ const CVLatestExperiences: React.FC<Props> = ({
                 {exp.company}
               </div>
               {exp.bullets?.length > 0 && (
-                <ul className="mt-[0.8rem] list-disc pl-[1.6rem] text-[1.4rem] text-[#4B5563] space-y-[0.4rem]">
+                <ul className="mt-[0.8rem] list-disc pl-[1.6rem] text-[1.4rem] text-paragraph1 space-y-[0.4rem]">
                   {exp.bullets.map((bullet: string, i: number) => (
                     <li key={i}>{bullet}</li>
                   ))}
@@ -119,28 +127,18 @@ const CVLatestExperiences: React.FC<Props> = ({
                         Array.isArray(skills) &&
                         skills.length > 0 &&
                         Array.isArray(skills[0]);
-                      const flatSkills = isSkillsNested
-                        ? skills.flat()
-                        : skills;
-                      const initialSkillLimit = isMobile ? 6 : 15;
-                      const skillsToShow = flatSkills.slice(
-                        0,
-                        initialSkillLimit,
-                      );
+                      const flatSkills = isSkillsNested ? skills.flat() : skills;
+                      const skillsToShow = Array.isArray(flatSkills)
+                        ? flatSkills
+                        : [];
 
                       return (
-                        Array.isArray(skillsToShow) &&
-                        skillsToShow.length > 0 &&
-                        skillsToShow.map(
-                          (skill: any, i: number) =>
-                            skill?.url && (
-                              <div
-                                key={skill.url || skill.title || i}
-                                className="hover:bg-primary hover:text-white py-[0.4rem] print:py-[0.1rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
-                              >
-                                {skill.title}
-                              </div>
-                            ),
+                        skillsToShow.length > 0 && (
+                          <div
+                            className="text-paragraph1 text-[1.4rem] leading-normal capitalize"
+                          >
+                            {skillsToShow.map(skill => skill?.title).join(", ")}
+                          </div>
                         )
                       );
                     })()}
@@ -155,4 +153,4 @@ const CVLatestExperiences: React.FC<Props> = ({
   );
 };
 
-export default CVLatestExperiences;
+export default CV2Experiences;

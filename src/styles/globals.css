@@ -1,6 +1,9 @@
 @import url("nprogress.css");
 @import url("print.css");
 
+/* Rubik Font Family Only For CV2 Page */
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -10,11 +13,32 @@
 }
 
 
-/* 1. Set the zoom for regular screen viewing ONLY */
+.cv2Heading {
+  @apply font-Rubik font-bold text-[3.8rem] leading-[3.8rem] text-heading uppercase;
+}
+
+
+.cv2Designation {
+  @apply font-Rubik font-semibold text-[2rem] leading-[2rem] text-primary;
+}
+
+
+
+.cv2SecondaryHeading {
+  @apply font-Rubik font-semibold text-[2.4rem] leading-tight text-heading uppercase;
+}
+
+.cv2SDateStyles {
+  @apply font-Rubik font-semibold text-[1.6rem] leading-tight text-heading uppercase;
+}
+
+.fontRubik {
+  @apply font-Rubik;
+}
+
 @media screen {
-  body {
-    zoom: 80%;
-  }
+  body.zoom-85 { zoom: 85%; }
+  body.zoom-100 { zoom: 100% !important; }
 }
 
 /* 2. Set the zoom for Printing ONLY */

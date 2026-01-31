@@ -172,11 +172,9 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
                     <div className="w-full flex gap-[1.2rem]">
                       {/* Pricing */}
                       <div className="bg-[#F7F9FC] border border-solid border-[#E2E6EE] w-full px-[2rem] rounded-[0.8rem] h-[9.4rem] flex items-center justify-center text-primary font-medium">
-                        <div>
-                          <span className="text-[2.5rem]">
-                            ${listOfdata?.hourly_rate}
-                          </span>
-                          <span className="text-[1.6rem]">/ hour</span>
+                          <div>
+                          <span className="text-[2.5rem]">${listOfdata?.hourly_rate}</span>
+                          <span className="text-[1.6rem]">/ {listOfdata?.salary_type === "per_day" ? "day" : "hour"}</span>
                         </div>
                       </div>
                       {/* Availability */}

@@ -1,0 +1,25 @@
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+}
+
+.section {
+  width: 210mm !important;
+  height: 297mm !important;
+  overflow: hidden !important;
+  box-sizing: border-box;
+  page-break-after: page !important;
+  background-color: white !important;
+}
+
+.section:last-of-type {
+  page-break-after: auto;
+}
+
+.sectionContent {
+  margin: 25px;
+  height: calc(100% - 50px); /* Subtract top and bottom margins */
+  box-sizing: border-box;
+}

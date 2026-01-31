@@ -120,6 +120,8 @@ const UpwrokIdentityPrint: React.FC<UpwrokIdentityPrintProps> = ({
                            alt="Upwork Logo"
                            width={100}
                            height={35}
+                           loading="eager"
+                           priority={true}
                            className="h-full w-full object-contain object-center p-[0.5rem]
                                         border-transparent absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
                          />

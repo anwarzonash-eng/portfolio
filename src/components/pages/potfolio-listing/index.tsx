@@ -179,7 +179,10 @@ const PortfolioListing = ({ params }: { params: any }) => {
   }
 
   console.log("Portfolio Ids: ", listOfdata?.portfolios_ids)
-
+  listOfdata?.portfolios_ids?.forEach((portfolio) => {
+    console.log("Portfolio ID:", portfolio.id);
+    });
+// 801c609d-8324-41d8-8a3b-5de35f171e0b 
   return (
     <div className="bg-[#EFF5FD]">
       {/* Hero Banner */}

@@ -38,7 +38,44 @@ interface VideoPlayerProps {
   poster?: string;
 }
 
-const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, poster }) => {
+// const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, poster }) => {
+//   const videoRef = useRef<HTMLVideoElement>(null);
+//   const [isPlaying, setIsPlaying] = useState(false);
+
+//   const handlePlay = () => {
+//     if (videoRef.current) {
+//       videoRef.current.play();
+//       setIsPlaying(true);
+//     }
+//   };
+
+//   return (
+//     <div className="relative rounded-[20px] overflow-hidden group">
+//       <video
+//         ref={videoRef}
+//         src={src}
+//         className="w-full h-[30rem] lg:h-[56rem] object-cover"
+//         poster={poster || "/placeholder-thumbnail.jpg"}
+//         controls={isPlaying}
+//         muted
+//         playsInline
+//         preload="metadata"
+//         onPause={() => setIsPlaying(false)}
+//       />
+//       {!isPlaying && (
+//         <button
+//           onClick={handlePlay}
+//           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white/50 rounded-full p-4 flex items-center justify-center hover:bg-white/70 transition-all"
+//           aria-label="Play video"
+//         >
+//           <Play className="size-10 text-black" fill="black" />
+//         </button>
+//       )}
+//     </div>
+//   );
+// };
+
+const VideoPlayer: React.FC<VideoPlayerProps> = ({ src }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -49,23 +86,27 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, poster }) => {
     }
   };
 
+  // Add a timestamp fragment (#t=0.1) to the URL. 
+  // This forces browsers to load the first frame as the "cover".
+  const videoSrcWithFragment = useMemo(() => `${src}#t=0.1`, [src]);
+
   return (
     <div className="relative rounded-[20px] overflow-hidden group">
       <video
         ref={videoRef}
-        src={src}
+        src={videoSrcWithFragment}
         className="w-full h-[30rem] lg:h-[56rem] object-cover"
-        poster={poster || "/placeholder-thumbnail.jpg"}
+        // REMOVED THE POSTER PROP
         controls={isPlaying}
         muted
         playsInline
-        preload="metadata"
+        preload="metadata" // Essential: loads only enough data to show the frame
         onPause={() => setIsPlaying(false)}
       />
       {!isPlaying && (
         <button
           onClick={handlePlay}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white/50 rounded-full p-4 flex items-center justify-center hover:bg-white/70 transition-all"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white/50 rounded-full p-4 flex items-center justify-center hover:bg-white/70 transition-all z-10"
           aria-label="Play video"
         >
           <Play className="size-10 text-black" fill="black" />
@@ -127,6 +168,7 @@ const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
                 );
               }, [t.review_text, designation]);
               // Extract video URL: prefer Prototype[0].video → fallback to upwork → video field
+              // const videoUrl = t.video || t.Prototype?.[0]?.video || t.upwork || "";
               const videoUrl = t.video || t.Prototype?.[0]?.video || t.upwork || "";
               // Use thumbnail if available from API, fallback to client_pic or placeholder
               const thumbnail = t.thumbnail ||  "/images/placeholder-video.jpg";
@@ -229,7 +271,8 @@ const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
 
                     {/* Video Container */}
                     <div className="w-full lg:max-w-[40rem]">
-                      <VideoPlayer src={videoUrl} poster={thumbnail} />
+                      {/* <VideoPlayer src={videoUrl} poster={thumbnail} /> */}
+                      <VideoPlayer src={videoUrl} />
                     </div>
                   </div>
                 </SwiperSlide>

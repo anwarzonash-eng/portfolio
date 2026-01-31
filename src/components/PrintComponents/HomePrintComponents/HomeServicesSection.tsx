@@ -69,7 +69,7 @@ const HomeServicesSection = ({ listOfdata, listOfdatas, services }) => {
                         {/* Rest of your content remains the same */}
                         <div className="p-6 print:p-3">
                           {/* Title */}
-                          <h3 className="font-bold text-[2rem] print:font-semibold print:text-[1.3rem] text-white mb-3 line-clamp-2 print:text-nowrap">
+                          <h3 className="font-bold text-[1.6rem] text-white mb-3 line-clamp-2">
                             {service?.title}
                           </h3>
 
@@ -78,37 +78,9 @@ const HomeServicesSection = ({ listOfdata, listOfdatas, services }) => {
                             dangerouslySetInnerHTML={{
                               __html: truncatedTagline,
                             }}
-                            className="text-gray-300 text-[1.3rem] mb-6 print:mb-3 line-clamp-3 print:line-clamp-2 leading-relaxed print:text-[1.2rem]"
+                            className="text-gray-300 
+                             mb-3 line-clamp-3 leading-relaxed text-[1.3rem]"
                           />
-
-                          {/* CTA Button */}
-                          <Link
-                            // href={`/offer?service=${service?.title}`}
-                            href={`/service-detail?service=${encodeURIComponent(
-                              service?.title
-                            )}`}
-                            className="inline-flex items-center gap-2 text-white/90 hover:text-white transition-colors group"
-                          >
-                            <span className="font-bold text-[1.5rem] text-[#ffffff]">
-                              Discover more
-                            </span>
-                            <span className="group-hover:translate-x-1 transition-transform">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="20"
-                                height="20"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              >
-                                <path d="M5 12h14" />
-                                <path d="m12 5 7 7-7 7" />
-                              </svg>
-                            </span>
-                          </Link>
                         </div>
                       </div>
                     );

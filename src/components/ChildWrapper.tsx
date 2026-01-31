@@ -33,21 +33,17 @@ export default function ChildWrapper({
   const [isScrolled, setIsScrolled] = useState(false);
   const colors = getColors(listOfdata);
 
-  const hideHeaderFooterPaths = [
+  const printPathFragments = [
     "/print/home",
     "/print/portfolio",
     "/print/cvPortrait",
     "/print/cvLandscape",
-    "/cvLatest",
+    "/cv2",
   ];
 
-  const isHiddenPaths =
-    hideHeaderFooterPaths.includes(pathname) ||
-  pathname.includes("/print/portfolio") ||
-    pathname.includes("/print/cvPortrait") ||
-    pathname.includes("/print/cvLandscape") ||
-    pathname.includes("/print/home") ||
-    pathname.includes("/cvLatest");
+  // reuse the same path list for both hiding header/footer and enabling zoom-100
+  const isPrintPath = printPathFragments.some((frag) => (pathname || "").includes(frag));
+  const isHiddenPaths = isPrintPath;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -86,6 +82,25 @@ export default function ChildWrapper({
   useEffect(() => {
     updateCSSVariables(colors);
   }, [colors]);
+
+  // Toggle per-page zoom for routes that should render at 100%
+  useEffect(() => {
+    const shouldZoom100 = isPrintPath;
+
+    if (shouldZoom100) {
+      document.body.classList.add("zoom-100");
+      document.body.classList.remove("zoom-85");
+    } else {
+      document.body.classList.add("zoom-85");
+      document.body.classList.remove("zoom-100");
+    }
+
+    // cleanup both classes to avoid forcing one state on unmount
+    return () => {
+      document.body.classList.remove("zoom-100");
+      document.body.classList.remove("zoom-85");
+    };
+  }, [isPrintPath]);
 
   return (
     <>

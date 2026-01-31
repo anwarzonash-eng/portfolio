@@ -9,6 +9,7 @@ interface HeroSectionProps {
     tag_line?: string;
     profile_photo_2?: string;
     hourly_rate?: number;
+    salary_type?: string;
     skills_ids?: string[];
   };
   skills: Record<string, { title: string; url?: string }[]>;
@@ -150,7 +151,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                 alt="Dollar Symbol"
                 className="h-[auto] w-[auto]"
               />
-              <p>${listOfdata?.hourly_rate} / hour</p>
+              <p>${listOfdata?.hourly_rate} / {listOfdata?.salary_type === "per_day" ? "day" : "hour"}</p>
             </div>
           </div>
           <div className="print:w-[50%] print:block hidden print:mt-[45px]">
@@ -262,7 +263,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                     alt="Dollar Symbol"
                     className="h-[2.4rem] w-[2.4rem]"
                   />
-                  <p>${listOfdata?.hourly_rate} / hour</p>
+                  <p>${listOfdata?.hourly_rate} / {listOfdata?.salary_type === "per_day" ? "day" : "hour"}</p>
                 </div>
                 {/* Availability */}
                 <div className="flex gap-[0.35rem] text-nowrap text-primary text-[2rem] font-medium rounded-[3.5rem] py-[0.69rem] bg-white shadow-lg px-[1.2rem] min-w-max">

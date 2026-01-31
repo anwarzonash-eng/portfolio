@@ -1,28 +1,29 @@
 import React from "react";
 import Image from "next/image";
 import { formatDate } from "@/hooks/formatdate";
+import { Phone, AtSign, MapPin, GithubIcon, Link } from "lucide-react";
 
-type CVLatestHeaderProps = {
-  name: string;
-  designation: string;
-  headerInfo: { icon: any; value: string }[];
+
+type CV2HeaderProps = {
   listOfdata: any;
 };
 
-const CVLatestHeader = ({
-  name,
-  designation,
-  headerInfo,
-  listOfdata,
-}: CVLatestHeaderProps) => {
+const CV2Header: React.FC<CV2HeaderProps> = ({ listOfdata }) => {
+  const headerInfo = [
+    listOfdata?.phone_no && { icon: Phone, value: listOfdata.phone_no },
+    listOfdata?.email && { icon: AtSign, value: listOfdata.email },
+    listOfdata?.location && { icon: MapPin, value: listOfdata.location },
+    listOfdata?.github && { icon: GithubIcon, value: listOfdata.github },
+    listOfdata?.linkedIn && { icon: Link, value: listOfdata.linkedIn },
+  ].filter(Boolean) as { icon: any; value: string }[];
   return (
-    <header className="flex items-start justify-between gap-[2rem] border-b border-[#E5E7EB] pb-[2rem]">
+    <header className="flex items-start justify-between gap-[2rem]">
       <div className="flex-1">
-        <h1 className="text-[3rem] font-semibold leading-tight text-heading">
-          {name}
+        <h1 className="cv2Heading">
+          {listOfdata?.name}
         </h1>
-        <p className="text-[1.8rem] text-primary font-medium mt-[0.4rem]">
-          {designation}
+        <p className="cv2Designation mt-[1rem]">
+          {listOfdata?.designation}
         </p>
         <div>
           <div className="mt-[1rem] flex flex-wrap gap-x-[1.6rem] gap-y-[0.6rem] text-[1.2rem] text-[#374151]">
@@ -34,17 +35,15 @@ const CVLatestHeader = ({
                   key={index}
                   className="inline-flex items-center gap-[0.5rem]"
                 >
-                  <IconComponent className="size-[1.6rem] text-primary" />
-                  <span className="text-[1.6rem]">{value}</span>
+                  <IconComponent className="size-[1.2rem] text-primary" />
+                  <span className="text-[1.2rem]">{value}</span>
                 </span>
               );
             })}
           </div>
           {/* Availability */}
-          <div className="mt-[2rem]">
-            <p className="CVLatestHeading">
-              NEXT AVAILABLE
-            </p>
+          {/* <div className="mt-[2rem]">
+            <p className="CVLatestHeading">NEXT AVAILABLE</p>
             <h4 className="text-[1.6rem] font-medium text-primary leading-normal">
               {formatDate(new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), {
                 day: "numeric",
@@ -52,16 +51,16 @@ const CVLatestHeader = ({
                 year: "numeric",
               })}
             </h4>
-          </div>
+          </div> */}
         </div>
       </div>
       {/* BG Picture */}
       <div className="flex-shrink-0">
-        <div className="h-[16rem] w-[16rem] rounded-full overflow-hidden">
+        <div className="h-[14rem] w-[14rem] rounded-full overflow-hidden">
           <Image
             src={listOfdata?.profile_photo_1}
-            height={200}
-            width={200}
+            height={140}
+            width={140}
             alt="Profile Picture"
             className="h-full w-full bg-cover bg-no-repeat bg-center"
           />
@@ -71,4 +70,4 @@ const CVLatestHeader = ({
   );
 };
 
-export default CVLatestHeader;
+export default CV2Header;

@@ -1,5 +1,5 @@
-import React, { useMemo } from "react";
-import { Link } from "lucide-react";
+import React, { useMemo, useRef, useState } from "react";
+import { Link, Play } from "lucide-react";
 import { LinkedIn, Instagram } from "../../SVGI-Icons";
 import { processReviewText } from "@/hooks/processReviewText";
 
@@ -13,13 +13,60 @@ interface Testimonial {
   linked_in?: string;
   instagram?: string;
   review_text: string;
-  video: string;
+  video?: string;
+  thumbnail?: string;
+  Prototype?: Array<{ video?: string }>;
+  upwork?: string;
 }
 
 interface HomeTestimonialSectionProps {
   testimonials: Testimonial[];
   designation: string; // This is required for processReviewText
 }
+
+interface VideoPlayerProps {
+  src: string;
+  poster?: string;
+}
+
+const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, poster }) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const handlePlay = () => {
+    if (videoRef.current) {
+      videoRef.current.play();
+      setIsPlaying(true);
+    }
+  };
+
+  const videoSrcWithFragment = useMemo(() => `${src}#t=0.1`, [src]);
+
+  return (
+    <div className="relative rounded-3xl overflow-hidden">
+      <video
+        ref={videoRef}
+        src={videoSrcWithFragment}
+        poster={poster}
+        className="w-full aspect-auto h-[55rem] object-cover"
+        controls={isPlaying}
+        muted
+        playsInline
+        preload="metadata"
+        onPause={() => setIsPlaying(false)}
+      />
+      {!isPlaying && (
+        <button
+          onClick={handlePlay}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white/50 rounded-full p-4 flex items-center justify-center hover:bg-white/70 transition-all z-10"
+          aria-label="Play video"
+        >
+            <Play className="text-black size-7 ml-1" fill="black" />
+        </button>
+      )}
+    </div>
+  );
+};
 
 const HomeTestimonialSection: React.FC<HomeTestimonialSectionProps> = ({
   testimonials,
@@ -42,6 +89,11 @@ const HomeTestimonialSection: React.FC<HomeTestimonialSectionProps> = ({
     : "";
 
   const videoUrl = testimonial.video;
+  // Prefer Prototype[0].video -> upwork -> video
+  const resolvedVideoUrl =
+    testimonial.Prototype?.[0]?.video || testimonial.upwork || testimonial.video || "";
+
+  const thumbnail = testimonial.thumbnail || testimonial.client_pic || "/images/placeholder-video.jpg";
 
   return (
     <section className="w-full bg-primary px-16 py-32 h-screen flex items-center justify-center">
@@ -130,19 +182,15 @@ const HomeTestimonialSection: React.FC<HomeTestimonialSectionProps> = ({
         {/* Video Side Completed*/}
         <div className="min-w-[40rem]">
           <div className="relative rounded-3xl overflow-hidden shadow-2xl">
-            {videoUrl ? (
-              <video
-                src={videoUrl}
-                className="w-full aspect-auto h-[55rem] object-cover"
-                controls
-                muted
-                playsInline
-                preload="metadata"
-              />
+            {resolvedVideoUrl ? (
+              <VideoPlayer src={resolvedVideoUrl} poster={thumbnail} />
             ) : (
-              <div className="bg-gray-800 w-full h-[55rem] flex items-center justify-center text-white">
-                No video available
-              </div>
+              <img
+                src={thumbnail}
+                alt="No video available"
+                className="w-full aspect-auto h-[55rem] object-cover"
+                loading="eager"
+              />
             )}
           </div>
         </div>

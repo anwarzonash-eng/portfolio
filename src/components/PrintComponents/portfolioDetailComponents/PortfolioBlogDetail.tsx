@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import React from "react";
+import SideTestimonialPortfolioDetailPrint from "./SideTestimonialPortfolioDetailPrint";
 
 type SkillType = {
   title: string;
@@ -94,11 +95,11 @@ const PortfolioBlogDetail: React.FC<PortfolioBlogDetailProps> = ({
   return (
     <article className="flex items-center justify-center h-screen w-full px-[2rem]">
       <div className="flex gap-[4rem]">
-        <div className="flex flex-col gap-[1rem] min-w-[28rem]">
           <aside
-            className="rounded-[1rem] bg-white p-[2.4rem] 
-                      w-full flex flex-col gap-[3.2rem]"
+            className="rounded-[1rem] bg-white p-[2rem] 
+              flex flex-col gap-[3.2rem] overflow-hidden min-w-[30rem]"
           >
+            {/* My Role */}
             {portfolioDetails?.my_role && (
               <div className="">
                 <p className="text-[1.4rem] font-normal text-paragraph1 leading-[2rem] mb-[0.8rem]">
@@ -109,6 +110,8 @@ const PortfolioBlogDetail: React.FC<PortfolioBlogDetailProps> = ({
                 </ul>
               </div>
             )}
+
+            {/* Services I Provide */}
             {portfolioDetails?.services_i_provide && (
               <div className="">
                 <p className="text-[1.4rem] font-normal text-paragraph1 leading-[2rem] mb-[0.8rem]">
@@ -122,7 +125,8 @@ const PortfolioBlogDetail: React.FC<PortfolioBlogDetailProps> = ({
                 ></div>
               </div>
             )}
-            <div className="">
+            {/* Project Duration */}
+            <div className="w-full">
               <p className="text-[1.4rem] font-normal text-paragraph1 leading-[2rem] mb-[0.8rem]">
                 PROJECT DURATION
               </p>
@@ -130,15 +134,21 @@ const PortfolioBlogDetail: React.FC<PortfolioBlogDetailProps> = ({
                 <li>
                   {formatDate(
                     portfolioDetails?.starting_date,
-                    dateFormatsOptions.shortMonthYear
+                    dateFormatsOptions.shortMonthYear,
                   )}{" "}
                   -{" "}
                   {formatDate(
                     portfolioDetails?.ending_Date,
-                    dateFormatsOptions.shortMonthYear
+                    dateFormatsOptions.shortMonthYear,
                   )}
                 </li>
               </ul>
+              {listOfdata?.testimonials && (
+                <SideTestimonialPortfolioDetailPrint
+                  testimonials={listOfdata?.testimonials}
+                  designation={listOfdata?.designation}
+                />
+              )}
             </div>
             {portfolioDetails?.client_name && (
               <div className="">
@@ -164,12 +174,6 @@ const PortfolioBlogDetail: React.FC<PortfolioBlogDetailProps> = ({
               </div>
             )}
           </aside>
-          <Link href={"/cv"}>
-            <button className="w-full btn-primary rounded-[0.6rem] text-white py-[2rem] px-[5rem] text-[1.8rem] font-medium border border-solid border-custom">
-              View CV Online
-            </button>
-          </Link>
-        </div>
         <div className="text-heading">
           <Link
             href={portfolioDetails?.link || "#"}
@@ -185,7 +189,7 @@ const PortfolioBlogDetail: React.FC<PortfolioBlogDetailProps> = ({
               __html: modifiedContent(
                 portfolioDetails?.tagline_1,
                 filteredSkills,
-                listOfdata
+                listOfdata,
               ),
             }}
             className="text-[2rem] leading-[3.2rem] font-normal mt-[1rem] text-paragraph1 my-[3.2rem] line-clamp-6"
@@ -196,7 +200,7 @@ const PortfolioBlogDetail: React.FC<PortfolioBlogDetailProps> = ({
               __html: modifiedContent(
                 portfolioDetails?.tagline_2,
                 filteredSkills,
-                listOfdata
+                listOfdata,
               ),
             }}
           ></p>
@@ -223,13 +227,21 @@ const PortfolioBlogDetail: React.FC<PortfolioBlogDetailProps> = ({
             <div className="flex flex-col text-nowrap  gap-[1.4rem]">
               {portfolioDetails?.link &&
                 listOfdata?.companytype !== "leewop" && (
-                  <Link
-                    href={portfolioDetails?.link || "#"}
-                    className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-center btn-primary inline-block max-w-max"
-                  >
-                    Launch Project - Live Preview
-                  </Link>
+                  <div className="flex gap-[1.4rem] mb-[4rem] items-center">
+                    <Link
+                      href={portfolioDetails?.link || "#"}
+                      className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-center btn-primary inline-block max-w-max"
+                    >
+                      Launch Project - Live Preview
+                    </Link>
+                    <Link href={"/cv"}>
+                      <button className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-center btn-primary inline-block max-w-max">
+                        View CV Online
+                      </button>
+                    </Link>
+                  </div>
                 )}
+
               {portfolioDetails?.has_testimonial && (
                 <Link
                   href={"/"}

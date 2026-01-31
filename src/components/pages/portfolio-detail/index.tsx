@@ -25,6 +25,7 @@ import EducationComponent from "@/components/EducationComponent";
 import UpworkActivitySection from "@/components/UpworkActivitySection";
 import AreasOfExpertiesSkillComponent from "@/components/AreasOfExpertiesSkillComponent";
 import { useSortedSkills } from "@/hooks/useSortedSkills";
+import SideTestimonialPortfolioDetail from "@/components/SideTestimonialPortfolioDetail";
 
 const PortfolioDetails = ({ params }: { params: any }) => {
   const searchParams = useSearchParams();
@@ -51,6 +52,7 @@ const PortfolioDetails = ({ params }: { params: any }) => {
   const [allSkills, setAllSkills] = useState([]);
   const [filteredSkills, setFilteredSkills] = useState([]);
 
+
   // SKills List Managmeent useEffect
   useEffect(() => {
     if (!portfolioDetails) {
@@ -65,7 +67,7 @@ const PortfolioDetails = ({ params }: { params: any }) => {
         modifiedContent(
           portfolioDetails?.features_short,
           filteredSkills,
-          listOfdata
+          listOfdata,
         ) || "";
 
       const parserForCount = new DOMParser();
@@ -100,7 +102,7 @@ const PortfolioDetails = ({ params }: { params: any }) => {
 
       // Truncate to 15 items for screen
       setDefaultTruncatedHtml(
-        allLis.length > 15 ? buildTruncated(15) : rawHtml
+        allLis.length > 15 ? buildTruncated(15) : rawHtml,
       );
     } catch (e) {
       console.error("[features] parse error:", e);
@@ -113,7 +115,7 @@ const PortfolioDetails = ({ params }: { params: any }) => {
   useEffect(() => {
     if (listOfdata?.skills_ids && allSkills.length > 0) {
       const matchedSkills = allSkills.filter((skill) =>
-        listOfdata.skills_ids.some((dataSkill) => dataSkill.id === skill.id)
+        listOfdata.skills_ids.some((dataSkill) => dataSkill.id === skill.id),
       );
       setFilteredSkills(matchedSkills);
     }
@@ -148,10 +150,10 @@ const PortfolioDetails = ({ params }: { params: any }) => {
         itemID: params.id
           ? params.id // Case 1: ID is directly in params.id
           : Array.isArray(params.value)
-          ? params.value[0] // Case 2: ID is the first element of a catch-all array
-          : typeof params.value === "object" && params.value !== null
-          ? params.value.id // Case 3: ID is nested as an object property
-          : params.value, // 🛑 END CORRECTED LOGIC 🛑
+            ? params.value[0] // Case 2: ID is the first element of a catch-all array
+            : typeof params.value === "object" && params.value !== null
+              ? params.value.id // Case 3: ID is nested as an object property
+              : params.value, // 🛑 END CORRECTED LOGIC 🛑
       });
   }, [urlInfo, params.id, params.value]);
 
@@ -248,9 +250,9 @@ const PortfolioDetails = ({ params }: { params: any }) => {
     allSkills,
   });
 
-  // console.log("Sorted SKills:", sortedSkills);
 
-  // console.log("portfolioDetails", portfolioDetails);
+  console.log("Testimonials:", listOfdata?.testimonials)
+  console.log("API Response:", listOfdata)
 
   return (
     <div className="bg-[#EFF5FD]">
@@ -304,7 +306,7 @@ const PortfolioDetails = ({ params }: { params: any }) => {
                     className="object-fill lg:hidden rounded-[1rem] w-auto border border-border border-solid mx-auto"
                   />
                   <article className="mt-[6rem] flex gap-[4rem] flex-col items-center justify-center md:flex-row md:items-start md:justify-normal">
-                    <aside className="rounded-[1rem] bg-white p-[2.4rem] md:max-w-[31.2rem] w-full flex flex-col gap-[3.2rem] ">
+                    <aside className="rounded-[1rem] bg-white p-[2rem] md:max-w-[36rem] w-full flex flex-col gap-[3.2rem]">
                       {portfolioDetails?.my_role && (
                         <div className="">
                           <p className="text-[1.4rem] font-normal text-paragraph1 leading-[2rem] mb-[0.8rem]">
@@ -336,15 +338,21 @@ const PortfolioDetails = ({ params }: { params: any }) => {
                           <li>
                             {formatDate(
                               portfolioDetails?.starting_date,
-                              dateFormatsOptions.shortMonthYear
+                              dateFormatsOptions.shortMonthYear,
                             )}{" "}
                             -{" "}
                             {formatDate(
                               portfolioDetails?.ending_Date,
-                              dateFormatsOptions.shortMonthYear
+                              dateFormatsOptions.shortMonthYear,
                             )}
                           </li>
                         </ul>
+                        {listOfdata?.testimonials && (
+                          <SideTestimonialPortfolioDetail
+                            testimonials={listOfdata?.testimonials}
+                            designation={listOfdata?.designation}
+                          />
+                        )}
                       </div>
                       {portfolioDetails?.client_name && (
                         <div className="">
@@ -386,7 +394,7 @@ const PortfolioDetails = ({ params }: { params: any }) => {
                             __html: modifiedContent(
                               portfolioDetails?.tagline_1,
                               filteredSkills,
-                              listOfdata
+                              listOfdata,
                             ),
                           }}
                           className="text-[2rem] leading-[3.2rem] font-normal mt-[1rem] text-paragraph1 my-[3.2rem]"
@@ -397,7 +405,7 @@ const PortfolioDetails = ({ params }: { params: any }) => {
                             __html: modifiedContent(
                               portfolioDetails?.tagline_2,
                               filteredSkills,
-                              listOfdata
+                              listOfdata,
                             ),
                           }}
                         ></p>
@@ -421,7 +429,7 @@ const PortfolioDetails = ({ params }: { params: any }) => {
                                     />
                                   ))}
                                 </React.Fragment>
-                              )
+                              ),
                             )}
                           </>
                         )}
@@ -535,12 +543,12 @@ const PortfolioDetails = ({ params }: { params: any }) => {
                         __html: modifiedContent(
                           portfolioDetails?.features_long,
                           filteredSkills,
-                          listOfdata
+                          listOfdata,
                         ),
                       }}
                     ></div>
                   </div>
-                  
+
                   {/* My Tools and Technologies */}
                   <article className="my-[6.4rem]">
                     <div className="text-heading text-[2.4rem] xl:text-[3rem] font-medium leading-[2.8rem] text-center">
@@ -559,11 +567,11 @@ const PortfolioDetails = ({ params }: { params: any }) => {
                     <SliderXL portfolioPictures={portfolioDetails?.pictures} />
                   )}
                   <div className="mt-[5rem] lg:mt-[10rem]">
-                  <UpworkActivitySection
-                    urlInfo={urlInfo}
-                    cvTrue={true}
-                    data={listOfdata}
-                  />
+                    <UpworkActivitySection
+                      urlInfo={urlInfo}
+                      cvTrue={true}
+                      data={listOfdata}
+                    />
                   </div>
                 </div>
               </section>

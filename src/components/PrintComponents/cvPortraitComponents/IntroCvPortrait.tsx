@@ -5,7 +5,11 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
+
 const IntroCvPortrait = ({listOfdata, urlInfo}) => {
+
+console.log(contactDetails(listOfdata, urlInfo))
+
   return (
     <div className="w-full h-screen flex items-center justify-center  bg-cvSideBg bg-no-repeat bg-cover px-[2rem]">
       <div className="w-full">

@@ -7,6 +7,7 @@ import NoteClickable from '@/components/NoteClickable';
 export interface ComponentConfig {
   componentType: 'static' | 'dynamic';
   clickableNote?: boolean;
+  cv2Heading?: string;
   componentTitle?: string;
   badgeTitle?: string;
   forceSolo?: boolean; // Forces the component to be on its own page
@@ -98,6 +99,10 @@ const PrintPageRenderer: React.FC<PrintPageRendererProps> = ({
         {/* Render component title - only if showTitle is true */}
         {config.componentTitle && showTitle && (
           <PrintComponentTitle title={config.componentTitle} />
+        )}
+
+        {config.cv2Heading && showTitle && (
+          <div className='cv2SecondaryHeading px-[2rem]'>{config.cv2Heading}</div>
         )}
         
         {/* Render the actual component */}

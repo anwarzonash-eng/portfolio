@@ -72,7 +72,7 @@ const HomeHeroSection: React.FC<HomeHeroSectionProps> = ({
                   <h3 className="text-[4rem] font-medium leading-[4rem]">
                     ${listOfdata?.hourly_rate}
                   </h3>
-                  <p className="text-[2rem] font-normal">hour</p>
+                  <p className="text-[2rem] font-normal">{listOfdata?.salary_type === "per_day" ? "day" : "hour"}</p>
                 </div>
                 <hr className="h-[6rem] w-[0.1rem] bg-border" />
                 <div className="text-primary">

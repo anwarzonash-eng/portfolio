@@ -13,22 +13,20 @@ import { SmoothScroll } from "@/hooks/SmoothScroll";
 import { sortByDate } from "@/utils/sortByDate";
 import { skillsGrouping } from "@/hooks/skillsGrouping";
 import { contactDetails, dateFormatsOptions } from "@/data/JsonData";
-import useBodyBackgroundColor from "@/hooks/useBodyBackgroundColor";
 import {
-  CVLatestEducation,
-  CVLatestExperiences,
-  CVLatestHeader,
-  CVLatestProjects,
-  CVLatestSkills,
-  CVLatestSummary,
-} from "@/components/CVLatestPageComponents";
+  CV2Education,
+  CV2Experiences,
+  CV2Header,
+  CV2Projects,
+  CV2Skills,
+  CV2Summary,
+} from "@/components/CV2PageComponents";
 
 import { preloadImages } from "@/utils/preLoadImages";
 import { useSortedSkills } from "@/hooks/useSortedSkills";
 import { GithubIcon, Linkedin, Mail, MapPin, Phone } from "lucide-react";
 
-
-const CVLatest = ({ params }: { params: any }) => {
+const CV2 = ({ params }: { params: any }) => {
   // All Logic Start
   const searchParams = useSearchParams();
   // Global state
@@ -42,18 +40,9 @@ const CVLatest = ({ params }: { params: any }) => {
   // Derived values
   const visibleSkills = listOfdata?.skills_ids ?? [];
   const skillsforCV = skillsGrouping(visibleSkills);
-  const name = listOfdata?.name;
-  const designation = listOfdata?.designation;
-  const headerInfo = [
-    listOfdata?.phone_no && { icon: Phone, value: listOfdata.phone_no },
-    listOfdata?.email && { icon: Mail, value: listOfdata.email },
-    listOfdata?.location && { icon: MapPin, value: listOfdata.location },
-    listOfdata?.github && { icon: GithubIcon, value: listOfdata.github },
-    listOfdata?.linkedin && { icon: Linkedin, value: listOfdata.linkedin },
-  ].filter(Boolean);
 
 
- 
+
   // Filter skills based on listOfdata.skills_ids
   const [allSkills, setAllSkills] = useState([]);
 
@@ -66,6 +55,8 @@ const CVLatest = ({ params }: { params: any }) => {
     skillsIdsWithOrder: listOfdata?.skills_ids,
     allSkills,
   });
+
+  console.log("Sorted Skills:", sortedSkills);
 
   useEffect(() => {
     handleSkillsApiCall({ setListOfSkills: setAllSkills });
@@ -105,9 +96,6 @@ const CVLatest = ({ params }: { params: any }) => {
   useEffect(() => {
     store.dispatch(setProfileLoading(loading));
   }, [loading]);
-
-  // Styling
-  useBodyBackgroundColor("#FFFFFF");
 
   // Extract All image URLs Before Rendering
   function extractAllImageUrls(listOfdata, allSkills) {
@@ -173,11 +161,7 @@ const CVLatest = ({ params }: { params: any }) => {
     !loading && listOfdata && urlInfo && allSkills.length > 0 && imagesReady;
 
   // Generate HTML for skills (overview section)
-  const rawHtml = modifiedContent(
-    listOfdata?.skills,
-    sortedSkills,
-    listOfdata,
-  );
+  const rawHtml = modifiedContent(listOfdata?.skills, sortedSkills, listOfdata);
   const parser = new DOMParser();
   const doc = parser.parseFromString(rawHtml, "text/html");
   const items = Array.from(doc.querySelectorAll("li")).map(
@@ -187,20 +171,14 @@ const CVLatest = ({ params }: { params: any }) => {
   const maxItems = isMobile ? 4 : 10;
   const visibleItems = items.slice(0, maxItems);
 
-
-
   const stripHtml = (value: string) =>
     value
       .replace(/<[^>]*>/g, "")
       .replace(/\s+/g, " ")
       .trim();
 
-  const summary = listOfdata?.tag_line
-    ? stripHtml(listOfdata.tag_line)
-    : "Web Designer with 2 years of experience, adept at UX and responsive design. Strong proficiency in Adobe Creative Suite and CMS. Successfully improved website user engagement by 25% at previous role. Passionate about enhancing the digital experience for educational institutions.";
-
-
-
+  const summary = listOfdata?.ai_short_description ||
+     "Web Designer with 2 years of experience, adept at UX and responsive design. Strong proficiency in Adobe Creative Suite and CMS. Successfully improved website user engagement by 25% at previous role. Passionate about enhancing the digital experience for educational institutions.";
 
   if (error) {
     return (
@@ -217,7 +195,7 @@ const CVLatest = ({ params }: { params: any }) => {
     const percent = total > 0 ? Math.round((loaded / total) * 100) : 0;
 
     return (
-      <div className="flex items-center justify-center min-h-screen bg-white flex-col">
+      <div className="flex items-center justify-center min-h-screen bg-[#FAFBFD] flex-col">
         <div className="text-2xl text-heading mb-4">Loading CV data...</div>
         {total > 0 && (
           <div className="w-64 h-4 border border-gray-300 rounded overflow-hidden">
@@ -234,38 +212,35 @@ const CVLatest = ({ params }: { params: any }) => {
 
   return (
     <div className="bg-white text-heading min-h-screen">
-      <div className="max-w-[140rem] mx-auto px-[2.4rem] py-[2.8rem]">
-        <CVLatestHeader
-          name={name}
-          designation={designation}
-          headerInfo={headerInfo}
+      <div className="max-w-[140rem] mx-auto p-[5rem] border border-solid border-gray-300 rounded-[0.6rem] my-[4rem] shadow-md">
+        <CV2Header
           listOfdata={listOfdata}
         />
 
         {/* Summary & Tagline Section */}
-        <CVLatestSummary summary={summary} visibleItems={visibleItems} />
+        <CV2Summary summary={summary}/>
 
         {/* Skills Section */}
-        <CVLatestSkills sortedSkills={sortedSkills} />
+        <CV2Skills sortedSkills={sortedSkills} />
 
-        {/* Experience Section For CVLatest Timeline */}
-        <CVLatestExperiences
+        {/* Experience Section For CV2 Timeline */}
+        <CV2Experiences
           rawExperiences={listOfdata?.experiences_ids || []}
           listOfdata={listOfdata}
           isMobile={isMobile}
         />
 
         {/* Education Section */}
-        <CVLatestEducation
+        <CV2Education
           education={listOfdata?.education_ids}
           location={listOfdata?.location}
         />
 
         {/* Projects Section */}
-        <CVLatestProjects portfolios={listOfdata?.portfolios_ids} />
+        <CV2Projects portfolios={listOfdata?.portfolios_ids} />
       </div>
     </div>
   );
 };
 
-export default CVLatest;
+export default CV2;
