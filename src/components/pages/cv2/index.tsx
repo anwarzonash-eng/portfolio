@@ -1,18 +1,15 @@
 "use client";
-import { useEffect, useState } from "react";
-import Link from "next/link";
+import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { store, useAppSelector } from "@/store";
 import { setProfileUrlInfo, setProfileLoading } from "@/store/profileSlice";
 import { reportsApiHandler } from "@/hooks/apihandlers/reportsApiHandlers";
 import { handleSkillsApiCall } from "@/hooks/apihandlers/skillsApiHandlers";
-import { loadBlogs } from "@/hooks/apihandlers/blogListingApiHandler";
 import { getRoutesDetails } from "@/hooks/url";
 import { modifiedContent } from "@/hooks/modifiedContent";
-import { SmoothScroll } from "@/hooks/SmoothScroll";
-import { sortByDate } from "@/utils/sortByDate";
 import { skillsGrouping } from "@/hooks/skillsGrouping";
-import { contactDetails, dateFormatsOptions } from "@/data/JsonData";
+import { useFilteredYearExperiences } from "@/hooks/useFilteredYearExperiences";
+
 import {
   CV2Education,
   CV2Experiences,
@@ -24,7 +21,7 @@ import {
 
 import { preloadImages } from "@/utils/preLoadImages";
 import { useSortedSkills } from "@/hooks/useSortedSkills";
-import { GithubIcon, Linkedin, Mail, MapPin, Phone } from "lucide-react";
+
 
 const CV2 = ({ params }: { params: any }) => {
   // All Logic Start
@@ -41,7 +38,7 @@ const CV2 = ({ params }: { params: any }) => {
   const visibleSkills = listOfdata?.skills_ids ?? [];
   const skillsforCV = skillsGrouping(visibleSkills);
 
-
+  console.log("API Data:", listOfdata);
 
   // Filter skills based on listOfdata.skills_ids
   const [allSkills, setAllSkills] = useState([]);
@@ -56,17 +53,13 @@ const CV2 = ({ params }: { params: any }) => {
     allSkills,
   });
 
-  console.log("Sorted Skills:", sortedSkills);
+  // console.log("Sorted Skills:", sortedSkills);
 
   useEffect(() => {
     handleSkillsApiCall({ setListOfSkills: setAllSkills });
   }, []);
 
   // API Calls
-  // useEffect(() => {
-  //   setURLInfo(getRoutesDetails(params, searchParams));
-  // }, [params, searchParams]);
-
   // Use getRoutesDetails
   useEffect(() => {
     // 🛑 Must wrap in an async function and call it 🛑
@@ -160,25 +153,17 @@ const CV2 = ({ params }: { params: any }) => {
   const isDataReady =
     !loading && listOfdata && urlInfo && allSkills.length > 0 && imagesReady;
 
-  // Generate HTML for skills (overview section)
-  const rawHtml = modifiedContent(listOfdata?.skills, sortedSkills, listOfdata);
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(rawHtml, "text/html");
-  const items = Array.from(doc.querySelectorAll("li")).map(
-    (li) => li.outerHTML,
+  const summary =
+    listOfdata?.ai_short_description ||
+    "Web Designer with 2 years of experience, adept at UX and responsive design. Strong proficiency in Adobe Creative Suite and CMS. Successfully improved website user engagement by 25% at previous role. Passionate about enhancing the digital experience for educational institutions.";
+
+  // Filtered Experiences
+  const filteredExperiences = useFilteredYearExperiences(
+    listOfdata?.experiences_ids,
+    listOfdata?.no_of_experiences
   );
 
-  const maxItems = isMobile ? 4 : 10;
-  const visibleItems = items.slice(0, maxItems);
-
-  const stripHtml = (value: string) =>
-    value
-      .replace(/<[^>]*>/g, "")
-      .replace(/\s+/g, " ")
-      .trim();
-
-  const summary = listOfdata?.ai_short_description ||
-     "Web Designer with 2 years of experience, adept at UX and responsive design. Strong proficiency in Adobe Creative Suite and CMS. Successfully improved website user engagement by 25% at previous role. Passionate about enhancing the digital experience for educational institutions.";
+  // console.log("Filtered Experiences:", filteredExperiences);
 
   if (error) {
     return (
@@ -213,19 +198,17 @@ const CV2 = ({ params }: { params: any }) => {
   return (
     <div className="bg-white text-heading min-h-screen">
       <div className="max-w-[140rem] mx-auto p-[5rem] border border-solid border-gray-300 rounded-[0.6rem] my-[4rem] shadow-md">
-        <CV2Header
-          listOfdata={listOfdata}
-        />
+        <CV2Header listOfdata={listOfdata} />
 
         {/* Summary & Tagline Section */}
-        <CV2Summary summary={summary}/>
+        <CV2Summary summary={summary} />
 
         {/* Skills Section */}
         <CV2Skills sortedSkills={sortedSkills} />
 
         {/* Experience Section For CV2 Timeline */}
         <CV2Experiences
-          rawExperiences={listOfdata?.experiences_ids || []}
+          rawExperiences={filteredExperiences}
           listOfdata={listOfdata}
           isMobile={isMobile}
         />

@@ -3,7 +3,7 @@ import React from "react";
 type Props = {
   rawExperiences?: any[];
   listOfdata?: any;
-  isMobile?: boolean;
+  bulletCount?: number;
 };
 
 const stripHtml = (value: string) =>
@@ -31,23 +31,19 @@ const toMonthYear = (value: any) => {
 const CV2Experiences: React.FC<Props> = ({
   rawExperiences = [],
   listOfdata,
-  isMobile = false,
+  bulletCount,
 }) => {
-  const FIVE_YEARS_MS = 5 * 365 * 24 * 60 * 60 * 1000;
-
+  // Remove the filtering logic since experiences should already be filtered by the hook
   const filtered = (rawExperiences || []).filter((exp: any) => {
     if (!exp) return false;
-    const company = (exp.company_name || exp.company || exp.companyname || "")
-      .toString()
-      .toLowerCase();
-    if (company.includes("upwork")) return false;
-
+    
+    // Basic validation - ensure we have valid experience data
     const startVal = exp.starting_date ?? exp.start_date ?? exp.startDate;
     if (!startVal) return false;
     const d = new Date(startVal);
     if (isNaN(d.getTime())) return false;
 
-    return Date.now() - d.getTime() <= FIVE_YEARS_MS;
+    return true; // Accept all valid experiences since filtering is done by the hook
   });
 
   const shuffleArray = (arr: string[]) => {
@@ -75,7 +71,12 @@ const CV2Experiences: React.FC<Props> = ({
         ? longBullets
         : extractBulletsFromHtml(exp?.short_description);
 
-    const bullets = shuffleArray(allBullets).slice(0, 5); // pick 5 random bullets
+    // Use provided `bulletCount` prop when available, otherwise fallback to random 4-6
+    const count = typeof bulletCount === "number" && bulletCount > 0
+      ? Math.max(0, Math.floor(bulletCount))
+      : Math.floor(Math.random() * 3) + 4; // 4-6 range fallback
+
+    const bullets = shuffleArray(allBullets).slice(0, count);
 
     return {
       id: exp.id,
@@ -91,7 +92,7 @@ const CV2Experiences: React.FC<Props> = ({
   if (!experiences || experiences.length === 0) return null;
 
   return (
-    <section className="mt-[1.2rem]">
+    <section className="mt-[1.2rem] mb-[2rem]">
       <div className="mt-[1rem] space-y-[1.4rem]">
         {experiences.map((exp, index) => (
           <div key={exp.id || index} className="flex gap-[1.6rem]">
@@ -113,37 +114,6 @@ const CV2Experiences: React.FC<Props> = ({
                     <li key={i}>{bullet}</li>
                   ))}
                 </ul>
-              )}
-              {/* Areas of expertise for this experience */}
-              {Array.isArray(exp.skills) && exp.skills.length > 0 && (
-                <div className="w-full mt-[1.6rem]">
-                  <h4 className="text-primary text-[1.5rem] font-medium mb-[1.2rem]">
-                    AREAS OF EXPERTISE I'VE WORKED IN
-                  </h4>
-                  <div className="flex items-center gap-[1rem] mt-3 lg:gap-[0.7rem] flex-wrap text-[1.4rem] w-full">
-                    {(() => {
-                      const skills = exp.skills || [];
-                      const isSkillsNested =
-                        Array.isArray(skills) &&
-                        skills.length > 0 &&
-                        Array.isArray(skills[0]);
-                      const flatSkills = isSkillsNested ? skills.flat() : skills;
-                      const skillsToShow = Array.isArray(flatSkills)
-                        ? flatSkills
-                        : [];
-
-                      return (
-                        skillsToShow.length > 0 && (
-                          <div
-                            className="text-paragraph1 text-[1.4rem] leading-normal capitalize"
-                          >
-                            {skillsToShow.map(skill => skill?.title).join(", ")}
-                          </div>
-                        )
-                      );
-                    })()}
-                  </div>
-                </div>
               )}
             </div>
           </div>

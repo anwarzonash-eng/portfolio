@@ -179,7 +179,7 @@ const CV = ({ params }: { params: any }) => {
     fetchRoutes();
   }, [params, searchParams]);
 
-  // console.log(urlInfo);
+  console.log("URL Info:", urlInfo);
 
   useEffect(() => {
     if (urlInfo) {

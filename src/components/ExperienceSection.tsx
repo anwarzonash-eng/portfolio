@@ -44,7 +44,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
     Array.isArray(skills) && skills.length > 0 && Array.isArray(skills[0]);
   const flatSkills = isSkillsNested ? skills.flat() : skills; // Flatten nested skills for consistent rendering
   const isDesktop = useIsDesktop(1024); // matches Tailwind's lg breakpoint
-  const initialSkillLimit = isDesktop ? 15 : 6;
+  const initialSkillLimit = isDesktop ? flatSkills.length : 6;
   const skillsToShow = showMoreSkills[index]
     ? flatSkills
     : flatSkills.slice(0, initialSkillLimit);
@@ -169,11 +169,11 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
       )}
 
       <div
-        className={`relative flex items-start w-full ${
+        className={`relative  flex items-start w-full ${
           variant === "timeline" ? "xl:ml-[13rem] mt-10" : "ml-[0.5rem]"
         }`}
       >
-        <div className="bg-white p-[1.5rem] lg:p-[2.4rem] rounded-[1rem] shadow w-full">
+        <div className="bg-white p-[1.5rem] lg:p-[2.4rem] rounded-[1rem] shadow w-full border border-solid border-border">
           <div className="flex items-center flex-wrap text-nowrap gap-[1.5rem] md:justify-between">
             {/* About Content */}
             <div className="flex gap-[1rem]">
@@ -324,7 +324,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
             )}
 
             {items.length > 0 && (
-              <div className="flex items-center max-lg:justify-center">
+              <div className="flex items-center justify-center">
                 <button
                   onClick={handleToggle}
                   className={`mt-[1rem] bg-primary leading-normal text-center py-[0.6rem] px-[2rem] text-white hover:bg-white border border-[#E2E6EE] border-solid hover:border-primary hover:text-primary rounded-[2rem] text-[1.4rem] font-medium`}
@@ -377,14 +377,16 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                     )}
                   </React.Fragment>
                 )}
-                <ShowmoreSkills
-                  props={{
-                    list: flatSkills,
-                    index,
-                    setShowMoreSkills,
-                    showMoreSkills,
-                  }}
-                />
+                {!isDesktop && (
+                  <ShowmoreSkills
+                    props={{
+                      list: flatSkills,
+                      index,
+                      setShowMoreSkills,
+                      showMoreSkills,
+                    }}
+                  />
+                )}
               </div>
             </div>
           )}

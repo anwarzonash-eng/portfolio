@@ -17,7 +17,7 @@ const CV2Education = ({ education, location }: Props) => {
   if (!education || education.length === 0) return null;
 
   return (
-    <section className="mt-[1rem] pl-[2rem] mb-[3rem]">
+    <section className="mb-[4rem] pl-[2rem]">
       <div className="mt-[1rem] space-y-[1.2rem]">
         {education.map((edu, index) => (
           <div key={index} className="flex gap-[1.6rem]">

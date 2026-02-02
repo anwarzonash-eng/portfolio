@@ -22,6 +22,7 @@ import { preloadImages } from "@/utils/preLoadImages";
 import { useSortedSkills } from "@/hooks/useSortedSkills";
 import { GithubIcon, Linkedin, Mail, MapPin, Phone } from "lucide-react";
 import PrintPageRenderer, { ComponentConfig } from "@/utils/printPageRenderer";
+import { useFilteredYearExperiences } from "@/hooks/useFilteredYearExperiences";
 
 // Helper functions moved outside component to avoid recreation on each render
 function isUpworkExperience(exp: any) {
@@ -55,58 +56,11 @@ const CV2 = ({ params }: { params: any }) => {
     allSkills,
   });
 
-  // Select experiences based on `no_of_experiences` (years) - moved before conditional returns
-  const selectedExperiences = useMemo(() => {
-    const all = Array.isArray(listOfdata?.experiences_ids)
-      ? [...listOfdata.experiences_ids]
-      : [];
-
-    // sort descending by starting_date (most recent first)
-    all.sort((a, b) => {
-      const da = parseDateSafe(a.starting_date)?.getTime() || 0;
-      const db = parseDateSafe(b.starting_date)?.getTime() || 0;
-      return db - da;
-    });
-
-    const years = Number(listOfdata?.no_of_experiences) || 0;
-    const now = new Date();
-    const cutoff = new Date(now.getFullYear() - years, now.getMonth(), now.getDate());
-
-    const nonUpwork = all.filter((exp) => !isUpworkExperience(exp));
-
-    // experiences that overlap the window [cutoff, now]
-    const withinWindow = nonUpwork.filter((exp) => {
-      const start = parseDateSafe(exp.starting_date);
-      const end = parseDateSafe(exp.ending_Date) || new Date();
-      if (!start) return false;
-      // overlap exists if start <= now && end >= cutoff
-      return start.getTime() <= now.getTime() && end.getTime() >= cutoff.getTime();
-    });
-
-    // Start with withinWindow, then append other nonUpwork recent ones to fill
-    const result: any[] = [];
-    withinWindow.forEach((e) => result.push(e));
-
-    const maxExperiencesToShow = 5;
-    if (result.length < maxExperiencesToShow) {
-      // add remaining non-upwork experiences (most recent first)
-      nonUpwork.forEach((e) => {
-        if (result.length >= maxExperiencesToShow) return;
-        if (!result.includes(e)) result.push(e);
-      });
-    }
-
-    // If still not enough, include Upwork experiences as fallback
-    if (result.length < maxExperiencesToShow) {
-      const upworkExps = all.filter((exp) => isUpworkExperience(exp));
-      upworkExps.forEach((e) => {
-        if (result.length >= maxExperiencesToShow) return;
-        if (!result.includes(e)) result.push(e);
-      });
-    }
-
-    return result.slice(0, maxExperiencesToShow);
-  }, [listOfdata?.experiences_ids, listOfdata?.no_of_experiences]);
+// Filtered Experiences
+  const filteredExperiences = useFilteredYearExperiences(
+    listOfdata?.experiences_ids,
+    listOfdata?.no_of_experiences
+  );
 
   const headerInfo = [
     listOfdata?.phone_no && { icon: Phone, value: listOfdata.phone_no },
@@ -214,14 +168,29 @@ const CV2 = ({ params }: { params: any }) => {
   const isDataReady =
     !loading && listOfdata && urlInfo && allSkills.length > 0 && imagesReady;
 
-  // Generate HTML for skills (overview section)
-  const rawHtml = modifiedContent(listOfdata?.skills, sortedSkills, listOfdata);
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(rawHtml, "text/html");
-  const items = Array.from(doc.querySelectorAll("li")).map(
-    (li) => li.outerHTML,
-  );
-  const visibleItems = items.slice(0, 7);
+  // State for parsed skills HTML
+  const [visibleItems, setVisibleItems] = useState<string[]>([]);
+
+  // Generate HTML for skills (overview section) - only on client side
+  useEffect(() => {
+    // Only run on client side where DOMParser is available
+    if (typeof window === 'undefined' || !listOfdata?.skills || !sortedSkills) {
+      return;
+    }
+
+    try {
+      const rawHtml = modifiedContent(listOfdata?.skills, sortedSkills, listOfdata);
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(rawHtml, "text/html");
+      const items = Array.from(doc.querySelectorAll("li")).map(
+        (li) => li.outerHTML,
+      );
+      setVisibleItems(items.slice(0, 7));
+    } catch (error) {
+      console.error('Error parsing skills HTML:', error);
+      setVisibleItems([]);
+    }
+  }, [listOfdata?.skills, sortedSkills, listOfdata]);
 
   const summary =
     listOfdata?.ai_short_description ||
@@ -280,42 +249,43 @@ const CV2 = ({ params }: { params: any }) => {
     {
       componentType: "dynamic",
       cv2Heading: "EMPLOYMENT HISTORY",
-      component: selectedExperiences[0] ? (
+      component: filteredExperiences[0] ? (
         <div className="w-full relative px-[2rem]">
-          <CV2ExperiencesP rawExperiences={[selectedExperiences[0]]} listOfdata={listOfdata} />
+          <CV2ExperiencesP rawExperiences={[filteredExperiences[0]]} listOfdata={listOfdata} bulletCount={9} />
         </div>
       ) : null,
     },
     {
       componentType: "dynamic",
       cv2Heading: "EMPLOYMENT HISTORY",
-      component: selectedExperiences[1] ? (
+      component: filteredExperiences[1] ? (
         <div className="w-full relative px-[2rem]">
-          <CV2ExperiencesP rawExperiences={[selectedExperiences[1]]} listOfdata={listOfdata} />
+          <CV2ExperiencesP rawExperiences={[filteredExperiences[1]]} listOfdata={listOfdata} bulletCount={4} />
         </div>
       ) : null,
     },
     {
       componentType: "dynamic",
-      component: selectedExperiences[2] ? (
+      component: filteredExperiences[2] ? (
         <div className="w-full relative px-[2rem]">
-          <CV2ExperiencesP rawExperiences={[selectedExperiences[2]]} listOfdata={listOfdata} />
+          <CV2ExperiencesP rawExperiences={[filteredExperiences[2]]} listOfdata={listOfdata} bulletCount={6} />
         </div>
       ) : null,
     },
     {
       componentType: "dynamic",
-      component: selectedExperiences[3] ? (
+      component: filteredExperiences[3] ? (
         <div className="w-full relative px-[2rem]">
-          <CV2ExperiencesP rawExperiences={[selectedExperiences[3]]} listOfdata={listOfdata} />
+          <CV2ExperiencesP rawExperiences={[filteredExperiences[3]]} listOfdata={listOfdata} bulletCount={5} />
         </div>
       ) : null,
     },
     {
       componentType: "dynamic",
-      component: selectedExperiences[4] ? (
+      cv2Heading: "EMPLOYMENT HISTORY",
+      component: filteredExperiences[4] ? (
         <div className="w-full relative px-[2rem]">
-          <CV2ExperiencesP rawExperiences={[selectedExperiences[4]]} listOfdata={listOfdata} />
+          <CV2ExperiencesP rawExperiences={[filteredExperiences[4]]} listOfdata={listOfdata} bulletCount={6} />
         </div>
       ) : null,
     },
@@ -351,6 +321,7 @@ const CV2 = ({ params }: { params: any }) => {
     },
     {
       componentType: "dynamic",
+      cv2Heading: "PROJECTS",
       component: portfolios[2] ? (
         <div className="w-full relative px-[2rem]">
           <CV2ProjectsP portfolios={[portfolios[2]]} />
@@ -359,7 +330,6 @@ const CV2 = ({ params }: { params: any }) => {
     },
     {
       componentType: "dynamic",
-      cv2Heading: "PROJECTS",
       component: portfolios[3] ? (
         <div className="w-full relative px-[2rem]">
           <CV2ProjectsP portfolios={[portfolios[3]]} />

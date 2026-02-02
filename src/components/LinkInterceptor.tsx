@@ -14,7 +14,7 @@ const LinkInterceptor = () => {
       (state) => state.profile.profileUrlInfo
     );
   } catch (error) {
-    console.log("Redux store not available yet in LinkInterceptor");
+    // console.log("Redux store not available yet in LinkInterceptor");
     // Fallback to manual URL parsing when Redux isn't available
     urlInfo = null;
   }
