@@ -114,6 +114,7 @@ const Home_p = ({ params }: { params: any }) => {
   }, [listOfdata]);
 
   console.log("Testimonial Data:", listOfdata?.testimonials)
+  console.log("Hide Link Status: ", urlInfo?.hideLinks)
 
 
  // console.log("Unsorted Skills Print Home Page:", listOfdata?.skills_ids)
@@ -146,6 +147,7 @@ const Home_p = ({ params }: { params: any }) => {
           urlInfo={urlInfo}
           WorkProofLinks={WorkProofLinks}
           ContactMeLinks={ContactMeLinks}
+          hideLinks={urlInfo?.hideLinks}
         />
       ),
     },
@@ -159,6 +161,7 @@ const Home_p = ({ params }: { params: any }) => {
           skillsContainerRef={skillsContainerRef}
           skills={skills}
           listOfdata={listOfdata}
+          hideLinks={urlInfo?.hideLinks}
         />
       ),
     },
@@ -172,6 +175,7 @@ const Home_p = ({ params }: { params: any }) => {
           formatPhoneNumber={formatPhoneNumber}
           listOfdata={listOfdata}
           urlInfo={urlInfo}
+          hideLinks={urlInfo?.hideLinks}
         />
       ),
     },
@@ -179,7 +183,7 @@ const Home_p = ({ params }: { params: any }) => {
     {
       componentType: "static",
       component: (
-        <HomeUpworkSection listOfdata={listOfdata} urlInfo={urlInfo} />
+        <HomeUpworkSection listOfdata={listOfdata} urlInfo={urlInfo} hideLinks={urlInfo?.hideLinks} />
       ),
     },
     // Skills Section - only if portfolios exist
@@ -194,6 +198,7 @@ const Home_p = ({ params }: { params: any }) => {
           numSkills={32}
           // portfolioId={listOfdata && listOfdata?.portfolios_ids[0]?.id}
           useLinks={true}
+          hideLinks={urlInfo?.hideLinks}
         />
       ),
     }]),
@@ -206,6 +211,7 @@ const Home_p = ({ params }: { params: any }) => {
           listOfdata={listOfdata}
           listOfdatas={listOfdatas}
           services={listOfdata?.services}
+          hideLinks={urlInfo?.hideLinks}
         />
       ),
     }] : []),
@@ -225,6 +231,7 @@ const Home_p = ({ params }: { params: any }) => {
             listOfdata={listOfdata}
             from={0}
             max={1}
+            hideLinks={urlInfo?.hideLinks}
           />
         </div>
       ),
@@ -244,6 +251,7 @@ const Home_p = ({ params }: { params: any }) => {
             listOfdata={listOfdata}
             from={1}
             max={2}
+            hideLinks={urlInfo?.hideLinks}
           />
         </div>
       ),
@@ -263,6 +271,7 @@ const Home_p = ({ params }: { params: any }) => {
             listOfdata={listOfdata}
             from={2}
             max={3}
+            hideLinks={urlInfo?.hideLinks}
           />
         </div>
       ),
@@ -280,6 +289,7 @@ const Home_p = ({ params }: { params: any }) => {
           listOfskills={listOfskills}
           start={0}
           end={2}
+          hideLinks={urlInfo?.hideLinks}
         />
       ),
     }] : []),
@@ -295,7 +305,9 @@ const Home_p = ({ params }: { params: any }) => {
             listOfskills={listOfskills}
             start={2}
             end={4}
+            hideLinks={urlInfo?.hideLinks}
           />
+          {!urlInfo?.hideLinks && (
           <div className="flex items-center justify-center">
             <Link
               href={`/?scrollTo=experiences&expand=true&nav=experience`}
@@ -304,6 +316,7 @@ const Home_p = ({ params }: { params: any }) => {
               View All Experiences
             </Link>
           </div>
+          )}
         </>
       ),
     }] : []),
@@ -330,6 +343,7 @@ const Home_p = ({ params }: { params: any }) => {
           <HomeTestimonialSection 
           testimonials={listOfdata?.testimonials}
           designation={listOfdata?.designation}
+          hideLinks={urlInfo?.hideLinks}
           />
         )}
         </>
@@ -343,6 +357,7 @@ const Home_p = ({ params }: { params: any }) => {
         <HomeContactMeSection
           listOfdata={listOfdata}
           formatPhoneNumber={formatPhoneNumber}
+          hideLinks={urlInfo?.hideLinks}
         />
       ),
     }] : []),
@@ -360,6 +375,7 @@ const Home_p = ({ params }: { params: any }) => {
           formatDate={formatDate}
           getImageForIndex={getImageForIndex}
           loadingblogs={loadingblogs}
+          hideLinks={urlInfo?.hideLinks}
         />
       ),
     }] : []),
@@ -494,6 +510,7 @@ const Home_p = ({ params }: { params: any }) => {
           componentsList={componentsList}
           orientation="Landscape"
           isDataReady={isDataReady}
+          hideLinks={urlInfo?.hideLinks}
         />
       )}
     </>

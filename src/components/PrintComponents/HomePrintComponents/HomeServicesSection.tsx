@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-const HomeServicesSection = ({ listOfdata, listOfdatas, services }) => {
+const HomeServicesSection = ({ listOfdata, listOfdatas, services, hideLinks }) => {
   return (
     <>
       {listOfdata &&

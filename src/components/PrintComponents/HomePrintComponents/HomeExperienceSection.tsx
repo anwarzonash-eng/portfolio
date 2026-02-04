@@ -9,7 +9,8 @@ const HomeExperienceSection = ({
   showMoreSkills,
   listOfskills,
   start,
-  end
+  end,
+  hideLinks
 }) => {
   if (!listOfdata?.experiences_ids?.length) return null;
 
@@ -49,6 +50,7 @@ const HomeExperienceSection = ({
             skillsGrouping={skillsGrouping}
             showMoreSkills={showMoreSkills}
             filteredSkills={listOfskills}
+            hideLinks={hideLinks}
             start={0}
             end={1}
           />

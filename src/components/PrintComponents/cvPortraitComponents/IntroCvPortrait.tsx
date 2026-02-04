@@ -6,9 +6,8 @@ import Link from "next/link";
 import React from "react";
 
 
-const IntroCvPortrait = ({listOfdata, urlInfo}) => {
+const IntroCvPortrait = ({listOfdata, urlInfo, hideLinks}) => {
 
-console.log(contactDetails(listOfdata, urlInfo))
 
   return (
     <div className="w-full h-screen flex items-center justify-center  bg-cvSideBg bg-no-repeat bg-cover px-[2rem]">
@@ -44,9 +43,11 @@ console.log(contactDetails(listOfdata, urlInfo))
                   </div>
                 ))}
               </h3>
+              {!hideLinks &&
               <div className="flex items-center justify-center">
                 <DesignationDomain />
               </div>
+              }
             </div>
           </div>
           <div className="flex flex-col items-center justify-center print:w-full">
@@ -78,6 +79,7 @@ console.log(contactDetails(listOfdata, urlInfo))
         {/* Contact & Work Proof Container */}
         <div className="flex w-full gap-[2rem] items-start px-[3rem]">
           {/* Email, Website, Phone, Location */}
+          {!hideLinks ? (
           <div className="mb-[4rem] w-full flex flex-col gap-[2.6rem]">
             {contactDetails(listOfdata, urlInfo)
               .filter(({ alt }) => (urlInfo?.u ? alt === "Location" : true))
@@ -112,8 +114,44 @@ console.log(contactDetails(listOfdata, urlInfo))
                 </div>
               ))}
           </div>
+          ): (
+            <div className="mb-[4rem] w-full grid grid-cols-2 gap-[2.6rem]">
+            {contactDetails(listOfdata, urlInfo)
+              .filter(({ alt }) => (urlInfo?.u ? alt === "Location" : true))
+              .map((contact, index) => (
+                <div key={index} className="flex items-center gap-[1.78rem]">
+                  {contact.iconSrc && (
+                    <div
+                      className="h-[35px] w-[35px] bg-[#E2E6EE] 
+                      rounded-[50%] relative">
+                      <Image
+                        src={contact.iconSrc}
+                         loading="eager"
+                         priority={true}
+                        height={24}
+                        width={24}
+                        alt={contact.alt}
+                        className="h-[24px] w-[24px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                      />
+                    </div>
+                  )}
+                  <div className="flex flex-col gap-[0.45rem]">
+                    <p className="text-[1.33rem] leading-[1.77rem] text-[#3E3E3E]">
+                      {contact.type}
+                    </p>
+                    <p
+                      className="hover:text-primary text-[1.55rem] font-medium leading-[2rem] text-heading"
+                    >
+                      {contact.value}
+                    </p>
+                  </div>
+                </div>
+              ))}
+          </div>
+          )}
 
           {/* Work Proof */}
+          {!hideLinks &&
           <div className="mb-[4rem] w-full flex flex-col gap-[2.6rem]">
             {/* Title */}
             <h3 className="text-heading text-[1.33rem] font-medium leading-[1.77rem]">
@@ -155,6 +193,7 @@ console.log(contactDetails(listOfdata, urlInfo))
                 </div>
               ))}
           </div>
+          }
         </div>
       </div>
     </div>

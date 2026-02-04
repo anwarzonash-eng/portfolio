@@ -3,7 +3,7 @@ import NoteDomainForPint from "@/components/NoteDomainForPint";
 import Link from "next/link";
 import UpwrokIdentityPrint from "./UpwrokIdentityPrint";
 
-const HomeUpworkSection = ({ listOfdata, urlInfo }) => {
+const HomeUpworkSection = ({ listOfdata, urlInfo, hideLinks }) => {
   const upworkActivityList = [
     {
       id: 1,
@@ -56,7 +56,9 @@ const HomeUpworkSection = ({ listOfdata, urlInfo }) => {
   return (
     <section className="h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center p-[4rem] mt-20 print:mt-0 relative bg-white">
       {/* Note and Domain For Each Page */}
+      {hideLinks ? null :
       <NoteDomainForPint direction={"hidden print:right-0 print:block"} />
+      }
       <div className="max-w-[1550px] w-full mx-auto flex items-center justify-center gap-[2rem]">
         <div
           className={`${
@@ -68,14 +70,22 @@ const HomeUpworkSection = ({ listOfdata, urlInfo }) => {
           {/* Top Content */}
           <div className="flex items-center justify-between w-full gap-5 mb-[2rem]">
             {/* Upwork Identity */}
-            <UpwrokIdentityPrint data={listOfdata} />
-            <Link
+            <UpwrokIdentityPrint data={listOfdata} hideLinks={hideLinks} />
+            {hideLinks ?
+             <div
+              className="py-2 inline-block"
+            >
+              <img src="/images/up-logo.png" alt="Upwork Logo" />
+            </div>
+            :
+             <Link
               href={listOfdata?.upwork ?? "#"}
               target="_blank"
               className="py-2 inline-block"
             >
               <img src="/images/up-logo.png" alt="Upwork Logo" />
             </Link>
+             }
           </div>
 
           {/* Bottom Content */}

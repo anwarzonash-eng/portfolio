@@ -20,6 +20,7 @@ interface SkillsContainerProps {
   portfolioId?: string;
   numColumns?: number;
   numSkills?: number;
+  hideLinks?: boolean;
 }
 
 const PortfolioDetailSKills: React.FC<SkillsContainerProps> = ({
@@ -29,8 +30,7 @@ const PortfolioDetailSKills: React.FC<SkillsContainerProps> = ({
   autoExpandOnParam = false,
   portfolioId,
   numColumns = 6,
-  numSkills = 24,
-}) => {
+  numSkills = 24,  hideLinks = false,}) => {
   const router = useRouter();
 
   const handleSeeMorePrint = () => {
@@ -142,7 +142,7 @@ const PortfolioDetailSKills: React.FC<SkillsContainerProps> = ({
       </div>
 
       {/* === See More Button === */}
-      {showSeeMoreButton && (
+      {showSeeMoreButton && !hideLinks && (
         <Link
           href={
             portfolioId

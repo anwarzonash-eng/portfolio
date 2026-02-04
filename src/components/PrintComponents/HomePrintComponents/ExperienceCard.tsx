@@ -77,6 +77,7 @@ const ExperienceCard = ({
   skillsGrouping,
   showMoreSkills = [],
   filteredSkills,
+  hideLinks,
   start = 0,
   end,
 }) => {
@@ -106,7 +107,7 @@ const ExperienceCard = ({
     // Check if any of the first 6 skills has a long name (more than 12 characters)
     const first6Skills = skills.slice(0, 6);
     const hasLongSkillNames = first6Skills.some(
-      (skill) => skill.title && skill.title.length > 12
+      (skill) => skill.title && skill.title.length > 12,
     );
 
     // If there are long names, show 5 skills to leave room for button
@@ -126,7 +127,7 @@ const ExperienceCard = ({
         const totalSkills = experience?.skills?.length || 0;
         const first6Skills = experience?.skills?.slice(0, 6) || [];
         const hasLongSkillNames = first6Skills.some(
-          (skill) => skill.title && skill.title.length > 12
+          (skill) => skill.title && skill.title.length > 12,
         );
         const skillsDisplayed = hasLongSkillNames ? 5 : 6;
         const shouldShowMoreButton = totalSkills > skillsDisplayed;
@@ -164,51 +165,53 @@ const ExperienceCard = ({
                 </div>
 
                 {/* Link */}
-                <div className="flex justify-end w-auto">
-                  <div className="flex flex-col-reverse gap-[1rem] max-w-max">
-                    {experience.company_website.includes("upwork") && (
-                      <div className="flex items-center gap-2">
-                        <Link
-                          href={experience.company_website ?? "#"}
-                          target="_blank"
-                          className="
+                {!hideLinks && (
+                  <div className="flex justify-end w-auto">
+                    <div className="flex flex-col-reverse gap-[1rem] max-w-max">
+                      {experience.company_website.includes("upwork") && (
+                        <div className="flex items-center gap-2">
+                          <Link
+                            href={experience.company_website ?? "#"}
+                            target="_blank"
+                            className="
                                                   bg-black text-white border border-transparent hover:border-primary hover:bg-white hover:text-primary duration-300 text-nowrap
                                                   flex items-center justify-center
                                                   text-[1.4rem] font-medium rounded-[20rem] p-[1rem] py-[0.5rem] group"
-                        >
-                          <span>Check My</span>
-                          <div className="h-[2.5rem] w-[2.5rem] rounded-full relative mx-2 inline-block">
-                            <Image
-                              src="/images/upworkforContactComponent.svg"
-                              alt="Upwork Logo"
-                              width={25}
-                              height={25}
-                              loading="eager"
-                              priority={true}
-                              className="h-full w-full object-cover rounded-full group-hover:border-primary border border-transparent duration-300
+                          >
+                            <span>Check My</span>
+                            <div className="h-[2.5rem] w-[2.5rem] rounded-full relative mx-2 inline-block">
+                              <Image
+                                src="/images/upworkforContactComponent.svg"
+                                alt="Upwork Logo"
+                                width={25}
+                                height={25}
+                                loading="eager"
+                                priority={true}
+                                className="h-full w-full object-cover rounded-full group-hover:border-primary border border-transparent duration-300
                                                     absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-                            />
-                          </div>
-                          <span>Profile</span>
-                        </Link>
-                      </div>
-                    )}
-                    {!experience.company_website.includes("upwork") && (
-                      <div className="bg-white border border-[#E2E6EE] text-[#47516B] rounded-[2rem] text-[1.5rem] font-medium leading-[0.8rem] hover:bg-sectionBG hover:text-white duration-300">
-                        <Link
-                          href={experience.company_website}
-                          className="flex gap-2 items-center p-4"
-                        >
-                          {
-                            experience.company_website
-                              .replace(/^(https?:\/\/)?(www\.)?/, "")
-                              .split("/")[0]
-                          }
-                        </Link>
-                      </div>
-                    )}
+                              />
+                            </div>
+                            <span>Profile</span>
+                          </Link>
+                        </div>
+                      )}
+                      {!experience.company_website.includes("upwork") && (
+                        <div className="bg-white border border-[#E2E6EE] text-[#47516B] rounded-[2rem] text-[1.5rem] font-medium leading-[0.8rem] hover:bg-sectionBG hover:text-white duration-300">
+                          <Link
+                            href={experience.company_website}
+                            className="flex gap-2 items-center p-4"
+                          >
+                            {
+                              experience.company_website
+                                .replace(/^(https?:\/\/)?(www\.)?/, "")
+                                .split("/")[0]
+                            }
+                          </Link>
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
               <h1 className="mb-[1rem] text-primary text-[1.8rem] leading-[2rem] font-bold">
                 {new Date(experience.starting_date).toLocaleString("en-US", {
@@ -232,16 +235,18 @@ const ExperienceCard = ({
                   __html: modifiedContent(
                     experience?.short_description,
                     filteredSkills,
-                    listOfdata
+                    listOfdata,
                   ),
                 }}
               />
-              <Link
-                href={`/?experienceId=${experience.id}&scrollTo=experiences&nav=experience`} // Navigate to Home page with experience ID
-                className="hover:bg-white bg-primary text-white hover:text-primary capitalize text-center text-primary text-[1.2rem] font-medium py-[0.4rem] px-[1.5rem] inline-flex items-center justify-center gap-[8px] rounded-[5rem] shadow opacity-0 animate-fadeIn relative group border border-transparent hover:border-primary mt-[1rem]"
-              >
-                Read More
-              </Link>
+              {!hideLinks && (
+                <Link
+                  href={`/?experienceId=${experience.id}&scrollTo=experiences&nav=experience`} // Navigate to Home page with experience ID
+                  className="hover:bg-white bg-primary text-white hover:text-primary capitalize text-center text-primary text-[1.2rem] font-medium py-[0.4rem] px-[1.5rem] inline-flex items-center justify-center gap-[8px] rounded-[5rem] shadow opacity-0 animate-fadeIn relative group border border-transparent hover:border-primary mt-[1rem]"
+                >
+                  Read More
+                </Link>
+              )}
             </div>
 
             <hr className="w-full my-[1rem] h-px bg-border" />
@@ -265,9 +270,9 @@ const ExperienceCard = ({
                             />
                           ))}
                         </React.Fragment>
-                      )
+                      ),
                     )}
-                    {shouldShowMoreButton && (
+                    {shouldShowMoreButton && !hideLinks && (
                       <Link
                         href={`/?experienceId=${experience.id}&scrollTo=experiences&nav=experience`}
                         className="hover:bg-white bg-primary text-white hover:text-primary capitalize text-center text-primary text-[1.2rem] font-medium py-[0.4rem] px-[1.5rem] inline-flex items-center justify-center gap-[8px] rounded-[5rem] shadow opacity-0 animate-fadeIn relative group border border-transparent hover:border-primary"

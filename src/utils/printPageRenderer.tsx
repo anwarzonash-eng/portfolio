@@ -20,6 +20,7 @@ interface PrintPageRendererProps {
   orientation: 'Portrait' | 'Landscape';
   isDataReady?: boolean;
   hideNotes?: boolean;
+  hideLinks?: boolean; // Hide all clickable elements when true
 }
 
 // Height constants (in mm)
@@ -40,6 +41,7 @@ const PrintPageRenderer: React.FC<PrintPageRendererProps> = ({
   orientation,
   isDataReady = false,
   hideNotes = false,
+  hideLinks = false,
 }) => {
   const [dataLoaded, setDataLoaded] = useState(false);
   const [componentHeights, setComponentHeights] = useState<number[]>([]);
@@ -83,13 +85,13 @@ const PrintPageRenderer: React.FC<PrintPageRendererProps> = ({
     return (
       <div key={key} className="w-full">
         {/* Render clickable note if specified */}
-        {!hideNotes && config.clickableNote && (
+        {!hideNotes && !hideLinks && config.clickableNote && (
           <div className='relative'>
           <NoteClickable />
           </div>
         )}
 
-        {!hideNotes && !config.clickableNote && <NoteDomainForPint isPrimary={isPrimary} /> }
+        {!hideNotes && !hideLinks && !config.clickableNote && <NoteDomainForPint isPrimary={isPrimary} /> }
         
         {/* Render badge title - only if showBadge is true */}
         {config.badgeTitle && showBadge && (

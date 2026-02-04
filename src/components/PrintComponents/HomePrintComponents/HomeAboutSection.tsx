@@ -9,13 +9,21 @@ interface HomeAboutSectionProps {
   formatPhoneNumber: any;
   WorkProofLinks: any;
   ContactMeLinks: any;
+  hideLinks?: boolean;
 }
 
-const HomeAboutSection: React.FC<HomeAboutSectionProps> = ({listOfdata, urlInfo, formatPhoneNumber, WorkProofLinks, ContactMeLinks}) => {
+const HomeAboutSection: React.FC<HomeAboutSectionProps> = ({
+  listOfdata,
+  urlInfo,
+  formatPhoneNumber,
+  WorkProofLinks,
+  ContactMeLinks,
+  hideLinks,
+}) => {
   return (
     <section className="h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center p-[4rem] mt-20 print:mt-0 relative">
       {/* Note and Domain For Each Page */}
-      <NoteDomainForPint direction={"hidden print:right-0 print:block"} />
+      {hideLinks ? null : <NoteDomainForPint direction={"hidden print:right-0 print:block"} />}
       {/* Container Div for print*/}
       <div className="max-w-[1550px] w-full mx-auto flex items-center justify-center gap-[2rem]">
         {/* Container For Image and Badges */}
@@ -117,12 +125,18 @@ const HomeAboutSection: React.FC<HomeAboutSectionProps> = ({listOfdata, urlInfo,
             {!urlInfo?.u && (
               <div className="md:col-span-6 col-span-12 w-full border border-border border-solid py-[3rem] px-[2rem]">
                 <div className="w-full text-wrap break-words">
-                  <Link
-                    href={`mailto:${listOfdata?.email}`}
-                    className="hover:font-bold  text-[1.6rem] duration-300  font-normal text-primary "
-                  >
-                    {listOfdata?.email}
-                  </Link>
+                  {hideLinks ? (
+                    <span className="text-[1.6rem] font-normal text-primary">
+                      {listOfdata?.email}
+                    </span>
+                  ) : (
+                    <Link
+                      href={`mailto:${listOfdata?.email}`}
+                      className="hover:font-bold  text-[1.6rem] duration-300  font-normal text-primary "
+                    >
+                      {listOfdata?.email}
+                    </Link>
+                  )}
                   <p className="text-[1.4rem] font-normal text-paragraph1">
                     Email
                   </p>
@@ -133,12 +147,18 @@ const HomeAboutSection: React.FC<HomeAboutSectionProps> = ({listOfdata, urlInfo,
             {!urlInfo?.u && (
               <div className="md:col-span-6 col-span-12 w-full border border-border border-solid py-[3rem] px-[2rem]">
                 <div className="w-full">
-                  <Link
-                    href={`tel:${listOfdata?.phone_no}`}
-                    className="hover:font-bold  text-[1.6rem] duration-300 font-normal text-primary"
-                  >
-                    {formatPhoneNumber(listOfdata?.phone_no)}
-                  </Link>
+                  {hideLinks ? (
+                    <span className="text-[1.6rem] font-normal text-primary">
+                      {formatPhoneNumber(listOfdata?.phone_no)}
+                    </span>
+                  ) : (
+                    <Link
+                      href={`tel:${listOfdata?.phone_no}`}
+                      className="hover:font-bold  text-[1.6rem] duration-300 font-normal text-primary"
+                    >
+                      {formatPhoneNumber(listOfdata?.phone_no)}
+                    </Link>
+                  )}
                   <p className="text-[1.4rem] font-normal text-paragraph1">
                     Contact
                   </p>
@@ -153,14 +173,20 @@ const HomeAboutSection: React.FC<HomeAboutSectionProps> = ({listOfdata, urlInfo,
             >
               <div className="w-full flex justify-between">
                 <div>
-                  <Link
-                    target="_blank"
-                    href={`https://www.google.com/maps/place/${listOfdata?.location}
+                  {hideLinks ? (
+                    <span className="text-[1.6rem] font-normal text-primary">
+                      {listOfdata?.location}
+                    </span>
+                  ) : (
+                    <Link
+                      target="_blank"
+                      href={`https://www.google.com/maps/place/${listOfdata?.location}
                     )}`}
-                    className="hover:font-bold  text-[1.6rem] duration-300 font-normal text-primary"
-                  >
-                    {listOfdata?.location}
-                  </Link>
+                      className="hover:font-bold  text-[1.6rem] duration-300 font-normal text-primary"
+                    >
+                      {listOfdata?.location}
+                    </Link>
+                  )}
                   <p className="text-[1.4rem] font-normal text-paragraph1">
                     Address
                   </p>{" "}
@@ -179,27 +205,29 @@ const HomeAboutSection: React.FC<HomeAboutSectionProps> = ({listOfdata, urlInfo,
               </div>
             </div>
 
-            <div
-              className={`w-full border border-border border-solid py-[3rem] px-[2rem]  col-span-12 ${
-                urlInfo?.u ? "md:col-span-12" : "md:col-span-6"
-              }`}
-            >
-              <div className="w-full flex items-center gap-[1.4rem] mb-[0.8rem]">
-                <WorkProofLinks
-                  props={{
-                    upwork: listOfdata?.upwork,
-                    github: listOfdata?.github,
-                    linkedIn: listOfdata?.linkedIn,
-                    behance_link: listOfdata?.behance_link,
-                    u: urlInfo?.u,
-                  }}
-                />
+            {!hideLinks && (
+              <div
+                className={`w-full border border-border border-solid py-[3rem] px-[2rem]  col-span-12 ${
+                  urlInfo?.u ? "md:col-span-12" : "md:col-span-6"
+                }`}
+              >
+                <div className="w-full flex items-center gap-[1.4rem] mb-[0.8rem]">
+                  <WorkProofLinks
+                    props={{
+                      upwork: listOfdata?.upwork,
+                      github: listOfdata?.github,
+                      linkedIn: listOfdata?.linkedIn,
+                      behance_link: listOfdata?.behance_link,
+                      u: urlInfo?.u,
+                    }}
+                  />
+                </div>
+                <p className="text-[1.35rem] font-normal text-paragraph1">
+                  My Work Proof
+                </p>
               </div>
-              <p className="text-[1.35rem] font-normal text-paragraph1">
-                My Work Proof
-              </p>
-            </div>
-            {!urlInfo?.u && (
+            )}
+            {!urlInfo?.u && !hideLinks && (
               <div className="md:col-span-6 col-span-12 w-full border border-border border-solid py-[3rem] px-[2rem]">
                 <div className="w-full flex items-center gap-[1.4rem] mb-[0.8rem]">
                   <ContactMeLinks
@@ -215,16 +243,13 @@ const HomeAboutSection: React.FC<HomeAboutSectionProps> = ({listOfdata, urlInfo,
               </div>
             )}
           </div>
-          {/* <Link href={"/?sectionId=about"}>
-                            <button className="w-full md:max-w-max btn-primary rounded-[0.6rem] text-white py-[2rem] px-[5.6rem] text-[1.8rem] font-medium border border-solid border-custom">
-                              View CV Online
-                            </button>
-                          </Link> */}
-          <Link href={"/cv"} target="_blank">
-            <button className="w-full md:max-w-max btn-primary rounded-[0.6rem] text-white py-[2rem] px-[5.6rem] text-[1.8rem] font-medium border border-solid border-custom">
-              View CV Online
-            </button>
-          </Link>
+          {hideLinks ? null : (
+            <Link href={"/cv"} target="_blank">
+              <button className="w-full md:max-w-max btn-primary rounded-[0.6rem] text-white py-[2rem] px-[5.6rem] text-[1.8rem] font-medium border border-solid border-custom">
+                View CV Online
+              </button>
+            </Link>
+          )}
         </div>
       </div>
     </section>

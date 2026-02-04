@@ -11,6 +11,7 @@ interface UpwrokIdentityPrintProps {
     location?: string;
     profile_photo_1?: string;
   };
+  hideLinks?: boolean;
 }
 
 const UpwrokIdentityPrint: React.FC<UpwrokIdentityPrintProps> = ({
@@ -19,12 +20,13 @@ const UpwrokIdentityPrint: React.FC<UpwrokIdentityPrintProps> = ({
     name: "John D.",
     location: "Manchester, United Kingdom",
     profile_photo_1: "https://via.placeholder.com/80", // Fallback image
-  }
+  },
+  hideLinks,
 }) => {
   const profileImageSrc =
     data.profile_photo_1 || "https://via.placeholder.com/80";
   return (
-    <div className="bg-white rounded-[1rem] shadow-md p-[2rem] w-[50rem]">
+    <div className={`bg-white rounded-[1rem] shadow-md p-[2rem] ${hideLinks ? 'w-auto' : 'w-[50rem]'}`}>
       <div className="flex items-center">
         <div className="flex gap-[1rem]">
           {/* Profile Picture */}
@@ -80,9 +82,7 @@ const UpwrokIdentityPrint: React.FC<UpwrokIdentityPrintProps> = ({
           </div>
         </div>
       </div>
-      <div
-        className={`grid grid-cols-2 gap-[1rem]`}
-      >
+      <div className={`grid ${hideLinks ? 'grid-cols-1' : 'grid-cols-2'} gap-[1rem]`}>
         {/* Badges */}
         <div className="">
           {/* 100% Job Success */}
@@ -107,36 +107,38 @@ const UpwrokIdentityPrint: React.FC<UpwrokIdentityPrintProps> = ({
         </div>
 
         {/* Check My Upwork Profile Section */}
-        <div className="flex items-center justify-end gap-4 mt-6">
-          <Link
-            href={data.upwork ?? "#"}
-            target="_blank"
-            className="bg-black text-white border border-transparent hover:border-primary hover:bg-white hover:text-primary duration-300 text-nowrap flex items-center justify-center text-[1.4rem] rounded-[20rem] px-[1rem] py-[0.5rem] group"
-          >
-            <span>Check My</span>
-           <div className="h-[3.5rem] w-[10rem] relative mx-2 inline-block overflow-hidden rounded-[10rem] px-2 bg-white">
-                         <Image
-                           src="/images/upworkText.svg"
-                           alt="Upwork Logo"
-                           width={100}
-                           height={35}
-                           loading="eager"
-                           priority={true}
-                           className="h-full w-full object-contain object-center p-[0.5rem]
+        {hideLinks ? null : (
+          <div className="flex items-center justify-end gap-4 mt-6">
+            <Link
+              href={data.upwork ?? "#"}
+              target="_blank"
+              className="bg-black text-white border border-transparent hover:border-primary hover:bg-white hover:text-primary duration-300 text-nowrap flex items-center justify-center text-[1.4rem] rounded-[20rem] px-[1rem] py-[0.5rem] group"
+            >
+              <span>Check My</span>
+              <div className="h-[3.5rem] w-[10rem] relative mx-2 inline-block overflow-hidden rounded-[10rem] px-2 bg-white">
+                <Image
+                  src="/images/upworkText.svg"
+                  alt="Upwork Logo"
+                  width={100}
+                  height={35}
+                  loading="eager"
+                  priority={true}
+                  className="h-full w-full object-contain object-center p-[0.5rem]
                                         border-transparent absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-                         />
-                       </div>
-            <span>Profile</span>
-          </Link>
+                />
+              </div>
+              <span>Profile</span>
+            </Link>
 
-          {/* <Link
+            {/* <Link
             href={data.upwork ?? "#"}
             target="_blank"
             className="h-[3rem] w-[3rem] rounded-full relative bg-sectionBG text-white flex items-center justify-center animate-bounce cursor-pointer hover:bg-white hover:text-primary border border-transparent hover:border-primary duration-300"
           >
             <MoveUpRight className="w-8 h-8" />
           </Link> */}
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );

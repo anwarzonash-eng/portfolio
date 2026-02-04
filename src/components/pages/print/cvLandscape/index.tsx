@@ -268,7 +268,7 @@ const CV_Landscape = ({ params }: { params: any }) => {
 
           {/* Skills Section */}
           <section className="print:h-screen print:section flex items-center justify-center !w-full overflow-hidden relative my-[4rem] print:m-0">
-            <NoteDomainForPint direction={"hidden print:right-0 print:block"} />
+            {!urlInfo?.hideLinks && <NoteDomainForPint direction={"hidden print:right-0 print:block"} />}
             <div className="max-w-[1550px] w-full mx-auto flex gap-[3rem]">
               {/* Side Panel */}
               <aside className="max-w-[35rem] w-full flex-shrink-0 bg-cvSideBg bg-no-repeat bg-cover p-[2.5rem] px-[4rem]">
@@ -388,9 +388,10 @@ const CV_Landscape = ({ params }: { params: any }) => {
               {/* Professional Experience Timeline Section 1✅ */}
               <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center p-[4rem] relative">
                 {/* Note and Domain For Each Page */}
+                {!urlInfo?.hideLinks && (
                 <NoteDomainForPint
                   direction={"hidden print:right-0 print:block"}
-                />
+                />)}
                 <div className="max-w-[1550px] w-full mx-auto">
                   {/* Badge */}
                   <div className="flex items-center justify-center pb-[2rem]">
@@ -646,9 +647,10 @@ const CV_Landscape = ({ params }: { params: any }) => {
               {/* Professional Experience Timeline Section 2✅ */}
               <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center p-[4rem] relative">
                 {/* Note and Domain For Each Page */}
+                {!urlInfo?.hideLinks && (
                 <NoteDomainForPint
                   direction={"hidden print:right-0 print:block"}
-                />
+                />)}
                 <div className="max-w-[1550px] w-full mx-auto">
                   {/* Timeline */}
                   <div className="max-w-[1550px] w-full mx-auto flex items-center justify-center mt-[2rem] print:m-0 ">
@@ -898,9 +900,10 @@ const CV_Landscape = ({ params }: { params: any }) => {
               {/* Professional Experience Timeline Section 3✅ */}
               <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center p-[4rem] relative">
                 {/* Note and Domain For Each Page */}
+                {!urlInfo?.hideLinks && (
                 <NoteDomainForPint
                   direction={"hidden print:right-0 print:block"}
-                />
+                />)}
                 <div className="max-w-[1550px] w-full mx-auto">
                   {/* Timeline */}
                   <div className="max-w-[1550px] w-full mx-auto flex items-center justify-center mt-[2rem] print:m-0 ">
@@ -1157,9 +1160,10 @@ const CV_Landscape = ({ params }: { params: any }) => {
           {listOfdata && listOfdata?.portfolios_ids?.length > 0 && (
             <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center flex-col overflow-hidden relative my-[4rem] print:m-0">
               {/* Note and Domain For Each Page */}
+              {!urlInfo?.hideLinks && (
               <NoteDomainForPint
                 direction={"hidden print:right-0 print:block"}
-              />
+              />)}
               {/* Title and View All Link */}
               <div className="flex items-center justify-center">
                 <h2 className="badge">Portfolios</h2>
@@ -1195,9 +1199,10 @@ const CV_Landscape = ({ params }: { params: any }) => {
           {listOfdata && listOfdata?.portfolios_ids?.length > 0 && (
             <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center flex-col overflow-hidden relative my-[4rem] print:m-0">
               {/* Note and Domain For Each Page */}
+              {!urlInfo?.hideLinks && (
               <NoteDomainForPint
                 direction={"hidden print:right-0 print:block"}
-              />
+              />)}
               {listOfdata?.portfolios_ids?.map((portfolio, index) => {
                 if (index !== 1) {
                   return null;
@@ -1229,9 +1234,10 @@ const CV_Landscape = ({ params }: { params: any }) => {
           {listOfdata && listOfdata?.portfolios_ids?.length > 0 && (
             <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center flex-col overflow-hidden relative my-[4rem] print:m-0">
               {/* Note and Domain For Each Page */}
+              {!urlInfo?.hideLinks && (
               <NoteDomainForPint
                 direction={"hidden print:right-0 print:block"}
-              />
+              />)}
               {listOfdata?.portfolios_ids?.map((portfolio, index) => {
                 if (index !== 2) {
                   return null;

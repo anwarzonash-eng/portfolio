@@ -1,6 +1,7 @@
 "use client";
 
 import { modifiedContent } from "@/hooks/modifiedContent";
+import { modifiedContentHideLinks } from "@/hooks/modifiedContentHideLinks";
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 
@@ -19,12 +20,14 @@ const pxToMm = (px: number) => px / (96 / 25.4);
 interface OverviewCvPortraitProps {
   listOfdata: any;
   filteredSkills: any;
+  hideLinks?: boolean;
   // isPrinting: boolean;
 }
 
 const OverviewCvPortrait = ({
   listOfdata,
   filteredSkills,
+  hideLinks,
 }: // isPrinting,
 OverviewCvPortraitProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -80,7 +83,11 @@ OverviewCvPortraitProps) => {
             : {}
         }
         dangerouslySetInnerHTML={{
-          __html: modifiedContent(
+          __html: hideLinks ? modifiedContentHideLinks (
+            listOfdata?.skills,
+            filteredSkills,
+            listOfdata
+          ) : modifiedContent(
             listOfdata?.skills,
             filteredSkills,
             listOfdata
@@ -89,7 +96,7 @@ OverviewCvPortraitProps) => {
       />
 
       {/* Read More Button */}
-      {showButton && (
+      {showButton && !hideLinks && (
         <div className="flex items-center justify-center w-full">
           <Link
             ref={buttonRef}

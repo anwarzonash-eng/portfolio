@@ -6,9 +6,10 @@ import { Phone, AtSign, MapPin, GithubIcon, Link } from "lucide-react";
 
 type CV2HeaderProps = {
   listOfdata: any;
+  hideLinks?: boolean;
 };
 
-const CV2Header: React.FC<CV2HeaderProps> = ({ listOfdata }) => {
+const CV2Header: React.FC<CV2HeaderProps> = ({ listOfdata, hideLinks }) => {
   const headerInfo = [
     listOfdata?.phone_no && { icon: Phone, value: listOfdata.phone_no },
     listOfdata?.email && { icon: AtSign, value: listOfdata.email },

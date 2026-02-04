@@ -14,7 +14,8 @@ interface HomeHeroSectionProps {
   isOverflowing: boolean;
   scrollToSection: (key: string) => void;
   skillsContainerRef: React.RefObject<HTMLDivElement>;
-  skills: Record<string, Skill[]>;   // 👈 FIX HERE
+  skills: Record<string, Skill[]>; // 👈 FIX HERE
+  hideLinks?: boolean;
 }
 
 const HomeHeroSection: React.FC<HomeHeroSectionProps> = ({
@@ -23,11 +24,10 @@ const HomeHeroSection: React.FC<HomeHeroSectionProps> = ({
   scrollToSection,
   skillsContainerRef,
   skills,
+  hideLinks,
 }) => {
   return (
     <div className="print:h-screen print:section bg-bannerBG !w-full overflow-hidden relative">
-      {/* Note and Domain For Each Page */}
-      <NoteDomainForPint direction={"hidden print:right-0 print:block"} />
       {/* Hero Section  */}
       <div className="max-w-[1550px] w-full mx-auto px-[4rem]">
         <div className="text-center mt-[3rem] print:mt-0 print:pt-[3rem]">
@@ -44,14 +44,16 @@ const HomeHeroSection: React.FC<HomeHeroSectionProps> = ({
                              max-w-[45rem] rounded-[5rem] text-center text-[2.4rem] font-bold text-white border-none outline-none mb-[0.5rem]"
             >
               {listOfdata?.designation?.split("|").map((item, index) => (
-                <div key={index} className="text-center">
+                <div key={index} className={`text-center ${index === 0 ? "text-[2.4rem] font-bold text-white": "text-[1.6rem] font-semibold text-gray-300"}`}>
                   {item.trim()}
                 </div>
               ))}
             </div>
-            <div className="ml-10">
-              <DesignationDomain />
-            </div>
+            {hideLinks ? null : (
+              <div className="ml-10">
+                <DesignationDomain />
+              </div>
+            )}
           </div>
           <div className="mt-[-12rem] flex justify-center relative">
             {/* Center Dev Image */}
@@ -72,7 +74,9 @@ const HomeHeroSection: React.FC<HomeHeroSectionProps> = ({
                   <h3 className="text-[4rem] font-medium leading-[4rem]">
                     ${listOfdata?.hourly_rate}
                   </h3>
-                  <p className="text-[2rem] font-normal">{listOfdata?.salary_type === "per_day" ? "day" : "hour"}</p>
+                  <p className="text-[2rem] font-normal">
+                    {listOfdata?.salary_type === "per_day" ? "day" : "hour"}
+                  </p>
                 </div>
                 <hr className="h-[6rem] w-[0.1rem] bg-border" />
                 <div className="text-primary">
@@ -100,7 +104,7 @@ const HomeHeroSection: React.FC<HomeHeroSectionProps> = ({
                       <div className="text-left text-white text-[1.8rem] font-medium">
                         My Skills
                       </div>
-                      {isOverflowing && (
+                      {isOverflowing && !hideLinks && (
                         <button
                           onClick={() => scrollToSection("skills_ids")}
                           className="py-[3px] px-[1.6rem] text-center text-primary text-[1rem] font-medium bg-white rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn"
@@ -121,7 +125,7 @@ const HomeHeroSection: React.FC<HomeHeroSectionProps> = ({
                         .map((skill, i) => {
                           return (
                             <>
-                              {skill.url ? (
+                              {skill.url && !hideLinks ? (
                                 <Link
                                   href={skill.url || "#"}
                                   legacyBehavior

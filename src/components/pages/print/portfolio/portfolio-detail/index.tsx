@@ -268,6 +268,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
           listOfdata={listOfdata}
           listOfdatas={listOfdatas}
           urlInfo={urlInfo}
+          hideLinks={urlInfo?.hideLinks}
         />
       ),
     },
@@ -280,6 +281,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
           formatDate={formatDate}
           dateFormatsOptions={dateFormatsOptions}
           Portfoliodetailbg={Portfoliodetailbg}
+          hideLinks={urlInfo?.hideLinks}
         />
       ),
     },
@@ -294,6 +296,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
           filteredSkills={filteredSkills}
           listOfdata={listOfdata}
           skillsforDetailPortfolio={skillsforDetailPortfolio}
+          hideLinks={urlInfo?.hideLinks}
         />
       ),
     },
@@ -308,6 +311,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
             params?.id ||
             listOfdata?.portfolios_ids?.[0]?.id
           }
+          hideLinks={urlInfo?.hideLinks}
         />
       ),
     },
@@ -319,6 +323,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
           portfolioDetails={portfolioDetails}
           filteredSkills={filteredSkills}
           listOfdata={listOfdata}
+          hideLinks={urlInfo?.hideLinks}
         />
       ),
     },
@@ -328,6 +333,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
         <PortfolioDetailUpworkSection
           listOfdata={listOfdata}
           urlInfo={urlInfo}
+          hideLinks={urlInfo?.hideLinks}
         />
       ),
     },
@@ -340,6 +346,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
           numColumns={7}
           numSkills={35}
           portfolioId={listOfdata?.portfolios_ids[0]?.id}
+          hideLinks={urlInfo?.hideLinks}
         />
       ),
     },
@@ -349,6 +356,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
         <PortfolioDetailSliderSection
           portfolioDetails={portfolioDetails}
           params={params}
+          hideLinks={urlInfo?.hideLinks}
         />
       ),
     },
@@ -363,6 +371,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
           loadingblogs={loadingblogs}
           blogsList={blogsList}
           getImageForIndex={getImageForIndex}
+          hideLinks={urlInfo?.hideLinks}
         />
       ),
     },
@@ -503,6 +512,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
         imagesReady &&
         listOfskills.length > 0
       }
+      hideLinks={urlInfo?.hideLinks}
     />
   );
 };

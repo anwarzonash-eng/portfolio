@@ -17,11 +17,12 @@ interface AreasOfExpertiesSkillComponentProps {
   index: number;
   groupIndex?: number | null; // ✅ optional or null
   variant?: Variant; // default: "small"
+  hideLinks?: boolean;
 }
 
 const AreasOfExpertiesSkillComponent: React.FC<
   AreasOfExpertiesSkillComponentProps
-> = ({ skill, index, groupIndex, variant = "small" }) => {
+> = ({ skill, index, groupIndex, variant = "small", hideLinks }) => {
   const animationDelay = `${index * 0.1}s`;
 
   // Define style variants
@@ -43,7 +44,7 @@ const AreasOfExpertiesSkillComponent: React.FC<
   const key = groupIndex != null ? `${groupIndex}-${index}` : `${index}`;
 
   // Render
-  if (skill.url) {
+  if (skill.url && !hideLinks) {
     return (
       <Link href={skill.url || "#"} legacyBehavior key={key}>
         <a
@@ -77,6 +78,7 @@ const ExperienceCvPortrait = ({
   skillsGrouping,
   showMoreSkills = [],
   filteredSkills,
+  hideLinks,
   start = 0,
   end,
 }) => {
@@ -106,7 +108,7 @@ const ExperienceCvPortrait = ({
     // Check if any of the first 6 skills has a long name (more than 12 characters)
     const first6Skills = skills.slice(0, 6);
     const hasLongSkillNames = first6Skills.some(
-      (skill) => skill.title && skill.title.length > 12
+      (skill) => skill.title && skill.title.length > 12,
     );
 
     // If there are long names, show 5 skills to leave room for button
@@ -126,7 +128,7 @@ const ExperienceCvPortrait = ({
         const totalSkills = experience?.skills?.length || 0;
         const first6Skills = experience?.skills?.slice(0, 6) || [];
         const hasLongSkillNames = first6Skills.some(
-          (skill) => skill.title && skill.title.length > 12
+          (skill) => skill.title && skill.title.length > 12,
         );
         const skillsDisplayed = hasLongSkillNames ? 5 : 6;
         const shouldShowMoreButton = totalSkills > skillsDisplayed;
@@ -164,6 +166,7 @@ const ExperienceCvPortrait = ({
                 </div>
 
                 {/* Link */}
+                {!hideLinks &&
                 <div className="flex justify-end w-auto">
                   <div className="flex flex-col-reverse gap-[1rem] max-w-max">
                     {experience &&
@@ -190,18 +193,18 @@ const ExperienceCvPortrait = ({
                                   absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
                               />
                             </div> */}
-                           <div className="h-[3.5rem] w-[10rem] relative mx-2 inline-block overflow-hidden rounded-[10rem] px-2 bg-white">
-                                         <Image
-                                           src="/images/upworkText.svg"
-                                           alt="Upwork Logo"
-                                           width={100}
-                                           height={35}
-                                           loading="eager"
-                                           priority={true}
-                                           className="h-full w-full object-contain object-center p-[0.5rem]
+                            <div className="h-[3.5rem] w-[10rem] relative mx-2 inline-block overflow-hidden rounded-[10rem] px-2 bg-white">
+                              <Image
+                                src="/images/upworkText.svg"
+                                alt="Upwork Logo"
+                                width={100}
+                                height={35}
+                                loading="eager"
+                                priority={true}
+                                className="h-full w-full object-contain object-center p-[0.5rem]
                                                         border-transparent absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-                                         />
-                                       </div>
+                              />
+                            </div>
                             <span>Profile</span>
                           </Link>
                         </div>
@@ -222,6 +225,7 @@ const ExperienceCvPortrait = ({
                     )}
                   </div>
                 </div>
+                }
               </div>
               <h1 className="mb-[1rem] text-primary text-[1.8rem] leading-[2rem] font-bold">
                 {new Date(experience.starting_date).toLocaleString("en-US", {
@@ -245,16 +249,18 @@ const ExperienceCvPortrait = ({
                   __html: modifiedContent(
                     experience?.short_description,
                     filteredSkills,
-                    listOfdata
+                    listOfdata,
                   ),
                 }}
               />
-              <Link
-                href={`/cv?sectionId=experienceSection&experienceId=${experience.id}`} // Navigate to CV page with experience ID
-                className="hover:bg-white bg-primary text-white hover:text-primary capitalize text-center text-primary text-[1.2rem] font-medium py-[0.4rem] px-[1.5rem] inline-flex items-center justify-center gap-[8px] rounded-[5rem] shadow opacity-0 animate-fadeIn relative group border border-transparent hover:border-primary mt-[1rem]"
-              >
-                Read More
-              </Link>
+              {!hideLinks && (
+                <Link
+                  href={`/cv?sectionId=experienceSection&experienceId=${experience.id}`} // Navigate to CV page with experience ID
+                  className="hover:bg-white bg-primary text-white hover:text-primary capitalize text-center text-primary text-[1.2rem] font-medium py-[0.4rem] px-[1.5rem] inline-flex items-center justify-center gap-[8px] rounded-[5rem] shadow opacity-0 animate-fadeIn relative group border border-transparent hover:border-primary mt-[1rem]"
+                >
+                  Read More
+                </Link>
+              )}
             </div>
 
             <hr className="w-full my-[1rem] h-px bg-border" />
@@ -275,12 +281,13 @@ const ExperienceCvPortrait = ({
                               skill={skill}
                               index={i}
                               groupIndex={groupIndex}
+                              hideLinks={hideLinks}
                             />
                           ))}
                         </React.Fragment>
-                      )
+                      ),
                     )}
-                    {shouldShowMoreButton && (
+                    {shouldShowMoreButton && !hideLinks && (
                       <Link
                         href={`/cv?sectionId=experienceSection&experienceId=${experience.id}`}
                         className="hover:bg-white bg-primary text-white hover:text-primary capitalize text-center text-primary text-[1.2rem] font-medium py-[0.4rem] px-[1.5rem] inline-flex items-center justify-center gap-[8px] rounded-[5rem] shadow opacity-0 animate-fadeIn relative group border border-transparent hover:border-primary"

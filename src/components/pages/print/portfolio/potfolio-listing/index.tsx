@@ -407,6 +407,7 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
       componentsList={componentsList}
       orientation="Portrait"
       isDataReady={!loading && listOfdata && urlInfo && imagesReady}
+      hideLinks={urlInfo?.hideLinks}
     />
   );
 };

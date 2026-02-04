@@ -175,7 +175,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
     {
       componentType: "static",
       clickableNote: true,
-      component: <IntroCvPortrait listOfdata={listOfdata} urlInfo={urlInfo} />,
+      component: <IntroCvPortrait listOfdata={listOfdata} urlInfo={urlInfo} hideLinks={urlInfo?.hideLinks} />,
     },
 
     // Overview & Skills - only if skills data exists
@@ -189,6 +189,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
               <OverviewCvPortrait
                 filteredSkills={filteredSkills}
                 listOfdata={listOfdata}
+                hideLinks={urlInfo?.hideLinks}
                 // isPrinting={isPrinting}
               />
             ),
@@ -207,6 +208,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
                 list={sortedSkills}
                 numColumns={5}
                 numSkills={20}
+                hideLinks={urlInfo?.hideLinks}
               />
             ),
           },
@@ -225,6 +227,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
                 listOfdata={listOfdata}
                 showMoreSkills={showMoreSkillsForExperiences}
                 skillsGrouping={skillsGrouping}
+                hideLinks={urlInfo?.hideLinks}
                 start={0}
                 end={3}
               />
@@ -246,6 +249,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
                   listOfdata={listOfdata}
                   showMoreSkills={showMoreSkillsForExperiences}
                   skillsGrouping={skillsGrouping}
+                  hideLinks={urlInfo?.hideLinks}
                   start={3}
                   end={6}
                 />
@@ -254,6 +258,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
                     Read More
                   </button>
                 </div>
+                {!urlInfo?.hideLinks &&
                 <div className="flex justify-center mt-8">
                   <Link
                     href={`/cv?scrollTo=experiences&expand=true`}
@@ -263,6 +268,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
                     View All Experiences
                   </Link>
                 </div>
+                }
               </div>
             ),
           },
@@ -287,6 +293,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
                   portfolioId={listOfdata.portfolios_ids[0].id}
                   listOfskills={listOfskills}
                   listOfdata={listOfdata}
+                  hideLinks={urlInfo?.hideLinks}
                   from={1}
                   max={2}
                 />
@@ -314,6 +321,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
                   portfolioId={listOfdata.portfolios_ids[0].id}
                   listOfskills={listOfskills}
                   listOfdata={listOfdata}
+                  hideLinks={urlInfo?.hideLinks}
                   from={2}
                   max={3}
                 />
@@ -341,6 +349,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
                   portfolioId={listOfdata.portfolios_ids[0].id}
                   listOfskills={listOfskills}
                   listOfdata={listOfdata}
+                  hideLinks={urlInfo?.hideLinks}
                   from={3}
                   max={4}
                 />
@@ -368,6 +377,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
                   portfolioId={listOfdata.portfolios_ids[0].id}
                   listOfskills={listOfskills}
                   listOfdata={listOfdata}
+                  hideLinks={urlInfo?.hideLinks}
                   from={4}
                   max={5}
                 />
@@ -395,10 +405,11 @@ const CV_Portrait = ({ params }: { params: any }) => {
                   portfolioId={listOfdata.portfolios_ids[0].id}
                   listOfskills={listOfskills}
                   listOfdata={listOfdata}
+                  hideLinks={urlInfo?.hideLinks}
                   from={5}
                   max={6}
                 />
-                <div className="flex justify-center items-center mt-[1.5rem]">
+                {!urlInfo?.hideLinks && <div className="flex justify-center items-center mt-[1.5rem]">
                   <Link
                     href={`/cv?scrollTo=portfolios&expand=true`}
                     className="btn-primary text-white py-[1rem] px-[3.4rem]
@@ -406,7 +417,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
                   >
                     View All Portfolios
                   </Link>
-                </div>
+                </div>}
               </div>
             ),
           },
@@ -426,7 +437,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
                 dateFormatsOptions={dateFormatsOptions}
                 formatDate={formatDate}
                 getImageForIndex={getImageForIndex}
-                loadingblogs={loadingblogs}
+                hideLinks={urlInfo?.hideLinks}
               />
             ),
           },
@@ -563,6 +574,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
       componentsList={componentsList}
       orientation="Portrait"
       isDataReady={isDataReady}
+      hideLinks={urlInfo?.hideLinks}
     />
   );
 };

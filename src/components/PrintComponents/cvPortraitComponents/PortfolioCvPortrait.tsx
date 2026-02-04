@@ -7,6 +7,7 @@ import { skillsGrouping } from "@/hooks/skillsGrouping";
 import AreasOfExpertiesSkillComponent from "@/components/AreasOfExpertiesSkillComponent";
 import {ArrowRight } from "lucide-react";
 import { modifiedContent } from "@/hooks/modifiedContent";
+import { modifiedContentHideLinks } from "@/hooks/modifiedContentHideLinks";
 
 type SkillType = {
   title: string;
@@ -38,6 +39,7 @@ interface PortfolioCvPortraitProps {
   portfolioId: string;
   listOfskills: any;
   listOfdata: any;
+  hideLinks?: boolean;
   from: number;
   max?: number;
 }
@@ -49,6 +51,7 @@ const PortfolioCvPortrait: React.FC<PortfolioCvPortraitProps> = ({
   portfolioId,
   listOfskills,
   listOfdata,
+  hideLinks,
   from,
   max,
 }) => {
@@ -161,13 +164,14 @@ const PortfolioCvPortrait: React.FC<PortfolioCvPortraitProps> = ({
                           <div
                             dangerouslySetInnerHTML={{
                               __html: modifiedContent(
-                                portfolio.tagline_2,
-                                listOfskills,
-                                listOfdata
-                              ),
+                                 portfolio.tagline_1,
+                                 listOfskills,
+                                 listOfdata
+                               ) 
                             }}
-                             className="text-[1.6rem] leading-[2rem] font-normal text-primary mt-[1rem] line-clamp-3"
+                             className={`text-[1.6rem] leading-[2rem] font-normal text-primary mt-[1rem] ${hideLinks ? 'line-clamp-6' : 'line-clamp-3'}`}
                           ></div>
+                          {!hideLinks && (
                           <div className="w-full flex items-start mt-[2rem]">
                             <Link
                               href={`/cv?sectionId=portfolioSection&portfolioId=${portfolio.id}`}
@@ -176,6 +180,7 @@ const PortfolioCvPortrait: React.FC<PortfolioCvPortraitProps> = ({
                               Read More
                             </Link>
                           </div>
+                          )}
                         </div>
                       </div>
 
@@ -196,7 +201,7 @@ const PortfolioCvPortrait: React.FC<PortfolioCvPortraitProps> = ({
                             )
                           )}
 
-                          {shouldShowSeeMore && (
+                          {shouldShowSeeMore && !hideLinks && (
                             <Link
                               href={`/cv?sectionId=portfolioSection&portfolioId=${portfolio.id}`}
                               className="hover:bg-white bg-primary text-white hover:text-primary capitalize text-center text-primary text-[1.3rem] font-medium py-[0.4rem] px-[2rem] flex items-center justify-center gap-[8px] rounded-[5rem] shadow opacity-0 animate-fadeIn relative group border border-transparent hover:border-primary"
@@ -207,9 +212,12 @@ const PortfolioCvPortrait: React.FC<PortfolioCvPortraitProps> = ({
                         </div>
                       </div>
                     </div>
-
+                    {!hideLinks && (
                     <hr className="w-full my-[2rem] h-px bg-border" />
+                    )}
 
+                    {/* Action Buttons */}
+                    {!hideLinks && (
                     <div className={`flex  gap-[1.4rem] w-full`}>
                       <Link
                         href={`/portfolio/${portfolio.id}`}
@@ -234,7 +242,7 @@ const PortfolioCvPortrait: React.FC<PortfolioCvPortraitProps> = ({
                           Check Client Testimonial
                         </Link>
                       )}
-                    </div>
+                    </div>)}
                   </div>
 
                   {/* Image Section */}
@@ -271,7 +279,7 @@ const PortfolioCvPortrait: React.FC<PortfolioCvPortraitProps> = ({
                       </div>
                     )}
 
-                    <Link
+                    {!hideLinks && <Link
                       href={`/portfolio?sectionId=${portfolio.id}&openGallery=true`}
                       className="text-white py-[6px] mt-[17px] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent hover:border-primary duration-300 max-lg:w-full text-center rounded-[0.6rem] relative max-w-max text-nowrap"
                     >
@@ -280,7 +288,7 @@ const PortfolioCvPortrait: React.FC<PortfolioCvPortraitProps> = ({
                         <ArrowRight />
                       </span>
                       <span className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                    </Link>
+                    </Link>}
                   </div>
                 </div>
               </div>

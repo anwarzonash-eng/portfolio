@@ -17,6 +17,7 @@ interface SkillsContainerProps {
   layoutType?: boolean;
   useLinks?: boolean;
   autoExpandOnParam?: boolean;
+  hideLinks?: boolean;
   portfolioId?: string;
   numColumns?: number;
   numSkills?: number;
@@ -27,6 +28,7 @@ const SkillsCvPortrait: React.FC<SkillsContainerProps> = ({
   layoutType = false,
   useLinks = true,
   autoExpandOnParam = false,
+  hideLinks,
   numColumns = 5,
   numSkills = 20,
 }) => {
@@ -107,7 +109,7 @@ const SkillsCvPortrait: React.FC<SkillsContainerProps> = ({
                   style={{ animationDelay: `${i * 0.03}s` }}
                   className="mx-auto mb-[4rem] flex flex-col items-center justify-center gap-[0.8rem] max-w-[13rem] animate-fadeIn opacity-0"
                 >
-                  {useLinks && skill.url ? (
+                  {useLinks && skill.url && !hideLinks ? (
                     <Link
                       href={skill.url}
                       target="_blank"
@@ -128,7 +130,7 @@ const SkillsCvPortrait: React.FC<SkillsContainerProps> = ({
       </div>
 
       {/* === See More Button === */}
-      {showSeeMoreButton && (
+      {showSeeMoreButton && !hideLinks && (
         <Link
           href="/cv"
           className="px-[4rem] py-[1.4rem] bg-primary rounded-[2.2rem] hover:bg-white hover:text-primary hover:border-primary border border-border text-white text-[1.4rem] font-medium leading-tight mx-auto mt-[1rem]"

@@ -238,7 +238,7 @@ const CV2 = ({ params }: { params: any }) => {
       clickableNote: false,
       component: (
         <div className="w-full relative p-[2rem]">
-          <CV2HeaderP listOfdata={listOfdata} />
+          <CV2HeaderP listOfdata={listOfdata} hideLinks={urlInfo?.hideLinks} />
           <CV2SummaryP summary={summary} />
           <CV2SkillsP sortedSkills={sortedSkills} />
         </div>
@@ -356,6 +356,7 @@ const CV2 = ({ params }: { params: any }) => {
       orientation="Portrait"
       isDataReady={isDataReady}
       hideNotes={true}
+      hideLinks={urlInfo?.hideLinks}
     />
   );
 };

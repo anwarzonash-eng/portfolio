@@ -22,6 +22,7 @@ interface Testimonial {
 interface HomeTestimonialSectionProps {
   testimonials: Testimonial[];
   designation: string; // This is required for processReviewText
+  hideLinks?: boolean;
 }
 
 interface VideoPlayerProps {
@@ -71,6 +72,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, poster }) => {
 const HomeTestimonialSection: React.FC<HomeTestimonialSectionProps> = ({
   testimonials,
   designation,
+  hideLinks,
 }) => {
   // Use only the first testimonial
   const testimonial = testimonials[0];
@@ -136,7 +138,7 @@ const HomeTestimonialSection: React.FC<HomeTestimonialSectionProps> = ({
                   <span className="inline-block mr-[0.5rem]">
                     {testimonial.client_designation} {" @ "}
                   </span>
-                  {testimonial.client_company_website && (
+                  {testimonial.client_company_website && !hideLinks ? (
                     <>
                       <a
                         href={testimonial.client_company_website}
@@ -148,34 +150,38 @@ const HomeTestimonialSection: React.FC<HomeTestimonialSectionProps> = ({
                         {companyDomain}
                       </a>
                     </>
-                  )}
+                  ) : testimonial.client_company_website && hideLinks ? (
+                    <span className="text-white">{companyDomain}</span>
+                  ) : null}
                 </div>
               </div>
             </div>
 
             {/* Social Links */}
-            <div className="flex gap-4">
-              {testimonial.linked_in && (
-                <a
-                  href={testimonial.linked_in}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-white hover:text-cyan-300 transition"
-                >
-                  <LinkedIn className="w-[4rem] h-[4rem]" />
-                </a>
-              )}
-              {testimonial.instagram && (
-                <a
-                  href={testimonial.instagram}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-white hover:text-cyan-300 transition"
-                >
-                  <Instagram className="w-[4rem] h-[4rem]" />
-                </a>
-              )}
-            </div>
+            {!hideLinks && (
+              <div className="flex gap-4">
+                {testimonial.linked_in && (
+                  <a
+                    href={testimonial.linked_in}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-white hover:text-cyan-300 transition"
+                  >
+                    <LinkedIn className="w-[4rem] h-[4rem]" />
+                  </a>
+                )}
+                {testimonial.instagram && (
+                  <a
+                    href={testimonial.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-white hover:text-cyan-300 transition"
+                  >
+                    <Instagram className="w-[4rem] h-[4rem]" />
+                  </a>
+                )}
+              </div>
+            )}
           </div>
         </div>
 

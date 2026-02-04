@@ -38,6 +38,7 @@ interface RoutesInfo {
   u: string | false; // "_" ya false
   a: string | false; // "_" ya false
   domain: string;
+  hideLinks: boolean; // true when ?link=false
 }
 
 
@@ -54,6 +55,7 @@ export const getRoutesDetails = async (
     u: false,
     a: isAdmin ? "_" : false,
     domain: "",
+    hideLinks: routeParams?.get("link") === "false",
   };
 
 
@@ -88,6 +90,9 @@ export const getRoutesDetails = async (
 
   let isShortURL = false;
   let isPrintURL = checkPrintURL();
+
+  // Set hideLinks for non-admin flow as well
+  routesInfo.hideLinks = routeParams?.get("link") === "false";
 
   if (routeParams?.get("d")) {
     routesInfo.domain = routeParams.get("d") as string;

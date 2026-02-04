@@ -20,6 +20,7 @@ interface SkillsContainerProps {
   portfolioId?: string;
   numColumns?: number;
   numSkills?: number;
+  hideLinks?: boolean;
 }
 
 const HomeSkillsSection: React.FC<SkillsContainerProps> = ({
@@ -29,8 +30,7 @@ const HomeSkillsSection: React.FC<SkillsContainerProps> = ({
   autoExpandOnParam = false,
   portfolioId,
   numColumns = 6,
-  numSkills = 24,
-}) => {
+  numSkills = 24,  hideLinks = false,}) => {
   const router = useRouter();
 
   const handleSeeMorePrint = () => {
@@ -113,7 +113,7 @@ const HomeSkillsSection: React.FC<SkillsContainerProps> = ({
                   style={{ animationDelay: `${i * 0.03}s` }}
                   className="mx-auto flex flex-col items-center justify-center gap-[0.8rem] max-w-[13rem] animate-fadeIn opacity-0"
                 >
-                  {useLinks && skill.url ? (
+                  {useLinks && skill.url && !hideLinks ? (
                     <Link
                       href={skill.url}
                       target="_blank"
@@ -134,7 +134,7 @@ const HomeSkillsSection: React.FC<SkillsContainerProps> = ({
       </div>
 
       {/* === See More Button === */}
-      {showSeeMoreButton && (
+      {showSeeMoreButton && !hideLinks && (
         <Link
           href="/?scroll=skills&expand=true"
           className="px-[4rem] py-[1.4rem] bg-primary rounded-[2.2rem] hover:bg-white hover:text-primary hover:border-primary border border-border text-white text-[1.4rem] font-medium leading-tight mx-auto mt-[1rem]"

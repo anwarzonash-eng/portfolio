@@ -18,7 +18,7 @@ declare global {
   }
 }
 
-const HomeContactMeSection = ({ listOfdata, formatPhoneNumber }) => {
+const HomeContactMeSection = ({ listOfdata, formatPhoneNumber, hideLinks }) => {
   interface ConstactLinks {
     href: string;
     src: string;
@@ -81,7 +81,7 @@ const HomeContactMeSection = ({ listOfdata, formatPhoneNumber }) => {
           Book either an appointment or explore following option for quick chat:
         </div>
         {/* Info Cards */}
-        <div className="grid grid-cols-2 gap-[1.5rem] mb-[2rem]">
+        <div className={`${hideLinks ? "flex items-center justify-center flex-wrap w-full":"grid grid-cols-2"} gap-[1.5rem] mb-[2rem]`}>
           <div className="w-full border border-border border-solid p-[1.5rem] rounded-[0.8rem] flex items-center gap-[1.5rem]">
             <Image
               src={"/images/envelop.svg"}
@@ -97,12 +97,18 @@ const HomeContactMeSection = ({ listOfdata, formatPhoneNumber }) => {
                 <p className="text-paragraph1 text-[1.4rem] uppercase">
                   Chat with me
                 </p>
-                <Link
-                  href={`mailto:${listOfdata?.email}`}
-                  className="text-heading text-[1.5rem] hover:text-primary duration-300 "
-                >
-                  {listOfdata?.email}
-                </Link>
+                {!hideLinks ? (
+                  <Link
+                    href={`mailto:${listOfdata?.email}`}
+                    className="text-heading text-[1.5rem] hover:text-primary duration-300 "
+                  >
+                    {listOfdata?.email}
+                  </Link>
+                ) : (
+                  <p className="text-heading text-[1.5rem] hover:text-primary duration-300 ">
+                    {listOfdata?.email}
+                  </p>
+                )}
               </div>
             </div>
           </div>
@@ -116,7 +122,18 @@ const HomeContactMeSection = ({ listOfdata, formatPhoneNumber }) => {
               alt="phone"
               className="h-[4rem] w-[4rem]"
             />
-            <Link href={`tel:${listOfdata?.phone_no}`}>
+            {!hideLinks ? (
+              <Link href={`tel:${listOfdata?.phone_no}`}>
+                <div className="w-full font-medium">
+                  <p className="text-paragraph1 text-[1.2rem] uppercase">
+                    Call Me
+                  </p>
+                  <h4 className="text-heading text-[1.5rem] hover:text-primary duration-300 ">
+                    {formatPhoneNumber(listOfdata?.phone_no)}
+                  </h4>
+                </div>
+              </Link>
+            ) : (
               <div className="w-full font-medium">
                 <p className="text-paragraph1 text-[1.2rem] uppercase">
                   Call Me
@@ -125,7 +142,7 @@ const HomeContactMeSection = ({ listOfdata, formatPhoneNumber }) => {
                   {formatPhoneNumber(listOfdata?.phone_no)}
                 </h4>
               </div>
-            </Link>
+            )}
           </div>
           <div className="w-full border border-border border-solid p-[1.5rem] rounded-[0.8rem] flex items-center gap-[1.5rem]">
             <Image
@@ -143,15 +160,21 @@ const HomeContactMeSection = ({ listOfdata, formatPhoneNumber }) => {
                   <p className="text-paragraph1 text-[1.2rem] uppercase ">
                     Address
                   </p>
-                  <Link
-                    target="_blank"
-                    className="text-heading text-[1.5rem] hover:text-primary duration-300 "
-                    href={`https://www.google.com/maps/place/${listOfdata?.location}
+                  {!hideLinks ? (
+                    <Link
+                      target="_blank"
+                      className="text-heading text-[1.5rem] hover:text-primary duration-300 "
+                      href={`https://www.google.com/maps/place/${listOfdata?.location}
                   )}`}
-                  >
-                    {listOfdata?.location}
-                  </Link>
-                </div>{" "}
+                    >
+                      {listOfdata?.location}
+                    </Link>
+                  ) : (
+                    <p className="text-heading text-[1.5rem] hover:text-primary duration-300">
+                      {listOfdata?.location}
+                    </p>
+                  )}
+                </div>
               </div>
 
               {listOfdata?.location?.includes("Manchester, UK") && (
@@ -167,31 +190,34 @@ const HomeContactMeSection = ({ listOfdata, formatPhoneNumber }) => {
               )}
             </div>
           </div>
-          <div className="w-full border border-border border-solid p-[1.5rem] rounded-[0.8rem] flex items-center justify-start gap-8">
-            {constactLinks.map(({ href, src, alt }) =>
-              href ? (
-                <Tooltip
-                  text={`My ${alt.charAt(0).toUpperCase() + alt.slice(1)}`}
-                  key={alt}
-                >
-                  <Link href={href} target="_blank">
-                    <Image
-                      src={src}
-                      loading="eager"
-                      priority={true}
-                      height={50}
-                      width={50}
-                      alt={alt}
-                    />
-                  </Link>
-                </Tooltip>
-              ) : null
-            )}
-          </div>
+          {!hideLinks && (
+            <div className="w-full border border-border border-solid p-[1.5rem] rounded-[0.8rem] flex items-center justify-start gap-8">
+              {constactLinks.map(({ href, src, alt }) =>
+                href ? (
+                  <Tooltip
+                    text={`My ${alt.charAt(0).toUpperCase() + alt.slice(1)}`}
+                    key={alt}
+                  >
+                    <Link href={href} target="_blank">
+                      <Image
+                        src={src}
+                        loading="eager"
+                        priority={true}
+                        height={50}
+                        width={50}
+                        alt={alt}
+                      />
+                    </Link>
+                  </Tooltip>
+                ) : null,
+              )}
+            </div>
+          )}
         </div>
         {/* Ruler Line */}
 
         {/* Follow Me On Social Media */}
+        {}
         {listOfdata?.behance_link ||
         listOfdata?.twitter ||
         listOfdata?.instagram ||
@@ -200,102 +226,88 @@ const HomeContactMeSection = ({ listOfdata, formatPhoneNumber }) => {
         listOfdata?.phone_no ||
         listOfdata?.upwork ? (
           <>
-            <hr className="w-full h-[1px] bg-border" />
-            <div className="flex justify-between items-start mt-[4rem]
-            px-5">
-              {listOfdata?.behance_link ||
-              listOfdata?.twitter ||
-              listOfdata?.instagram ||
-              listOfdata?.facebook ? (
+            {!hideLinks && <hr className="w-full h-[1px] bg-border" />}
+            {!hideLinks && (
+              <div
+                className="flex justify-between items-start mt-[4rem]
+            px-5"
+              >
+                {listOfdata?.behance_link ||
+                listOfdata?.twitter ||
+                listOfdata?.instagram ||
+                listOfdata?.facebook ? (
+                  <div className="w-full">
+                    <p className="text-[1.6rem] font-normal uppercase text-heading text-left">
+                      Follow me on social media
+                    </p>
+                    {/* SVG Social Icons */}
+                    <div>
+                      <div className="flex items-start justify-normal flex-wrap gap-[1.6rem] mt-[1.4rem]">
+                        {socialMediaLinksForContactComponent?.map((C) => (
+                          <>
+                            {C.link && (
+                              <Link href={C.link} target="_blank">
+                                <C.SVG />
+                              </Link>
+                            )}
+                          </>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                ) : null}
+
                 <div className="w-full">
                   <p className="text-[1.6rem] font-normal uppercase text-heading text-left">
-                    Follow me on social media
+                    Contact Me
                   </p>
                   {/* SVG Social Icons */}
                   <div>
-                    <div className="flex items-start justify-normal flex-wrap gap-[1.6rem] mt-[1.4rem]">
-                      {socialMediaLinksForContactComponent?.map((C) => (
-                        <>
-                          {C.link && (
-                            <Link href={C.link} target="_blank">
-                              <C.SVG />
-                            </Link>
-                          )}
-                        </>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              ) : null}
-
-              <div className="w-full">
-                <p className="text-[1.6rem] font-normal uppercase text-heading text-left">
-                  Contact Me
-                </p>
-                {/* SVG Social Icons */}
-                <div>
-                  <div className="flex items-start flex-wrap gap-[1.6rem] mt-[1.4rem]">
-                    {listOfdata?.phone_no && (
-                      <Tooltip text="My WhatsApp">
-                        <Link
-                          href={`https://wa.me/${listOfdata?.phone_no}`}
-                          target="_blank"
-                        >
-                          <Image
-                            alt="WhatsApp"
-                            src="/images/whatsappforContactComponent.svg"
-                            width={100}
-                            height={100}
-                            loading="eager"
-                            priority={true}
-                            className="h-[4rem] w-[4rem]"
-                          />
-                        </Link>
-                      </Tooltip>
-                    )}
-
-                    {listOfdata?.upwork && (
-                      <Tooltip text="My Upwork">
-                        <Link href={listOfdata?.upwork} target="_blank">
-                          <Image
-                            alt="Upwork"
-                            src="/images/upworkforContactComponent.svg"
-                            width={100}
-                            height={100}
-                            loading="eager"
-                            priority={true}
-                            className="h-[4rem] w-[4rem]"
-                          />
-                        </Link>
-                      </Tooltip>
-                    )}
-
-                    <Tooltip text="Chat Now">
-                      <button
-                        onClick={(e) => openChat(e)}
-                        className="text-primary font-bold text-lg"
-                      >
-                        <div className="h-[4rem] w-[4rem] bg-[#22357b] rounded-lg relative">
-                          <Image
-                            alt="Chat Now"
-                            src="/images/chatNowIcon.svg"
-                            width={100}
-                            height={100}
-                            loading="eager"
-                            priority={true}
-                            className="h-[3rem] w-[3rem] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-                          />
-                        </div>
-                      </button>
-                    </Tooltip>
-
-                    {listOfdata?.calendly_link && (
-                      <Tooltip text="Schedule Meeting">
-                        <Link href={listOfdata?.calendly_link} target="_blank">
-                          <div className="h-[4rem] w-[4rem] bg-[#006bff] rounded-lg flex items-center justify-center relative">
+                    <div className="flex items-start flex-wrap gap-[1.6rem] mt-[1.4rem]">
+                      {listOfdata?.phone_no && (
+                        <Tooltip text="My WhatsApp">
+                          <Link
+                            href={`https://wa.me/${listOfdata?.phone_no}`}
+                            target="_blank"
+                          >
                             <Image
-                              alt=""
-                              src="/images/calendlyicon.svg"
+                              alt="WhatsApp"
+                              src="/images/whatsappforContactComponent.svg"
+                              width={100}
+                              height={100}
+                              loading="eager"
+                              priority={true}
+                              className="h-[4rem] w-[4rem]"
+                            />
+                          </Link>
+                        </Tooltip>
+                      )}
+
+                      {listOfdata?.upwork && (
+                        <Tooltip text="My Upwork">
+                          <Link href={listOfdata?.upwork} target="_blank">
+                            <Image
+                              alt="Upwork"
+                              src="/images/upworkforContactComponent.svg"
+                              width={100}
+                              height={100}
+                              loading="eager"
+                              priority={true}
+                              className="h-[4rem] w-[4rem]"
+                            />
+                          </Link>
+                        </Tooltip>
+                      )}
+
+                      <Tooltip text="Chat Now">
+                        <button
+                          onClick={(e) => openChat(e)}
+                          className="text-primary font-bold text-lg"
+                        >
+                          <div className="h-[4rem] w-[4rem] bg-[#22357b] rounded-lg relative">
+                            <Image
+                              alt="Chat Now"
+                              src="/images/chatNowIcon.svg"
                               width={100}
                               height={100}
                               loading="eager"
@@ -303,13 +315,34 @@ const HomeContactMeSection = ({ listOfdata, formatPhoneNumber }) => {
                               className="h-[3rem] w-[3rem] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
                             />
                           </div>
-                        </Link>
+                        </button>
                       </Tooltip>
-                    )}
+
+                      {listOfdata?.calendly_link && (
+                        <Tooltip text="Schedule Meeting">
+                          <Link
+                            href={listOfdata?.calendly_link}
+                            target="_blank"
+                          >
+                            <div className="h-[4rem] w-[4rem] bg-[#006bff] rounded-lg flex items-center justify-center relative">
+                              <Image
+                                alt=""
+                                src="/images/calendlyicon.svg"
+                                width={100}
+                                height={100}
+                                loading="eager"
+                                priority={true}
+                                className="h-[3rem] w-[3rem] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                              />
+                            </div>
+                          </Link>
+                        </Tooltip>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            )}
           </>
         ) : null}
       </div>
