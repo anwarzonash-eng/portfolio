@@ -3,6 +3,7 @@
 import Link from "next/link";
 import React from "react";
 import SideTestimonialPortfolioDetailPrint from "./SideTestimonialPortfolioDetailPrint";
+import { modifiedContentHideLinks } from "@/hooks/modifiedContentHideLinks";
 
 type SkillType = {
   title: string;
@@ -18,11 +19,12 @@ interface AreasOfExpertiesSkillComponentProps {
   index: number;
   groupIndex?: number | null; // ✅ optional or null
   variant?: Variant; // default: "small"
+  hideLinks?: boolean;
 }
 
 const AreasOfExpertiesSkillComponent: React.FC<
   AreasOfExpertiesSkillComponentProps
-> = ({ skill, index, groupIndex, variant = "small" }) => {
+> = ({ skill, index, groupIndex, variant = "small", hideLinks }) => {
   const animationDelay = `${index * 0.1}s`;
 
   // Define style variants
@@ -44,7 +46,7 @@ const AreasOfExpertiesSkillComponent: React.FC<
   const key = groupIndex != null ? `${groupIndex}-${index}` : `${index}`;
 
   // Render
-  if (skill.url) {
+  if (skill.url && !hideLinks) {
     return (
       <Link href={skill.url || "#"} legacyBehavior key={key}>
         <a
@@ -61,14 +63,12 @@ const AreasOfExpertiesSkillComponent: React.FC<
 
   return (
     <div key={key}>
-      <span
+      <p
         style={{ animationDelay }}
-        className={`${baseClasses} ${
-          variant !== "different" ? "inline-flex" : ""
-        }`}
+        className={baseClasses}
       >
         {skill.title}
-      </span>
+      </p>
     </div>
   );
 };
@@ -81,6 +81,7 @@ interface PortfolioBlogDetailProps {
   filteredSkills: any;
   listOfdata: any;
   skillsforDetailPortfolio: any;
+  hideLinks?: boolean;
 }
 
 const PortfolioBlogDetail: React.FC<PortfolioBlogDetailProps> = ({
@@ -91,6 +92,7 @@ const PortfolioBlogDetail: React.FC<PortfolioBlogDetailProps> = ({
   filteredSkills,
   listOfdata,
   skillsforDetailPortfolio,
+  hideLinks
 }) => {
   return (
     <article className="flex items-center justify-center h-screen w-full px-[2rem]">
@@ -147,6 +149,7 @@ const PortfolioBlogDetail: React.FC<PortfolioBlogDetailProps> = ({
                 <SideTestimonialPortfolioDetailPrint
                   testimonials={listOfdata?.testimonials}
                   designation={listOfdata?.designation}
+                  hideLinks={hideLinks}
                 />
               )}
             </div>
@@ -175,12 +178,22 @@ const PortfolioBlogDetail: React.FC<PortfolioBlogDetailProps> = ({
             )}
           </aside>
         <div className="text-heading">
+          {!hideLinks  ?
           <Link
             href={portfolioDetails?.link || "#"}
-            className="text-primary  text-[1.6rem] leading-[2.4rem] font-medium max-sm:w-full text-center mb-[1.2rem]"
+            className="text-primary text-[1.6rem] leading-[2.4rem] font-medium mb-[1.2rem]"
           >
             {portfolioDetails?.title}
           </Link>
+
+          :
+          <p
+           className="text-primary  text-[1.6rem] leading-[2.4rem] font-medium  mb-[1.2rem]"
+          >
+            {portfolioDetails?.title}
+          </p>
+
+          }
           <h1 className="text-[3.2rem] font-medium leading-[4rem]">
             Client/Project Brief Description
           </h1>
@@ -197,10 +210,18 @@ const PortfolioBlogDetail: React.FC<PortfolioBlogDetailProps> = ({
           <p
             className="text-[2rem] list-div leading-[3.2rem] font-normal mt-[1rem] text-paragraph1 my-[3.2rem] line-clamp-3"
             dangerouslySetInnerHTML={{
-              __html: modifiedContent(
+              __html: !hideLinks ? (
+                modifiedContent(
                 portfolioDetails?.tagline_2,
                 filteredSkills,
                 listOfdata,
+              )
+              ): (
+                modifiedContentHideLinks(
+                portfolioDetails?.tagline_2,
+                filteredSkills,
+                listOfdata,
+              )
               ),
             }}
           ></p>
@@ -219,11 +240,14 @@ const PortfolioBlogDetail: React.FC<PortfolioBlogDetailProps> = ({
                         skill={skill as SkillType}
                         index={i}
                         variant="different"
+                        hideLinks={hideLinks}
                       />
                     ))}
                 </>
               )}
             </div>
+
+            {!hideLinks && 
             <div className="flex flex-col text-nowrap  gap-[1.4rem]">
               {portfolioDetails?.link &&
                 listOfdata?.companytype !== "leewop" && (
@@ -251,6 +275,7 @@ const PortfolioBlogDetail: React.FC<PortfolioBlogDetailProps> = ({
                 </Link>
               )}
             </div>
+            }
           </div>
         </div>
       </div>

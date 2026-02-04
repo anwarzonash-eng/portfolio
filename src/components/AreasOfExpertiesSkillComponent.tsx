@@ -17,11 +17,12 @@ interface AreasOfExpertiesSkillComponentProps {
   index: number;
   groupIndex?: number | null; // ✅ optional or null
   variant?: Variant; // default: "small"
+  hideLinks?: boolean;
 }
 
 const AreasOfExpertiesSkillComponent: React.FC<
   AreasOfExpertiesSkillComponentProps
-> = ({ skill, index, groupIndex, variant = "small" }) => {
+> = ({ skill, index, groupIndex, variant = "small", hideLinks }) => {
   const animationDelay = `${index * 0.1}s`;
 
   // Define style variants
@@ -44,7 +45,7 @@ const AreasOfExpertiesSkillComponent: React.FC<
 
 
   // Render
-  if (skill.url) {
+  if (skill.url && !hideLinks) {
     return (
       <Link
         href={skill.url ? skill.url : "#"}

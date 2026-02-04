@@ -7,6 +7,7 @@ import { formatDate } from "@/hooks/formatdate";
 import Portfoliodetailbg from "@/components/portfoliodetailbg";
 import { dateFormatsOptions } from "@/data/JsonData";
 import { modifiedContent } from "@/hooks/modifiedContent";
+import { modifiedContentHideLinks } from "@/hooks/modifiedContentHideLinks";
 import { reportsApiHandler } from "@/hooks/apihandlers/reportsApiHandlers";
 import { getRoutesDetails } from "@/hooks/url";
 import { handleSkillsApiCall } from "@/hooks/apihandlers/skillsApiHandlers";
@@ -34,6 +35,17 @@ import { useSortedSkills } from "@/hooks/useSortedSkills";
 
 const PortfolioDetails_p = ({ params }: { params: any }) => {
   const searchParams = useSearchParams();
+  const [resolvedParams, setResolvedParams] = useState<any>(null);
+
+  useEffect(() => {
+    // Unwrap params if it's a promise
+    if (params instanceof Promise) {
+      params.then(setResolvedParams);
+    } else {
+      setResolvedParams(params);
+    }
+  }, [params]);
+
   const [portfolioDetails, setPortfolioDetails] = useState(null);
   const [blogsList, setBlogsList] = useState<any[]>([]);
   const [loadingblogs, setLoadingBlogs] = useState(false);
@@ -70,28 +82,31 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
   useEffect(() => {
     // 🛑 Must wrap in an async function and call it 🛑
     const fetchRoutes = async () => {
-      setURLInfo(await getRoutesDetails(params, searchParams));
+      if (resolvedParams) {
+        setURLInfo(await getRoutesDetails(resolvedParams, searchParams));
+      }
     };
     fetchRoutes();
-  }, [params, searchParams]);
+  }, [resolvedParams, searchParams]);
 
   useEffect(() => {
     urlInfo &&
+      resolvedParams &&
       reportsApiHandler({
         actionType: "portfolioById",
         urlInfo,
         setError,
         setLoading,
         setListOfData, // 🛑 CORRECTED LOGIC 🛑
-        itemID: params.id
-          ? params.id // Case 1: ID is directly in params.id
-          : Array.isArray(params.value)
-          ? params.value[0] // Case 2: ID is the first element of a catch-all array
-          : typeof params.value === "object" && params.value !== null
-          ? params.value.id // Case 3: ID is nested as an object property
-          : params.value, // 🛑 END CORRECTED LOGIC 🛑
+        itemID: resolvedParams.id
+          ? resolvedParams.id // Case 1: ID is directly in resolvedParams.id
+          : Array.isArray(resolvedParams.value)
+          ? resolvedParams.value[0] // Case 2: ID is the first element of a catch-all array
+          : typeof resolvedParams.value === "object" && resolvedParams.value !== null
+          ? resolvedParams.value.id // Case 3: ID is nested as an object property
+          : resolvedParams.value, // 🛑 END CORRECTED LOGIC 🛑
       });
-  }, [urlInfo, params.id, params.value]); //
+  }, [urlInfo, resolvedParams]); //
 
   useEffect(() => {
     handleSkillsApiCall({ setListOfSkills });
@@ -164,8 +179,12 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
     }
 
     try {
+      const processor = urlInfo?.hideLinks
+        ? modifiedContentHideLinks
+        : modifiedContent;
+
       const rawHtml =
-        modifiedContent(
+        processor(
           portfolioDetails?.features_short,
           filteredSkills,
           listOfdata
@@ -227,7 +246,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
       setDefaultTruncatedHtml("");
       setPrintTruncatedHtml("");
     }
-  }, [portfolioDetails, filteredSkills, listOfdata]);
+  }, [portfolioDetails, filteredSkills, listOfdata, urlInfo?.hideLinks]);
 
   // Listen for print events to toggle print mode
   useEffect(() => {
@@ -281,7 +300,6 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
           formatDate={formatDate}
           dateFormatsOptions={dateFormatsOptions}
           Portfoliodetailbg={Portfoliodetailbg}
-          hideLinks={urlInfo?.hideLinks}
         />
       ),
     },
@@ -308,10 +326,9 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
           printTruncatedHtml={printTruncatedHtml}
           portfolioId={
             portfolioDetails?.id ||
-            params?.id ||
+            resolvedParams?.id ||
             listOfdata?.portfolios_ids?.[0]?.id
           }
-          hideLinks={urlInfo?.hideLinks}
         />
       ),
     },
@@ -323,7 +340,6 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
           portfolioDetails={portfolioDetails}
           filteredSkills={filteredSkills}
           listOfdata={listOfdata}
-          hideLinks={urlInfo?.hideLinks}
         />
       ),
     },

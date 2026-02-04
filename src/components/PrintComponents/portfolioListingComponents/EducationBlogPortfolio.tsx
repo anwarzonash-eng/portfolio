@@ -11,6 +11,7 @@ const EducationBlogPortfolio = ({
   loadingblogs,
   blogsList,
   getImageForIndex,
+  hideLinks
 }) => {
   return (
     <>
@@ -71,15 +72,17 @@ const EducationBlogPortfolio = ({
 
           {/* Blogs Section */}
           <div className="w-full">
-            <div className="flex items-center justify-between">
+            <div className={`flex items-center ${!hideLinks ? 'justify-between' : 'justify-center'}`}>
               <h2 className="text-heading text-[3.67rem] font-medium pl-[0.5rem] py-[3rem]">
                 Blogs
               </h2>
+              {!hideLinks &&
               <Link href={"/blog-listing"}>
                 <button className="btn-primary text-white py-[1rem] px-[3.4rem] text-[1.8rem] font-medium">
                   Read All Blogs
                 </button>
               </Link>
+              }
             </div>
 
             {blogsList

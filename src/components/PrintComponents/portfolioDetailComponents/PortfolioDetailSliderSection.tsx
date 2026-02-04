@@ -7,11 +7,13 @@ import Image from "next/image";
 interface SliderXLPrintProps {
   portfolioPictures: string | null;
   portfolioId?: string | number | null;
+  hideLinks?: boolean;
 }
 
 const SliderXLPrint: React.FC<SliderXLPrintProps> = ({
   portfolioPictures,
   portfolioId = null,
+  hideLinks,
 }) => {
   let images: string[] = [];
 
@@ -46,19 +48,21 @@ const SliderXLPrint: React.FC<SliderXLPrintProps> = ({
         </div>
       )}
 
-      <div className="flex items-center justify-center py-[2rem]">
-        <Link
-          href={
-            portfolioId
-              ? `/portfolio?sectionId=${portfolioId}&openGallery=true`
-              : "/portfolio"
-          }
-        >
-          <button className="px-[4rem] py-[1.4rem] bg-primary rounded-[2.2rem] hover:bg-white hover:text-primary hover:border-primary border border-border text-white text-[1.4rem] font-medium font-Inter leading-tight max-w-max shadow-xl">
-            View Gallery
-          </button>
-        </Link>
-      </div>
+      {!hideLinks &&
+        <div className="flex items-center justify-center py-[2rem]">
+          <Link
+            href={
+              portfolioId
+                ? `/portfolio?sectionId=${portfolioId}&openGallery=true`
+                : "/portfolio"
+            }
+          >
+            <button className="px-[4rem] py-[1.4rem] bg-primary rounded-[2.2rem] hover:bg-white hover:text-primary hover:border-primary border border-border text-white text-[1.4rem] font-medium font-Inter leading-tight max-w-max shadow-xl">
+              View Gallery
+            </button>
+          </Link>
+        </div>
+      }
     </div>
   );
 };
@@ -75,11 +79,13 @@ interface PortfolioDetailSliderSectionProps {
   params?: {
     id?: string | number | null;
   } | null;
+hideLinks?: boolean;
+
 }
 
 const PortfolioDetailSliderSection: React.FC<
   PortfolioDetailSliderSectionProps
-> = ({ portfolioDetails, params }) => {
+> = ({ portfolioDetails, params, hideLinks }) => {
   const resolvedId = portfolioDetails?.id || params?.id || null;
 
   return (
@@ -88,6 +94,7 @@ const PortfolioDetailSliderSection: React.FC<
         <SliderXLPrint
           portfolioPictures={portfolioDetails.pictures || "[]"}
           portfolioId={resolvedId}
+          hideLinks={hideLinks}
         />
       ) : (
         <p className="text-center text-gray-500 text-[1.6rem]">

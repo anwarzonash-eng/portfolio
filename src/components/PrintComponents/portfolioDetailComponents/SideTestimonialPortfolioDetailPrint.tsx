@@ -28,6 +28,7 @@ interface Testimonial {
 interface TestimonialsSectionProps {
   testimonials: Testimonial[];
   designation: string;
+  hideLinks?: boolean;
 }
 
 interface VideoPlayerProps {
@@ -77,6 +78,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, poster }) => {
 const SideTestimonialPortfolioDetailPrint: React.FC<TestimonialsSectionProps> = ({
   testimonials,
   designation,
+  hideLinks,
 }) => {
   // Simplified: no Swiper here. Render the first testimonial for portfolio detail testing.
 
@@ -163,7 +165,7 @@ const SideTestimonialPortfolioDetailPrint: React.FC<TestimonialsSectionProps> = 
                   </div>
                   <div className="text-primary text-[1.4rem]">
                     {t.client_designation} @ 
-                    {t.client_company_website && (
+                    {t.client_company_website && !hideLinks ? (
                       <a
                         href={t.client_company_website}
                         target="_blank"
@@ -172,7 +174,14 @@ const SideTestimonialPortfolioDetailPrint: React.FC<TestimonialsSectionProps> = 
                       >
                         {new URL(t.client_company_website).hostname.replace("www.", "")}
                       </a>
-                    )}
+                    ) : (
+                      <p
+                        className="font-medium"
+                      >
+                        {new URL(t.client_company_website).hostname.replace("www.", "")}
+                      </p>
+                    )
+                  }
                   </div>
                 </div>
               </div>

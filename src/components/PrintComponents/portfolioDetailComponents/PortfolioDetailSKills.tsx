@@ -30,7 +30,9 @@ const PortfolioDetailSKills: React.FC<SkillsContainerProps> = ({
   autoExpandOnParam = false,
   portfolioId,
   numColumns = 6,
-  numSkills = 24,  hideLinks = false,}) => {
+  numSkills = 24,
+  hideLinks
+}) => {
   const router = useRouter();
 
   const handleSeeMorePrint = () => {
@@ -62,7 +64,7 @@ const PortfolioDetailSKills: React.FC<SkillsContainerProps> = ({
   // Determine visible skills - always use print logic with numSkills
   const visibleSkills = list?.slice(0, numSkills);
   const skills: Record<string, SkillType[]> = skillsGrouping(
-    visibleSkills || []
+    visibleSkills || [],
   );
 
   // Show "See More" button if there are more skills than displayed
@@ -121,7 +123,7 @@ const PortfolioDetailSKills: React.FC<SkillsContainerProps> = ({
                   style={{ animationDelay: `${i * 0.03}s` }}
                   className="mx-auto flex flex-col items-center justify-center gap-[0.8rem] max-w-[13rem] animate-fadeIn opacity-0"
                 >
-                  {useLinks && skill.url ? (
+                  {useLinks && skill.url && !hideLinks ? (
                     <Link
                       href={skill.url}
                       target="_blank"

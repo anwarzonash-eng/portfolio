@@ -2,13 +2,19 @@ import DesignationDomain from "@/components/DesignationDomain";
 import Image from "next/image";
 import React from "react";
 
-const PortfolioWelcome = ({listOfdatas, listOfdata, WorkProofLinks, urlInfo, ContactMeLinks}) => {
+const PortfolioWelcome = ({
+  listOfdatas,
+  listOfdata,
+  WorkProofLinks,
+  urlInfo,
+  ContactMeLinks,
+  hideLinks,
+}) => {
   return (
     // Before Gradient BG: bg-bannerBG
-      <div className="text-center  bg-cvSideBg bg-no-repeat bg-cover relative !w-full !h-screen flex items-center justify-center flex-col gap-[2rem]">
-        
-        <div className="items-center justify-strat gap-[4rem] flex flex-col w-full">
-          <Image
+    <div className="text-center  bg-cvSideBg bg-no-repeat bg-cover relative !w-full !h-screen flex items-center justify-center flex-col gap-[2rem]">
+      <div className="items-center justify-strat gap-[4rem] flex flex-col w-full">
+        <Image
           loading="eager"
           priority={true}
           src={listOfdatas?.profile_photo_1}
@@ -16,28 +22,28 @@ const PortfolioWelcome = ({listOfdatas, listOfdata, WorkProofLinks, urlInfo, Con
           height={245}
           width={245}
           className="size-[245px] rounded-full"
-          />
-          <div
-            className="bg-primary text-white font-bold text-[3rem]  rounded-[100px] max-w-max px-10 tracking-wider"
-          >
-            Portfolio
+        />
+        <div className="bg-primary text-white font-bold text-[3rem]  rounded-[100px] max-w-max px-10 tracking-wider">
+          Portfolio
+        </div>
+        <div className="flex items-center justify-start flex-col">
+          <h2 className="text-[7rem] font-bold"> {listOfdata?.name}</h2>
+          <div className="text-[4rem] font-medium flex items-center justify-center flex-wrap gap-[3px] w-full">
+            {" "}
+            {listOfdatas?.designation?.split("|").map((item, index) => (
+              <div key={index} className="text-center">
+                {item.trim()}
+              </div>
+            ))}
           </div>
-          <div className="flex items-center justify-start flex-col">
-            <h2 className="text-[7rem] font-bold"> {listOfdata?.name}</h2>
-            <div className="text-[4rem] font-medium flex items-center justify-center flex-wrap gap-[3px] w-full">
-              {" "}
-              {listOfdatas?.designation?.split("|").map((item, index) => (
-                <div key={index} className="text-center">
-                  {item.trim()}
-                </div>
-              ))}
-            </div>
+          {!hideLinks && (
             <div className="flex items-center justify-center w-full">
               <DesignationDomain />
             </div>
-          </div>
+          )}
         </div>
-        
+      </div>
+      {!hideLinks && (
         <div className="flex items-center justify-center gap-[2.1rem] mt-[4rem] mb-[0.8rem] ">
           {urlInfo?.u ? (
             <WorkProofLinks
@@ -69,7 +75,8 @@ const PortfolioWelcome = ({listOfdatas, listOfdata, WorkProofLinks, urlInfo, Con
             </>
           )}
         </div>
-      </div>
+      )}
+    </div>
   );
 };
 
