@@ -11,6 +11,7 @@ const EducationBlogsLandscape = ({
   dateFormatsOptions,
   loadingblogs,
   blogsList,
+  hideLinks,
   getImageForIndex,
 }) => {
   if (!listOfdata?.education_ids?.length) {
@@ -23,7 +24,9 @@ const EducationBlogsLandscape = ({
         className="print:h-screen print:section !w-full print:FlexWrapContainer
                 flex items-center justify-center overflow-hidden relative my-[4rem] print:m-0 pr-[2rem]"
       >
+        {!hideLinks &&
         <NoteDomainForPint direction={"hidden print:right-0 print:block"} />
+        }
         <div className="max-w-[1550px] w-full mx-auto px-[4rem]">
           {/* ---------- Education Section ---------- */}
           {listOfdata?.education_ids?.length > 0 && (
@@ -81,29 +84,32 @@ const EducationBlogsLandscape = ({
           {/* ---------- Blogs Section ---------- */}
           <div className="relative w-full">
             <div className="w-full ml-10">
-              <div className="flex items-center justify-between">
+              <div className={`flex items-center justify-between w-full`}>
                 <h2 className="text-heading leading-[3.56rem] text-[3.67rem] font-medium pl-[0.5rem] py-[3rem]">
                   Blogs
                 </h2>
-                <div className="w-full sm:w-auto flex justify-center">
+                {!hideLinks && 
+                <div className="flex justify-center">
                   <Link href={"/blog-listing"}>
                     <button className="btn-primary text-white py-[1rem] px-[3.4rem] text-[1.8rem] font-medium">
                       View All Blogs
                     </button>
                   </Link>
                 </div>
+                }
               </div>
 
-              {blogsList?.slice(0, 2).map((blog, index) => (
-                <Link
-                  href={`/blog-listing/${blog.id}`}
-                  key={index}
-                  className="w-full flex items-start gap-[2rem] p-[1.2rem] bg-white shadow-lg mb-[1.2rem]"
-                >
-                  {blog?.featuredImage && (
-                    <div className="w-[20rem] h-[16rem] flex-shrink-0">
+              {blogsList
+            ?.slice(0, Math.min(2, blogsList.length))
+            .map((blog, index) => {
+              const content = (
+                <>
+                  {blog.featuredImage && (
+                    <div className="size-[16rem] flex-shrink-0">
                       <Image
                         src={getImageForIndex(domain, index)}
+                        loading="eager"
+                        priority={true}
                         height={300}
                         width={300}
                         alt={`Blog ${index + 1}`}
@@ -111,7 +117,9 @@ const EducationBlogsLandscape = ({
                       />
                     </div>
                   )}
+
                   <div>
+                    {/* Date */}
                     <div className="mb-[1.2rem] flex items-center">
                       <div className="mx-[0.6rem]">
                         <svg
@@ -124,21 +132,44 @@ const EducationBlogsLandscape = ({
                           <circle cx="2.5" cy="3" r="2.5" fill="#C6CBD8" />
                         </svg>
                       </div>
-                      <p className="text-paragraph1 text-[1.4rem] leading-[2rem] font-normal">
+
+                      <p className="text-[1.4rem] text-paragraph1">
                         {formatDate(blog.date, dateFormatsOptions.dayMonthYear)}
                       </p>
                     </div>
+
+                    {/* Title */}
                     <h2
+                      className="text-[1.6rem] font-medium leading-[3.2rem] text-heading mb-[1.2rem] line-clamp-1"
                       dangerouslySetInnerHTML={{ __html: blog.title }}
-                      className="text-[2.4rem] font-medium leading-[3.2rem] text-heading mb-[1.2rem]"
                     />
+
+                    {/* Excerpt */}
                     <p
+                      className="text-[1.4rem] leading-[2.4rem] text-paragraph1 mb-[3rem]"
                       dangerouslySetInnerHTML={{ __html: blog.excerpt }}
-                      className="text-[1.6rem] leading-[2.4rem] text-paragraph1 mb-[3rem]"
                     />
                   </div>
+                </>
+              );
+
+              return hideLinks ? (
+                <div
+                  key={blog.id || index}
+                  className="w-full flex items-start gap-[2rem] p-[1.2rem] bg-white shadow-lg mb-[1.2rem]"
+                >
+                  {content}
+                </div>
+              ) : (
+                <Link
+                  href={`/blog-listing/${blog.id}`}
+                  key={blog.id || index}
+                  className="w-full flex items-start gap-[2rem] p-[1.2rem] bg-white shadow-lg mb-[1.2rem]"
+                >
+                  {content}
                 </Link>
-              ))}
+              );
+            })}
             </div>
           </div>
         </div>

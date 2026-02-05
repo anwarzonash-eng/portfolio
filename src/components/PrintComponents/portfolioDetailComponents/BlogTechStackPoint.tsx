@@ -6,6 +6,7 @@ import Link from "next/link";
 interface BlogTechStackPointProps {
   printTruncatedHtml?: string | null;
   featuresItemCount: number;
+  hideLinks?: boolean;
   portfolioId?: string | number | null;
 }
 
@@ -13,6 +14,7 @@ const BlogTechStackPoint: React.FC<BlogTechStackPointProps> = ({
   printTruncatedHtml,
   featuresItemCount,
   portfolioId,
+  hideLinks,
 }) => {
   const featuresRef = useRef<HTMLDivElement | null>(null);
 
@@ -40,7 +42,7 @@ const BlogTechStackPoint: React.FC<BlogTechStackPointProps> = ({
 
         
         {/* PRINT: Read More link (only if too many items) */}
-        {featuresItemCount > 12 && (
+        {featuresItemCount > 12 && !hideLinks && (
           <div className="flex items-center justify-center text-center mt-4">
             <Link
               href={`/portfolio/${portfolioId}?scroll=points`}

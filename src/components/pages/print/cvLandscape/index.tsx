@@ -143,6 +143,7 @@ const CV_Landscape = ({ params }: { params: any }) => {
             scrollToSection={scrollToSection}
             urlInfo={urlInfo}
             skillsListCount={skillsListCount}
+            hideLinks={urlInfo?.hideLinks}
           />
 
           {/* Skills Section */}
@@ -150,6 +151,7 @@ const CV_Landscape = ({ params }: { params: any }) => {
             listOfdata={listOfdata}
             sortedSkills={sortedSkills}
             urlInfo={urlInfo}
+            hideLinks={urlInfo?.hideLinks}
           />
 
           {/* Experience Section ✅ */}
@@ -164,6 +166,9 @@ const CV_Landscape = ({ params }: { params: any }) => {
                 showMoreSkills={showMoreSkills}
                 skillsGrouping={skillsGrouping}
                 urlInfo={urlInfo}
+                hideLinks={urlInfo?.hideLinks}
+                min={0}
+                max={2}
               />
             </>
           )}
@@ -179,6 +184,9 @@ const CV_Landscape = ({ params }: { params: any }) => {
                 showMoreSkills={showMoreSkills}
                 skillsGrouping={skillsGrouping}
                 urlInfo={urlInfo}
+                hideLinks={urlInfo?.hideLinks}
+                min={2}
+                max={4}
               />
             </>
           )}
@@ -194,6 +202,9 @@ const CV_Landscape = ({ params }: { params: any }) => {
                 showMoreSkills={showMoreSkills}
                 skillsGrouping={skillsGrouping}
                 urlInfo={urlInfo}
+                hideLinks={urlInfo?.hideLinks}
+                min={4}
+                max={6}
               />
             </>
           )}
@@ -205,6 +216,7 @@ const CV_Landscape = ({ params }: { params: any }) => {
               max={1}
               listOfdata={listOfdata}
               urlInfo={urlInfo}
+              hideLinks={urlInfo?.hideLinks}
             />
           )}
 
@@ -214,6 +226,7 @@ const CV_Landscape = ({ params }: { params: any }) => {
               max={2}
               listOfdata={listOfdata}
               urlInfo={urlInfo}
+              hideLinks={urlInfo?.hideLinks}
             />
           )}
 
@@ -223,6 +236,7 @@ const CV_Landscape = ({ params }: { params: any }) => {
               max={3}
               listOfdata={listOfdata}
               urlInfo={urlInfo}
+              hideLinks={urlInfo?.hideLinks}
             />
           )}
 
@@ -236,6 +250,7 @@ const CV_Landscape = ({ params }: { params: any }) => {
               formatDate={formatDate}
               getImageForIndex={getImageForIndex}
               loadingblogs={loadingblogs}
+              hideLinks={urlInfo?.hideLinks}
             />
           )}
         </div>

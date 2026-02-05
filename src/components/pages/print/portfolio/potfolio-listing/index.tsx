@@ -401,7 +401,6 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
                 domain={listOfdata?.domain}
                 formatDate={formatDate}
                 dateFormatsOptions={dateFormatsOptions}
-                loadingblogs={loadingblogs}
                 blogsList={blogsList}
                 getImageForIndex={getImageForIndex}
                 hideLinks={urlInfo?.hideLinks}

@@ -115,60 +115,75 @@ const HomeEducationComponent: React.FC<HomeEducationComponentProps> = ({
 
           {blogsList
             ?.slice(0, Math.min(2, blogsList.length))
-            .map((blog, index) => (
-              <Link
-                href={`/blog-listing/${blog.id}`}
-                key={blog.id || index}
-                className="w-full flex items-start gap-[2rem] p-[1.2rem] bg-white shadow-lg mb-[1.2rem]"
-              >
-                {blog.featuredImage && (
-                  <div className="size-[16rem] flex-shrink-0">
-                    <Image
-                      src={getImageForIndex(domain, index)}
-                      loading="eager"
-                      priority={true}
-                      height={300}
-                      width={300}
-                      alt={`Blog ${index + 1}`}
-                      className="object-cover h-full w-full"
-                    />
-                  </div>
-                )}
+            .map((blog, index) => {
+              const content = (
+                <>
+                  {blog.featuredImage && (
+                    <div className="size-[16rem] flex-shrink-0">
+                      <Image
+                        src={getImageForIndex(domain, index)}
+                        loading="eager"
+                        priority={true}
+                        height={300}
+                        width={300}
+                        alt={`Blog ${index + 1}`}
+                        className="object-cover h-full w-full"
+                      />
+                    </div>
+                  )}
 
-                <div>
-                  {/* Date */}
-                  <div className="mb-[1.2rem] flex items-center">
-                    <div className="mx-[0.6rem]">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="5"
-                        height="6"
-                        viewBox="0 0 5 6"
-                        fill="none"
-                      >
-                        <circle cx="2.5" cy="3" r="2.5" fill="#C6CBD8" />
-                      </svg>
+                  <div>
+                    {/* Date */}
+                    <div className="mb-[1.2rem] flex items-center">
+                      <div className="mx-[0.6rem]">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="5"
+                          height="6"
+                          viewBox="0 0 5 6"
+                          fill="none"
+                        >
+                          <circle cx="2.5" cy="3" r="2.5" fill="#C6CBD8" />
+                        </svg>
+                      </div>
+
+                      <p className="text-[1.4rem] text-paragraph1">
+                        {formatDate(blog.date, dateFormatsOptions.dayMonthYear)}
+                      </p>
                     </div>
 
-                    <p className="text-[1.4rem] text-paragraph1">
-                      {formatDate(blog.date, dateFormatsOptions.dayMonthYear)}
-                    </p>
+                    {/* Title */}
+                    <h2
+                      className="text-[1.6rem] font-medium leading-[3.2rem] text-heading mb-[1.2rem] line-clamp-1"
+                      dangerouslySetInnerHTML={{ __html: blog.title }}
+                    />
+
+                    {/* Excerpt */}
+                    <p
+                      className="text-[1.4rem] leading-[2.4rem] text-paragraph1 mb-[3rem]"
+                      dangerouslySetInnerHTML={{ __html: blog.excerpt }}
+                    />
                   </div>
+                </>
+              );
 
-                  {/* Title */}
-                  <h2
-                    className="text-[1.6rem] font-medium leading-[3.2rem] text-heading mb-[1.2rem] line-clamp-1"
-                    dangerouslySetInnerHTML={{ __html: blog.title }}
-                  />
-
-                  {/* Excerpt */}
-                  <p
-                    className="text-[1.4rem] leading-[2.4rem] text-paragraph1 mb-[3rem]"
-                    dangerouslySetInnerHTML={{ __html: blog.excerpt }}
-                  />
+              return hideLinks ? (
+                <div
+                  key={blog.id || index}
+                  className="w-full flex items-start gap-[2rem] p-[1.2rem] bg-white shadow-lg mb-[1.2rem]"
+                >
+                  {content}
                 </div>
-              </Link>
-            ))}
+              ) : (
+                <Link
+                  href={`/blog-listing/${blog.id}`}
+                  key={blog.id || index}
+                  className="w-full flex items-start gap-[2rem] p-[1.2rem] bg-white shadow-lg mb-[1.2rem]"
+                >
+                  {content}
+                </Link>
+              );
+            })}
         </div>
       </div>
     </div>

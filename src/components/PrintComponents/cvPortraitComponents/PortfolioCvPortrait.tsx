@@ -197,6 +197,7 @@ const PortfolioCvPortrait: React.FC<PortfolioCvPortraitProps> = ({
                                 skill={skill}
                                 index={i}
                                 variant="medium"
+                                hideLinks={hideLinks}
                               />
                             )
                           )}

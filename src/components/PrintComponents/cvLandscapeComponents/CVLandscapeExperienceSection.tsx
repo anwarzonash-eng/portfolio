@@ -1,14 +1,25 @@
-import AreasOfExpertiesSkillComponent from "@/components/AreasOfExpertiesSkillComponent";
-import NoteDomainForPint from "@/components/NoteDomainForPint";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import AreasOfExpertiesSkillComponent from "@/components/AreasOfExpertiesSkillComponent";
+import NoteDomainForPint from "@/components/NoteDomainForPint";
 
-const CVLandscapeExperienceSection = ({urlInfo, listOfdata, showAllExperiences, showMoreSkills, skillsGrouping, modifiedContent, filteredSkills}) => {
+const CVLandscapeExperienceSection = ({
+  urlInfo,
+  listOfdata,
+  showAllExperiences,
+  showMoreSkills,
+  skillsGrouping,
+  modifiedContent,
+  filteredSkills,
+  min,
+  max,
+  hideLinks,
+}) => {
   return (
     <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center p-[4rem] relative">
       {/* Note and Domain For Each Page */}
-      {!urlInfo?.hideLinks && (
+      {!hideLinks && (
         <NoteDomainForPint direction={"hidden print:right-0 print:block"} />
       )}
       <div className="max-w-[1550px] w-full mx-auto">
@@ -35,8 +46,8 @@ const CVLandscapeExperienceSection = ({urlInfo, listOfdata, showAllExperiences, 
                   return monthB - monthA;
                 })
                 ?.slice(
-                  1,
-                  showAllExperiences ? listOfdata.experiences_ids.length : 3,
+                  min,
+                  showAllExperiences ? listOfdata.experiences_ids.length : max,
                 )
                 ?.map((experience, index) => {
                   const skillsforExpereince: {
@@ -90,60 +101,63 @@ const CVLandscapeExperienceSection = ({urlInfo, listOfdata, showAllExperiences, 
                                   </div>
 
                                   {/* Link */}
-                                  <div className="flex justify-end w-auto">
-                                    <div className="flex flex-col-reverse gap-[1rem] max-w-max">
-                                      {experience.company_website.includes(
-                                        "upwork",
-                                      ) && (
-                                        <div className="flex items-center gap-2">
-                                          <Link
-                                            href={
-                                              experience.company_website ?? "#"
-                                            }
-                                            target="_blank"
-                                            className="
+                                  {!hideLinks && (
+                                    <div className="flex justify-end w-auto">
+                                      <div className="flex flex-col-reverse gap-[1rem] max-w-max">
+                                        {experience.company_website.includes(
+                                          "upwork",
+                                        ) && (
+                                          <div className="flex items-center gap-2">
+                                            <Link
+                                              href={
+                                                experience.company_website ??
+                                                "#"
+                                              }
+                                              target="_blank"
+                                              className="
                                   bg-black text-white border border-transparent hover:border-primary hover:bg-white hover:text-primary duration-300 text-nowrap
                                   flex items-center justify-center
                                   text-[1.4rem] font-medium rounded-[20rem] p-[1rem] py-[0.5rem] group"
-                                          >
-                                            <span>Check My</span>
-                                            <div className="h-[2.5rem] w-[2.5rem] rounded-full relative mx-2 inline-block">
-                                              <Image
-                                                src="/images/upworkforContactComponent.svg"
-                                                alt="Upwork Logo"
-                                                width={25}
-                                                height={25}
-                                                loading="eager"
-                                                priority={true}
-                                                className="h-full w-full object-cover rounded-full group-hover:border-primary border border-transparent duration-300
+                                            >
+                                              <span>Check My</span>
+                                              <div className="h-[2.5rem] w-[2.5rem] rounded-full relative mx-2 inline-block">
+                                                <Image
+                                                  src="/images/upworkforContactComponent.svg"
+                                                  alt="Upwork Logo"
+                                                  width={25}
+                                                  height={25}
+                                                  loading="eager"
+                                                  priority={true}
+                                                  className="h-full w-full object-cover rounded-full group-hover:border-primary border border-transparent duration-300
                                     absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-                                              />
-                                            </div>
-                                            <span>Profile</span>
-                                          </Link>
-                                        </div>
-                                      )}
-                                      {!experience.company_website.includes(
-                                        "upwork",
-                                      ) && (
-                                        <div className="bg-white border border-[#E2E6EE] text-[#47516B] rounded-[2rem] text-[1.5rem] font-medium leading-[0.8rem] hover:bg-sectionBG hover:text-white duration-300">
-                                          <Link
-                                            href={experience.company_website}
-                                            className="flex gap-2 items-center p-4"
-                                          >
-                                            {
-                                              experience.company_website
-                                                .replace(
-                                                  /^(https?:\/\/)?(www\.)?/,
-                                                  "",
-                                                )
-                                                .split("/")[0]
-                                            }
-                                          </Link>
-                                        </div>
-                                      )}
+                                                />
+                                              </div>
+                                              <span>Profile</span>
+                                            </Link>
+                                          </div>
+                                        )}
+                                        {!experience.company_website.includes(
+                                          "upwork",
+                                        ) && (
+                                          <div className="bg-white border border-[#E2E6EE] text-[#47516B] rounded-[2rem] text-[1.5rem] font-medium leading-[0.8rem] hover:bg-sectionBG hover:text-white duration-300">
+                                            <Link
+                                              href={experience.company_website}
+                                              className="flex gap-2 items-center p-4"
+                                            >
+                                              {
+                                                experience.company_website
+                                                  .replace(
+                                                    /^(https?:\/\/)?(www\.)?/,
+                                                    "",
+                                                  )
+                                                  .split("/")[0]
+                                              }
+                                            </Link>
+                                          </div>
+                                        )}
+                                      </div>
                                     </div>
-                                  </div>
+                                  )}
                                 </div>
                                 <h1 className="mb-[1rem] text-primary text-[1.8rem] leading-[2rem] font-bold">
                                   {new Date(
@@ -168,7 +182,7 @@ const CVLandscapeExperienceSection = ({urlInfo, listOfdata, showAllExperiences, 
 
                               <div className="w-full">
                                 <p
-                                  className="mt-[1rem] list-div text-[1.4rem] font-medium text-paragraph1 line-clamp-2"
+                                  className={`mt-[1rem] list-div text-[1.4rem] font-medium text-paragraph1 line-clamp-2`}
                                   dangerouslySetInnerHTML={{
                                     __html:
                                       modifiedContent(
@@ -176,17 +190,20 @@ const CVLandscapeExperienceSection = ({urlInfo, listOfdata, showAllExperiences, 
                                         filteredSkills,
                                         listOfdata,
                                       ) +
-                                      (experience?.short_description?.length > 80
+                                      (experience?.short_description?.length >
+                                      80
                                         ? "..."
                                         : ""), // Add ellipsis if description is long
                                   }}
                                 />
-                                <Link
-                                  href={`/cv?sectionId=experienceSection&experienceId=${experience.id}`} // Navigate to CV page with experience ID
-                                  className="hover:bg-white bg-primary text-white hover:text-primary capitalize text-center text-primary text-[1.2rem] font-medium py-[0.4rem] px-[1.5rem] inline-flex items-center justify-center gap-[8px] rounded-[5rem] shadow opacity-0 animate-fadeIn relative group border border-transparent hover:border-primary mt-[1rem]"
-                                >
-                                  Read More
-                                </Link>
+                                {!hideLinks && (
+                                  <Link
+                                    href={`/cv?sectionId=experienceSection&experienceId=${experience.id}`} // Navigate to CV page with experience ID
+                                    className="hover:bg-white bg-primary text-white hover:text-primary capitalize text-center text-primary text-[1.2rem] font-medium py-[0.4rem] px-[1.5rem] inline-flex items-center justify-center gap-[8px] rounded-[5rem] shadow opacity-0 animate-fadeIn relative group border border-transparent hover:border-primary mt-[1rem]"
+                                  >
+                                    Read More
+                                  </Link>
+                                )}
                               </div>
 
                               <hr className="w-full my-[1rem] h-px bg-border" />
@@ -209,21 +226,25 @@ const CVLandscapeExperienceSection = ({urlInfo, listOfdata, showAllExperiences, 
                                                 skill={skill}
                                                 index={i}
                                                 groupIndex={groupIndex}
+                                                hideLinks={hideLinks}
                                               />
                                             ))}
                                           </React.Fragment>
                                         ))}
-                                        <Link
-                                          href={
-                                            listOfdata?.portfolios_ids?.[0]?.id
-                                              ? `/portfolio/${listOfdata.portfolios_ids[0].id}?scroll=skills`
-                                              : "#"
-                                          }
-                                          className="hover:bg-white bg-primary text-white hover:text-primary capitalize text-center text-primary 
+                                        {!hideLinks && (
+                                          <Link
+                                            href={
+                                              listOfdata?.portfolios_ids?.[0]
+                                                ?.id
+                                                ? `/portfolio/${listOfdata.portfolios_ids[0].id}?scroll=skills`
+                                                : "#"
+                                            }
+                                            className="hover:bg-white bg-primary text-white hover:text-primary capitalize text-center text-primary 
                                                               text-[1.2rem] font-medium py-[0.4rem] px-[1.5rem] inline-flex items-center justify-center gap-[8px] rounded-[5rem] shadow opacity-0 animate-fadeIn relative group border border-transparent hover:border-primary"
-                                        >
-                                          Show More Skills
-                                        </Link>
+                                          >
+                                            Show More Skills
+                                          </Link>
+                                        )}
                                       </div>
                                     </div>
                                   </div>

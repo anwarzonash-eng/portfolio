@@ -12,6 +12,39 @@
 			"isBackground": false,
 			"problemMatcher": [],
 			"group": "build"
+		},
+		{
+			"label": "git_pull_task",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"pull",
+				"--no-rebase",
+				"--no-edit"
+			],
+			"isBackground": false,
+			"group": "none"
+		},
+		{
+			"label": "git_commit_merge",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"commit",
+				"--no-edit"
+			],
+			"isBackground": false,
+			"group": "none"
+		},
+		{
+			"label": "git_push_task",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"push"
+			],
+			"isBackground": false,
+			"group": "none"
 		}
 	]
 }

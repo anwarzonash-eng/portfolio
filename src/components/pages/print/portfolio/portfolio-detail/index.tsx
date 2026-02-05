@@ -324,6 +324,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
         <BlogTechStackPoint
           featuresItemCount={featuresItemCount}
           printTruncatedHtml={printTruncatedHtml}
+          hideLinks={urlInfo?.hideLinks}
           portfolioId={
             portfolioDetails?.id ||
             resolvedParams?.id ||

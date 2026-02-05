@@ -22,6 +22,7 @@ interface SkillsContainerProps {
   portfolioId?: string;
   numColumns?: number;
   numSkills?: number;
+  hideLinks?: boolean;
 }
 
 const SkillsContainer: React.FC<SkillsContainerProps> = ({
@@ -34,6 +35,7 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({
   portfolioId,
   numColumns = 6,
   numSkills = 8,
+  hideLinks
 }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -158,7 +160,7 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({
                   style={{ animationDelay: `${i * 0.03}s` }}
                   className={`mx-auto mb-[4rem] max-w-[13rem]  animate-fadeIn opacity-0`}
                 >
-                  {useLinks && skill.url ? (
+                  {useLinks && skill.url && !hideLinks ? (
                     <Link
                       href={skill.url}
                       target="_blank"
