@@ -234,7 +234,7 @@ const CV = ({ params }: { params: any }) => {
 
   // console.log("Data List: ", listOfdata?.skills,)
   // console.log("Filtered Skills", filteredSkills)
-  console.log("CV API Data: ", listOfdata)
+  // console.log("CV API Data: ", listOfdata)
   const parser = new DOMParser();
   const doc = parser.parseFromString(rawHtml, "text/html");
   const items = Array.from(doc.querySelectorAll("li")).map(
@@ -535,20 +535,21 @@ const CV = ({ params }: { params: any }) => {
                                 </div>
                               )}
 
-                            {listOfdata && listOfdata?.upwork_show_status === "show" && (
-                              <div className="w-full relative">
-                                <div className="absolute top-0 left-[-1.3rem] z-[60] block print:hidden">
-                                  <div className="w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center my-[3rem]">
-                                    <div className="w-[0.8rem] h-[0.8rem] bg-sectionBG rounded-full"></div>
+                            {listOfdata &&
+                              listOfdata?.upwork_show_status === "show" && (
+                                <div className="w-full relative">
+                                  <div className="absolute top-0 left-[-1.3rem] z-[60] block print:hidden">
+                                    <div className="w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center my-[3rem]">
+                                      <div className="w-[0.8rem] h-[0.8rem] bg-sectionBG rounded-full"></div>
+                                    </div>
                                   </div>
+                                  <UpworkActivitySection
+                                    urlInfo={urlInfo}
+                                    cvTrue={true}
+                                    data={listOfdata}
+                                  />
                                 </div>
-                                <UpworkActivitySection
-                                  urlInfo={urlInfo}
-                                  cvTrue={true}
-                                  data={listOfdata}
-                                />
-                              </div>
-                            )}
+                              )}
 
                             {listOfdata &&
                               listOfdata?.education_ids?.length > 0 && (

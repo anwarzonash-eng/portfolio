@@ -14,11 +14,10 @@ import Tooltip from "./Tooltip";
 import { Behance, Facebook, Instagram, Twitter, LinkedIn } from "./SVGI-Icons";
 import { ChevronDown, ChevronUp } from "lucide-react";
 
-
 declare global {
   interface Window {
     Tawk_API?: any;
-  } 
+  }
 }
 
 const ContactMe = ({ listOfdata }) => {
@@ -28,7 +27,7 @@ const ContactMe = ({ listOfdata }) => {
     alt: string;
   }
 
-  console.log("Leads API Data:", listOfdata);
+  // console.log("Leads API Data:", listOfdata);
 
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [dragActive, setDragActive] = useState(false);

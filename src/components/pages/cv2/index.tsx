@@ -38,7 +38,7 @@ const CV2 = ({ params }: { params: any }) => {
   const visibleSkills = listOfdata?.skills_ids ?? [];
   const skillsforCV = skillsGrouping(visibleSkills);
 
-  console.log("API Data:", listOfdata);
+  // console.log("API Data:", listOfdata);
 
   // Filter skills based on listOfdata.skills_ids
   const [allSkills, setAllSkills] = useState([]);

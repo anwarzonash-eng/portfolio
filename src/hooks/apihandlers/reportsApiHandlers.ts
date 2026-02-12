@@ -58,13 +58,15 @@ export const reportsApiHandler = async ({
 const adjustDynamicContent = async (data) => {
   try {
 
+    data = await adjustmetaData(data);
+
     data = await adjustSkillsDescriptionForCV(data);
     data = await adjustSkillsIDsInExperiencesAndPortflios(data);
     data = await adjustSkillsDescriptionInExperiences(data);
     data = await adjustSkillsDescriptionInPortfolios(data);
     data = await adjustExperienceIntro(data);
     data = await adjustSkilledDescriptionInServices(data);
-    console.log({ data })
+    // console.log({ data })
   }
   catch (error) {
 
@@ -106,7 +108,45 @@ const adjustDynamicContent = async (data) => {
 //   return data;
 // };
 
+const adjustmetaData = async (data) => {
+  data.email = data?.email_type == 'personal' ? data.non_business_email || 'john@example.com' : data.email;
+
+  data.education_ids.forEach(element => {
+    element.degree_start_date = '';
+    element.degree_end_date = '';
+  });
+
+  data.experiences_ids.forEach(element => {
+
+    if (element.meta_data.job_types) {
+
+      const metaDataForCurrentWebsitePurpose = element.meta_data.job_types[data.website_purpose]
+      element.starting_date = metaDataForCurrentWebsitePurpose.start_date;
+      element.ending_Date = metaDataForCurrentWebsitePurpose.end_date;
+      element.is_still_working = metaDataForCurrentWebsitePurpose.is_continue;
+      element.type = metaDataForCurrentWebsitePurpose.type;
+
+
+
+
+      console.log({ meta_data: element.meta_data, website_purpose: data.website_purpose, metaDataForCurrentWebsitePurpose, experiences: element })
+    }
+
+
+
+
+  });
+
+  data.website_purpose = data.website_purpose == 'freelance' ? 'upwork' : data.website_purpose == 'fulltime' || data.website_purpose == 'contract' ? 'contract' : 'startup'
+
+
+
+  // Adjust the dynamic content based on the received data
+  return data;
+};
+
 const adjustSkillsDescriptionForCV = async (data) => {
+
   const matchedGroups = getMatchedSkillsGroups(data);
   data.skills = `<ul>${matchedGroups
     .map((group) => `<li>${group.description}</li>`)

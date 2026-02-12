@@ -55,8 +55,8 @@ const PortfolioCardContent: React.FC<PortfolioCardContentProps> = ({
     ? flatSkills
     : flatSkills.slice(0, initialSkillLimit);
 
-  console.log("website_purpose", website_purpose)
-  console.log("API Data:", listOfdata)
+  console.log("website_purpose", website_purpose);
+  // console.log("API Data:", listOfdata)
 
   return (
     <div className="flex flex-col-reverse lg:flex-row max-lg:p-[1.5rem] bg-white shadow-testimonialeShadow relative rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden p-[2.4rem] gap-[2.4rem] print:mt-[10rem]">

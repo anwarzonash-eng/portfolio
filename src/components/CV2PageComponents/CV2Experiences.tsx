@@ -13,12 +13,20 @@ const stripHtml = (value: string) =>
     .replace(/\s+/g, " ")
     .trim();
 
-const extractBulletsFromHtml = (html?: string, filteredSkills?: any[], listOfdata?: any) => {
+const extractBulletsFromHtml = (
+  html?: string,
+  filteredSkills?: any[],
+  listOfdata?: any,
+) => {
   if (!html) return [] as string[];
-  
+
   // First apply modifiedContent to the entire HTML to process keywords
-  const processedHtml = modifiedContentHideLinks(html, filteredSkills, listOfdata);
-  
+  const processedHtml = modifiedContentHideLinks(
+    html,
+    filteredSkills,
+    listOfdata,
+  );
+
   const matches = [...processedHtml.matchAll(/<li[^>]*>([\s\S]*?)<\/li>/gi)];
   return matches.map((m) => m[1] || "").filter(Boolean); // Keep HTML for highlighting
 };
@@ -37,9 +45,9 @@ const toMonthYear = (value: any) => {
 const formatType = (type: string) => {
   if (!type) return "";
   return type
-    .split('_')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-    .join(' ');
+    .split("_")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(" ");
 };
 
 const CV2Experiences: React.FC<Props> = ({
@@ -79,11 +87,19 @@ const CV2Experiences: React.FC<Props> = ({
         ? "Present"
         : toMonthYear(endRaw);
 
-    const longBullets = extractBulletsFromHtml(exp?.long_description, filteredSkills, listOfdata);
+    const longBullets = extractBulletsFromHtml(
+      exp?.long_description,
+      filteredSkills,
+      listOfdata,
+    );
     const allBullets =
       longBullets.length > 0
         ? longBullets
-        : extractBulletsFromHtml(exp?.short_description, filteredSkills, listOfdata);
+        : extractBulletsFromHtml(
+            exp?.short_description,
+            filteredSkills,
+            listOfdata,
+          );
 
     // Generate random number between 5 and 9 for each card
     const randomBulletCount = Math.floor(Math.random() * 5) + 5; // 5-9 range
@@ -91,7 +107,9 @@ const CV2Experiences: React.FC<Props> = ({
 
     return {
       id: exp.id,
-      date: [startLabel, endLabel].filter(Boolean).join(" - "),
+      date: [startLabel, exp.is_still_working ? "Present" : endLabel]
+        .filter(Boolean)
+        .join(" - "),
       location: exp?.location || exp?.city || listOfdata?.location || "",
       title: exp?.title || exp?.designation || "",
       company: exp?.company_name || "",
@@ -102,42 +120,46 @@ const CV2Experiences: React.FC<Props> = ({
   });
 
   if (!experiences || experiences.length === 0) return null;
-  console.log("API Data:", listOfdata)
+  // console.log("API Data:", listOfdata);
 
   return (
     <section className="mt-[1.2rem]">
+      <h2 className="cv2SecondaryHeading"></h2>
       <h2 className="cv2SecondaryHeading">EMPLOYMENT HISTORY</h2>
-      <div className="mt-[1rem] space-y-[1.4rem]">
+
+      <div className="mt-[rem] space-y-[1.4rem]">
         {experiences.map((exp, index) => (
-          <div key={exp.id || index} className="flex gap-[1.6rem]">
+          <div key={exp.id || index} className="flex gap-[1.6rem] mt-4">
             <div className="w-[16rem] flex-shrink-0">
               <div className="cv2SDateStyles">{exp.date}</div>
               <div className="mt-[0.4rem] text-[1.4rem] text-paragraph1">
                 {exp.location}
               </div>
+              {exp.type && (
+                <div className="text-[1.3rem] text-primary rounded-[0.4rem]   font-medium capitalize">
+                  {exp.type}
+                </div>
+              )}
             </div>
             <div className="flex-1 border-l border-[#E5E7EB] pl-[1.6rem] relative">
               <span className="absolute -left-[0.7rem] top-0 h-[1.2rem] w-[1.2rem] rounded-full bg-primary" />
-              <div className="flex flex-col items-start mt-[-0.5rem] gap-[0.4rem]">
+              <div className="flex justify-between items-center">
+                <div className="flex flex-col items-start mt-[-0.5rem] gap-[0.4rem]">
                   <div className="text-[1.6rem] font-semibold text-heading ">
                     {exp.title}
                   </div>
                   <div className="text-[1.5rem] text-primary font-medium">
                     {exp.company}
                   </div>
-                {exp.type && (
-                  <div className="text-[1.3rem] text-white bg-primary rounded-[0.4rem] px-[0.8rem] py-[0.4rem] font-medium capitalize">
-                    Type: {exp.type}
-                  </div>
-                )}
+                </div>
               </div>
               {exp.bullets?.length > 0 && (
                 <ul className="mt-[0.8rem] list-disc pl-[1.6rem] text-[1.4rem] text-paragraph1 space-y-[0.4rem]">
                   {exp.bullets.map((bullet: string, i: number) => (
-                    <li 
+                    <li
                       key={i}
                       dangerouslySetInnerHTML={{
-                        __html: bullet
+                        __html: bullet,
                       }}
                     />
                   ))}

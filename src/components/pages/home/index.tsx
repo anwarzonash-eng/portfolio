@@ -78,7 +78,7 @@ const Home = ({ params }: { params: any }) => {
   const [showAll, setShowAll] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const listOfdatas = useAppSelector(
-    (state) => state.profile.listOfProfileData
+    (state) => state.profile.listOfProfileData,
   );
 
   // Experiences Section Timeline View Logic:
@@ -118,8 +118,8 @@ const Home = ({ params }: { params: any }) => {
     if (listOfdata?.skills_ids && allSkills.length > 0) {
       const matchedSkills = allSkills.filter((skill) =>
         listOfdata.skills_ids.some(
-          (dataSkill: any) => dataSkill.id === skill.id
-        )
+          (dataSkill: any) => dataSkill.id === skill.id,
+        ),
       );
       setFilteredSkills(matchedSkills);
     } else {
@@ -138,7 +138,7 @@ const Home = ({ params }: { params: any }) => {
     const skillsContainer = skillsContainerRef?.current;
     if (skillsContainer) {
       setIsOverflowing(
-        skillsContainer.scrollHeight > skillsContainer.clientHeight
+        skillsContainer.scrollHeight > skillsContainer.clientHeight,
       );
     }
   }, [filteredSkills]);
@@ -218,13 +218,13 @@ const Home = ({ params }: { params: any }) => {
           // Set carousel slide if portfolio exists
           if (uniqueList?.length > 0) {
             const portfolioIndex = uniqueList.findIndex(
-              (p) => p.id === portfolioId
+              (p) => p.id === portfolioId,
             );
             if (portfolioIndex !== -1) {
               window.dispatchEvent(
                 new CustomEvent("setCarouselSlide", {
                   detail: { slideIndex: portfolioIndex },
-                })
+                }),
               );
             }
           }
@@ -254,7 +254,7 @@ const Home = ({ params }: { params: any }) => {
             }
 
             const specificElement = await waitForElement(
-              `experience-${experienceId}`
+              `experience-${experienceId}`,
             );
             if (specificElement) {
               scrollToElement(specificElement, 120);
@@ -287,7 +287,7 @@ const Home = ({ params }: { params: any }) => {
         if (
           sectionId &&
           !["myWork", "experienceSection", "skillSection"].includes(
-            sectionId
+            sectionId,
           ) &&
           !nav &&
           !portfolioId &&
@@ -314,7 +314,7 @@ const Home = ({ params }: { params: any }) => {
   // memoize experiences array sorted by date
   const experiences = useMemo(
     () => [...(listOfdata?.experiences_ids || [])].sort(sortByDate),
-    [listOfdata]
+    [listOfdata],
   );
 
   // console.log("URL Info:", urlInfo);
@@ -346,7 +346,6 @@ const Home = ({ params }: { params: any }) => {
   useEffect(() => {
     store.dispatch(setProfileLoading(loading));
   }, [loading]);
-
 
   const servicesSectionHeading =
     listOfdata?.website_purpose === "upwork"
@@ -384,15 +383,15 @@ const Home = ({ params }: { params: any }) => {
                 />
 
                 {/* Upwork Activity Section */}
-                {listOfdata?.upwork_show_status === "show" &&  (
-                <div className="mb-[20px] lg:mb-[90px]">
-                  <UpworkActivitySection
-                    urlInfo={urlInfo}
-                    cvTrue={false}
-                    data={listOfdata}
-                  />
-                </div>)}
-
+                {listOfdata?.upwork_show_status === "show" && (
+                  <div className="mb-[20px] lg:mb-[90px]">
+                    <UpworkActivitySection
+                      urlInfo={urlInfo}
+                      cvTrue={false}
+                      data={listOfdata}
+                    />
+                  </div>
+                )}
 
                 <AboutSection
                   listOfdata={listOfdata}
@@ -400,7 +399,6 @@ const Home = ({ params }: { params: any }) => {
                   formatPhoneNumber={formatPhoneNumber}
                   downloadFile={downloadFile}
                 />
-
 
                 {/* Custom Video Player Section */}
                 {listOfdata?.video_attached?.videoURL && (
@@ -432,8 +430,10 @@ const Home = ({ params }: { params: any }) => {
                       </div>
                     </div>
 
-                    <div className="text-center text-heading text-[2.4rem] xl:text-[3rem]
-                      font-medium leading-[2.8rem] mt-[2rem] hidden lg:block capitalize mb-[2rem] lg:mb-[6rem]">
+                    <div
+                      className="text-center text-heading text-[2.4rem] xl:text-[3rem]
+                      font-medium leading-[2.8rem] mt-[2rem] hidden lg:block capitalize mb-[2rem] lg:mb-[6rem]"
+                    >
                       {servicesSectionHeading}
                     </div>
 
@@ -451,7 +451,7 @@ const Home = ({ params }: { params: any }) => {
                   listOfdata?.services?.length > 0 && (
                     <ServicesSection
                       services={listOfdata.services.filter(
-                        (service: any) => service?.type !== "main"
+                        (service: any) => service?.type !== "main",
                       )}
                     />
                   )}
@@ -537,7 +537,7 @@ const Home = ({ params }: { params: any }) => {
                             0,
                             showAllExperiences
                               ? experiences.length
-                              : initialCount
+                              : initialCount,
                           )
                           .map((experience, index) => {
                             // ⬅️ IMPORTANT: Add 'index' to the map callback arguments
@@ -549,7 +549,7 @@ const Home = ({ params }: { params: any }) => {
                                 0,
                                 showAllExperiences
                                   ? experiences.length
-                                  : initialCount
+                                  : initialCount,
                               ).length -
                                 1;
 
@@ -614,14 +614,16 @@ const Home = ({ params }: { params: any }) => {
                   <OurBlogs domain={listOfdata?.domain} />
                 </div>
 
-                {listOfdata &&  listOfdata?.upwork_show_status === "show_at_end" &&  (
-                <div className="mb-[20px] lg:mb-[90px]">
-                  <UpworkActivitySection
-                    urlInfo={urlInfo}
-                    cvTrue={false}
-                    data={listOfdata}
-                  />
-                </div>)}
+                {listOfdata &&
+                  listOfdata?.upwork_show_status === "show_at_end" && (
+                    <div className="mb-[20px] lg:mb-[90px]">
+                      <UpworkActivitySection
+                        urlInfo={urlInfo}
+                        cvTrue={false}
+                        data={listOfdata}
+                      />
+                    </div>
+                  )}
 
                 {!urlInfo?.u && (
                   <div className="w-full mb-[5rem]">

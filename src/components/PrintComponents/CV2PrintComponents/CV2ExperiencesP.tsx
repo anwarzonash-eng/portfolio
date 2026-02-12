@@ -36,7 +36,7 @@ const CV2Experiences: React.FC<Props> = ({
   // Remove the filtering logic since experiences should already be filtered by the hook
   const filtered = (rawExperiences || []).filter((exp: any) => {
     if (!exp) return false;
-    
+
     // Basic validation - ensure we have valid experience data
     const startVal = exp.starting_date ?? exp.start_date ?? exp.startDate;
     if (!startVal) return false;
@@ -54,7 +54,13 @@ const CV2Experiences: React.FC<Props> = ({
     }
     return a;
   };
-
+  const formatType = (type: string) => {
+    if (!type) return "";
+    return type
+      .split("_")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(" ");
+  };
   const experiences = filtered.map((exp: any) => {
     const startLabel = toMonthYear(
       exp?.starting_date ?? exp?.start_date ?? exp?.startDate,
@@ -72,20 +78,24 @@ const CV2Experiences: React.FC<Props> = ({
         : extractBulletsFromHtml(exp?.short_description);
 
     // Use provided `bulletCount` prop when available, otherwise fallback to random 4-6
-    const count = typeof bulletCount === "number" && bulletCount > 0
-      ? Math.max(0, Math.floor(bulletCount))
-      : Math.floor(Math.random() * 3) + 4; // 4-6 range fallback
+    const count =
+      typeof bulletCount === "number" && bulletCount > 0
+        ? Math.max(0, Math.floor(bulletCount))
+        : Math.floor(Math.random() * 3) + 4; // 4-6 range fallback
 
     const bullets = shuffleArray(allBullets).slice(0, count);
 
     return {
       id: exp.id,
-      date: [startLabel, endLabel].filter(Boolean).join(" - "),
+      date: [startLabel, exp.is_still_working ? "Present" : endLabel]
+        .filter(Boolean)
+        .join(" - "),
       location: exp?.location || exp?.city || listOfdata?.location || "",
       title: exp?.title || exp?.designation || "",
       company: exp?.company_name || "",
       bullets,
       skills: exp?.skills || [],
+      type: formatType(exp?.type || ""),
     };
   });
 
@@ -98,7 +108,14 @@ const CV2Experiences: React.FC<Props> = ({
           <div key={exp.id || index} className="flex gap-[1.6rem]">
             <div className="w-[16rem] flex-shrink-0">
               <div className="cv2SDateStyles">{exp.date}</div>
-              <div className="mt-[0.4rem] text-[1.4rem] text-paragraph1">{exp.location}</div>
+              <div className="mt-[0.4rem] text-[1.4rem] text-paragraph1">
+                {exp.location}
+              </div>
+              {exp.type && (
+                <div className="text-[1.3rem] text-primary rounded-[0.4rem]   font-medium capitalize">
+                  {exp.type}
+                </div>
+              )}
             </div>
             <div className="flex-1 border-l border-[#E5E7EB] pl-[1.6rem] relative">
               <span className="absolute -left-[0.7rem] top-0 h-[1.2rem] w-[1.2rem] rounded-full bg-primary" />
