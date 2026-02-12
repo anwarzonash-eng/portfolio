@@ -58,7 +58,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
   const [imageProgress, setImageProgress] = useState({ loaded: 0, total: 0 });
 
   const listOfdatas = useAppSelector(
-    (state) => state.profile.listOfProfileData
+    (state) => state.profile.listOfProfileData,
   );
 
   // Filter skills based on listOfdata.skills_ids
@@ -68,7 +68,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
   useEffect(() => {
     if (listOfdata?.skills_ids && allSkills.length > 0) {
       const matchedSkills = allSkills.filter((skill) =>
-        listOfdata.skills_ids.some((dataSkill) => dataSkill.id === skill.id)
+        listOfdata.skills_ids.some((dataSkill) => dataSkill.id === skill.id),
       );
       setFilteredSkills(matchedSkills);
     }
@@ -93,7 +93,6 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
     urlInfo &&
       resolvedParams &&
       reportsApiHandler({
-        actionType: "portfolioById",
         urlInfo,
         setError,
         setLoading,
@@ -101,10 +100,11 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
         itemID: resolvedParams.id
           ? resolvedParams.id // Case 1: ID is directly in resolvedParams.id
           : Array.isArray(resolvedParams.value)
-          ? resolvedParams.value[0] // Case 2: ID is the first element of a catch-all array
-          : typeof resolvedParams.value === "object" && resolvedParams.value !== null
-          ? resolvedParams.value.id // Case 3: ID is nested as an object property
-          : resolvedParams.value, // 🛑 END CORRECTED LOGIC 🛑
+            ? resolvedParams.value[0] // Case 2: ID is the first element of a catch-all array
+            : typeof resolvedParams.value === "object" &&
+                resolvedParams.value !== null
+              ? resolvedParams.value.id // Case 3: ID is nested as an object property
+              : resolvedParams.value, // 🛑 END CORRECTED LOGIC 🛑
       });
   }, [urlInfo, resolvedParams]); //
 
@@ -153,7 +153,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
     string | null
   >(null); // 15 items for screen
   const [printTruncatedHtml, setPrintTruncatedHtml] = useState<string | null>(
-    null
+    null,
   ); // 12 items for print
   const [isPrintMode, setIsPrintMode] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false); // screen expansion toggle
@@ -187,7 +187,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
         processor(
           portfolioDetails?.features_short,
           filteredSkills,
-          listOfdata
+          listOfdata,
         ) || "";
 
       // DEBUG: inspect rawHtml and ensure it contains the expected <li> items
@@ -234,7 +234,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
 
       // default screen truncated to 15
       setDefaultTruncatedHtml(
-        allLis.length > 15 ? buildTruncated(15) : rawHtml
+        allLis.length > 15 ? buildTruncated(15) : rawHtml,
       );
 
       // print truncated to 12 (force up to 12)
@@ -276,6 +276,34 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
     allSkills: listOfskills,
   });
 
+
+   const techStackHeading =
+    listOfdata?.website_purpose === "upwork"
+      ? "How I used the tech"
+      : listOfdata?.website_purpose === "startup"
+        ? "Strategic Implementation"
+        : listOfdata?.website_purpose === "contract"
+          ? "Technical Implementation"
+          : "Tech Stack";
+
+  const modulesFeaturesHeading =
+    listOfdata?.website_purpose === "upwork"
+      ? "Key features delivered"
+      : listOfdata?.website_purpose === "startup"
+        ? "Strategic Milestones"
+        : listOfdata?.website_purpose === "contract"
+          ? "Technical Components"
+          : "Modules & Features";
+
+  const testimonialHeading =
+    listOfdata?.website_purpose === "upwork"
+      ? "Client Feedback"
+      : listOfdata?.website_purpose === "startup"
+        ? "Founder Endorsement"
+        : listOfdata?.website_purpose === "contract"
+          ? "Professional Refrence"
+          : "Client Testimonial";
+
   const componentsList: ComponentConfig[] = [
     {
       componentType: "static",
@@ -315,6 +343,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
           listOfdata={listOfdata}
           skillsforDetailPortfolio={skillsforDetailPortfolio}
           hideLinks={urlInfo?.hideLinks}
+          testimonialHeading={testimonialHeading}
         />
       ),
     },
@@ -325,6 +354,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
           featuresItemCount={featuresItemCount}
           printTruncatedHtml={printTruncatedHtml}
           hideLinks={urlInfo?.hideLinks}
+          techStackHeading={techStackHeading}
           portfolioId={
             portfolioDetails?.id ||
             resolvedParams?.id ||
@@ -340,6 +370,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
           modifiedContent={modifiedContent}
           portfolioDetails={portfolioDetails}
           filteredSkills={filteredSkills}
+          modulesFeaturesHeading={modulesFeaturesHeading}
           listOfdata={listOfdata}
         />
       ),
@@ -347,11 +378,15 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
     {
       componentType: "static",
       component: (
-        <PortfolioDetailUpworkSection
-          listOfdata={listOfdata}
-          urlInfo={urlInfo}
-          hideLinks={urlInfo?.hideLinks}
-        />
+        <>
+          {listOfdata && listOfdata?.upwork_show_status === "show" && (
+            <PortfolioDetailUpworkSection
+              listOfdata={listOfdata}
+              urlInfo={urlInfo}
+              hideLinks={urlInfo?.hideLinks}
+            />
+          )}
+        </>
       ),
     },
     {
@@ -397,7 +432,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
   const extractAllImageUrls = (
     data: any,
     blogs: any[],
-    portfolioDetails: any
+    portfolioDetails: any,
   ) => {
     const urls = new Set<string>();
 
@@ -447,7 +482,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
         const processedHtml =
           modifiedContent(htmlContent, filteredSkills, data) || "";
         const htmlMatches = processedHtml.match(
-          /<img[^>]+src=["']([^"']+)["'][^>]*>/g
+          /<img[^>]+src=["']([^"']+)["'][^>]*>/g,
         );
         if (htmlMatches) {
           htmlMatches.forEach((tag) => {
@@ -475,7 +510,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
     }
 
     preloadImages(urls, (loaded, total) =>
-      setImageProgress({ loaded, total })
+      setImageProgress({ loaded, total }),
     ).then(() => setImagesReady(true));
   }, [
     listOfdata,

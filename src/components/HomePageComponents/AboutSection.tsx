@@ -9,6 +9,7 @@ interface AboutSectionProps {
     profile_photo_3?: string;
     no_of_experiences?: number;
     projects_completed?: number;
+    website_purpose?: string;
     tag_line?: string;
     designation?: string;
     name?: string;
@@ -113,6 +114,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
             </div>
 
             {/* Projects Badge */}
+            {  listOfdata && listOfdata?.website_purpose !== "contract" && (
             <div className="bg-white mb-3 rounded-[0.8rem] absolute top-auto right-auto bottom-[-4rem] xl:bottom-[3rem] xl:left-[3rem] left-[3rem] p-[1.4rem] xl:h-[12rem] xl:rounded-[2rem] flex items-center shadow-md gap-[1rem] xl:gap-[2rem] animate-bounce xl:animate-none">
               {/* Badge SVG */}
               <div className="bg-[#FC822A] rounded-[50%] flex items-center justify-center h-[4.9rem] w-[4.9rem] xl:h-[6.8rem] xl:w-[6.8rem]">
@@ -132,6 +134,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
                 </p>
               </div>
             </div>
+            )}
           </div>
         </div>
         {/* Contact Details */}

@@ -52,7 +52,7 @@ const Footer = () => {
               </div>
             </section>
           )}
-          {pathname.includes("/contact-me") && (
+          {pathname.includes("/contact-me") && listOfdata && listOfdata?.upwork_show_status === "show" && (
             <div className="mt-[2rem] lg:mt-[4rem] w-full">
               <UpworkActivitySection
                 urlInfo={urlInfo}

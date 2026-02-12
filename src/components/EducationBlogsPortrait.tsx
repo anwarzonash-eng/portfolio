@@ -79,7 +79,6 @@ const EducationBlogsPortrait = () => {
   useEffect(() => {
     if (urlInfo && !listOfdata) {
       reportsApiHandler({
-        actionType: "cv",
         urlInfo,
         setError,
         setLoading,

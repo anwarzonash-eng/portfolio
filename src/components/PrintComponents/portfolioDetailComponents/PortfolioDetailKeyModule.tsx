@@ -8,6 +8,7 @@ interface PortfolioDetailKeyModuleProps {
   } | null;
   filteredSkills?: any;
   listOfdata?: any;
+  modulesFeaturesHeading?: string;
   modifiedContent: (
     html: string | null | undefined,
     filteredSkills: any,
@@ -20,11 +21,12 @@ const PortfolioDetailKeyModule: React.FC<PortfolioDetailKeyModuleProps> = ({
   filteredSkills,
   listOfdata,
   modifiedContent,
+  modulesFeaturesHeading
 }) => {
   return (
     <div className="w-full  limit-height-portfolio-detail px-[2rem]">
-      <h2 className="text-primary text-center text-[4rem] font-semibold my-[2rem]">
-        Features & Modules
+      <h2 className="text-primary text-center text-[4rem] font-semibold my-[2rem] capitalize">
+        {modulesFeaturesHeading}
       </h2>
 
       <div

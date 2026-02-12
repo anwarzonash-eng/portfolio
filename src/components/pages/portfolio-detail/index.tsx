@@ -52,7 +52,6 @@ const PortfolioDetails = ({ params }: { params: any }) => {
   const [allSkills, setAllSkills] = useState([]);
   const [filteredSkills, setFilteredSkills] = useState([]);
 
-
   // SKills List Managmeent useEffect
   useEffect(() => {
     if (!portfolioDetails) {
@@ -142,7 +141,6 @@ const PortfolioDetails = ({ params }: { params: any }) => {
   useEffect(() => {
     urlInfo &&
       reportsApiHandler({
-        actionType: "portfolioById",
         urlInfo,
         setError,
         setLoading,
@@ -250,9 +248,32 @@ const PortfolioDetails = ({ params }: { params: any }) => {
     allSkills,
   });
 
+  const techStackHeading =
+    listOfdata?.website_purpose === "upwork"
+      ? "How I used the tech"
+      : listOfdata?.website_purpose === "startup"
+        ? "Strategic Implementation"
+        : listOfdata?.website_purpose === "contract"
+          ? "Technical Implementation"
+          : "Tech Stack";
 
-  console.log("Testimonials:", listOfdata?.testimonials)
-  console.log("API Response:", listOfdata)
+  const modulesFeaturesHeading =
+    listOfdata?.website_purpose === "upwork"
+      ? "Key features delivered"
+      : listOfdata?.website_purpose === "startup"
+        ? "Strategic Milestones"
+        : listOfdata?.website_purpose === "contract"
+          ? "Technical Components"
+          : "Modules & Features";
+
+  const testimonialHeading =
+    listOfdata?.website_purpose === "upwork"
+      ? "Client Feedback"
+      : listOfdata?.website_purpose === "startup"
+        ? "Founder Endorsement"
+        : listOfdata?.website_purpose === "contract"
+          ? "Professional Refrence"
+          : "Client Testimonial";
 
   return (
     <div className="bg-[#EFF5FD]">
@@ -351,6 +372,7 @@ const PortfolioDetails = ({ params }: { params: any }) => {
                           <SideTestimonialPortfolioDetail
                             testimonials={listOfdata?.testimonials}
                             designation={listOfdata?.designation}
+                            heading={testimonialHeading}
                           />
                         )}
                       </div>
@@ -490,7 +512,7 @@ const PortfolioDetails = ({ params }: { params: any }) => {
                       id="tech-stacks-heading"
                       className="text-primary text-center text-[2rem] xl:text-[4rem] font-semibold mb-[2rem] xl:mb-[3rem]"
                     >
-                      Tech Stacks I Have Worked On
+                      {techStackHeading}
                     </h2>
                     <div className="w-full relative">
                       <div
@@ -533,9 +555,9 @@ const PortfolioDetails = ({ params }: { params: any }) => {
                     <h2
                       className="text-primary 
                       text-center text-[2rem] xl:text-[4rem] 
-                      font-semibold mb-[2rem] xl:mb-[3rem]"
+                      font-semibold mb-[2rem] xl:mb-[3rem] capitalize"
                     >
-                      Features & Modules
+                      {modulesFeaturesHeading}
                     </h2>
                     <div
                       className=" list-div text-[2rem] "
@@ -566,13 +588,17 @@ const PortfolioDetails = ({ params }: { params: any }) => {
                   {portfolioDetails !== null && (
                     <SliderXL portfolioPictures={portfolioDetails?.pictures} />
                   )}
-                  <div className="mt-[5rem] lg:mt-[10rem]">
-                    <UpworkActivitySection
-                      urlInfo={urlInfo}
-                      cvTrue={true}
-                      data={listOfdata}
-                    />
-                  </div>
+
+                  {/* Upwork Activity Section */}
+                  {listOfdata && listOfdata?.upwork_show_status === "show" && (
+                    <div className="mt-[5rem] lg:mt-[10rem]">
+                      <UpworkActivitySection
+                        urlInfo={urlInfo}
+                        cvTrue={true}
+                        data={listOfdata}
+                      />
+                    </div>
+                  )}
                 </div>
               </section>
               <div className="my-[5rem]">

@@ -29,6 +29,7 @@ interface Testimonial {
 interface TestimonialsSectionProps {
   testimonials: Testimonial[];
   designation: string;
+  heading?: string;
 }
 
 interface VideoPlayerProps {
@@ -78,6 +79,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, poster }) => {
 const SideTestimonialPortfolioDetail: React.FC<TestimonialsSectionProps> = ({
   testimonials,
   designation,
+  heading,
 }) => {
   // Simplified: no Swiper here. Render the first testimonial for portfolio detail testing.
 
@@ -111,8 +113,8 @@ const SideTestimonialPortfolioDetail: React.FC<TestimonialsSectionProps> = ({
       <div className="relative">
         {/* Heading */}
         <div className="flex flex-col gap-2">
-          <h3 className="text-[1.8rem] lg:text-[2.4rem] font-bold my-[2rem] font-Rubik">
-            See what my clients say about me:
+          <h3 className="text-[1.8rem] lg:text-[2.4rem] font-bold my-[2rem] font-Rubik capitalize">
+            {heading}
           </h3>
         </div>
 

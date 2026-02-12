@@ -72,11 +72,7 @@ const CVSideBar: React.FC<CVSideBarProps> = ({
           {/* Info Paragraph */}
           <div className="flex flex-col items-center justify-center print:w-full">
             <p className="my-[4rem] text-[2rem] leading-[2.6rem] text-heading font-normal text-center">
-              Reach out today and I'll provide you with my comprehensive
-              onboarding package designed for full-time employment or Contract
-              Based Jobs. This package covers various aspects that potential
-              employers often inquire about, such as my salary expectations and
-              the seamless integration process into your company.
+             {listOfdata?.ai_short_description}
             </p>
           </div>
         </div>
@@ -92,7 +88,7 @@ const CVSideBar: React.FC<CVSideBarProps> = ({
             </p>
             <h4 className="text-[2rem] font-medium text-primary leading-normal">
               {formatDate(
-                new Date(new Date().getFullYear(), new Date().getMonth() + 1),
+                new Date(new Date().getFullYear(), new Date().getMonth() + 0),
                 dateFormatsOptions.longMonthYear
               )}
             </h4>

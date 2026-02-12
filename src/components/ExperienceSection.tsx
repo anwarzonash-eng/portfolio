@@ -340,6 +340,8 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
             )}
           </div>
 
+          {listOfdata && listOfdata?.website_purpose !== "contract" && 
+          <>
           <hr className="w-full my-[2.4rem] h-px bg-border print:hidden" />
 
           {/* Skills */}
@@ -390,6 +392,9 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
               </div>
             </div>
           )}
+          </>
+          }
+
         </div>
       </div>
     </div>

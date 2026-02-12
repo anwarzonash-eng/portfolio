@@ -8,6 +8,7 @@ interface BlogTechStackPointProps {
   featuresItemCount: number;
   hideLinks?: boolean;
   portfolioId?: string | number | null;
+  techStackHeading?: string;
 }
 
 const BlogTechStackPoint: React.FC<BlogTechStackPointProps> = ({
@@ -15,13 +16,14 @@ const BlogTechStackPoint: React.FC<BlogTechStackPointProps> = ({
   featuresItemCount,
   portfolioId,
   hideLinks,
+  techStackHeading,
 }) => {
   const featuresRef = useRef<HTMLDivElement | null>(null);
 
   return (
     <div className="w-full px-[2rem]">
-      <h2 className="text-primary text-center text-[4rem] font-semibold my-[2rem]">
-        Tech Stacks I Have Worked On
+      <h2 className="text-primary text-center text-[4rem] font-semibold my-[2rem] capitalize">
+        {techStackHeading }
       </h2>
 
       <div className="w-full relative mt-[3rem]">

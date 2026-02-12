@@ -75,7 +75,6 @@ const PortfolioListing = ({ params }: { params: any }) => {
   useEffect(() => {
     if (urlInfo) {
       reportsApiHandler({
-        actionType: "portfolio",
         urlInfo,
         setLoading,
         setError,
@@ -238,7 +237,7 @@ const PortfolioListing = ({ params }: { params: any }) => {
       {listOfdata && listOfdata?.portfolios_ids?.length > 0 && (
         <>
           {/* Portfolio Timeline Section */}
-          <div 
+          <div
             id="portfolioSection"
             className="mainContainer mt-[-30rem] lg:mt-[-40rem] xl:mt-[-36rem] print:mt-0  w-full mb-[4rem]"
           >
@@ -254,8 +253,8 @@ const PortfolioListing = ({ params }: { params: any }) => {
                       (listOfdata?.portfolios_ids || []).map((p) => [
                         String(p?.id),
                         p,
-                      ])
-                    ).values()
+                      ]),
+                    ).values(),
                   ).map((portfolio: any, index: number) => {
                     const skills: {
                       [key: string]: {
@@ -266,15 +265,16 @@ const PortfolioListing = ({ params }: { params: any }) => {
                     } = skillsGrouping(
                       showMoreSkills[index]
                         ? portfolio?.skills
-                        : portfolio?.skills?.slice(0, 15)
+                        : portfolio?.skills?.slice(0, 15),
                     );
                     return (
                       <div
                         id={`portfolio-${portfolio.id}`}
-                        className={`relative flex items-start portfolio-item w-full ${highlightedPortfolioId === portfolio.id
+                        className={`relative flex items-start portfolio-item w-full ${
+                          highlightedPortfolioId === portfolio.id
                             ? "border border-primary rounded-[1rem] p-4"
                             : ""
-                          }`}
+                        }`}
                         key={String(portfolio?.id) || index}
                       >
                         {/* Dot */}
@@ -291,7 +291,7 @@ const PortfolioListing = ({ params }: { params: any }) => {
                               {
                                 month: "short",
                                 year: "numeric",
-                              }
+                              },
                             )}{" "}
                             -{" "}
                             {isNaN(new Date(portfolio.ending_Date).getTime())
@@ -301,7 +301,7 @@ const PortfolioListing = ({ params }: { params: any }) => {
                                   {
                                     month: "short",
                                     year: "numeric",
-                                  }
+                                  },
                                 )}
                           </h1>
 
@@ -326,12 +326,13 @@ const PortfolioListing = ({ params }: { params: any }) => {
           </div>
 
           {/* Upwork Activity Section - only if data exists */}
-          {listOfdata && (
-            <UpworkActivitySection urlInfo={urlInfo} cvTrue={false}
-            data={listOfdata}
+          {listOfdata && listOfdata?.upwork_show_status === "show" && (
+            <UpworkActivitySection
+              urlInfo={urlInfo}
+              cvTrue={false}
+              data={listOfdata}
             />
           )}
-          
 
           {/* Our Blogs Section - only if domain exists */}
           {listOfdata?.domain && (
@@ -339,7 +340,7 @@ const PortfolioListing = ({ params }: { params: any }) => {
               <OurBlogs domain={listOfdata?.domain} />
             </div>
           )}
-          
+
           {/* Newsletter - only if not user profile and data exists */}
           {!urlInfo?.u && listOfdata && (
             <div className="w-full mb-[5rem]">

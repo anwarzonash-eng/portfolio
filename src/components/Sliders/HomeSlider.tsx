@@ -266,6 +266,7 @@ const HomeSlider = ({ portfolios, highlightedPortfolioId }) => {
                   showMoreSkills={showMoreSkills}
                   setShowMoreSkills={setShowMoreSkills}
                   openModal={openModal}
+                  website_purpose={portfolio?.website_purpose}
                 />
               </div>
             );

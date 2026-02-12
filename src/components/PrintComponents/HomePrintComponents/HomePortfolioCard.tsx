@@ -223,7 +223,7 @@ const HomePortfolioCard: React.FC<HomePortfolioCardProps> = ({
                       <div
                         dangerouslySetInnerHTML={{
                           __html: modifiedContent(
-                            portfolio.tagline_2,
+                            portfolio.tagline_1,
                             listOfskills,
                             listOfdata,
                           ),

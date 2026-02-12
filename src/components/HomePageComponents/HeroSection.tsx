@@ -11,6 +11,7 @@ interface HeroSectionProps {
     hourly_rate?: number;
     salary_type?: string;
     skills_ids?: string[];
+    hide_earnings?: boolean;
   };
   skills: Record<string, { title: string; url?: string }[]>;
   showAll: boolean;
@@ -30,7 +31,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   scrollToSection,
 }) => {
   return (
-    <div className="w-full overflow-hidden relative bg-bannerBG print:break-before-page print:h-screen print:m-0" >
+    <div className="w-full overflow-hidden relative bg-bannerBG print:break-before-page print:h-screen print:m-0">
       {/* Hero Section For Mobile and Tablet Devices */}
       <div className="mainContainer relative xl:hidden print:hidden">
         {/* Hero Section Mobile Content */}
@@ -71,7 +72,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                     .slice(0, !showAll ? 10 : undefined)
                     .map((skill, i) => {
                       const groupIndex = Object.values(skills).findIndex(
-                        (group) => group.includes(skill)
+                        (group) => group.includes(skill),
                       );
                       const skillNumber = `${groupIndex + 1}.${
                         skills[Object.keys(skills)[groupIndex]].indexOf(skill) +
@@ -131,28 +132,35 @@ const HeroSection: React.FC<HeroSectionProps> = ({
               className="print:h-[700px] print-w-[640px]"
             />
             {/* Positioned Elements Price */}
-            <div className="flex gap-[0.35rem] text-nowrap text-primary text-[1.4rem] font-medium rounded-[3.5rem] py-[0.69rem] bg-white shadow-lg px-[1.2rem] absolute top-[25%] left-[98%] translate-x-[-90%] md:left-[80%] md:translate-x-[-80%] animate-pulse min-w-max">
-              <Image
-                src={"/images/clock.svg"}
-                height={14}
-                width={14}
-                alt="Clock"
-                className="h-[2rem] w-[2rem]"
-              />
-              <p>45 hr / Week</p>
-            </div>
+            {listOfdata?.hide_earnings !== true && (
+              <div className="flex gap-[0.35rem] text-nowrap text-primary text-[1.4rem] font-medium rounded-[3.5rem] py-[0.69rem] bg-white shadow-lg px-[1.2rem] absolute top-[25%] left-[98%] translate-x-[-90%] md:left-[80%] md:translate-x-[-80%] animate-pulse min-w-max">
+                <Image
+                  src={"/images/clock.svg"}
+                  height={14}
+                  width={14}
+                  alt="Clock"
+                  className="h-[2rem] w-[2rem]"
+                />
+                <p>45 hr / Week</p>
+              </div>
+            )}
 
             {/* Positioned Elements Availability */}
-            <div className="flex gap-[0.35rem] text-nowrap text-primary text-[2rem] font-medium rounded-[3.5rem] py-[0.69rem] bg-white shadow-lg max-w-max px-[0.9rem] pr-[1.4rem] absolute bottom-[25%] left-[10%] translate-x-[-15%] md:left-[20%] md:translate-x-[-20%] animate-pulse">
-              <Image
-                src={"/images/dollar-symbol.svg"}
-                height={14}
-                width={14}
-                alt="Dollar Symbol"
-                className="h-[auto] w-[auto]"
-              />
-              <p>${listOfdata?.hourly_rate} / {listOfdata?.salary_type === "per_day" ? "day" : "hour"}</p>
-            </div>
+            {listOfdata?.hide_earnings !== true && (
+              <div className="flex gap-[0.35rem] text-nowrap text-primary text-[2rem] font-medium rounded-[3.5rem] py-[0.69rem] bg-white shadow-lg max-w-max px-[0.9rem] pr-[1.4rem] absolute bottom-[25%] left-[10%] translate-x-[-15%] md:left-[20%] md:translate-x-[-20%] animate-pulse">
+                <Image
+                  src={"/images/dollar-symbol.svg"}
+                  height={14}
+                  width={14}
+                  alt="Dollar Symbol"
+                  className="h-[auto] w-[auto]"
+                />
+                <p>
+                  ${listOfdata?.hourly_rate} /{" "}
+                  {listOfdata?.salary_type === "per_day" ? "day" : "hour"}
+                </p>
+              </div>
+            )}
           </div>
           <div className="print:w-[50%] print:block hidden print:mt-[45px]">
             <p
@@ -233,9 +241,14 @@ const HeroSection: React.FC<HeroSectionProps> = ({
           </h1>
           {/* Badge */}
           <div className="relative z-[50] mt-[1rem] flex items-center justify-start">
-            <div className={`inline-block px-[2rem] py-[1.5rem] lg:py-[1rem] lg:px-[4rem] bg-primary lg:max-w-[45rem] rounded-[5rem] border-none outline-none mb-[2rem]`}>
+            <div
+              className={`inline-block px-[2rem] py-[1.5rem] lg:py-[1rem] lg:px-[4rem] bg-primary lg:max-w-[45rem] rounded-[5rem] border-none outline-none mb-[2rem]`}
+            >
               {listOfdata?.designation?.split("|").map((item, index) => (
-                <div key={index} className={`text-center ${index === 0 ? "text-[1.6rem] lg:text-[2.4rem] font-bold text-white": "text-[1.4rem] lg:text-[1.6em] font-semibold text-gray-300"}`}>
+                <div
+                  key={index}
+                  className={`text-center ${index === 0 ? "text-[1.6rem] lg:text-[2.4rem] font-bold text-white" : "text-[1.4rem] lg:text-[1.6em] font-semibold text-gray-300"}`}
+                >
                   {item.trim()}
                 </div>
               ))}
@@ -252,32 +265,37 @@ const HeroSection: React.FC<HeroSectionProps> = ({
             />
 
             {/* Left Pricing and Hours Badge Positioned */}
-            <div className="absolute left-0 top-[24rem] w-[33.5rem] h-[18rem] inline-flex items-center justify-center bg-Circle bg-no-repeat bg-contain animate-bounce">
-              <div className="h-[100px] rounded flex gap-4 flex-col w-full px-10 relative">
-                {/* Hourly Rate */}
-                <div className="flex items-center gap-[0.35rem] text-nowrap text-primary text-[2rem] font-medium rounded-[3.5rem] py-[0.69rem] bg-white shadow-lg max-w-max px-[0.9rem] pr-[1.4rem]">
-                  <Image
-                    src={"/images/dollar-symbol.svg"}
-                    height={24}
-                    width={24}
-                    alt="Dollar Symbol"
-                    className="h-[2.4rem] w-[2.4rem]"
-                  />
-                  <p>${listOfdata?.hourly_rate} / {listOfdata?.salary_type === "per_day" ? "day" : "hour"}</p>
-                </div>
-                {/* Availability */}
-                <div className="flex gap-[0.35rem] text-nowrap text-primary text-[2rem] font-medium rounded-[3.5rem] py-[0.69rem] bg-white shadow-lg px-[1.2rem] min-w-max">
-                  <Image
-                    src={"/images/clock.svg"}
-                    height={26}
-                    width={26}
-                    alt="Clock"
-                    className="h-[2.6rem] w-[2.6rem]"
-                  />
-                  <p>45 hr / Week Availability</p>
+            {listOfdata?.hide_earnings !== true && (
+              <div className="absolute left-0 top-[24rem] w-[33.5rem] h-[18rem] inline-flex items-center justify-center bg-Circle bg-no-repeat bg-contain animate-bounce">
+                <div className="h-[100px] rounded flex gap-4 flex-col w-full px-10 relative">
+                  {/* Hourly Rate */}
+                  <div className="flex items-center gap-[0.35rem] text-nowrap text-primary text-[2rem] font-medium rounded-[3.5rem] py-[0.69rem] bg-white shadow-lg max-w-max px-[0.9rem] pr-[1.4rem]">
+                    <Image
+                      src={"/images/dollar-symbol.svg"}
+                      height={24}
+                      width={24}
+                      alt="Dollar Symbol"
+                      className="h-[2.4rem] w-[2.4rem]"
+                    />
+                    <p>
+                      ${listOfdata?.hourly_rate} /{" "}
+                      {listOfdata?.salary_type === "per_day" ? "day" : "hour"}
+                    </p>
+                  </div>
+                  {/* Availability */}
+                  <div className="flex gap-[0.35rem] text-nowrap text-primary text-[2rem] font-medium rounded-[3.5rem] py-[0.69rem] bg-white shadow-lg px-[1.2rem] min-w-max">
+                    <Image
+                      src={"/images/clock.svg"}
+                      height={26}
+                      width={26}
+                      alt="Clock"
+                      className="h-[2.6rem] w-[2.6rem]"
+                    />
+                    <p>45 hr / Week Availability</p>
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
             {/* Positioned Skills and Text Desktop */}
             <div className="max-w-[55rem] w-full absolute right-[-4rem] top-[7rem]">
               <p
@@ -338,9 +356,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                                   <div
                                     key={`${groupIndex}-${i}`}
                                     style={{
-                                        animationDelay: `${i * 0.1}s`,
-                                      }}
-                                      className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium px-[21px] py-[0.5rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
+                                      animationDelay: `${i * 0.1}s`,
+                                    }}
+                                    className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium px-[21px] py-[0.5rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
                                   >
                                     {skill?.title}
                                   </div>

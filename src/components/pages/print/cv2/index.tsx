@@ -87,7 +87,6 @@ const CV2 = ({ params }: { params: any }) => {
   useEffect(() => {
     if (urlInfo) {
       reportsApiHandler({
-        actionType: "cv",
         urlInfo,
         setLoading,
         setListOfData,

@@ -52,7 +52,6 @@ const BlogDetails = ({ params }: { params: any }) => {
     if (urlInfo) {
       dispatch(setProfileUrlInfo(urlInfo));
       reportsApiHandler({
-        actionType: "home",
         urlInfo,
         setLoading,
         setError,

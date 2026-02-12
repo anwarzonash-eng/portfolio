@@ -126,11 +126,11 @@ export default function ChildWrapper({
       {!urlInfo?.u && <Tawkto />}
 
       {/* Offer Banner - conditionally shown */}
-      {!urlInfo?.u && !isScrolled && (
+      {/* {!urlInfo?.u && !isScrolled && (
         <div className="print:hidden">
           {isHiddenPaths ? false : <OfferBanner listOfdata={listOfdata} />}
         </div>
-      )}
+      )} */}
       {/* Header Wrapper */}
       {!isHiddenPaths && (
         <div className="print:hidden block sticky top-0 z-[100]">

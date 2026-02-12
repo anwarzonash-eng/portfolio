@@ -331,7 +331,6 @@ const Home = ({ params }: { params: any }) => {
   useEffect(() => {
     if (urlInfo) {
       reportsApiHandler({
-        actionType: "home",
         urlInfo,
         setLoading,
         setListOfData,
@@ -348,9 +347,19 @@ const Home = ({ params }: { params: any }) => {
     store.dispatch(setProfileLoading(loading));
   }, [loading]);
 
+
+  const servicesSectionHeading =
+    listOfdata?.website_purpose === "upwork"
+      ? "Expert Development Services"
+      : listOfdata?.website_purpose === "startup"
+        ? "Full-Cycle Product Solutions"
+        : listOfdata?.website_purpose === "contract"
+          ? "Technical Specializations"
+          : "Tech Stack";
+
   // grouping used elsewhere — keep as is
-  console.log("URL Info:", urlInfo);
-  console.log("List of Data:", listOfdata);
+  // console.log("URL Info:", urlInfo);
+  // console.log("List of Data:", listOfdata);
 
   return (
     <>
@@ -374,6 +383,17 @@ const Home = ({ params }: { params: any }) => {
                   scrollToSection={scrollToSection}
                 />
 
+                {/* Upwork Activity Section */}
+                {listOfdata?.upwork_show_status === "show" &&  (
+                <div className="mb-[20px] lg:mb-[90px]">
+                  <UpworkActivitySection
+                    urlInfo={urlInfo}
+                    cvTrue={false}
+                    data={listOfdata}
+                  />
+                </div>)}
+
+
                 <AboutSection
                   listOfdata={listOfdata}
                   urlInfo={urlInfo}
@@ -381,13 +401,6 @@ const Home = ({ params }: { params: any }) => {
                   downloadFile={downloadFile}
                 />
 
-                <div className="mb-[20px] lg:mb-[90px]">
-                  <UpworkActivitySection
-                    urlInfo={urlInfo}
-                    cvTrue={false}
-                    data={listOfdata}
-                  />
-                </div>
 
                 {/* Custom Video Player Section */}
                 {listOfdata?.video_attached?.videoURL && (
@@ -414,15 +427,14 @@ const Home = ({ params }: { params: any }) => {
                     className="mainContainer print:!pt-[4rem] print:my-[0rem] my-[5rem]  print:h-screen print:break-before-page break-before-avoid print:bg-[#a3ddd3]"
                   >
                     <div className="flex items-center justify-center mt-[2rem] lg:hidden">
-                      <div id="skills_ids" className="badge">
-                        Skills
+                      <div id="skills_ids" className="badge capitalize">
+                        {servicesSectionHeading}
                       </div>
                     </div>
 
-                    <div className="text-center text-heading text-[2.4rem] xl:text-[3rem] print:text-[3rem] print:mb-[1.5rem] font-medium leading-[2.8rem] mt-[2rem] hidden lg:block">
-                      {listOfdata?.companytype == "leewop"
-                        ? "The skills & tools I am really good at:"
-                        : " The skills, tools and technologies I am really good at:"}
+                    <div className="text-center text-heading text-[2.4rem] xl:text-[3rem]
+                      font-medium leading-[2.8rem] mt-[2rem] hidden lg:block capitalize mb-[2rem] lg:mb-[6rem]">
+                      {servicesSectionHeading}
                     </div>
 
                     <SkillsContainer
@@ -601,6 +613,15 @@ const Home = ({ params }: { params: any }) => {
                 <div id="ourBlogs" className="my-[5rem]">
                   <OurBlogs domain={listOfdata?.domain} />
                 </div>
+
+                {listOfdata &&  listOfdata?.upwork_show_status === "show_at_end" &&  (
+                <div className="mb-[20px] lg:mb-[90px]">
+                  <UpworkActivitySection
+                    urlInfo={urlInfo}
+                    cvTrue={false}
+                    data={listOfdata}
+                  />
+                </div>)}
 
                 {!urlInfo?.u && (
                   <div className="w-full mb-[5rem]">

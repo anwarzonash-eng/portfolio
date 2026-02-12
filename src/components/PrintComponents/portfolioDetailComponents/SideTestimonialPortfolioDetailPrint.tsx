@@ -29,6 +29,7 @@ interface TestimonialsSectionProps {
   testimonials: Testimonial[];
   designation: string;
   hideLinks?: boolean;
+  heading?: string;
 }
 
 interface VideoPlayerProps {
@@ -79,6 +80,7 @@ const SideTestimonialPortfolioDetailPrint: React.FC<TestimonialsSectionProps> = 
   testimonials,
   designation,
   hideLinks,
+  heading
 }) => {
   // Simplified: no Swiper here. Render the first testimonial for portfolio detail testing.
 
@@ -96,7 +98,7 @@ const SideTestimonialPortfolioDetailPrint: React.FC<TestimonialsSectionProps> = 
         {/* Heading */}
         <div className="flex flex-col">
           <h3 className="text-[1.8rem] font-semibold my-[1rem] font-Rubik leading-normal">
-            See what my clients say about me:
+            {heading}
           </h3>
         </div>
 

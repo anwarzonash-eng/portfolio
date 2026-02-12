@@ -15,12 +15,13 @@ interface PortfolioCardContentProps {
     company_icon?: string;
     title?: string;
     link?: string;
-    tagline_2?: string;
+    tagline_1?: string;
     features_short?: string;
     skills?: any[] | any[][];
     has_testimonial?: boolean;
   };
   thumbnailSize: string;
+  website_purpose?: string;
   listOfskills: any[];
   listOfdata: any;
   index: number;
@@ -29,7 +30,7 @@ interface PortfolioCardContentProps {
   openModal: (
     pictures?: string,
     thumbnail?: string,
-    child_hero_banner?: string
+    child_hero_banner?: string,
   ) => void;
 }
 
@@ -40,6 +41,7 @@ const PortfolioCardContent: React.FC<PortfolioCardContentProps> = ({
   index,
   thumbnailSize,
   showMoreSkills,
+  website_purpose,
   setShowMoreSkills,
   openModal,
 }) => {
@@ -52,6 +54,9 @@ const PortfolioCardContent: React.FC<PortfolioCardContentProps> = ({
   const skillsToShow = showMoreSkills[index]
     ? flatSkills
     : flatSkills.slice(0, initialSkillLimit);
+
+  console.log("website_purpose", website_purpose)
+  console.log("API Data:", listOfdata)
 
   return (
     <div className="flex flex-col-reverse lg:flex-row max-lg:p-[1.5rem] bg-white shadow-testimonialeShadow relative rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden p-[2.4rem] gap-[2.4rem] print:mt-[10rem]">
@@ -88,7 +93,7 @@ const PortfolioCardContent: React.FC<PortfolioCardContentProps> = ({
                   openModal(
                     portfolio?.pictures,
                     portfolio?.thumbnail,
-                    portfolio?.child_hero_banner
+                    portfolio?.child_hero_banner,
                   )
                 }
               >
@@ -132,9 +137,9 @@ const PortfolioCardContent: React.FC<PortfolioCardContentProps> = ({
             <div
               dangerouslySetInnerHTML={{
                 __html: modifiedContent(
-                  portfolio.tagline_2,
+                  portfolio.tagline_1,
                   listOfskills,
-                  listOfdata
+                  listOfdata,
                 ),
               }}
               className="p-[2rem] pl-0 offer_main list-div text-[1.6rem] rounded-[1rem]"
@@ -144,74 +149,81 @@ const PortfolioCardContent: React.FC<PortfolioCardContentProps> = ({
               skillsList={listOfskills}
               listOfdata={listOfdata}
             />
-            <hr className="w-full my-[2rem] h-px bg-border print:hidden" />
-            {/* Skills */}
-            <h4 className="text-heading text-[1.4rem] lg:text-[1.6rem] font-medium mb-[1.2rem] ml-[0.2rem]">
-              AREAS OF EXPERTISE I'VE WORKED IN
-            </h4>
-            <div className="flex items-center gap-[1rem] mt-3 lg:gap-[0.7rem] flex-wrap text-[1.2rem] w-full">
-              {Array.isArray(skillsToShow) && skillsToShow.length > 0 && (
-                <React.Fragment>
-                  {skillsToShow.map((skill: any, i: number) => (
-                    <>
-                      {skill?.url ? (
-                        <Link
-                          key={i}
-                          href={skill.url || "#"}
-                          target="_blank"
-                          className="hover:bg-primary hover:text-white py-[0.4rem] print:py-[0.1rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
-                        >
-                          {skill.title}
-                        </Link>
-                      ) : (
-                        <div
-                          key={i}
-                          className="hover:bg-primary hover:text-white py-[0.4rem] print:py-[0.1rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
-                        >
-                          {skill.title}
-                        </div>
+
+            {listOfdata && website_purpose?.trim() !== "contract" && (
+              <>
+                <hr className="w-full my-[2rem] h-px bg-border print:hidden" />
+                {/* Skills */}
+                <h4 className="text-heading text-[1.4rem] lg:text-[1.6rem] font-medium mb-[1.2rem] ml-[0.2rem]">
+                  AREAS OF EXPERTISE I'VE WORKED IN
+                </h4>
+                <div className="flex items-center gap-[1rem] mt-3 lg:gap-[0.7rem] flex-wrap text-[1.2rem] w-full">
+                  {Array.isArray(skillsToShow) && skillsToShow.length > 0 && (
+                    <React.Fragment>
+                      {skillsToShow.map((skill: any, i: number) => (
+                        <>
+                          {skill?.url ? (
+                            <Link
+                              key={i}
+                              href={skill.url || "#"}
+                              target="_blank"
+                              className="hover:bg-primary hover:text-white py-[0.4rem] print:py-[0.1rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
+                            >
+                              {skill.title}
+                            </Link>
+                          ) : (
+                            <div
+                              key={i}
+                              className="hover:bg-primary hover:text-white py-[0.4rem] print:py-[0.1rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
+                            >
+                              {skill.title}
+                            </div>
+                          )}
+                        </>
+                      ))}
+                      {showMoreSkills[index] && (
+                        <div className="w-full mb-[1px]" />
                       )}
-                    </>
-                  ))}
-                  {showMoreSkills[index] && <div className="w-full mb-[1px]" />}
-                </React.Fragment>
-              )}
-              <ShowmoreSkills
-                props={{
-                  list: flatSkills,
-                  index,
-                  setShowMoreSkills,
-                  showMoreSkills,
-                }}
-              />
-            </div>
-            <hr className="w-full my-[2.4rem] h-px bg-border print:hidden" />
-            {/* Links */}
-            <div className="flex items-center flex-wrap max-sm:flex-col max-md:items-start gap-[1.4rem] print:hidden">
-              <Link
-                href={`/portfolio/${portfolio.id}`}
-                className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent print:!border-primary hover:border-primary duration-300 max-sm:w-full text-center rounded-[0.6rem] print:!text-primary"
-              >
-                View Details
-              </Link>
-              {listOfdata?.companytype !== "leewop" && (
-                <a
-                  href={portfolio?.link ? portfolio?.link : "#"}
-                  target="_blank"
-                  className="py-[1rem] px-[2rem] text-[1.6rem] leading-[2.4rem] font-medium text-primary border border-solid hover:border-transparent border-primary print:!text-primary duration-300 hover:bg-primary hover:text-white rounded-[0.6rem] max-sm:w-full text-center text-nowrap"
-                >
-                  Launch Project - Live Preview
-                </a>
-              )}
-              {portfolio?.has_testimonial && (
-                <Link
-                  href={"#"}
-                  className="text-primary text-[1.6rem] leading-[2.4rem] font-medium max-sm:w-full text-center"
-                >
-                  Check Client Testimonial
-                </Link>
-              )}
-            </div>
+                    </React.Fragment>
+                  )}
+                  <ShowmoreSkills
+                    props={{
+                      list: flatSkills,
+                      index,
+                      setShowMoreSkills,
+                      showMoreSkills,
+                    }}
+                  />
+                </div>
+                <hr className="w-full my-[2.4rem] h-px bg-border print:hidden" />
+                {/* Links */}
+                <div className="flex items-center flex-wrap max-sm:flex-col max-md:items-start gap-[1.4rem] print:hidden">
+                  <Link
+                    href={`/portfolio/${portfolio.id}`}
+                    className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent print:!border-primary hover:border-primary duration-300 max-sm:w-full text-center rounded-[0.6rem] print:!text-primary"
+                  >
+                    View Details
+                  </Link>
+                  {listOfdata?.companytype !== "leewop" && (
+                    <a
+                      href={portfolio?.link ? portfolio?.link : "#"}
+                      target="_blank"
+                      className="py-[1rem] px-[2rem] text-[1.6rem] leading-[2.4rem] font-medium text-primary border border-solid hover:border-transparent border-primary print:!text-primary duration-300 hover:bg-primary hover:text-white rounded-[0.6rem] max-sm:w-full text-center text-nowrap"
+                    >
+                      Launch Project - Live Preview
+                    </a>
+                  )}
+                  {portfolio?.has_testimonial && (
+                    <Link
+                      href={"#"}
+                      className="text-primary text-[1.6rem] leading-[2.4rem] font-medium max-sm:w-full text-center"
+                    >
+                      Check Client Testimonial
+                    </Link>
+                  )}
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>

@@ -90,7 +90,6 @@ const CV_Landscape = ({ params }: { params: any }) => {
   useEffect(() => {
     urlInfo &&
       reportsApiHandler({
-        actionType: "cv",
         urlInfo,
         setError,
         setLoading,

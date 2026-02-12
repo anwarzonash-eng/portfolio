@@ -82,6 +82,7 @@ interface PortfolioBlogDetailProps {
   listOfdata: any;
   skillsforDetailPortfolio: any;
   hideLinks?: boolean;
+  testimonialHeading?: string;
 }
 
 const PortfolioBlogDetail: React.FC<PortfolioBlogDetailProps> = ({
@@ -92,7 +93,8 @@ const PortfolioBlogDetail: React.FC<PortfolioBlogDetailProps> = ({
   filteredSkills,
   listOfdata,
   skillsforDetailPortfolio,
-  hideLinks
+  hideLinks,
+  testimonialHeading
 }) => {
   return (
     <article className="flex items-center justify-center h-screen w-full px-[2rem]">
@@ -150,6 +152,7 @@ const PortfolioBlogDetail: React.FC<PortfolioBlogDetailProps> = ({
                   testimonials={listOfdata?.testimonials}
                   designation={listOfdata?.designation}
                   hideLinks={hideLinks}
+                  heading={testimonialHeading}
                 />
               )}
             </div>

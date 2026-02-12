@@ -35,7 +35,6 @@ const ContactMePage = ({ params }: { params: any }) => {
   useEffect(() => {
     urlInfo &&
       reportsApiHandler({
-        actionType: "home",
         urlInfo,
         setLoading,
         setListOfData,

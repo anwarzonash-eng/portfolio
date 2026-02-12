@@ -54,7 +54,7 @@ const HomeUpworkSection = ({ listOfdata, urlInfo, hideLinks }) => {
     },
   ];
   return (
-    <section className="h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center p-[4rem] mt-20 print:mt-0 relative bg-white">
+    <section className={`h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center p-[4rem] mt-20 print:mt-0 relative bg-white`}>
       {/* Note and Domain For Each Page */}
       {hideLinks ? null :
       <NoteDomainForPint direction={"hidden print:right-0 print:block"} />

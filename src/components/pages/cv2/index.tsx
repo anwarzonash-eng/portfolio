@@ -6,7 +6,6 @@ import { setProfileUrlInfo, setProfileLoading } from "@/store/profileSlice";
 import { reportsApiHandler } from "@/hooks/apihandlers/reportsApiHandlers";
 import { handleSkillsApiCall } from "@/hooks/apihandlers/skillsApiHandlers";
 import { getRoutesDetails } from "@/hooks/url";
-import { modifiedContent } from "@/hooks/modifiedContent";
 import { skillsGrouping } from "@/hooks/skillsGrouping";
 import { useFilteredYearExperiences } from "@/hooks/useFilteredYearExperiences";
 
@@ -21,7 +20,8 @@ import {
 
 import { preloadImages } from "@/utils/preLoadImages";
 import { useSortedSkills } from "@/hooks/useSortedSkills";
-
+import { contactDetails, socialLinks } from "@/data/JsonData";
+import CV2WorkProof from "@/components/CV2PageComponents/CV2ClickableLinkedinGihubLinks";
 
 const CV2 = ({ params }: { params: any }) => {
   // All Logic Start
@@ -72,7 +72,6 @@ const CV2 = ({ params }: { params: any }) => {
   useEffect(() => {
     if (urlInfo) {
       reportsApiHandler({
-        actionType: "cv",
         urlInfo,
         setLoading,
         setListOfData,
@@ -97,7 +96,6 @@ const CV2 = ({ params }: { params: any }) => {
     // 1. Profile image (used in CVLatestHeader)
     if (listOfdata?.profile_photo_1) urls.push(listOfdata.profile_photo_1);
 
-    // 2. Skills HTML images (used in CVLatestSummary via modifiedContent)
     const skillsHtml = listOfdata?.skills || "";
     const htmlMatches = skillsHtml.match(/<img[^>]+src="([^">]+)"/g);
     if (htmlMatches) {
@@ -153,14 +151,12 @@ const CV2 = ({ params }: { params: any }) => {
   const isDataReady =
     !loading && listOfdata && urlInfo && allSkills.length > 0 && imagesReady;
 
-  const summary =
-    listOfdata?.ai_short_description ||
-    "Web Designer with 2 years of experience, adept at UX and responsive design. Strong proficiency in Adobe Creative Suite and CMS. Successfully improved website user engagement by 25% at previous role. Passionate about enhancing the digital experience for educational institutions.";
+  const summary = listOfdata?.ai_short_description || "";
 
   // Filtered Experiences
   const filteredExperiences = useFilteredYearExperiences(
     listOfdata?.experiences_ids,
-    listOfdata?.no_of_experiences
+    listOfdata?.no_of_experiences,
   );
 
   // console.log("Filtered Experiences:", filteredExperiences);
@@ -198,7 +194,7 @@ const CV2 = ({ params }: { params: any }) => {
   return (
     <div className="bg-white text-heading min-h-screen">
       <div className="max-w-[140rem] mx-auto p-[5rem] border border-solid border-gray-300 rounded-[0.6rem] my-[4rem] shadow-md">
-        <CV2Header listOfdata={listOfdata} />
+        <CV2Header listOfdata={listOfdata} urlInfo={urlInfo} />
 
         {/* Summary & Tagline Section */}
         <CV2Summary summary={summary} />
@@ -210,7 +206,7 @@ const CV2 = ({ params }: { params: any }) => {
         <CV2Experiences
           rawExperiences={filteredExperiences}
           listOfdata={listOfdata}
-          isMobile={isMobile}
+          filteredSkills={allSkills}
         />
 
         {/* Education Section */}

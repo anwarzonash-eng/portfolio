@@ -131,7 +131,7 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({
                 <>
                   {skill.icon && (
                     <div
-                      className={`h-[6.4rem] w-[6.4rem] mx-auto ${
+                      className={`h-[6rem] w-[6rem] mx-auto ${
                         variant === "print"
                           ? "print:h-[4.5rem] print:w-[4.5rem]"
                           : ""

@@ -71,7 +71,6 @@ const Offer = ({ params }: { params: any }) => {
   useEffect(() => {
     if (urlInfo) {
       reportsApiHandler({
-        actionType: "home",
         urlInfo,
         setLoading,
         setListOfData,

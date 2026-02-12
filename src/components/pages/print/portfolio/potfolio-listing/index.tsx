@@ -59,7 +59,6 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
   useEffect(() => {
     if (urlInfo) {
       reportsApiHandler({
-        actionType: "portfolio",
         urlInfo,
         setError,
         setLoading,

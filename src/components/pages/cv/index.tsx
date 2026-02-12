@@ -29,6 +29,7 @@ import PortfolioCardContent from "@/components/PortfolioCardContent";
 import UpworkActivitySection from "@/components/UpworkActivitySection";
 import { useSortedSkills } from "@/hooks/useSortedSkills";
 import SkillsContainer from "@/components/SkillsContainer";
+import CVSectionHeading from "@/components/CVPageComponents/CVSectionHeading";
 
 const CV = ({ params }: { params: any }) => {
   const searchParams = useSearchParams();
@@ -71,13 +72,12 @@ const CV = ({ params }: { params: any }) => {
   // Derived values
   const initialVisibleItems = 18; // 3 rows × 6
   const visibleSkills = showAll
-    ? listOfdata?.skills_ids ?? []
+    ? (listOfdata?.skills_ids ?? [])
     : (listOfdata?.skills_ids ?? []).slice(0, initialVisibleItems);
   const skillsforCV = skillsGrouping(visibleSkills);
   const domain = listOfdata?.domain || "default-domain";
   // console.log("SKlls For CV:", skillsforCV)
 
- 
   // Check screen size
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 1024);
@@ -99,7 +99,7 @@ const CV = ({ params }: { params: any }) => {
       setShowAllExperiences(true); // Ensure all experiences are shown
       setTimeout(() => {
         const experienceElement = document.getElementById(
-          `experience-${experienceId}`
+          `experience-${experienceId}`,
         );
         if (experienceElement) {
           experienceElement.scrollIntoView({ behavior: "smooth" });
@@ -111,7 +111,7 @@ const CV = ({ params }: { params: any }) => {
       setHighlightedPortfolioId(portfolioId); // Highlight the specific portfolio
       setTimeout(() => {
         const portfolioElement = document.getElementById(
-          `portfolio-${portfolioId}`
+          `portfolio-${portfolioId}`,
         );
         if (portfolioElement) {
           portfolioElement.scrollIntoView({ behavior: "smooth" });
@@ -147,19 +147,17 @@ const CV = ({ params }: { params: any }) => {
   useEffect(() => {
     if (listOfdata?.skills_ids && allSkills.length > 0) {
       const matchedSkills = allSkills.filter((skill) =>
-        listOfdata.skills_ids.some((dataSkill) => dataSkill.id === skill.id)
+        listOfdata.skills_ids.some((dataSkill) => dataSkill.id === skill.id),
       );
       setFilteredSkills(matchedSkills);
     }
   }, [listOfdata, allSkills]);
 
   // Sorted SKills
-    const sortedSkills = useSortedSkills({
+  const sortedSkills = useSortedSkills({
     skillsIdsWithOrder: listOfdata?.skills_ids,
     allSkills,
   });
-  
-
 
   useEffect(() => {
     handleSkillsApiCall({ setListOfSkills: setAllSkills });
@@ -184,7 +182,6 @@ const CV = ({ params }: { params: any }) => {
   useEffect(() => {
     if (urlInfo) {
       reportsApiHandler({
-        actionType: "cv",
         urlInfo,
         setLoading,
         setListOfData,
@@ -232,16 +229,16 @@ const CV = ({ params }: { params: any }) => {
   const rawHtml = modifiedContent(
     listOfdata?.skills,
     filteredSkills,
-    listOfdata
+    listOfdata,
   );
 
   // console.log("Data List: ", listOfdata?.skills,)
   // console.log("Filtered Skills", filteredSkills)
-  // console.log("CV API Data: ", listOfdata)
+  console.log("CV API Data: ", listOfdata)
   const parser = new DOMParser();
   const doc = parser.parseFromString(rawHtml, "text/html");
   const items = Array.from(doc.querySelectorAll("li")).map(
-    (li) => li.outerHTML
+    (li) => li.outerHTML,
   );
   const maxItems = isMobile ? 4 : 10;
   const visibleItems = !expanded ? items.slice(0, maxItems) : items;
@@ -286,9 +283,11 @@ const CV = ({ params }: { params: any }) => {
                     contactDetails={contactDetails}
                     socialLinks={socialLinks}
                   />
+
                   <section
-                  id="skillsSection"
-                   className="w-full mt-[-2rem] lg:mt-0 md:pt-[7rem]">
+                    id="skillsSection"
+                    className="w-full mt-[-2rem] lg:mt-0 md:pt-[7rem]"
+                  >
                     <div
                       dangerouslySetInnerHTML={{ __html: listOfdata?.tag_line }}
                       className="py-[5rem] px-[3.4rem] print:hidden block primaryGradient text-white text-[2.2rem] leading-[3.1rem] font-bold rounded-[1rem] text-center"
@@ -306,9 +305,10 @@ const CV = ({ params }: { params: any }) => {
                                   </div>
                                 </div>
                                 <div className="overflow-hidden ml-[2rem] md:ml-[3rem] lg:ml-[5rem] print:break-before-page print_p_m">
-                                  <h2 className="text-heading leading-[3.56rem] text-[2.5rem] lg:text-[3.67rem] font-medium pl-[0.5rem] mb-[3rem]">
-                                    Overview & Skills
-                                  </h2>
+                                  <CVSectionHeading
+                                    title="Overview"
+                                    margin={"mb-[20px]"}
+                                  />
                                   <div className="text-heading services_main list-div text-[1.6rem] leading-[2.4rem] flex flex-col gap-[1rem] mb-[5rem] list-inside print:p-0 w-full max-w-full">
                                     <ul
                                       dangerouslySetInnerHTML={{
@@ -321,7 +321,7 @@ const CV = ({ params }: { params: any }) => {
                                           onClick={() =>
                                             setExpanded((prev) => !prev)
                                           }
-                                          className="px-[4rem] print:hidden py-[1.4rem] bg-primary rounded-[2.2rem] hover:bg-white hover:text-primary hover:border-primary border border-border border-solid text-center max-w-max text-white text-[1.4rem] font-medium font-Inter leading-tight mt-[2rem]"
+                                          className="px-[4rem] print:hidden py-[1.4rem] bg-primary rounded-[2.2rem] hover:bg-white hover:text-primary hover:border-primary border border-border border-solid text-center max-w-max text-white text-[1.4rem] font-medium font-Inter leading-tight"
                                         >
                                           {expanded ? "Read Less" : "Read More"}
                                         </button>
@@ -332,9 +332,8 @@ const CV = ({ params }: { params: any }) => {
                               </div>
                             )}
                             {listOfdata?.skills_ids && (
-                              <div
-                                className="relative flex items-start print:break-before-page"
-                              >
+                              <div className="relative  print:break-before-page lg:pl-[4rem]">
+                                <CVSectionHeading title="Skills" />
                                 <div className="absolute top-0 left-[-1.3rem] z-[60] block print:hidden">
                                   <div className="w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center">
                                     <div className="w-[0.8rem] h-[0.8rem] bg-sectionBG rounded-full"></div>
@@ -343,7 +342,7 @@ const CV = ({ params }: { params: any }) => {
 
                                 <SkillsContainer
                                   list={sortedSkills}
-                                  variant="default"
+                                  variant="portfolio"
                                   autoExpandOnParam={true}
                                 />
                               </div>
@@ -361,9 +360,10 @@ const CV = ({ params }: { params: any }) => {
                                   </div>
                                   <div className="ml-[2rem] md:ml-[3rem] lg:ml-[5rem] print_p_m">
                                     <div className="w-full">
-                                      <h2 className="text-heading leading-[3.56rem] text-[3.67rem] font-medium pl-[0.5rem] pt-[3rem] pb-[2rem]">
-                                        Experiences
-                                      </h2>
+                                      <CVSectionHeading
+                                        title="Experiences"
+                                        margin="mt-[3rem] mb-[2rem]"
+                                      />
                                     </div>
                                     <div className="">
                                       {[...(listOfdata?.experiences_ids || [])]
@@ -373,8 +373,8 @@ const CV = ({ params }: { params: any }) => {
                                           showAllExperiences
                                             ? listOfdata.experiences_ids.length
                                             : isMobile
-                                            ? 3
-                                            : 6
+                                              ? 3
+                                              : 6,
                                         )
                                         .map((experience, index) => (
                                           <div
@@ -431,7 +431,7 @@ const CV = ({ params }: { params: any }) => {
                                   </div>
                                   <div className="ml-[2rem] md:ml-[3rem] lg:ml-[5rem] print_p_m print:!pt-[2rem]">
                                     <div className="flex items-center print:hidden justify-between w-full my-[3rem]">
-                                      <h2 className="text-heading leading-[3.56rem] text-[3.67rem] font-medium pl-[0.5rem]">
+                                      <h2 className="text-heading leading-[3.56rem] text-[3rem] lg:text-[4rem] font-semibold pl-[0.5rem]">
                                         Portfolios
                                       </h2>
                                       <Link
@@ -471,7 +471,7 @@ const CV = ({ params }: { params: any }) => {
                                         } = skillsGrouping(
                                           showMoreSkillsForPortfolios[index]
                                             ? portfolio?.skills
-                                            : portfolio?.skills?.slice(0, 15)
+                                            : portfolio?.skills?.slice(0, 15),
                                         );
                                         return (
                                           <div
@@ -489,9 +489,9 @@ const CV = ({ params }: { params: any }) => {
                                                 <div className="w-[0.8rem] h-[0.8rem] bg-sectionBG rounded-full"></div>
                                               </div>
                                             </div>
-                                            <h1 className="mb-[1rem] text-heading text-[2rem] leading-[2.7rem] font-bold max-lg:ml-[0.5rem] print:hidden block">
+                                            <h1 className="mb-[1rem] text-heading text-[2rem] leading-[2.7rem] font-bold max-lg:ml-[0.5rem] print:hidden block opacity-70 mt-[0.6rem] italic">
                                               {new Date(
-                                                portfolio.starting_date
+                                                portfolio.starting_date,
                                               ).toLocaleString("en-US", {
                                                 month: "short",
                                                 year: "numeric",
@@ -499,12 +499,12 @@ const CV = ({ params }: { params: any }) => {
                                               -{" "}
                                               {isNaN(
                                                 new Date(
-                                                  portfolio.ending_Date
-                                                ).getTime()
+                                                  portfolio.ending_Date,
+                                                ).getTime(),
                                               )
                                                 ? portfolio.ending_Date
                                                 : new Date(
-                                                    portfolio.ending_Date
+                                                    portfolio.ending_Date,
                                                   ).toLocaleString("en-US", {
                                                     month: "short",
                                                     year: "numeric",
@@ -529,24 +529,26 @@ const CV = ({ params }: { params: any }) => {
                                             />
                                           </div>
                                         );
-                                      }
+                                      },
                                     )}
                                   </div>
                                 </div>
                               )}
 
-                            <div className="w-full relative">
-                              <div className="absolute top-0 left-[-1.3rem] z-[60] block print:hidden">
-                                <div className="w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center my-[3rem]">
-                                  <div className="w-[0.8rem] h-[0.8rem] bg-sectionBG rounded-full"></div>
+                            {listOfdata && listOfdata?.upwork_show_status === "show" && (
+                              <div className="w-full relative">
+                                <div className="absolute top-0 left-[-1.3rem] z-[60] block print:hidden">
+                                  <div className="w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center my-[3rem]">
+                                    <div className="w-[0.8rem] h-[0.8rem] bg-sectionBG rounded-full"></div>
+                                  </div>
                                 </div>
+                                <UpworkActivitySection
+                                  urlInfo={urlInfo}
+                                  cvTrue={true}
+                                  data={listOfdata}
+                                />
                               </div>
-                              <UpworkActivitySection
-                                urlInfo={urlInfo}
-                                cvTrue={true}
-                                data={listOfdata}
-                              />
-                            </div>
+                            )}
 
                             {listOfdata &&
                               listOfdata?.education_ids?.length > 0 && (

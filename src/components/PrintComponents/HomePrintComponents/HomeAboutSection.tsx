@@ -59,6 +59,8 @@ const HomeAboutSection: React.FC<HomeAboutSectionProps> = ({
             </div>
 
             {/* Projects Badge */}
+            {
+              listOfdata && listOfdata?.website_purpose !== "contract" && (
             <div className="bg-white mb-3 rounded-[0.8rem] absolute top-auto right-auto bottom-[-4rem] left-[3rem] p-[1.4rem] xl:rounded-[2rem] flex items-center shadow-md gap-[1rem] animate-bounce">
               {/* Badge SVG */}
               <div className="bg-[#FC822A] rounded-[50%] h-[6.8rem] w-[6.8rem] relative">
@@ -78,6 +80,8 @@ const HomeAboutSection: React.FC<HomeAboutSectionProps> = ({
                 </p>
               </div>
             </div>
+              )
+            }
           </div>
         </div>
         {/* Contact Details */}

@@ -99,7 +99,6 @@ const CV_Portrait = ({ params }: { params: any }) => {
     // console.log("URL Info changed:", urlInfo);
     urlInfo &&
       reportsApiHandler({
-        actionType: "cv",
         urlInfo,
         setError,
         setLoading,

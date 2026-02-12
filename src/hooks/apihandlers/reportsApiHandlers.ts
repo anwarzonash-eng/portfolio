@@ -3,16 +3,14 @@ import { store } from "@/store";
 import { setListOfProfileData } from "@/store/profileSlice";
 
 export const reportsApiHandler = async ({
-  actionType,
   urlInfo,
   setLoading,
   setListOfData,
   itemID = null,
   setError,
 }) => {
-  const payload: { actionType: any; domain: any; uniqueId: any; itemID?: any } =
+  const payload: { domain: any; uniqueId: any; itemID?: any } =
   {
-    actionType: actionType,
     domain: urlInfo?.domain,
     uniqueId: urlInfo?.uniqueID,
   };
