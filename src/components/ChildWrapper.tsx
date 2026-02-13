@@ -39,6 +39,7 @@ export default function ChildWrapper({
     "/print/cvPortrait",
     "/print/cvLandscape",
     "/cv2",
+    "/cv3"
   ];
 
   // reuse the same path list for both hiding header/footer and enabling zoom-100
@@ -60,11 +61,11 @@ export default function ChildWrapper({
 
     const updateFavicon = (url: string | undefined) => {
       if (!url) return;
-      
+
       const distinctFavicons = document.querySelectorAll('link[rel*="icon"]');
       if (distinctFavicons.length > 0) {
         distinctFavicons.forEach((icon) => {
-           (icon as HTMLLinkElement).href = url;
+          (icon as HTMLLinkElement).href = url;
         });
       } else {
         const favicon = document.createElement("link");
@@ -73,7 +74,7 @@ export default function ChildWrapper({
         document.head.appendChild(favicon);
       }
     };
-    
+
     if (listOfdata?.profile_photo_1) {
       updateFavicon(listOfdata?.profile_photo_1);
     }
