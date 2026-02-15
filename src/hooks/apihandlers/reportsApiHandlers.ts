@@ -257,6 +257,7 @@ const adjustExperienceIntro = async (data) => {
 
   // 3. Add introN to short_description of each experience_ids object
   data.experiences_ids.forEach((exp, idx) => {
+
     const introKey = `intro${idx + 1}`;
     const introValue = matchedCategory.experience_intro[introKey];
     if (introValue) {
@@ -274,6 +275,7 @@ const adjustExperienceIntro = async (data) => {
       "${Skills}",
       skillsString
     );
+    exp.short_description = '';
   });
   return data;
 };
