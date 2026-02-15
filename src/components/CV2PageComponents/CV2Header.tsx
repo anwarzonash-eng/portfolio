@@ -12,7 +12,7 @@ type CV2HeaderProps = {
 const CV2Header: React.FC<CV2HeaderProps> = ({ listOfdata, urlInfo }) => {
   const headerInfo = [
     listOfdata?.phone_no && { icon: Phone, value: listOfdata.phone_no },
-    listOfdata?.email && { icon: Mail, value: listOfdata.email },
+    listOfdata?.email && { icon: Mail, value: listOfdata.email_ },
     listOfdata?.location && { icon: MapPin, value: listOfdata.location },
   ];
   return (

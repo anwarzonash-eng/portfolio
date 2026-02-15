@@ -56,10 +56,10 @@ const CV2 = ({ params }: { params: any }) => {
     allSkills,
   });
 
-// Filtered Experiences
+  // Filtered Experiences
   const filteredExperiences = useFilteredYearExperiences(
     listOfdata?.experiences_ids,
-    listOfdata?.no_of_experiences
+    listOfdata?.no_of_experiences,
   );
 
   const headerInfo = [
@@ -173,12 +173,16 @@ const CV2 = ({ params }: { params: any }) => {
   // Generate HTML for skills (overview section) - only on client side
   useEffect(() => {
     // Only run on client side where DOMParser is available
-    if (typeof window === 'undefined' || !listOfdata?.skills || !sortedSkills) {
+    if (typeof window === "undefined" || !listOfdata?.skills || !sortedSkills) {
       return;
     }
 
     try {
-      const rawHtml = modifiedContent(listOfdata?.skills, sortedSkills, listOfdata);
+      const rawHtml = modifiedContent(
+        listOfdata?.skills,
+        sortedSkills,
+        listOfdata,
+      );
       const parser = new DOMParser();
       const doc = parser.parseFromString(rawHtml, "text/html");
       const items = Array.from(doc.querySelectorAll("li")).map(
@@ -186,7 +190,7 @@ const CV2 = ({ params }: { params: any }) => {
       );
       setVisibleItems(items.slice(0, 7));
     } catch (error) {
-      console.error('Error parsing skills HTML:', error);
+      console.error("Error parsing skills HTML:", error);
       setVisibleItems([]);
     }
   }, [listOfdata?.skills, sortedSkills, listOfdata]);
@@ -250,7 +254,11 @@ const CV2 = ({ params }: { params: any }) => {
       cv2Heading: "EMPLOYMENT HISTORY",
       component: filteredExperiences[0] ? (
         <div className="w-full relative px-[2rem]">
-          <CV2ExperiencesP rawExperiences={[filteredExperiences[0]]} listOfdata={listOfdata} bulletCount={9} />
+          <CV2ExperiencesP
+            rawExperiences={[filteredExperiences[0]]}
+            listOfdata={listOfdata}
+            bulletCount={9}
+          />
         </div>
       ) : null,
     },
@@ -259,7 +267,11 @@ const CV2 = ({ params }: { params: any }) => {
       cv2Heading: "EMPLOYMENT HISTORY",
       component: filteredExperiences[1] ? (
         <div className="w-full relative px-[2rem]">
-          <CV2ExperiencesP rawExperiences={[filteredExperiences[1]]} listOfdata={listOfdata} bulletCount={4} />
+          <CV2ExperiencesP
+            rawExperiences={[filteredExperiences[1]]}
+            listOfdata={listOfdata}
+            bulletCount={4}
+          />
         </div>
       ) : null,
     },
@@ -267,7 +279,11 @@ const CV2 = ({ params }: { params: any }) => {
       componentType: "dynamic",
       component: filteredExperiences[2] ? (
         <div className="w-full relative px-[2rem]">
-          <CV2ExperiencesP rawExperiences={[filteredExperiences[2]]} listOfdata={listOfdata} bulletCount={6} />
+          <CV2ExperiencesP
+            rawExperiences={[filteredExperiences[2]]}
+            listOfdata={listOfdata}
+            bulletCount={6}
+          />
         </div>
       ) : null,
     },
@@ -275,7 +291,11 @@ const CV2 = ({ params }: { params: any }) => {
       componentType: "dynamic",
       component: filteredExperiences[3] ? (
         <div className="w-full relative px-[2rem]">
-          <CV2ExperiencesP rawExperiences={[filteredExperiences[3]]} listOfdata={listOfdata} bulletCount={5} />
+          <CV2ExperiencesP
+            rawExperiences={[filteredExperiences[3]]}
+            listOfdata={listOfdata}
+            bulletCount={5}
+          />
         </div>
       ) : null,
     },
@@ -284,14 +304,18 @@ const CV2 = ({ params }: { params: any }) => {
       cv2Heading: "EMPLOYMENT HISTORY",
       component: filteredExperiences[4] ? (
         <div className="w-full relative px-[2rem]">
-          <CV2ExperiencesP rawExperiences={[filteredExperiences[4]]} listOfdata={listOfdata} bulletCount={6} />
+          <CV2ExperiencesP
+            rawExperiences={[filteredExperiences[4]]}
+            listOfdata={listOfdata}
+            bulletCount={6}
+          />
         </div>
       ) : null,
     },
 
     {
       componentType: "dynamic",
-      cv2Heading:  "EDUCATION",
+      cv2Heading: "EDUCATION",
       component: listOfdata?.education_ids?.length > 0 && (
         <CV2EducationP
           education={listOfdata?.education_ids}
@@ -332,14 +356,6 @@ const CV2 = ({ params }: { params: any }) => {
       component: portfolios[3] ? (
         <div className="w-full relative px-[2rem]">
           <CV2ProjectsP portfolios={[portfolios[3]]} />
-        </div>
-      ) : null,
-    },
-    {
-      componentType: "dynamic",
-      component: portfolios[4] ? (
-        <div className="w-full relative px-[2rem]">
-          <CV2ProjectsP portfolios={[portfolios[4]]} />
         </div>
       ) : null,
     },

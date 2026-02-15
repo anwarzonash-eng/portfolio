@@ -116,8 +116,16 @@ const adjustmetaData = async (data) => {
     element.degree_end_date = '';
   });
 
-  data.experiences_ids.forEach(element => {
+  const desination_catgory = data.skills_categories.find((item) => item.id === data.designation_category)
+  const sortedAsc = [...data.experiences_ids].sort((a, b) =>
+    new Date(b.starting_date).getTime() - new Date(a.starting_date).getTime()
+  );
+  data.experiences_ids = sortedAsc;
+  data.experiences_ids.forEach((element, index) => {
 
+    element.title = desination_catgory?.experience_titles['title' + (index + 1)] || element.title;
+
+    console.log(element.title);
     if (element.meta_data.job_types) {
 
       const metaDataForCurrentWebsitePurpose = element.meta_data.job_types[data.website_purpose]
@@ -129,9 +137,10 @@ const adjustmetaData = async (data) => {
 
 
 
-      console.log({ meta_data: element.meta_data, website_purpose: data.website_purpose, metaDataForCurrentWebsitePurpose, experiences: element })
+      // console.log({ meta_data: element.meta_data, website_purpose: data.website_purpose, metaDataForCurrentWebsitePurpose, experiences: element })
     }
 
+    // console.log({ desination_catgory })
 
 
 
