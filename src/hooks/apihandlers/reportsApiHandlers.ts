@@ -58,15 +58,15 @@ export const reportsApiHandler = async ({
 const adjustDynamicContent = async (data) => {
   try {
 
-    data = await adjustmetaData(data);
-
     data = await adjustSkillsDescriptionForCV(data);
     data = await adjustSkillsIDsInExperiencesAndPortflios(data);
     data = await adjustSkillsDescriptionInExperiences(data);
     data = await adjustSkillsDescriptionInPortfolios(data);
     data = await adjustExperienceIntro(data);
     data = await adjustSkilledDescriptionInServices(data);
-    // console.log({ data })
+    data = await adjustmetaData(data);
+
+    console.log({ updatedData: data })
   }
   catch (error) {
 
@@ -123,7 +123,10 @@ const adjustmetaData = async (data) => {
   data.experiences_ids = sortedAsc;
   data.experiences_ids.forEach((element, index) => {
 
+    element.long_description = element.company_name == 'Upwork' ? `<ul><li>${element.tech_descriptions}</li></ul>` : element.long_description;
+
     element.title = desination_catgory?.experience_titles['title' + (index + 1)] || element.title;
+
 
     console.log(element.title);
     if (element.meta_data.job_types) {
@@ -132,7 +135,9 @@ const adjustmetaData = async (data) => {
       element.starting_date = metaDataForCurrentWebsitePurpose.start_date;
       element.ending_Date = metaDataForCurrentWebsitePurpose.end_date;
       element.is_still_working = metaDataForCurrentWebsitePurpose.is_continue;
-      element.type = metaDataForCurrentWebsitePurpose.type;
+      element.type = metaDataForCurrentWebsitePurpose.type; // Full Time, Contract, Freelance, 
+      element.nature = metaDataForCurrentWebsitePurpose.job_nature;
+      element.isShow = metaDataForCurrentWebsitePurpose.is_show;
 
 
 
