@@ -3,6 +3,7 @@ import { store } from "@/store";
 import { setListOfProfileData } from "@/store/profileSlice";
 
 export const reportsApiHandler = async ({
+  actionType,
   urlInfo,
   setLoading,
   setListOfData,

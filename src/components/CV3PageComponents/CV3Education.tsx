@@ -32,9 +32,7 @@ const CV3Education = ({ education, location }: Props) => {
                         <div className="flex flex-col gap-2 mb-2">
                             <a className="text-blue-600 text-[15px] font-bold" href="#">{edu?.university_name || edu?.school || ''}</a>
                             <div className='flex gap-6 items-center font-medium'>
-                                <span className="text-[12px] flex items-center gap-2 text-gray-600 ">
-                                    <CalendarDays className='w-5 h-5 ' /> {`${toMonthYear(edu?.degree_start_date)}${edu?.degree_end_date ? ' - ' + toMonthYear(edu?.degree_end_date) : ''}`}
-                                </span>
+
                                 <span className="text-[12px] flex items-center gap-1 text-gray-600"><MapPin className='w-5 h-5' /> {edu?.location || location || ''}</span>
                             </div>
                         </div>

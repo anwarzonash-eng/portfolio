@@ -35,6 +35,8 @@ const CV3Experiences: React.FC<Props> = ({
     isMobile = false,
 }) => {
     // Remove the filtering logic since experiences should already be filtered by the hook
+
+
     const filtered = (rawExperiences || []).filter((exp: any) => {
         if (!exp) return false;
 
@@ -75,7 +77,13 @@ const CV3Experiences: React.FC<Props> = ({
         // Generate random number between 5 and 9 for each card
         const randomBulletCount = Math.floor(Math.random() * 5) + 5; // 5-9 range
         const bullets = shuffleArray(allBullets).slice(0, randomBulletCount);
-
+        const formatType = (type: string) => {
+            if (!type) return "";
+            return type
+                .split("_")
+                .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+                .join(" ");
+        };
         return {
             id: exp.id,
             date: [startLabel, endLabel].filter(Boolean).join(" - "),
@@ -84,11 +92,13 @@ const CV3Experiences: React.FC<Props> = ({
             company: exp?.company_name || "",
             bullets,
             skills: exp?.skills || [],
+            type: formatType(exp?.type || ""),
         };
     });
 
     if (!experiences || experiences.length === 0) return null;
 
+    console.log(experiences, "************")
     return (
         <>
 
@@ -98,7 +108,7 @@ const CV3Experiences: React.FC<Props> = ({
                 <div key={exp.id || index} className="mb-6 border-dashed border-b border-gray-300 pb-4">
                     <h3 className="text-[18px] font-semibold text-black">{exp.title}</h3>
                     <div className="flex flex-col  gap-2 mb-2">
-                        <span className="text-blue-600  text-[15px] font-bold">{exp.company}</span>
+                        <span className="text-blue-600 text-[15px] font-bold">{exp.company} <span className="text-primary font-medium"> ({exp.type})</span> </span>
                         <div className='flex gap-6 items-center font-medium'>
 
                             <span className="text-[12px] flex items-center gap-2 text-gray-600 ">

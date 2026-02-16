@@ -48,7 +48,7 @@ const CV3 = ({ params }: { params: any }) => {
         allSkills,
     });
 
-    // console.log("Sorted Skills:", sortedSkills);
+
 
     useEffect(() => {
         handleSkillsApiCall({ setListOfSkills: setAllSkills });
@@ -158,7 +158,7 @@ const CV3 = ({ params }: { params: any }) => {
         listOfdata?.no_of_experiences
     );
 
-    // console.log("Filtered Experiences:", filteredExperiences);
+
 
     if (error) {
         return (
@@ -189,7 +189,7 @@ const CV3 = ({ params }: { params: any }) => {
             </div>
         );
     }
-    console.log(listOfdata, '>>>>>>>>>>>.')
+
     return (
         <div className="bg-white text-heading min-h-screen">
             <div className="max-w-[110rem] mx-auto p-[7rem] border border-solid border-gray-300 rounded-[0.6rem] my-[4rem] shadow-md">
