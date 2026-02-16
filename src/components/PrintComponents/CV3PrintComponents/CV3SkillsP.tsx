@@ -11,7 +11,7 @@ const CV3SkillsP = ({ sortedSkills }: CV3SkillsProps) => {
         <div className="mb-6">
             <h2 className="text-[20px] font-bold text-black mb-4 border-b-2 border-black">SKILLS</h2>
             <div className="flex flex-wrap gap-4">
-                {sortedSkills.map((skill) => (
+                {sortedSkills?.slice(0, 16)?.map((skill) => (
                     <span key={skill.id} className="px-3 py-1 border-b border-black text-gray-700 font-bold text-[14px]">
                         {skill.title}
                     </span>

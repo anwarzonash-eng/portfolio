@@ -26,7 +26,7 @@ const CV3ProjectsP = ({ portfolios }: CV3ProjectsProps) => {
                             </span>
                         )}
                         {project?.link && (
-                            <a className="text-[12px] mt-0 text-primary font-medium" href={project?.link} target="_blank" rel="noreferrer">{project?.link}</a>
+                            <a className="text-[12px] !text-[#1e90ff] mt-0 text-primary font-medium" href={project?.link} target="_blank" rel="noreferrer">{project?.link}</a>
                         )}
                     </div>
 

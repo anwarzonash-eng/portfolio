@@ -20,7 +20,7 @@ import {
 
 import { preloadImages } from "@/utils/preLoadImages";
 import { useSortedSkills } from "@/hooks/useSortedSkills";
-import { GithubIcon, Linkedin, Mail, MapPin, Phone } from "lucide-react";
+import { Github, GithubIcon, Linkedin, Mail, MapPin, Phone } from "lucide-react";
 import PrintPageRenderer, { ComponentConfig } from "@/utils/printPageRenderer";
 import { useFilteredYearExperiences } from "@/hooks/useFilteredYearExperiences";
 
@@ -229,6 +229,7 @@ const CV3 = ({ params }: { params: any }) => {
     }
 
     const experiences = listOfdata?.experiences_ids || [];
+
     const portfolios = listOfdata?.portfolios_ids || [];
 
     const allComponents: ComponentConfig[] = [
@@ -236,82 +237,221 @@ const CV3 = ({ params }: { params: any }) => {
             componentType: "dynamic",
             clickableNote: false,
             component: (
-                <div className="w-full relative p-[2rem]">
+                <div className="w-full relative px-[2rem]">
                     <CV3HeaderP listOfdata={listOfdata} hideLinks={urlInfo?.hideLinks} />
 
-                    {/* Main Content Grid - CV3 Style */}
-                    <div className="grid grid-cols-5 gap-12 mt-16">
-                        {/* Left Column - Experiences */}
+                    {/* CV3 Grid Layout */}
+                    <div className="grid grid-cols-5 gap-8 mt-8">
+                        {/* Left Column - First Experience */}
                         <div className="col-span-3">
-                            <h2 className="text-[20px] font-bold text-black mb-4 border-b-2 border-black">EXPERIENCE</h2>
-                            <CV3ExperiencesP rawExperiences={filteredExperiences} listOfdata={listOfdata} bulletCount={9} />
+
+                            {/* // Experience 1 */}
+                            {filteredExperiences[0] && (
+                                <>
+                                    <h2 className="text-[20px] font-bold text-black mb-4 border-b-2 border-black pb-2">
+                                        EXPERIENCE
+                                    </h2>
+                                    <CV3ExperiencesP rawExperiences={[filteredExperiences[0]]} listOfdata={listOfdata} bulletCount={8} />
+                                </>
+                            )}
+
+                            {/* // Experience 2 */}
+                            {filteredExperiences[1] && (<div className="w-full relative px-[2rem]">
+
+                                <CV3ExperiencesP rawExperiences={[filteredExperiences[1]]} listOfdata={listOfdata} bulletCount={4} />
+                            </div>
+
+
+                            )}
                         </div>
 
-                        {/* Right Column */}
-                        <div className="col-span-2">
+                        {/* Right Column - Summary & Skills */}
+                        <div className="col-span-2 mt-2">
                             <CV3SummaryP summary={summary} />
                             <CV3SkillsP sortedSkills={sortedSkills} />
+
+                            {/* Find Me Online */}
+                            <div className="mb-6">
+                                <h2 className="text-[20px] font-bold text-black mb-4 border-b-2 border-black ">FIND ME ONLINE</h2>
+
+                                <div className="flex items-start gap-2">
+                                    <span className="text-blue-600 text-lg"><Github className='w-8 h-8' /></span>
+                                    <div>
+                                        <span className=" font-bold text-[15px]">Github</span>
+                                        <p className="list-disc  text-[13px] text-gray-700 space-y-1 font-medium leading-normal mt-3">{listOfdata?.github}</p>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Interests */}
+                            <div className="mb-6">
+
+                                <h2 className="text-[20px] font-bold text-black mb-4 border-b-2 border-black ">INTERESTS</h2>
+                                <div className="flex items-center gap-2">
+                                    <span className="text-[18px]">✈️</span>
+                                    <span className="font-bold text-[15px]">Travel</span>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
-                </div>
+                </div >
             ),
         },
 
-        // Additional Experience blocks if more than one experience
-        ...filteredExperiences.slice(1).map((exp, index) => ({
-            componentType: "dynamic" as const,
-            component: (
+
+        // Experience 3
+        {
+            componentType: "dynamic",
+            component: filteredExperiences[2] ? (
                 <div className="w-full relative px-[2rem]">
-                    <div className="grid grid-cols-5 gap-12">
+                    <div className="grid grid-cols-5 gap-8">
                         <div className="col-span-3">
-                            {index === 0 && <h2 className="text-[20px] font-bold text-black mb-4 border-b-2 border-black">EXPERIENCE</h2>}
-                            <CV3ExperiencesP rawExperiences={[exp]} listOfdata={listOfdata} bulletCount={index === 0 ? 4 : 6} />
+                            {/* <CV3ExperiencesP rawExperiences={[filteredExperiences[2]]} listOfdata={listOfdata} bulletCount={5} /> */}
+                            <>
+                                <h2 className="text-[20px] font-bold text-black mb-4 border-b-2 border-black pb-2">
+                                    EXPERIENCE
+                                </h2>
+                                <CV3ExperiencesP rawExperiences={[filteredExperiences[2]]} listOfdata={listOfdata} bulletCount={4} />
+                            </>
                         </div>
-                        <div className="col-span-2">
-                            {/* Empty right column for consistent grid */}
-                        </div>
+                        <div className="col-span-2"></div>
                     </div>
                 </div>
-            ),
-        })),
+            ) : null,
+        },
 
-        // Education Section
+        // Experience 4
+        {
+            componentType: "dynamic",
+            component: filteredExperiences[3] ? (
+                <div className="w-full relative px-[2rem]">
+                    <div className="grid grid-cols-5 gap-8">
+                        <div className="col-span-3">
+                            <CV3ExperiencesP rawExperiences={[filteredExperiences[3]]} listOfdata={listOfdata} bulletCount={5} />
+                        </div>
+                        <div className="col-span-2"></div>
+                    </div>
+                </div>
+            ) : null,
+        },
+
+        // Experience 5
+        {
+            componentType: "dynamic",
+            component: filteredExperiences[4] ? (
+                <div className="w-full relative px-[2rem]">
+                    <div className="grid grid-cols-5 gap-8">
+                        <div className="col-span-3">
+                            <CV3ExperiencesP rawExperiences={[filteredExperiences[4]]} listOfdata={listOfdata} bulletCount={6} />
+                        </div>
+                        <div className="col-span-2"></div>
+                    </div>
+                </div>
+            ) : null,
+        },
+
+        // Education Section with Grid
         {
             componentType: "dynamic",
             component: listOfdata?.education_ids?.length > 0 && (
-                <div className="w-full relative px-[2rem]">
-                    <div className="grid grid-cols-5 gap-12">
+                <div className="w-full relative px-[2rem] mt-6">
+                    <div className="grid grid-cols-5 gap-8">
                         <div className="col-span-3">
-                            <h2 className="text-[20px] font-bold text-black mb-4 border-b-2 border-black">EDUCATION</h2>
+                            <h2 className="text-[20px] font-bold text-black mb-4 border-b-2 border-black pb-2">
+                                EDUCATION
+                            </h2>
                             <CV3EducationP
                                 education={listOfdata?.education_ids}
                                 location={listOfdata?.location}
                             />
                         </div>
-                        <div className="col-span-2">
-                            {/* Empty right column for consistent grid */}
-                        </div>
+                        <div className="col-span-2"></div>
                     </div>
                 </div>
             ),
         },
 
-        // Projects Section
+        // Project 1
         {
             componentType: "dynamic",
-            component: portfolios.length > 0 && (
-                <div className="w-full relative px-[2rem]">
-                    <div className="grid grid-cols-3 gap-12">
-                        <div className="col-span-2">
-                            <h2 className="text-[20px] font-bold text-black mb-4 border-b-2 border-black">PROJECTS</h2>
-                            <CV3ProjectsP portfolios={portfolios} />
+            component: portfolios[0] ? (
+                <div className="w-full relative px-[2rem] mt-6">
+                    <div className="grid grid-cols-5 gap-8">
+                        <div className="col-span-3">
+                            <h2 className="text-[20px] font-bold text-black mb-4 border-b-2 border-black pb-2">
+                                PROJECTS
+                            </h2>
+                            <CV3ProjectsP portfolios={[portfolios[0]]} />
                         </div>
-                        <div className="col-span-1">
-                            {/* Empty right column for consistent grid */}
-                        </div>
+                        <div className="col-span-2"></div>
                     </div>
                 </div>
-            ),
+            ) : null,
+        },
+
+        // Project 2
+        {
+            componentType: "dynamic",
+            component: portfolios[1] ? (
+                <div className="w-full relative px-[2rem]">
+                    <div className="grid grid-cols-5 gap-8">
+                        <div className="col-span-3">
+                            <CV3ProjectsP portfolios={[portfolios[1]]} />
+                        </div>
+                        <div className="col-span-2"></div>
+                    </div>
+                </div>
+            ) : null,
+        },
+
+        // Project 3
+        {
+            componentType: "dynamic",
+            component: portfolios[2] ? (
+                <div className="w-full relative px-[2rem] mt-6">
+                    <div className="grid grid-cols-5 gap-8">
+                        <div className="col-span-3">
+                            <h2 className="text-[20px] font-bold text-black mb-4 border-b-2 border-black pb-2">
+                                PROJECTS
+                            </h2>
+                            <CV3ProjectsP portfolios={[portfolios[2]]} />
+                        </div>
+                        <div className="col-span-2"></div>
+                    </div>
+                </div>
+            ) : null,
+        },
+
+        // Project 4
+        {
+            componentType: "dynamic",
+            component: portfolios[3] ? (
+                <div className="w-full relative px-[2rem]">
+                    <div className="grid grid-cols-5 gap-8">
+                        <div className="col-span-3">
+                            <CV3ProjectsP portfolios={[portfolios[3]]} />
+                        </div>
+                        <div className="col-span-2"></div>
+                    </div>
+                </div>
+            ) : null,
+        },
+
+        // Project 5
+        {
+            componentType: "dynamic",
+            component: portfolios[4] ? (
+                <div className="w-full relative px-[2rem]">
+                    <div className="grid grid-cols-5 gap-8">
+                        <div className="col-span-3">
+                            <CV3ProjectsP portfolios={[portfolios[4]]} />
+                        </div>
+                        <div className="col-span-2"></div>
+                    </div>
+                </div>
+            ) : null,
         },
     ];
 

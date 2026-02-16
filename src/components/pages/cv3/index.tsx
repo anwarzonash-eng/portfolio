@@ -189,7 +189,7 @@ const CV3 = ({ params }: { params: any }) => {
             </div>
         );
     }
-
+    console.log(listOfdata, '>>>>>>>>>>>.')
     return (
         <div className="bg-white text-heading min-h-screen">
             <div className="max-w-[110rem] mx-auto p-[7rem] border border-solid border-gray-300 rounded-[0.6rem] my-[4rem] shadow-md">
@@ -238,7 +238,7 @@ const CV3 = ({ params }: { params: any }) => {
                                 <span className="text-blue-600 text-lg"><Github className='w-8 h-8' /></span>
                                 <div>
                                     <span className=" font-bold text-[15px]">Github</span>
-                                    <p className="list-disc  text-[13px] text-gray-700 space-y-1 font-medium leading-normal mt-3">https://github.com/findusman</p>
+                                    <p className="list-disc  text-[13px] text-gray-700 space-y-1 font-medium leading-normal mt-3">{listOfdata?.github}</p>
 
                                 </div>
                             </div>
