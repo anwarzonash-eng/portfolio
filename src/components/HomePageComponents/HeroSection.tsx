@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useAppSelector } from "@/store";
 
 interface HeroSectionProps {
   listOfdata: {
@@ -12,6 +13,7 @@ interface HeroSectionProps {
     salary_type?: string;
     skills_ids?: string[];
     hide_earnings?: boolean;
+    calendly_link?: string;
   };
   skills: Record<string, { title: string; url?: string }[]>;
   showAll: boolean;
@@ -30,6 +32,8 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   isOverflowing,
   scrollToSection,
 }) => {
+
+  const urlInfo = useAppSelector((state) => state.profile.profileUrlInfo);
   return (
     <div className="w-full overflow-hidden relative bg-bannerBG print:break-before-page print:h-screen print:m-0">
       {/* Hero Section For Mobile and Tablet Devices */}
@@ -74,10 +78,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                       const groupIndex = Object.values(skills).findIndex(
                         (group) => group.includes(skill),
                       );
-                      const skillNumber = `${groupIndex + 1}.${
-                        skills[Object.keys(skills)[groupIndex]].indexOf(skill) +
+                      const skillNumber = `${groupIndex + 1}.${skills[Object.keys(skills)[groupIndex]].indexOf(skill) +
                         1
-                      }`;
+                        }`;
 
                       return (
                         <Link
@@ -233,14 +236,14 @@ const HeroSection: React.FC<HeroSectionProps> = ({
       {/* Hero Section For Desktop */}
       <div className="mainContainer hidden xl:block print:hidden">
         <div className="text-center mt-[3rem]">
-          <p className="text-heading text-[3.66rem] font-normal leading-normal mb-[1rem]">
+          {/* <p className="text-heading text-[3.66rem] font-normal leading-normal mb-[1rem]">
             Hello! I’m
           </p>
           <h1 className="font-bold md:text-[8rem] lg:text-[12rem] text-primary mt-[-3.5rem]">
             {listOfdata?.name}
-          </h1>
+          </h1> */}
           {/* Badge */}
-          <div className="relative z-[50] mt-[1rem] flex items-center justify-start">
+          {/* <div className="relative z-[50] mt-[1rem] flex items-center justify-start">
             <div
               className={`inline-block px-[2rem] py-[1.5rem] lg:py-[1rem] lg:px-[4rem] bg-primary lg:max-w-[45rem] rounded-[5rem] border-none outline-none mb-[2rem]`}
             >
@@ -253,22 +256,130 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                 </div>
               ))}
             </div>
-          </div>
-          <div className="mt-[-12rem] flex justify-center relative">
+          </div> */}
+          <div className="mt-[-8rem] flex justify-end relative">
+            <div className="mt-[17rem] flex flex-col items-start absolute left-0 w-[70%]">
+              <div className="flex  gap-5">
+                <p className="text-heading text-[5.66rem] font-normal mt-5 ">Hi, I’m</p>
+                <h2 className="font-bold md:text-[7rem]   text-primary ">
+                  {listOfdata?.name}
+                </h2>
+              </div>
+
+              <p className=" text-heading text-[3.66rem] font-normal start">
+                {listOfdata?.designation.split("|")[0].trim()}
+              </p>
+              <p
+                dangerouslySetInnerHTML={{
+                  __html: listOfdata?.tag_line,
+                }}
+                className="w-full text-primary text-[2.2rem] font-medium leading-[3rem] mb-[2rem] mt-[2rem] text-left"
+              ></p>
+              {/* compact skill chips (mapped) — uses same data source as the skills list */}
+              {listOfdata && listOfdata.skills_ids && listOfdata.skills_ids.length > 0 && (
+                <div className="flex flex-wrap gap-2 mt-2 w-[75%]">
+                  {Object?.values(skills)?.flat()?.slice(0, !showAll ? 10 : undefined).map((skill, i) => {
+                    const key = `hero-skill-${i}-${(skill?.title || '').replace(/\s+/g, '-')}`;
+
+                    return skill?.url ? (
+                      <Link href={skill.url || "#"} legacyBehavior key={key}>
+                        <a
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{ animationDelay: `${i * 0.03}s` }}
+                          className="text-[16px] text-black bg-white p-2 rounded-lg flex gap-2 items-center hover:bg-primary hover:text-white "
+                        >
+                          {skill?.title}
+                        </a>
+                      </Link>
+                    ) : (
+                      <div
+                        key={key}
+                        style={{ animationDelay: `${i * 0.03}s` }}
+                        className="text-[16px] hover:bg-primary hover:text-white text-black bg-white p-2 rounded-lg flex gap-2 items-center"
+                      >
+                        {skill?.title}
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+
+
+              <div className="mt-16  space-x-5 ">
+                {!urlInfo?.u && listOfdata?.calendly_link && (
+                  <Link
+                    target="_blank"
+                    prefetch={true}
+                    className=" text-center  rounded-[0.6rem]  py-[1.5rem] px-[4.4rem] text-[2.6rem] font-medium   bg-[#FCDC2A] text-black hover:bg-primary hover:text-white   transition-colors "
+                    href={listOfdata?.calendly_link || "#"}
+                  >
+                    Schedule Call
+                  </Link>
+                )}
+
+                <Link
+
+                  prefetch={true}
+                  className="text-center  rounded-[0.6rem] py-[1.5rem] px-[4.4rem] text-[2.6rem] font-medium  mt-12  text-black  transition-colors bg-white hover:bg-primary hover:text-white "
+                  href={"/portfolio"}
+                >
+                  View Portfolio
+                </Link>
+              </div>
+
+
+
+              {listOfdata?.hide_earnings !== true && (
+                <div className="  w-full inline-flex items-center justify-center  bg-no-repeat bg-contain animate-bounce mt-20">
+                  <div className=" rounded flex   w-full  relative ">
+
+                    <div className="flex items-center gap-[0.35rem] text-nowrap text-primary text-[2rem] font-medium rounded-[3.5rem] py-[0.69rem]   max-w-max  pr-[1.4rem]">
+                      <Image
+                        src={"/images/dollar-symbol.svg"}
+                        height={24}
+                        width={24}
+                        alt="Dollar Symbol"
+                        className="h-[2.4rem] w-[2.4rem]"
+                      />
+                      <p>
+                        ${listOfdata?.hourly_rate} /{" "}
+                        {listOfdata?.salary_type === "per_day" ? "day" : "hour"}
+                      </p>
+                    </div>
+
+                    <div className="flex gap-[0.35rem] text-nowrap text-primary text-[2rem] font-medium rounded-[3.5rem] py-[0.69rem]    min-w-max">
+                      <Image
+                        src={"/images/clock.svg"}
+                        height={26}
+                        width={26}
+                        alt="Clock"
+                        className="h-[2.6rem] w-[2.6rem]"
+                      />
+                      <p>45 hr / Week Availability</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+
+
+
+            </div>
             {/* Center Dev Image */}
             <Image
               width={731}
               height={707}
               alt=""
               src={listOfdata?.profile_photo_2}
-              className="mr-[12rem]"
+              className="mr-[-12rem] mt-[13rem]"
             />
 
             {/* Left Pricing and Hours Badge Positioned */}
-            {listOfdata?.hide_earnings !== true && (
+            {/* {listOfdata?.hide_earnings !== true && (
               <div className="absolute left-0 top-[24rem] w-[33.5rem] h-[18rem] inline-flex items-center justify-center bg-Circle bg-no-repeat bg-contain animate-bounce">
                 <div className="h-[100px] rounded flex gap-4 flex-col w-full px-10 relative">
-                  {/* Hourly Rate */}
+         
                   <div className="flex items-center gap-[0.35rem] text-nowrap text-primary text-[2rem] font-medium rounded-[3.5rem] py-[0.69rem] bg-white shadow-lg max-w-max px-[0.9rem] pr-[1.4rem]">
                     <Image
                       src={"/images/dollar-symbol.svg"}
@@ -282,7 +393,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                       {listOfdata?.salary_type === "per_day" ? "day" : "hour"}
                     </p>
                   </div>
-                  {/* Availability */}
+                  
                   <div className="flex gap-[0.35rem] text-nowrap text-primary text-[2rem] font-medium rounded-[3.5rem] py-[0.69rem] bg-white shadow-lg px-[1.2rem] min-w-max">
                     <Image
                       src={"/images/clock.svg"}
@@ -295,9 +406,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                   </div>
                 </div>
               </div>
-            )}
+            )} */}
             {/* Positioned Skills and Text Desktop */}
-            <div className="max-w-[55rem] w-full absolute right-[-4rem] top-[7rem]">
+            {/* <div className="max-w-[55rem] w-full absolute right-[-4rem] top-[7rem]">
               <p
                 dangerouslySetInnerHTML={{
                   __html: listOfdata?.tag_line,
@@ -371,7 +482,8 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                     </div>
                   </div>
                 )}
-            </div>
+            </div> */}
+
           </div>
         </div>
       </div>

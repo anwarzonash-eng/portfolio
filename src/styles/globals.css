@@ -37,8 +37,13 @@
 }
 
 @media screen {
-  body.zoom-85 { zoom: 85%; }
-  body.zoom-100 { zoom: 100% !important; }
+  body.zoom-85 {
+    zoom: 85%;
+  }
+
+  body.zoom-100 {
+    zoom: 100% !important;
+  }
 }
 
 /* 2. Set the zoom for Printing ONLY */
@@ -49,7 +54,7 @@
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
-  
+
   /* Optional: Ensure the html tag isn't scaling things down either */
   html {
     zoom: 100% !important;
@@ -252,6 +257,7 @@ body {
 .badge {
   @apply px-[2rem] py-[1rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[2rem] font-medium font-Inter leading-[2rem];
 }
+
 .CVLatestHeading {
   @apply text-[2.5rem] font-semibold leading-tight text-heading uppercase
 }
@@ -544,7 +550,7 @@ body {
 }
 
 @media print {
-  
+
   .services_main ul li:nth-child(1),
   .services_main ul li:nth-child(2),
   .services_main ul li:nth-child(3),
@@ -631,4 +637,14 @@ body {
 .custom-scrollbar {
   scrollbar-width: thin;
   scrollbar-color: #aaa transparent;
+}
+
+
+
+
+.custom-shape-divider-bottom-1722849639 svg {
+  position: relative;
+  display: block;
+  width: calc(274% + 1.3px);
+  height: 150px !important;
 }
