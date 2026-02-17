@@ -1,6 +1,6 @@
 import React from "react";
 import { CalendarDays, MapPin } from "lucide-react";
-
+import { modifiedContentHideLinks } from "@/hooks/modifiedContentHideLinks";
 type Props = {
     rawExperiences?: any[];
     listOfdata?: any;
@@ -13,10 +13,14 @@ const stripHtml = (value: string) =>
         .replace(/\s+/g, " ")
         .trim();
 
-const extractBulletsFromHtml = (html?: string) => {
+const extractBulletsFromHtml = (html?: string,
+    filteredSkills?: any[],
+    listOfdata?: any,) => {
     if (!html) return [] as string[];
-    const matches = [...html.matchAll(/<li[^>]*>([\s\S]*?)<\/li>/gi)];
-    return matches.map((m) => stripHtml(m[1] || "")).filter(Boolean);
+    const processedHtml = modifiedContentHideLinks(html, filteredSkills, listOfdata);
+
+    const matches = [...processedHtml.matchAll(/<li[^>]*>([\s\S]*?)<\/li>/gi)];
+    return matches.map((m) => m[1] || "").filter(Boolean);
 };
 
 const toMonthYear = (value: any) => {
@@ -123,7 +127,12 @@ const CV3ExperiencesP: React.FC<Props> = ({
                     {exp.bullets?.length > 0 && (
                         <ul className="list-disc ml-8 text-[13px] text-gray-700 space-y-1  leading-normal">
                             {exp.bullets.map((bullet: string, i: number) => (
-                                <li key={i}>{bullet}</li>
+                                <li
+                                    key={i}
+                                    dangerouslySetInnerHTML={{
+                                        __html: bullet,
+                                    }}
+                                />
                             ))}
                         </ul>
                     )}

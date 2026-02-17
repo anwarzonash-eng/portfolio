@@ -248,8 +248,8 @@ const CV3 = ({ params }: { params: any }) => {
 
               <h2 className="text-[20px] font-bold text-black mb-4 border-b-2 border-black ">INTERESTS</h2>
               <div className="flex items-center gap-2">
-                <span className="text-[18px]">✈️</span>
-                <span className="font-bold text-[15px]">Travel</span>
+                {/* <span className="text-[18px]">✈️</span> */}
+                <span className="font-bold text-[15px]">Skydiving | Scuba Diving | Singing</span>
               </div>
             </div>
 

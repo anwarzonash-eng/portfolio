@@ -260,7 +260,7 @@ const CV3 = ({ params }: { params: any }) => {
                             {/* // Experience 2 */}
                             {filteredExperiences[1] && (<div className="w-full relative ">
 
-                                <CV3ExperiencesP rawExperiences={[filteredExperiences[1]]} listOfdata={listOfdata} bulletCount={4} />
+                                <CV3ExperiencesP rawExperiences={[filteredExperiences[1]]} listOfdata={listOfdata} bulletCount={6} />
                             </div>
 
 
@@ -291,8 +291,8 @@ const CV3 = ({ params }: { params: any }) => {
 
                                 <h2 className="text-[20px] font-bold text-black mb-4 border-b-2 border-black ">INTERESTS</h2>
                                 <div className="flex items-center gap-2">
-                                    <span className="text-[18px]">✈️</span>
-                                    <span className="font-bold text-[15px]">Travel</span>
+                                    {/* <span className="text-[18px]">✈️</span> */}
+                                    <span className="font-bold text-[15px]">Skydiving | Scuba Diving | Singing</span>
                                 </div>
                             </div>
 
@@ -306,19 +306,19 @@ const CV3 = ({ params }: { params: any }) => {
         },
 
 
-        // Experience 3
+
         {
             componentType: "dynamic",
             component: filteredExperiences[2] ? (
                 <div className="w-full relative ">
                     <div className="grid grid-cols-5 gap-8">
                         <div className="col-span-3">
-                            {/* <CV3ExperiencesP rawExperiences={[filteredExperiences[2]]} listOfdata={listOfdata} bulletCount={5} /> */}
+
                             <>
                                 {filteredExperiences[3] && <h2 className="text-[20px] font-bold text-black mb-4 border-b-2 border-black pb-2">
                                     EXPERIENCE
                                 </h2>}
-                                {filteredExperiences[3] && <CV3ExperiencesP rawExperiences={[filteredExperiences[3]]} listOfdata={listOfdata} bulletCount={4} />}
+                                {filteredExperiences[3] && <CV3ExperiencesP rawExperiences={[filteredExperiences[3]]} listOfdata={listOfdata} bulletCount={5} />}
 
                                 {filteredExperiences[4] && <CV3ExperiencesP rawExperiences={[filteredExperiences[4]]} listOfdata={listOfdata} bulletCount={5} />}
                                 {filteredExperiences[5] && <CV3ExperiencesP rawExperiences={[filteredExperiences[5]]} listOfdata={listOfdata} bulletCount={5} />}
@@ -351,7 +351,7 @@ const CV3 = ({ params }: { params: any }) => {
                 <div className="w-full relative ">
                     <div className="grid grid-cols-5 gap-8">
                         <div className="col-span-3">
-                            {/* <CV3ExperiencesP rawExperiences={[filteredExperiences[2]]} listOfdata={listOfdata} bulletCount={5} /> */}
+
                             <>
                                 {filteredExperiences[6] && <h2 className="text-[20px] font-bold text-black mb-4 border-b-2 border-black pb-2">
                                     EXPERIENCE
@@ -362,10 +362,6 @@ const CV3 = ({ params }: { params: any }) => {
                                 {filteredExperiences[8] && <CV3ExperiencesP rawExperiences={[filteredExperiences[8]]} listOfdata={listOfdata} bulletCount={5} />}
 
                                 {listOfdata?.education_ids?.length > 0 && <div className="w-full relative  mt-6">
-
-                                    <h2 className="text-[20px] font-bold text-black mb-4 border-b-2 border-black pb-2">
-                                        EDUCATION
-                                    </h2>
                                     <CV3EducationP
                                         education={listOfdata?.education_ids}
                                         location={listOfdata?.location}
