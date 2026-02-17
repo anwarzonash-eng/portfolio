@@ -239,7 +239,7 @@ const CV3 = ({ params }: { params: any }) => {
             componentType: "dynamic",
             clickableNote: false,
             component: (
-                <div className="w-full relative px-[2rem]">
+                <div className="w-full relative ">
                     <CV3HeaderP listOfdata={listOfdata} hideLinks={urlInfo?.hideLinks} />
 
                     {/* CV3 Grid Layout */}
@@ -258,7 +258,7 @@ const CV3 = ({ params }: { params: any }) => {
                             )}
 
                             {/* // Experience 2 */}
-                            {filteredExperiences[1] && (<div className="w-full relative px-[2rem]">
+                            {filteredExperiences[1] && (<div className="w-full relative ">
 
                                 <CV3ExperiencesP rawExperiences={[filteredExperiences[1]]} listOfdata={listOfdata} bulletCount={4} />
                             </div>
@@ -310,7 +310,7 @@ const CV3 = ({ params }: { params: any }) => {
         {
             componentType: "dynamic",
             component: filteredExperiences[2] ? (
-                <div className="w-full relative px-[2rem]">
+                <div className="w-full relative ">
                     <div className="grid grid-cols-5 gap-8">
                         <div className="col-span-3">
                             {/* <CV3ExperiencesP rawExperiences={[filteredExperiences[2]]} listOfdata={listOfdata} bulletCount={5} /> */}
@@ -325,7 +325,7 @@ const CV3 = ({ params }: { params: any }) => {
                             </>
                         </div>
                         <div className="col-span-2">
-                            {portfolios[0] && <div className="w-full relative px-[2rem] ">
+                            {portfolios[0] && <div className="w-full relative  ">
 
                                 <h2 className="text-[20px] font-bold text-black mb-4 border-b-2 border-black pb-2">
                                     PROJECTS
@@ -333,7 +333,7 @@ const CV3 = ({ params }: { params: any }) => {
                                 <CV3ProjectsP portfolios={[portfolios[0]]} />
                             </div>}
 
-                            {portfolios[1] && <div className="w-full relative px-[2rem] ">
+                            {portfolios[1] && <div className="w-full relative  ">
 
 
                                 <CV3ProjectsP portfolios={[portfolios[1]]} />
@@ -348,7 +348,7 @@ const CV3 = ({ params }: { params: any }) => {
         {
             componentType: "dynamic",
             component: filteredExperiences[2] ? (
-                <div className="w-full relative px-[2rem]">
+                <div className="w-full relative ">
                     <div className="grid grid-cols-5 gap-8">
                         <div className="col-span-3">
                             {/* <CV3ExperiencesP rawExperiences={[filteredExperiences[2]]} listOfdata={listOfdata} bulletCount={5} /> */}
@@ -361,7 +361,7 @@ const CV3 = ({ params }: { params: any }) => {
                                 {filteredExperiences[7] && <CV3ExperiencesP rawExperiences={[filteredExperiences[7]]} listOfdata={listOfdata} bulletCount={5} />}
                                 {filteredExperiences[8] && <CV3ExperiencesP rawExperiences={[filteredExperiences[8]]} listOfdata={listOfdata} bulletCount={5} />}
 
-                                {listOfdata?.education_ids?.length > 0 && <div className="w-full relative px-[2rem] mt-6">
+                                {listOfdata?.education_ids?.length > 0 && <div className="w-full relative  mt-6">
 
                                     <h2 className="text-[20px] font-bold text-black mb-4 border-b-2 border-black pb-2">
                                         EDUCATION
@@ -374,7 +374,7 @@ const CV3 = ({ params }: { params: any }) => {
                             </>
                         </div>
                         <div className="col-span-2">
-                            {portfolios[2] && <div className="w-full relative px-[2rem] ">
+                            {portfolios[2] && <div className="w-full relative  ">
 
                                 <h2 className="text-[20px] font-bold text-black mb-4 border-b-2 border-black pb-2">
                                     PROJECTS
@@ -382,7 +382,7 @@ const CV3 = ({ params }: { params: any }) => {
                                 <CV3ProjectsP portfolios={[portfolios[2]]} />
                             </div>}
 
-                            {portfolios[3] && <div className="w-full relative px-[2rem] ">
+                            {portfolios[3] && <div className="w-full relative  ">
 
 
                                 <CV3ProjectsP portfolios={[portfolios[3]]} />
@@ -395,110 +395,7 @@ const CV3 = ({ params }: { params: any }) => {
 
 
 
-        // Education Section with Grid
-        // {
-        //     componentType: "dynamic",
-        //     component: listOfdata?.education_ids?.length > 0 && (
-        //         <div className="w-full relative px-[2rem] mt-6">
-        //             <div className="grid grid-cols-5 gap-8">
-        //                 <div className="col-span-3">
-        //                     <h2 className="text-[20px] font-bold text-black mb-4 border-b-2 border-black pb-2">
-        //                         EDUCATION
-        //                     </h2>
-        //                     <CV3EducationP
-        //                         education={listOfdata?.education_ids}
-        //                         location={listOfdata?.location}
-        //                     />
-        //                 </div>
-        //                 <div className="col-span-2">
 
-
-        //                 </div>
-        //             </div>
-        //         </div>
-        //     ),
-        // },
-
-        // Project 1
-        // {
-        //     componentType: "dynamic",
-        //     component: portfolios[0] ? (
-        //         <div className="w-full relative px-[2rem] mt-6">
-        //             <div className="grid grid-cols-5 gap-8">
-        //                 <div className="col-span-3">
-        //                     <h2 className="text-[20px] font-bold text-black mb-4 border-b-2 border-black pb-2">
-        //                         PROJECTS
-        //                     </h2>
-        //                     <CV3ProjectsP portfolios={[portfolios[0]]} />
-        //                 </div>
-        //                 <div className="col-span-2"></div>
-        //             </div>
-        //         </div>
-        //     ) : null,
-        // },
-
-        // Project 2
-        // {
-        //     componentType: "dynamic",
-        //     component: portfolios[1] ? (
-        //         <div className="w-full relative px-[2rem]">
-        //             <div className="grid grid-cols-5 gap-8">
-        //                 <div className="col-span-3">
-        //                     <CV3ProjectsP portfolios={[portfolios[1]]} />
-        //                 </div>
-        //                 <div className="col-span-2"></div>
-        //             </div>
-        //         </div>
-        //     ) : null,
-        // },
-
-        // Project 3
-        // {
-        //     componentType: "dynamic",
-        //     component: portfolios[2] ? (
-        //         <div className="w-full relative px-[2rem] mt-6">
-        //             <div className="grid grid-cols-5 gap-8">
-        //                 <div className="col-span-3">
-        //                     <h2 className="text-[20px] font-bold text-black mb-4 border-b-2 border-black pb-2">
-        //                         PROJECTS
-        //                     </h2>
-        //                     <CV3ProjectsP portfolios={[portfolios[2]]} />
-        //                 </div>
-        //                 <div className="col-span-2"></div>
-        //             </div>
-        //         </div>
-        //     ) : null,
-        // },
-
-        // Project 4
-        // {
-        //     componentType: "dynamic",
-        //     component: portfolios[3] ? (
-        //         <div className="w-full relative px-[2rem]">
-        //             <div className="grid grid-cols-5 gap-8">
-        //                 <div className="col-span-3">
-        //                     <CV3ProjectsP portfolios={[portfolios[3]]} />
-        //                 </div>
-        //                 <div className="col-span-2"></div>
-        //             </div>
-        //         </div>
-        //     ) : null,
-        // },
-
-        // Project 5
-        // {
-        //     componentType: "dynamic",
-        //     component: portfolios[4] ? (
-        //         <div className="w-full relative px-[2rem]">
-        //             <div className="grid grid-cols-5 gap-8">
-        //                 <div className="col-span-3">
-        //                     <CV3ProjectsP portfolios={[portfolios[4]]} />
-        //                 </div>
-        //                 <div className="col-span-2"></div>
-        //             </div>
-        //         </div>
-        //     ) : null,
-        // },
     ];
 
     const componentsList: ComponentConfig[] = allComponents.filter(

@@ -9,7 +9,7 @@ export const reportsApiHandler = async ({
   setListOfData,
   itemID = null,
   setError,
-}) => {
+}: any) => {
   const payload: { domain: any; uniqueId: any; itemID?: any } =
   {
     domain: urlInfo?.domain,
