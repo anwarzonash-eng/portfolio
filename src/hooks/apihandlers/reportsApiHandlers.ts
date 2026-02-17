@@ -59,13 +59,15 @@ export const reportsApiHandler = async ({
 const adjustDynamicContent = async (data) => {
   try {
 
+
+    data = await adjustmetaData(data);
     data = await adjustSkillsDescriptionForCV(data);
     data = await adjustSkillsIDsInExperiencesAndPortflios(data);
     data = await adjustSkillsDescriptionInExperiences(data);
     data = await adjustSkillsDescriptionInPortfolios(data);
     data = await adjustExperienceIntro(data);
     data = await adjustSkilledDescriptionInServices(data);
-    data = await adjustmetaData(data);
+
 
     console.log({ updatedData: data })
   }
@@ -110,7 +112,9 @@ const adjustDynamicContent = async (data) => {
 // };
 
 const adjustmetaData = async (data) => {
-  data.email = data?.email_type == 'personal' ? data.non_business_email || 'john@example.com' : data.email;
+  data.email = data?.email_type == 'personal' ? data.non_business_email : data.email;
+  console.log({ data })
+
 
   data.education_ids.forEach(element => {
     element.degree_start_date = '';
@@ -133,12 +137,13 @@ const adjustmetaData = async (data) => {
     if (element.meta_data.job_types) {
 
       const metaDataForCurrentWebsitePurpose = element.meta_data.job_types[data.website_purpose]
-      element.starting_date = metaDataForCurrentWebsitePurpose.start_date;
-      element.ending_Date = metaDataForCurrentWebsitePurpose.end_date;
-      element.is_still_working = metaDataForCurrentWebsitePurpose.is_continue;
-      element.type = metaDataForCurrentWebsitePurpose.type; // Full Time, Contract, Freelance, 
-      element.nature = metaDataForCurrentWebsitePurpose.job_nature;
-      element.isShow = metaDataForCurrentWebsitePurpose.is_show;
+
+      element.starting_date = metaDataForCurrentWebsitePurpose.start_date || element.starting_date;
+      element.ending_Date = metaDataForCurrentWebsitePurpose.end_date || element.ending_Date;
+      element.is_still_working = metaDataForCurrentWebsitePurpose.is_continue || element.is_still_working;
+      element.type = metaDataForCurrentWebsitePurpose.type || element.type; // Full Time, Contract, Freelance, 
+      element.nature = metaDataForCurrentWebsitePurpose.job_nature || 'Remote';
+      element.isShow = metaDataForCurrentWebsitePurpose.is_show || false;
 
 
 
@@ -154,6 +159,7 @@ const adjustmetaData = async (data) => {
 
   data.website_purpose = data.website_purpose == 'freelance' ? 'upwork' : data.website_purpose == 'fulltime' || data.website_purpose == 'contract' ? 'contract' : 'startup'
 
+  data.portfolios_ids.sort((a, b) => { a.display_order - b.display_order })
 
 
   // Adjust the dynamic content based on the received data
