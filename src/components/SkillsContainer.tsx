@@ -67,8 +67,8 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({
     variant === "print"
       ? list?.slice(0, numSkills)
       : isExpanded
-      ? list
-      : list?.slice(0, initialVisibleItems);
+        ? list
+        : list?.slice(0, initialVisibleItems);
 
   const skills: Record<string, SkillType[]> = skillsGrouping(
     visibleSkills || []
@@ -100,8 +100,8 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({
   const gridCols =
     variant === "print"
       ? getGridCols(numColumns)
-      : "grid-cols-3 lg:grid-cols-6 xl:grid-cols-8";
-  const gap = variant === "portfolio" ? "gap-[2rem]" : "gap-[1.5rem]";
+      : "grid-cols-4 lg:grid-cols-6 xl:grid-cols-9";
+  const gap = variant === "portfolio" ? "gap-[2rem]" : "gap-[2.5rem]";
   const textSize =
     variant === "portfolio"
       ? "text-[1.4rem] leading-[2rem] font-medium text-heading"
@@ -117,12 +117,11 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({
     : `grid ${gridCols} ${gap} content-center`;
 
   return (
-    <div className="flex flex-col w-full items-center justify-center mt-[3rem]">
+    <div className="flex flex-col w-full items-center justify-center mt-[3rem] bg-white">
       {/* === Skills Grid === */}
       <div
-        className={`${containerClasses} ${
-          variant === "default" ? "print:hidden" : ""
-        }`}
+        className={`${containerClasses} ${variant === "default" ? "print:hidden" : ""
+          }`}
       >
         {Object.values(skills).map((group, groupIndex) => (
           <React.Fragment key={groupIndex}>
@@ -131,18 +130,17 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({
                 <>
                   {skill.icon && (
                     <div
-                      className={`h-[6rem] w-[6rem] mx-auto ${
-                        variant === "print"
-                          ? "print:h-[4.5rem] print:w-[4.5rem]"
-                          : ""
-                      }`}
+                      className={`h-[6rem] w-[6rem] mx-auto ${variant === "print"
+                        ? "print:h-[4.5rem] print:w-[4.5rem]"
+                        : ""
+                        }`}
                     >
                       <Image
                         src={skill.icon}
                         alt={skill.title}
                         height={64}
                         width={64}
-                        className="object-contain w-full h-full"
+                        className="object-contain w-full h-full filter grayscale"
                       />
                     </div>
                   )}
@@ -170,7 +168,7 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({
                     </Link>
                   ) : (
                     <div className="flex flex-col items-center justify-center">
-                    {Content}
+                      {Content}
                     </div>
                   )}
                 </div>
@@ -196,7 +194,7 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({
 
       {/* === Toggle Button for Default/Portfolio === */}
       {showToggleButton && (
-        <div className="flex justify-center mt-[3rem] print:hidden">
+        <div className="flex justify-center my-[3rem] print:hidden">
           <button
             onClick={handleToggleExpand}
             className="px-[3rem] py-[1rem] bg-primary rounded-[2rem] text-white text-[1.4rem] font-medium hover:bg-primary-dark transition-colors"

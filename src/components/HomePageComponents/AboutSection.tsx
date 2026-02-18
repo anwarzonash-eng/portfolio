@@ -21,7 +21,7 @@ interface AboutSectionProps {
     linkedIn?: string;
     behance_link?: string;
     is_pdf_generated?: boolean;
-     pdf_urls?: { type: string; url: string | null }[];
+    pdf_urls?: { type: string; url: string | null }[];
     // pdf_urls?: Array<{
     //   type: string;
     //   url: string | null;
@@ -114,26 +114,26 @@ const AboutSection: React.FC<AboutSectionProps> = ({
             </div>
 
             {/* Projects Badge */}
-            {  listOfdata && listOfdata?.website_purpose !== "contract" && (
-            <div className="bg-white mb-3 rounded-[0.8rem] absolute top-auto right-auto bottom-[-4rem] xl:bottom-[3rem] xl:left-[3rem] left-[3rem] p-[1.4rem] xl:h-[12rem] xl:rounded-[2rem] flex items-center shadow-md gap-[1rem] xl:gap-[2rem] animate-bounce xl:animate-none">
-              {/* Badge SVG */}
-              <div className="bg-[#FC822A] rounded-[50%] flex items-center justify-center h-[4.9rem] w-[4.9rem] xl:h-[6.8rem] xl:w-[6.8rem]">
-                <img
-                  src="./images/badge.svg"
-                  alt="Experience"
-                  className="h-[2.4rem] w-[2.4rem] xl:h-[3.4rem] xl:w-[3.4rem]"
-                />
+            {listOfdata && listOfdata?.website_purpose !== "contract" && (
+              <div className="bg-white mb-3 rounded-[0.8rem] absolute top-auto right-auto bottom-[-4rem] xl:bottom-[3rem] xl:left-[3rem] left-[3rem] p-[1.4rem] xl:h-[12rem] xl:rounded-[2rem] flex items-center shadow-md gap-[1rem] xl:gap-[2rem] animate-bounce xl:animate-none">
+                {/* Badge SVG */}
+                <div className="bg-[#FC822A] rounded-[50%] flex items-center justify-center h-[4.9rem] w-[4.9rem] xl:h-[6.8rem] xl:w-[6.8rem]">
+                  <img
+                    src="./images/badge.svg"
+                    alt="Experience"
+                    className="h-[2.4rem] w-[2.4rem] xl:h-[3.4rem] xl:w-[3.4rem]"
+                  />
+                </div>
+                {/* Badge Content */}
+                <div className="flex flex-col justify-center">
+                  <h3 className="uppercase text-[1.4rem] xl:text-[1.8rem] font-semibold text-heading leading-none mt-[1rem]">
+                    Projects Completed
+                  </h3>
+                  <p className="text-[2.4rem] xl:text-[3rem] font-bold text-primary">
+                    {listOfdata?.projects_completed}+
+                  </p>
+                </div>
               </div>
-              {/* Badge Content */}
-              <div className="flex flex-col justify-center">
-                <h3 className="uppercase text-[1.4rem] xl:text-[1.8rem] font-semibold text-heading leading-none mt-[1rem]">
-                  Projects Completed
-                </h3>
-                <p className="text-[2.4rem] xl:text-[3rem] font-bold text-primary">
-                  {listOfdata?.projects_completed}+
-                </p>
-              </div>
-            </div>
             )}
           </div>
         </div>
@@ -155,17 +155,20 @@ const AboutSection: React.FC<AboutSectionProps> = ({
             {/* Paragraph */}
             {listOfdata?.designation && (
               <p className="text-[1.6rem] font-normal text-paragraph1 leading-[2.4rem]">
-                Currently Open for full time position as a{" "}
-                <span className="lowercase">{listOfdata?.designation}</span>.
+                Currently open for a position as a{" "}
+                <span className="lowercase">
+                  {listOfdata?.designation.replace(/\s*\|\s*|\s+,/g, (match) =>
+                    match.includes("|") ? ", " : ","
+                  )}
+                </span>.
               </p>
             )}
           </div>
           {/* Info Cards */}
           <div className="my-[2rem] rounded-[0.8rem] overflow-hidden w-full grid grid-cols-12">
             <div
-              className={`w-full border border-border border-solid py-[3rem] px-[2rem] col-span-12 ${
-                urlInfo?.u ? "md:col-span-12" : "md:col-span-6"
-              }`}
+              className={`w-full border border-border border-solid py-[3rem] px-[2rem] col-span-12 ${urlInfo?.u ? "md:col-span-12" : "md:col-span-6"
+                }`}
             >
               <div className="w-full">
                 <h4 className="hover:font-bold text-[1.6rem] duration-300 font-normal text-primary">
@@ -207,9 +210,8 @@ const AboutSection: React.FC<AboutSectionProps> = ({
               </div>
             )}
             <div
-              className={`w-full border border-border border-solid py-[3rem] px-[2rem] col-span-12 ${
-                urlInfo?.u ? "md:col-span-12" : "md:col-span-6"
-              }`}
+              className={`w-full border border-border border-solid py-[3rem] px-[2rem] col-span-12 ${urlInfo?.u ? "md:col-span-12" : "md:col-span-6"
+                }`}
             >
               <div className="w-full flex justify-between">
                 <div>
@@ -221,7 +223,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
                     {listOfdata?.location}
                   </Link>
                   <p className="text-[1.4rem] font-normal text-paragraph1">
-                    Address
+                    Location
                   </p>
                 </div>
                 {listOfdata?.location?.includes("Manchester, UK") && (
@@ -236,9 +238,8 @@ const AboutSection: React.FC<AboutSectionProps> = ({
               </div>
             </div>
             <div
-              className={`w-full border border-border border-solid py-[3rem] px-[2rem] col-span-12 ${
-                urlInfo?.u ? "md:col-span-12" : "md:col-span-6"
-              }`}
+              className={`w-full border border-border border-solid py-[3rem] px-[2rem] col-span-12 ${urlInfo?.u ? "md:col-span-12" : "md:col-span-6"
+                }`}
             >
               <div className="w-full flex items-center gap-[1.4rem] mb-[0.8rem]">
                 <WorkProofLinks

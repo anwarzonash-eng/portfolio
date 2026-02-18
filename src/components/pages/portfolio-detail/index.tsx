@@ -572,8 +572,8 @@ const PortfolioDetails = ({ params }: { params: any }) => {
                   </div>
 
                   {/* My Tools and Technologies */}
-                  <article className="my-[6.4rem]">
-                    <div className="text-heading text-[2.4rem] xl:text-[3rem] font-medium leading-[2.8rem] text-center">
+                  <article className="my-[6.4rem] bg-white pt-16 border rounded-2xl">
+                    <div className="text-heading text-[2.4rem] xl:text-[3rem] font-medium leading-[2.8rem] text-center mb-20">
                       The skills, tools and technologies I used in this project:
                     </div>
                     <div ref={skillsContainerRef}>
@@ -591,7 +591,7 @@ const PortfolioDetails = ({ params }: { params: any }) => {
 
                   {/* Upwork Activity Section */}
                   {listOfdata && listOfdata?.upwork_show_status === "show" && (
-                    <div className="mt-[5rem] lg:mt-[10rem]">
+                    <div className=" lg:mt-[10rem] border rounded-2xl">
                       <UpworkActivitySection
                         urlInfo={urlInfo}
                         cvTrue={true}

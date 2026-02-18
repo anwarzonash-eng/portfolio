@@ -345,8 +345,8 @@ const Faqs: React.FC<FaqsProps> = ({ urlInfo, companyType, apiData }) => {
 
                 <div
                   className={`overflow-hidden transition-all duration-300 ease-out ${isPrinting || activeFaq === index
-                      ? "max-h-[500px] pt-2 pb-2 print:max-h-none"
-                      : "max-h-0"
+                    ? "max-h-[500px] pt-2 pb-2 print:max-h-none"
+                    : "max-h-0"
                     }`}
                 >
                   <div
@@ -382,7 +382,7 @@ const Faqs: React.FC<FaqsProps> = ({ urlInfo, companyType, apiData }) => {
                 {!urlInfo?.u && (
                   <button
                     onClick={() => scrollToSection("contact")}
-                    className="bg-radial-gradient bg-primary md:mb-[34px] mb-[13px] max-w-[320px] rounded-[0.6rem] text-white py-[1rem] px-[3rem] xl:py-[2rem] xl:px-[5.6rem] text-[1.8rem] font-medium border border-solid border-white hover:bg-white hover:text-primary duration-300 w-full"
+                    className="bg-radial-gradient bg-primary mb-[34px]  max-w-[320px] rounded-[0.6rem] text-white py-[1rem] px-[3rem] xl:py-[2rem] xl:px-[5.6rem] text-[1.8rem] font-medium border border-solid border-white hover:bg-white hover:text-primary duration-300 w-full"
                   >
                     Contact Me
                   </button>

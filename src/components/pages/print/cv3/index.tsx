@@ -253,7 +253,7 @@ const CV3 = ({ params }: { params: any }) => {
                                     <h2 className="text-[20px] font-bold text-black mb-4 border-b-2 border-black pb-2">
                                         EXPERIENCE
                                     </h2>
-                                    <CV3ExperiencesP rawExperiences={[filteredExperiences[0]]} listOfdata={listOfdata} bulletCount={8} />
+                                    <CV3ExperiencesP rawExperiences={[filteredExperiences[0]]} listOfdata={listOfdata} bulletCount={7} />
                                 </>
                             )}
 

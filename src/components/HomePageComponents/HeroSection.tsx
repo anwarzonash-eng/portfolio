@@ -287,7 +287,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                           target="_blank"
                           rel="noopener noreferrer"
                           style={{ animationDelay: `${i * 0.03}s` }}
-                          className="text-[16px] text-black bg-white p-2 rounded-lg flex gap-2 items-center hover:bg-primary hover:text-white "
+                          className="text-[16px] text-black bg-white px-3 py-2 rounded-lg flex gap-2 items-center hover:bg-primary hover:text-white "
                         >
                           {skill?.title}
                         </a>
@@ -296,7 +296,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                       <div
                         key={key}
                         style={{ animationDelay: `${i * 0.03}s` }}
-                        className="text-[16px] hover:bg-primary hover:text-white text-black bg-white p-2 rounded-lg flex gap-2 items-center"
+                        className="text-[16px] hover:bg-primary hover:text-white text-black bg-white px-3 py-2 rounded-lg flex gap-2 items-center"
                       >
                         {skill?.title}
                       </div>

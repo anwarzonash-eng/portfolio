@@ -100,6 +100,7 @@ const CV3ExperiencesP: React.FC<Props> = ({
             bullets,
             skills: exp?.skills || [],
             type: formatType(exp?.type || ""),
+            nature: exp?.nature || "",
 
         };
     });
@@ -113,7 +114,13 @@ const CV3ExperiencesP: React.FC<Props> = ({
                 <div key={exp.id || index} className="mb-6 border-dashed border-b border-gray-300 pb-4">
                     <h3 className="text-[18px] font-semibold text-black">{exp.title}</h3>
                     <div className="flex flex-col gap-2 mb-2">
-                        <span className="text-blue-600 text-[15px] font-bold">{exp.company} <span className="text-primary font-medium"> ({exp.type})</span> </span>
+                        <span className="text-blue-600 text-[15px] font-bold">{exp.company}
+                            {(exp.type || exp.nature) && (
+                                <span className="text-primary font-medium ml-2">
+                                    ({[exp.type, exp.nature].filter(Boolean).join(", ")})
+                                </span>
+                            )}
+                        </span>
                         <div className='flex gap-6 items-center font-medium'>
 
                             <span className="text-[12px] flex items-center gap-2 text-gray-600">

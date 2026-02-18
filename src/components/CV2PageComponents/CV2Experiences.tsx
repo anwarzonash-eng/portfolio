@@ -114,6 +114,7 @@ const CV2Experiences: React.FC<Props> = ({
       title: exp?.title || exp?.designation || "",
       company: exp?.company_name || "",
       type: formatType(exp?.type || ""),
+      nature: exp?.nature || "",
       bullets,
       skills: exp?.skills || [],
     };
@@ -138,6 +139,11 @@ const CV2Experiences: React.FC<Props> = ({
               {exp.type && (
                 <div className="text-[1.3rem] text-primary rounded-[0.4rem]   font-medium capitalize">
                   {exp.type}
+                </div>
+              )}
+              {exp.nature && (
+                <div className="text-[1.3rem] text-primary rounded-[0.4rem]   font-medium capitalize">
+                  {exp.nature}
                 </div>
               )}
             </div>
