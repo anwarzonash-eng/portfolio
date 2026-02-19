@@ -361,22 +361,22 @@ const Home_p = ({ params }: { params: any }) => {
 
     ...(urlInfo?.domain === "findusman.me"
       ? [
-          {
-            componentType: "static" as const,
-            hasDarkBackground: true,
-            component: (
-              <>
-                {listOfdata?.testimonials && (
-                  <HomeTestimonialSection
-                    testimonials={listOfdata?.testimonials}
-                    designation={listOfdata?.designation}
-                    hideLinks={urlInfo?.hideLinks}
-                  />
-                )}
-              </>
-            ),
-          },
-        ]
+        {
+          componentType: "static" as const,
+          hasDarkBackground: true,
+          component: (
+            <>
+              {listOfdata?.testimonials && (
+                <HomeTestimonialSection
+                  testimonials={listOfdata?.testimonials}
+                  designation={listOfdata?.designation}
+                  hideLinks={urlInfo?.hideLinks}
+                />
+              )}
+            </>
+          ),
+        },
+      ]
       : []),
 
     // Contact Me Section - only if not a user profile

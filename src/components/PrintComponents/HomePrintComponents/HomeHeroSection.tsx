@@ -113,28 +113,28 @@ const HomeHeroSection: React.FC<HomeHeroSectionProps> = ({
 
               <div className="w-full inline-flex items-center justify-center bg-no-repeat bg-contain animate-bounce mt-20">
                 <div className="rounded flex w-full relative">
-                  <div className="flex items-center gap-[0.35rem] text-nowrap text-primary text-[2rem] font-medium rounded-[3.5rem] py-[0.69rem] max-w-max pr-[1.4rem]">
+                  <div className="flex items-center gap-[0.35rem] text-nowrap text-primary text-[1.8rem] font-medium rounded-[3.5rem] py-[0.69rem] max-w-max pr-[1rem] ">
                     <Image
                       src={"/images/dollar-symbol.svg"}
-                      height={24}
-                      width={24}
+                      height={20}
+                      width={20}
                       alt="Dollar Symbol"
-                      className="h-[2.4rem] w-[2.4rem]"
+                      className="h-[1.8rem] w-[1.8rem] print:mt-8"
                     />
                     <p>
                       ${listOfdata?.hourly_rate} /
                       {listOfdata?.salary_type === "per_day" ? "day" : "hour"}
                     </p>
                   </div>
-                  <div className="flex gap-[0.35rem] text-nowrap text-primary text-[2rem] font-medium rounded-[3.5rem] py-[0.69rem] min-w-max">
+                  <div className="flex gap-[0.35rem] text-nowrap text-primary text-[1.8rem] font-medium rounded-[3.5rem] py-[0.69rem] min-w-max items-center">
                     <Image
                       src={"/images/clock.svg"}
-                      height={26}
-                      width={26}
+                      height={20}
+                      width={20}
                       alt="Clock"
-                      className="h-[2.6rem] w-[2.6rem]"
+                      className="h-[2.2rem] w-[2.2rem] print:mt-8"
                     />
-                    <p>40 hr / Week Availability</p>
+                    <p>40 hr /Week Availability</p>
                   </div>
                 </div>
               </div>
