@@ -39,7 +39,7 @@ const HomeHeroSection: React.FC<HomeHeroSectionProps> = ({
             <div className="mt-[17rem] flex flex-col items-start absolute left-0 w-[70%]">
               <div className="flex gap-5 justify-center items-center">
                 <p className="text-heading text-[4.66rem] font-normal mt-5">Hi, I'm</p>
-                <h2 className="font-bold md:text-[5rem] text-primary">
+                <h2 className="font-bold md:text-[5rem] text-primary mt-5">
                   {listOfdata?.name}
                 </h2>
               </div>
@@ -96,14 +96,16 @@ const HomeHeroSection: React.FC<HomeHeroSectionProps> = ({
                   {!urlInfo?.u && listOfdata?.calendly_link && <Link
                     prefetch={true}
                     target="_blank"
-                    className="text-center rounded-[0.6rem] py-[1.5rem] px-[4.4rem] text-[2.6rem] font-medium bg-[#FCDC2A] text-black hover:bg-primary hover:text-white transition-colors"
+                    className="text-center rounded-[0.6rem] py-[1.5rem] 
+                    px-[3.5rem] text-[2.2rem] font-medium bg-[#FCDC2A] text-black hover:bg-primary hover:text-white transition-colors"
                     href={listOfdata?.calendly_link || "#"}
                   >
                     Schedule Call
                   </Link>}
                   <Link
                     prefetch={true}
-                    className="text-center rounded-[0.6rem] py-[1.5rem] px-[4.4rem] text-[2.6rem] font-medium mt-12 text-black transition-colors bg-white hover:bg-primary hover:text-white"
+                    className="text-center rounded-[0.6rem] py-[1.5rem] 
+                    px-[3.5rem] text-[2.2rem] font-medium mt-12 text-black transition-colors bg-white hover:bg-primary hover:text-white"
                     href={"/portfolio"}
                   >
                     View Portfolio
