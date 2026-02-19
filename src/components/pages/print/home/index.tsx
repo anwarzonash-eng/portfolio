@@ -172,20 +172,20 @@ const Home_p = ({ params }: { params: any }) => {
       ),
     },
 
-    {
-      componentType: "static",
-      component: (
-        <>
-          {listOfdata?.upwork_show_status === "show" && (
+    ...(urlInfo?.domain === "findusman.me"
+      ? [
+        {
+          componentType: "static" as const,
+          component: (
             <HomeUpworkSection
               listOfdata={listOfdata}
               urlInfo={urlInfo}
               hideLinks={urlInfo?.hideLinks}
             />
-          )}
-        </>
-      ),
-    },
+          ),
+        },
+      ]
+      : []),
     // Skills Section - only if portfolios exist
     ...[
       {
@@ -207,144 +207,144 @@ const Home_p = ({ params }: { params: any }) => {
     // Services Section - only if services exist
     ...(listOfdata?.services?.length > 0
       ? [
-          {
-            componentType: "static" as const,
-            hasDarkBackground: true,
-            component: (
-              <HomeServicesSection
-                listOfdata={listOfdata}
-                listOfdatas={listOfdatas}
-                services={listOfdata?.services}
-                hideLinks={urlInfo?.hideLinks}
-              />
-            ),
-          },
-        ]
+        {
+          componentType: "static" as const,
+          hasDarkBackground: true,
+          component: (
+            <HomeServicesSection
+              listOfdata={listOfdata}
+              listOfdatas={listOfdatas}
+              services={listOfdata?.services}
+              hideLinks={urlInfo?.hideLinks}
+            />
+          ),
+        },
+      ]
       : []),
 
     // Portfolio Section 1 - only if first portfolio exists
     ...(listOfdata?.portfolios_ids?.length > 0
       ? [
-          {
-            componentType: "static" as const,
-            badgeTitle: "Explore My Technical Endeavors",
-            component: (
-              <div className="w-full p-[2rem]">
-                <HomePortfolioCard
-                  portfolios={listOfdata.portfolios_ids}
-                  companyType={listOfdata.companytype}
-                  portfolioId={listOfdata.portfolios_ids[0]?.id}
-                  locationLink="/?sectionId=myWork"
-                  listOfskills={listOfskills}
-                  listOfdata={listOfdata}
-                  from={0}
-                  max={1}
-                  hideLinks={urlInfo?.hideLinks}
-                />
-              </div>
-            ),
-          },
-        ]
+        {
+          componentType: "static" as const,
+          badgeTitle: "Explore My Technical Endeavors",
+          component: (
+            <div className="w-full p-[2rem]">
+              <HomePortfolioCard
+                portfolios={listOfdata.portfolios_ids}
+                companyType={listOfdata.companytype}
+                portfolioId={listOfdata.portfolios_ids[0]?.id}
+                locationLink="/?sectionId=myWork"
+                listOfskills={listOfskills}
+                listOfdata={listOfdata}
+                from={0}
+                max={1}
+                hideLinks={urlInfo?.hideLinks}
+              />
+            </div>
+          ),
+        },
+      ]
       : []),
     // Portfolio Section 2 - only if second portfolio exists
     ...(listOfdata?.portfolios_ids?.length > 1
       ? [
-          {
-            componentType: "static" as const,
-            badgeTitle: "Explore My Technical Endeavors",
-            component: (
-              <div className="w-full p-[2rem]">
-                <HomePortfolioCard
-                  portfolios={listOfdata.portfolios_ids}
-                  companyType={listOfdata.companytype}
-                  portfolioId={listOfdata.portfolios_ids[1]?.id}
-                  locationLink="/?sectionId=myWork"
-                  listOfskills={listOfskills}
-                  listOfdata={listOfdata}
-                  from={1}
-                  max={2}
-                  hideLinks={urlInfo?.hideLinks}
-                />
-              </div>
-            ),
-          },
-        ]
+        {
+          componentType: "static" as const,
+          badgeTitle: "Explore My Technical Endeavors",
+          component: (
+            <div className="w-full p-[2rem]">
+              <HomePortfolioCard
+                portfolios={listOfdata.portfolios_ids}
+                companyType={listOfdata.companytype}
+                portfolioId={listOfdata.portfolios_ids[1]?.id}
+                locationLink="/?sectionId=myWork"
+                listOfskills={listOfskills}
+                listOfdata={listOfdata}
+                from={1}
+                max={2}
+                hideLinks={urlInfo?.hideLinks}
+              />
+            </div>
+          ),
+        },
+      ]
       : []),
     // Portfolio Section 3 - only if third portfolio exists
     ...(listOfdata?.portfolios_ids?.length > 2
       ? [
-          {
-            componentType: "static" as const,
-            badgeTitle: "Explore My Technical Endeavors",
-            component: (
-              <div className="w-full p-[2rem]">
-                <HomePortfolioCard
-                  portfolios={listOfdata.portfolios_ids}
-                  companyType={listOfdata.companytype}
-                  portfolioId={listOfdata.portfolios_ids[2]?.id}
-                  locationLink="/?sectionId=myWork"
-                  listOfskills={listOfskills}
-                  listOfdata={listOfdata}
-                  from={2}
-                  max={3}
-                  hideLinks={urlInfo?.hideLinks}
-                />
-              </div>
-            ),
-          },
-        ]
+        {
+          componentType: "static" as const,
+          badgeTitle: "Explore My Technical Endeavors",
+          component: (
+            <div className="w-full p-[2rem]">
+              <HomePortfolioCard
+                portfolios={listOfdata.portfolios_ids}
+                companyType={listOfdata.companytype}
+                portfolioId={listOfdata.portfolios_ids[2]?.id}
+                locationLink="/?sectionId=myWork"
+                listOfskills={listOfskills}
+                listOfdata={listOfdata}
+                from={2}
+                max={3}
+                hideLinks={urlInfo?.hideLinks}
+              />
+            </div>
+          ),
+        },
+      ]
       : []),
 
     // Experience Sections - only if experiences exist
     ...(listOfdata?.experiences_ids?.length > 0
       ? [
-          {
-            componentType: "static" as const,
-            badgeTitle: "Professional Experience",
-            component: (
+        {
+          componentType: "static" as const,
+          badgeTitle: "Professional Experience",
+          component: (
+            <HomeExperienceSection
+              listOfdata={listOfdata}
+              skillsGrouping={skillsGrouping}
+              showMoreSkills={showMoreSkills}
+              listOfskills={listOfskills}
+              start={0}
+              end={2}
+              hideLinks={urlInfo?.hideLinks}
+            />
+          ),
+        },
+      ]
+      : []),
+    ...(listOfdata?.experiences_ids?.length > 2
+      ? [
+        {
+          componentType: "static" as const,
+          badgeTitle: "Professional Experience",
+          component: (
+            <>
               <HomeExperienceSection
                 listOfdata={listOfdata}
                 skillsGrouping={skillsGrouping}
                 showMoreSkills={showMoreSkills}
                 listOfskills={listOfskills}
-                start={0}
-                end={2}
+                start={2}
+                end={4}
                 hideLinks={urlInfo?.hideLinks}
               />
-            ),
-          },
-        ]
-      : []),
-    ...(listOfdata?.experiences_ids?.length > 2
-      ? [
-          {
-            componentType: "static" as const,
-            badgeTitle: "Professional Experience",
-            component: (
-              <>
-                <HomeExperienceSection
-                  listOfdata={listOfdata}
-                  skillsGrouping={skillsGrouping}
-                  showMoreSkills={showMoreSkills}
-                  listOfskills={listOfskills}
-                  start={2}
-                  end={4}
-                  hideLinks={urlInfo?.hideLinks}
-                />
-                {!urlInfo?.hideLinks && (
-                  <div className="flex items-center justify-center">
-                    <Link
-                      href={`/?scrollTo=experiences&expand=true&nav=experience`}
-                      className="btn-primary text-white py-[1rem] mt-[2rem] px-[3.4rem] text-[1.8rem] font-medium"
-                    >
-                      View All Experiences
-                    </Link>
-                  </div>
-                )}
-              </>
-            ),
-          },
-        ]
+              {!urlInfo?.hideLinks && (
+                <div className="flex items-center justify-center">
+                  <Link
+                    href={`/?scrollTo=experiences&expand=true&nav=experience`}
+                    className="btn-primary text-white py-[1rem] mt-[2rem] px-[3.4rem] text-[1.8rem] font-medium"
+                  >
+                    View All Experiences
+                  </Link>
+                </div>
+              )}
+            </>
+          ),
+        },
+      ]
       : []),
 
     // Home Testimonial Section
@@ -359,59 +359,61 @@ const Home_p = ({ params }: { params: any }) => {
     //   ),
     // }] : []),
 
-    ...[
-      {
-        componentType: "static" as const,
-        hasDarkBackground: true,
-        component: (
-          <>
-            {listOfdata?.testimonials && (
-              <HomeTestimonialSection
-                testimonials={listOfdata?.testimonials}
-                designation={listOfdata?.designation}
-                hideLinks={urlInfo?.hideLinks}
-              />
-            )}
-          </>
-        ),
-      },
-    ],
-
-    // Contact Me Section - only if not a user profile
-    ...(!urlInfo?.u
+    ...(urlInfo?.domain === "findusman.me"
       ? [
           {
             componentType: "static" as const,
+            hasDarkBackground: true,
             component: (
-              <HomeContactMeSection
-                listOfdata={listOfdata}
-                formatPhoneNumber={formatPhoneNumber}
-                hideLinks={urlInfo?.hideLinks}
-              />
+              <>
+                {listOfdata?.testimonials && (
+                  <HomeTestimonialSection
+                    testimonials={listOfdata?.testimonials}
+                    designation={listOfdata?.designation}
+                    hideLinks={urlInfo?.hideLinks}
+                  />
+                )}
+              </>
             ),
           },
         ]
       : []),
 
+    // Contact Me Section - only if not a user profile
+    ...(!urlInfo?.u
+      ? [
+        {
+          componentType: "static" as const,
+          component: (
+            <HomeContactMeSection
+              listOfdata={listOfdata}
+              formatPhoneNumber={formatPhoneNumber}
+              hideLinks={urlInfo?.hideLinks}
+            />
+          ),
+        },
+      ]
+      : []),
+
     // Education Section - only if education data exists
     ...(listOfdata?.education_ids?.length > 0 || blogsList?.length > 0
       ? [
-          {
-            componentType: "static" as const,
-            component: (
-              <HomeEducationComponent
-                domain={domain}
-                listOfdata={listOfdata}
-                blogsList={blogsList}
-                dateFormatsOptions={dateFormatsOptions}
-                formatDate={formatDate}
-                getImageForIndex={getImageForIndex}
-                loadingblogs={loadingblogs}
-                hideLinks={urlInfo?.hideLinks}
-              />
-            ),
-          },
-        ]
+        {
+          componentType: "static" as const,
+          component: (
+            <HomeEducationComponent
+              domain={domain}
+              listOfdata={listOfdata}
+              blogsList={blogsList}
+              dateFormatsOptions={dateFormatsOptions}
+              formatDate={formatDate}
+              getImageForIndex={getImageForIndex}
+              loadingblogs={loadingblogs}
+              hideLinks={urlInfo?.hideLinks}
+            />
+          ),
+        },
+      ]
       : []),
   ];
 
@@ -519,36 +521,36 @@ const Home_p = ({ params }: { params: any }) => {
           </div>
         </div>
       ) : /* Show loading state while data is being fetched */
-      !isDataReady ? (
-        (() => {
-          const { loaded, total } = imageProgress;
-          const percent = total > 0 ? Math.round((loaded / total) * 100) : 0;
+        !isDataReady ? (
+          (() => {
+            const { loaded, total } = imageProgress;
+            const percent = total > 0 ? Math.round((loaded / total) * 100) : 0;
 
-          return (
-            <div className="flex items-center justify-center min-h-screen bg-[#f8f9fa] flex-col">
-              <div className="text-2xl text-heading mb-4">
-                Loading Home data...
-              </div>
-              {total > 0 && (
-                <div className="w-64 h-4 border border-gray-300 rounded overflow-hidden">
-                  <div
-                    className="h-full bg-primary transition-all duration-300"
-                    style={{ width: `${percent}%` }}
-                  />
+            return (
+              <div className="flex items-center justify-center min-h-screen bg-[#f8f9fa] flex-col">
+                <div className="text-2xl text-heading mb-4">
+                  Loading Home data...
                 </div>
-              )}
-              {total > 0 && <div className="mt-2 text-sm">{percent}%</div>}
-            </div>
-          );
-        })()
-      ) : (
-        <PrintPageRenderer
-          componentsList={componentsList}
-          orientation="Landscape"
-          isDataReady={isDataReady}
-          hideLinks={urlInfo?.hideLinks}
-        />
-      )}
+                {total > 0 && (
+                  <div className="w-64 h-4 border border-gray-300 rounded overflow-hidden">
+                    <div
+                      className="h-full bg-primary transition-all duration-300"
+                      style={{ width: `${percent}%` }}
+                    />
+                  </div>
+                )}
+                {total > 0 && <div className="mt-2 text-sm">{percent}%</div>}
+              </div>
+            );
+          })()
+        ) : (
+          <PrintPageRenderer
+            componentsList={componentsList}
+            orientation="Landscape"
+            isDataReady={isDataReady}
+            hideLinks={urlInfo?.hideLinks}
+          />
+        )}
     </>
   );
 };

@@ -53,30 +53,30 @@ const UpwrokIdentityPrint: React.FC<UpwrokIdentityPrintProps> = ({
 
             {/* Location */}
             <div>
-              <div className="flex items-center space-x-2 text-gray-600 mt-[-0.5rem] mb-[0.5rem]">
+              <div className="flex items-start flex-wrap  space-x-2 text-gray-600 mt-0 mb-[0.5rem]">
                 {/* Location Pin Icon */}
                 <MapPin className="size-[1.6rem]" />
                 <span className="text-[1.4rem] font-medium">
                   {data.location}
                 </span>
-              </div>
-              {/* Available Now Badge */}
-              <div className="flex items-center bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm font-medium max-w-max">
-                <svg
-                  className="w-4 h-4 mr-1"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M13 10V3L4 14h7v7l9-11h-7z"
-                  />
-                </svg>
-                <span>Available now</span>
+                {/* Available Now Badge */}
+                <div className="flex !ml-4 items-center bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm font-medium max-w-max">
+                  <svg
+                    className="w-4 h-4 mr-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M13 10V3L4 14h7v7l9-11h-7z"
+                    />
+                  </svg>
+                  <span>Available now</span>
+                </div>
               </div>
             </div>
           </div>
@@ -112,7 +112,7 @@ const UpwrokIdentityPrint: React.FC<UpwrokIdentityPrintProps> = ({
             <Link
               href={data.upwork ?? "#"}
               target="_blank"
-              className="bg-black text-white border border-transparent hover:border-primary hover:bg-white hover:text-primary duration-300 text-nowrap flex items-center justify-center text-[1.4rem] rounded-[20rem] px-[1rem] py-[0.5rem] group"
+              className="bg-[#0F3C3C] text-white border border-transparent hover:border-primary hover:bg-white hover:text-primary duration-300 text-nowrap flex items-center justify-center text-[1.4rem] rounded-[20rem] px-[1rem] py-[0.5rem] group"
             >
               <span>Check My</span>
               <div className="h-[3.5rem] w-[10rem] relative mx-2 inline-block overflow-hidden rounded-[10rem] px-2 bg-white">

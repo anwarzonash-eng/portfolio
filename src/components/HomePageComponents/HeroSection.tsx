@@ -277,8 +277,8 @@ const HeroSection: React.FC<HeroSectionProps> = ({
               ></p>
               {/* compact skill chips (mapped) — uses same data source as the skills list */}
               {listOfdata && listOfdata.skills_ids && listOfdata.skills_ids.length > 0 && (
-                <div className="flex flex-wrap gap-2 mt-2 w-[75%]">
-                  {Object?.values(skills)?.flat()?.slice(0, !showAll ? 10 : undefined).map((skill, i) => {
+                <div className="flex flex-wrap gap-2 mt-2 w-[80%]">
+                  {Object?.values(skills)?.flat()?.slice(0, !showAll ? 15 : undefined).map((skill, i) => {
                     const key = `hero-skill-${i}-${(skill?.title || '').replace(/\s+/g, '-')}`;
 
                     return skill?.url ? (

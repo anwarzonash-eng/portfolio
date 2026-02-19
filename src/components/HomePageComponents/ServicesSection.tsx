@@ -45,7 +45,7 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({ services }) => {
                         alt={service.title || "Service image"}
                         height={150}
                         width={150}
-                        className="object-cover filter grayscale transition-transform duration-500 z-10 group-hover:scale-110 w-[9.8rem] h-[9.8rem] print:object-center"
+                        className="object-cover filter transition-transform duration-500 z-10 group-hover:scale-110 w-[9.8rem] h-[9.8rem] print:object-center"
                         onError={(e) => {
                           const target = e.target as HTMLImageElement;
                           target.style.display = "none";

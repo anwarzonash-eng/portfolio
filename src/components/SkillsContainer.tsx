@@ -140,7 +140,7 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({
                         alt={skill.title}
                         height={64}
                         width={64}
-                        className="object-contain w-full h-full filter grayscale"
+                        className="object-contain w-full h-full filter "
                       />
                     </div>
                   )}

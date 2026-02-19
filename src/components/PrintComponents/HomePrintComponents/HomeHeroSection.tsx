@@ -1,5 +1,6 @@
 import DesignationDomain from "@/components/DesignationDomain";
 import NoteDomainForPint from "@/components/NoteDomainForPint";
+import { useAppSelector } from "@/store";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -26,36 +27,119 @@ const HomeHeroSection: React.FC<HomeHeroSectionProps> = ({
   skills,
   hideLinks,
 }) => {
+  const urlInfo = useAppSelector((state) => state.profile.profileUrlInfo);
+
   return (
     <div className="print:h-screen print:section bg-bannerBG !w-full overflow-hidden relative">
       {/* Hero Section  */}
       <div className="max-w-[1550px] w-full mx-auto px-[4rem]">
         <div className="text-center mt-[3rem] print:mt-0 print:pt-[3rem]">
-          <p className="text-heading text-[3.66rem] font-normal leading-normal mb-[1rem]">
-            Hello! I’m
-          </p>
-          <h1 className="font-bold md:text-[8rem] lg:text-[12rem] text-primary mt-[-3.5rem]">
-            {listOfdata?.name}
-          </h1>
-          {/* Badge */}
-          <div className="relative z-[50] mt-[1rem] flex flex-col items-start">
-            <div
-              className="inline-block py-[1rem] px-[4rem] bg-primary
-                             max-w-[45rem] rounded-[5rem] text-center text-[2.4rem] font-bold text-white border-none outline-none mb-[0.5rem]"
-            >
-              {listOfdata?.designation?.split("|").map((item, index) => (
-                <div key={index} className={`text-center ${index === 0 ? "text-[2.4rem] font-bold text-white": "text-[1.6rem] font-semibold text-gray-300"}`}>
-                  {item.trim()}
-                </div>
-              ))}
-            </div>
-            {hideLinks ? null : (
-              <div className="ml-10">
-                <DesignationDomain />
+
+          <div className="mt-[-8rem] flex justify-end relative">
+            <div className="mt-[17rem] flex flex-col items-start absolute left-0 w-[70%]">
+              <div className="flex gap-5 justify-center items-center">
+                <p className="text-heading text-[4.66rem] font-normal mt-5">Hi, I'm</p>
+                <h2 className="font-bold md:text-[5rem] text-primary">
+                  {listOfdata?.name}
+                </h2>
               </div>
-            )}
-          </div>
-          <div className="mt-[-12rem] flex justify-center relative">
+
+              <p className="text-heading text-[3.66rem] font-normal start">
+                {listOfdata?.designation.split("|")[0].trim()}
+              </p>
+
+              {hideLinks ? null : (
+                <div className="ml-0 mt-2">
+                  {/* <DesignationDomain /> */}
+                </div>
+              )}
+
+              <p
+                dangerouslySetInnerHTML={{
+                  __html: listOfdata?.tag_line,
+                }}
+                className="w-[90%] text-primary text-[2rem] font-medium leading-[3rem] mb-[2rem] mt-[2rem] text-left"
+              ></p>
+
+              {/* compact skill chips */}
+              {listOfdata && listOfdata.skills_ids && listOfdata.skills_ids.length > 0 && (
+                <div className="flex flex-wrap gap-2 mt-2 w-[80%]">
+                  {Object.values(skills).flat().slice(0, 10).map((skill, i) => {
+                    const key = `hero-skill-${i}-${(skill?.title || '').replace(/\s+/g, '-')}`;
+
+                    return skill?.url && !hideLinks ? (
+                      <Link href={skill.url || "#"} legacyBehavior key={key}>
+                        <a
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{ animationDelay: `${i * 0.03}s` }}
+                          className="text-[16px] text-black bg-white px-3 py-2 rounded-lg flex gap-2 items-center hover:bg-primary hover:text-white"
+                        >
+                          {skill?.title}
+                        </a>
+                      </Link>
+                    ) : (
+                      <div
+                        key={key}
+                        style={{ animationDelay: `${i * 0.03}s` }}
+                        className="text-[16px] hover:bg-primary hover:text-white text-black bg-white px-3 py-2 rounded-lg flex gap-2 items-center"
+                      >
+                        {skill?.title}
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+
+              {!hideLinks && (
+                <div className="mt-16 space-x-5">
+                  {!urlInfo?.u && listOfdata?.calendly_link && <Link
+                    prefetch={true}
+                    target="_blank"
+                    className="text-center rounded-[0.6rem] py-[1.5rem] px-[4.4rem] text-[2.6rem] font-medium bg-[#FCDC2A] text-black hover:bg-primary hover:text-white transition-colors"
+                    href={listOfdata?.calendly_link || "#"}
+                  >
+                    Schedule Call
+                  </Link>}
+                  <Link
+                    prefetch={true}
+                    className="text-center rounded-[0.6rem] py-[1.5rem] px-[4.4rem] text-[2.6rem] font-medium mt-12 text-black transition-colors bg-white hover:bg-primary hover:text-white"
+                    href={"/portfolio"}
+                  >
+                    View Portfolio
+                  </Link>
+                </div>
+              )}
+
+              <div className="w-full inline-flex items-center justify-center bg-no-repeat bg-contain animate-bounce mt-20">
+                <div className="rounded flex w-full relative">
+                  <div className="flex items-center gap-[0.35rem] text-nowrap text-primary text-[2rem] font-medium rounded-[3.5rem] py-[0.69rem] max-w-max pr-[1.4rem]">
+                    <Image
+                      src={"/images/dollar-symbol.svg"}
+                      height={24}
+                      width={24}
+                      alt="Dollar Symbol"
+                      className="h-[2.4rem] w-[2.4rem]"
+                    />
+                    <p>
+                      ${listOfdata?.hourly_rate} /
+                      {listOfdata?.salary_type === "per_day" ? "day" : "hour"}
+                    </p>
+                  </div>
+                  <div className="flex gap-[0.35rem] text-nowrap text-primary text-[2rem] font-medium rounded-[3.5rem] py-[0.69rem] min-w-max">
+                    <Image
+                      src={"/images/clock.svg"}
+                      height={26}
+                      width={26}
+                      alt="Clock"
+                      className="h-[2.6rem] w-[2.6rem]"
+                    />
+                    <p>40 hr / Week Availability</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             {/* Center Dev Image */}
             <Image
               width={731}
@@ -64,102 +148,8 @@ const HomeHeroSection: React.FC<HomeHeroSectionProps> = ({
               loading="eager"
               priority={true}
               src={listOfdata?.profile_photo_2.trim()}
-              className="mr-[12rem]"
+              className="print:mr-[-25rem] mr-[-18rem] mt-[13rem]"
             />
-
-            {/* Left Pricing and Hours Badge Positoned */}
-            <div className="absolute left-0 top-[24rem] w-[33.5rem] h-[18rem] inline-flex items-center justify-center bg-Circle bg-no-repeat bg-contain animate-bounce">
-              <div className="h-[100px] p-5 rounded  justify-center items-center gap-5 inline-flex">
-                <div className="text-primary">
-                  <h3 className="text-[4rem] font-medium leading-[4rem]">
-                    ${listOfdata?.hourly_rate}
-                  </h3>
-                  <p className="text-[2rem] font-normal">
-                    {listOfdata?.salary_type === "per_day" ? "day" : "hour"}
-                  </p>
-                </div>
-                <hr className="h-[6rem] w-[0.1rem] bg-border" />
-                <div className="text-primary">
-                  <h3 className="text-[4rem] font-medium leading-[4rem]">
-                    40hr
-                  </h3>
-                  <p className="text-[2rem] font-normal">week</p>
-                </div>
-              </div>
-            </div>
-            {/* Positioned Skills and Text Desktop */}
-            <div className="max-w-[55rem] print:max-w-[42rem] w-full absolute right-[-4rem] print:right-[-2rem] top-[7rem]">
-              <p
-                dangerouslySetInnerHTML={{
-                  __html: listOfdata?.tag_line,
-                }}
-                className="w-full text-primary text-[2.2rem] print:text-[1.8rem] font-medium leading-[3rem] mb-[2rem] text-left"
-              ></p>
-
-              {listOfdata &&
-                listOfdata.skills_ids &&
-                listOfdata.skills_ids.length > 0 && (
-                  <div className="z-[50] absolute max-w-[49rem] w-full rounded-[0.6rem] border border-border border-solid overflow-hidden">
-                    <div className="flex justify-between bg-primary border-b border-border w-full py-[1rem] px-[2rem]">
-                      <div className="text-left text-white text-[1.8rem] font-medium">
-                        My Skills
-                      </div>
-                      {isOverflowing && !hideLinks && (
-                        <button
-                          onClick={() => scrollToSection("skills_ids")}
-                          className="py-[3px] px-[1.6rem] text-center text-primary text-[1rem] font-medium bg-white rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn"
-                        >
-                          See More Skills
-                        </button>
-                      )}
-                    </div>
-
-                    <div
-                      ref={skillsContainerRef}
-                      className="w-full p-[1.5rem] bg-white/70 backdrop-blur-xl justify-start items-center gap-[0.6rem] flex flex-wrap overflow-y-auto hide-scrollbar"
-                      style={{ maxHeight: "46.3rem" }}
-                    >
-                      {Object.values(skills)
-                        .flat()
-                        .slice(0, 15)
-                        .map((skill, i) => {
-                          return (
-                            <>
-                              {skill.url && !hideLinks ? (
-                                <Link
-                                  href={skill.url || "#"}
-                                  legacyBehavior
-                                  key={i}
-                                >
-                                  <a
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    style={{
-                                      animationDelay: `${i * 0.1}s`,
-                                    }}
-                                    className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium px-[21px] py-[0.5rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
-                                  >
-                                    {skill?.title}
-                                  </a>
-                                </Link>
-                              ) : (
-                                <div
-                                  key={i}
-                                  style={{
-                                    animationDelay: `${i * 0.1}s`,
-                                  }}
-                                  className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium px-[21px] py-[0.5rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
-                                >
-                                  {skill?.title}
-                                </div>
-                              )}
-                            </>
-                          );
-                        })}
-                    </div>
-                  </div>
-                )}
-            </div>
           </div>
         </div>
       </div>
