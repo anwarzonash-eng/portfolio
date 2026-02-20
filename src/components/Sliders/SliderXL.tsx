@@ -147,7 +147,7 @@ const SliderXL = ({ portfolioPictures }) => {
   }
 
   return (
-    <div ref={sliderContainerRef} className="relative w-full max-lg:pb-[2rem] sliderxl-root">
+    <div ref={sliderContainerRef} className="bg-white rounded-lg p-10 relative w-full max-lg:pb-[2rem] sliderxl-root">
       {/* Progress Timeline Bars */}
       <div className="absolute top-0 left-0 right-0 z-10 flex gap-1 p-3">
         {images.map((_: any, index: number) => (
@@ -162,8 +162,8 @@ const SliderXL = ({ portfolioPictures }) => {
                   index < currentSlide
                     ? "100%"
                     : index === currentSlide
-                    ? `${progress}%`
-                    : "0%",
+                      ? `${progress}%`
+                      : "0%",
               }}
             />
           </div>
@@ -208,11 +208,10 @@ const SliderXL = ({ portfolioPictures }) => {
           <div
             key={index}
             onClick={() => setCurrentSlide(index)}
-            className={`flex-shrink-0 cursor-pointer rounded-lg overflow-hidden border-4 transition-all
-              ${
-                index === currentSlide
-                  ? "border-primary scale-105"
-                  : "border-gray-300 opacity-70"
+            className={`flex-shrink-0 cursor-pointer rounded-3xl overflow-hidden border-4 transition-all
+              ${index === currentSlide
+                ? "border-primary scale-105"
+                : "border-gray-300 opacity-70"
               }`}
           >
             <Image
@@ -220,7 +219,7 @@ const SliderXL = ({ portfolioPictures }) => {
               alt={`Thumb ${index + 1}`}
               width={160}
               height={160}
-              className="w-40 h-40 object-cover"
+              className="w-20 h-20 md:w-40 md:h-40 object-cover"
             />
           </div>
         ))}
@@ -247,8 +246,8 @@ const SliderXL = ({ portfolioPictures }) => {
       {/* Prev Button - Desktop (outside slider) */}
       <button
         onClick={prevSlide}
-        className={`absolute left-[100px] bottom-[-50px] lg:top-1/2 lg:-left-[3.6rem] -translate-y-1/2 
-             bg-[#EFF5FD] hover:bg-primary active:bg-primary hover:text-white active:text-white rounded-full shadow-xl flex items-center justify-center 
+        className={`hidden md:flex absolute left-[100px] bottom-[-50px] lg:top-1/2 lg:-left-[3.6rem] -translate-y-1/2 
+             bg-[#EFF5FD] hover:bg-primary active:bg-primary hover:text-white active:text-white rounded-full shadow-xl  items-center justify-center 
              lg:h-[7.2rem] lg:w-[7.2rem] h-[4.5rem] w-[4.5rem] transition-all duration-300`}
       >
         <ArrowLeft />
@@ -257,7 +256,7 @@ const SliderXL = ({ portfolioPictures }) => {
       {/* Next Button - Desktop (outside slider) */}
       <button
         onClick={nextSlide}
-        className={`absolute flex items-center justify-center right-[100px] bottom-[-50px]  lg:top-1/2 lg:-right-[3.6rem] -translate-y-1/2 
+        className={`hidden md:flex absolute  items-center justify-center right-[100px] bottom-[-50px]  lg:top-1/2 lg:-right-[3.6rem] -translate-y-1/2 
              bg-[#EFF5FD] hover:bg-primary active:bg-primary hover:text-white active:text-white rounded-full shadow-xl  
              lg:h-[7.2rem] lg:w-[7.2rem] h-[4.5rem] w-[4.5rem] transition-all duration-300`}
       >

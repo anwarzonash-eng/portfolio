@@ -327,7 +327,8 @@ const PortfolioDetails = ({ params }: { params: any }) => {
                     className="object-fill lg:hidden rounded-[1rem] w-auto border border-border border-solid mx-auto"
                   />
                   <article className="mt-[6rem] flex gap-[4rem] flex-col items-center justify-center md:flex-row md:items-start md:justify-normal">
-                    <aside className="rounded-[1rem] bg-white p-[2rem] md:max-w-[36rem] w-full flex flex-col gap-[3.2rem]">
+                    <aside className="shadow-xl
+ rounded-[1rem] bg-white p-[2rem] md:max-w-[36rem] w-full flex flex-col gap-[3.2rem]">
                       {portfolioDetails?.my_role && (
                         <div className="">
                           <p className="text-[1.4rem] font-normal text-paragraph1 leading-[2rem] mb-[0.8rem]">
@@ -548,7 +549,7 @@ const PortfolioDetails = ({ params }: { params: any }) => {
                       height={1500}
                       width={1500}
                       alt="Banner"
-                      className="object-fill rounded-[1rem] border border-border border-solid"
+                      className="shadow-2xl object-fill rounded-[1rem] border border-border border-solid"
                     />
                   </div>
                   <div className="w-full my-[6.4rem]">

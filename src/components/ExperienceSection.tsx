@@ -39,6 +39,10 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
   variant = "list",
   isLast = false,
 }) => {
+
+  console.log(experience, '>>>>>>>>>>>>>>>>>>')
+
+
   const skills = experience?.skills || [];
   const isSkillsNested =
     Array.isArray(skills) && skills.length > 0 && Array.isArray(skills[0]);

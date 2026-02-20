@@ -117,7 +117,7 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({
     : `grid ${gridCols} ${gap} content-center`;
 
   return (
-    <div className="flex flex-col w-full items-center justify-center mt-[3rem] bg-white">
+    <div className="flex rounded-2xl flex-col w-full items-center justify-center mt-[3rem] bg-white">
       {/* === Skills Grid === */}
       <div
         className={`${containerClasses} ${variant === "default" ? "print:hidden" : ""

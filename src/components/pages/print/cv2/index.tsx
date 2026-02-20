@@ -257,7 +257,7 @@ const CV2 = ({ params }: { params: any }) => {
           <CV2ExperiencesP
             rawExperiences={[filteredExperiences[0]]}
             listOfdata={listOfdata}
-            bulletCount={9}
+          // bulletCount={9}
           />
         </div>
       ) : null,

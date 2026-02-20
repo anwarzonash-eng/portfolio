@@ -361,12 +361,12 @@ const CV3 = ({ params }: { params: any }) => {
                                 {filteredExperiences[7] && <CV3ExperiencesP rawExperiences={[filteredExperiences[7]]} listOfdata={listOfdata} bulletCount={5} />}
                                 {filteredExperiences[8] && <CV3ExperiencesP rawExperiences={[filteredExperiences[8]]} listOfdata={listOfdata} bulletCount={5} />}
 
-                                {listOfdata?.education_ids?.length > 0 && <div className="w-full relative  mt-6">
+                                {listOfdata?.education_ids?.length > 0 &&
                                     <CV3EducationP
                                         education={listOfdata?.education_ids}
                                         location={listOfdata?.location}
                                     />
-                                </div>}
+                                }
                             </>
                         </div>
                         <div className="col-span-2">
