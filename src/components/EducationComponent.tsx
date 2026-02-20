@@ -15,12 +15,12 @@ const EducationComponent = ({
   // ✅ FIX 1: Safety Check / Early Return
   // If listOfdata is missing OR education_ids is missing/empty, don't render anything.
   if (!listOfdata?.education_ids?.length) {
-     return <p className=" text-center">Loading...</p> 
+    return <p className=" text-center">Loading...</p>
   }
   return (
     <section className="w-full mainContainer">
       {/* Title */}
-      <h2 className="text-heading leading-[3.56rem] text-[3.67rem] font-medium pl-[0.5rem] py-[3rem]">
+      <h2 className="text-heading leading-[3.56rem] text-[3.67rem] font-medium pl-[0.5rem] py-[3rem] text-center">
         Education & Certifications
       </h2>
 
@@ -55,7 +55,7 @@ const EducationComponent = ({
               <h2 className="text-heading font-medium text-[1.6rem] leading-[2rem]">
                 {edu.degree_name}
               </h2>
-              <p className="text-[1.2rem] font-normal text-[#3E3E3E]">
+              {edu.degree_start_date && edu.degree_end_date && <p className="text-[1.2rem] font-normal text-[#3E3E3E]">
                 {formatDate(
                   edu.degree_start_date,
                   dateFormatsOptions.shortMonthYear
@@ -64,10 +64,10 @@ const EducationComponent = ({
                 {isNaN(new Date(edu.degree_end_date).getFullYear())
                   ? edu.degree_end_date
                   : formatDate(
-                      edu.degree_end_date,
-                      dateFormatsOptions.shortMonthYear
-                    )}
-              </p>
+                    edu.degree_end_date,
+                    dateFormatsOptions.shortMonthYear
+                  )}
+              </p>}
             </div>
           </div>
         ))}

@@ -39,7 +39,7 @@ const HomeSlider = ({ portfolios, highlightedPortfolioId }) => {
     };
 
     window.addEventListener('setCarouselSlide', handleSetCarouselSlide as EventListener);
-    
+
     return () => {
       window.removeEventListener('setCarouselSlide', handleSetCarouselSlide as EventListener);
     };
@@ -193,7 +193,7 @@ const HomeSlider = ({ portfolios, highlightedPortfolioId }) => {
   return (
     <div className="w-full flex flex-col items-center gap-3 mt-[3rem] relative">
       {/* Progress Bars */}
-      <div className="w-full flex gap-[4px] px-4 mb-3 sticky top-[9rem] z-10 bg-white xl:static xl:bg-transparent p-2 rounded-[1rem] max-xl:shadow-lg">
+      <div className="w-full flex gap-[4px] px-4 mb-3 sticky top-[7rem] z-10 bg-white xl:static xl:bg-transparent p-2 rounded-[1rem] max-xl:shadow-lg">
         {portfolios.map((_, index) => {
           const isActive = index === currentSlide;
           const isCompleted = index < currentSlide;
@@ -205,10 +205,9 @@ const HomeSlider = ({ portfolios, highlightedPortfolioId }) => {
             >
               <div
                 className={`h-full absolute top-0 left-0 transition-all duration-[${SLIDE_INTERVAL}ms] ease-linear
-                  ${
-                    isPaused || isModalOpen || !isInViewport
-                      ? "bg-gray-400"
-                      : "bg-primary"
+                  ${isPaused || isModalOpen || !isInViewport
+                    ? "bg-gray-400"
+                    : "bg-primary"
                   }`}
                 style={{
                   width: isCompleted ? "100%" : isActive ? "100%" : "0%",
@@ -247,9 +246,8 @@ const HomeSlider = ({ portfolios, highlightedPortfolioId }) => {
             return (
               <div
                 key={portfolio.id}
-                className={`w-full flex-shrink-0 rounded-[1rem] transition-all duration-300 ${
-                  isHighlighted ? 'ring-4 ring-primary ring-opacity-50 bg-primary bg-opacity-5' : ''
-                }`}
+                className={`w-full flex-shrink-0 rounded-[1rem] transition-all duration-300 ${isHighlighted ? 'ring-4 ring-primary ring-opacity-50 bg-primary bg-opacity-5' : ''
+                  }`}
                 ref={(el) => {
                   slideRefs.current[index] = el;
                 }}

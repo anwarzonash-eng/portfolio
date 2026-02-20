@@ -136,7 +136,7 @@ const PortfolioPopUp = ({ isModalOpen, closeModal, portfolioImages }) => {
         >
           <div className="h-screen flex items-center justify-center">
             <div className="absolute inset-0" onClick={closeModal}></div>
-            <div className="relative max-w-[35rem] lg:max-w-[1000px] w-full mx-auto bg-white p-6 rounded-lg shadow-lg">
+            <div className="relative max-w-[90%] lg:max-w-[1000px] w-full mx-auto bg-white p-6 rounded-lg shadow-lg">
               {/* Progress bars */}
               <div className="absolute top-0 left-0 w-full flex gap-[4px] p-2">
                 {images.map((_, index) => (
@@ -151,8 +151,8 @@ const PortfolioPopUp = ({ isModalOpen, closeModal, portfolioImages }) => {
                           index < currentImageIndex
                             ? "100%"
                             : index === currentImageIndex
-                            ? `${progress}%`
-                            : "0%",
+                              ? `${progress}%`
+                              : "0%",
                       }}
                     />
                   </div>
@@ -163,7 +163,7 @@ const PortfolioPopUp = ({ isModalOpen, closeModal, portfolioImages }) => {
                 <div className="relative flex flex-col items-center justify-center">
                   {/* Prev Button */}
                   <div
-                    className="rounded-[50%] h-[50px] w-[50px] flex items-center justify-center bg-[#EFF5FD] hover:bg-primary flex-shrink-0 group duration-300 cursor-pointer shadow-xl absolute left-[-3.5rem] top-1/2 -translate-y-1/2"
+                    className=" hidden md:flex rounded-[50%] h-[50px] w-[50px]  items-center justify-center bg-[#EFF5FD] hover:bg-primary flex-shrink-0 group duration-300 cursor-pointer shadow-xl absolute left-[-3.5rem] top-1/2 -translate-y-1/2"
                     onClick={prevImage}
                   >
                     <svg
@@ -201,7 +201,7 @@ const PortfolioPopUp = ({ isModalOpen, closeModal, portfolioImages }) => {
 
                   {/* Next Button */}
                   <div
-                    className="rounded-[50%] h-[50px] w-[50px] flex items-center justify-center bg-[#EFF5FD] hover:bg-primary flex-shrink-0 group duration-300 cursor-pointer shadow-xl absolute right-[-3.5rem] top-1/2 -translate-y-1/2"
+                    className="hidden md:flex rounded-[50%] h-[50px] w-[50px]  items-center justify-center bg-[#EFF5FD] hover:bg-primary flex-shrink-0 group duration-300 cursor-pointer shadow-xl absolute right-[-3.5rem] top-1/2 -translate-y-1/2"
                     onClick={nextImage}
                   >
                     <svg
@@ -230,7 +230,7 @@ const PortfolioPopUp = ({ isModalOpen, closeModal, portfolioImages }) => {
                   {/* Thumbnails (pause on hold too) */}
                   <div
                     ref={thumbnailsContainerRef}
-                    className="flex gap-[10px] mt-4 overflow-x-auto max-w-full scrollbar-hidden"
+                    className="hidden md:flex gap-[10px] mt-4 overflow-x-auto max-w-full scrollbar-hidden"
                   >
                     {images.map((src, index) => (
                       <img
@@ -241,11 +241,10 @@ const PortfolioPopUp = ({ isModalOpen, closeModal, portfolioImages }) => {
                         onMouseDown={handleMouseDown}
                         onMouseUp={handleMouseUp}
                         onMouseLeave={handleMouseLeave}
-                        className={`h-40 w-40 object-contain object-center rounded-[8px] cursor-pointer border-2 flex-shrink-0 ${
-                          index === currentImageIndex
-                            ? "border-primary"
-                            : "border-gray-400"
-                        }`}
+                        className={`h-40 w-40 object-contain object-center rounded-[8px] cursor-pointer border-2 flex-shrink-0 ${index === currentImageIndex
+                          ? "border-primary"
+                          : "border-gray-400"
+                          }`}
                       />
                     ))}
                   </div>
@@ -265,7 +264,7 @@ const PortfolioPopUp = ({ isModalOpen, closeModal, portfolioImages }) => {
 
               {/* Close Button */}
               <button
-                className="absolute top-[-4rem] lg:top-[-3rem] right-[15rem] lg:right-[-3rem] text-black bg-border text-[1.2rem] h-[3rem] w-[3rem] rounded-full"
+                className="absolute top-[-4rem] lg:top-[-3rem] right-[-1rem] lg:right-[-3rem] text-black bg-border text-[1.2rem] h-[3rem] w-[3rem] rounded-full"
                 onClick={closeModal}
               >
                 &times;

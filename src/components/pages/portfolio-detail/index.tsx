@@ -327,7 +327,8 @@ const PortfolioDetails = ({ params }: { params: any }) => {
                     className="object-fill lg:hidden rounded-[1rem] w-auto border border-border border-solid mx-auto"
                   />
                   <article className="mt-[6rem] flex gap-[4rem] flex-col items-center justify-center md:flex-row md:items-start md:justify-normal">
-                    <aside className="rounded-[1rem] bg-white p-[2rem] md:max-w-[36rem] w-full flex flex-col gap-[3.2rem]">
+                    <aside className="shadow-xl
+ rounded-[1rem] bg-white p-[2rem] md:max-w-[36rem] w-full flex flex-col gap-[3.2rem]">
                       {portfolioDetails?.my_role && (
                         <div className="">
                           <p className="text-[1.4rem] font-normal text-paragraph1 leading-[2rem] mb-[0.8rem]">
@@ -548,7 +549,7 @@ const PortfolioDetails = ({ params }: { params: any }) => {
                       height={1500}
                       width={1500}
                       alt="Banner"
-                      className="object-fill rounded-[1rem] border border-border border-solid"
+                      className="shadow-2xl object-fill rounded-[1rem] border border-border border-solid"
                     />
                   </div>
                   <div className="w-full my-[6.4rem]">
@@ -572,8 +573,8 @@ const PortfolioDetails = ({ params }: { params: any }) => {
                   </div>
 
                   {/* My Tools and Technologies */}
-                  <article className="my-[6.4rem]">
-                    <div className="text-heading text-[2.4rem] xl:text-[3rem] font-medium leading-[2.8rem] text-center">
+                  <article className="my-[6.4rem] bg-white pt-16 border rounded-2xl">
+                    <div className="text-heading text-[2.4rem] xl:text-[3rem] font-medium leading-[2.8rem] text-center mb-20">
                       The skills, tools and technologies I used in this project:
                     </div>
                     <div ref={skillsContainerRef}>
@@ -591,7 +592,7 @@ const PortfolioDetails = ({ params }: { params: any }) => {
 
                   {/* Upwork Activity Section */}
                   {listOfdata && listOfdata?.upwork_show_status === "show" && (
-                    <div className="mt-[5rem] lg:mt-[10rem]">
+                    <div className=" lg:mt-[10rem] border rounded-2xl">
                       <UpworkActivitySection
                         urlInfo={urlInfo}
                         cvTrue={true}

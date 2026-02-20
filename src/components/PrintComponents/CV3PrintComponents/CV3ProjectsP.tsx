@@ -26,17 +26,24 @@ const CV3ProjectsP = ({ portfolios }: CV3ProjectsProps) => {
                             </span>
                         )}
                         {project?.link && (
-                            <a className="text-[12px] !text-[#1e90ff] mt-0 text-primary font-medium" href={project?.link} target="_blank" rel="noreferrer">{project?.link}</a>
+                            <a
+                                className="text-[12px] !text-[#1e90ff] mt-0 text-primary font-medium min-w-0 max-w-full break-words break-all whitespace-normal"
+                                href={project?.link}
+                                target="_blank"
+                                rel="noreferrer"
+                            >
+                                {project?.link}
+                            </a>
                         )}
                     </div>
 
                     {project?.tagline_1 ? (
                         <div
-                            className="text-[13px] text-gray-700 space-y-1 font-medium leading-normal offer_main"
+                            className="text-[12px] text-gray-700 space-y-1 leading-normal offer_main"
                             dangerouslySetInnerHTML={{ __html: project.tagline_1 }}
                         />
                     ) : project?.description ? (
-                        <p className="text-[13px] text-gray-700 space-y-1 font-medium leading-normal">{project.description}</p>
+                        <p className=" text-gray-700 space-y-1  leading-normal">{project.description}</p>
                     ) : null}
                 </div>
             ))}

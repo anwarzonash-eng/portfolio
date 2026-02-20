@@ -290,7 +290,8 @@ const CV = ({ params }: { params: any }) => {
                   >
                     <div
                       dangerouslySetInnerHTML={{ __html: listOfdata?.tag_line }}
-                      className="py-[5rem] px-[3.4rem] print:hidden block primaryGradient text-white text-[2.2rem] leading-[3.1rem] font-bold rounded-[1rem] text-center"
+                      className="py-[5rem] px-[3.4rem] print:hidden block primaryGradient text-white text-[2.2rem] leading-[3.1rem]
+                      font-medium md:font-bold rounded-[1rem] text-center"
                     ></div>
                     <div className="w-full print:mt-[5rem] print:pt-[5rem]">
                       <div className="flex items-center justify-center mt-[4rem] lg:mt-[6rem]">
@@ -380,12 +381,11 @@ const CV = ({ params }: { params: any }) => {
                                           <div
                                             key={index}
                                             id={`experience-${experience.id}`}
-                                            className={`relative ${
-                                              highlightedExperienceId ===
-                                              experience.id
+                                            className={`relative ${highlightedExperienceId ===
+                                                experience.id
                                                 ? "border border-primary rounded-[1rem]"
                                                 : ""
-                                            }`}
+                                              }`}
                                           >
                                             <ExperienceSection
                                               experience={experience}
@@ -477,12 +477,11 @@ const CV = ({ params }: { params: any }) => {
                                           <div
                                             key={index}
                                             id={`portfolio-${portfolio.id}`}
-                                            className={`relative flex items-start mt-[2rem] print-section flex-col ${
-                                              highlightedPortfolioId ===
-                                              portfolio.id
+                                            className={`relative flex items-start mt-[2rem] print-section flex-col ${highlightedPortfolioId ===
+                                                portfolio.id
                                                 ? "border border-primary rounded-[1rem]"
                                                 : ""
-                                            }`}
+                                              }`}
                                           >
                                             <div className="absolute top-0 left-[-3.2rem] z-[60] md:left-[-4.2rem] lg:left-[-6.2rem] block print:hidden">
                                               <div className="w-[3rem] h-[3rem] bg-white rounded-full flex items-center shadow-md justify-center">
@@ -504,11 +503,11 @@ const CV = ({ params }: { params: any }) => {
                                               )
                                                 ? portfolio.ending_Date
                                                 : new Date(
-                                                    portfolio.ending_Date,
-                                                  ).toLocaleString("en-US", {
-                                                    month: "short",
-                                                    year: "numeric",
-                                                  })}
+                                                  portfolio.ending_Date,
+                                                ).toLocaleString("en-US", {
+                                                  month: "short",
+                                                  year: "numeric",
+                                                })}
                                             </h1>
 
                                             <PortfolioCardContent

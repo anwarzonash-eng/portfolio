@@ -1,5 +1,5 @@
 import React from "react";
-
+import { modifiedContentHideLinks } from "@/hooks/modifiedContentHideLinks";
 type Props = {
   rawExperiences?: any[];
   listOfdata?: any;
@@ -12,10 +12,14 @@ const stripHtml = (value: string) =>
     .replace(/\s+/g, " ")
     .trim();
 
-const extractBulletsFromHtml = (html?: string) => {
+const extractBulletsFromHtml = (html?: string,
+  filteredSkills?: any[],
+  listOfdata?: any,) => {
   if (!html) return [] as string[];
-  const matches = [...html.matchAll(/<li[^>]*>([\s\S]*?)<\/li>/gi)];
-  return matches.map((m) => stripHtml(m[1] || "")).filter(Boolean);
+  const processedHtml = modifiedContentHideLinks(html, filteredSkills, listOfdata);
+
+  const matches = [...processedHtml.matchAll(/<li[^>]*>([\s\S]*?)<\/li>/gi)];
+  return matches.map((m) => m[1] || "").filter(Boolean);
 };
 
 const toMonthYear = (value: any) => {
@@ -96,6 +100,7 @@ const CV2Experiences: React.FC<Props> = ({
       bullets,
       skills: exp?.skills || [],
       type: formatType(exp?.type || ""),
+      nature: exp?.nature || "",
     };
   });
 
@@ -116,6 +121,11 @@ const CV2Experiences: React.FC<Props> = ({
                   {exp.type}
                 </div>
               )}
+              {exp.nature && (
+                <div className="text-[1.3rem] text-primary rounded-[0.4rem]   font-medium capitalize">
+                  {exp.nature}
+                </div>
+              )}
             </div>
             <div className="flex-1 border-l border-[#E5E7EB] pl-[1.6rem] relative">
               <span className="absolute -left-[0.7rem] top-0 h-[1.2rem] w-[1.2rem] rounded-full bg-primary" />
@@ -126,9 +136,14 @@ const CV2Experiences: React.FC<Props> = ({
                 {exp.company}
               </div>
               {exp.bullets?.length > 0 && (
-                <ul className="mt-[0.8rem] list-disc pl-[1.6rem] text-[1.4rem] text-paragraph1 space-y-[0.4rem]">
+                <ul className="mt-[0.8rem] list-disc pl-[1.6rem] text-[1.4rem] text-paragraph1 space-y-[0.4rem] border-dashed border-b border-gray-300 pb-6">
                   {exp.bullets.map((bullet: string, i: number) => (
-                    <li key={i}>{bullet}</li>
+                    <li
+                      key={i}
+                      dangerouslySetInnerHTML={{
+                        __html: bullet,
+                      }}
+                    />
                   ))}
                 </ul>
               )}

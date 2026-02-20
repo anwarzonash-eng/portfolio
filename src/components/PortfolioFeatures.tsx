@@ -45,8 +45,8 @@ const PortfolioFeatures: React.FC<PortfolioFeaturesProps> = ({
   const itemsToShow = showAll
     ? listItems
     : showInitial
-    ? listItems.slice(0, 4)
-    : [];
+      ? listItems.slice(0, 4)
+      : [];
 
   // Handle toggle button click
   const handleToggle = () => {
@@ -70,7 +70,8 @@ const PortfolioFeatures: React.FC<PortfolioFeaturesProps> = ({
         />
       )}
       {listItems.length > (showInitial ? 4 : 0) && (
-        <div className="flex items-center max-lg:justify-center mt-[-4rem]">
+        <div className={`flex items-center max-lg:justify-center ${!showInitial ?
+          "mt-[-4rem]" : "mt-[-1rem]"}`}>
           <button
             onClick={handleToggle}
             className={`bg-primary leading-normal text-center py-[0.6rem] px-[2rem] text-white hover:bg-white border border-[#E2E6EE] border-solid hover:border-primary hover:text-primary rounded-[2rem] text-[1.4rem] font-medium my-[1.5rem] max-lg:px-[4rem]`}

@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Phone, AtSign, MapPin, GithubIcon, Link, Mail } from "lucide-react";
 import { socialLinks } from "@/data/JsonData";
 import CV2ClickableLinkedinGihubLinks from "./CV2ClickableLinkedinGihubLinks";
+import { useAppSelector } from "@/store";
 
 type CV2HeaderProps = {
   listOfdata: any;
@@ -10,11 +11,15 @@ type CV2HeaderProps = {
 };
 
 const CV2Header: React.FC<CV2HeaderProps> = ({ listOfdata, urlInfo }) => {
+  const url = useAppSelector((state) => state.profile.profileUrlInfo);
+
   const headerInfo = [
-    listOfdata?.phone_no && { icon: Phone, value: listOfdata.phone_no },
-    listOfdata?.email && { icon: Mail, value: listOfdata.email },
-    listOfdata?.location && { icon: MapPin, value: listOfdata.location },
-  ];
+    listOfdata?.phone_no && { key: "phone", icon: Phone, value: listOfdata.phone_no },
+    listOfdata?.email && { key: "email", icon: Mail, value: listOfdata.email },
+    listOfdata?.location && { key: "location", icon: MapPin, value: listOfdata.location },
+  ].filter(Boolean) as { key: string; icon: any; value: string }[];
+
+  const visibleHeaderInfo = url?.u ? headerInfo.filter((h) => h.key === "location") : headerInfo;
   return (
     <header className="flex items-start justify-between gap-[2rem]">
       <div className="flex-1">
@@ -22,7 +27,7 @@ const CV2Header: React.FC<CV2HeaderProps> = ({ listOfdata, urlInfo }) => {
         <p className="cv2Designation mt-[1rem]">{listOfdata?.designation}</p>
         <div>
           <div className="mt-[1rem] flex flex-wrap gap-x-[1.6rem] gap-y-[0.6rem] text-[1.2rem] text-[#374151]">
-            {headerInfo.map((info, index) => {
+            {visibleHeaderInfo.map((info, index) => {
               const IconComponent = info.icon;
               return (
                 <span
@@ -34,10 +39,12 @@ const CV2Header: React.FC<CV2HeaderProps> = ({ listOfdata, urlInfo }) => {
                 </span>
               );
             })}
-            <CV2ClickableLinkedinGihubLinks
-              listOfdata={listOfdata}
-              socialLinks={socialLinks}
-            />
+            {!url?.u && (
+              <CV2ClickableLinkedinGihubLinks
+                listOfdata={listOfdata}
+                socialLinks={socialLinks}
+              />
+            )}
           </div>
         </div>
       </div>

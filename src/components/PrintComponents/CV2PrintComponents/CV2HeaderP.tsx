@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import { formatDate } from "@/hooks/formatdate";
 import { Phone, AtSign, MapPin, GithubIcon, Link } from "lucide-react";
+import { useAppSelector } from "@/store";
 
 type CV2HeaderProps = {
   listOfdata: any;
@@ -9,13 +10,16 @@ type CV2HeaderProps = {
 };
 
 const CV2Header: React.FC<CV2HeaderProps> = ({ listOfdata, hideLinks }) => {
+  const urlInfo = useAppSelector((state) => state.profile.profileUrlInfo);
   const headerInfo = [
-    listOfdata?.phone_no && { icon: Phone, value: listOfdata.phone_no },
-    listOfdata?.email && { icon: AtSign, value: listOfdata.email },
-    listOfdata?.location && { icon: MapPin, value: listOfdata.location },
-    listOfdata?.github && { icon: GithubIcon, value: listOfdata.github },
-    // listOfdata?.linkedIn && { icon: Link, value: listOfdata.linkedIn },
-  ].filter(Boolean) as { icon: any; value: string }[];
+    listOfdata?.phone_no && { key: "phone", icon: Phone, value: listOfdata.phone_no },
+    listOfdata?.email && { key: "email", icon: AtSign, value: listOfdata.email },
+    listOfdata?.location && { key: "location", icon: MapPin, value: listOfdata.location },
+    listOfdata?.github && { key: "github", icon: GithubIcon, value: listOfdata.github },
+    // listOfdata?.linkedIn && { key: "linkedin", icon: Link, value: listOfdata.linkedIn },
+  ].filter(Boolean) as { key: string; icon: any; value: string }[];
+
+  const visibleHeaderInfo = urlInfo?.u ? headerInfo.filter(h => h.key === "location" || h.key === "github") : headerInfo;
   return (
     <header className="flex items-start justify-between gap-[2rem]">
       <div className="flex-1">
@@ -23,7 +27,7 @@ const CV2Header: React.FC<CV2HeaderProps> = ({ listOfdata, hideLinks }) => {
         <p className="cv2Designation mt-[1rem]">{listOfdata?.designation}</p>
         <div>
           <div className="mt-[1rem] flex flex-wrap gap-x-[1.6rem] gap-y-[0.6rem] text-[1.2rem] text-[#374151]">
-            {headerInfo.map((info, index) => {
+            {visibleHeaderInfo.map((info, index) => {
               const IconComponent = info.icon;
               const value = info.value;
               return (

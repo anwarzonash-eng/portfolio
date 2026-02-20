@@ -29,7 +29,7 @@ interface CVSideBarProps {
 const CVSideBar: React.FC<CVSideBarProps> = ({
   listOfdata,
   urlInfo,
-  scrollToSection = () => {},
+  scrollToSection = () => { },
   contactDetails,
   socialLinks,
 }) => {
@@ -50,7 +50,7 @@ const CVSideBar: React.FC<CVSideBarProps> = ({
                 className="h-[20.12rem] w-[20.12rem] rounded-[50%] bg-cover bg-no-repeat bg-center"
               />
             </Link>
-            <div>
+            <div className="flex justify-center flex-col items-center ">
               <Link
                 href={"/"}
                 className="text-heading text-[2.5rem] text-center lg:text-[3.55rem] font-medium leading-[4.4rem] mt-[1.78rem]"
@@ -72,7 +72,7 @@ const CVSideBar: React.FC<CVSideBarProps> = ({
           {/* Info Paragraph */}
           <div className="flex flex-col items-center justify-center print:w-full">
             <p className="my-[4rem] text-[2rem] leading-[2.6rem] text-heading font-normal text-center">
-             {listOfdata?.ai_short_description}
+              {listOfdata?.ai_short_description}
             </p>
           </div>
         </div>

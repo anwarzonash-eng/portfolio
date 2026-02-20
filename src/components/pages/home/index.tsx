@@ -422,9 +422,9 @@ const Home = ({ params }: { params: any }) => {
                 {listOfdata && listOfdata?.skills_ids?.length > 0 && (
                   <div
                     id="skillSection"
-                    className="mainContainer print:!pt-[4rem] print:my-[0rem] my-[5rem]  print:h-screen print:break-before-page break-before-avoid print:bg-[#a3ddd3]"
+                    className="pt-20 mb-0 print:!pt-[4rem] print:my-[0rem] my-[5rem]  print:h-screen print:break-before-page break-before-avoid print:bg-[#a3ddd3] bg-white"
                   >
-                    <div className="flex items-center justify-center mt-[2rem] lg:hidden">
+                    <div className="flex items-center justify-center mt-[2rem] lg:hidden mb-20">
                       <div id="skills_ids" className="badge capitalize">
                         {servicesSectionHeading}
                       </div>
@@ -432,7 +432,7 @@ const Home = ({ params }: { params: any }) => {
 
                     <div
                       className="text-center text-heading text-[2.4rem] xl:text-[3rem]
-                      font-medium leading-[2.8rem] mt-[2rem] hidden lg:block capitalize mb-[2rem] lg:mb-[6rem]"
+                      font-medium leading-[2.8rem] mt-[2rem] hidden lg:block capitalize mb-[2rem] lg:mb-[6rem] "
                     >
                       {servicesSectionHeading}
                     </div>
@@ -462,7 +462,7 @@ const Home = ({ params }: { params: any }) => {
                   listOfdata.portfolios_ids.length > 0 && (
                     <section
                       id="myWork"
-                      className="w-full mt-[4rem] lg:mt-[8rem] mb-[3.5rem] lg:mb-[7rem] print_p_m print:!pt-[3rem] print:bg-[#a3ddd3] print:break-before-page print:h-screen "
+                      className="w-full  bg-gradient-to-br from-cyan-50 via-teal-50 to-emerald-50 pt-[4rem] lg:pt-[7rem] pb-[4rem] mb-[3.5rem] lg:mb-[7rem] print_p_m print:!pt-[3rem] print:bg-[#a3ddd3] print:break-before-page print:h-screen "
                     >
                       <div className="mainContainer   my-[5rem] print:my-[1rem] ">
                         <div className="flex items-center justify-center lg:hidden">
@@ -470,7 +470,7 @@ const Home = ({ params }: { params: any }) => {
                         </div>
 
                         <div className="text-center text-heading text-[3rem] font-medium leading-[2.8rem] mt-[2rem] hidden lg:block">
-                          Explore My Technical Endeavors
+                          Explore My Technical Endeavor
                         </div>
 
                         <HomeSlider
@@ -551,7 +551,7 @@ const Home = ({ params }: { params: any }) => {
                                   ? experiences.length
                                   : initialCount,
                               ).length -
-                                1;
+                              1;
 
                             // 2. Return the JSX element.
                             return (
@@ -634,7 +634,7 @@ const Home = ({ params }: { params: any }) => {
             ),
           }}
         />
-      </main>
+      </main >
     </>
   );
 };

@@ -35,11 +35,11 @@ const CV3Projects = ({ portfolios }: CV3ProjectsProps) => {
 
                         {project?.tagline_1 ? (
                             <div
-                                className="text-[13px] text-gray-700 space-y-1 font-medium leading-normal offer_main"
+                                className="text-[13px] text-gray-700 space-y-1  leading-normal offer_main"
                                 dangerouslySetInnerHTML={{ __html: project.tagline_1 }}
                             />
                         ) : project?.description ? (
-                            <p className="text-[13px] text-gray-700 space-y-1 font-medium leading-normal">{project.description}</p>
+                            <p className="text-[13px] text-gray-700 space-y-1  leading-normal">{project.description}</p>
                         ) : null}
                     </div>
                 ))}

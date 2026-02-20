@@ -14,7 +14,7 @@ interface ServicesSectionProps {
 
 const ServicesSection: React.FC<ServicesSectionProps> = ({ services }) => {
   return (
-    <section className="w-full bg-sectionBG my-[5rem] print:m-0 print:break-before-page print:h-screen">
+    <section className="w-full bg-sectionBG  print:m-0 print:break-before-page print:h-screen">
       <div className="mainContainer py-[4rem] xl:py-[8rem]">
         {/* Badge */}
         <div className="flex items-center justify-center lg:hidden">
@@ -45,7 +45,7 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({ services }) => {
                         alt={service.title || "Service image"}
                         height={150}
                         width={150}
-                        className="object-cover transition-transform duration-500 z-10 group-hover:scale-110 w-[9.8rem] h-[9.8rem] print:object-center"
+                        className="object-cover filter transition-transform duration-500 z-10 group-hover:scale-110 w-[9.8rem] h-[9.8rem] print:object-center"
                         onError={(e) => {
                           const target = e.target as HTMLImageElement;
                           target.style.display = "none";

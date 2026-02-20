@@ -61,25 +61,25 @@ const HomeAboutSection: React.FC<HomeAboutSectionProps> = ({
             {/* Projects Badge */}
             {
               listOfdata && listOfdata?.website_purpose !== "contract" && (
-            <div className="bg-white mb-3 rounded-[0.8rem] absolute top-auto right-auto bottom-[-4rem] left-[3rem] p-[1.4rem] xl:rounded-[2rem] flex items-center shadow-md gap-[1rem] animate-bounce">
-              {/* Badge SVG */}
-              <div className="bg-[#FC822A] rounded-[50%] h-[6.8rem] w-[6.8rem] relative">
-                <img
-                  src="/images/badge.svg"
-                  alt="Experience"
-                  className="h-[3.4rem] w-[3.4rem] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-                />
-              </div>
-              {/* Badge Content */}
-              <div className="flex flex-col justify-center">
-                <h3 className="uppercase text-[1.4rem] xl:text-[1.8rem] font-semibold  text-heading leading-none mt-[1rem]">
-                  Projects Completed
-                </h3>
-                <p className="text-[2.4rem] xl:text-[3rem] font-bold text-primary">
-                  {listOfdata?.projects_completed}+
-                </p>
-              </div>
-            </div>
+                <div className="bg-white mb-3 rounded-[0.8rem] absolute top-auto right-auto bottom-[-4rem] left-[3rem] p-[1.4rem] xl:rounded-[2rem] flex items-center shadow-md gap-[1rem] animate-bounce">
+                  {/* Badge SVG */}
+                  <div className="bg-[#FC822A] rounded-[50%] h-[6.8rem] w-[6.8rem] relative">
+                    <img
+                      src="/images/badge.svg"
+                      alt="Experience"
+                      className="h-[3.4rem] w-[3.4rem] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                    />
+                  </div>
+                  {/* Badge Content */}
+                  <div className="flex flex-col justify-center">
+                    <h3 className="uppercase text-[1.4rem] xl:text-[1.8rem] font-semibold  text-heading leading-none mt-[1rem]">
+                      Projects Completed
+                    </h3>
+                    <p className="text-[2.4rem] xl:text-[3rem] font-bold text-primary">
+                      {listOfdata?.projects_completed}+
+                    </p>
+                  </div>
+                </div>
               )
             }
           </div>
@@ -105,17 +105,20 @@ const HomeAboutSection: React.FC<HomeAboutSectionProps> = ({
             {/* Paragraph */}
             {listOfdata?.designation && (
               <p className="text-[1.6rem] font-normal text-paragraph1  leading-[2.4rem]">
-                Currently Open for full time position as a{" "}
-                <span className="lowercase">{listOfdata?.designation}</span>.
+                Currently open for a position as a{" "}
+                <span className="lowercase">
+                  {listOfdata?.designation.replace(/\s*\|\s*|\s+,/g, (match) =>
+                    match.includes("|") ? ", " : ","
+                  )}
+                </span>.
               </p>
             )}
           </div>
           {/* Info Cards */}
           <div className="my-[2rem] rounded-[0.8rem] overflow-hidden  w-full grid grid-cols-12">
             <div
-              className={`w-full border border-border border-solid py-[3rem] px-[2rem] col-span-12 ${
-                urlInfo?.u ? "md:col-span-12" : "md:col-span-6"
-              }`}
+              className={`w-full border border-border border-solid py-[3rem] px-[2rem] col-span-12 ${urlInfo?.u ? "md:col-span-12" : "md:col-span-6"
+                }`}
             >
               <div className="w-full">
                 <h4 className="hover:font-bold  text-[1.6rem] duration-300 font-normal text-primary">
@@ -171,9 +174,8 @@ const HomeAboutSection: React.FC<HomeAboutSectionProps> = ({
             )}
 
             <div
-              className={`w-full border border-border border-solid py-[3rem] px-[2rem]  col-span-12 ${
-                urlInfo?.u ? "md:col-span-12" : "md:col-span-6"
-              }`}
+              className={`w-full border border-border border-solid py-[3rem] px-[2rem]  col-span-12 ${urlInfo?.u ? "md:col-span-12" : "md:col-span-6"
+                }`}
             >
               <div className="w-full flex justify-between">
                 <div>
@@ -192,7 +194,7 @@ const HomeAboutSection: React.FC<HomeAboutSectionProps> = ({
                     </Link>
                   )}
                   <p className="text-[1.4rem] font-normal text-paragraph1">
-                    Address
+                    Location
                   </p>{" "}
                 </div>
                 {listOfdata?.location?.includes("Manchester, UK") && (
@@ -211,9 +213,8 @@ const HomeAboutSection: React.FC<HomeAboutSectionProps> = ({
 
             {!hideLinks && (
               <div
-                className={`w-full border border-border border-solid py-[3rem] px-[2rem]  col-span-12 ${
-                  urlInfo?.u ? "md:col-span-12" : "md:col-span-6"
-                }`}
+                className={`w-full border border-border border-solid py-[3rem] px-[2rem]  col-span-12 ${urlInfo?.u ? "md:col-span-12" : "md:col-span-6"
+                  }`}
               >
                 <div className="w-full flex items-center gap-[1.4rem] mb-[0.8rem]">
                   <WorkProofLinks

@@ -51,9 +51,12 @@ const PortfolioCardContent: React.FC<PortfolioCardContentProps> = ({
   const flatSkills = isSkillsNested ? skills.flat() : skills; // Flatten nested skills for consistent rendering
   const isDesktop = useIsDesktop(1024); // matches Tailwind's lg breakpoint
   const initialSkillLimit = isDesktop ? 15 : 6;
-  const skillsToShow = showMoreSkills[index]
+  // On desktop show all skills; on mobile keep existing show-more behavior
+  const skillsToShow = isDesktop
     ? flatSkills
-    : flatSkills.slice(0, initialSkillLimit);
+    : showMoreSkills[index]
+      ? flatSkills
+      : flatSkills.slice(0, initialSkillLimit);
 
   console.log("website_purpose", website_purpose);
   // console.log("API Data:", listOfdata)
@@ -66,9 +69,8 @@ const PortfolioCardContent: React.FC<PortfolioCardContentProps> = ({
         <div className="print:flex flex-row print:w-full gap-3 items-center justify-center print:flex-row-reverse">
           {portfolio?.thumbnail && (
             <div
-              className={`ms-0 lg:ms-5 ${
-                thumbnailSize === "small" ? "lg:w-[30rem]" : "lg:w-[50rem]"
-              } float-right w-full rounded-[1.2rem] relative align-middle justify-center flex-col flex items-center`}
+              className={`ms-0 lg:ms-5 ${thumbnailSize === "small" ? "lg:w-[30rem]" : "lg:w-[50rem]"
+                } float-right w-full rounded-[1.2rem] relative align-middle justify-center flex-col flex items-center`}
             >
               <img
                 src={
@@ -79,16 +81,14 @@ const PortfolioCardContent: React.FC<PortfolioCardContentProps> = ({
                 alt="Project Image"
                 height={800}
                 width={800}
-                className={` ${
-                  thumbnailSize === "small" ? "lg:h-[200px]" : "lg:h-[300px]"
-                } lg:w-[800px] w-full object-fill rounded-[1.2rem] border border-solid border-border`}
+                className={` ${thumbnailSize === "small" ? "lg:h-[200px]" : "lg:h-[300px]"
+                  } lg:w-[800px] w-full object-fill rounded-[1.2rem] border border-solid border-border`}
               />
               <button
-                className={`btn-primary text-white mt-[1rem] font-medium relative z-[50]  ${
-                  thumbnailSize === "small"
-                    ? "py-[0.8rem] px-[2.2rem] text-[1.6rem]"
-                    : "py-[1rem] px-[3.4rem] text-[1.8rem]"
-                }`}
+                className={`btn-primary text-white mt-[1rem] font-medium relative z-[50]  ${thumbnailSize === "small"
+                  ? "py-[0.8rem] px-[2.2rem] text-[1.6rem]"
+                  : "py-[1rem] px-[3.4rem] text-[1.8rem]"
+                  }`}
                 onClick={() =>
                   openModal(
                     portfolio?.pictures,
@@ -186,14 +186,16 @@ const PortfolioCardContent: React.FC<PortfolioCardContentProps> = ({
                       )}
                     </React.Fragment>
                   )}
-                  <ShowmoreSkills
-                    props={{
-                      list: flatSkills,
-                      index,
-                      setShowMoreSkills,
-                      showMoreSkills,
-                    }}
-                  />
+                  {!isDesktop && (
+                    <ShowmoreSkills
+                      props={{
+                        list: flatSkills,
+                        index,
+                        setShowMoreSkills,
+                        showMoreSkills,
+                      }}
+                    />
+                  )}
                 </div>
                 <hr className="w-full my-[2.4rem] h-px bg-border print:hidden" />
                 {/* Links */}

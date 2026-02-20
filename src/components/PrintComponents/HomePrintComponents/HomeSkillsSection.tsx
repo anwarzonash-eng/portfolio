@@ -30,7 +30,7 @@ const HomeSkillsSection: React.FC<SkillsContainerProps> = ({
   autoExpandOnParam = false,
   portfolioId,
   numColumns = 6,
-  numSkills = 24,  hideLinks = false,}) => {
+  numSkills = 24, hideLinks = false, }) => {
   const router = useRouter();
 
   const handleSeeMorePrint = () => {
@@ -58,7 +58,7 @@ const HomeSkillsSection: React.FC<SkillsContainerProps> = ({
   // Determine visible skills - always use print logic with numSkills
   const visibleSkills = list?.slice(0, numSkills);
   const skills: Record<string, SkillType[]> = skillsGrouping(visibleSkills || []);
-  
+
   // Show "See More" button if there are more skills than displayed
   const showSeeMoreButton = list && list.length > numSkills;
 
@@ -70,9 +70,9 @@ const HomeSkillsSection: React.FC<SkillsContainerProps> = ({
   // Conditional layout based on number of skills
   const totalVisibleSkills = visibleSkills?.length || 0;
   const useFlex = totalVisibleSkills <= 10;
-  
+
   // Apply different styles based on skill count
-  const containerClasses = useFlex 
+  const containerClasses = useFlex
     ? "flex items-center justify-center flex-wrap gap-[2rem] w-full my-[2rem]"
     : `grid ${gridCols} ${gap} content-center place-items-center justify-items-center my-[2rem]`;
 
@@ -123,7 +123,7 @@ const HomeSkillsSection: React.FC<SkillsContainerProps> = ({
                     </Link>
                   ) : (
                     <div className="flex flex-col items-center justify-center">
-                    {Content}
+                      {Content}
                     </div>
                   )}
                 </div>

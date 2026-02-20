@@ -1,5 +1,6 @@
 import { CalendarDays, MapPin } from "lucide-react";
 import React from "react";
+import { modifiedContentHideLinks } from "@/hooks/modifiedContentHideLinks";
 
 type Props = {
     rawExperiences?: any[];
@@ -13,10 +14,18 @@ const stripHtml = (value: string) =>
         .replace(/\s+/g, " ")
         .trim();
 
-const extractBulletsFromHtml = (html?: string) => {
+const extractBulletsFromHtml = (
+    html?: string,
+    filteredSkills?: any[],
+    listOfdata?: any,
+) => {
     if (!html) return [] as string[];
-    const matches = [...html.matchAll(/<li[^>]*>([\s\S]*?)<\/li>/gi)];
-    return matches.map((m) => stripHtml(m[1] || "")).filter(Boolean);
+
+
+    const processedHtml = modifiedContentHideLinks(html, filteredSkills, listOfdata);
+
+    const matches = [...processedHtml.matchAll(/<li[^>]*>([\s\S]*?)<\/li>/gi)];
+    return matches.map((m) => m[1] || "").filter(Boolean);
 };
 
 const toMonthYear = (value: any) => {
@@ -35,6 +44,8 @@ const CV3Experiences: React.FC<Props> = ({
     isMobile = false,
 }) => {
     // Remove the filtering logic since experiences should already be filtered by the hook
+
+
     const filtered = (rawExperiences || []).filter((exp: any) => {
         if (!exp) return false;
 
@@ -75,7 +86,13 @@ const CV3Experiences: React.FC<Props> = ({
         // Generate random number between 5 and 9 for each card
         const randomBulletCount = Math.floor(Math.random() * 5) + 5; // 5-9 range
         const bullets = shuffleArray(allBullets).slice(0, randomBulletCount);
-
+        const formatType = (type: string) => {
+            if (!type) return "";
+            return type
+                .split("_")
+                .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+                .join(" ");
+        };
         return {
             id: exp.id,
             date: [startLabel, endLabel].filter(Boolean).join(" - "),
@@ -84,10 +101,13 @@ const CV3Experiences: React.FC<Props> = ({
             company: exp?.company_name || "",
             bullets,
             skills: exp?.skills || [],
+            type: formatType(exp?.type || ""),
+            nature: exp?.nature || "",
         };
     });
 
     if (!experiences || experiences.length === 0) return null;
+
 
     return (
         <>
@@ -96,9 +116,15 @@ const CV3Experiences: React.FC<Props> = ({
 
             {experiences.map((exp, index) => (
                 <div key={exp.id || index} className="mb-6 border-dashed border-b border-gray-300 pb-4">
-                    <h3 className="text-[18px] font-semibold text-black">{exp.title}</h3>
+                    <h3 className="text-[18px] font-semibold text-black">{exp.title} </h3>
                     <div className="flex flex-col  gap-2 mb-2">
-                        <span className="text-blue-600  text-[15px] font-bold">{exp.company}</span>
+                        <span className="text-blue-600 text-[15px] font-bold">{exp.company} {(exp.type || exp.nature) && (
+                            <span className="text-primary font-medium ml-2">
+                                ({[exp.type, exp.nature].filter(Boolean).join(", ")})
+                            </span>
+                        )}
+                        </span>
+
                         <div className='flex gap-6 items-center font-medium'>
 
                             <span className="text-[12px] flex items-center gap-2 text-gray-600 ">
@@ -107,9 +133,14 @@ const CV3Experiences: React.FC<Props> = ({
                         </div>
                     </div>
                     {exp.bullets?.length > 0 && (
-                        <ul className="list-disc ml-8 text-[13px] text-gray-700 space-y-1 font-medium leading-normal">
+                        <ul className="list-disc ml-8 text-[13px] text-gray-700 space-y-1  leading-normal">
                             {exp.bullets.map((bullet: string, i: number) => (
-                                <li key={i}>{bullet}</li>
+                                <li
+                                    key={i}
+                                    dangerouslySetInnerHTML={{
+                                        __html: bullet,
+                                    }}
+                                />
                             ))}
                         </ul>
                     )}

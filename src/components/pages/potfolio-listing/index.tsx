@@ -180,8 +180,8 @@ const PortfolioListing = ({ params }: { params: any }) => {
   console.log("Portfolio Ids: ", listOfdata?.portfolios_ids)
   listOfdata?.portfolios_ids?.forEach((portfolio) => {
     console.log("Portfolio ID:", portfolio.id);
-    });
-// 801c609d-8324-41d8-8a3b-5de35f171e0b 
+  });
+  // 801c609d-8324-41d8-8a3b-5de35f171e0b 
   return (
     <div className="bg-[#EFF5FD]">
       {/* Hero Banner */}
@@ -192,7 +192,7 @@ const PortfolioListing = ({ params }: { params: any }) => {
           {/* Badge Heading and Paara Text */}
           <div className="max-w-[1024px] mx-auto text-center px-[2rem] pt-[8rem] relative z-20 print:mt-[20rem] ">
             {/* Badge */}
-            <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto mb-[1.6rem]">
+            <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[2.4rem] font-medium font-Inter leading-tight mx-auto mb-[1.6rem]">
               Portfolio
             </div>
             {/* Heading */}
@@ -245,7 +245,7 @@ const PortfolioListing = ({ params }: { params: any }) => {
             <div className="flex items-center justify-center mt-[2rem]">
               <div className="relative">
                 {/* Vertical line */}
-                <div className="absolute left-[-1rem] print:hidden lg:left-[1rem] top-0 w-[2px] h-[100%] bg-[#7B869E;] mx-[2.1rem] " />
+                <div className=" hidden md:block absolute left-[-1rem] print:hidden lg:left-[1rem] top-0 w-[2px] h-[100%] bg-[#7B869E;] mx-[2.1rem] " />
                 {/* Timeline items Container */}
                 <div className="space-y-[3.5rem]">
                   {Array.from(
@@ -270,20 +270,20 @@ const PortfolioListing = ({ params }: { params: any }) => {
                     return (
                       <div
                         id={`portfolio-${portfolio.id}`}
-                        className={`relative flex items-start portfolio-item w-full ${
-                          highlightedPortfolioId === portfolio.id
-                            ? "border border-primary rounded-[1rem] p-4"
-                            : ""
-                        }`}
+                        className={`relative flex items-start portfolio-item w-full ${highlightedPortfolioId === portfolio.id
+                          ? "border border-primary rounded-[1rem] p-4"
+                          : ""
+                          }`}
                         key={String(portfolio?.id) || index}
                       >
                         {/* Dot */}
                         <div className="absolute top-0 left-0 lg:left-[1.8rem] print:hidden ">
-                          <div className="w-[2.6rem]  h-[2.6rem] bg-white rounded-full flex items-center shadow-md justify-center">
+                          <div className="hidden md:flex
+ w-[2.6rem]  h-[2.6rem] bg-white rounded-full  items-center shadow-md justify-center">
                             <div className="w-[0.7rem] h-[0.7rem] bg-[#5531A7] rounded-full"></div>
                           </div>
                         </div>
-                        <div className="ml-[3rem] lg:ml-[6rem] print:m-auto  w-full">
+                        <div className="md:ml-[3rem] lg:ml-[6rem] print:m-auto  w-full">
                           {/* Date */}
                           <h1 className="mb-[3rem] text-heading text-[2rem] leading-[2.7rem] font-bold max-lg:ml-[0.5rem] print:hidden block">
                             {new Date(portfolio.starting_date).toLocaleString(
@@ -297,12 +297,12 @@ const PortfolioListing = ({ params }: { params: any }) => {
                             {isNaN(new Date(portfolio.ending_Date).getTime())
                               ? portfolio.ending_Date
                               : new Date(portfolio.ending_Date).toLocaleString(
-                                  "en-US",
-                                  {
-                                    month: "short",
-                                    year: "numeric",
-                                  },
-                                )}
+                                "en-US",
+                                {
+                                  month: "short",
+                                  year: "numeric",
+                                },
+                              )}
                           </h1>
 
                           {/* Card */}

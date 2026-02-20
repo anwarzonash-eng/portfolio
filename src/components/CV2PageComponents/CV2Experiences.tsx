@@ -96,10 +96,10 @@ const CV2Experiences: React.FC<Props> = ({
       longBullets.length > 0
         ? longBullets
         : extractBulletsFromHtml(
-            exp?.short_description,
-            filteredSkills,
-            listOfdata,
-          );
+          exp?.short_description,
+          filteredSkills,
+          listOfdata,
+        );
 
     // Generate random number between 5 and 9 for each card
     const randomBulletCount = Math.floor(Math.random() * 5) + 5; // 5-9 range
@@ -114,6 +114,7 @@ const CV2Experiences: React.FC<Props> = ({
       title: exp?.title || exp?.designation || "",
       company: exp?.company_name || "",
       type: formatType(exp?.type || ""),
+      nature: exp?.nature || "",
       bullets,
       skills: exp?.skills || [],
     };
@@ -127,9 +128,9 @@ const CV2Experiences: React.FC<Props> = ({
       <h2 className="cv2SecondaryHeading"></h2>
       <h2 className="cv2SecondaryHeading">EMPLOYMENT HISTORY</h2>
 
-      <div className="mt-[rem] space-y-[1.4rem]">
+      <div className="mt-[rem] space-y-[1.4rem] ">
         {experiences.map((exp, index) => (
-          <div key={exp.id || index} className="flex gap-[1.6rem] mt-4">
+          <div key={exp.id || index} className="flex gap-[1.6rem] mt-4 ">
             <div className="w-[16rem] flex-shrink-0">
               <div className="cv2SDateStyles">{exp.date}</div>
               <div className="mt-[0.4rem] text-[1.4rem] text-paragraph1">
@@ -138,6 +139,11 @@ const CV2Experiences: React.FC<Props> = ({
               {exp.type && (
                 <div className="text-[1.3rem] text-primary rounded-[0.4rem]   font-medium capitalize">
                   {exp.type}
+                </div>
+              )}
+              {exp.nature && (
+                <div className="text-[1.3rem] text-primary rounded-[0.4rem]   font-medium capitalize">
+                  {exp.nature}
                 </div>
               )}
             </div>
@@ -154,7 +160,7 @@ const CV2Experiences: React.FC<Props> = ({
                 </div>
               </div>
               {exp.bullets?.length > 0 && (
-                <ul className="mt-[0.8rem] list-disc pl-[1.6rem] text-[1.4rem] text-paragraph1 space-y-[0.4rem]">
+                <ul className="mt-[0.8rem] list-disc pl-[1.6rem] text-[1.4rem] text-paragraph1 space-y-[0.4rem] pb-6 border-dashed border-b border-gray-300">
                   {exp.bullets.map((bullet: string, i: number) => (
                     <li
                       key={i}

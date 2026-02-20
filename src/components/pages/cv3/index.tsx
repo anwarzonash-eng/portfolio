@@ -1,6 +1,8 @@
-"use client";
 
-import { CalendarDays, Github, MapPin } from "lucide-react";
+"use client"
+
+
+import { CalendarDays, Github, MapPin } from 'lucide-react';
 import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { store, useAppSelector } from "@/store";
@@ -13,14 +15,8 @@ import { skillsGrouping } from "@/hooks/skillsGrouping";
 import { useFilteredYearExperiences } from "@/hooks/useFilteredYearExperiences";
 import { preloadImages } from "@/utils/preLoadImages";
 import { useSortedSkills } from "@/hooks/useSortedSkills";
-import {
-  CV3Summary,
-  CV3Header,
-  CV3Skills,
-  CV3Experiences,
-  CV3Education,
-  CV3Projects,
-} from "@/components/CV3PageComponents";
+import { CV3Summary, CV3Header, CV3Skills, CV3Experiences, CV3Education, CV3Projects } from '@/components/CV3PageComponents';
+
 
 const CV3 = ({ params }: { params: any }) => {
   // All Logic Start
@@ -52,7 +48,7 @@ const CV3 = ({ params }: { params: any }) => {
     allSkills,
   });
 
-  // console.log("Sorted Skills:", sortedSkills);
+
 
   useEffect(() => {
     handleSkillsApiCall({ setListOfSkills: setAllSkills });
@@ -71,6 +67,7 @@ const CV3 = ({ params }: { params: any }) => {
   useEffect(() => {
     if (urlInfo) {
       reportsApiHandler({
+        actionType: "cv",
         urlInfo,
         setLoading,
         setListOfData,
@@ -158,10 +155,10 @@ const CV3 = ({ params }: { params: any }) => {
   // Filtered Experiences
   const filteredExperiences = useFilteredYearExperiences(
     listOfdata?.experiences_ids,
-    listOfdata?.no_of_experiences,
+    listOfdata?.no_of_experiences
   );
 
-  // console.log("Filtered Experiences:", filteredExperiences);
+
 
   if (error) {
     return (
@@ -192,7 +189,7 @@ const CV3 = ({ params }: { params: any }) => {
       </div>
     );
   }
-  console.log(listOfdata, ">>>>>>>>>>>.");
+
   return (
     <div className="bg-white text-heading min-h-screen">
       <div className="max-w-[110rem] mx-auto p-[7rem] border border-solid border-gray-300 rounded-[0.6rem] my-[4rem] shadow-md">
@@ -215,54 +212,56 @@ const CV3 = ({ params }: { params: any }) => {
               location={listOfdata?.location}
             />
 
-            {/* Projects Section */}
-            <CV3Projects portfolios={listOfdata?.portfolios_ids} />
+
+
+
           </div>
 
           {/* Right Column */}
           <div className="col-span-2">
             {/* Summary */}
 
+
             {/* Summary & Tagline Section */}
             <CV3Summary summary={summary} />
+
 
             {/* Skills */}
             <CV3Skills sortedSkills={sortedSkills} />
 
             {/* Find Me Online */}
             <div className="mb-6">
-              <h2 className="text-[20px] font-bold text-black mb-4 border-b-2 border-black ">
-                FIND ME ONLINE
-              </h2>
+              <h2 className="text-[20px] font-bold text-black mb-4 border-b-2 border-black ">FIND ME ONLINE</h2>
 
               <div className="flex items-start gap-2">
-                <span className="text-blue-600 text-lg">
-                  <Github className="w-8 h-8" />
-                </span>
+                <span className="text-blue-600 text-lg"><Github className='w-8 h-8' /></span>
                 <div>
                   <span className=" font-bold text-[15px]">Github</span>
-                  <p className="list-disc  text-[13px] text-gray-700 space-y-1 font-medium leading-normal mt-3">
-                    {listOfdata?.github}
-                  </p>
+                  <p className="list-disc  text-[13px] text-gray-700 space-y-1 font-medium leading-normal mt-3">{listOfdata?.github}</p>
+
                 </div>
               </div>
             </div>
 
             {/* Interests */}
             <div className="mb-6">
-              <h2 className="text-[20px] font-bold text-black mb-4 border-b-2 border-black ">
-                INTERESTS
-              </h2>
+
+              <h2 className="text-[20px] font-bold text-black mb-4 border-b-2 border-black ">INTERESTS</h2>
               <div className="flex items-center gap-2">
-                <span className="text-[18px]">✈️</span>
-                <span className="font-bold text-[15px]">Travel</span>
+                {/* <span className="text-[18px]">✈️</span> */}
+                <span className="font-bold text-[15px]">Skydiving | Scuba Diving | Singing</span>
               </div>
             </div>
+
+
+
+            {/* Projects Section */}
+            <CV3Projects portfolios={listOfdata?.portfolios_ids} />
           </div>
         </div>
       </div>
-    </div>
-  );
-};
+    </div >
+  )
+}
 
-export default CV3;
+export default CV3

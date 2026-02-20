@@ -39,6 +39,10 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
   variant = "list",
   isLast = false,
 }) => {
+
+  console.log(experience, '>>>>>>>>>>>>>>>>>>')
+
+
   const skills = experience?.skills || [];
   const isSkillsNested =
     Array.isArray(skills) && skills.length > 0 && Array.isArray(skills[0]);
@@ -53,17 +57,18 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
   const [isMobile, setIsMobile] = useState(false);
   const [expansionState, setExpansionState] = useState<
     "collapsed" | "partial" | "full"
-  >("collapsed");
+  >("partial");
 
   useEffect(() => {
     const checkMobile = window.innerWidth < 768; // Matches Tailwind 'md' breakpoint
     setIsMobile(checkMobile);
-    setExpansionState(checkMobile ? "collapsed" : "partial");
+    // Show up to 4 items by default on both desktop and mobile
+    setExpansionState("partial");
 
     const handleResize = () => {
       const newIsMobile = window.innerWidth < 768;
       setIsMobile(newIsMobile);
-      setExpansionState(newIsMobile ? "collapsed" : "partial");
+      setExpansionState("partial");
     };
 
     window.addEventListener("resize", handleResize);
@@ -119,7 +124,8 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
     setExpansionState((prev) => {
       if (prev === "collapsed") return "partial";
       if (prev === "partial") return items.length > 4 ? "full" : "collapsed"; // Skip "full" if ≤ 4 items
-      return "collapsed";
+      // When currently fully expanded, go back to partial (show up to 4) instead of collapsing to 0
+      return "partial";
     });
   }, [items.length]);
 
@@ -149,16 +155,14 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
 
   return (
     <div
-      className={`w-full flex mt-[2rem] ${
-        variant === "timeline" ? "relative" : "static"
-      }`}
+      className={`w-full flex mt-[2rem] ${variant === "timeline" ? "relative" : "static"
+        }`}
     >
       {variant === "timeline" && (
         <>
           <div
-            className={`absolute left-[10rem] top-[4rem] ${
-              isLast ? "h-[93%]" : "h-[100%]"
-            }  bottom-0 w-[0.4rem] bg-border hidden xl:block`}
+            className={`absolute left-[10rem] top-[4rem] ${isLast ? "h-[93%]" : "h-[100%]"
+              }  bottom-0 w-[0.4rem] bg-border hidden xl:block`}
           />
           <div className="absolute top-[1.5rem] left-[9rem] hidden xl:block">
             <div className="w-[2.6rem] h-[2.6rem] bg-white rounded-full flex items-center shadow-md justify-center">
@@ -169,11 +173,18 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
       )}
 
       <div
-        className={`relative  flex items-start w-full ${
-          variant === "timeline" ? "xl:ml-[13rem] mt-10" : "ml-[0.5rem]"
-        }`}
+        className={`relative  flex items-start w-full ${variant === "timeline" ? "xl:ml-[13rem] mt-10" : "ml-[0.5rem]"
+          }`}
       >
-        <div className="bg-white p-[1.5rem] lg:p-[2.4rem] rounded-[1rem] shadow w-full border border-solid border-border">
+        <div className={`${experience?.company_name !== "Upwork" ? "bg-white" : "bg-gradient-to-br from-cyan-50 via-teal-50 to-emerald-50"} relative p-[1.5rem] lg:p-[2.4rem] rounded-[1rem] shadow w-full border border-solid border-border`}>
+          {/* Mobile-only badge (top-right) */}
+          {experience?.type && isMobile && (
+            <div className="absolute top-[1.2rem] right-0 block lg:hidden">
+              <div className="bg-primary text-white px-[1rem] py-[0.4rem] rounded-l-[2rem] text-[1.2rem] font-medium shadow-sm">
+                {experience?.type?.replace(/^(https?:\/\/)?(www\.)?/, "").split("/")[0]}
+              </div>
+            </div>
+          )}
           <div className="flex items-center flex-wrap text-nowrap gap-[1.5rem] md:justify-between">
             {/* About Content */}
             <div className="flex gap-[1rem]">
@@ -186,12 +197,13 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                   hover:drop-shadow-xl hover:scale-105 transition-all duration-300 ml-[-1rem]"
                 >
                   {experience?.thumbnail && (
-                    <div className="h-[4.2rem] w-[4.2rem] lg:h-[4.9rem] lg:w-[4.9rem] bg-[#D1E9FF] rounded-[0.4rem] flex items-center justify-center transition-transform duration-300 group-hover:scale-105 group-hover:bg-primary/20">
+                    <div className=" rounded-[0.4rem] flex items-center justify-center transition-transform duration-300 group-hover:scale-105 group-hover:bg-primary/20 sm:mb-0 mb-5">
                       <Image
                         src={experience?.thumbnail}
-                        height={32}
-                        width={32}
+                        height={40}
+                        width={40}
                         alt="Logo Mark"
+
                       />
                     </div>
                   )}
@@ -200,8 +212,17 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                       {experience?.company_name}
                     </p>
                     <h3 className="text-[1.6rem] lg:text-[1.8rem] font-medium text-heading group-hover:text-primary transition-colors duration-300">
-                      {experience?.title}
+                      {experience?.title} {experience?.company_name !== "Upwork" &&
+                        (experience?.nature && <span className="font-semibold text-primary">({experience?.nature})</span>)
+                      }
                     </h3>
+
+                    {/* Mobile: show date under the title */}
+                    {isMobile && (startLabel || endLabel) && !experience.company_website.includes("upwork") && (
+                      <p className="text-[1.2rem] text-primary font-medium mt-[0.4rem]">
+                        {startLabel ?? ""} - {endLabel ?? "Present"}
+                      </p>
+                    )}
                   </div>
                 </Link>
               ) : (
@@ -221,8 +242,9 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                       {experience?.company_name}
                     </p>
                     <h3 className="text-[1.6rem] lg:text-[1.8rem] font-medium text-heading">
-                      {experience?.title}
+                      {experience?.title} {experience?.company_name !== "Upwork" && <span className="font-semibold text-primary">({experience?.nature})</span>}
                     </h3>
+
                   </div>
                 </div>
               )}
@@ -233,18 +255,18 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
               <div className="flex justify-center md:justify-end w-full md:w-auto">
                 <div className="flex flex-col-reverse gap-[1rem] max-w-max">
                   {" "}
-                  {!experience.company_website.includes("upwork") && (
-                    <div className="py-[0.4rem] px-[2rem] bg-white border border-[#E2E6EE] text-[#47516B] rounded-[2rem] text-[1.5rem] font-medium leading-[0.8rem] hover:bg-sectionBG hover:text-white duration-300">
-                      <Link
-                        href={experience.company_website}
+                  {!experience.company_website.includes("upwork") && !isMobile && experience?.type && (
+                    <div className="py-[0.4rem] px-[2rem] bg-sectionBG border border-[#E2E6EE] text-white rounded-[2rem] text-[1.5rem] font-medium leading-[0.8rem] hover:bg-white hover:text-[#47516B] duration-300">
+                      <span
+                        // href={experience.company_website}
                         className="flex gap-2 items-center p-4 text-[2rem]"
                       >
                         {
-                          experience.company_website
-                            .replace(/^(https?:\/\/)?(www\.)?/, "")
+                          experience?.type
+                            ?.replace(/^(https?:\/\/)?(www\.)?/, "")
                             .split("/")[0]
                         }
-                      </Link>
+                      </span>
                     </div>
                   )}
                   {experience.company_website.includes("upwork") && (
@@ -253,7 +275,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                         href={experience.company_website ?? "#"}
                         target="_blank"
                         className="
-                              bg-black text-white border border-transparent hover:border-primary hover:bg-white hover:text-primary duration-300 text-nowrap
+                              bg-[#0F3C3C] text-white border border-transparent hover:border-primary hover:bg-white hover:text-primary duration-300 text-nowrap
                               flex items-center justify-center
                               text-[1.4rem] lg:text-[1.6rem] lg:font-medium rounded-[20rem] p-[1rem] group"
                       >
@@ -269,17 +291,17 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                           />
                         </div> */}
                         <div className="h-[3.5rem] w-[10rem] relative mx-2 inline-block overflow-hidden rounded-[10rem] px-2 bg-white">
-                                      <Image
-                                        src="/images/upworkText.svg"
-                                        alt="Upwork Logo"
-                                        width={100}
-                                        height={35}
-                                        loading="eager"
-                                        priority={true}
-                                        className="h-full w-full object-contain object-center p-[0.5rem]
+                          <Image
+                            src="/images/upworkText.svg"
+                            alt="Upwork Logo"
+                            width={100}
+                            height={35}
+                            loading="eager"
+                            priority={true}
+                            className="h-full w-full object-contain object-center p-[0.5rem]
                                                      border-transparent absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-                                      />
-                                    </div>
+                          />
+                        </div>
                         <span>Profile</span>
                       </Link>
                       {/* <Link
@@ -297,7 +319,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
           </div>
 
           {/* Unified Date Range */}
-          {(startLabel || endLabel) && (
+          {(startLabel || endLabel) && !experience.company_website.includes("upwork") && !isMobile && (
             <p className="text-[2rem] text-primary font-medium max-lg:text-center max-lg:my-[1rem] mb-2">
               {startLabel ?? ""} - {endLabel ?? "Present"}
             </p>
@@ -323,7 +345,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
               />
             )}
 
-            {items.length > 0 && (
+            {items.length > 4 && !experience.company_website.includes("upwork") && (
               <div className="flex items-center justify-center">
                 <button
                   onClick={handleToggle}
@@ -340,59 +362,59 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
             )}
           </div>
 
-          {listOfdata && listOfdata?.website_purpose !== "contract" && 
-          <>
-          <hr className="w-full my-[2.4rem] h-px bg-border print:hidden" />
+          {listOfdata && listOfdata?.website_purpose !== "contract" && !experience.company_website.includes("upwork") &&
+            <>
+              <hr className="w-full my-[2.4rem] h-px bg-border print:hidden" />
 
-          {/* Skills */}
-          {experience?.skills?.length > 0 && (
-            <div className="w-full mt-[1.6rem]">
-              <h4 className="text-primary text-[1.5rem] font-medium mb-[1.2rem]">
-                AREAS OF EXPERTISE I'VE WORKED IN
-              </h4>
-              <div className="flex items-center gap-[1rem] mt-3 lg:gap-[0.7rem] flex-wrap text-[1.2rem] w-full">
-                {Array.isArray(skillsToShow) && skillsToShow.length > 0 && (
-                  <React.Fragment>
-                    {skillsToShow.map((skill: any, i: number) => (
-                      <>
-                        {skill?.url ? (
-                          <Link
-                            key={i}
-                            href={skill.url || "#"}
-                            target="_blank"
-                            className="hover:bg-primary hover:text-white py-[0.4rem] print:py-[0.1rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
-                          >
-                            {skill.title}
-                          </Link>
-                        ) : (
-                          <div
-                            key={i}
-                            className="hover:bg-primary hover:text-white py-[0.4rem] print:py-[0.1rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
-                          >
-                            {skill.title}
-                          </div>
+              {/* Skills */}
+              {experience?.skills?.length > 0 && (
+                <div className="w-full mt-[1.6rem]">
+                  <h4 className="text-primary text-[1.5rem] font-medium mb-[1.2rem]">
+                    AREAS OF EXPERTISE I'VE WORKED IN
+                  </h4>
+                  <div className="flex items-center gap-[1rem] mt-3 lg:gap-[0.7rem] flex-wrap text-[1.2rem] w-full">
+                    {Array.isArray(skillsToShow) && skillsToShow.length > 0 && (
+                      <React.Fragment>
+                        {skillsToShow.map((skill: any, i: number) => (
+                          <>
+                            {skill?.url ? (
+                              <Link
+                                key={i}
+                                href={skill.url || "#"}
+                                target="_blank"
+                                className="hover:bg-primary hover:text-white py-[0.4rem] print:py-[0.1rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
+                              >
+                                {skill.title}
+                              </Link>
+                            ) : (
+                              <div
+                                key={i}
+                                className="hover:bg-primary hover:text-white py-[0.4rem] print:py-[0.1rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
+                              >
+                                {skill.title}
+                              </div>
+                            )}
+                          </>
+                        ))}
+                        {showMoreSkills[index] && (
+                          <div className="w-full mb-[1px]" />
                         )}
-                      </>
-                    ))}
-                    {showMoreSkills[index] && (
-                      <div className="w-full mb-[1px]" />
+                      </React.Fragment>
                     )}
-                  </React.Fragment>
-                )}
-                {!isDesktop && (
-                  <ShowmoreSkills
-                    props={{
-                      list: flatSkills,
-                      index,
-                      setShowMoreSkills,
-                      showMoreSkills,
-                    }}
-                  />
-                )}
-              </div>
-            </div>
-          )}
-          </>
+                    {!isDesktop && (
+                      <ShowmoreSkills
+                        props={{
+                          list: flatSkills,
+                          index,
+                          setShowMoreSkills,
+                          showMoreSkills,
+                        }}
+                      />
+                    )}
+                  </div>
+                </div>
+              )}
+            </>
           }
 
         </div>
