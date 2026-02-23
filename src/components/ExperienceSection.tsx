@@ -40,7 +40,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
   isLast = false,
 }) => {
 
-  console.log(experience, '>>>>>>>>>>>>>>>>>>')
+
 
 
   const skills = experience?.skills || [];
@@ -155,7 +155,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
 
   return (
     <div
-      className={`w-full flex mt-[2rem] ${variant === "timeline" ? "relative" : "static"
+      className={`w-full flex mt-[2rem]  ${variant === "timeline" ? "relative" : "static"
         }`}
     >
       {variant === "timeline" && (
@@ -173,18 +173,12 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
       )}
 
       <div
-        className={`relative  flex items-start w-full ${variant === "timeline" ? "xl:ml-[13rem] mt-10" : "ml-[0.5rem]"
+        className={`relative shadow-xl rounded-[1rem] flex items-start w-full ${variant === "timeline" ? "xl:ml-[13rem] mt-10" : "ml-[0.5rem]"
           }`}
       >
-        <div className={`${experience?.company_name !== "Upwork" ? "bg-white" : "bg-gradient-to-br from-cyan-50 via-teal-50 to-emerald-50"} relative p-[1.5rem] lg:p-[2.4rem] rounded-[1rem] shadow w-full border border-solid border-border`}>
+        <div className={`${experience?.company_name !== "Upwork" ? "bg-white" : "bg-gradient-to-br from-cyan-50 via-teal-50 to-emerald-50 !border-[#295050ae] border-2"} relative p-[1.5rem] lg:p-[2.4rem] rounded-[1rem] shadow w-full border border-solid border-border`}>
           {/* Mobile-only badge (top-right) */}
-          {experience?.type && isMobile && (
-            <div className="absolute top-[1.2rem] right-0 block lg:hidden">
-              <div className="bg-primary text-white px-[1rem] py-[0.4rem] rounded-l-[2rem] text-[1.2rem] font-medium shadow-sm">
-                {experience?.type?.replace(/^(https?:\/\/)?(www\.)?/, "").split("/")[0]}
-              </div>
-            </div>
-          )}
+
           <div className="flex items-center flex-wrap text-nowrap gap-[1.5rem] md:justify-between">
             {/* About Content */}
             <div className="flex gap-[1rem]">
@@ -197,7 +191,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                   hover:drop-shadow-xl hover:scale-105 transition-all duration-300 ml-[-1rem]"
                 >
                   {experience?.thumbnail && (
-                    <div className=" rounded-[0.4rem] flex items-center justify-center transition-transform duration-300 group-hover:scale-105 group-hover:bg-primary/20 sm:mb-0 mb-5">
+                    <div className=" rounded-[0.4rem] flex items-center justify-center transition-transform duration-300 group-hover:scale-105 group-hover:bg-primary/20 mb-auto mt-2">
                       <Image
                         src={experience?.thumbnail}
                         height={40}
@@ -212,10 +206,21 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                       {experience?.company_name}
                     </p>
                     <h3 className="text-[1.6rem] lg:text-[1.8rem] font-medium text-heading group-hover:text-primary transition-colors duration-300">
-                      {experience?.title} {experience?.company_name !== "Upwork" &&
-                        (experience?.nature && <span className="font-semibold text-primary">({experience?.nature})</span>)
-                      }
+                      {experience?.title}{" "}
+                      {experience?.company_name !== "Upwork" &&
+                        (experience?.type || experience?.nature) && (
+                          <span className="font-semibold text-primary">
+                            ({[experience?.type, experience?.nature].filter(Boolean).join(", ")})
+                          </span>
+                        )}
                     </h3>
+
+                    {/* Unified Date Range */}
+                    {(startLabel || endLabel) && !experience.company_website.includes("upwork") && !isMobile && (
+                      <p className="text-[1.5rem] my-1 text-primary font-medium max-lg:text-center max-lg:my-[1rem] mb-2">
+                        {startLabel ?? ""} - {endLabel ?? "Present"}
+                      </p>
+                    )}
 
                     {/* Mobile: show date under the title */}
                     {isMobile && (startLabel || endLabel) && !experience.company_website.includes("upwork") && (
@@ -255,20 +260,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
               <div className="flex justify-center md:justify-end w-full md:w-auto">
                 <div className="flex flex-col-reverse gap-[1rem] max-w-max">
                   {" "}
-                  {!experience.company_website.includes("upwork") && !isMobile && experience?.type && (
-                    <div className="py-[0.4rem] px-[2rem] bg-sectionBG border border-[#E2E6EE] text-white rounded-[2rem] text-[1.5rem] font-medium leading-[0.8rem] hover:bg-white hover:text-[#47516B] duration-300">
-                      <span
-                        // href={experience.company_website}
-                        className="flex gap-2 items-center p-4 text-[2rem]"
-                      >
-                        {
-                          experience?.type
-                            ?.replace(/^(https?:\/\/)?(www\.)?/, "")
-                            .split("/")[0]
-                        }
-                      </span>
-                    </div>
-                  )}
+
                   {experience.company_website.includes("upwork") && (
                     <div className="flex items-center max-lg:justify-center justify-end gap-2">
                       <Link
@@ -318,12 +310,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
             )}
           </div>
 
-          {/* Unified Date Range */}
-          {(startLabel || endLabel) && !experience.company_website.includes("upwork") && !isMobile && (
-            <p className="text-[2rem] text-primary font-medium max-lg:text-center max-lg:my-[1rem] mb-2">
-              {startLabel ?? ""} - {endLabel ?? "Present"}
-            </p>
-          )}
+
 
           {/* Short Description */}
           {experience?.short_description && (

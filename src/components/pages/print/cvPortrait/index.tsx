@@ -180,84 +180,86 @@ const CV_Portrait = ({ params }: { params: any }) => {
     // Overview & Skills - only if skills data exists
     ...(listOfdata?.skills
       ? [
-          {
-            componentType: "dynamic" as const,
-            forceSolo: true,
-            componentTitle: "Overview & Skills",
-            component: (
-              <OverviewCvPortrait
-                filteredSkills={filteredSkills}
-                listOfdata={listOfdata}
-                hideLinks={urlInfo?.hideLinks}
-                // isPrinting={isPrinting}
-              />
-            ),
-          },
-        ]
+        {
+          componentType: "dynamic" as const,
+          forceSolo: true,
+          componentTitle: "Overview & Skills",
+          component: (
+            <OverviewCvPortrait
+              filteredSkills={filteredSkills}
+              listOfdata={listOfdata}
+              hideLinks={urlInfo?.hideLinks}
+            // isPrinting={isPrinting}
+            />
+          ),
+        },
+      ]
       : []),
 
     // Skills Section - only if skills_ids exist
-    ...(listOfdata?.skills_ids?.length > 0 
+    ...(listOfdata?.skills_ids?.length > 0
       ? [
-          {
-            componentType: "dynamic" as const,
-            badgeTitle: "Skills",
-            component: (
-              <SkillsCvPortrait
-                list={sortedSkills}
-                numColumns={5}
-                numSkills={20}
-                hideLinks={urlInfo?.hideLinks}
-              />
-            ),
-          },
-        ]
+        {
+          componentType: "dynamic" as const,
+          badgeTitle: "Skills",
+          component: (
+            <SkillsCvPortrait
+              list={sortedSkills}
+              numColumns={5}
+              numSkills={20}
+              hideLinks={urlInfo?.hideLinks}
+            />
+          ),
+        },
+      ]
       : []),
 
     // Experience Section 1 - only if experiences exist
     ...(listOfdata?.experiences_ids?.length > 0
       ? [
-          {
-            componentType: "static" as const,
-            badgeTitle: "Professional Experiences",
-            component: (
+        {
+          componentType: "static" as const,
+          badgeTitle: "Professional Experiences",
+          component: (
+            <ExperienceCvPortrait
+              filteredSkills={filteredSkills}
+              listOfdata={listOfdata}
+              showMoreSkills={showMoreSkillsForExperiences}
+              skillsGrouping={skillsGrouping}
+              hideLinks={urlInfo?.hideLinks}
+              start={0}
+              end={2}
+              bulletCount={4}
+            />
+          ),
+        },
+      ]
+      : []),
+
+    // Experience Section 2 - only if more than 3 experiences exist
+    ...(listOfdata?.experiences_ids?.length > 3
+      ? [
+        {
+          componentType: "static" as const,
+          badgeTitle: "Professional Experiences",
+          component: (
+            <div>
               <ExperienceCvPortrait
                 filteredSkills={filteredSkills}
                 listOfdata={listOfdata}
                 showMoreSkills={showMoreSkillsForExperiences}
                 skillsGrouping={skillsGrouping}
                 hideLinks={urlInfo?.hideLinks}
-                start={0}
-                end={3}
+                start={4}
+                end={6}
+                bulletCount={4}
               />
-            ),
-          },
-        ]
-      : []),
-
-    // Experience Section 2 - only if more than 3 experiences exist
-    ...(listOfdata?.experiences_ids?.length > 3
-      ? [
-          {
-            componentType: "static" as const,
-            badgeTitle: "Professional Experiences",
-            component: (
-              <div>
-                <ExperienceCvPortrait
-                  filteredSkills={filteredSkills}
-                  listOfdata={listOfdata}
-                  showMoreSkills={showMoreSkillsForExperiences}
-                  skillsGrouping={skillsGrouping}
-                  hideLinks={urlInfo?.hideLinks}
-                  start={3}
-                  end={6}
-                />
-                <div className="hidden items-center justify-center w-full">
-                  <button className="hover:bg-white bg-primary text-white hover:text-primary capitalize text-center text-primary text-[1.4rem] font-medium py-[1rem] px-[2rem] inline-flex items-center justify-center gap-[8px] rounded-[5rem] relative border border-transparent hover:border-primary my-[1rem]">
-                    Read More
-                  </button>
-                </div>
-                {!urlInfo?.hideLinks &&
+              <div className="hidden items-center justify-center w-full">
+                <button className="hover:bg-white bg-primary text-white hover:text-primary capitalize text-center text-primary text-[1.4rem] font-medium py-[1rem] px-[2rem] inline-flex items-center justify-center gap-[8px] rounded-[5rem] relative border border-transparent hover:border-primary my-[1rem]">
+                  Read More
+                </button>
+              </div>
+              {!urlInfo?.hideLinks &&
                 <div className="flex justify-center mt-8">
                   <Link
                     href={`/cv?scrollTo=experiences&expand=true`}
@@ -267,180 +269,180 @@ const CV_Portrait = ({ params }: { params: any }) => {
                     View All Experiences
                   </Link>
                 </div>
-                }
-              </div>
-            ),
-          },
-        ]
+              }
+            </div>
+          ),
+        },
+      ]
       : []),
 
     // Portfolio Section 1 - only if portfolios exist
     ...(listOfdata?.portfolios_ids?.length > 0
       ? [
-          {
-            componentType: "static" as const,
-            badgeTitle: "Portfolios",
-            component: (
-              <div
-                className="w-full relative px-[2rem]"
-                key={listOfdata.portfolios_ids[0].id}
-              >
-                <PortfolioCvPortrait
-                  portfolios={listOfdata.portfolios_ids}
-                  companyType={listOfdata.companytype}
-                  locationLink={`/?sectionId=myWork`}
-                  portfolioId={listOfdata.portfolios_ids[0].id}
-                  listOfskills={listOfskills}
-                  listOfdata={listOfdata}
-                  hideLinks={urlInfo?.hideLinks}
-                  from={1}
-                  max={2}
-                />
-              </div>
-            ),
-          },
-        ]
+        {
+          componentType: "static" as const,
+          badgeTitle: "Portfolios",
+          component: (
+            <div
+              className="w-full relative px-[2rem]"
+              key={listOfdata.portfolios_ids[0].id}
+            >
+              <PortfolioCvPortrait
+                portfolios={listOfdata.portfolios_ids}
+                companyType={listOfdata.companytype}
+                locationLink={`/?sectionId=myWork`}
+                portfolioId={listOfdata.portfolios_ids[0].id}
+                listOfskills={listOfskills}
+                listOfdata={listOfdata}
+                hideLinks={urlInfo?.hideLinks}
+                from={1}
+                max={2}
+              />
+            </div>
+          ),
+        },
+      ]
       : []),
 
     // Portfolio Section 2 - only if more than 1 portfolio exists
     ...(listOfdata?.portfolios_ids?.length > 1
       ? [
-          {
-            componentType: "static" as const,
-            badgeTitle: "Portfolios",
-            component: (
-              <div
-                className="w-full relative px-[2rem]"
-                key={`${listOfdata.portfolios_ids[0].id}-2`}
-              >
-                <PortfolioCvPortrait
-                  portfolios={listOfdata.portfolios_ids}
-                  companyType={listOfdata.companytype}
-                  locationLink={`/?sectionId=myWork`}
-                  portfolioId={listOfdata.portfolios_ids[0].id}
-                  listOfskills={listOfskills}
-                  listOfdata={listOfdata}
-                  hideLinks={urlInfo?.hideLinks}
-                  from={2}
-                  max={3}
-                />
-              </div>
-            ),
-          },
-        ]
+        {
+          componentType: "static" as const,
+          badgeTitle: "Portfolios",
+          component: (
+            <div
+              className="w-full relative px-[2rem]"
+              key={`${listOfdata.portfolios_ids[0].id}-2`}
+            >
+              <PortfolioCvPortrait
+                portfolios={listOfdata.portfolios_ids}
+                companyType={listOfdata.companytype}
+                locationLink={`/?sectionId=myWork`}
+                portfolioId={listOfdata.portfolios_ids[0].id}
+                listOfskills={listOfskills}
+                listOfdata={listOfdata}
+                hideLinks={urlInfo?.hideLinks}
+                from={2}
+                max={3}
+              />
+            </div>
+          ),
+        },
+      ]
       : []),
 
     // Portfolio Section 3 - only if more than 2 portfolios exist
     ...(listOfdata?.portfolios_ids?.length > 2
       ? [
-          {
-            componentType: "static" as const,
-            badgeTitle: "Portfolios",
-            component: (
-              <div
-                className="w-full relative px-[2rem]"
-                key={`${listOfdata.portfolios_ids[0].id}-3`}
-              >
-                <PortfolioCvPortrait
-                  portfolios={listOfdata.portfolios_ids}
-                  companyType={listOfdata.companytype}
-                  locationLink={`/?sectionId=myWork`}
-                  portfolioId={listOfdata.portfolios_ids[0].id}
-                  listOfskills={listOfskills}
-                  listOfdata={listOfdata}
-                  hideLinks={urlInfo?.hideLinks}
-                  from={3}
-                  max={4}
-                />
-              </div>
-            ),
-          },
-        ]
+        {
+          componentType: "static" as const,
+          badgeTitle: "Portfolios",
+          component: (
+            <div
+              className="w-full relative px-[2rem]"
+              key={`${listOfdata.portfolios_ids[0].id}-3`}
+            >
+              <PortfolioCvPortrait
+                portfolios={listOfdata.portfolios_ids}
+                companyType={listOfdata.companytype}
+                locationLink={`/?sectionId=myWork`}
+                portfolioId={listOfdata.portfolios_ids[0].id}
+                listOfskills={listOfskills}
+                listOfdata={listOfdata}
+                hideLinks={urlInfo?.hideLinks}
+                from={3}
+                max={4}
+              />
+            </div>
+          ),
+        },
+      ]
       : []),
 
     // Portfolio Section 4 - only if more than 3 portfolios exist
     ...(listOfdata?.portfolios_ids?.length > 3
       ? [
-          {
-            componentType: "static" as const,
-            badgeTitle: "Portfolios",
-            component: (
-              <div
-                className="w-full relative px-[2rem]"
-                key={`${listOfdata.portfolios_ids[0].id}-4`}
-              >
-                <PortfolioCvPortrait
-                  portfolios={listOfdata.portfolios_ids}
-                  companyType={listOfdata.companytype}
-                  locationLink={`/?sectionId=myWork`}
-                  portfolioId={listOfdata.portfolios_ids[0].id}
-                  listOfskills={listOfskills}
-                  listOfdata={listOfdata}
-                  hideLinks={urlInfo?.hideLinks}
-                  from={4}
-                  max={5}
-                />
-              </div>
-            ),
-          },
-        ]
+        {
+          componentType: "static" as const,
+          badgeTitle: "Portfolios",
+          component: (
+            <div
+              className="w-full relative px-[2rem]"
+              key={`${listOfdata.portfolios_ids[0].id}-4`}
+            >
+              <PortfolioCvPortrait
+                portfolios={listOfdata.portfolios_ids}
+                companyType={listOfdata.companytype}
+                locationLink={`/?sectionId=myWork`}
+                portfolioId={listOfdata.portfolios_ids[0].id}
+                listOfskills={listOfskills}
+                listOfdata={listOfdata}
+                hideLinks={urlInfo?.hideLinks}
+                from={4}
+                max={5}
+              />
+            </div>
+          ),
+        },
+      ]
       : []),
 
     // Portfolio Section 5 - only if more than 4 portfolios exist
     ...(listOfdata?.portfolios_ids?.length > 4
       ? [
-          {
-            componentType: "static" as const,
-            badgeTitle: "Portfolios",
-            component: (
-              <div
-                className="w-full relative px-[2rem]"
-                key={`${listOfdata.portfolios_ids[0].id}-5`}
-              >
-                <PortfolioCvPortrait
-                  portfolios={listOfdata.portfolios_ids}
-                  companyType={listOfdata.companytype}
-                  locationLink={`/?sectionId=myWork`}
-                  portfolioId={listOfdata.portfolios_ids[0].id}
-                  listOfskills={listOfskills}
-                  listOfdata={listOfdata}
-                  hideLinks={urlInfo?.hideLinks}
-                  from={5}
-                  max={6}
-                />
-                {!urlInfo?.hideLinks && <div className="flex justify-center items-center mt-[1.5rem]">
-                  <Link
-                    href={`/cv?scrollTo=portfolios&expand=true`}
-                    className="btn-primary text-white py-[1rem] px-[3.4rem]
+        {
+          componentType: "static" as const,
+          badgeTitle: "Portfolios",
+          component: (
+            <div
+              className="w-full relative px-[2rem]"
+              key={`${listOfdata.portfolios_ids[0].id}-5`}
+            >
+              <PortfolioCvPortrait
+                portfolios={listOfdata.portfolios_ids}
+                companyType={listOfdata.companytype}
+                locationLink={`/?sectionId=myWork`}
+                portfolioId={listOfdata.portfolios_ids[0].id}
+                listOfskills={listOfskills}
+                listOfdata={listOfdata}
+                hideLinks={urlInfo?.hideLinks}
+                from={5}
+                max={6}
+              />
+              {!urlInfo?.hideLinks && <div className="flex justify-center items-center mt-[1.5rem]">
+                <Link
+                  href={`/cv?scrollTo=portfolios&expand=true`}
+                  className="btn-primary text-white py-[1rem] px-[3.4rem]
               text-[1.6rem] font-medium"
-                  >
-                    View All Portfolios
-                  </Link>
-                </div>}
-              </div>
-            ),
-          },
-        ]
+                >
+                  View All Portfolios
+                </Link>
+              </div>}
+            </div>
+          ),
+        },
+      ]
       : []),
 
     // Education & Blog Section - only if education or blogs exist
     ...(listOfdata?.education_ids?.length > 0 || blogsList?.length > 0
       ? [
-          {
-            componentType: "static" as const,
-            component: (
-              <EducationBlogCvPortrait
-                domain={domain}
-                listOfdata={listOfdata}
-                blogsList={blogsList}
-                dateFormatsOptions={dateFormatsOptions}
-                formatDate={formatDate}
-                getImageForIndex={getImageForIndex}
-                hideLinks={urlInfo?.hideLinks}
-              />
-            ),
-          },
-        ]
+        {
+          componentType: "static" as const,
+          component: (
+            <EducationBlogCvPortrait
+              domain={domain}
+              listOfdata={listOfdata}
+              blogsList={blogsList}
+              dateFormatsOptions={dateFormatsOptions}
+              formatDate={formatDate}
+              getImageForIndex={getImageForIndex}
+              hideLinks={urlInfo?.hideLinks}
+            />
+          ),
+        },
+      ]
       : []),
   ];
 

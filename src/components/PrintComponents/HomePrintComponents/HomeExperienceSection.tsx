@@ -10,7 +10,8 @@ const HomeExperienceSection = ({
   listOfskills,
   start,
   end,
-  hideLinks
+  hideLinks,
+  bulletCount
 }) => {
   if (!listOfdata?.experiences_ids?.length) return null;
 
@@ -41,7 +42,7 @@ const HomeExperienceSection = ({
         {/* Vertical Timeline Line */}
         {/* <div className="absolute left-[3.1rem] top-[-1rem] w-[0.4rem] 
         h-full bg-primary" /> */}
-        
+
 
         {/* Experience Card */}
         <div className="w-full">
@@ -53,6 +54,7 @@ const HomeExperienceSection = ({
             hideLinks={hideLinks}
             start={0}
             end={1}
+            bulletCount={bulletCount}
           />
         </div>
       </div>
@@ -61,10 +63,10 @@ const HomeExperienceSection = ({
 
   return (
     <div className="relative flex flex-col gap-4">
-        {firstGroupExperiences.map((experience, index) =>
-          renderExperience(experience, index)
-        )}
-      </div>
+      {firstGroupExperiences.map((experience, index) =>
+        renderExperience(experience, index)
+      )}
+    </div>
   );
 };
 

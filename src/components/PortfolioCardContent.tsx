@@ -85,7 +85,7 @@ const PortfolioCardContent: React.FC<PortfolioCardContentProps> = ({
                   } lg:w-[800px] w-full object-fill rounded-[1.2rem] border border-solid border-border`}
               />
               <button
-                className={`btn-primary text-white mt-[1rem] font-medium relative z-[50]  ${thumbnailSize === "small"
+                className={`btn-primary mb-8 text-white mt-[1rem] font-medium relative z-[50]  ${thumbnailSize === "small"
                   ? "py-[0.8rem] px-[2.2rem] text-[1.6rem]"
                   : "py-[1rem] px-[3.4rem] text-[1.8rem]"
                   }`}
@@ -108,13 +108,13 @@ const PortfolioCardContent: React.FC<PortfolioCardContentProps> = ({
               className="inline-flex gap-[1rem] p-2 hover:bg-[#D1E9FF] hover:scale-[98%] transition-all duration-300 cursor-pointer rounded-[6px] hover:drop-shadow-2xl max-w-max max-lg:mt-[1rem]"
             >
               {portfolio?.company_icon && (
-                <div className="bg-[#1B6393] p-[1.46rem] rounded-[1rem] inline-block">
+                <div className="  rounded-[1rem] inline-block">
                   <Image
                     src={portfolio.company_icon}
                     alt="Case"
-                    height={34}
-                    width={34}
-                    className="h-[2rem] w-[2rem]"
+                    height={50}
+                    width={50}
+                    className="h-[4rem] w-[4rem]"
                   />
                 </div>
               )}

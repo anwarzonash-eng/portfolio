@@ -24,7 +24,7 @@ const PortfolioWelcome = ({
           className="size-[245px] rounded-full"
         />
         <div className="bg-primary text-white font-bold text-[3rem]  rounded-[100px] max-w-max px-10 tracking-wider">
-          Portfolio
+          Portfolios
         </div>
         <div className="flex items-center justify-start flex-col">
           <h2 className="text-[7rem] font-bold"> {listOfdata?.name}</h2>
@@ -37,7 +37,7 @@ const PortfolioWelcome = ({
             ))}
           </div>
           {!hideLinks && (
-            <div className="flex items-center justify-center w-full">
+            <div className="flex items-center mt-8 justify-center w-full">
               <DesignationDomain />
             </div>
           )}

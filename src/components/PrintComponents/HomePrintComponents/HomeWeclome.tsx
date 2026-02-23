@@ -15,9 +15,9 @@ const HomeWeclome = ({
     <section className="h-screen bg-cvSideBg bg-no-repeat bg-cover w-full  flex items-center justify-center relative">
       <div className="text-center">
         <div className="flex items-center justify-center w-full">
-          <div className="bg-primary text-white font-bold text-[3rem]  rounded-[100px] max-w-max px-10 tracking-wider">
+          {/* <div className="bg-primary text-white font-bold text-[3rem]  rounded-[100px] max-w-max px-10 tracking-wider">
             Portfolio
-          </div>
+          </div> */}
         </div>
         <div className="flex items-center justify-start gap-[4rem] w-full">
           <Image
@@ -49,7 +49,7 @@ const HomeWeclome = ({
           </div>
         </div>
         {hideLinks ? null : (
-          <div className="flex items-center gap-[2rem] mb-[0.8rem] justify-start ml-[280px]">
+          <div className="flex items-center gap-[2rem] mb-[0.8rem] justify-start ml-[285px] mt-2">
             {urlInfo?.u ? (
               <WorkProofLinks
                 props={{

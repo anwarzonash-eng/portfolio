@@ -62,7 +62,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, poster }) => {
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white/50 rounded-full p-4 flex items-center justify-center hover:bg-white/70 transition-all z-10"
           aria-label="Play video"
         >
-            <Play className="text-black size-7 ml-1" fill="black" />
+          <Play className="text-black size-7 ml-1" fill="black" />
         </button>
       )}
     </div>
@@ -202,7 +202,7 @@ const HomeTestimonialSection: React.FC<HomeTestimonialSectionProps> = ({
         </div>
 
 
-    
+
       </div>
     </section>
   );
