@@ -62,7 +62,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, poster }) => {
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white/50 rounded-full p-4 flex items-center justify-center hover:bg-white/70 transition-all z-10"
           aria-label="Play video"
         >
-            <Play className="text-black size-7 ml-1" fill="black" />
+          <Play className="text-black size-7 ml-1" fill="black" />
         </button>
       )}
     </div>
@@ -100,7 +100,7 @@ const HomeTestimonialSection: React.FC<HomeTestimonialSectionProps> = ({
   return (
     <section className="w-full bg-primary px-16 py-32 h-screen flex items-center justify-center">
       {/* Testimonial Layout */}
-      <div className="flex gap-20 items-start">
+      <div className="flex gap-20 items-start print:hidden">
         {/* Client Info Side */}
         <div className="flex flex-col justify-between">
           {/* Heading */}
@@ -202,7 +202,15 @@ const HomeTestimonialSection: React.FC<HomeTestimonialSectionProps> = ({
         </div>
 
 
-    
+
+      </div>
+
+      <div className="hidden print:block ">
+        <img
+          src="/images/testimonial.png"
+          alt="testimonial"
+          className="absolute top-0 left-0 w-full h-full object-fit "
+        />
       </div>
     </section>
   );

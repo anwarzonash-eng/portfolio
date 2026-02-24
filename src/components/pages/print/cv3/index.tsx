@@ -260,7 +260,7 @@ const CV3 = ({ params }: { params: any }) => {
                             {/* // Experience 2 */}
                             {filteredExperiences[1] && (<div className="w-full relative ">
 
-                                <CV3ExperiencesP rawExperiences={[filteredExperiences[1]]} listOfdata={listOfdata} bulletCount={6} />
+                                <CV3ExperiencesP rawExperiences={[filteredExperiences[1]]} listOfdata={listOfdata} bulletCount={7} />
                             </div>
 
 
@@ -272,19 +272,7 @@ const CV3 = ({ params }: { params: any }) => {
                             <CV3SummaryP summary={summary} />
                             <CV3SkillsP sortedSkills={sortedSkills} />
 
-                            {/* Find Me Online */}
-                            <div className="mb-6">
-                                <h2 className="text-[20px] font-bold text-black mb-4 border-b-2 border-black ">FIND ME ONLINE</h2>
 
-                                <div className="flex items-start gap-2">
-                                    <span className="text-blue-600 text-lg"><Github className='w-8 h-8' /></span>
-                                    <div>
-                                        <span className=" font-bold text-[15px]">Github</span>
-                                        <p className="list-disc  text-[13px] text-gray-700 space-y-1 font-medium leading-normal mt-3">{listOfdata?.github}</p>
-
-                                    </div>
-                                </div>
-                            </div>
 
                             {/* Interests */}
                             <div className="mb-6">
@@ -296,7 +284,13 @@ const CV3 = ({ params }: { params: any }) => {
                                 </div>
                             </div>
 
+                            {portfolios[0] && <div className="w-full relative  ">
 
+                                <h2 className="text-[20px] font-bold text-black mb-4 border-b-2 border-black pb-2">
+                                    PROJECTS
+                                </h2>
+                                <CV3ProjectsP portfolios={[portfolios[0]]} />
+                            </div>}
 
 
                         </div>
@@ -325,18 +319,28 @@ const CV3 = ({ params }: { params: any }) => {
                             </>
                         </div>
                         <div className="col-span-2">
-                            {portfolios[0] && <div className="w-full relative  ">
+                            {portfolios[1] && <div className="w-full relative  ">
 
                                 <h2 className="text-[20px] font-bold text-black mb-4 border-b-2 border-black pb-2">
                                     PROJECTS
                                 </h2>
-                                <CV3ProjectsP portfolios={[portfolios[0]]} />
+                                <CV3ProjectsP portfolios={[portfolios[1]]} />
                             </div>}
 
-                            {portfolios[1] && <div className="w-full relative  ">
+                            {portfolios[2] && <div className="w-full relative  ">
 
 
-                                <CV3ProjectsP portfolios={[portfolios[1]]} />
+                                <CV3ProjectsP portfolios={[portfolios[2]]} />
+                            </div>}
+                            {portfolios[3] && <div className="w-full relative  ">
+
+
+                                <CV3ProjectsP portfolios={[portfolios[3]]} />
+                            </div>}
+                            {portfolios[4] && <div className="w-full relative  ">
+
+
+                                <CV3ProjectsP portfolios={[portfolios[4]]} />
                             </div>}
                         </div>
                     </div>
@@ -370,19 +374,9 @@ const CV3 = ({ params }: { params: any }) => {
                             </>
                         </div>
                         <div className="col-span-2">
-                            {portfolios[2] && <div className="w-full relative  ">
-
-                                <h2 className="text-[20px] font-bold text-black mb-4 border-b-2 border-black pb-2">
-                                    PROJECTS
-                                </h2>
-                                <CV3ProjectsP portfolios={[portfolios[2]]} />
-                            </div>}
-
-                            {portfolios[3] && <div className="w-full relative  ">
 
 
-                                <CV3ProjectsP portfolios={[portfolios[3]]} />
-                            </div>}
+
                         </div>
                     </div>
                 </div>

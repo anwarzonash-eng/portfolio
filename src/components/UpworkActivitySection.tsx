@@ -176,17 +176,17 @@ function UpworkActivitySection({ urlInfo, cvTrue, data }) {
     {
       id: 1,
       icon: Clock,
-      title: "10000+ Hour Tracked for Clients",
+      title: "7000+ Hours Tracked ",
       content:
-        "Over 2500 hours logged, extensive experience in delivering exceptional web development projects drive results.",
+        "Over 7000+ hours logged, extensive experience in delivering exceptional web development projects drive results.",
       highlight: "extensive experience",
     },
     {
       id: 2,
       icon: CheckCircle,
-      title: "70+ Project Completed",
+      title: "70+ Projects Completed",
       content:
-        "Successfully completed over 35 web development projects, proven track record of building innovative websites.",
+        "Successfully completed over 70+ web development projects, proven track record of building innovative websites.",
       highlight: "completed over 35 web",
     },
     {
@@ -245,17 +245,64 @@ function UpworkActivitySection({ urlInfo, cvTrue, data }) {
   return (
     <section
       className={`${urlInfo?.domain === "findusman.me" ? "w-full " : "hidden"
-        } ${cvTrue ? "py-0 border rounded-2xl" : "py-10"} bg-gradient-to-br from-cyan-50 via-teal-50 to-emerald-50`}
+        } ${cvTrue ? "py-0 border rounded-2xl" : "py-10"} bg-white `}
     >
       <div className={`${cvTrue ? "p-[2rem] lg:p-[3rem] pt-20 " : "mainContainer lg:mt-20 "}`}>
         {/* Main Grid Layout */}
-        <div className="grid lg:grid-cols-2 lg:gap-8 items-start">
+        <div className="">
 
           {/* LEFT COLUMN - Profile Card */}
-          <div className=" py-8 lg:pr-8 space-y-6">
+          <div className=" py-8 lg:pr-8 ">
             {/* Profile Header */}
 
-            <UpworkIdentity data={data} />
+            <UpworkIdentity data={data} cvTrue={cvTrue} />
+            <div className="flex justify-center flex-col items-center ">
+              <h2
+                className={`lg:text-[4rem] text-[3rem]  mt-14 font-medium mb-[1rem] text-center`}
+              >
+                My{" "}
+                <Link
+                  href={data?.upwork ?? "#"}
+                  target="_blank"
+                  className="text-primary"
+                >
+                  Upwork
+                </Link>{" "}
+                Activities
+              </h2>
+              <p className="text-[1.8rem] lg:text-[2.5rem] w-full lg:w-2/3 text-center text-gray-600">Proven performance, consistent delivery, and client satisfaction across long-term projects.</p>
+            </div>
+
+            <div className="flex flex-wrap gap-8">
+              {upworkActivityList.map((item) => {
+                const IconComponent = item.icon;
+                return (
+                  <div
+                    key={item.id}
+                    className="md:flex-1 flex gap-4 p-10 bg-white rounded-3xl  min-w-[220px] mt-14 shadow-[0_0_10px_rgba(0,0,0,0.2)]"
+                  >
+                    <div className="">
+
+                    </div>
+                    <div className="flex flex-col gap-6">
+                      <div className="flex gap-4 ">
+                        <div className={`${cvTrue ? "w-16 h-16" : "w-16 h-14  md:w-12 md:h-12  lg:w-20 lg:h-20"} rounded-full bg-primary flex items-center justify-center`}>
+                          <IconComponent className=" w-7 h-7 md:w-8 md:h-8 lg:w-10 lg:h-10 text-white" />
+                        </div>
+                        <p
+                          className={`${cvTrue ? "text-[2.4rem]" : "text-[2.4rem] lg:text-[2.8rem]"} font-semibold w-full lg:w-[200px]`}
+                        >
+                          {item.title}
+                        </p>
+                      </div>
+                      <p className={`text-heading ${cvTrue ? "text-[1.8rem]" : "text-[1.8rem] lg:text-[2.2rem]"}`}>
+                        {item.content}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
             {/* <div className="relative">
                 <Image
                   src={data?.profile_photo_1 || "https://via.placeholder.com/80"}
@@ -298,7 +345,7 @@ function UpworkActivitySection({ urlInfo, cvTrue, data }) {
             </Link> */}
 
             {/* Financial Activities */}
-            <div className="space-y-4">
+            {/* <div className="space-y-4">
               <h2
                 className={`text-[2.5rem] !my-16 sm:!my-0 ${cvTrue ? "lg:text-[3rem]" : "lg:text-[4rem]"
                   } font-bold mb-[1rem] max-lg:text-center`}
@@ -324,20 +371,22 @@ function UpworkActivitySection({ urlInfo, cvTrue, data }) {
                   </div>
                 ))}
               </div>
-            </div>
+            </div> */}
           </div>
 
           {/* RIGHT COLUMN - Activities */}
-          <div className="space-y-6">
+          <div
+          // className="space-y-6"
+          >
             {/* Upwork Logo */}
-            <div className="flex justify-center  mt-10">
+            {/* <div className="flex justify-center  mt-10">
               <Link href={data?.upwork ?? "#"} target="_blank">
                 <img src="/images/up-logo.png" alt="Upwork Logo" className="mix-blend-darken " />
               </Link>
-            </div>
+            </div> */}
 
             {/* Activities Heading */}
-            <h2
+            {/* <h2
               className={`text-[2.5rem] lg:!mt-[6rem] !my-16  ${cvTrue ? "lg:text-[3rem]" : "lg:text-[4rem]"
                 } font-bold mb-[1rem] max-lg:text-center`}
             >
@@ -350,7 +399,7 @@ function UpworkActivitySection({ urlInfo, cvTrue, data }) {
                 Upwork
               </Link>{" "}
               Activities
-            </h2>
+            </h2> */}
 
             {/* Activity Items */}
             <div className="space-y-6">
@@ -385,7 +434,7 @@ function UpworkActivitySection({ urlInfo, cvTrue, data }) {
               })} */}
 
 
-              {upworkActivityList.map((item) => {
+              {/* {upworkActivityList.map((item) => {
                 const IconComponent = item.icon
                 return (
                   <li className="flex" key={item.id}>
@@ -407,7 +456,7 @@ function UpworkActivitySection({ urlInfo, cvTrue, data }) {
                     </div>
                   </li>
                 )
-              })}
+              })} */}
             </div>
 
 

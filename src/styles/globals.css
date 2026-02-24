@@ -648,3 +648,10 @@ body {
   width: calc(274% + 1.3px);
   height: 150px !important;
 }
+
+
+
+.g-m-0 ul {
+  gap: 0px !important;
+  margin-bottom: 0px !important;
+}

@@ -6,7 +6,7 @@ import Link from "next/link";
 import React from "react";
 
 
-const IntroCvPortrait = ({listOfdata, urlInfo, hideLinks}) => {
+const IntroCvPortrait = ({ listOfdata, urlInfo, hideLinks }) => {
 
 
   return (
@@ -14,12 +14,12 @@ const IntroCvPortrait = ({listOfdata, urlInfo, hideLinks}) => {
       <div className="w-full">
         {/* Profile Bg */}
         <div className="print:flex flex flex-col items-center justify-center gap-4 print:w-full">
-          <div className="print:flex flex flex-col print:flex-row items-center justify-center gap-4 print:w-full">
+          <div className="print:flex flex flex-col print:flex-row items-center justify-center gap-20 print:w-full">
             <Link href="/" className=" block">
               <Image
                 src={listOfdata?.profile_photo_1}
-                 loading="eager"
-                 priority={true}
+                loading="eager"
+                priority={true}
                 height={1200}
                 width={1200}
                 alt="Profile Picture"
@@ -44,19 +44,16 @@ const IntroCvPortrait = ({listOfdata, urlInfo, hideLinks}) => {
                 ))}
               </h3>
               {!hideLinks &&
-              <div className="flex items-center justify-center">
-                <DesignationDomain />
-              </div>
+                <div className="flex items-center mt-8 justify-center">
+                  <DesignationDomain />
+                </div>
               }
             </div>
           </div>
           <div className="flex flex-col items-center justify-center print:w-full">
             {/* Info */}
             <p className="my-[4rem] text-[2rem] leading-[2.6rem] text-heading font-normal text-center">
-              Reach out today, and I’ll share my comprehensive professional
-              profile. It includes essential details that help potential
-              collaborators understand my expertise, expectations, and how I can
-              seamlessly integrate into your team or organization.
+              {listOfdata?.ai_short_description}
             </p>
           </div>
         </div>
@@ -80,119 +77,119 @@ const IntroCvPortrait = ({listOfdata, urlInfo, hideLinks}) => {
         <div className="flex w-full gap-[2rem] items-start px-[3rem]">
           {/* Email, Website, Phone, Location */}
           {!hideLinks ? (
-          <div className="mb-[4rem] w-full flex flex-col gap-[2.6rem]">
-            {contactDetails(listOfdata, urlInfo)
-              .filter(({ alt }) => (urlInfo?.u ? alt === "Location" : true))
-              .map((contact, index) => (
-                <div key={index} className="flex items-center gap-[1.78rem]">
-                  {contact.iconSrc && (
-                    <div
-                      className="h-[35px] w-[35px] bg-[#E2E6EE] 
+            <div className="mb-[4rem] w-full flex flex-col gap-[2.6rem]">
+              {contactDetails(listOfdata, urlInfo)
+                .filter(({ alt }) => (urlInfo?.u ? alt === "Location" : true))
+                .map((contact, index) => (
+                  <div key={index} className="flex items-center gap-[1.78rem]">
+                    {contact.iconSrc && (
+                      <div
+                        className="h-[35px] w-[35px] bg-[#E2E6EE] 
                       rounded-[50%] relative">
-                      <Image
-                        src={contact.iconSrc}
-                         loading="eager"
-                         priority={true}
-                        height={24}
-                        width={24}
-                        alt={contact.alt}
-                        className="h-[24px] w-[24px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-                      />
+                        <Image
+                          src={contact.iconSrc}
+                          loading="eager"
+                          priority={true}
+                          height={24}
+                          width={24}
+                          alt={contact.alt}
+                          className="h-[24px] w-[24px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                        />
+                      </div>
+                    )}
+                    <div className="flex flex-col gap-[0.45rem]">
+                      <p className="text-[1.33rem] leading-[1.77rem] text-[#3E3E3E]">
+                        {contact.type}
+                      </p>
+                      <Link
+                        href={contact.href || "#"}
+                        className="hover:text-primary text-[1.55rem] font-medium leading-[2rem] text-heading"
+                      >
+                        {contact.value}
+                      </Link>
                     </div>
-                  )}
-                  <div className="flex flex-col gap-[0.45rem]">
-                    <p className="text-[1.33rem] leading-[1.77rem] text-[#3E3E3E]">
-                      {contact.type}
-                    </p>
-                    <Link
-                      href={contact.href || "#"}
-                      className="hover:text-primary text-[1.55rem] font-medium leading-[2rem] text-heading"
-                    >
-                      {contact.value}
-                    </Link>
                   </div>
-                </div>
-              ))}
-          </div>
-          ): (
+                ))}
+            </div>
+          ) : (
             <div className="mb-[4rem] w-full grid grid-cols-2 gap-[2.6rem]">
-            {contactDetails(listOfdata, urlInfo)
-              .filter(({ alt }) => (urlInfo?.u ? alt === "Location" : true))
-              .map((contact, index) => (
-                <div key={index} className="flex items-center gap-[1.78rem]">
-                  {contact.iconSrc && (
-                    <div
-                      className="h-[35px] w-[35px] bg-[#E2E6EE] 
+              {contactDetails(listOfdata, urlInfo)
+                .filter(({ alt }) => (urlInfo?.u ? alt === "Location" : true))
+                .map((contact, index) => (
+                  <div key={index} className="flex items-center gap-[1.78rem]">
+                    {contact.iconSrc && (
+                      <div
+                        className="h-[35px] w-[35px] bg-[#E2E6EE] 
                       rounded-[50%] relative">
-                      <Image
-                        src={contact.iconSrc}
-                         loading="eager"
-                         priority={true}
-                        height={24}
-                        width={24}
-                        alt={contact.alt}
-                        className="h-[24px] w-[24px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-                      />
+                        <Image
+                          src={contact.iconSrc}
+                          loading="eager"
+                          priority={true}
+                          height={24}
+                          width={24}
+                          alt={contact.alt}
+                          className="h-[24px] w-[24px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                        />
+                      </div>
+                    )}
+                    <div className="flex flex-col gap-[0.45rem]">
+                      <p className="text-[1.33rem] leading-[1.77rem] text-[#3E3E3E]">
+                        {contact.type}
+                      </p>
+                      <p
+                        className="hover:text-primary text-[1.55rem] font-medium leading-[2rem] text-heading"
+                      >
+                        {contact.value}
+                      </p>
                     </div>
-                  )}
-                  <div className="flex flex-col gap-[0.45rem]">
-                    <p className="text-[1.33rem] leading-[1.77rem] text-[#3E3E3E]">
-                      {contact.type}
-                    </p>
-                    <p
-                      className="hover:text-primary text-[1.55rem] font-medium leading-[2rem] text-heading"
-                    >
-                      {contact.value}
-                    </p>
                   </div>
-                </div>
-              ))}
-          </div>
+                ))}
+            </div>
           )}
 
           {/* Work Proof */}
           {!hideLinks &&
-          <div className="mb-[4rem] w-full flex flex-col gap-[2.6rem]">
-            {/* Title */}
-            <h3 className="text-heading text-[1.33rem] font-medium leading-[1.77rem]">
-              Work Proof
-            </h3>
+            <div className="mb-[4rem] w-full flex flex-col gap-[2.6rem]">
+              {/* Title */}
+              <h3 className="text-heading text-[1.33rem] font-medium leading-[1.77rem]">
+                Work Proof
+              </h3>
 
-            {/* Iterating on Icons */}
-            {socialLinks(listOfdata)
-              .filter(({ alt }) =>
-                urlInfo?.u
-                  ? alt === "Github" || alt === "Upwork"
-                  : true
-              )
-              .slice(0, 3)
-              .map((social, index) => (
-                <div key={index} className="flex items-center gap-[1.78rem]">
-                  {social.iconSrc && (
-                    <Image
-                      src={social.iconSrc}
-                       loading="eager"
-                       priority={true}
-                      height={35}
-                      width={35}
-                      alt={social.alt}
-                      className="h-[35px] w-[35px]"
-                    />
-                  )}
-                  <div className="flex flex-col gap-[0.45rem]">
-                    <p className="text-[1.33rem] leading-[1.77rem] text-[#3E3E3E]">
-                      {social.platform}
-                    </p>
-                    <Link
-                      href={social.href || "#"}
-                      className="break-all hover:text-primary text-[1.55rem] font-medium leading-[2rem] text-heading"
-                    >
-                      {social.username}
-                    </Link>
+              {/* Iterating on Icons */}
+              {socialLinks(listOfdata)
+                .filter(({ alt }) =>
+                  urlInfo?.u
+                    ? alt === "Github" || alt === "Upwork"
+                    : true
+                )
+                .slice(0, 3)
+                .map((social, index) => (
+                  <div key={index} className="flex items-center gap-[1.78rem]">
+                    {social.iconSrc && (
+                      <Image
+                        src={social.iconSrc}
+                        loading="eager"
+                        priority={true}
+                        height={35}
+                        width={35}
+                        alt={social.alt}
+                        className="h-[35px] w-[35px]"
+                      />
+                    )}
+                    <div className="flex flex-col gap-[0.45rem]">
+                      <p className="text-[1.33rem] leading-[1.77rem] text-[#3E3E3E]">
+                        {social.platform}
+                      </p>
+                      <Link
+                        href={social.href || "#"}
+                        className="break-all hover:text-primary text-[1.55rem] font-medium leading-[2rem] text-heading"
+                      >
+                        {social.username}
+                      </Link>
+                    </div>
                   </div>
-                </div>
-              ))}
-          </div>
+                ))}
+            </div>
           }
         </div>
       </div>

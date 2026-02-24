@@ -136,16 +136,18 @@ const CV2Experiences: React.FC<Props> = ({
               <div className="mt-[0.4rem] text-[1.4rem] text-paragraph1">
                 {exp.location}
               </div>
-              {exp.type && (
-                <div className="text-[1.3rem] text-primary rounded-[0.4rem]   font-medium capitalize">
-                  {exp.type}
-                </div>
-              )}
-              {exp.nature && (
-                <div className="text-[1.3rem] text-primary rounded-[0.4rem]   font-medium capitalize">
-                  {exp.nature}
-                </div>
-              )}
+
+              <div className="text-[1.3rem] text-primary rounded-[0.4rem]   font-medium capitalize mt-2">
+                {(exp.type || exp.nature) && (
+                  <span className="text-primary font-medium ">
+                    {[exp.type, exp.nature].filter(Boolean).join(", ")}
+                  </span>
+                )}
+              </div>
+
+
+
+
             </div>
             <div className="flex-1 border-l border-[#E5E7EB] pl-[1.6rem] relative">
               <span className="absolute -left-[0.7rem] top-0 h-[1.2rem] w-[1.2rem] rounded-full bg-primary" />

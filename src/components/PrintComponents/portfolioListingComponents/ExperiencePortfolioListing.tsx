@@ -41,7 +41,7 @@ export const SingleExperienceItemPortfolio = ({
                   <div className="flex gap-[1rem] items-center w-full justify-between">
                     <div className="flex items-center gap-2">
                       {experience?.thumbnail && (
-                        <div className="h-[3.5rem] w-[3.5rem] bg-[#D1E9FF] rounded-[0.4rem] relative">
+                        <div className="h-[3.5rem] w-[3.5rem]  rounded-[0.4rem] relative">
                           <Image
                             src={experience?.thumbnail}
                             height={26}
@@ -96,9 +96,9 @@ export const SingleExperienceItemPortfolio = ({
                     {isNaN(new Date(experience.ending_Date).getTime())
                       ? experience.ending_Date
                       : new Date(experience.ending_Date).toLocaleString("en-US", {
-                          month: "short",
-                          year: "numeric",
-                        })}
+                        month: "short",
+                        year: "numeric",
+                      })}
                   </h1>
                 </div>
 

@@ -155,7 +155,7 @@ const HomePortfolioCard: React.FC<HomePortfolioCardProps> = ({
   };
 
   return (
-    <div className="w-full flex flex-col items-center gap-6 mt-[2rem]">
+    <div className="w-full flex flex-col items-center gap-6 mt-[0.5rem]">
       {topTwoPortfolios.map((portfolio, index) => {
         const skills = skillsGrouping(
           portfolio.skills.length < 15
@@ -166,18 +166,18 @@ const HomePortfolioCard: React.FC<HomePortfolioCardProps> = ({
         // Get flattened skills array and calculate how many to show
         const flatSkills = Object.values(skills).flat();
         const skillsToDisplay = calculateSkillsToShow(flatSkills);
-        const visibleSkills = flatSkills.slice(0, skillsToDisplay);
-        const hasMoreSkills = flatSkills.length > skillsToDisplay;
+        const visibleSkills = flatSkills.slice(0, 16);
+        const hasMoreSkills = flatSkills.length > 16;
 
         return (
           <div
             key={index}
             className="flex flex-row rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden w-full bg-white"
           >
-            <div className="flex bg-white rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden h-full w-full p-[3rem] gap-[4rem] items-start">
+            <div className="flex flex-col bg-white rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden h-full w-full p-[3rem] gap-[1rem] items-start">
               {/* Content Section */}
-              <div className="w-1/2 flex flex-col items-center justify-center">
-                <div className="flex items-start w-full flex-col justify-between h-full">
+              <div className=" flex gap-14  items-center justify-between">
+                <div className="w-1/2 flex items-start  flex-col justify-between h-full">
                   <div>
                     <div className="flex gap-[2rem] mb-[1rem]">
                       {hideLinks ? (
@@ -204,12 +204,12 @@ const HomePortfolioCard: React.FC<HomePortfolioCardProps> = ({
                       {isNaN(new Date(portfolio.ending_Date).getTime())
                         ? portfolio.ending_Date
                         : new Date(portfolio.ending_Date).toLocaleString(
-                            "en-US",
-                            {
-                              month: "short",
-                              year: "numeric",
-                            },
-                          )}
+                          "en-US",
+                          {
+                            month: "short",
+                            year: "numeric",
+                          },
+                        )}
                     </p>
                     <div>
                       {/* <p
@@ -241,32 +241,87 @@ const HomePortfolioCard: React.FC<HomePortfolioCardProps> = ({
                     </div>
                   </div>
 
-                  <hr className="w-full my-[2rem] h-px bg-border" />
-                  <div className="text-black text-[1.8rem] leading-[2.8rem] font-medium w-[520px] overflow-hidden">
-                    <p className="mb-[1rem]">
-                      AREAS OF EXPERTISE I'VE WORKED IN:
-                    </p>
-                    <hr className="w-full my-[2rem] h-px bg-border" />
 
-                    <div className="flex items-center gap-[0.7rem] flex-wrap">
-                      {visibleSkills.map((skill: SkillType, i: number) => (
-                        <SkillComponent
-                          key={i}
-                          skill={skill}
-                          index={i}
-                          hideLinks={hideLinks}
-                        />
-                      ))}
+                </div>
 
-                      {hasMoreSkills && !hideLinks && (
-                        <Link
-                          href={`/?portfolioId=${portfolio.id}&scrollTo=myWork&nav=portfolio`}
-                          className="hover:bg-white bg-primary text-white hover:text-primary capitalize text-center text-primary text-[1.3rem] font-medium py-[0.4rem] px-[2rem] flex items-center justify-center gap-[8px] rounded-[5rem] shadow opacity-0 animate-fadeIn relative group border border-transparent hover:border-primary"
-                        >
-                          See More
-                        </Link>
-                      )}
+                {/* Image Section */}
+                <div className=" flex w-1/2  flex-col items-center justify-center">
+                  {portfolio?.thumbnail && (
+                    <div className="relative w-full h-[300px] rounded-[1.2rem] overflow-hidden">
+                      <Image
+                        src={
+                          portfolio?.title === "Velzon"
+                            ? "/VelzonThumbnail.PNG"
+                            : portfolio?.title === "Beyond Competitions"
+                              ? "/BeyondCompetetionThumbnail.webp"
+                              : portfolio?.thumbnail ||
+                              "/images/dummy_port_img.webp"
+                        }
+                        alt="Project Image"
+                        fill
+                        sizes="100vw, 30rem"
+                        loading="eager"
+                        priority={true}
+                        className="rounded-[1.2rem] object-fill w-full border !h-[300px] border-border border-solid"
+                      />
                     </div>
+                  )}
+
+                  {hideLinks ? null : (
+                    <Link
+                      href={`/portfolio?sectionId=${portfolio.id}&openGallery=true`}
+                      className="text-white py-[6px] mt-[17px] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent hover:border-primary duration-300 max-lg:w-full text-center rounded-[0.6rem] relative max-w-max text-nowrap"
+                    >
+                      <span className="relative z-10 flex items-center justify-center gap-2">
+                        Explore the Gallery
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                      <span className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                    </Link>
+                  )}
+                </div>
+
+
+              </div>
+
+              <div>
+
+                <hr className="w-full my-[2rem] h-px bg-border" />
+                <div className="text-black text-[1.8rem] leading-[2.8rem] font-medium w-full overflow-hidden">
+                  <p className="mb-[1rem]">
+                    AREAS OF EXPERTISE I'VE WORKED IN:
+                  </p>
+                  {/* <hr className="w-full my-[2rem] h-px bg-border" /> */}
+
+                  <div className="flex items-center gap-[0.7rem] flex-wrap">
+                    {visibleSkills.map((skill: SkillType, i: number) => (
+                      <SkillComponent
+                        key={i}
+                        skill={skill}
+                        index={i}
+                        hideLinks={hideLinks}
+                      />
+                    ))}
+
+                    {hasMoreSkills && !hideLinks && (
+                      <Link
+                        href={`/?portfolioId=${portfolio.id}&scrollTo=myWork&nav=portfolio`}
+                        className="hover:bg-white bg-primary text-white hover:text-primary capitalize text-center text-primary text-[1.3rem] font-medium py-[0.4rem] px-[2rem] flex items-center justify-center gap-[8px] rounded-[5rem] shadow opacity-0 animate-fadeIn relative group border border-transparent hover:border-primary"
+                      >
+                        See More
+                      </Link>
+                    )}
                   </div>
                 </div>
 
@@ -302,53 +357,6 @@ const HomePortfolioCard: React.FC<HomePortfolioCardProps> = ({
                 )}
               </div>
 
-              {/* Image Section */}
-              <div className="w-1/2 flex flex-col items-center justify-center">
-                {portfolio?.thumbnail && (
-                  <div className="relative w-full h-[300px] rounded-[1.2rem] overflow-hidden">
-                    <Image
-                      src={
-                        portfolio?.title === "Velzon"
-                          ? "/VelzonThumbnail.PNG"
-                          : portfolio?.title === "Beyond Competitions"
-                            ? "/BeyondCompetetionThumbnail.webp"
-                            : portfolio?.thumbnail ||
-                              "/images/dummy_port_img.webp"
-                      }
-                      alt="Project Image"
-                      fill
-                      sizes="100vw, 30rem"
-                      loading="eager"
-                      priority={true}
-                      className="rounded-[1.2rem] object-fill w-full border !h-[300px] border-border border-solid"
-                    />
-                  </div>
-                )}
-
-                {hideLinks ? null : (
-                  <Link
-                    href={`/portfolio?sectionId=${portfolio.id}&openGallery=true`}
-                    className="text-white py-[6px] mt-[17px] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent hover:border-primary duration-300 max-lg:w-full text-center rounded-[0.6rem] relative max-w-max text-nowrap"
-                  >
-                    <span className="relative z-10 flex items-center justify-center gap-2">
-                      Explore the Gallery
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </span>
-                    <span className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                  </Link>
-                )}
-              </div>
             </div>
           </div>
         );

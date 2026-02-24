@@ -229,19 +229,7 @@ const CV3 = ({ params }: { params: any }) => {
             {/* Skills */}
             <CV3Skills sortedSkills={sortedSkills} />
 
-            {/* Find Me Online */}
-            <div className="mb-6">
-              <h2 className="text-[20px] font-bold text-black mb-4 border-b-2 border-black ">FIND ME ONLINE</h2>
 
-              <div className="flex items-start gap-2">
-                <span className="text-blue-600 text-lg"><Github className='w-8 h-8' /></span>
-                <div>
-                  <span className=" font-bold text-[15px]">Github</span>
-                  <p className="list-disc  text-[13px] text-gray-700 space-y-1 font-medium leading-normal mt-3">{listOfdata?.github}</p>
-
-                </div>
-              </div>
-            </div>
 
             {/* Interests */}
             <div className="mb-6">

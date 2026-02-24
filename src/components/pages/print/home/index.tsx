@@ -118,6 +118,15 @@ const Home_p = ({ params }: { params: any }) => {
     allSkills: listOfskills,
   });
 
+  const SkillSectionHeading =
+    listOfdata?.website_purpose === "upwork"
+      ? "Expert Development Services"
+      : listOfdata?.website_purpose === "startup"
+        ? "Full-Cycle Product Solutions"
+        : listOfdata?.website_purpose === "contract"
+          ? "Technical Specializations"
+          : "Tech Stack";
+
   const domain = listOfdata?.domain;
 
   const skills: {
@@ -190,7 +199,7 @@ const Home_p = ({ params }: { params: any }) => {
     ...[
       {
         componentType: "dynamic" as const,
-        badgeTitle: "Skills",
+        badgeTitle: `${SkillSectionHeading}`,
         component: (
           <HomeSkillsSection
             autoExpandOnParam={true}
@@ -200,6 +209,7 @@ const Home_p = ({ params }: { params: any }) => {
             // portfolioId={listOfdata && listOfdata?.portfolios_ids[0]?.id}
             useLinks={true}
             hideLinks={urlInfo?.hideLinks}
+
           />
         ),
       },
@@ -229,7 +239,7 @@ const Home_p = ({ params }: { params: any }) => {
           componentType: "static" as const,
           badgeTitle: "Explore My Technical Endeavors",
           component: (
-            <div className="w-full p-[2rem]">
+            <div className="w-full p-[1rem]">
               <HomePortfolioCard
                 portfolios={listOfdata.portfolios_ids}
                 companyType={listOfdata.companytype}
@@ -253,7 +263,7 @@ const Home_p = ({ params }: { params: any }) => {
           componentType: "static" as const,
           badgeTitle: "Explore My Technical Endeavors",
           component: (
-            <div className="w-full p-[2rem]">
+            <div className="w-full p-[1rem]">
               <HomePortfolioCard
                 portfolios={listOfdata.portfolios_ids}
                 companyType={listOfdata.companytype}
@@ -277,7 +287,7 @@ const Home_p = ({ params }: { params: any }) => {
           componentType: "static" as const,
           badgeTitle: "Explore My Technical Endeavors",
           component: (
-            <div className="w-full p-[2rem]">
+            <div className="w-full p-[1rem]">
               <HomePortfolioCard
                 portfolios={listOfdata.portfolios_ids}
                 companyType={listOfdata.companytype}
@@ -310,6 +320,7 @@ const Home_p = ({ params }: { params: any }) => {
               start={0}
               end={2}
               hideLinks={urlInfo?.hideLinks}
+              bulletCount={3}
             />
           ),
         },
@@ -330,6 +341,7 @@ const Home_p = ({ params }: { params: any }) => {
                 start={2}
                 end={4}
                 hideLinks={urlInfo?.hideLinks}
+                bulletCount={2}
               />
               {!urlInfo?.hideLinks && (
                 <div className="flex items-center justify-center">

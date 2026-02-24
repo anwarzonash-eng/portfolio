@@ -43,19 +43,19 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
   const resourcesDropdownButtonRef = useRef(null);
   const resourcesDivRef = useRef(null);
   const servicesDivRef = useRef(null);
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
 
   const headerLinks: HeaderLink[] = [
     { title: "Home", src: "/" },
     ...(process.env.IS_SERVICES_ALLOWED === "true" &&
-    listOfdata?.services &&
-    listOfdata?.services?.length > 0
+      listOfdata?.services &&
+      listOfdata?.services?.length > 0
       ? [{ title: "Cover Letter", src: "/offer" }]
       : []),
 
     ...(process.env.IS_SERVICES_ALLOWED === "true" &&
-    listOfdata?.services &&
-    listOfdata?.services?.length > 0
+      listOfdata?.services &&
+      listOfdata?.services?.length > 0
       ? [{ title: "Services", src: "#", isDropdown: true }]
       : []),
     { title: "Portfolios ", src: "/portfolio" },
@@ -295,9 +295,8 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
                                 height={24}
                                 width={24}
                                 alt="Dropdown"
-                                className={`cursor-pointer duration-300 ${
-                                  isServicesOpen ? "rotate-180" : "rotate-0"
-                                }`}
+                                className={`cursor-pointer duration-300 ${isServicesOpen ? "rotate-180" : "rotate-0"
+                                  }`}
                               />
                             </div>
 
@@ -305,11 +304,10 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
                             {isServicesOpen && (
                               <nav
                                 ref={servicesDivRef}
-                                className={`rounded-[0.8rem] duration-300 shadow-lg bg-white absolute top-[4rem] left-[50%] ${
-                                  urlInfo?.u
-                                    ? "translate-x-[-70%]"
-                                    : "translate-x-[-50%]"
-                                } z-50
+                                className={`rounded-[0.8rem] duration-300 shadow-lg bg-white absolute top-[4rem] left-[50%] ${urlInfo?.u
+                                  ? "translate-x-[-70%]"
+                                  : "translate-x-[-50%]"
+                                  } z-50
                                 ${isServicesOpen ? "opacity-100" : "opacity-0"}
                                 p-[2rem] w-[90rem]`}
                               >
@@ -366,12 +364,11 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
                         ) : (
                           <div
                             key={index}
-                            className={`hover:text-primary duration-300 ${
-                              pathname === link.src ||
+                            className={`hover:text-primary duration-300 ${pathname === link.src ||
                               (link.src !== "/" && pathname.includes(link.src))
-                                ? "font-bold text-primary"
-                                : ""
-                            }`}
+                              ? "font-bold text-primary"
+                              : ""
+                              }`}
                           >
                             <Link prefetch={true} href={link.src}>
                               {link.title}
@@ -397,23 +394,21 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
                           height={24}
                           width={24}
                           alt="Dropdown"
-                          className={`cursor-pointer duration-300 ${
-                            isResourceOpen ? "rotate-180" : "rotate-0"
-                          }`}
+                          className={`cursor-pointer duration-300 ${isResourceOpen ? "rotate-180" : "rotate-0"
+                            }`}
                         />{" "}
                       </div>
                       {/* Positioned DropDown Menu */}
                       {isResourceOpen && (
                         <nav
                           ref={resourcesDivRef}
-                          className={`rounded-[0.8rem] duration-300 shadow-md bg-white absolute top-[4rem] left-[50%] ${
-                            urlInfo?.u
-                              ? "translate-x-[-70%]"
-                              : "translate-x-[-50%]"
-                          } z-50 p-[2rem] text-primary text-[1.6rem] font-normal leading-normal flex flex-col gap-[1.5rem] w-[40rem]`}
+                          className={`rounded-[0.8rem] duration-300 shadow-md bg-white absolute top-[4rem] left-[50%] ${urlInfo?.u
+                            ? "translate-x-[-70%]"
+                            : "translate-x-[-50%]"
+                            } z-50 p-[2rem] text-primary text-[1.6rem] font-normal leading-normal flex flex-col gap-[1.5rem] w-[40rem]`}
                         >
                           <div>
-                          <UpworkIdentity data={listOfdata} columnFormat={true} />
+                            <UpworkIdentity data={listOfdata} columnFormat={true} Header={true} />
                           </div>
                           {/* Work Proof */}
                           <div className="w-full">
@@ -520,11 +515,10 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
                 />
                 {/* Positioned Sidebar */}
                 <div
-                  className={`fixed top-[7.2rem] w-[35rem] right-0 z-[100] h-full bg-white shadow-lg  duration-300  ${
-                    sideBarOpen
-                      ? "translate-x-0 opacity-100"
-                      : "translate-x-[30rem] opacity-0"
-                  }`}
+                  className={`fixed top-[7.2rem] w-[35rem] right-0 z-[100] h-full bg-white shadow-lg  duration-300  ${sideBarOpen
+                    ? "translate-x-0 opacity-100"
+                    : "translate-x-[30rem] opacity-0"
+                    }`}
                 >
                   <div className="overflow-y-auto h-full">
                     {/* Navinks and Buttons */}
@@ -551,9 +545,8 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
                                     alt="dropMenu"
                                     height={24}
                                     width={24}
-                                    className={`cursor-pointer duration-300 ${
-                                      isServicesOpen ? "rotate-180" : "rotate-0"
-                                    }`}
+                                    className={`cursor-pointer duration-300 ${isServicesOpen ? "rotate-180" : "rotate-0"
+                                      }`}
                                   />
                                 </div>
                                 {/* Positioned DropDown Menu */}
@@ -588,13 +581,12 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
                             ) : (
                               <div
                                 key={index}
-                                className={`hover:text-primary duration-300  ${
-                                  pathname === link.src ||
+                                className={`hover:text-primary duration-300  ${pathname === link.src ||
                                   (link.src !== "/" &&
                                     pathname.includes(link.src))
-                                    ? "font-extrabold text-primary"
-                                    : null
-                                }`}
+                                  ? "font-extrabold text-primary"
+                                  : null
+                                  }`}
                                 onClick={() => setSideBarOpen(!sideBarOpen)}
                               >
                                 <Link prefetch={true} href={link.src}>
@@ -618,9 +610,8 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
                                 alt="dropMenu"
                                 height={24}
                                 width={24}
-                                className={`cursor-pointer duration-300 ${
-                                  isResourceOpen ? "rotate-180" : "rotate-0"
-                                }`}
+                                className={`cursor-pointer duration-300 ${isResourceOpen ? "rotate-180" : "rotate-0"
+                                  }`}
                               />
                             </div>
                             {/* Positioned DropDown Menu */}
@@ -629,7 +620,7 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
                                 className="rounded-[0.8rem] duration-300 shadow-md bg-white z-50 p-[2rem] text-primary text-[1.6rem] font-normal leading-normal flex flex-col gap-[1.5rem] w-full"
                               >
                                 <div>
-                                  <UpworkIdentity data={listOfdata} columnFormat={true} />
+                                  <UpworkIdentity data={listOfdata} columnFormat={true} Header={true} />
                                 </div>
                                 <div className="w-full">
                                   <div className="w-full flex items-center gap-[1.4rem]">

@@ -23,6 +23,8 @@ interface AreasOfExpertiesSkillComponentProps {
 const AreasOfExpertiesSkillComponent: React.FC<
   AreasOfExpertiesSkillComponentProps
 > = ({ skill, index, groupIndex, variant = "small", hideLinks }) => {
+
+
   const animationDelay = `${index * 0.1}s`;
 
   // Define style variants
@@ -63,9 +65,8 @@ const AreasOfExpertiesSkillComponent: React.FC<
     <div key={key}>
       <span
         style={{ animationDelay }}
-        className={`${baseClasses} ${
-          variant !== "different" ? "inline-flex" : ""
-        }`}
+        className={`${baseClasses} ${variant !== "different" ? "inline-flex" : ""
+          }`}
       >
         {skill.title}
       </span>
@@ -81,7 +82,18 @@ const ExperienceCvPortrait = ({
   hideLinks,
   start = 0,
   end,
+  bulletCount
 }) => {
+
+  // helper to keep only first `limit` <li> elements in any HTML string
+  const truncateListItems = (html, limit = 3) => {
+    if (!html) return html;
+    let count = 0;
+    return html.replace(/<li[^>]*>[\s\S]*?<\/li>/gi, (match) => {
+      count += 1;
+      return count <= limit ? match : "";
+    });
+  };
   // Guard against null or undefined experiences and sort them
   const sortedExperiences = React.useMemo(() => {
     if (!listOfdata?.experiences_ids) {
@@ -106,16 +118,16 @@ const ExperienceCvPortrait = ({
     if (!skills || skills.length === 0) return [];
 
     // Check if any of the first 6 skills has a long name (more than 12 characters)
-    const first6Skills = skills.slice(0, 6);
-    const hasLongSkillNames = first6Skills.some(
+    const first9Skills = skills.slice(0, 9);
+    const hasLongSkillNames = first9Skills.some(
       (skill) => skill.title && skill.title.length > 12,
     );
 
     // If there are long names, show 5 skills to leave room for button
     // Otherwise, show 6 skills
-    const skillsToShow = hasLongSkillNames ? 5 : 6;
+    const skillsToShow = hasLongSkillNames ? 8 : 9;
 
-    return showMoreSkills[index] ? skills : skills.slice(0, skillsToShow);
+    return showMoreSkills[index] ? skills : skills.slice(0, 11);
   };
 
   return (
@@ -126,24 +138,27 @@ const ExperienceCvPortrait = ({
 
         // Determine if "Show More Skills" button should be shown
         const totalSkills = experience?.skills?.length || 0;
-        const first6Skills = experience?.skills?.slice(0, 6) || [];
-        const hasLongSkillNames = first6Skills.some(
+        const first9Skills = experience?.skills?.slice(0, 8) || [];
+        const hasLongSkillNames = first9Skills.some(
           (skill) => skill.title && skill.title.length > 12,
         );
-        const skillsDisplayed = hasLongSkillNames ? 5 : 6;
+        const skillsDisplayed = hasLongSkillNames ? 7 : 8;
         const shouldShowMoreButton = totalSkills > skillsDisplayed;
+
+        // truncate long_description to first 4 <li> elements before modifying content
+        const descriptionHtml = truncateListItems(experience?.long_description || "", bulletCount);
 
         return (
           <div
             key={experience.id}
-            className="bg-white p-[1.4rem] rounded-[1rem] shadow w-full relative"
+            className={`${experience?.company_name !== "Upwork" ? "bg-white" : "bg-gradient-to-br from-cyan-50 via-teal-50 to-emerald-50 border-2 border-[#295050ae]"} p-[1.4rem] rounded-[1rem] shadow w-full relative`}
           >
             <div className="flex items-center flex-wrap text-nowrap gap-[1.5rem] md:justify-between">
               {/* About Content */}
               <div className="flex gap-[1rem] items-center  w-full justify-between">
                 <div className="flex items-center gap-2">
                   {experience?.thumbnail && (
-                    <div className="h-[3.5rem] w-[3.5rem] bg-[#D1E9FF] rounded-[0.4rem] relative">
+                    <div className="h-[3.5rem] w-[3.5rem]  rounded-[0.4rem] relative">
                       <Image
                         src={experience?.thumbnail}
                         loading="eager"
@@ -159,29 +174,35 @@ const ExperienceCvPortrait = ({
                     <p className="text-[1.2rem] font-normal text-paragraph1">
                       {experience?.company_name}
                     </p>
-                    <h3 className="text-[1.4rem] font-medium text-heading">
-                      {experience?.title}
+                    <h3 className="text-[1.2rem] font-medium text-heading">
+                      {experience?.title}{" "}
+                      {experience?.company_name !== "Upwork" &&
+                        (experience?.type || experience?.nature) && (
+                          <span className="font-semibold text-primary">
+                            ({[experience?.type, experience?.nature].filter(Boolean).join(", ")})
+                          </span>
+                        )}
                     </h3>
                   </div>
                 </div>
 
                 {/* Link */}
                 {!hideLinks &&
-                <div className="flex justify-end w-auto">
-                  <div className="flex flex-col-reverse gap-[1rem] max-w-max">
-                    {experience &&
-                      experience.company_website.includes("upwork") && (
-                        <div className="flex items-center gap-2">
-                          <Link
-                            href={experience.company_website ?? "#"}
-                            target="_blank"
-                            className="
-                                bg-black text-white border border-transparent hover:border-primary hover:bg-white hover:text-primary duration-300 text-nowrap
+                  <div className="flex justify-end w-auto">
+                    <div className="flex flex-col-reverse gap-[1rem] max-w-max">
+                      {experience &&
+                        experience.company_website.includes("upwork") && (
+                          <div className="flex items-center gap-2">
+                            <Link
+                              href={experience.company_website ?? "#"}
+                              target="_blank"
+                              className="
+                                bg-[#00473c] text-white border border-transparent hover:border-primary hover:bg-white hover:text-primary duration-300 text-nowrap
                                 flex items-center justify-center
                                 text-[1.4rem] font-medium rounded-[20rem] p-[1rem] py-[0.5rem] group"
-                          >
-                            <span>Check My</span>
-                            {/* <div className="h-[2.5rem] w-[2.5rem] rounded-full relative mx-2 inline-block">
+                            >
+                              <span>Check My</span>
+                              {/* <div className="h-[2.5rem] w-[2.5rem] rounded-full relative mx-2 inline-block">
                               <Image
                                 src="/images/upworkText.svg"
                                 alt="Upwork Logo"
@@ -193,73 +214,80 @@ const ExperienceCvPortrait = ({
                                   absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
                               />
                             </div> */}
-                            <div className="h-[3.5rem] w-[10rem] relative mx-2 inline-block overflow-hidden rounded-[10rem] px-2 bg-white">
-                              <Image
-                                src="/images/upworkText.svg"
-                                alt="Upwork Logo"
-                                width={100}
-                                height={35}
-                                loading="eager"
-                                priority={true}
-                                className="h-full w-full object-contain object-center p-[0.5rem]
+                              <div className="h-[3.5rem] w-[10rem] relative mx-2 inline-block overflow-hidden rounded-[10rem] px-2 bg-white">
+                                <Image
+                                  src="/images/upworkText.svg"
+                                  alt="Upwork Logo"
+                                  width={100}
+                                  height={35}
+                                  loading="eager"
+                                  priority={true}
+                                  className="h-full w-full object-contain object-center p-[0.5rem]
                                                         border-transparent absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-                              />
-                            </div>
-                            <span>Profile</span>
+                                />
+                              </div>
+                              <span>Profile</span>
+                            </Link>
+                          </div>
+                        )}
+
+
+                      {!experience.company_website.includes("upwork") && <p className="mb-[1rem] text-primary text-[1.2rem] leading-[2rem] ">
+                        {new Date(experience.starting_date).toLocaleString("en-US", {
+                          month: "short",
+                          year: "numeric",
+                        })}{" "}
+                        -{" "}
+                        {isNaN(new Date(experience.ending_Date).getTime())
+                          ? experience.ending_Date
+                          : new Date(experience.ending_Date).toLocaleString("en-US", {
+                            month: "short",
+                            year: "numeric",
+                          })}
+                      </p>}
+                      {/* {!experience.company_website.includes("upwork") && (
+                        <div className="bg-white border border-[#E2E6EE] text-[#47516B] rounded-[2rem] text-[1.5rem] font-medium leading-[0.8rem] hover:bg-sectionBG hover:text-white duration-300">
+                          <Link
+                            href={experience.company_website}
+                            className="flex gap-2 items-center p-4"
+                          >
+                            {
+                              experience.company_website
+                                .replace(/^(https?:\/\/)?(www\.)?/, "")
+                                .split("/")[0]
+                            }
                           </Link>
                         </div>
-                      )}
-                    {!experience.company_website.includes("upwork") && (
-                      <div className="bg-white border border-[#E2E6EE] text-[#47516B] rounded-[2rem] text-[1.5rem] font-medium leading-[0.8rem] hover:bg-sectionBG hover:text-white duration-300">
-                        <Link
-                          href={experience.company_website}
-                          className="flex gap-2 items-center p-4"
-                        >
-                          {
-                            experience.company_website
-                              .replace(/^(https?:\/\/)?(www\.)?/, "")
-                              .split("/")[0]
-                          }
-                        </Link>
-                      </div>
-                    )}
+                      )} */}
+                    </div>
                   </div>
-                </div>
                 }
               </div>
-              <h1 className="mb-[1rem] text-primary text-[1.8rem] leading-[2rem] font-bold">
-                {new Date(experience.starting_date).toLocaleString("en-US", {
-                  month: "short",
-                  year: "numeric",
-                })}{" "}
-                -{" "}
-                {isNaN(new Date(experience.ending_Date).getTime())
-                  ? experience.ending_Date
-                  : new Date(experience.ending_Date).toLocaleString("en-US", {
-                      month: "short",
-                      year: "numeric",
-                    })}
-              </h1>
+
             </div>
 
             <div className="w-full">
               <p
-                className="mt-[1rem] list-div text-[1.4rem] font-medium text-paragraph1 line-clamp-2"
+                className="mt-[1rem] g-m-0 list-div text-[1.2rem] "
                 dangerouslySetInnerHTML={{
                   __html: modifiedContent(
-                    experience?.short_description,
+                    descriptionHtml,
                     filteredSkills,
                     listOfdata,
                   ),
                 }}
               />
-              {!hideLinks && (
-                <Link
-                  href={`/cv?sectionId=experienceSection&experienceId=${experience.id}`} // Navigate to CV page with experience ID
-                  className="hover:bg-white bg-primary text-white hover:text-primary capitalize text-center text-primary text-[1.2rem] font-medium py-[0.4rem] px-[1.5rem] inline-flex items-center justify-center gap-[8px] rounded-[5rem] shadow opacity-0 animate-fadeIn relative group border border-transparent hover:border-primary mt-[1rem]"
-                >
-                  Read More
-                </Link>
+              {!hideLinks && experience?.company_name !== "Upwork" && (
+                <div className="flex items-center justify-center">
+
+
+                  <Link
+                    href={`/cv?sectionId=experienceSection&experienceId=${experience.id}`} // Navigate to CV page with experience ID
+                    className="hover:bg-white bg-primary text-white hover:text-primary capitalize text-center text-primary text-[1.2rem] font-medium py-[0.4rem] px-[1.5rem] inline-flex items-center justify-center gap-[8px] rounded-[5rem] shadow opacity-0 animate-fadeIn relative group border border-transparent hover:border-primary mt-[1rem]"
+                  >
+                    Read More
+                  </Link>
+                </div>
               )}
             </div>
 

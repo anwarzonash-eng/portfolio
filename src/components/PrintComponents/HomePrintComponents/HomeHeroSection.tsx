@@ -35,11 +35,11 @@ const HomeHeroSection: React.FC<HomeHeroSectionProps> = ({
       <div className="max-w-[1550px] w-full mx-auto px-[4rem]">
         <div className="text-center mt-[3rem] print:mt-0 print:pt-[3rem]">
 
-          <div className="mt-[-8rem] flex justify-end relative">
+          <div className="mt-[-13rem] flex justify-end relative">
             <div className="mt-[17rem] flex flex-col items-start absolute left-0 w-[70%]">
               <div className="flex gap-5 justify-center items-center">
-                <p className="text-heading text-[4.66rem] font-normal mt-5">Hi, I'm</p>
-                <h2 className="font-bold md:text-[5rem] text-primary mt-5">
+                <p className="text-heading text-[4.2rem] font-normal mt-5">Hi, I'm</p>
+                <h2 className="font-bold text-[6rem] text-primary mt-5">
                   {listOfdata?.name}
                 </h2>
               </div>
@@ -64,7 +64,7 @@ const HomeHeroSection: React.FC<HomeHeroSectionProps> = ({
               {/* compact skill chips */}
               {listOfdata && listOfdata.skills_ids && listOfdata.skills_ids.length > 0 && (
                 <div className="flex flex-wrap gap-2 mt-2 w-[80%]">
-                  {Object.values(skills).flat().slice(0, 10).map((skill, i) => {
+                  {Object.values(skills).flat().slice(0, 16).map((skill, i) => {
                     const key = `hero-skill-${i}-${(skill?.title || '').replace(/\s+/g, '-')}`;
 
                     return skill?.url && !hideLinks ? (
@@ -113,7 +113,7 @@ const HomeHeroSection: React.FC<HomeHeroSectionProps> = ({
                 </div>
               )}
 
-              <div className="w-full inline-flex items-center justify-center bg-no-repeat bg-contain animate-bounce mt-20">
+              <div className="w-full inline-flex items-center justify-center bg-no-repeat bg-contain animate-bounce mt-14">
                 <div className="rounded flex w-full relative">
                   <div className="flex items-center gap-[0.35rem] text-nowrap text-primary text-[1.8rem] font-medium rounded-[3.5rem] py-[0.69rem] max-w-max pr-[1rem] ">
                     <Image

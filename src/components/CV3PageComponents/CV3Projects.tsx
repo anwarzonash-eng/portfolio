@@ -29,7 +29,7 @@ const CV3Projects = ({ portfolios }: CV3ProjectsProps) => {
                                 <span className="text-[12px] flex items-center gap-2 text-gray-600 "><CalendarDays className='w-5 h-5 ' /> {project?.date || project?.period || project?.start_date}</span>
                             )}
                             {project?.link && (
-                                <a className="text-[12px] !text-[#1e90ff] mt-0 text-primary font-medium" href={project?.link} target="_blank" rel="noreferrer">{project?.link}</a>
+                                <a className="text-[12px] !text-[#1e90ff] mt-0 text-primary font-medium" href={project?.link} target="_blank" rel="noreferrer">{new URL(project.link).hostname}</a>
                             )}
                         </div>
 

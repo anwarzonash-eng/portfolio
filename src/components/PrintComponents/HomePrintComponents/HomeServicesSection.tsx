@@ -27,7 +27,7 @@ const HomeServicesSection = ({ listOfdata, listOfdatas, services, hideLinks }) =
             >
               {/* Badge */}
               <div className="flex items-center justify-center mb-[2rem]">
-                <div className="badge">My Services</div>
+                <div className="badge"> I am not limited with this only services. Together we can do more</div>
               </div>
 
               {/* Services Cards */}
