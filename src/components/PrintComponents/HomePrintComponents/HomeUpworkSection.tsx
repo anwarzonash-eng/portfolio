@@ -4,22 +4,22 @@ import Link from "next/link";
 import UpwrokIdentityPrint from "./UpwrokIdentityPrint";
 import { Clock, CheckCircle, Star, TrendingUp, MapPin, Crown } from "lucide-react";
 
-const HomeUpworkSection = ({ listOfdata, urlInfo, hideLinks }) => {
+const HomeUpworkSection = ({ listOfdata, urlInfo, hideLinks }: any) => {
   const upworkActivityList = [
     {
       id: 1,
       icon: Clock,
-      title: "10000+ Hour Tracked for Clients",
+      title: "7000+ Hours Tracked ",
       content:
-        "Over 2500 hours logged, extensive experience in delivering exceptional web development projects drive results.",
+        "Over 7000+ hours logged, extensive experience in delivering exceptional web development projects drive results.",
       highlight: "extensive experience",
     },
     {
       id: 2,
       icon: CheckCircle,
-      title: "70+ Project Completed",
+      title: "70+ Projects Completed",
       content:
-        "Successfully completed over 35 web development projects, proven track record of building innovative websites.",
+        "Successfully completed over 70+ web development projects, proven track record of building innovative websites.",
       highlight: "completed over 35 web",
     },
     {
@@ -43,6 +43,7 @@ const HomeUpworkSection = ({ listOfdata, urlInfo, hideLinks }) => {
       id: 2,
       title: "Total earned",
       content: "$200K+",
+      icon: TrendingUp,
     },
     {
       id: 3,
@@ -61,7 +62,7 @@ const HomeUpworkSection = ({ listOfdata, urlInfo, hideLinks }) => {
     },
   ];
   return (
-    <section className={`h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center p-[4rem] mt-20 print:mt-0 relative bg-gradient-to-br from-cyan-50 via-teal-50 to-emerald-50`}>
+    <section className={`h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center p-[4rem] mt-20 print:mt-0 relative bg-white`}>
       {/* Note and Domain For Each Page */}
       {hideLinks ? null :
         <NoteDomainForPint direction={"hidden print:right-0 print:block"} />
@@ -77,7 +78,7 @@ const HomeUpworkSection = ({ listOfdata, urlInfo, hideLinks }) => {
           <div className="flex items-center justify-between w-full gap-5 mb-[2rem]">
             {/* Upwork Identity */}
             <UpwrokIdentityPrint data={listOfdata} hideLinks={hideLinks} />
-            {hideLinks ?
+            {/* {hideLinks ?
               <div
                 className="py-2 inline-block"
               >
@@ -91,74 +92,56 @@ const HomeUpworkSection = ({ listOfdata, urlInfo, hideLinks }) => {
               >
                 <img src="/images/up-logo.png" alt="Upwork Logo" className="mix-blend-darken " />
               </Link>
-            }
+            } */}
           </div>
 
           {/* Bottom Content */}
-          <div className="px-4 grid grid-cols-2 w-full gap-x-[8rem]">
-            {/*Financial Activity Column */}
-            <div>
-              <h2 className={`text-[3rem] font-bold mb-[1rem]`}>
+          <div className="px-4">
+            <div className="flex justify-center flex-col items-center">
+              <h2 className={`lg:text-[4rem] text-[3rem] mt-14 font-medium mb-[1rem] text-center`}>
                 My{" "}
-                <Link
-                  href={listOfdata?.upwork ?? "#"}
-                  target="_blank"
-                  className="text-primary"
-                >
-                  Upwork
-                </Link>{" "}
-                Finanancial Activities
-              </h2>
-              <div className="space-y-4">
-                {upworkFinancialActivityList.map((item) => (
-                  <div key={item.id}>
-                    <p className="text-heading text-[1.8rem]">{item.title}</p>
-                    <p className="text-[2.4rem] font-semibold">
-                      {item.content}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Upwork Activity Column */}
-            <div>
-              <h2 className={`text-[3rem] font-bold mb-[1rem]`}>
-                My{" "}
-                <Link
-                  href={listOfdata?.upwork ?? "#"}
-                  target="_blank"
-                  className="text-primary"
-                >
-                  Upwork
-                </Link>{" "}
+                {hideLinks ? (
+                  <span className="text-primary">Upwork</span>
+                ) : (
+                  <Link
+                    href={listOfdata?.upwork ?? "#"}
+                    target="_blank"
+                    className="text-primary"
+                  >
+                    Upwork
+                  </Link>
+                )}{" "}
                 Activities
               </h2>
-              <ul className="space-y-4">
-                {upworkActivityList.map((item) => {
-                  const IconComponent = item.icon
-                  return (
-                    <li className="flex" key={item.id}>
-                      <div className="flex-shrink-0 mr-4">
-                        <div className="w-12 h-12 rounded-full bg-[#00473c] flex items-center justify-center mt-2">
-                          <IconComponent className="w-7 h-7 text-white" />
+              <p className="text-[1.8rem] lg:text-[2.5rem] w-full lg:w-2/3 text-center text-gray-600">
+                Proven performance, consistent delivery, and client satisfaction across long-term projects.
+              </p>
+            </div>
+
+            <div className="flex flex-wrap gap-8">
+              {upworkActivityList.map((item) => {
+                const IconComponent = item.icon;
+                return (
+                  <div
+                    key={item.id}
+                    className="md:flex-1 flex gap-4 p-10 bg-white rounded-3xl min-w-[220px] mt-14 shadow-[0_0_10px_rgba(0,0,0,0.2)]"
+                  >
+                    <div className="flex flex-col gap-6">
+                      <div className="flex gap-4">
+                        <div className="w-14 h-12 rounded-full bg-primary flex items-center justify-center">
+                          <IconComponent className="w-7 h-7  text-white" />
                         </div>
-                      </div>
-                      <div>
-                        <p
-                          className="text-[1.6rem] lg:text-[2.4rem] 
-                     font-semibold"
-                        >
+                        <p className="text-[2.4rem] lg:text-[2.8rem] font-semibold w-full ">
                           {item.title}
                         </p>
-                        <p className="text-heading text-[1.4rem] lg:text-[1.5rem]">
-                          {item.content}
-                        </p>
                       </div>
-                    </li>
-                  )
-                })}
-              </ul>
+                      <p className="text-heading text-[1.8rem] lg:text-[2.2rem]">
+                        {item.content}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>

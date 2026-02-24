@@ -336,6 +336,7 @@ const CV2 = ({ params }: { params: any }) => {
     },
     {
       componentType: "dynamic",
+      cv2Heading: "PROJECTS",
       component: portfolios[1] ? (
         <div className="w-full relative px-[2rem]">
           <CV2ProjectsP portfolios={[portfolios[1]]} />
@@ -344,7 +345,7 @@ const CV2 = ({ params }: { params: any }) => {
     },
     {
       componentType: "dynamic",
-      cv2Heading: "PROJECTS",
+
       component: portfolios[2] ? (
         <div className="w-full relative px-[2rem]">
           <CV2ProjectsP portfolios={[portfolios[2]]} />

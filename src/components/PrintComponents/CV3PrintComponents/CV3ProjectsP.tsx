@@ -32,7 +32,7 @@ const CV3ProjectsP = ({ portfolios }: CV3ProjectsProps) => {
                                 target="_blank"
                                 rel="noreferrer"
                             >
-                                {project?.link}
+                                {new URL(project.link).hostname}
                             </a>
                         )}
                     </div>
