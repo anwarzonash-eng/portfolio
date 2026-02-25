@@ -759,19 +759,19 @@ body {
   font-weight: bold;
   text-align: center;
   margin-top: 0pt;
-  margin-bottom: 4pt;
+  margin-bottom: 2pt;
   font-family: Arial, sans-serif;
 }
 
 .cv4-print-contact {
   font-size: 10pt;
   text-align: center;
-  margin-bottom: 16pt;
+  margin-bottom: 8pt;
   font-family: Arial, sans-serif;
 }
 
 .cv4-print-section-header {
-  font-size: 14pt;
+  font-size: 12pt;
   font-weight: bold;
   text-transform: uppercase;
   margin-bottom: 4pt;
@@ -785,11 +785,11 @@ body {
 }
 
 .cv4-print-section-header-skills {
-  margin-top: 8pt;
+  margin-top: 5pt;
 }
 
 .cv4-print-section-header-experience {
-  margin-top: 8pt;
+  margin-top: 5pt;
 }
 
 .cv4-print-section-header-education {
@@ -797,14 +797,14 @@ body {
 }
 
 .cv4-print-body-text {
-  font-size: 11pt;
+  font-size: 10pt;
   margin-bottom: 4pt;
   text-align: justify;
   font-family: Arial, sans-serif;
 }
 
 .cv4-print-skills-text {
-  font-size: 11pt;
+  font-size: 10pt;
   margin-bottom: 4pt;
   font-family: Arial, sans-serif;
 }
@@ -821,20 +821,20 @@ body {
 }
 
 .cv4-print-job-title {
-  font-size: 12pt;
+  font-size: 10pt;
   font-weight: bold;
   font-family: Arial, sans-serif;
 }
 
 .cv4-print-job-date {
-  font-size: 12pt;
+  font-size: 11pt;
   font-weight: bold;
   text-align: right;
   font-family: Arial, sans-serif;
 }
 
 .cv4-print-bullets {
-  font-size: 11pt;
+  font-size: 10pt;
   margin-left: 20pt;
   list-style-type: disc;
   font-family: Arial, sans-serif;
