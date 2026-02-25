@@ -655,3 +655,201 @@ body {
   gap: 0px !important;
   margin-bottom: 0px !important;
 }
+
+
+
+
+/* <---------------cv4 specific styles-----------------> */
+
+@media print {
+  body {
+    margin: 0.75in !important;
+    background: white !important;
+    -webkit-print-color-adjust: exact !important;
+  }
+
+  * {
+    background: white !important;
+    color: black !important;
+  }
+}
+
+.cv-container {
+  font-family: Arial, sans-serif;
+  background: white;
+  color: black;
+  line-height: 1.4;
+}
+
+.cv-name {
+  font-size: 20pt;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 4pt;
+}
+
+.cv-location {
+  font-size: 11pt;
+  text-align: center;
+  margin-bottom: 4pt;
+}
+
+.cv-contact {
+  font-size: 11pt;
+  text-align: center;
+  margin-bottom: 16pt;
+}
+
+.cv-section-header {
+  font-size: 14pt;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-top: 16pt;
+  margin-bottom: 8pt;
+  border-bottom: 1px solid black;
+  padding-bottom: 2pt;
+}
+
+.cv-body-text {
+  font-size: 11pt;
+  margin-bottom: 8pt;
+  text-align: justify;
+}
+
+.cv-job-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 4pt;
+}
+
+.cv-job-title {
+  font-size: 12pt;
+  font-weight: bold;
+}
+
+.cv-company {
+  font-size: 11pt;
+}
+
+.cv-date-location {
+  font-size: 11pt;
+  text-align: right;
+}
+
+.cv-bullets {
+  font-size: 11pt;
+  margin-left: 20pt;
+  list-style-type: disc;
+}
+
+.cv-bullets li {
+  margin-bottom: 4pt;
+}
+
+.cv-skills-text {
+  font-size: 11pt;
+  margin-bottom: 4pt;
+}
+
+/* <---------------cv4 print specific styles-----------------> */
+
+.cv4-print-name {
+  font-size: 18pt;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 0pt;
+  margin-bottom: 4pt;
+  font-family: Arial, sans-serif;
+}
+
+.cv4-print-contact {
+  font-size: 10pt;
+  text-align: center;
+  margin-bottom: 16pt;
+  font-family: Arial, sans-serif;
+}
+
+.cv4-print-section-header {
+  font-size: 14pt;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 4pt;
+  padding-bottom: 2pt;
+  border-bottom: 1px solid black;
+  font-family: Arial, sans-serif;
+}
+
+.cv4-print-section-header-summary {
+  margin-top: 0pt;
+}
+
+.cv4-print-section-header-skills {
+  margin-top: 8pt;
+}
+
+.cv4-print-section-header-experience {
+  margin-top: 8pt;
+}
+
+.cv4-print-section-header-education {
+  margin-top: 16pt;
+}
+
+.cv4-print-body-text {
+  font-size: 11pt;
+  margin-bottom: 4pt;
+  text-align: justify;
+  font-family: Arial, sans-serif;
+}
+
+.cv4-print-skills-text {
+  font-size: 11pt;
+  margin-bottom: 4pt;
+  font-family: Arial, sans-serif;
+}
+
+.cv4-print-experience-item {
+  margin-bottom: 8pt;
+}
+
+.cv4-print-job-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1pt;
+}
+
+.cv4-print-job-title {
+  font-size: 12pt;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+}
+
+.cv4-print-job-date {
+  font-size: 12pt;
+  font-weight: bold;
+  text-align: right;
+  font-family: Arial, sans-serif;
+}
+
+.cv4-print-bullets {
+  font-size: 11pt;
+  margin-left: 20pt;
+  list-style-type: disc;
+  font-family: Arial, sans-serif;
+}
+
+.cv4-print-bullets li {
+  margin-bottom: 4pt;
+}
+
+.cv4-print-education-item {
+  margin-bottom: 8pt;
+}
+
+.cv4-print-education-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
