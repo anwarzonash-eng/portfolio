@@ -59,7 +59,7 @@ export const reportsApiHandler = async ({
 const adjustDynamicContent = async (data) => {
   try {
 
-
+    data = await adjustmetaCV4Content(data);
     data = await adjustmetaData(data);
     data = await adjustSkillsDescriptionForCV(data);
     data = await adjustSkillsIDsInExperiencesAndPortflios(data);
@@ -69,7 +69,7 @@ const adjustDynamicContent = async (data) => {
     data = await adjustSkilledDescriptionInServices(data);
 
 
-    console.log({ updatedData: data })
+    console.log({ data })
   }
   catch (error) {
 
@@ -111,9 +111,72 @@ const adjustDynamicContent = async (data) => {
 //   return data;
 // };
 
+const adjustmetaCV4Content = async (data) => {
+  const generateYears = (count) =>
+    Array.from({ length: count }, (_, i) =>
+      i === 0 ? 2025 : 2025 - i
+    );
+  //
+  const eligibleYears = Math.min(...generateYears(data.no_of_experiences))
+  // const eligibleYears = Math.min(...generateYears(8))
+
+  // console.log({ eligibleYears })
+  const eligibleExperiences = data.experiences_ids.filter(experience => {
+
+    const isShow = experience.meta_data.job_types['fulltime'].is_show;
+    const companyEndYear = new Date(experience.meta_data.job_types['fulltime'].end_date).getFullYear();
+    if (isShow && companyEndYear >= eligibleYears) {
+
+      return true
+    } else false;
+
+  })
+  const newCopyOfEligibleExperience = structuredClone(eligibleExperiences);
+
+  newCopyOfEligibleExperience.forEach((experience, index) => {
+
+    experience.starting_date = experience.meta_data.job_types['fulltime'].start_date || experience.starting_date;
+    experience.ending_Date = experience.meta_data.job_types['fulltime'].end_date || experience.ending_Date;
+    experience.is_still_working = experience.meta_data.job_types['fulltime'].is_continue || experience.is_still_working;
+    experience.type = experience.meta_data.job_types['fulltime'].type || experience.type; // Full Time, Contract, Freelance, 
+    experience.nature = experience.meta_data.job_types['fulltime'].job_nature || 'Remote';
+    experience.isShow = experience.meta_data.job_types['fulltime'].is_show || false;
+
+
+  });
+  newCopyOfEligibleExperience.sort((a, b) => {
+    const dateA: any = new Date(a.ending_Date);
+    const dateB: any = new Date(b.ending_Date);
+
+    // For Descending (Latest date first):
+    return dateB - dateA;
+  }
+  )
+  console.log({ newCopyOfEligibleExperience })
+
+  newCopyOfEligibleExperience.forEach((experience, index) => {
+
+    const currentExperienceContend = data.cv4_content['experience' + (index + 1)]
+    experience.long_description = currentExperienceContend;
+  });
+
+
+
+
+
+
+
+  data.experiences_for_cv4 = newCopyOfEligibleExperience;
+  console.log({ experiences_for_cv4: data.experiences_for_cv4 })
+
+
+  // Adjust the dynamic content based on the received data
+  return data;
+};
+
 const adjustmetaData = async (data) => {
   data.email = data?.email_type == 'personal' ? data.non_business_email : data.email;
-  console.log({ data })
+  // console.log({ data })
 
 
   data.education_ids.forEach(element => {
@@ -133,7 +196,7 @@ const adjustmetaData = async (data) => {
     element.title = desination_catgory?.experience_titles['title' + (index + 1)] || element.title;
 
 
-    console.log(element.title);
+    // console.log(element.title);
     if (element.meta_data.job_types) {
 
       const metaDataForCurrentWebsitePurpose = element.meta_data.job_types[data.website_purpose]
@@ -144,6 +207,7 @@ const adjustmetaData = async (data) => {
       element.type = metaDataForCurrentWebsitePurpose.type || element.type; // Full Time, Contract, Freelance, 
       element.nature = metaDataForCurrentWebsitePurpose.job_nature || 'Remote';
       element.isShow = metaDataForCurrentWebsitePurpose.is_show || false;
+
 
 
 
@@ -296,7 +360,7 @@ const adjustSkilledDescriptionInServices = async (data) => {
   if (!Array.isArray(data.services) || !Array.isArray(data.skills_categories))
     return data;
 
-  console.log({ services_length_before: data.services.length });
+  // console.log({ services_length_before: data.services.length });
 
   data.services.forEach((service) => {
 
