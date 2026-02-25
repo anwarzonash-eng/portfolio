@@ -9,12 +9,7 @@ const CV4SkillsP = ({ sortedSkills }) => {
                         Skills
                     </h2>
                     <p className="cv4-print-skills-text">
-                        <strong>
-
-                            {sortedSkills.map(skill => skill.title || skill.name).join(', ')}
-
-
-                        </strong>
+                        {sortedSkills.map(skill => skill.title || skill.name).join(', ')}
                     </p>
                 </section >)}
         </>

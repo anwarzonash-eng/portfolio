@@ -10,7 +10,7 @@ const CV4Header = ({ listOfdata }) => {
                 {!urlInfo?.u && <p className="cv-location">{listOfdata?.location}</p>}
                 <p className="cv-contact">
                     {[
-                        listOfdata?.location,
+                        urlInfo?.u && listOfdata?.location,
                         !urlInfo?.u && listOfdata?.email,
                         !urlInfo?.u && listOfdata?.phone_no,
                         listOfdata?.github?.replace(/^https?:\/\//, ""),
