@@ -12,11 +12,11 @@ const CV4HeaderP = ({ listOfdata }) => {
 
                 <p className="cv4-print-contact">
                     {[
-                        listOfdata?.location,
                         !urlInfo?.u && listOfdata?.email,
                         !urlInfo?.u && listOfdata?.phone_no,
                         listOfdata?.github?.replace(/^https?:\/\//, ""),
                         !urlInfo?.u && listOfdata?.linkedin?.replace(/^https?:\/\//, ""),
+                        listOfdata?.location,
                     ]
                         .filter(Boolean)
                         .join(" | ")}

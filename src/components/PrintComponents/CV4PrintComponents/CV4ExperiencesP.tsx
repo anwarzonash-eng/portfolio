@@ -39,7 +39,7 @@ const CV4ExperiencesP = ({ experiences_for_cv4 }) => {
                         </div>
 
                         <ul className="cv4-print-bullets">
-                            {experience?.long_description?.slice(0, 2).map((desc, index) => (
+                            {experience?.long_description?.map((desc, index) => (
                                 <li key={index}>
                                     {desc.point}
                                 </li>
