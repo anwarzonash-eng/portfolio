@@ -39,7 +39,8 @@ export default function ChildWrapper({
     "/print/cvPortrait",
     "/print/cvLandscape",
     "/cv2",
-    "/cv3"
+    "/cv3",
+    "/cv4",
   ];
 
   // reuse the same path list for both hiding header/footer and enabling zoom-100
