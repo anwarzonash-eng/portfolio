@@ -138,9 +138,9 @@ const ContactMe = ({ listOfdata }) => {
     //   alt: "Linkedin",
     // },
     {
-      href: `https://wa.me/${listOfdata?.phone_no}`,
-      src: "/images/whatsapp.svg",
-      alt: "whatsapp",
+      href: listOfdata?.calendly_link,
+      src: "/images/chatNowIcon.svg",
+      alt: "calendly",
     },
   ];
 
@@ -296,9 +296,8 @@ const ContactMe = ({ listOfdata }) => {
 
               {/* File Upload (unchanged) */}
               <div
-                className={`flex flex-col items-center justify-center gap-[1rem] lg:max-w-[40.7rem] w-full mb-[1.5rem] border-2 border-dashed rounded-[0.6rem] p-6 cursor-pointer ${
-                  dragActive ? "border-primary bg-blue-50" : "border-border"
-                }`}
+                className={`flex flex-col items-center justify-center gap-[1rem] lg:max-w-[40.7rem] w-full mb-[1.5rem] border-2 border-dashed rounded-[0.6rem] p-6 cursor-pointer ${dragActive ? "border-primary bg-blue-50" : "border-border"
+                  }`}
                 onDrop={handleDrop}
                 onDragOver={(e) => handleDrag(e, true)}
                 onDragLeave={(e) => handleDrag(e, false)}
@@ -333,9 +332,8 @@ const ContactMe = ({ listOfdata }) => {
 
               {/* Submit Button */}
               <button
-                className={`btn-primary w-full lg:max-w-max text-white py-[2rem] px-[5.6rem] text-[1.8rem] font-medium ${
-                  isSubmitting && "cursor-not-allowed"
-                }`}
+                className={`btn-primary w-full lg:max-w-max text-white py-[2rem] px-[5.6rem] text-[1.8rem] font-medium ${isSubmitting && "cursor-not-allowed"
+                  }`}
                 type="submit"
                 disabled={isSubmitting}
               >
@@ -462,19 +460,19 @@ const ContactMe = ({ listOfdata }) => {
 
           {/* Follow Me On Social Media */}
           {listOfdata?.behance_link ||
-          listOfdata?.twitter ||
-          listOfdata?.instagram ||
-          listOfdata?.facebook ||
-          listOfdata?.linkedin ||
-          listOfdata?.phone_no ||
-          listOfdata?.upwork ? (
+            listOfdata?.twitter ||
+            listOfdata?.instagram ||
+            listOfdata?.facebook ||
+            listOfdata?.linkedin ||
+            listOfdata?.phone_no ||
+            listOfdata?.upwork ? (
             <>
               <hr className="w-full h-[1px] bg-border" />
               <div className="block sm:flex md:block xl:flex justify-between">
                 {listOfdata?.behance_link ||
-                listOfdata?.twitter ||
-                listOfdata?.instagram ||
-                listOfdata?.facebook ? (
+                  listOfdata?.twitter ||
+                  listOfdata?.instagram ||
+                  listOfdata?.facebook ? (
                   <div className="w-full px-[0.8rem] mt-[1.2rem]">
                     <p className="text-[1.6rem] font-normal uppercase text-heading text-center sm:text-left">
                       Follow me on social media
@@ -539,7 +537,7 @@ const ContactMe = ({ listOfdata }) => {
                         </Tooltip>
                       )}
 
-                      <Tooltip text="Chat Now">
+                      {/* <Tooltip text="Chat Now">
                         <button
                           onClick={(e) => openChat(e)}
                           className="text-primary font-bold text-lg"
@@ -554,7 +552,7 @@ const ContactMe = ({ listOfdata }) => {
                             />
                           </div>
                         </button>
-                      </Tooltip>
+                      </Tooltip> */}
 
                       {listOfdata?.calendly_link && (
                         <Tooltip text="Schedule Meeting">

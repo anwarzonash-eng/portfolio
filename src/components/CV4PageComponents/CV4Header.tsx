@@ -3,6 +3,7 @@ import React from 'react'
 
 const CV4Header = ({ listOfdata }) => {
     const urlInfo = useAppSelector((state) => state.profile.profileUrlInfo);
+    console.log("URL INFO IN HEADER: ", listOfdata);
     return (
         <>
             <header>
@@ -13,6 +14,7 @@ const CV4Header = ({ listOfdata }) => {
                         urlInfo?.u && listOfdata?.location,
                         !urlInfo?.u && listOfdata?.email,
                         !urlInfo?.u && listOfdata?.phone_no,
+                        listOfdata?.linkedIn?.replace(/^https?:\/\//, ""),
                         listOfdata?.github?.replace(/^https?:\/\//, ""),
                         !urlInfo?.u && listOfdata?.linkedin?.replace(/^https?:\/\//, ""),
                     ]
