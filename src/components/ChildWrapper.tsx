@@ -108,7 +108,7 @@ export default function ChildWrapper({
     <>
       <GoogleAnalytics scriptNumber={listOfdata?.googleAnalyticsScript} />
       {/* WhatsApp Icon */}
-      {!urlInfo?.u && listOfdata && listOfdata?.phone_no && (
+      {/* {!urlInfo?.u && listOfdata && listOfdata?.phone_no && (
         <div className="fixed bottom-[10rem] right-[2.5rem] z-[1000] print:hidden">
           <Tooltip text={`My Whatsapp`} key={"whatsapp"}>
             <Link
@@ -124,7 +124,7 @@ export default function ChildWrapper({
             </Link>
           </Tooltip>
         </div>
-      )}
+      )} */}
       {!urlInfo?.u && <Tawkto />}
 
       {/* Offer Banner - conditionally shown */}

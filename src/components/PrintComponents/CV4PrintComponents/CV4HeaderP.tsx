@@ -14,6 +14,7 @@ const CV4HeaderP = ({ listOfdata }) => {
                     {[
                         !urlInfo?.u && listOfdata?.email,
                         !urlInfo?.u && listOfdata?.phone_no,
+                        listOfdata?.linkedIn?.replace(/^https?:\/\//, ""),
                         listOfdata?.github?.replace(/^https?:\/\//, ""),
                         !urlInfo?.u && listOfdata?.linkedin?.replace(/^https?:\/\//, ""),
                         listOfdata?.location,

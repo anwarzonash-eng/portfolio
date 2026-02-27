@@ -52,9 +52,8 @@ const CV4Experiences = ({ experiences_for_cv4 }) => {
                             </div>
                         </div>
 
-                        {experience?.long_description.map((experience, index) => (<ul className="cv-bullets" key={index}>
+                        {experience?.long_description?.map((experience, index) => (<ul className="cv-bullets" key={index}>
                             <li>{experience.point}</li>
-
                         </ul>))}
                     </div>
                 ))}
