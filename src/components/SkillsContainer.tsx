@@ -128,7 +128,7 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({
           {doubled.map((skill: SkillType, idx) => (
             <div
               key={idx}
-              className="flex flex-col items-center justify-center"
+              className="flex flex-col items-center justify-center hover:-translate-y-3 transition-transform duration-300"
             >
               {skill.icon && (
                 <div className="h-[6rem] w-[6rem]">
