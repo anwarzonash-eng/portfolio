@@ -116,12 +116,46 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({
     ? `flex items-center justify-center flex-wrap ${gap} w-full`
     : `grid ${gridCols} ${gap} content-center`;
 
+  // when variant is default, show continuous sliding bar instead of grid
+  if (variant === "default") {
+    // use visibleSkills array and duplicate for seamless scroll
+    const sliderSkills = visibleSkills || [];
+    const doubled = [...sliderSkills, ...sliderSkills];
+
+    return (
+      <div className="relative w-full overflow-hidden mt-[2.5rem] pb-[8rem] bg-white rounded-2xl slider-container print:hidden">
+        <div className="flex items-center gap-[3rem] md:gap-[8rem] animate-skillSlide">
+          {doubled.map((skill: SkillType, idx) => (
+            <div
+              key={idx}
+              className="flex flex-col items-center justify-center"
+            >
+              {skill.icon && (
+                <div className="h-[6rem] w-[6rem]">
+                  <Image
+                    src={skill.icon}
+                    alt={skill.title}
+                    height={64}
+                    width={64}
+                    className="object-contain w-full h-full filter grayscale"
+                  />
+                </div>
+              )}
+              <p className={`${textSize} mt-[1rem] text-center`}>
+                {skill.title === "Nest.js" ? "NestJs" : skill.title}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex rounded-2xl flex-col w-full items-center justify-center mt-[3rem] bg-white">
       {/* === Skills Grid === */}
       <div
-        className={`${containerClasses} ${variant === "default" ? "print:hidden" : ""
-          }`}
+        className={containerClasses}
       >
         {Object.values(skills).map((group, groupIndex) => (
           <React.Fragment key={groupIndex}>
