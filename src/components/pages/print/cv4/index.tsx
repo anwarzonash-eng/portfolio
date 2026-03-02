@@ -193,15 +193,10 @@ const CV4 = ({ params }: { params: any }) => {
                             html, body {
                                 margin: 0 !important;
                                 padding: 0 !important;
-                                background: white !important;
-                                -webkit-print-color-adjust: exact !important;
+                              
                             }
                             
-                            * {
-                                background: white !important;
-                                color: black !important;
-                                margin-top: 0;
-                            }
+                           
                             
                             h1:first-child, header h1:first-child {
                                 margin-top: 0 !important;

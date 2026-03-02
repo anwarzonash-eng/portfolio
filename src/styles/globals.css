@@ -661,18 +661,6 @@ body {
 
 /* <---------------cv4 specific styles-----------------> */
 
-@media print {
-  body {
-    margin: 0.75in !important;
-    background: white !important;
-    -webkit-print-color-adjust: exact !important;
-  }
-
-  * {
-    background: white !important;
-    color: black !important;
-  }
-}
 
 .cv-container {
   font-family: Arial, sans-serif;
