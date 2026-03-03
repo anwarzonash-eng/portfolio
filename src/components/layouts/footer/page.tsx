@@ -7,10 +7,12 @@ import ContactMe from "@/components/ContactMe";
 import FooterNewsLetter from "@/components/FooterNewsLetter";
 import { useAppSelector } from "@/store";
 import UpworkActivitySection from "@/components/UpworkActivitySection";
+
 import { usePathname } from "next/navigation";
 
 const Footer = () => {
   const pathname = usePathname();
+
 
   interface FooterLink {
     href: string;
@@ -77,7 +79,12 @@ const Footer = () => {
     },
   ].filter(({ href }) => !!href);
 
-  console.log("Footer data:", listOfdata);
+  // if urlInfo.u is true, limit to GitHub and Upwork only
+  const filteredSocialLinks = urlInfo?.u
+    ? socialLinks.filter(({ label }) => label === "GitHub" || label === "Upwork")
+    : socialLinks;
+
+
   return (
     <>
       {!loading && (
@@ -129,7 +136,7 @@ const Footer = () => {
 
                   {/* Social icons – only rendered when the link is available */}
                   <div className="flex items-center gap-3 flex-wrap">
-                    {socialLinks.map(({ href, label, icon }) => (
+                    {filteredSocialLinks.map(({ href, label, icon }) => (
                       <Link
                         key={label}
                         href={href}
@@ -193,7 +200,7 @@ const Footer = () => {
                 </div>
 
                 {/* Contact info */}
-                <div>
+                {!urlInfo?.u && <div>
                   <h4 className="text-white font-semibold text-sm mb-4">Contact</h4>
                   <ul className="space-y-3">
                     {listOfdata?.location && (
@@ -244,7 +251,7 @@ const Footer = () => {
                       </li>
                     )}
                   </ul>
-                </div>
+                </div>}
               </div>
 
               {/* Bottom bar */}
