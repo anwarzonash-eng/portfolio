@@ -21,7 +21,7 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({ services }) => {
           <div className="badge">My Services</div>
         </div>
         {/* Heading */}
-        <div className="text-center text-paragraph2 text-[2.4rem] xl:text-[3rem] font-medium leading-[2.8rem] mt-[2rem] hidden lg:block">
+        <div className="text-center text-paragraph2 text-[2.4rem] xl:text-[3rem] font-medium leading-[2.8rem] my-[2rem] hidden lg:block">
           I am not limited with this only services. Together we can do more
         </div>
         {/* Services Cards */}
