@@ -263,7 +263,7 @@ const Services = ({ params }: { params: any }) => {
 
 
                                 {/* NewsLetter section */}
-                                <NewsLetter />
+                                {!urlInfo?.u && <NewsLetter />}
 
                             </main>
                         </>
