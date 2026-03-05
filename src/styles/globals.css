@@ -525,6 +525,26 @@ body {
   }
 }
 
+/* slide animation for skills bar */
+@keyframes skillSlide {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-skillSlide {
+  animation: skillSlide 40s linear infinite;
+}
+
+/* pause on hover */
+.slider-container:hover .animate-skillSlide {
+  animation-play-state: paused;
+}
+
 @media print {
   @page {
     size: auto;

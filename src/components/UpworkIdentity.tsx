@@ -28,7 +28,7 @@ const UpworkIdentity: React.FC<UpworkIdentityProps> = ({
   cvTrue = false,
 }) => {
   const profileImageSrc =
-    data.profile_photo_1 || "https://via.placeholder.com/80";
+    data?.profile_photo_1 || "https://via.placeholder.com/80";
   return (
     <div className={`bg-white flex lg:justify-between items-center rounded-[1.8rem] shadow-[0_0_10px_rgba(0,0,0,0.2)] p-[2rem] ${Header || cvTrue ? "w-[100%]" : "w-full md:w-4/5"} m-auto flex-wrap justify-center gap-10`}>
 
@@ -52,7 +52,7 @@ const UpworkIdentity: React.FC<UpworkIdentityProps> = ({
           <div className="flex flex-col">
             <div className="flex items-center space-x-2">
               <h1 className={`${Header ? "text-[1.8rem] lg-[2rem]" : "text-[2.5rem] lg:text-[3rem]"} font-bold text-gray-800`}>
-                {data.name}
+                {data?.name}
               </h1>
               {/* Blue Verified Checkmark */}
               {/* <Image
@@ -70,7 +70,7 @@ const UpworkIdentity: React.FC<UpworkIdentityProps> = ({
                 {/* Location Pin Icon */}
                 <MapPin className="size-[1.7rem]" />
                 <span className="text-[1.7rem] font-medium">
-                  {data.location}
+                  {data?.location}
                 </span>
                 {/* Available Now Badge */}
                 <div className="flex  items-center bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-[1.3rem] font-medium max-w-max">
@@ -129,7 +129,7 @@ const UpworkIdentity: React.FC<UpworkIdentityProps> = ({
       {/* Check My Upwork Profile Section */}
       <div className={`flex items-center max-lg:justify-center gap-4 ${Header ? "m-auto" : ""}`}>
         <Link
-          href={data.upwork ?? "#"}
+          href={data?.upwork ?? "#"}
           target="_blank"
           className="bg-[#0F3C3C] text-white border border-transparent hover:border-primary hover:bg-white hover:text-primary duration-300 text-nowrap flex items-center justify-center text-[1.8rem] rounded-[20rem] px-[2rem] py-[1.5rem] group"
         >

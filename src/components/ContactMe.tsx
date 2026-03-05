@@ -236,14 +236,14 @@ const ContactMe = ({ listOfdata }) => {
                     className="border border-border rounded-[0.4rem] px-[1.6rem] py-[1.2rem] w-full text-[1.6rem] outline-none focus:border-primary duration-300"
                   />
                 </div>
-                <div className="flex items-center justify-between gap-[1rem]">
+                <div className="flex items-center justify-end gap-[1rem]">
                   <ErrorMessage name="phone" component={ErrorComponent} />
                   <ErrorMessage name="email" component={ErrorComponent} />
                 </div>
               </div>
 
               {/* Subject */}
-              <div className="my-4">
+              {/* <div className="my-4">
                 <Field
                   type="text"
                   name="subject"
@@ -251,10 +251,10 @@ const ContactMe = ({ listOfdata }) => {
                   className="border border-border rounded-[0.4rem] px-[1.6rem] py-[1.2rem] w-full text-[1.6rem] outline-none focus:border-primary duration-300"
                 />
                 <ErrorMessage name="subject" component={ErrorComponent} />
-              </div>
+              </div> */}
 
               {/* Project Length Dropdown */}
-              <div className="my-4 relative">
+              {/* <div className="my-4 relative">
                 <div className="relative">
                   <p className="text-[1.4rem] font-medium m-[0.5rem]">
                     Project Length
@@ -265,7 +265,7 @@ const ContactMe = ({ listOfdata }) => {
                     onClick={() => setIsOpen(!isOpen)}
                     className="appearance-none border border-border rounded-[0.4rem] px-[1.6rem] py-[1.2rem] w-full text-[1.6rem] outline-none focus:border-primary duration-300 pr-10 cursor-pointer bg-white"
                   >
-                    {/* <option value="">Select Project Length</option> */}
+                   
                     <option value="2-weeks">2 Weeks</option>
                     <option value="4-weeks">4 Weeks</option>
                     <option value="2-months">2 Months</option>
@@ -280,8 +280,9 @@ const ContactMe = ({ listOfdata }) => {
                     )}
                   </span>
                 </div>
-                <ErrorMessage name="projectLength" component={ErrorComponent} />
-              </div>
+      <ErrorMessage name="projectLength" component={ErrorComponent} />
+    </div > */
+              }
 
               {/* Message */}
               <div className="my-4">
@@ -295,7 +296,7 @@ const ContactMe = ({ listOfdata }) => {
               </div>
 
               {/* File Upload (unchanged) */}
-              <div
+              {/* <div
                 className={`flex flex-col items-center justify-center gap-[1rem] lg:max-w-[40.7rem] w-full mb-[1.5rem] border-2 border-dashed rounded-[0.6rem] p-6 cursor-pointer ${dragActive ? "border-primary bg-blue-50" : "border-border"
                   }`}
                 onDrop={handleDrop}
@@ -328,7 +329,7 @@ const ContactMe = ({ listOfdata }) => {
                     </button>
                   </div>
                 )}
-              </div>
+              </div> */}
 
               {/* Submit Button */}
               <button
@@ -339,20 +340,20 @@ const ContactMe = ({ listOfdata }) => {
               >
                 {isSubmitting ? "Please Wait..." : "Contact Me"}
               </button>
-            </Form>
+            </Form >
           )}
-        </Formik>
+        </Formik >
 
         {/* Contact Details */}
-        <div className="w-full">
+        < div className="w-full" >
           {/* Badge */}
-          <div className="flex items-center max-lg:justify-center">
+          < div className="flex items-center max-lg:justify-center" >
             <div className="badge">Stay In Touch</div>
-          </div>
+          </div >
           {/* Heading */}
-          <div className="text-heading text-[3rem] lg:text-[4rem] p-[0.8rem] font-medium leading-[3.2rem] lg:leading-[4.8rem]">
-            You want to hire me?
-          </div>
+          < div className="text-heading text-[3rem] lg:text-[4rem] p-[0.8rem] font-medium leading-[3.2rem] lg:leading-[4.8rem]" >
+            You want to hire me ?
+          </div >
           <div className="text-primary text-[2rem] lg:text-[3rem] p-[0.8rem] font-medium leading-[3.2rem] lg:leading-[4.8rem] mb-[3.2rem]">
             Book either an appointment or explore following option for quick
             chat:
@@ -459,85 +460,86 @@ const ContactMe = ({ listOfdata }) => {
           {/* Ruler Line */}
 
           {/* Follow Me On Social Media */}
-          {listOfdata?.behance_link ||
-            listOfdata?.twitter ||
-            listOfdata?.instagram ||
-            listOfdata?.facebook ||
-            listOfdata?.linkedin ||
-            listOfdata?.phone_no ||
-            listOfdata?.upwork ? (
-            <>
-              <hr className="w-full h-[1px] bg-border" />
-              <div className="block sm:flex md:block xl:flex justify-between">
-                {listOfdata?.behance_link ||
-                  listOfdata?.twitter ||
-                  listOfdata?.instagram ||
-                  listOfdata?.facebook ? (
+          {
+            listOfdata?.behance_link ||
+              listOfdata?.twitter ||
+              listOfdata?.instagram ||
+              listOfdata?.facebook ||
+              listOfdata?.linkedin ||
+              listOfdata?.phone_no ||
+              listOfdata?.upwork ? (
+              <>
+                <hr className="w-full h-[1px] bg-border" />
+                <div className="block sm:flex md:block xl:flex justify-between">
+                  {listOfdata?.behance_link ||
+                    listOfdata?.twitter ||
+                    listOfdata?.instagram ||
+                    listOfdata?.facebook ? (
+                    <div className="w-full px-[0.8rem] mt-[1.2rem]">
+                      <p className="text-[1.6rem] font-normal uppercase text-heading text-center sm:text-left">
+                        Follow me on social media
+                      </p>
+                      {/* SVG Social Icons */}
+                      <div>
+                        <div className="flex items-start justify-center sm:justify-normal flex-wrap gap-[1.6rem] mt-[1.4rem]">
+                          {socialMediaLinksForContactComponent?.map((C, i) => (
+                            <>
+                              {C.link && (
+                                <Link
+                                  href={C.link ? C.link : "#"}
+                                  target="_blank"
+                                  key={i}
+                                >
+                                  <C.SVG />
+                                </Link>
+                              )}
+                            </>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  ) : null}
+
                   <div className="w-full px-[0.8rem] mt-[1.2rem]">
-                    <p className="text-[1.6rem] font-normal uppercase text-heading text-center sm:text-left">
-                      Follow me on social media
+                    <p className="mt-[3rem] sm:mt-0 md:mt-[3rem] xl:mt-0 text-[1.6rem] font-normal uppercase text-heading text-center sm:text-left">
+                      Contact Me
                     </p>
                     {/* SVG Social Icons */}
                     <div>
                       <div className="flex items-start justify-center sm:justify-normal flex-wrap gap-[1.6rem] mt-[1.4rem]">
-                        {socialMediaLinksForContactComponent?.map((C, i) => (
-                          <>
-                            {C.link && (
-                              <Link
-                                href={C.link ? C.link : "#"}
-                                target="_blank"
-                                key={i}
-                              >
-                                <C.SVG />
-                              </Link>
-                            )}
-                          </>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                ) : null}
+                        {listOfdata?.phone_no && (
+                          <Tooltip text="My WhatsApp">
+                            <Link
+                              href={`https://wa.me/${listOfdata?.phone_no}`}
+                              target="_blank"
+                              className="flex items-center justify-center"
+                            >
+                              <Image
+                                alt="WhatsApp"
+                                src="/images/whatsappforContactComponent.svg"
+                                width={100}
+                                height={100}
+                                className="h-[4rem] w-[4rem]"
+                              />
+                            </Link>
+                          </Tooltip>
+                        )}
 
-                <div className="w-full px-[0.8rem] mt-[1.2rem]">
-                  <p className="mt-[3rem] sm:mt-0 md:mt-[3rem] xl:mt-0 text-[1.6rem] font-normal uppercase text-heading text-center sm:text-left">
-                    Contact Me
-                  </p>
-                  {/* SVG Social Icons */}
-                  <div>
-                    <div className="flex items-start justify-center sm:justify-normal flex-wrap gap-[1.6rem] mt-[1.4rem]">
-                      {listOfdata?.phone_no && (
-                        <Tooltip text="My WhatsApp">
-                          <Link
-                            href={`https://wa.me/${listOfdata?.phone_no}`}
-                            target="_blank"
-                            className="flex items-center justify-center"
-                          >
-                            <Image
-                              alt="WhatsApp"
-                              src="/images/whatsappforContactComponent.svg"
-                              width={100}
-                              height={100}
-                              className="h-[4rem] w-[4rem]"
-                            />
-                          </Link>
-                        </Tooltip>
-                      )}
+                        {listOfdata?.upwork && (
+                          <Tooltip text="My Upwork">
+                            <Link href={listOfdata?.upwork} target="_blank">
+                              <Image
+                                alt="Upwork"
+                                src="/images/upworkforContactComponent.svg"
+                                width={100}
+                                height={100}
+                                className="h-[4rem] w-[4rem]"
+                              />
+                            </Link>
+                          </Tooltip>
+                        )}
 
-                      {listOfdata?.upwork && (
-                        <Tooltip text="My Upwork">
-                          <Link href={listOfdata?.upwork} target="_blank">
-                            <Image
-                              alt="Upwork"
-                              src="/images/upworkforContactComponent.svg"
-                              width={100}
-                              height={100}
-                              className="h-[4rem] w-[4rem]"
-                            />
-                          </Link>
-                        </Tooltip>
-                      )}
-
-                      {/* <Tooltip text="Chat Now">
+                        {/* <Tooltip text="Chat Now">
                         <button
                           onClick={(e) => openChat(e)}
                           className="text-primary font-bold text-lg"
@@ -554,32 +556,33 @@ const ContactMe = ({ listOfdata }) => {
                         </button>
                       </Tooltip> */}
 
-                      {listOfdata?.calendly_link && (
-                        <Tooltip text="Schedule Meeting">
-                          <Link
-                            href={listOfdata?.calendly_link}
-                            target="_blank"
-                          >
-                            <div className="h-[4rem] w-[4rem] bg-[#006bff] rounded-lg flex items-center justify-center">
-                              <Image
-                                alt=""
-                                src="/images/calendlyicon.svg"
-                                width={100}
-                                height={100}
-                                className="h-[3rem] w-[3rem]"
-                              />
-                            </div>
-                          </Link>
-                        </Tooltip>
-                      )}
+                        {listOfdata?.calendly_link && (
+                          <Tooltip text="Schedule Meeting">
+                            <Link
+                              href={listOfdata?.calendly_link}
+                              target="_blank"
+                            >
+                              <div className="h-[4rem] w-[4rem] bg-[#006bff] rounded-lg flex items-center justify-center">
+                                <Image
+                                  alt=""
+                                  src="/images/calendlyicon.svg"
+                                  width={100}
+                                  height={100}
+                                  className="h-[3rem] w-[3rem]"
+                                />
+                              </div>
+                            </Link>
+                          </Tooltip>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </>
-          ) : null}
-        </div>
-      </div>
+              </>
+            ) : null
+          }
+        </div >
+      </div >
       {isModalOpen && (
         <ThankyouPopup
           setIsModalOpen={setIsModalOpen}

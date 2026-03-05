@@ -53,11 +53,8 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
       ? [{ title: "Cover Letter", src: "/offer" }]
       : []),
 
-    ...(process.env.IS_SERVICES_ALLOWED === "true" &&
-      listOfdata?.services &&
-      listOfdata?.services?.length > 0
-      ? [{ title: "Services", src: "#", isDropdown: true }]
-      : []),
+
+    { title: "what i can do", src: "/services", },
     { title: "Portfolios ", src: "/portfolio" },
     { title: "Blogs", src: "/blog-listing" },
     { title: "CV", src: "/cv" },
