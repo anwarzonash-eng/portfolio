@@ -54,7 +54,7 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
       : []),
 
 
-    { title: "Services", src: "/services", },
+    { title: "what i can do", src: "/services", },
     { title: "Portfolios ", src: "/portfolio" },
     { title: "Blogs", src: "/blog-listing" },
     { title: "CV", src: "/cv" },

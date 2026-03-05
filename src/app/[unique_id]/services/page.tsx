@@ -71,7 +71,7 @@ const Services = ({ params }: { params: any }) => {
         {
             num: "01",
             title: "Discovery & Strategy",
-            desc: "We dive deep into your business goals to architect a solution that drives real value.",
+            desc: "I dive deep into your business goals to architect a solution that drives real value.",
         },
         {
             num: "02",
@@ -135,27 +135,24 @@ const Services = ({ params }: { params: any }) => {
 
                                         <div className="mt-16  space-x-5 ">
 
-
                                             <Link
 
                                                 prefetch={true}
                                                 className="text-center  rounded-[0.6rem] py-[1.2rem] px-[2.5rem] text-[2.2rem] font-medium  mt-12  text-white  transition-colors bg-primary hover:bg-white hover:text-black hover:border-primary border-1 "
                                                 href={"/portfolio"}
                                             >
-                                                View our work
+                                                View my work
                                             </Link>
 
                                             {!urlInfo?.u && listOfdata?.calendly_link && (
                                                 <Link
-
                                                     prefetch={true}
                                                     className=" text-center  rounded-[0.6rem]  py-[1.2rem] px-[2.5rem] text-[2.2rem] font-medium   bg-white text-black hover:bg-primary hover:text-white hover:border-primary border-1"
                                                     href={"/contact-me"}
                                                 >
-                                                    Contact Us
+                                                    Contact Me
                                                 </Link>
                                             )}
-
 
                                         </div>
                                     </div >
@@ -175,14 +172,14 @@ const Services = ({ params }: { params: any }) => {
 
 
 
-                                {/* Our Development Process */}
+                                {/* My Development Process */}
                                 <section className=" py-24 lg:py-32 border-t border-white/5 mainContainer">
                                     <div className="container-fluid">
                                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
                                             {/* Left */}
                                             <div>
                                                 <h2 className="text-3xl text-[2.5rem] text-center md:text-start lg:text-[5rem] font-black text-black mb-10">
-                                                    Our Development Process
+                                                    My Development Process
                                                 </h2>
                                                 <div className="flex flex-col gap-8">
                                                     {steps.map((step) => (
