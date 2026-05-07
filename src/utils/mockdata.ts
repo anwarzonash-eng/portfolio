@@ -1,6 +1,52 @@
 
 
 
+export const mockAllSkills = [
+    { id: 1, title: "React.js", icon: "" },
+    { id: 2, title: "Next.js", icon: "" },
+    { id: 3, title: "TypeScript", icon: "" },
+    { id: 4, title: "Node.js", icon: "" },
+    { id: 5, title: "PostgreSQL", icon: "" },
+    { id: 6, title: "AWS", icon: "" },
+    { id: 7, title: "Docker", icon: "" },
+    { id: 8, title: "Tailwind CSS", icon: "" },
+];
+
+export const mockListOfData = {
+    name: "John Developer",
+    location: "London, UK",
+    email: "john.developer@email.com",
+    phone_no: "+44 7700 900000",
+    linkedIn: "https://linkedin.com/in/johndev",
+    github: "https://github.com/johndev",
+    linkedin: "https://linkedin.com/in/johndev",
+    ai_short_description:
+        "Full Stack Developer with 5+ years of experience building scalable web applications. Proficient in React, Node.js, TypeScript, and AWS. Passionate about clean code, performance optimization, and delivering great user experiences.",
+    profile_photo_1: "",
+    skills: "",
+    no_of_experiences: 4,
+    skills_ids: [
+        { id: 1, title: "React.js", icon: "", order: "1" },
+        { id: 2, title: "Next.js", icon: "", order: "2" },
+        { id: 3, title: "TypeScript", icon: "", order: "3" },
+        { id: 4, title: "Node.js", icon: "", order: "4" },
+        { id: 5, title: "PostgreSQL", icon: "", order: "5" },
+        { id: 6, title: "AWS", icon: "", order: "6" },
+        { id: 7, title: "Docker", icon: "", order: "7" },
+        { id: 8, title: "Tailwind CSS", icon: "", order: "8" },
+    ],
+    education_ids: [
+        {
+            id: "e1",
+            degree_name: "BSc Computer Science",
+            university_name: "University of Manchester",
+            thumbnail: "",
+        },
+    ],
+    experiences_ids: [],
+    portfolios_ids: [],
+    experiences_for_cv4: null,
+};
 
 export const mockExperiences_for_cv4 = [
     {

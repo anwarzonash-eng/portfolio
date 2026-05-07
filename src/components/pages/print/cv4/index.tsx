@@ -7,7 +7,6 @@ import { setProfileUrlInfo, setProfileLoading } from "@/store/profileSlice";
 import { reportsApiHandler } from "@/hooks/apihandlers/reportsApiHandlers";
 import { handleSkillsApiCall } from "@/hooks/apihandlers/skillsApiHandlers";
 import { getRoutesDetails } from "@/hooks/url";
-import { mockExperiences_for_cv4 } from "@/utils/mockdata";
 
 import {
     CV4HeaderP,
@@ -220,7 +219,7 @@ const CV4 = ({ params }: { params: any }) => {
 
                     {/* Work Experience Section */}
                     <CV4ExperiencesP
-                        experiences_for_cv4={listOfdata?.experiences_for_cv4 || mockExperiences_for_cv4} />
+                        experiences_for_cv4={listOfdata?.experiences_for_cv4 || []} />
 
                     {/* Education Section */}
                     <CV4EducationP listOfdata={listOfdata} />
