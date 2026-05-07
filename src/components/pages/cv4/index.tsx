@@ -3,6 +3,7 @@
 
 
 import { useEffect, useMemo, useState } from "react";
+import dynamic from "next/dynamic";
 import { useSearchParams } from "next/navigation";
 import { store, useAppSelector } from "@/store";
 import { setProfileUrlInfo, setProfileLoading } from "@/store/profileSlice";
@@ -14,12 +15,19 @@ import { skillsGrouping } from "@/hooks/skillsGrouping";
 import { useFilteredYearExperiences } from "@/hooks/useFilteredYearExperiences";
 import { preloadImages } from "@/utils/preLoadImages";
 import { useSortedSkills } from "@/hooks/useSortedSkills";
-import { mockExperiences_for_cv4 } from "@/utils/mockdata";
+import { mockExperiences_for_cv4, mockListOfData, mockAllSkills } from "@/utils/mockdata";
 import CV4Header from "@/components/CV4PageComponents/CV4Header";
 import CV4Summary from "@/components/CV4PageComponents/CV4Summary";
 import CV4Skills from "@/components/CV4PageComponents/CV4Skills";
 import CV4Experiences from "@/components/CV4PageComponents/CV4Experiences";
 import CV4Education from "@/components/CV4PageComponents/CV4Education";
+import { Download } from "lucide-react";
+
+// Dynamically imported — uses browser-only @react-pdf/renderer APIs
+const CV4PdfEditorModal = dynamic(
+    () => import("@/components/CV4PageComponents/CV4PdfEditorModal"),
+    { ssr: false }
+);
 
 
 const CV4 = ({ params }: { params: any }) => {
@@ -30,6 +38,8 @@ const CV4 = ({ params }: { params: any }) => {
     const [listOfdata, setListOfData] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    // PDF editor modal
+    const [pdfModalOpen, setPdfModalOpen] = useState(false);
     // Experiences section
     const [isMobile, setIsMobile] = useState(false);
 
@@ -40,7 +50,8 @@ const CV4 = ({ params }: { params: any }) => {
 
 
     // Filter skills based on listOfdata.skills_ids
-    const [allSkills, setAllSkills] = useState([]);
+    // ⚠️ SERVER IS DOWN — using mock data directly. Restore API calls when server is live.
+    const [allSkills, setAllSkills] = useState<any[]>(mockAllSkills);
 
     // Images preloading
     const [imagesReady, setImagesReady] = useState(false);
@@ -52,33 +63,36 @@ const CV4 = ({ params }: { params: any }) => {
         allSkills,
     });
 
+    // ---- API CALLS (commented out — server is down) ----
+    // useEffect(() => {
+    //     handleSkillsApiCall({ setListOfSkills: setAllSkills });
+    // }, []);
 
+    // useEffect(() => {
+    //     const fetchRoutes = async () => {
+    //         setURLInfo(await getRoutesDetails(params, searchParams));
+    //     };
+    //     fetchRoutes();
+    // }, [params, searchParams]);
 
+    // useEffect(() => {
+    //     if (urlInfo) {
+    //         reportsApiHandler({
+    //             actionType: "cv",
+    //             urlInfo,
+    //             setLoading,
+    //             setListOfData,
+    //             setError,
+    //         });
+    //     }
+    // }, [urlInfo]);
+    // ---- END API CALLS ----
+
+    // Load mock data on mount
     useEffect(() => {
-        handleSkillsApiCall({ setListOfSkills: setAllSkills });
+        setListOfData(mockListOfData);
+        setLoading(false);
     }, []);
-
-    // API Calls
-    // Use getRoutesDetails
-    useEffect(() => {
-        // 🛑 Must wrap in an async function and call it 🛑
-        const fetchRoutes = async () => {
-            setURLInfo(await getRoutesDetails(params, searchParams));
-        };
-        fetchRoutes();
-    }, [params, searchParams]);
-
-    useEffect(() => {
-        if (urlInfo) {
-            reportsApiHandler({
-                actionType: "cv",
-                urlInfo,
-                setLoading,
-                setListOfData,
-                setError,
-            });
-        }
-    }, [urlInfo]);
 
     // Redux sync
     useEffect(() => {
@@ -149,8 +163,9 @@ const CV4 = ({ params }: { params: any }) => {
     }, [listOfdata, allSkills]);
 
     // Check if all essential data is loaded
+    // ⚠️ urlInfo check removed — server is down, using mock data (no route fetch)
     const isDataReady =
-        !loading && listOfdata && urlInfo && allSkills.length > 0 && imagesReady;
+        !loading && listOfdata && allSkills.length > 0 && imagesReady;
 
     const summary =
         listOfdata?.ai_short_description ||
@@ -199,10 +214,27 @@ const CV4 = ({ params }: { params: any }) => {
 
     return (
         <>
-
+            {/* PDF Editor Modal */}
+            {pdfModalOpen && (
+                <CV4PdfEditorModal
+                    listOfdata={listOfdata}
+                    experiences_for_cv4={listOfdata?.experiences_for_cv4 || mockExperiences_for_cv4}
+                    onClose={() => setPdfModalOpen(false)}
+                />
+            )}
 
             <div className="cv-container bg-white text-heading min-h-screen">
                 <div className="max-w-[110rem] mx-auto p-[7rem] border border-solid border-gray-300 rounded-[0.6rem] my-[4rem] shadow-md">
+                    {/* Download PDF Button */}
+                    <div className="flex justify-end mb-6">
+                        <button
+                            onClick={() => setPdfModalOpen(true)}
+                            className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-5 py-2.5 rounded-lg shadow transition-colors"
+                        >
+                            <Download className="w-4 h-4" />
+                            Download PDF
+                        </button>
+                    </div>
 
                     {/* Header */}
                     <CV4Header listOfdata={listOfdata} />
