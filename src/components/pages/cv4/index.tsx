@@ -15,7 +15,6 @@ import { skillsGrouping } from "@/hooks/skillsGrouping";
 import { useFilteredYearExperiences } from "@/hooks/useFilteredYearExperiences";
 import { preloadImages } from "@/utils/preLoadImages";
 import { useSortedSkills } from "@/hooks/useSortedSkills";
-import { mockExperiences_for_cv4, mockListOfData, mockAllSkills } from "@/utils/mockdata";
 import CV4Header from "@/components/CV4PageComponents/CV4Header";
 import CV4Summary from "@/components/CV4PageComponents/CV4Summary";
 import CV4Skills from "@/components/CV4PageComponents/CV4Skills";
@@ -50,8 +49,7 @@ const CV4 = ({ params }: { params: any }) => {
 
 
     // Filter skills based on listOfdata.skills_ids
-    // ⚠️ SERVER IS DOWN — using mock data directly. Restore API calls when server is live.
-    const [allSkills, setAllSkills] = useState<any[]>(mockAllSkills);
+    const [allSkills, setAllSkills] = useState([]);
 
     // Images preloading
     const [imagesReady, setImagesReady] = useState(false);
@@ -63,36 +61,30 @@ const CV4 = ({ params }: { params: any }) => {
         allSkills,
     });
 
-    // ---- API CALLS (commented out — server is down) ----
-    // useEffect(() => {
-    //     handleSkillsApiCall({ setListOfSkills: setAllSkills });
-    // }, []);
-
-    // useEffect(() => {
-    //     const fetchRoutes = async () => {
-    //         setURLInfo(await getRoutesDetails(params, searchParams));
-    //     };
-    //     fetchRoutes();
-    // }, [params, searchParams]);
-
-    // useEffect(() => {
-    //     if (urlInfo) {
-    //         reportsApiHandler({
-    //             actionType: "cv",
-    //             urlInfo,
-    //             setLoading,
-    //             setListOfData,
-    //             setError,
-    //         });
-    //     }
-    // }, [urlInfo]);
-    // ---- END API CALLS ----
-
-    // Load mock data on mount
     useEffect(() => {
-        setListOfData(mockListOfData);
-        setLoading(false);
+        handleSkillsApiCall({ setListOfSkills: setAllSkills });
     }, []);
+
+    // API Calls
+    // Use getRoutesDetails
+    useEffect(() => {
+        const fetchRoutes = async () => {
+            setURLInfo(await getRoutesDetails(params, searchParams));
+        };
+        fetchRoutes();
+    }, [params, searchParams]);
+
+    useEffect(() => {
+        if (urlInfo) {
+            reportsApiHandler({
+                actionType: "cv",
+                urlInfo,
+                setLoading,
+                setListOfData,
+                setError,
+            });
+        }
+    }, [urlInfo]);
 
     // Redux sync
     useEffect(() => {
@@ -163,9 +155,8 @@ const CV4 = ({ params }: { params: any }) => {
     }, [listOfdata, allSkills]);
 
     // Check if all essential data is loaded
-    // ⚠️ urlInfo check removed — server is down, using mock data (no route fetch)
     const isDataReady =
-        !loading && listOfdata && allSkills.length > 0 && imagesReady;
+        !loading && listOfdata && urlInfo && allSkills.length > 0 && imagesReady;
 
     const summary =
         listOfdata?.ai_short_description ||
@@ -218,7 +209,7 @@ const CV4 = ({ params }: { params: any }) => {
             {pdfModalOpen && (
                 <CV4PdfEditorModal
                     listOfdata={listOfdata}
-                    experiences_for_cv4={listOfdata?.experiences_for_cv4 || mockExperiences_for_cv4}
+                    experiences_for_cv4={listOfdata?.experiences_for_cv4 || []}
                     onClose={() => setPdfModalOpen(false)}
                 />
             )}
@@ -250,7 +241,7 @@ const CV4 = ({ params }: { params: any }) => {
                     {/* Work Experience Section */}
 
                     <CV4Experiences
-                        experiences_for_cv4={listOfdata?.experiences_for_cv4 || mockExperiences_for_cv4} />
+                        experiences_for_cv4={listOfdata?.experiences_for_cv4 || []} />
 
                     {/* Education Section */}
 
