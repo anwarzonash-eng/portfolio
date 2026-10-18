@@ -321,7 +321,7 @@ function UpworkActivitySection({ urlInfo, cvTrue, data }) {
                 </div>
                 <div className="flex items-center gap-2 text-gray-600 mt-1">
                   <MapPin className="w-4 h-4" />
-                  <span className="text-[1.4rem]">{data?.location || "Manchester, UK"}</span>
+                  <span className="text-[1.4rem]">{data?.location || "London, UK"}</span>
                 </div>
                 <div className="flex items-center gap-[0.5rem] my-[1rem]">
                   <div className="rounded-full border-2 border-solid border-blue-500 size-[3rem] flex items-center justify-center">

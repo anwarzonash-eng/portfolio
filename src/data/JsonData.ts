@@ -855,60 +855,7 @@ export const blogData = [
   // Add more blog entries here
 ];
 
-export const authorBlogIds = [
-  {
-    authorName: "findusman.me",
-    id: 2,
-    fileName: "/blogsJson/cypexsoft/usman.json",
-  },
-  {
-    authorName: "sadam.me",
-    id: 6,
-    fileName: "/blogsJson/cypexsoft/saddam.json",
-  },
-  {
-    authorName: "findahmad.me",
-    id: 3,
-    fileName: "/blogsJson/cypexsoft/ahmad.json",
-  },
-  {
-    authorName: "noyandev.me",
-    id: 12,
-    fileName: "/blogsJson/cypexsoft/noyan.json",
-  },
-  {
-    authorName: "usamaashraf.dev",
-    id: 5,
-    fileName: "/blogsJson/cypexsoft/usama.json",
-  },
-  {
-    authorName: "abdullahdev.me",
-    id: 11,
-    fileName: "/blogsJson/cypexsoft/abdullah.json",
-  },
-  {
-    authorName: "farhanali.dev",
-    id: 4,
-    fileName: "/blogsJson/cypexsoft/farhan.json",
-  },
-  {
-    authorName: "atifaccountant.com",
-    id: 13,
-    fileName: "/blogsJson/leewop/atif.json",
-  },
-  {
-    authorName: "basit-cpa.me",
-    id: 14,
-    fileName: "/blogsJson/cypexsoft/basit.json",
-  },
-  {
-    authorName: "harisdev.me",
-    id: 8,
-    fileName: "/blogsJson/cypexsoft/haris.json",
-  },
-  {
-    authorName: "muzamildev.me",
-    id: 10,
-    fileName: "/blogsJson/cypexsoft/muzamil.json",
-  },
-];
+// Maps a site domain to a local JSON file of WordPress-style blog posts
+// (served from /public/blogsJson). Add your own entries here, e.g.
+// { authorName: "example.com", id: 1, fileName: "/blogsJson/example.json" }
+export const authorBlogIds: { authorName: string; id: number; fileName: string }[] = [];

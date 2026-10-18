@@ -18,7 +18,7 @@ const UpwrokIdentityPrint: React.FC<UpwrokIdentityPrintProps> = ({
   data = {
     upwork: "#",
     name: "John D.",
-    location: "Manchester, United Kingdom",
+    location: "London, United Kingdom",
     profile_photo_1: "https://via.placeholder.com/80", // Fallback image
   },
   hideLinks,

@@ -1,6 +1,9 @@
 {
-  "name": "my-app",
+  "name": "portfolio",
   "version": "0.3.0",
+  "description": "Public Next.js website for a portfolio / CV platform, driven by the Portfolio CMS API",
+  "author": "Zonash",
+  "license": "MIT",
   "private": true,
   "scripts": {
     "dev": "next dev -p 3059",
