@@ -123,7 +123,7 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({
     const doubled = [...sliderSkills, ...sliderSkills];
 
     return (
-      <div className="relative w-full overflow-hidden mt-[2.5rem] pb-[8rem] bg-white rounded-2xl slider-container print:hidden">
+      <div className="relative w-full overflow-hidden mt-[2.5rem] pb-[8rem] bg-surface rounded-2xl slider-container print:hidden">
         <div className="flex items-center gap-[3rem] md:gap-[8rem] animate-skillSlide">
           {doubled.map((skill: SkillType, idx) => (
             <div
@@ -152,7 +152,7 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({
   }
 
   return (
-    <div className="flex rounded-2xl flex-col w-full items-center justify-center mt-[3rem] bg-white">
+    <div className="flex rounded-2xl flex-col w-full items-center justify-center mt-[3rem] bg-surface">
       {/* === Skills Grid === */}
       <div
         className={containerClasses}
@@ -218,7 +218,7 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({
           {list && list.length > numSkills && (
             <Link
               href={"/cv"}
-              className="px-[4rem] py-[1.4rem] bg-primary rounded-[2.2rem] hover:bg-white hover:text-primary hover:border-primary border border-border text-white text-[1.4rem] font-medium leading-tight mx-auto mt-[1rem]"
+              className="px-[4rem] py-[1.4rem] bg-primary rounded-[2.2rem] hover:bg-surface hover:text-primary hover:border-primary border border-border text-onPrimary text-[1.4rem] font-medium leading-tight mx-auto mt-[1rem]"
             >
               See More Skills
             </Link>
@@ -231,7 +231,7 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({
         <div className="flex justify-center my-[3rem] print:hidden">
           <button
             onClick={handleToggleExpand}
-            className="px-[3rem] py-[1rem] bg-primary rounded-[2rem] text-white text-[1.4rem] font-medium hover:bg-primary-dark transition-colors"
+            className="px-[3rem] py-[1rem] bg-primary rounded-[2rem] text-onPrimary text-[1.4rem] font-medium hover:bg-primary-dark transition-colors"
           >
             {isExpanded ? "Show Less" : "Show All Skills"}
           </button>

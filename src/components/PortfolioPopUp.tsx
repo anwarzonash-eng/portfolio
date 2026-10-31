@@ -136,13 +136,13 @@ const PortfolioPopUp = ({ isModalOpen, closeModal, portfolioImages }) => {
         >
           <div className="h-screen flex items-center justify-center">
             <div className="absolute inset-0" onClick={closeModal}></div>
-            <div className="relative max-w-[90%] lg:max-w-[1000px] w-full mx-auto bg-white p-6 rounded-lg shadow-lg">
+            <div className="relative max-w-[90%] lg:max-w-[1000px] w-full mx-auto bg-surface p-6 rounded-lg shadow-lg">
               {/* Progress bars */}
               <div className="absolute top-0 left-0 w-full flex gap-[4px] p-2">
                 {images.map((_, index) => (
                   <div
                     key={index}
-                    className="h-[4px] flex-1 bg-gray-300 rounded overflow-hidden"
+                    className="h-[4px] flex-1 bg-gray-300 dark:bg-border rounded overflow-hidden"
                   >
                     <div
                       className="h-full bg-primary transition-all duration-100"
@@ -163,7 +163,7 @@ const PortfolioPopUp = ({ isModalOpen, closeModal, portfolioImages }) => {
                 <div className="relative flex flex-col items-center justify-center">
                   {/* Prev Button */}
                   <div
-                    className=" hidden md:flex rounded-[50%] h-[50px] w-[50px]  items-center justify-center bg-[#EFF5FD] hover:bg-primary flex-shrink-0 group duration-300 cursor-pointer shadow-xl absolute left-[-3.5rem] top-1/2 -translate-y-1/2"
+                    className=" hidden md:flex rounded-[50%] h-[50px] w-[50px]  items-center justify-center bg-surfaceMuted hover:bg-primary flex-shrink-0 group duration-300 cursor-pointer shadow-xl absolute left-[-3.5rem] top-1/2 -translate-y-1/2"
                     onClick={prevImage}
                   >
                     <svg
@@ -174,14 +174,14 @@ const PortfolioPopUp = ({ isModalOpen, closeModal, portfolioImages }) => {
                     >
                       <path
                         d="M20.25 12H3.75"
-                        className="stroke-primary group-hover:stroke-white"
+                        className="stroke-primary group-hover:stroke-onPrimary"
                         strokeWidth="1.5"
                         strokeLinecap="round"
                         strokeLinejoin="round"
                       />
                       <path
                         d="M10.5 5.25L3.75 12L10.5 18.75"
-                        className="stroke-primary group-hover:stroke-white"
+                        className="stroke-primary group-hover:stroke-onPrimary"
                         strokeWidth="1.5"
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -201,7 +201,7 @@ const PortfolioPopUp = ({ isModalOpen, closeModal, portfolioImages }) => {
 
                   {/* Next Button */}
                   <div
-                    className="hidden md:flex rounded-[50%] h-[50px] w-[50px]  items-center justify-center bg-[#EFF5FD] hover:bg-primary flex-shrink-0 group duration-300 cursor-pointer shadow-xl absolute right-[-3.5rem] top-1/2 -translate-y-1/2"
+                    className="hidden md:flex rounded-[50%] h-[50px] w-[50px]  items-center justify-center bg-surfaceMuted hover:bg-primary flex-shrink-0 group duration-300 cursor-pointer shadow-xl absolute right-[-3.5rem] top-1/2 -translate-y-1/2"
                     onClick={nextImage}
                   >
                     <svg
@@ -212,14 +212,14 @@ const PortfolioPopUp = ({ isModalOpen, closeModal, portfolioImages }) => {
                     >
                       <path
                         d="M3.75 12H20.25"
-                        className="stroke-primary group-hover:stroke-white"
+                        className="stroke-primary group-hover:stroke-onPrimary"
                         strokeWidth="1.5"
                         strokeLinecap="round"
                         strokeLinejoin="round"
                       />
                       <path
                         d="M13.5 5.25L20.25 12L13.5 18.75"
-                        className="stroke-primary group-hover:stroke-white"
+                        className="stroke-primary group-hover:stroke-onPrimary"
                         strokeWidth="1.5"
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -243,7 +243,7 @@ const PortfolioPopUp = ({ isModalOpen, closeModal, portfolioImages }) => {
                         onMouseLeave={handleMouseLeave}
                         className={`h-40 w-40 object-contain object-center rounded-[8px] cursor-pointer border-2 flex-shrink-0 ${index === currentImageIndex
                           ? "border-primary"
-                          : "border-gray-400"
+                          : "border-gray-400 dark:border-border"
                           }`}
                       />
                     ))}
@@ -264,7 +264,7 @@ const PortfolioPopUp = ({ isModalOpen, closeModal, portfolioImages }) => {
 
               {/* Close Button */}
               <button
-                className="absolute top-[-4rem] lg:top-[-3rem] right-[-1rem] lg:right-[-3rem] text-black bg-border text-[1.2rem] h-[3rem] w-[3rem] rounded-full"
+                className="absolute top-[-4rem] lg:top-[-3rem] right-[-1rem] lg:right-[-3rem] text-black dark:text-heading bg-border text-[1.2rem] h-[3rem] w-[3rem] rounded-full"
                 onClick={closeModal}
               >
                 &times;

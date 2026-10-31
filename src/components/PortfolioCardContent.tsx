@@ -62,7 +62,7 @@ const PortfolioCardContent: React.FC<PortfolioCardContentProps> = ({
   // console.log("API Data:", listOfdata)
 
   return (
-    <div className="flex flex-col-reverse lg:flex-row max-lg:p-[1.5rem] bg-white shadow-testimonialeShadow relative rounded-[1.2rem] border border-solid border-[#DDD] overflow-hidden p-[2.4rem] gap-[2.4rem] print:mt-[10rem]">
+    <div className="flex flex-col-reverse lg:flex-row max-lg:p-[1.5rem] bg-surface shadow-testimonialeShadow relative rounded-[1.2rem] border border-solid border-border overflow-hidden p-[2.4rem] gap-[2.4rem] print:mt-[10rem]">
       {/* Content */}
       <div className="w-full">
         {/* Title and Description */}
@@ -87,7 +87,7 @@ const PortfolioCardContent: React.FC<PortfolioCardContentProps> = ({
                 } lg:w-[800px] w-full object-fill rounded-[1.2rem] border border-solid border-border`}
               />
               <button
-                className={`btn-primary mb-8 text-white mt-[1rem] font-medium relative z-[50]  ${
+                className={`btn-primary mb-8 text-onPrimary mt-[1rem] font-medium relative z-[50]  ${
                   thumbnailSize === "small"
                     ? "py-[0.8rem] px-[2.2rem] text-[1.6rem]"
                     : "py-[1rem] px-[3.4rem] text-[1.8rem]"
@@ -108,7 +108,7 @@ const PortfolioCardContent: React.FC<PortfolioCardContentProps> = ({
             <Link
               href={portfolio?.link || "#"}
               target="_blank"
-              className="inline-flex gap-[1rem] p-2 hover:bg-[#D1E9FF] hover:scale-[98%] transition-all duration-300 cursor-pointer rounded-[6px] hover:drop-shadow-2xl max-w-max max-lg:mt-[1rem]"
+              className="inline-flex gap-[1rem] p-2 hover:bg-[#D1E9FF] dark:hover:bg-surfaceMuted hover:scale-[98%] transition-all duration-300 cursor-pointer rounded-[6px] hover:drop-shadow-2xl max-w-max max-lg:mt-[1rem]"
             >
               {portfolio?.company_icon && (
                 <div className="  rounded-[1rem] inline-block">
@@ -127,7 +127,7 @@ const PortfolioCardContent: React.FC<PortfolioCardContentProps> = ({
                 </h1>
                 <Link
                   href={portfolio?.link || "#"}
-                  className="text-[#1F4FE1] break-all text-[1.4rem] lg:text-[1.6rem] font-normal leading-normal"
+                  className="text-[#1F4FE1] dark:text-primary break-all text-[1.4rem] lg:text-[1.6rem] font-normal leading-normal"
                 >
                   {
                     portfolio?.link
@@ -170,14 +170,14 @@ const PortfolioCardContent: React.FC<PortfolioCardContentProps> = ({
                               key={i}
                               href={skill.url || "#"}
                               target="_blank"
-                              className="hover:bg-primary hover:text-white py-[0.4rem] print:py-[0.1rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
+                              className="hover:bg-primary hover:text-onPrimary py-[0.4rem] print:py-[0.1rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
                             >
                               {skill.title}
                             </Link>
                           ) : (
                             <div
                               key={i}
-                              className="hover:bg-primary hover:text-white py-[0.4rem] print:py-[0.1rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
+                              className="hover:bg-primary hover:text-onPrimary py-[0.4rem] print:py-[0.1rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
                             >
                               {skill.title}
                             </div>
@@ -205,7 +205,7 @@ const PortfolioCardContent: React.FC<PortfolioCardContentProps> = ({
                 <div className="flex items-center flex-wrap max-sm:flex-col max-md:items-start gap-[1.4rem] print:hidden">
                   <Link
                     href={`/portfolio/${portfolio.id}`}
-                    className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-white hover:text-primary border border-solid border-transparent print:!border-primary hover:border-primary duration-300 max-sm:w-full text-center rounded-[0.6rem] print:!text-primary"
+                    className="text-onPrimary py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium primaryGradient hover:bg-surface hover:text-primary border border-solid border-transparent print:!border-primary hover:border-primary duration-300 max-sm:w-full text-center rounded-[0.6rem] print:!text-primary"
                   >
                     View Details
                   </Link>
@@ -213,7 +213,7 @@ const PortfolioCardContent: React.FC<PortfolioCardContentProps> = ({
                     <a
                       href={portfolio?.link ? portfolio?.link : "#"}
                       target="_blank"
-                      className="py-[1rem] px-[2rem] text-[1.6rem] leading-[2.4rem] font-medium text-primary border border-solid hover:border-transparent border-primary print:!text-primary duration-300 hover:bg-primary hover:text-white rounded-[0.6rem] max-sm:w-full text-center text-nowrap"
+                      className="py-[1rem] px-[2rem] text-[1.6rem] leading-[2.4rem] font-medium text-primary border border-solid hover:border-transparent border-primary print:!text-primary duration-300 hover:bg-primary hover:text-onPrimary rounded-[0.6rem] max-sm:w-full text-center text-nowrap"
                     >
                       Launch Project - Live Preview
                     </a>

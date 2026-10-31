@@ -25,7 +25,7 @@ const SkillsComponent = ({ service, skillsList, index = 0 }) => {
     showMoreSkills[index] ? service?.skills : service?.skills?.slice(0, 15)
   );
   return (
-    <div className="px-[1rem] lg:px-[3rem] text-black list-div text-[1.6rem] leading-[2.4rem] sm:text-[1.8rem] sm:leading-[2.8rem] lg:text-[1.8rem] lg:leading-[2.9rem]  font-normal lg:font-medium mb-[2rem] print_AREAS_EXPERTISE ">
+    <div className="px-[1rem] lg:px-[3rem] text-black dark:text-heading list-div text-[1.6rem] leading-[2.4rem] sm:text-[1.8rem] sm:leading-[2.8rem] lg:text-[1.8rem] lg:leading-[2.9rem]  font-normal lg:font-medium mb-[2rem] print_AREAS_EXPERTISE ">
       AREAS OF EXPERTISE I'VE WORKED IN
       <div className="w-full flex-col items-start flex ">
         <div className="flex items-center gap-[1rem] lg:gap-[0.7rem] my-[2.4rem] text-nowrap flex-wrap">
@@ -47,7 +47,7 @@ const SkillsComponent = ({ service, skillsList, index = 0 }) => {
                       style={{
                         animationDelay: `${i * 0.03}s`,
                       }}
-                      className="hover:bg-primary capitaliz  print:!py-[1px] hover:text-white text-center text-primary text-[1.3rem] font-medium  py-[0.4rem] px-[2rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
+                      className="hover:bg-primary capitaliz  print:!py-[1px] hover:text-onPrimary text-center text-primary text-[1.3rem] font-medium  py-[0.4rem] px-[2rem] bg-surface flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-textMuted opacity-0 animate-fadeIn relative group"
                     >
                       {skill?.id?.title}
                     </a>

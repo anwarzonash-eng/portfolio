@@ -8,7 +8,7 @@ const PortfolioImagesLoader = () => {
     >
       <svg
         aria-hidden='true'
-        className='inline max-w-[5.5rem] max-h-[5.5rem] text-gray-200 animate-spin  fill-primary'
+        className='inline max-w-[5.5rem] max-h-[5.5rem] text-gray-200 dark:text-border animate-spin  fill-primary'
         viewBox='0 0 100 101'
         fill='none'
         xmlns='http://www.w3.org/2000/svg'

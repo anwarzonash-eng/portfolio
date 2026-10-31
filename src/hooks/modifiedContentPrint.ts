@@ -1,17 +1,15 @@
-import { getColors } from "./colors";
 
 export function modifiedContentPrint(content, skillsList, listOfdata) {
-  const colors = getColors(listOfdata);
 
   // console.log("Skills List:", skillsList);
 
   let modifiedContentInner = content
-    ?.replace(/<h1>/g, `<h1 style="color:${colors.primary}">`)
-    ?.replace(/<h2>/g, `<h2 style="color:${colors.primary}">`)
-    ?.replace(/<h3>/g, `<h3 style="color:${colors.primary}">`)
-    ?.replace(/<h4>/g, `<h4 style="color:${colors.primary}">`)
-    ?.replace(/<strong >/g, `<strong style="color:${colors.primary}">`)
-    ?.replace(/<strong>/g, `<strong style="color:${colors.primary}">`);
+    ?.replace(/<h1>/g, `<h1 style="color:var(--primary-color)">`)
+    ?.replace(/<h2>/g, `<h2 style="color:var(--primary-color)">`)
+    ?.replace(/<h3>/g, `<h3 style="color:var(--primary-color)">`)
+    ?.replace(/<h4>/g, `<h4 style="color:var(--primary-color)">`)
+    ?.replace(/<strong >/g, `<strong style="color:var(--primary-color)">`)
+    ?.replace(/<strong>/g, `<strong style="color:var(--primary-color)">`);
 
   // Collect all phrases with their skills
   const phraseToSkill = new Map();

@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { getColors, updateCSSVariables } from "@/hooks/colors";
+import { applyTheme, getStoredTheme, isLightOnlyPath } from "@/hooks/useTheme";
 import { useAppSelector } from "@/store";
 import dynamic from "next/dynamic";
 import Tawkto from "./Tawkto";
@@ -82,8 +83,17 @@ export default function ChildWrapper({
   }, [listOfdata]);
 
   useEffect(() => {
-    updateCSSVariables(colors);
-  }, [colors]);
+    updateCSSVariables(colors, listOfdata);
+  }, [colors, listOfdata]);
+
+  // Keep the applied theme in sync with the route: print/CV routes are always
+  // light; everywhere else follows the persisted preference. The boot script in
+  // layout.tsx handles first paint; this handles client-side navigation.
+  useEffect(() => {
+    const themeParam = new URLSearchParams(window.location.search).get("theme");
+    const override = themeParam === "dark" || themeParam === "light" ? themeParam : null;
+    applyTheme(isLightOnlyPath(pathname) ? "light" : override ?? getStoredTheme());
+  }, [pathname]);
 
   // Toggle per-page zoom for routes that should render at 100%
   useEffect(() => {

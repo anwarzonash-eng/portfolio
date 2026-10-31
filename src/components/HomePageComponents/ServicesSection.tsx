@@ -52,7 +52,7 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({ services }) => {
                         }}
                       />
                       
-                      <div className="absolute inset-0 bg-white z-0">
+                      <div className="absolute inset-0 bg-surface z-0">
                         <div className="h-full w-full bg-gradient-to-t from-[#6f656591] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                       </div>
                     </div>
@@ -81,7 +81,7 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({ services }) => {
               return (
                 <div
                   key={index}
-                  className="bg-white  rounded-3xl overflow-hidden shadow-lg  border border-white/10 flex flex-col h-full hover:shadow-xl transition-all duration-300 hover:-translate-y-2"
+                  className="bg-surface  rounded-3xl overflow-hidden shadow-lg  border border-white/10 flex flex-col h-full hover:shadow-xl transition-all duration-300 hover:-translate-y-2"
                 >
                   <div className="p-6 flex flex-col flex-grow">
                     {/* header with icon and title */}
@@ -93,23 +93,23 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({ services }) => {
                             alt={service.title || "Service icon"}
                             width={50}
                             height={50}
-                            className="object-contain mr-4 border border-gray-300 rounded-lg p-1 filter grayscale"
+                            className="object-contain mr-4 border border-gray-300 dark:border-border rounded-lg p-1 filter grayscale"
                             onError={(e) => {
                               const target = e.target as HTMLImageElement;
                               target.style.display = "none";
                             }}
                           />
                         )}
-                        <span className="text-gray-600 text-[1.8rem]">0{index + 1}</span>
+                        <span className="text-gray-600 dark:text-paragraph1 text-[1.8rem]">0{index + 1}</span>
                       </div>
-                      <h3 className="text-black text-[2rem] font-bold line-clamp-2">
+                      <h3 className="text-black dark:text-heading text-[2rem] font-bold line-clamp-2">
                         {service?.title}
                       </h3>
                     </div>
 
                     {/* tagline */}
                     {taglineText && (
-                      <p className="text-gray-600 text-[1.3rem] flex-grow line-clamp-4">
+                      <p className="text-gray-600 dark:text-paragraph1 text-[1.3rem] flex-grow line-clamp-4">
                         {taglineText}
                       </p>
                     )}

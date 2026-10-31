@@ -422,7 +422,7 @@ const Home = ({ params }: { params: any }) => {
                 {listOfdata && listOfdata?.skills_ids?.length > 0 && (
                   <div
                     id="skillSection"
-                    className="pt-20 mb-0 print:!pt-[4rem] print:my-[0rem] my-[5rem]  print:h-screen print:break-before-page break-before-avoid print:bg-[#a3ddd3] bg-white"
+                    className="pt-20 mb-0 print:!pt-[4rem] print:my-[0rem] my-[5rem]  print:h-screen print:break-before-page break-before-avoid print:bg-[#a3ddd3] bg-surface"
                   >
                     <div className="flex items-center justify-center mt-[2rem] lg:hidden mb-20">
                       <div id="skills_ids" className="badge capitalize">
@@ -462,7 +462,7 @@ const Home = ({ params }: { params: any }) => {
                   listOfdata.portfolios_ids.length > 0 && (
                     <section
                       id="myWork"
-                      className="w-full  bg-gradient-to-br from-cyan-50 via-teal-50 to-emerald-50 pt-[4rem] lg:pt-[7rem] pb-[4rem] mb-[3.5rem] lg:mb-[7rem] print_p_m print:!pt-[3rem] print:bg-[#a3ddd3] print:break-before-page print:h-screen "
+                      className="w-full  bg-gradient-to-br from-cyan-50 via-teal-50 to-emerald-50 dark:bg-none dark:bg-surfaceMuted pt-[4rem] lg:pt-[7rem] pb-[4rem] mb-[3.5rem] lg:mb-[7rem] print_p_m print:!pt-[3rem] print:bg-[#a3ddd3] print:break-before-page print:h-screen "
                     >
                       <div className="mainContainer   my-[5rem] print:my-[1rem] ">
                         <div className="flex items-center justify-center lg:hidden">
@@ -583,7 +583,7 @@ const Home = ({ params }: { params: any }) => {
                             <div className="flex items-center justify-center lg:ml-20">
                               <button
                                 onClick={() => setShowAllExperiences(true)}
-                                className="btn-primary text-white py-[1rem] mt-[2rem] px-[3.4rem] text-[1.8rem] font-medium"
+                                className="btn-primary text-onPrimary py-[1rem] mt-[2rem] px-[3.4rem] text-[1.8rem] font-medium"
                               >
                                 View Full Career Timeline
                               </button>

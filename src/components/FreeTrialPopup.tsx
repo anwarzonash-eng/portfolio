@@ -78,7 +78,7 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
             <div className="rounded-[1.2rem] max-w-[102.4rem] w-full mx-auto bg-primary relative">
               {/* Close Icon */}
               <div className="flex items-center justify-center lg:justify-end pt-3 lg:p-2">
-                <div className="text-black bg-border text-[1.2rem] h-[3rem] w-[3rem] rounded-full cursor-pointer">
+                <div className="text-black dark:text-heading bg-border text-[1.2rem] h-[3rem] w-[3rem] rounded-full cursor-pointer">
                   <Image
                     src="/images/close-icon.svg"
                     height={50}
@@ -140,7 +140,7 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
                 </div>
               </div>
               {/* Bottom Content */}
-              <div className="bg-white rounded-[1.2rem]">
+              <div className="bg-surface rounded-[1.2rem]">
                 {/* Heading and Button */}
                 <div className="flex flex-wrap justify-center lg:justify-between lg:flex-nowrap gap-[2rem] lg:items-end py-[2rem] px-[3rem] border-b border-solid border-border">
                   <div className="max-w-[614px] w-full flex-shrink-0">
@@ -152,12 +152,12 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
                     </p>
                     <p
                       dangerouslySetInnerHTML={{ __html: listOfdata?.tag_line }}
-                      className="text-black text-[1.8rem] font-normal leading-[150%]"
+                      className="text-black dark:text-heading text-[1.8rem] font-normal leading-[150%]"
                     ></p>
                   </div>
                   <button
                     onClick={handleClose}
-                    className="btn-primary px-[3rem] py-[1.2rem] rounded-[0.4rem] text-[1.4rem] lg:text-[2rem] text-white"
+                    className="btn-primary px-[3rem] py-[1.2rem] rounded-[0.4rem] text-[1.4rem] lg:text-[2rem] text-onPrimary"
                   >
                     Keep Exploring My Website
                   </button>
@@ -171,14 +171,14 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
                     {/* Pricing and Availability */}
                     <div className="w-full flex gap-[1.2rem]">
                       {/* Pricing */}
-                      <div className="bg-[#F7F9FC] border border-solid border-[#E2E6EE] w-full px-[2rem] rounded-[0.8rem] h-[9.4rem] flex items-center justify-center text-primary font-medium">
+                      <div className="bg-[#F7F9FC] dark:bg-surfaceMuted border border-solid border-[#E2E6EE] dark:border-border w-full px-[2rem] rounded-[0.8rem] h-[9.4rem] flex items-center justify-center text-primary font-medium">
                           <div>
                           <span className="text-[2.5rem]">${listOfdata?.hourly_rate}</span>
                           <span className="text-[1.6rem]">/ {listOfdata?.salary_type === "per_day" ? "day" : "hour"}</span>
                         </div>
                       </div>
                       {/* Availability */}
-                      <div className="bg-[#F7F9FC] border border-solid border-[#E2E6EE] w-full px-[2rem] rounded-[0.8rem] h-[9.4rem] flex items-center justify-center text-primary font-medium">
+                      <div className="bg-[#F7F9FC] dark:bg-surfaceMuted border border-solid border-[#E2E6EE] dark:border-border w-full px-[2rem] rounded-[0.8rem] h-[9.4rem] flex items-center justify-center text-primary font-medium">
                         <div>
                           <span className="text-[2.5rem]">45 hr</span>{" "}
                           <span className="text-[1.6rem]">/ week</span>
@@ -189,7 +189,7 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
                     <div className="w-full flex gap-[1.2rem]">
                       {/* Contact */}
                       {!urlInfo?.u && (
-                        <div className="bg-[#F7F9FC] border border-solid border-[#E2E6EE] w-full px-[2rem] rounded-[0.8rem] h-[9.4rem] flex items-center justify-between gap-[1rem]">
+                        <div className="bg-[#F7F9FC] dark:bg-surfaceMuted border border-solid border-[#E2E6EE] dark:border-border w-full px-[2rem] rounded-[0.8rem] h-[9.4rem] flex items-center justify-between gap-[1rem]">
                           <div>
                             <div className="w-full flex items-center gap-[1.4rem] mb-[0.5rem]">
                               {/* Gmail */}
@@ -245,7 +245,7 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
                       {/* <div className="h-[5.2rem] w-[3px] bg-border " /> */}
 
                       {/* Work Proof */}
-                      <div className="bg-[#F7F9FC] border border-solid border-[#E2E6EE] w-full px-[2rem] rounded-[0.8rem] h-[9.4rem] flex items-center justify-between gap-[1rem]">
+                      <div className="bg-[#F7F9FC] dark:bg-surfaceMuted border border-solid border-[#E2E6EE] dark:border-border w-full px-[2rem] rounded-[0.8rem] h-[9.4rem] flex items-center justify-between gap-[1rem]">
                         <div className="w-full">
                           <div
                             className={`w-full flex items-center ${
@@ -338,7 +338,7 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
                         {/* New Code More Good */}
                         <div className="flex flex-col items-center gap-[1.5rem] overflow-hidden w-full">
                           {/* SKILLS DISPLAY */}
-                          <div className="md:max-w-[536px] w-full bg-white/70 backdrop-blur-[1.2rem] flex flex-wrap gap-[1rem] max-h-[160px] overflow-y-auto transition-all duration-500 p-2 rounded-lg">
+                          <div className="md:max-w-[536px] w-full bg-surface-70 backdrop-blur-[1.2rem] flex flex-wrap gap-[1rem] max-h-[160px] overflow-y-auto transition-all duration-500 p-2 rounded-lg">
                             {(showAll
                               ? Object.values(skills).flat() // all skills
                               : Object.values(skills).flat().slice(0, 6)
@@ -347,7 +347,7 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
                                 <Link
                                   href={skill?.url || "#"}
                                   key={skill.id}
-                                  className="text-center hover:text-white text-primary text-[1.8rem] font-semibold hover:bg-primary px-[1.8rem] md:px-[2.2rem] py-[0.5rem] md:py-[1rem] bg-white rounded-[5rem] shadow-skillShadow border-[1.5px] flex-shrink-0 border-solid border-[#DDD] justify-center items-center"
+                                  className="text-center hover:text-onPrimary text-primary text-[1.8rem] font-semibold hover:bg-primary px-[1.8rem] md:px-[2.2rem] py-[0.5rem] md:py-[1rem] bg-surface rounded-[5rem] shadow-skillShadow border-[1.5px] flex-shrink-0 border-solid border-border justify-center items-center"
                                   style={{ animationDelay: `${i * 0.3}s` }}
                                 >
                                   {skill.title}
@@ -359,7 +359,7 @@ const FreeTrialPopup = ({ listOfdata, urlInfo }) => {
                           {Object.values(skills).flat().length > 6 && (
                             <button
                               onClick={() => setShowAll(!showAll)}
-                              className="btn-primary px-[3rem] py-[1rem] rounded-[100px] text-[2rem] text-white"
+                              className="btn-primary px-[3rem] py-[1rem] rounded-[100px] text-[2rem] text-onPrimary"
                             >
                               {showAll ? "Show Less" : "Show All Skills"}
                             </button>

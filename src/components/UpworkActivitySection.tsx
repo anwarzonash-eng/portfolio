@@ -62,7 +62,7 @@
 //   return (
 //     <section
 //       className={`${urlInfo?.domain === "findusman.me" ? "w-full " : "hidden"
-//         } ${cvTrue ? "py-0" : "py-10"} bg-white `}
+//         } ${cvTrue ? "py-0" : "py-10"} bg-surface `}
 //     >
 //       <div className={`${cvTrue ? "p-[2rem] lg:p-[3rem]" : "mainContainer"}`}>
 //         {/* Top Content */}
@@ -245,7 +245,7 @@ function UpworkActivitySection({ urlInfo, cvTrue, data }) {
   return (
     <section
       className={`${urlInfo?.domain === "findusman.me" ? "w-full " : "hidden"
-        } ${cvTrue ? "py-0 border rounded-2xl" : "py-10"} bg-white `}
+        } ${cvTrue ? "py-0 border rounded-2xl" : "py-10"} bg-surface `}
     >
       <div className={`${cvTrue ? "p-[2rem] lg:p-[3rem] pt-20 " : "mainContainer lg:mt-20 "}`}>
         {/* Main Grid Layout */}
@@ -270,7 +270,7 @@ function UpworkActivitySection({ urlInfo, cvTrue, data }) {
                 </Link>{" "}
                 Activities
               </h2>
-              <p className="text-[1.8rem] lg:text-[2.5rem] w-full lg:w-2/3 text-center text-gray-600">Proven performance, consistent delivery, and client satisfaction across long-term projects.</p>
+              <p className="text-[1.8rem] lg:text-[2.5rem] w-full lg:w-2/3 text-center text-gray-600 dark:text-paragraph1">Proven performance, consistent delivery, and client satisfaction across long-term projects.</p>
             </div>
 
             <div className="flex flex-wrap gap-8">
@@ -279,7 +279,7 @@ function UpworkActivitySection({ urlInfo, cvTrue, data }) {
                 return (
                   <div
                     key={item.id}
-                    className="md:flex-1 flex gap-4 p-10 bg-white rounded-3xl  min-w-[220px] mt-14 shadow-[0_0_10px_rgba(0,0,0,0.2)]"
+                    className="md:flex-1 flex gap-4 p-10 bg-surface rounded-3xl  min-w-[220px] mt-14 shadow-[0_0_10px_rgba(0,0,0,0.2)]"
                   >
                     <div className="">
 
@@ -287,7 +287,7 @@ function UpworkActivitySection({ urlInfo, cvTrue, data }) {
                     <div className="flex flex-col gap-6">
                       <div className="flex gap-4 ">
                         <div className={`${cvTrue ? "w-16 h-16" : "w-16 h-14  md:w-12 md:h-12  lg:w-20 lg:h-20"} rounded-full bg-primary flex items-center justify-center`}>
-                          <IconComponent className=" w-7 h-7 md:w-8 md:h-8 lg:w-10 lg:h-10 text-white" />
+                          <IconComponent className=" w-7 h-7 md:w-8 md:h-8 lg:w-10 lg:h-10 text-onPrimary" />
                         </div>
                         <p
                           className={`${cvTrue ? "text-[2.4rem]" : "text-[2.4rem] lg:text-[2.8rem]"} font-semibold w-full lg:w-[200px]`}
@@ -309,17 +309,17 @@ function UpworkActivitySection({ urlInfo, cvTrue, data }) {
                   alt="Profile"
                   width={80}
                   height={80}
-                  className="w-20 h-20 rounded-full object-cover border-2 border-gray-200"
+                  className="w-20 h-20 rounded-full object-cover border-2 border-gray-200 dark:border-border"
                 />
               </div> */}
             {/* <div>
                 <div className="flex items-center gap-2">
-                  <h2 className="text-[2rem] font-bold text-gray-900">
+                  <h2 className="text-[2rem] font-bold text-gray-900 dark:text-heading">
                     {data?.name || "JOHN DEVELOPER"}
                   </h2>
                   <BlueTick className="w-5 h-5 text-blue-500" />
                 </div>
-                <div className="flex items-center gap-2 text-gray-600 mt-1">
+                <div className="flex items-center gap-2 text-gray-600 dark:text-paragraph1 mt-1">
                   <MapPin className="w-4 h-4" />
                   <span className="text-[1.4rem]">{data?.location || "London, UK"}</span>
                 </div>
@@ -413,15 +413,15 @@ function UpworkActivitySection({ urlInfo, cvTrue, data }) {
                       </div>
                     </div>
                     <div className="flex-1">
-                      <h3 className="text-[2rem] font-bold text-gray-900 mb-2">
+                      <h3 className="text-[2rem] font-bold text-gray-900 dark:text-heading mb-2">
                         {item.title}
                       </h3>
-                      <p className="text-[1.5rem] text-gray-700 leading-relaxed">
+                      <p className="text-[1.5rem] text-gray-700 dark:text-paragraph1 leading-relaxed">
                         {item.content.split(item.highlight).map((part, index, array) => (
                           <React.Fragment key={index}>
                             {part}
                             {index < array.length - 1 && (
-                              <strong className="font-bold text-gray-900">
+                              <strong className="font-bold text-gray-900 dark:text-heading">
                                 {item.highlight}
                               </strong>
                             )}

@@ -1,18 +1,16 @@
-import { getColors } from "./colors";
 
 export function modifiedContent(content, skillsList, listOfdata) {
-  const colors = getColors(listOfdata);
 
   // console.log("Content:", content);
   // console.log("Skills List:", skillsList);
   // console.log("List of Data:", listOfdata);
 
   const modifiedContentInner = content
-    ?.replace(/<h1>/g, `<h1 style="color:${colors.primary}">`)
-    ?.replace(/<h2>/g, `<h2 style="color:${colors.primary}">`)
-    ?.replace(/<h3>/g, `<h3 style="color:${colors.primary}">`)
-    ?.replace(/<h4>/g, `<h4 style="color:${colors.primary}">`)
-    ?.replace(/<strong>/g, `<strong style="color:${colors.primary}">`)
+    ?.replace(/<h1>/g, `<h1 style="color:var(--primary-color)">`)
+    ?.replace(/<h2>/g, `<h2 style="color:var(--primary-color)">`)
+    ?.replace(/<h3>/g, `<h3 style="color:var(--primary-color)">`)
+    ?.replace(/<h4>/g, `<h4 style="color:var(--primary-color)">`)
+    ?.replace(/<strong>/g, `<strong style="color:var(--primary-color)">`)
     ?.replace(/<u>(.*?)<\/u>/g, (_, match) => {
       const cleanedMatch = match.trim();
 

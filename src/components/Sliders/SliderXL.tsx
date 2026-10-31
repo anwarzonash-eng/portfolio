@@ -140,20 +140,20 @@ const SliderXL = ({ portfolioPictures }) => {
 
   if (!preloaded) {
     return (
-      <div className="w-full h-[200px] lg:h-[700px] flex items-center justify-center bg-gray-100 rounded-[1.6rem]">
-        <div className="text-gray-500">Loading images...</div>
+      <div className="w-full h-[200px] lg:h-[700px] flex items-center justify-center bg-gray-100 dark:bg-surfaceMuted rounded-[1.6rem]">
+        <div className="text-gray-500 dark:text-textMuted">Loading images...</div>
       </div>
     );
   }
 
   return (
-    <div ref={sliderContainerRef} className="bg-white rounded-lg p-10 relative w-full max-lg:pb-[2rem] sliderxl-root">
+    <div ref={sliderContainerRef} className="bg-surface rounded-lg p-10 relative w-full max-lg:pb-[2rem] sliderxl-root">
       {/* Progress Timeline Bars */}
       <div className="absolute top-0 left-0 right-0 z-10 flex gap-1 p-3">
         {images.map((_: any, index: number) => (
           <div
             key={index}
-            className="flex-1 h-1 bg-gray-300 rounded-full overflow-hidden"
+            className="flex-1 h-1 bg-gray-300 dark:bg-border rounded-full overflow-hidden"
           >
             <div
               className="h-full bg-primary transition-all duration-100"
@@ -211,7 +211,7 @@ const SliderXL = ({ portfolioPictures }) => {
             className={`flex-shrink-0 cursor-pointer rounded-3xl overflow-hidden border-4 transition-all
               ${index === currentSlide
                 ? "border-primary scale-105"
-                : "border-gray-300 opacity-70"
+                : "border-gray-300 dark:border-border opacity-70"
               }`}
           >
             <Image
@@ -247,7 +247,7 @@ const SliderXL = ({ portfolioPictures }) => {
       <button
         onClick={prevSlide}
         className={`hidden md:flex absolute left-[100px] bottom-[-50px] lg:top-1/2 lg:-left-[3.6rem] -translate-y-1/2 
-             bg-[#EFF5FD] hover:bg-primary active:bg-primary hover:text-white active:text-white rounded-full shadow-xl  items-center justify-center 
+             bg-surfaceMuted hover:bg-primary active:bg-primary hover:text-onPrimary active:text-onPrimary rounded-full shadow-xl  items-center justify-center 
              lg:h-[7.2rem] lg:w-[7.2rem] h-[4.5rem] w-[4.5rem] transition-all duration-300`}
       >
         <ArrowLeft />
@@ -257,7 +257,7 @@ const SliderXL = ({ portfolioPictures }) => {
       <button
         onClick={nextSlide}
         className={`hidden md:flex absolute  items-center justify-center right-[100px] bottom-[-50px]  lg:top-1/2 lg:-right-[3.6rem] -translate-y-1/2 
-             bg-[#EFF5FD] hover:bg-primary active:bg-primary hover:text-white active:text-white rounded-full shadow-xl  
+             bg-surfaceMuted hover:bg-primary active:bg-primary hover:text-onPrimary active:text-onPrimary rounded-full shadow-xl  
              lg:h-[7.2rem] lg:w-[7.2rem] h-[4.5rem] w-[4.5rem] transition-all duration-300`}
       >
         <ArrowRight />

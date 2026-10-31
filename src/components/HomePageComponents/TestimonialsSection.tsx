@@ -136,7 +136,7 @@ const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
   };
 
   return (
-    <section className="w-full bg-primary lg:px-[4rem]  lg:py-[8rem] px-0 py-[2rem] my-[8rem]">
+    <section className="w-full bg-primary dark:bg-sectionBG lg:px-[4rem]  lg:py-[8rem] px-0 py-[2rem] my-[8rem]">
       <div className="mainContainer">
         <div className="px-3 lg:px-6 relative">
           {/* Heading */}
@@ -307,7 +307,7 @@ const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
                   }}
                   className={`w-12 h-12 rounded-full border flex items-center justify-center transition-all ${
                     activeBtn === "prev"
-                      ? "bg-white text-black border-white"
+                      ? "bg-surface text-black dark:text-heading border-white"
                       : "border-white text-white hover:bg-white/10"
                   }`}
                 >
@@ -322,7 +322,7 @@ const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
                   }}
                   className={`w-12 h-12 rounded-full border flex items-center justify-center transition-all ${
                     activeBtn === "next"
-                      ? "bg-white text-black border-white"
+                      ? "bg-surface text-black dark:text-heading border-white"
                       : "border-white text-white hover:bg-white/10"
                   }`}
                 >

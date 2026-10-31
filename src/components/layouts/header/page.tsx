@@ -10,6 +10,7 @@ import { useAppSelector } from "@/store";
 import { scrollToSection } from "@/hooks/scrollToSection";
 import OfferBanner from "@/components/OfferBanner";
 import UpworkIdentity from "@/components/UpworkIdentity";
+import ThemeToggle from "@/components/ThemeToggle";
 
 interface HeaderLink {
   title: string;
@@ -160,7 +161,8 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
     if (typeof window !== "undefined") {
       const savedBgColor = localStorage.getItem("bgColor");
       if (savedBgColor) {
-        setBgColor(savedBgColor);
+        // Older sessions stored the pre-theme class name.
+        setBgColor(savedBgColor === "bg-white" ? "bg-surface" : savedBgColor);
       }
     }
   }, [initialBgColor]);
@@ -169,8 +171,8 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
     const handleScroll = () => {
       const scroll = window.scrollY;
       if (scroll > 10) {
-        setBgColor("bg-white");
-        localStorage.setItem("bgColor", "bg-white");
+        setBgColor("bg-surface");
+        localStorage.setItem("bgColor", "bg-surface");
       } else {
         setBgColor(initialBgColor);
         localStorage.setItem("bgColor", initialBgColor);
@@ -301,7 +303,7 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
                             {isServicesOpen && (
                               <nav
                                 ref={servicesDivRef}
-                                className={`rounded-[0.8rem] duration-300 shadow-lg bg-white absolute top-[4rem] left-[50%] ${urlInfo?.u
+                                className={`rounded-[0.8rem] duration-300 shadow-lg bg-surface absolute top-[4rem] left-[50%] ${urlInfo?.u
                                   ? "translate-x-[-70%]"
                                   : "translate-x-[-50%]"
                                   } z-50
@@ -331,10 +333,10 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
                                             service?.title
                                           )}`}
                                           key={index}
-                                          className="group p-4 hover:bg-gray-50 rounded-lg transition-all duration-300 border border-gray-100 hover:border-primary/20 hover:shadow-sm"
+                                          className="group p-4 hover:bg-gray-50 dark:hover:bg-surfaceMuted rounded-lg transition-all duration-300 border border-gray-100 dark:border-border hover:border-primary/20 hover:shadow-sm"
                                         >
                                           <div className="flex items-center gap-3 mb-3">
-                                            <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center group-hover:bg-blue-100">
+                                            <div className="w-10 h-10 bg-blue-50 dark:bg-surfaceMuted rounded-lg flex items-center justify-center group-hover:bg-blue-100 dark:group-hover:bg-border">
                                               <Image
                                                 src={content.image}
                                                 width={20}
@@ -343,12 +345,12 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
                                                 className="text-blue-500"
                                               />
                                             </div>
-                                            <h3 className="text-[1.6rem] font-semibold text-gray-800 group-hover:text-primary">
+                                            <h3 className="text-[1.6rem] font-semibold text-gray-800 dark:text-heading group-hover:text-primary">
                                               {service?.title}
                                             </h3>
                                           </div>
 
-                                          <p className="text-[1.4rem] text-gray-600 pl-[3.2rem]">
+                                          <p className="text-[1.4rem] text-gray-600 dark:text-paragraph1 pl-[3.2rem]">
                                             {content.description}
                                           </p>
                                         </Link>
@@ -399,7 +401,7 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
                       {isResourceOpen && (
                         <nav
                           ref={resourcesDivRef}
-                          className={`rounded-[0.8rem] duration-300 shadow-md bg-white absolute top-[4rem] left-[50%] ${urlInfo?.u
+                          className={`rounded-[0.8rem] duration-300 shadow-md bg-surface absolute top-[4rem] left-[50%] ${urlInfo?.u
                             ? "translate-x-[-70%]"
                             : "translate-x-[-50%]"
                             } z-50 p-[2rem] text-primary text-[1.6rem] font-normal leading-normal flex flex-col gap-[1.5rem] w-[40rem]`}
@@ -448,6 +450,9 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
                     </div>
                   </div>
                   {/* Buttons */}
+                  <div className="flex items-center gap-[1rem]">
+                    {/* Theme toggle: always rendered, even in admin (?u=_) mode */}
+                    <ThemeToggle />
                   {!urlInfo?.u && (
                     <div className="flex items-center gap-[1rem]">
                       <Link prefetch={true} href={"/contact-me"}>
@@ -462,14 +467,14 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
                         <Link
                           target="_blank"
                           prefetch={true}
-                          className="text-center btn-primary rounded-[0.6rem] border-2 border-border border-solid py-[1rem] px-[3.4rem] text-[1.6rem] font-medium text-white"
+                          className="text-center btn-primary rounded-[0.6rem] border-2 border-border border-solid py-[1rem] px-[3.4rem] text-[1.6rem] font-medium text-onPrimary"
                           href={listOfdata?.calendly_link || "#"}
                         >
                           Schedule Call
                         </Link>
                       ) : (
                         <button
-                          className="btn-primary rounded-[0.6rem] border-2 border-border border-solid py-[1rem] px-[3.4rem] text-[1.6rem] font-medium text-white"
+                          className="btn-primary rounded-[0.6rem] border-2 border-border border-solid py-[1rem] px-[3.4rem] text-[1.6rem] font-medium text-onPrimary"
                           onClick={() => scrollToSection("contact")}
                         >
                           Hire Me
@@ -477,11 +482,12 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
                       )}
                     </div>
                   )}
+                  </div>
                 </div>
               </div>
 
               {/* Mobile Header  */}
-              <div className="min-[1100px]:hidden mainContainer  print:hidden  flex items-center justify-between bg-white py-[1.2rem] relative z-[200]">
+              <div className="min-[1100px]:hidden mainContainer  print:hidden  flex items-center justify-between bg-surface py-[1.2rem] relative z-[200]">
                 {/* User Profile  */}
                 <Link
                   prefetch={true}
@@ -512,7 +518,7 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
                 />
                 {/* Positioned Sidebar */}
                 <div
-                  className={`fixed top-[7.2rem] w-[35rem] right-0 z-[100] h-full bg-white shadow-lg  duration-300  ${sideBarOpen
+                  className={`fixed top-[7.2rem] w-[35rem] right-0 z-[100] h-full bg-surface shadow-lg  duration-300  ${sideBarOpen
                     ? "translate-x-0 opacity-100"
                     : "translate-x-[30rem] opacity-0"
                     }`}
@@ -524,7 +530,7 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
                         {/* Nav Link */}
                         <nav
                           ref={sidebarRef}
-                          className="text-[#101828] text-[1.6rem] font-medium leading-[2.4rem] flex flex-col  gap-[2.4rem]"
+                          className="text-[#101828] dark:text-heading text-[1.6rem] font-medium leading-[2.4rem] flex flex-col  gap-[2.4rem]"
                         >
                           {headerLinks.map((link, index) =>
                             link.isDropdown ? (
@@ -549,7 +555,7 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
                                 {/* Positioned DropDown Menu */}
                                 {isServicesOpen && (
                                   <nav
-                                    className={`rounded-[0.8rem] duration-300 shadow-md bg-white z-50
+                                    className={`rounded-[0.8rem] duration-300 shadow-md bg-surface z-50
                     ${isServicesOpen ? "opacity-100" : "h-0 opacity-0"}
                    
                        p-[2rem] text-primary text-[1.6rem] font-normal leading-normal flex flex-col gap-[1.5rem] max-w-[32rem] w-full text-nowrap`}
@@ -566,7 +572,7 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
                                               service?.title
                                             )}`}
                                             key={index}
-                                            className={`w-full flex items-center gap-[1.4rem] px-4 py-2 hover:bg-primary hover:text-white hover:rounded-lg transition-all duration-300 ease-in-out cursor-pointer text-wrap border-b border-gray-200 last:border-b-0`}
+                                            className={`w-full flex items-center gap-[1.4rem] px-4 py-2 hover:bg-primary hover:text-onPrimary hover:rounded-lg transition-all duration-300 ease-in-out cursor-pointer text-wrap border-b border-gray-200 dark:border-border last:border-b-0`}
                                           >
                                             {service?.title}
                                           </Link>
@@ -614,7 +620,7 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
                             {/* Positioned DropDown Menu */}
                             {isResourceOpen && (
                               <nav
-                                className="rounded-[0.8rem] duration-300 shadow-md bg-white z-50 p-[2rem] text-primary text-[1.6rem] font-normal leading-normal flex flex-col gap-[1.5rem] w-full"
+                                className="rounded-[0.8rem] duration-300 shadow-md bg-surface z-50 p-[2rem] text-primary text-[1.6rem] font-normal leading-normal flex flex-col gap-[1.5rem] w-full"
                               >
                                 <div>
                                   <UpworkIdentity data={listOfdata} columnFormat={true} Header={true} />
@@ -657,6 +663,10 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
                           </div>{" "}
                         </nav>
                       </div>
+                      {/* Theme toggle: always rendered, even in admin (?u=_) mode */}
+                      <div className="w-full mb-[1rem]">
+                        <ThemeToggle variant="row" />
+                      </div>
                       {/* Buttons */}
                       {!urlInfo?.u && (
                         <div className="w-full flex flex-col gap-[1rem] h-[200px] ">
@@ -673,7 +683,7 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
                             <Link
                               target="_blank"
                               prefetch={true}
-                              className="text-center btn-primary rounded-[0.6rem] border-2 border-border border-solid py-[1rem] px-[3.4rem] text-[1.6rem] font-medium text-white"
+                              className="text-center btn-primary rounded-[0.6rem] border-2 border-border border-solid py-[1rem] px-[3.4rem] text-[1.6rem] font-medium text-onPrimary"
                               href={listOfdata?.calendly_link || "#"}
                             >
                               Schedule Call
@@ -681,7 +691,7 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
                           ) : (
                             <button
                               onClick={() => scrollToSection("contact")}
-                              className="btn-primary rounded-[0.6rem] border-2 border-border border-solid py-[1rem] px-[3.4rem] text-[1.6rem] font-medium text-white"
+                              className="btn-primary rounded-[0.6rem] border-2 border-border border-solid py-[1rem] px-[3.4rem] text-[1.6rem] font-medium text-onPrimary"
                             >
                               Hire Me{" "}
                             </button>
@@ -699,7 +709,7 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
           <header className={`print:block hidden w-full ${bgColor}`}>
             {/* Header Navbar */}
             {/* Desktop Header */}
-            <div className=" print:block !w-full bg-white  h-[7.5rem] m-0 px-0 py-[2rem]  !flex !justify-between items-center !flex-row ">
+            <div className=" print:block !w-full bg-surface  h-[7.5rem] m-0 px-0 py-[2rem]  !flex !justify-between items-center !flex-row ">
               {/* User Profile */}
               <Link
                 prefetch={true}
@@ -735,14 +745,14 @@ const Header = ({ initialBgColor = "bg-transparent" }) => {
                       <Link
                         target="_blank"
                         prefetch={true}
-                        className="text-center btn-primary rounded-[0.6rem] border-2 border-border border-solid py-[1rem] px-[3.4rem] text-[1.6rem] font-medium text-white"
+                        className="text-center btn-primary rounded-[0.6rem] border-2 border-border border-solid py-[1rem] px-[3.4rem] text-[1.6rem] font-medium text-onPrimary"
                         href={listOfdata?.calendly_link || "#"}
                       >
                         Schedule Call
                       </Link>
                     ) : (
                       <button
-                        className="btn-primary rounded-[0.6rem] border-2 border-border border-solid py-[1rem] px-[3.4rem] text-[1.6rem] font-medium text-white"
+                        className="btn-primary rounded-[0.6rem] border-2 border-border border-solid py-[1rem] px-[3.4rem] text-[1.6rem] font-medium text-onPrimary"
                         onClick={() => scrollToSection("contact")}
                       >
                         Hire Me

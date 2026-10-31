@@ -1,6 +1,8 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
+  // Dark mode is driven by the `data-theme` attribute set on <html> (see src/hooks/useTheme.ts)
+  darkMode: ["selector", '[data-theme="dark"]'],
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -60,6 +62,11 @@ const config: Config = {
         paragraph1: "var(--paragrapgh1_color)",
         paragraph2: "var(--paragrapgh2_color)",
         border: "var(--border_color)",
+        // Semantic tokens (light values fixed to today's look, dark values derived per tenant)
+        surface: "var(--surface_color)",
+        surfaceMuted: "var(--surface_muted_color)",
+        onPrimary: "var(--on_primary_color)",
+        textMuted: "var(--text_muted_color)",
       },
       // Haris Color Schemes
       // colors: {

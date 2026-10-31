@@ -90,7 +90,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
             }}
           >
             {/* Experience Badge */}
-            <div className="bg-white rounded-[0.8rem] absolute bottom-auto left-auto top-[-3rem] right-[3rem] xl:top-[7rem] xl:right-[-8rem] p-[1.4rem] xl:h-[12rem] xl:w-[26rem] xl:rounded-[2rem] flex items-center shadow-md gap-[1rem] xl:gap-[2rem] animate-bounce">
+            <div className="bg-surface rounded-[0.8rem] absolute bottom-auto left-auto top-[-3rem] right-[3rem] xl:top-[7rem] xl:right-[-8rem] p-[1.4rem] xl:h-[12rem] xl:w-[26rem] xl:rounded-[2rem] flex items-center shadow-md gap-[1rem] xl:gap-[2rem] animate-bounce">
               {/* Badge SVG */}
               <div className="bg-[#2A97FC] rounded-[50%] flex items-center justify-center h-[4.9rem] w-[4.9rem] xl:h-[6.8rem] xl:w-[6.8rem]">
                 <img
@@ -115,7 +115,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
 
             {/* Projects Badge */}
             {listOfdata && listOfdata?.website_purpose !== "contract" && (
-              <div className="bg-white mb-3 rounded-[0.8rem] absolute top-auto right-auto bottom-[-4rem] xl:bottom-[3rem] xl:left-[3rem] left-[3rem] p-[1.4rem] xl:h-[12rem] xl:rounded-[2rem] flex items-center shadow-md gap-[1rem] xl:gap-[2rem] animate-bounce xl:animate-none">
+              <div className="bg-surface mb-3 rounded-[0.8rem] absolute top-auto right-auto bottom-[-4rem] xl:bottom-[3rem] xl:left-[3rem] left-[3rem] p-[1.4rem] xl:h-[12rem] xl:rounded-[2rem] flex items-center shadow-md gap-[1rem] xl:gap-[2rem] animate-bounce xl:animate-none">
                 {/* Badge SVG */}
                 <div className="bg-[#FC822A] rounded-[50%] flex items-center justify-center h-[4.9rem] w-[4.9rem] xl:h-[6.8rem] xl:w-[6.8rem]">
                   <img
@@ -275,7 +275,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
           {/* Button Line */}
           <div className="md:space-x-5 py-[2rem]">
             <Link href={"/cv"}>
-              <button className="w-full md:max-w-max btn-primary rounded-[0.6rem] text-white py-[2rem] px-[5.6rem] text-[1.8rem] font-medium border border-solid border-custom">
+              <button className="w-full md:max-w-max btn-primary rounded-[0.6rem] text-onPrimary py-[2rem] px-[5.6rem] text-[1.8rem] font-medium border border-solid border-custom">
                 View CV Online
               </button>
             </Link>
@@ -288,7 +288,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
                     onClick={() =>
                       downloadFile(cvLink.url, `${listOfdata?.name} - CV`)
                     }
-                    className="w-full md:max-w-max mt-5 md:mt-0 btn-primary rounded-[0.6rem] text-white py-[2rem] px-[5.6rem] text-[1.8rem] font-medium border border-solid border-custom"
+                    className="w-full md:max-w-max mt-5 md:mt-0 btn-primary rounded-[0.6rem] text-onPrimary py-[2rem] px-[5.6rem] text-[1.8rem] font-medium border border-solid border-custom"
                   >
                     Download CV
                   </button>
@@ -298,7 +298,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
                 onClick={() =>
                   downloadFile(cvLink.url, `${listOfdata?.name} - CV`)
                 }
-                className="w-full md:max-w-max mt-5 md:mt-0 btn-primary rounded-[0.6rem] text-white py-[2rem] px-[5.6rem] text-[1.8rem] font-medium border border-solid border-custom"
+                className="w-full md:max-w-max mt-5 md:mt-0 btn-primary rounded-[0.6rem] text-onPrimary py-[2rem] px-[5.6rem] text-[1.8rem] font-medium border border-solid border-custom"
               >
                 Download CV
               </button>

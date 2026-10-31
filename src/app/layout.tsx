@@ -57,13 +57,42 @@ export const viewport: Viewport = {
   themeColor: "#ffffff",
 };
 
+/**
+ * Runs before first paint so a returning dark-mode visitor never sees a light
+ * flash. Mirrors the rules in src/hooks/useTheme.ts:
+ *  - `?theme=light|dark` overrides for this load only (used for testing and PDF rendering)
+ *  - otherwise the persisted `theme` preference; first-time visitors get light
+ *  - print and CV routes are always light
+ */
+const themeBootScript = `
+(function () {
+  try {
+    var path = location.pathname;
+    var lightOnly = ["/print/", "/cv"].some(function (f) { return path.indexOf(f) !== -1; });
+    var param = new URLSearchParams(location.search).get("theme");
+    var stored = localStorage.getItem("theme");
+    var theme = "light";
+    if (!lightOnly) {
+      if (param === "dark" || param === "light") theme = param;
+      else if (stored === "dark") theme = "dark";
+    }
+    document.documentElement.setAttribute("data-theme", theme);
+    document.documentElement.style.colorScheme = theme;
+  } catch (e) {}
+})();
+`;
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" data-theme="light" suppressHydrationWarning>
+      <head>
+        {/* Inline on purpose: must run synchronously before first paint. */}
+        <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />
+      </head>
       <body className={inter.className}>
         <GlobalErrorBoundary>
           <LinkInterceptor />

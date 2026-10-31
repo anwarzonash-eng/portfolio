@@ -183,7 +183,7 @@ const PortfolioListing = ({ params }: { params: any }) => {
   });
   // 801c609d-8324-41d8-8a3b-5de35f171e0b 
   return (
-    <div className="bg-[#EFF5FD]">
+    <div className="bg-[#EFF5FD] dark:bg-pageBG">
       {/* Hero Banner */}
       <section className="w-full relative banner-section">
         <div className="mainContainer h-[60.7rem] lg:h-[65rem] print:h-auto w-full relative ">
@@ -192,7 +192,7 @@ const PortfolioListing = ({ params }: { params: any }) => {
           {/* Badge Heading and Paara Text */}
           <div className="max-w-[1024px] mx-auto text-center px-[2rem] pt-[8rem] relative z-20 print:mt-[20rem] ">
             {/* Badge */}
-            <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[2.4rem] font-medium font-Inter leading-tight mx-auto mb-[1.6rem]">
+            <div className="px-[2rem] py-[0.4rem] bg-surface rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[2.4rem] font-medium font-Inter leading-tight mx-auto mb-[1.6rem]">
               Portfolio
             </div>
             {/* Heading */}
@@ -279,7 +279,7 @@ const PortfolioListing = ({ params }: { params: any }) => {
                         {/* Dot */}
                         <div className="absolute top-0 left-0 lg:left-[1.8rem] print:hidden ">
                           <div className="hidden md:flex
- w-[2.6rem]  h-[2.6rem] bg-white rounded-full  items-center shadow-md justify-center">
+ w-[2.6rem]  h-[2.6rem] bg-surface rounded-full  items-center shadow-md justify-center">
                             <div className="w-[0.7rem] h-[0.7rem] bg-[#5531A7] rounded-full"></div>
                           </div>
                         </div>

@@ -134,7 +134,7 @@ const Offer = ({ params }: { params: any }) => {
   const showReadMoreButton = items.length > displayLimit;
 
   return (
-    <div className="bg-[#EFF5FD] print:my-[3rem] ">
+    <div className="bg-[#EFF5FD] dark:bg-pageBG print:my-[3rem] ">
       <PageRendering
         props={{
           list: listOfdata,
@@ -182,11 +182,11 @@ const Offer = ({ params }: { params: any }) => {
                     dangerouslySetInnerHTML={{
                       __html: mainService?.tagline,
                     }}
-                    className="px-[2rem] print:!mt-[10rem] py-[1.4rem] max-w-[1024px] bg-white rounded-[2.2rem] border border-border border-solid text-center  text-[1.8rem] lg:text-[2.2rem] text-heading leading-[3rem] lg:leading-[3.4rem] font-medium  mx-auto mb-[1.6rem]"
+                    className="px-[2rem] print:!mt-[10rem] py-[1.4rem] max-w-[1024px] bg-surface rounded-[2.2rem] border border-border border-solid text-center  text-[1.8rem] lg:text-[2.2rem] text-heading leading-[3rem] lg:leading-[3.4rem] font-medium  mx-auto mb-[1.6rem]"
                   />
                 )}
                 {mainService && (
-                  <div className="w-full bg-white rounded-[1rem] border border-border border-solid mb-[4rem]">
+                  <div className="w-full bg-surface rounded-[1rem] border border-border border-solid mb-[4rem]">
                     {mainService?.intro_main && (
                       <div className="p-[1rem] lg:p-[3rem]">
                         <h3
@@ -201,7 +201,7 @@ const Offer = ({ params }: { params: any }) => {
                         />
                       </div>
                     )}
-                    <div className="p-[1rem] lg:p-[3rem] rounded-[1rem] bg-white services_main list-div text-[1.6rem]">
+                    <div className="p-[1rem] lg:p-[3rem] rounded-[1rem] bg-surface services_main list-div text-[1.6rem]">
                       <ul
                         dangerouslySetInnerHTML={{
                           __html: visibleItems.join(""),
@@ -210,7 +210,7 @@ const Offer = ({ params }: { params: any }) => {
                       {showReadMoreButton && (
                         <button
                           onClick={() => setExpanded((prev) => !prev)}
-                          className="px-[4rem] py-[1.4rem] bg-primary rounded-[2.2rem] hover:bg-white hover:text-primary hover:border-primary border border-border border-solid text-center max-w-max text-white text-[1.4rem] font-medium font-Inter leading-tight"
+                          className="px-[4rem] py-[1.4rem] bg-primary rounded-[2.2rem] hover:bg-surface hover:text-primary hover:border-primary border border-border border-solid text-center max-w-max text-onPrimary text-[1.4rem] font-medium font-Inter leading-tight"
                         >
                           {expanded ? "Read Less" : "Read More"}
                         </button>
@@ -244,7 +244,7 @@ const Offer = ({ params }: { params: any }) => {
               {listOfdata?.portfolios_ids?.length > 0 && (
                 <section className="w-full block print:hidden">
                   <div className="mainContainer my-[5rem]">
-                    <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto">
+                    <div className="px-[2rem] py-[0.4rem] bg-surface rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto">
                       My Work
                     </div>
                     <div className="text-center text-heading text-[3rem] font-medium leading-[2.8rem] mt-[2rem]">

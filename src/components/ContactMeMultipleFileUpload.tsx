@@ -159,7 +159,7 @@ const ContactMeMultipleFileUpload = ({ listOfdata }) => {
       </div>
       <div
         id="contact"
-        className="flex print:break-before-page items-center justify-center flex-wrap lg:flex-nowrap bg-footerMobile md:bg-footerDesktop bg-no-repeat print:bg-none print:w-full bg-left-top ultra2x:border-[1.5rem] ultra2x:border-white print:border-none bg-cover rounded-[1rem] relative  p-[1rem] sm:p-[2rem] gap-[2.4rem] shadow-lg print:shadow-none"
+        className="flex print:break-before-page items-center justify-center flex-wrap lg:flex-nowrap bg-footerMobile md:bg-footerDesktop bg-no-repeat print:bg-none print:w-full bg-left-top ultra2x:border-[1.5rem] ultra2x:border-surface print:border-none bg-cover rounded-[1rem] relative  p-[1rem] sm:p-[2rem] gap-[2.4rem] shadow-lg print:shadow-none"
       >
         {/* Contact Form */}
         <Formik
@@ -168,7 +168,7 @@ const ContactMeMultipleFileUpload = ({ listOfdata }) => {
           onSubmit={handleContactFormSubmit}
         >
           {({ isSubmitting }) => (
-            <Form className="bg-white print:hidden rounded-[0.6rem] p-[2rem] shadow-lg lg:max-w-[44.7rem] w-full">
+            <Form className="bg-surface print:hidden rounded-[0.6rem] p-[2rem] shadow-lg lg:max-w-[44.7rem] w-full">
               {/* Heading */}
               <div className="mb-[2rem] flex flex-col gap-[1rem]">
                 <h4 className="text-[2.4rem] leading-loose font-medium text-heading">
@@ -240,7 +240,7 @@ const ContactMeMultipleFileUpload = ({ listOfdata }) => {
                     as="select"
                     name="projectLength"
                     onClick={() => setIsOpen(!isOpen)}
-                    className="appearance-none border border-border rounded-[0.4rem] px-[1.6rem] py-[1.2rem] w-full text-[1.6rem] outline-none focus:border-primary duration-300 pr-10 cursor-pointer bg-white"
+                    className="appearance-none border border-border rounded-[0.4rem] px-[1.6rem] py-[1.2rem] w-full text-[1.6rem] outline-none focus:border-primary duration-300 pr-10 cursor-pointer bg-surface"
                   >
                     <option value="">Select Project Length</option>
                     <option value="2-weeks">2 Weeks</option>
@@ -277,7 +277,7 @@ const ContactMeMultipleFileUpload = ({ listOfdata }) => {
               {/* Drag & Drop Multiple Upload */}
               <div
                 className={`flex flex-col items-center justify-center gap-[1rem] lg:max-w-[40.7rem] w-full mb-[1.5rem] border-2 border-dashed rounded-[0.6rem] p-6 cursor-pointer ${
-                  dragActive ? "border-primary bg-blue-50" : "border-border"
+                  dragActive ? "border-primary bg-blue-50 dark:bg-surfaceMuted" : "border-border"
                 }`}
                 onDrop={handleDrop}
                 onDragOver={(e) => handleDrag(e, true)}
@@ -322,7 +322,7 @@ const ContactMeMultipleFileUpload = ({ listOfdata }) => {
 
               {/* Submit */}
               <button
-                className={`btn-primary w-full lg:max-w-max text-white py-[2rem] px-[5.6rem] text-[1.8rem] font-medium ${
+                className={`btn-primary w-full lg:max-w-max text-onPrimary py-[2rem] px-[5.6rem] text-[1.8rem] font-medium ${
                   isSubmitting && "cursor-not-allowed"
                 }`}
                 type="submit"

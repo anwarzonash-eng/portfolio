@@ -8,6 +8,13 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  /* Translucent surface: Tailwind opacity modifiers don't work on var() colours */
+  .bg-surface-70 {
+    background-color: color-mix(in srgb, var(--surface_color) 70%, transparent);
+  }
+}
+
 .upworkSectionDot {
   @apply flex-shrink-0 w-[2rem] h-[2rem] lg:w-[3rem] lg:h-[3rem] inline-block bg-primary rounded-full mt-[0.4rem] lg:mt-[1rem] mr-[1rem] lg:mr-[2rem]
 }
@@ -93,19 +100,120 @@
 
 /* Add the remaining font weights and styles */
 
+/* ------------------------------------------------------------------ */
+/* Theme variables                                                     */
+/*                                                                     */
+/* Each token has a `-light` and a `-dark` variant. The light variant  */
+/* is the tenant palette from the API (written by updateCSSVariables); */
+/* the dark variant is derived at runtime by deriveDarkPalette.        */
+/* The un-suffixed variable, which Tailwind tokens reference, points   */
+/* at whichever variant the active `data-theme` requires.              */
+/* Values below are the fallbacks used before the API responds.        */
+/* ------------------------------------------------------------------ */
 :root {
   --color1: #ffffff;
   --color2: #ffffff;
   --color3: #ffffff;
   --color4: #ffffff;
-  --primary-color: #00473c;
-  --page_bg_color: #f8f9fa;
-  --banner_bg_color: #a3ddd3;
-  --section_bg_color: #00362e;
-  --heading_color: #262626;
-  --paragrapgh1_color: #3e3e3e;
-  --paragrapgh2_color: #f8f9fa;
-  --border_color: #dddddd;
+
+  /* Light defaults (default tenant scheme) */
+  --primary-color-light: #00473c;
+  --page_bg_color-light: #f8f9fa;
+  --banner_bg_color-light: #a3ddd3;
+  --section_bg_color-light: #00362e;
+  --heading_color-light: #262626;
+  --paragrapgh1_color-light: #3e3e3e;
+  --paragrapgh2_color-light: #f8f9fa;
+  --border_color-light: #dddddd;
+  --surface_color-light: #ffffff;
+  --surface_muted_color-light: #eff5fd;
+  --on_primary_color-light: #ffffff;
+  --text_muted_color-light: #757575;
+
+  /* Dark defaults: deriveDarkPalette(DEFAULT_LIGHT_PALETTE) */
+  --primary-color-dark: #25f4d4;
+  --page_bg_color-dark: #0f1514;
+  --banner_bg_color-dark: #192e2b;
+  --section_bg_color-dark: #1a453e;
+  --heading_color-dark: #edf2f1;
+  --paragrapgh1_color-dark: #c1cdcb;
+  --paragrapgh2_color-dark: #dde3e3;
+  --border_color-dark: #324845;
+  --surface_color-dark: #162220;
+  --surface_muted_color-dark: #1e2e2c;
+  --on_primary_color-dark: #111111;
+  --text_muted_color-dark: #96a6a3;
+
+  /* Active tokens: light by default */
+  --primary-color: var(--primary-color-light);
+  --page_bg_color: var(--page_bg_color-light);
+  --banner_bg_color: var(--banner_bg_color-light);
+  --section_bg_color: var(--section_bg_color-light);
+  --heading_color: var(--heading_color-light);
+  --paragrapgh1_color: var(--paragrapgh1_color-light);
+  --paragrapgh2_color: var(--paragrapgh2_color-light);
+  --border_color: var(--border_color-light);
+  --surface_color: var(--surface_color-light);
+  --surface_muted_color: var(--surface_muted_color-light);
+  --on_primary_color: var(--on_primary_color-light);
+  --text_muted_color: var(--text_muted_color-light);
+
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --primary-color: var(--primary-color-dark);
+  --page_bg_color: var(--page_bg_color-dark);
+  --banner_bg_color: var(--banner_bg_color-dark);
+  --section_bg_color: var(--section_bg_color-dark);
+  --heading_color: var(--heading_color-dark);
+  --paragrapgh1_color: var(--paragrapgh1_color-dark);
+  --paragrapgh2_color: var(--paragrapgh2_color-dark);
+  --border_color: var(--border_color-dark);
+  --surface_color: var(--surface_color-dark);
+  --surface_muted_color: var(--surface_muted_color-dark);
+  --on_primary_color: var(--on_primary_color-dark);
+  --text_muted_color: var(--text_muted_color-dark);
+
+  color-scheme: dark;
+}
+
+/* Print always uses the light palette, whatever the on-screen theme. */
+@media print {
+  :root,
+  :root[data-theme="dark"] {
+    --primary-color: var(--primary-color-light);
+    --page_bg_color: var(--page_bg_color-light);
+    --banner_bg_color: var(--banner_bg_color-light);
+    --section_bg_color: var(--section_bg_color-light);
+    --heading_color: var(--heading_color-light);
+    --paragrapgh1_color: var(--paragrapgh1_color-light);
+    --paragrapgh2_color: var(--paragrapgh2_color-light);
+    --border_color: var(--border_color-light);
+    --surface_color: var(--surface_color-light);
+    --surface_muted_color: var(--surface_muted_color-light);
+    --on_primary_color: var(--on_primary_color-light);
+    --text_muted_color: var(--text_muted_color-light);
+    color-scheme: light;
+  }
+}
+
+/* Body background.
+   Light: the per-page value set by useBodyBackgroundColor (unchanged behaviour).
+   Dark:  the derived tenant page background. */
+body {
+  background-color: var(--body_bg_light, transparent);
+  color-scheme: inherit;
+}
+
+:root[data-theme="dark"] body {
+  background-color: var(--page_bg_color);
+}
+
+@media print {
+  :root[data-theme="dark"] body {
+    background-color: var(--body_bg_light, transparent);
+  }
 }
 
 /* src/styles/globals.css */
@@ -255,7 +363,7 @@ body {
 }
 
 .badge {
-  @apply px-[2rem] py-[1rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[2rem] font-medium font-Inter leading-[2rem];
+  @apply px-[2rem] py-[1rem] bg-surface rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[2rem] font-medium font-Inter leading-[2rem];
 }
 
 .CVLatestHeading {
@@ -321,11 +429,11 @@ body {
 
 /* Primary Button */
 .btn-primary {
-  @apply duration-300 rounded-[6px] border border-white/[0.24] bg-gradient-to-b from-white/30 to-transparent bg-primary shadow-[0px_0px_0px_1px_#FFF] hover:bg-white hover:text-primary hover:border-primary;
+  @apply duration-300 rounded-[6px] border border-white/[0.24] bg-gradient-to-b from-white/30 to-transparent bg-primary text-onPrimary shadow-[0px_0px_0px_1px_var(--surface_color)] hover:bg-surface hover:text-primary hover:border-primary;
 }
 
 .btn-secondary {
-  @apply duration-300 rounded-[6px] border border-primary text-primary bg-transparent hover:bg-gradient-to-b hover:from-white/30 hover:to-transparent hover:bg-primary hover:text-white hover:border-white/[0.24] hover:shadow-[0px_0px_0px_1px_#FFF];
+  @apply duration-300 rounded-[6px] border border-primary text-primary bg-transparent hover:bg-gradient-to-b hover:from-white/30 hover:to-transparent hover:bg-primary hover:text-onPrimary hover:border-white/[0.24] hover:shadow-[0px_0px_0px_1px_var(--surface_color)];
 }
 
 .modifiedText {

@@ -237,12 +237,12 @@ const CaseStudyListing = ({ params }: { params: any }) => {
                 {!loading && <div className="mainContainer">
                     <div className="max-w-[70rem]">
 
-                        <h1 className="text-black text-[5rem] lg:text-[7rem] font-black leading-[1.05] mb-6">
+                        <h1 className="text-black dark:text-heading text-[5rem] lg:text-[7rem] font-black leading-[1.05] mb-6">
                             Building{" "}
                             <span className="text-primary">Digital</span>{" "}Experiences
                             That Scale.
                         </h1>
-                        <p className="text-gray-800 text-[1.8rem] leading-relaxed max-w-[55rem]">
+                        <p className="text-gray-800 dark:text-heading text-[1.8rem] leading-relaxed max-w-[55rem]">
                             {listOfdata?.designation ||
                                 "Senior Full-Stack Developer specializing in modern web technologies, scalable architecture, and intuitive user interfaces."}
                         </p>
@@ -323,7 +323,7 @@ const CaseStudyListing = ({ params }: { params: any }) => {
                     {listOfdata && listOfdata?.skills_ids?.length > 0 && (
                         <div
                             id="skillSection"
-                            className="pt-20 mb-0 print:!pt-[4rem] print:my-[0rem] my-[5rem]  print:h-screen print:break-before-page break-before-avoid print:bg-[#a3ddd3] bg-white"
+                            className="pt-20 mb-0 print:!pt-[4rem] print:my-[0rem] my-[5rem]  print:h-screen print:break-before-page break-before-avoid print:bg-[#a3ddd3] bg-surface"
                         >
                             <div className="flex items-center justify-center mt-[2rem] lg:hidden mb-20">
                                 <div id="skills_ids" className="badge capitalize">
@@ -356,7 +356,7 @@ const CaseStudyListing = ({ params }: { params: any }) => {
                                     Marketplace{" "}
                                     Impact
                                 </h2>
-                                <p className="text-gray-400 text-[1.6rem] max-w-[44rem] mx-auto leading-relaxed">
+                                <p className="text-gray-400 dark:text-textMuted text-[1.6rem] max-w-[44rem] mx-auto leading-relaxed">
                                     Proven track record of delivering high-quality solutions for clients worldwide.
                                 </p>
                             </div>
@@ -394,7 +394,7 @@ const CaseStudyListing = ({ params }: { params: any }) => {
                                             <h3 className="text-white font-bold text-[1.8rem] mb-[0.8rem]">
                                                 {stat.title}
                                             </h3>
-                                            <p className="text-gray-400 text-[1.4rem] leading-relaxed max-w-[22rem]">
+                                            <p className="text-gray-400 dark:text-textMuted text-[1.4rem] leading-relaxed max-w-[22rem]">
                                                 {stat.desc}
                                             </p>
                                         </div>

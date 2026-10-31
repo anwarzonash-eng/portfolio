@@ -54,7 +54,7 @@ const ThankyouPopup = ({ setIsModalOpen, listOfdata, text = null }) => {
     <div className="fixed top-0 left-0 w-full h-full bg-opacity-50 backdrop-blur-3xl z-[500]">
       <div className="rounded-[1.2rem] relative w-full h-full overflow-y-auto py-[10rem]">
         <div className="mx-6">
-          <div className="rounded-[1.2rem] max-w-[60.4rem] w-full mx-auto bg-white relative shadow-2xl shadow-primary">
+          <div className="rounded-[1.2rem] max-w-[60.4rem] w-full mx-auto bg-surface relative shadow-2xl shadow-primary">
             {/* Close Icon */}
             <div className="absolute top-[-1rem] right-[-1rem] cursor-pointer z-[60]">
               <Image

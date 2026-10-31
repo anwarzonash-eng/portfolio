@@ -89,7 +89,7 @@ const Newsletter = ({ listOfdata }) => {
                 />
 
                 <button
-                  className={`h-full px-[3.4rem] py-[1rem] font-medium text-[1.6rem] bg-white text-primary top-0 right-0 absolute ${
+                  className={`h-full px-[3.4rem] py-[1rem] font-medium text-[1.6rem] bg-surface text-primary top-0 right-0 absolute ${
                     isSubmitting && "cursor-not-allowed"
                   }`}
                   type="submit"

@@ -165,7 +165,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
               }  bottom-0 w-[0.4rem] bg-border hidden xl:block`}
           />
           <div className="absolute top-[1.5rem] left-[9rem] hidden xl:block">
-            <div className="w-[2.6rem] h-[2.6rem] bg-white rounded-full flex items-center shadow-md justify-center">
+            <div className="w-[2.6rem] h-[2.6rem] bg-surface rounded-full flex items-center shadow-md justify-center">
               <div className="w-[0.7rem] h-[0.7rem] bg-heading rounded-full"></div>
             </div>
           </div>
@@ -176,7 +176,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
         className={`relative shadow-xl rounded-[1rem] flex items-start w-full ${variant === "timeline" ? "xl:ml-[13rem] mt-10" : "ml-[0.5rem]"
           }`}
       >
-        <div className={`${experience?.company_name !== "Upwork" ? "bg-white" : "bg-gradient-to-br from-cyan-50 via-teal-50 to-emerald-50 !border-[#295050ae] border-2"} relative p-[1.5rem] lg:p-[2.4rem] rounded-[1rem] shadow w-full border border-solid border-border`}>
+        <div className={`${experience?.company_name !== "Upwork" ? "bg-surface" : "bg-gradient-to-br from-cyan-50 via-teal-50 to-emerald-50 dark:bg-none dark:bg-surfaceMuted !border-[#295050ae] dark:!border-border border-2"} relative p-[1.5rem] lg:p-[2.4rem] rounded-[1rem] shadow w-full border border-solid border-border`}>
           {/* Mobile-only badge (top-right) */}
 
           <div className="flex items-center flex-wrap text-nowrap gap-[1.5rem] md:justify-between">
@@ -187,7 +187,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                   href={experience.company_website}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex gap-[1rem] items-center group hover:bg-[#D1E9FF] p-3 rounded-[4px] 
+                  className="flex gap-[1rem] items-center group hover:bg-[#D1E9FF] dark:hover:bg-surfaceMuted p-3 rounded-[4px] 
                   hover:drop-shadow-xl hover:scale-105 transition-all duration-300 ml-[-1rem]"
                 >
                   {experience?.thumbnail && (
@@ -233,7 +233,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
               ) : (
                 <div className="flex gap-[1rem]">
                   {experience?.thumbnail && (
-                    <div className="h-[4.2rem] w-[4.2rem] lg:h-[4.9rem] lg:w-[4.9rem] bg-[#D1E9FF] rounded-[0.4rem] flex items-center justify-center">
+                    <div className="h-[4.2rem] w-[4.2rem] lg:h-[4.9rem] lg:w-[4.9rem] bg-[#D1E9FF] dark:bg-surfaceMuted rounded-[0.4rem] flex items-center justify-center">
                       <Image
                         src={experience?.thumbnail}
                         height={32}
@@ -267,7 +267,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                         href={experience.company_website ?? "#"}
                         target="_blank"
                         className="
-                              bg-[#0F3C3C] text-white border border-transparent hover:border-primary hover:bg-white hover:text-primary duration-300 text-nowrap
+                              bg-[#0F3C3C] text-white border border-transparent hover:border-primary hover:bg-surface hover:text-primary duration-300 text-nowrap
                               flex items-center justify-center
                               text-[1.4rem] lg:text-[1.6rem] lg:font-medium rounded-[20rem] p-[1rem] group"
                       >
@@ -299,7 +299,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                       {/* <Link
                         href={experience.company_website ?? "#"}
                         target="_blank"
-                        className="h-[3rem] w-[3rem] rounded-full relative mx-2 bg-sectionBG text-white flex items-center justify-center animate-bounce cursor-pointer hover:bg-white hover:text-primary border border-transparent hover:border-primary duration-300"
+                        className="h-[3rem] w-[3rem] rounded-full relative mx-2 bg-sectionBG text-white flex items-center justify-center animate-bounce cursor-pointer hover:bg-surface hover:text-primary border border-transparent hover:border-primary duration-300"
                       >
                         <MoveUpRight className="size-[2rem]" />
                       </Link> */}
@@ -336,7 +336,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
               <div className="flex items-center justify-center">
                 <button
                   onClick={handleToggle}
-                  className={`mt-[1rem] bg-primary leading-normal text-center py-[0.6rem] px-[2rem] text-white hover:bg-white border border-[#E2E6EE] border-solid hover:border-primary hover:text-primary rounded-[2rem] text-[1.4rem] font-medium`}
+                  className={`mt-[1rem] bg-primary leading-normal text-center py-[0.6rem] px-[2rem] text-onPrimary hover:bg-surface border border-[#E2E6EE] dark:border-border border-solid hover:border-primary hover:text-primary rounded-[2rem] text-[1.4rem] font-medium`}
                   aria-label={
                     expansionState === "full"
                       ? "Collapse content"
@@ -369,14 +369,14 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                                 key={i}
                                 href={skill.url || "#"}
                                 target="_blank"
-                                className="hover:bg-primary hover:text-white py-[0.4rem] print:py-[0.1rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
+                                className="hover:bg-primary hover:text-onPrimary py-[0.4rem] print:py-[0.1rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
                               >
                                 {skill.title}
                               </Link>
                             ) : (
                               <div
                                 key={i}
-                                className="hover:bg-primary hover:text-white py-[0.4rem] print:py-[0.1rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
+                                className="hover:bg-primary hover:text-onPrimary py-[0.4rem] print:py-[0.1rem] px-[2rem] border border-primary border-solid text-primary rounded-[1.8rem] text-[1.4rem] font-medium leading-normal"
                               >
                                 {skill.title}
                               </div>

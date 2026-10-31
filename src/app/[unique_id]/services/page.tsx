@@ -116,19 +116,19 @@ const Services = ({ params }: { params: any }) => {
                                         {/* Badge */}
                                         < div className="inline-flex items-center gap-2 mb-8" >
                                             <span className="w-4 h-4 rounded-full bg-green-500 animate-pulse" />
-                                            <span className="text-[1.3rem] uppercase tracking-widest text-gray-800 font-medium">
+                                            <span className="text-[1.3rem] uppercase tracking-widest text-gray-800 dark:text-heading font-medium">
                                                 Available for new projects
                                             </span>
                                         </div >
 
                                         {/* Headline */}
-                                        < h1 className="text-[4rem] md:text-[8rem] font-black leading-[1.05] text-black md:max-w-[80%]" >
+                                        < h1 className="text-[4rem] md:text-[8rem] font-black leading-[1.05] text-black dark:text-heading md:max-w-[80%]" >
                                             Building the{" "}
                                             <span className="text-primary italic">future</span> of
                                             digital interaction.
                                         </h1 >
 
-                                        <p className="mt-6 text-gray-800  text-[1.5rem] sm:text-[2rem] md:max-w-[50%] leading-relaxed">
+                                        <p className="mt-6 text-gray-800 dark:text-heading  text-[1.5rem] sm:text-[2rem] md:max-w-[50%] leading-relaxed">
                                             i craft high-performance digital experiences that merge technical
                                             precision with aesthetic excellence.
                                         </p>
@@ -138,7 +138,7 @@ const Services = ({ params }: { params: any }) => {
                                             <Link
 
                                                 prefetch={true}
-                                                className="text-center  rounded-[0.6rem] py-[1.2rem] px-[2.5rem] text-[2.2rem] font-medium  mt-12  text-white  transition-colors bg-primary hover:bg-white hover:text-black hover:border-primary border-1 "
+                                                className="text-center  rounded-[0.6rem] py-[1.2rem] px-[2.5rem] text-[2.2rem] font-medium  mt-12  text-onPrimary  transition-colors bg-primary hover:bg-surface hover:text-black dark:hover:text-heading hover:border-primary border-1 "
                                                 href={"/portfolio"}
                                             >
                                                 View my work
@@ -147,7 +147,7 @@ const Services = ({ params }: { params: any }) => {
                                             {!urlInfo?.u && listOfdata?.calendly_link && (
                                                 <Link
                                                     prefetch={true}
-                                                    className=" text-center  rounded-[0.6rem]  py-[1.2rem] px-[2.5rem] text-[2.2rem] font-medium   bg-white text-black hover:bg-primary hover:text-white hover:border-primary border-1"
+                                                    className=" text-center  rounded-[0.6rem]  py-[1.2rem] px-[2.5rem] text-[2.2rem] font-medium   bg-surface text-black dark:text-heading hover:bg-primary hover:text-onPrimary hover:border-primary border-1"
                                                     href={"/contact-me"}
                                                 >
                                                     Contact Me
@@ -178,7 +178,7 @@ const Services = ({ params }: { params: any }) => {
                                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
                                             {/* Left */}
                                             <div>
-                                                <h2 className="text-3xl text-[2.5rem] text-center md:text-start lg:text-[5rem] font-black text-black mb-10">
+                                                <h2 className="text-3xl text-[2.5rem] text-center md:text-start lg:text-[5rem] font-black text-black dark:text-heading mb-10">
                                                     My Development Process
                                                 </h2>
                                                 <div className="flex flex-col gap-8">
@@ -188,8 +188,8 @@ const Services = ({ params }: { params: any }) => {
                                                                 <span className="text-blue-400 text-[1.5rem] font-mono font-bold">{step.num}</span>
                                                             </div>
                                                             <div>
-                                                                <h3 className="text-black text-[2rem] font-bold mb-1">{step.title}</h3>
-                                                                <p className="text-gray-500 text-[1.7rem] leading-relaxed">{step.desc}</p>
+                                                                <h3 className="text-black dark:text-heading text-[2rem] font-bold mb-1">{step.title}</h3>
+                                                                <p className="text-gray-500 dark:text-textMuted text-[1.7rem] leading-relaxed">{step.desc}</p>
                                                             </div>
                                                         </div>
                                                     ))}
@@ -197,9 +197,9 @@ const Services = ({ params }: { params: any }) => {
                                             </div>
 
                                             {/* Right - Code block */}
-                                            <div className="rounded-xl overflow-hidden border border-white/10 bg-white shadow-2xl">
+                                            <div className="rounded-xl overflow-hidden border border-white/10 bg-surface shadow-2xl">
                                                 {/* Window chrome */}
-                                                <div className="flex items-center gap-2 px-4 py-5 border-b border-white/5 bg-[#f1f0e6]">
+                                                <div className="flex items-center gap-2 px-4 py-5 border-b border-white/5 bg-[#f1f0e6] dark:bg-surfaceMuted">
                                                     <span className="w-4 h-4 rounded-full bg-red-500/80" />
                                                     <span className="w-4 h-4 rounded-full bg-yellow-500/80" />
                                                     <span className="w-4 h-4 rounded-full bg-green-500/80" />
@@ -208,16 +208,16 @@ const Services = ({ params }: { params: any }) => {
                                                     <code>
                                                         {codeSnippet.split("\n").map((line, i) => (
                                                             <div key={i} className="flex">
-                                                                <span className="select-none text-gray-800 w-8 shrink-0 text-right pr-4 text-[1.5rem] pt-px">
+                                                                <span className="select-none text-gray-800 dark:text-heading w-8 shrink-0 text-right pr-4 text-[1.5rem] pt-px">
                                                                     {i + 1}
                                                                 </span>
                                                                 <span
-                                                                    className="text-gray-800"
+                                                                    className="text-gray-800 dark:text-heading"
                                                                     dangerouslySetInnerHTML={{
                                                                         __html: line
                                                                             .replace(/const|await|return|try|catch/g, '<span class="text-blue-400">$&</span>')
                                                                             .replace(/'[^']*'/g, '<span class="text-green-400">$&</span>')
-                                                                            .replace(/\/\/.*/g, '<span class="text-gray-800">$&</span>')
+                                                                            .replace(/\/\/.*/g, '<span class="text-gray-800 dark:text-heading">$&</span>')
                                                                             .replace(/async|=>/g, '<span class="text-purple-400">$&</span>'),
                                                                     }}
                                                                 />
@@ -235,7 +235,7 @@ const Services = ({ params }: { params: any }) => {
                                 {listOfdata && listOfdata?.skills_ids?.length > 0 && (
                                     <div
                                         id="skillSection"
-                                        className="pt-20 mb-0 print:!pt-[4rem] print:my-[0rem] my-[5rem]  print:h-screen print:break-before-page break-before-avoid print:bg-[#a3ddd3] bg-white"
+                                        className="pt-20 mb-0 print:!pt-[4rem] print:my-[0rem] my-[5rem]  print:h-screen print:break-before-page break-before-avoid print:bg-[#a3ddd3] bg-surface"
                                     >
                                         <div className="flex items-center justify-center mt-[2rem] lg:hidden mb-20">
                                             <div id="skills_ids" className="badge capitalize">

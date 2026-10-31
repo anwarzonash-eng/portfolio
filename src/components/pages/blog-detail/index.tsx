@@ -107,7 +107,7 @@ const BlogDetails = ({ params }: { params: any }) => {
   useBodyBackgroundColor("#EFF5FD");
 
   return (
-    <div className="bg-[#EFF5FD]">
+    <div className="bg-[#EFF5FD] dark:bg-pageBG">
       <PageRendering
         props={{
           list: blogdata,

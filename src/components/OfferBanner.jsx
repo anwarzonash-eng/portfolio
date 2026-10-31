@@ -89,7 +89,7 @@ const OfferBanner = ({ listOfdata }) => {
                     }`}
                   />{" "}
                   <button
-                    className={`w-full max-w-[148px] h-full font-medium text-[1.3rem] primaryGradient text-white ${
+                    className={`w-full max-w-[148px] h-full font-medium text-[1.3rem] primaryGradient text-onPrimary ${
                       isSubmitting && "cursor-not-allowed"
                     }`}
                     type="submit"

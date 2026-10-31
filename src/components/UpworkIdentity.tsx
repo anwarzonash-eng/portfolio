@@ -30,7 +30,7 @@ const UpworkIdentity: React.FC<UpworkIdentityProps> = ({
   const profileImageSrc =
     data?.profile_photo_1 || "https://via.placeholder.com/80";
   return (
-    <div className={`bg-white flex lg:justify-between items-center rounded-[1.8rem] shadow-[0_0_10px_rgba(0,0,0,0.2)] p-[2rem] ${Header || cvTrue ? "w-[100%]" : "w-full md:w-4/5"} m-auto flex-wrap justify-center gap-10`}>
+    <div className={`bg-surface flex lg:justify-between items-center rounded-[1.8rem] shadow-[0_0_10px_rgba(0,0,0,0.2)] p-[2rem] ${Header || cvTrue ? "w-[100%]" : "w-full md:w-4/5"} m-auto flex-wrap justify-center gap-10`}>
 
 
       <div className="flex  flex-col ">
@@ -51,7 +51,7 @@ const UpworkIdentity: React.FC<UpworkIdentityProps> = ({
           {/* Name and Verified Badge */}
           <div className="flex flex-col">
             <div className="flex items-center space-x-2">
-              <h1 className={`${Header ? "text-[1.8rem] lg-[2rem]" : "text-[2.5rem] lg:text-[3rem]"} font-bold text-gray-800`}>
+              <h1 className={`${Header ? "text-[1.8rem] lg-[2rem]" : "text-[2.5rem] lg:text-[3rem]"} font-bold text-gray-800 dark:text-heading`}>
                 {data?.name}
               </h1>
               {/* Blue Verified Checkmark */}
@@ -66,7 +66,7 @@ const UpworkIdentity: React.FC<UpworkIdentityProps> = ({
 
             {/* Location */}
             <div>
-              <div className="flex  flex-wrap  gap-1 space-x-2 text-gray-600 mt-0 mb-[0.5rem] items-center">
+              <div className="flex  flex-wrap  gap-1 space-x-2 text-gray-600 dark:text-paragraph1 mt-0 mb-[0.5rem] items-center">
                 {/* Location Pin Icon */}
                 <MapPin className="size-[1.7rem]" />
                 <span className="text-[1.7rem] font-medium">
@@ -131,7 +131,7 @@ const UpworkIdentity: React.FC<UpworkIdentityProps> = ({
         <Link
           href={data?.upwork ?? "#"}
           target="_blank"
-          className="bg-[#0F3C3C] text-white border border-transparent hover:border-primary hover:bg-white hover:text-primary duration-300 text-nowrap flex items-center justify-center text-[1.8rem] rounded-[20rem] px-[2rem] py-[1.5rem] group"
+          className="bg-[#0F3C3C] text-white border border-transparent hover:border-primary hover:bg-surface hover:text-primary duration-300 text-nowrap flex items-center justify-center text-[1.8rem] rounded-[20rem] px-[2rem] py-[1.5rem] group"
         >
           <span>Check My</span>
           {/* <div className="h-[3rem] w-[3rem] rounded-full relative mx-2 inline-block">

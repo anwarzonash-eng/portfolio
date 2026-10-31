@@ -123,7 +123,7 @@ const SideTestimonialPortfolioDetail: React.FC<TestimonialsSectionProps> = ({
           // Skeleton to avoid layout shift / perceived delay
           <div className="flex flex-col gap-[1.5rem]">
             <div className="w-full lg:max-w-[40rem] h-[20rem] bg-gray-200/20 rounded-2xl animate-pulse" />
-            <div className="bg-[#a3ddd3] rounded-xl p-[1rem] backdrop-blur-xl animate-pulse h-[10rem]" />
+            <div className="bg-[#A3DDD3] dark:bg-bannerBG rounded-xl p-[1rem] backdrop-blur-xl animate-pulse h-[10rem]" />
           </div>
         ) : (
           <div className="">
@@ -141,7 +141,7 @@ const SideTestimonialPortfolioDetail: React.FC<TestimonialsSectionProps> = ({
               )}
             </div>
             <div className="mb-[3rem] mt-[2rem]">
-              <div className="bg-[#a3ddd3] rounded-xl 
+              <div className="bg-[#A3DDD3] dark:bg-bannerBG rounded-xl 
               p-[1rem] backdrop-blur-xl">
                 <img
                   src="/images/DoubleQuotes.svg"

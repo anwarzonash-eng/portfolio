@@ -93,7 +93,7 @@ const BlogListing = ({ params }: { params: any }) => {
   }
 
   return (
-    <div className="bg-[#EFF5FD]">
+    <div className="bg-[#EFF5FD] dark:bg-pageBG">
       {/* Hero Banner */}
       <section className="w-full relative">
         <div
@@ -312,7 +312,7 @@ const BlogListing = ({ params }: { params: any }) => {
           {/* Badge Heading and Paara Text */}
           <div className="max-w-[1024px] mx-auto text-center px-[2rem] pt-[8rem] lg:pt-[12.5rem] relative z-20">
             {/* Badge */}
-            <div className="px-[2rem] py-[0.4rem] bg-white rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto mb-[1.6rem]">
+            <div className="px-[2rem] py-[0.4rem] bg-surface rounded-[2.2rem] border border-border border-solid text-center max-w-max text-heading text-[1.4rem] font-medium font-Inter leading-tight mx-auto mb-[1.6rem]">
               Our blog
             </div>
 
@@ -337,7 +337,7 @@ const BlogListing = ({ params }: { params: any }) => {
             <Link
               href={`/blog-listing/${blog?.id}`}
               key={index}
-              className="max-w-[41.8rem] w-full p-[2.4rem] bg-white shadow-lg mb-[1.6rem]"
+              className="max-w-[41.8rem] w-full p-[2.4rem] bg-surface shadow-lg mb-[1.6rem]"
             >
               {/* Card Image */}
               {blog && (
@@ -457,11 +457,11 @@ const BlogListing = ({ params }: { params: any }) => {
               width='20'
               height='20'
               viewBox='0 0 20 20'
-              fill='none'
+              fill='none' className='text-[#262626] dark:text-heading'
             >
               <path
                 d='M15.8334 10.0003H4.16675M4.16675 10.0003L10.0001 15.8337M4.16675 10.0003L10.0001 4.16699'
-                stroke='#262626'
+                stroke='currentColor'
                 strokeWidth='1.67'
                 strokeLinecap='round'
                 strokeLinejoin='round'
@@ -480,7 +480,7 @@ const BlogListing = ({ params }: { params: any }) => {
             >
               <p
                 className={`text-[1.4rem] font-medium text-heading ${
-                  item === '...' ? '' : 'group-hover:text-white'
+                  item === '...' ? '' : 'group-hover:text-onPrimary'
                 }`}
               >
                 {item}
@@ -496,11 +496,11 @@ const BlogListing = ({ params }: { params: any }) => {
               width='20'
               height='20'
               viewBox='0 0 20 20'
-              fill='none'
+              fill='none' className='text-[#262626] dark:text-heading'
             >
               <path
                 d='M4.1665 10.0003H15.8332M15.8332 10.0003L9.99984 4.16699M15.8332 10.0003L9.99984 15.8337'
-                stroke='#262626'
+                stroke='currentColor'
                 strokeWidth='1.67'
                 strokeLinecap='round'
                 strokeLinejoin='round'

@@ -49,7 +49,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
             </div>
             {/* Badge */}
             <div className="flex items-center justify-center max-w-[88rem] mx-auto mb-[2rem]">
-              <button className="px-[2rem] py-[1.5rem] lg:py-[2rem] lg:px-[4rem] bg-primary rounded-[5rem] text-center text-[1.6rem] lg:text-[3rem] font-semibold text-white border-none outline-none lg:mb-auto">
+              <button className="px-[2rem] py-[1.5rem] lg:py-[2rem] lg:px-[4rem] bg-primary rounded-[5rem] text-center text-[1.6rem] lg:text-[3rem] font-semibold text-onPrimary border-none outline-none lg:mb-auto">
                 {listOfdata?.designation?.split("|").map((item, index) => (
                   <div key={index} className="text-center">
                     {item.trim()}
@@ -94,7 +94,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                             style={{
                               animationDelay: `${i * 0.1}s`,
                             }}
-                            className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium px-[21px] py-[0.5rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group print:opacity-100"
+                            className="hover:bg-primary capitalize hover:text-onPrimary text-center text-primary text-[1.3rem] font-medium px-[21px] py-[0.5rem] bg-surface flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-textMuted opacity-0 animate-fadeIn relative group print:opacity-100"
                           >
                             {skill?.title}
                           </a>
@@ -107,7 +107,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                 {!showAll && Object.values(skills).flat().length > 10 && (
                   <button
                     onClick={() => setShowAll(true)}
-                    className="mt-4 bg-primary text-white px-4 py-2 mb-[15px] rounded hover:bg-primary-dark transition-colors print:hidden"
+                    className="mt-4 bg-primary text-onPrimary px-4 py-2 mb-[15px] rounded hover:bg-primary-dark transition-colors print:hidden"
                   >
                     Show More Skills
                   </button>
@@ -116,7 +116,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                 {showAll && (
                   <button
                     onClick={() => setShowAll(false)}
-                    className="mt-4 bg-primary text-white px-4 py-2 mb-[15px] rounded hover:bg-primary-dark transition-colors print:hidden"
+                    className="mt-4 bg-primary text-onPrimary px-4 py-2 mb-[15px] rounded hover:bg-primary-dark transition-colors print:hidden"
                   >
                     Show Less
                   </button>
@@ -136,7 +136,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
             />
             {/* Positioned Elements Price */}
             {listOfdata?.hide_earnings !== true && (
-              <div className="flex gap-[0.35rem] text-nowrap text-primary text-[1.4rem] font-medium rounded-[3.5rem] py-[0.69rem] bg-white shadow-lg px-[1.2rem] absolute top-[25%] left-[98%] translate-x-[-90%] md:left-[80%] md:translate-x-[-80%] animate-pulse min-w-max">
+              <div className="flex gap-[0.35rem] text-nowrap text-primary text-[1.4rem] font-medium rounded-[3.5rem] py-[0.69rem] bg-surface shadow-lg px-[1.2rem] absolute top-[25%] left-[98%] translate-x-[-90%] md:left-[80%] md:translate-x-[-80%] animate-pulse min-w-max">
                 <Image
                   src={"/images/clock.svg"}
                   height={14}
@@ -150,7 +150,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
 
             {/* Positioned Elements Availability */}
             {listOfdata?.hide_earnings !== true && (
-              <div className="flex gap-[0.35rem] text-nowrap text-primary text-[2rem] font-medium rounded-[3.5rem] py-[0.69rem] bg-white shadow-lg max-w-max px-[0.9rem] pr-[1.4rem] absolute bottom-[25%] left-[10%] translate-x-[-15%] md:left-[20%] md:translate-x-[-20%] animate-pulse">
+              <div className="flex gap-[0.35rem] text-nowrap text-primary text-[2rem] font-medium rounded-[3.5rem] py-[0.69rem] bg-surface shadow-lg max-w-max px-[0.9rem] pr-[1.4rem] absolute bottom-[25%] left-[10%] translate-x-[-15%] md:left-[20%] md:translate-x-[-20%] animate-pulse">
                 <Image
                   src={"/images/dollar-symbol.svg"}
                   height={14}
@@ -177,14 +177,14 @@ const HeroSection: React.FC<HeroSectionProps> = ({
               listOfdata.skills_ids.length > 0 && (
                 <div>
                   <div className="flex justify-between bg-primary border-b border-border w-full py-[1rem] px-[2rem]">
-                    <div className="text-left text-white text-[1.8rem] font-medium">
+                    <div className="text-left text-onPrimary text-[1.8rem] font-medium">
                       My Skills
                     </div>
                   </div>
 
                   <div
                     ref={skillsContainerRef}
-                    className="w-full p-[1.5rem] bg-white/70 backdrop-blur-xl justify-start items-center gap-[0.6rem] flex flex-wrap"
+                    className="w-full p-[1.5rem] bg-surface-70 backdrop-blur-xl justify-start items-center gap-[0.6rem] flex flex-wrap"
                     style={{ maxHeight: "46.3rem" }}
                   >
                     {Object?.values(skills)?.map((group, groupIndex) => (
@@ -206,7 +206,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                                     style={{
                                       animationDelay: `${i * 0.1}s`,
                                     }}
-                                    className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium px-[21px] py-[0.5rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
+                                    className="hover:bg-primary capitalize hover:text-onPrimary text-center text-primary text-[1.3rem] font-medium px-[21px] py-[0.5rem] bg-surface flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-textMuted opacity-0 animate-fadeIn relative group"
                                   >
                                     {skill?.title}
                                   </a>
@@ -217,7 +217,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                                   style={{
                                     animationDelay: `${i * 0.1}s`,
                                   }}
-                                  className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium px-[21px] py-[0.5rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
+                                  className="hover:bg-primary capitalize hover:text-onPrimary text-center text-primary text-[1.3rem] font-medium px-[21px] py-[0.5rem] bg-surface flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-textMuted opacity-0 animate-fadeIn relative group"
                                 >
                                   {skill?.title}
                                 </div>
@@ -287,7 +287,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                           target="_blank"
                           rel="noopener noreferrer"
                           style={{ animationDelay: `${i * 0.03}s` }}
-                          className="text-[16px] text-black bg-white px-3 py-2 rounded-lg flex gap-2 items-center hover:bg-primary hover:text-white "
+                          className="text-[16px] text-black dark:text-heading bg-surface px-3 py-2 rounded-lg flex gap-2 items-center hover:bg-primary hover:text-onPrimary "
                         >
                           {skill?.title}
                         </a>
@@ -296,7 +296,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                       <div
                         key={key}
                         style={{ animationDelay: `${i * 0.03}s` }}
-                        className="text-[16px] hover:bg-primary hover:text-white text-black bg-white px-3 py-2 rounded-lg flex gap-2 items-center"
+                        className="text-[16px] hover:bg-primary hover:text-onPrimary text-black dark:text-heading bg-surface px-3 py-2 rounded-lg flex gap-2 items-center"
                       >
                         {skill?.title}
                       </div>
@@ -311,7 +311,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                   <Link
                     target="_blank"
                     prefetch={true}
-                    className=" text-center  rounded-[0.6rem]  py-[1.5rem] px-[4.4rem] text-[2.6rem] font-medium   bg-[#FCDC2A] text-black hover:bg-primary hover:text-white   transition-colors "
+                    className=" text-center  rounded-[0.6rem]  py-[1.5rem] px-[4.4rem] text-[2.6rem] font-medium   bg-[#FCDC2A] text-black hover:bg-primary hover:text-onPrimary   transition-colors "
                     href={listOfdata?.calendly_link || "#"}
                   >
                     Schedule Call
@@ -321,7 +321,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                 <Link
 
                   prefetch={true}
-                  className="text-center  rounded-[0.6rem] py-[1.5rem] px-[4.4rem] text-[2.6rem] font-medium  mt-12  text-black  transition-colors bg-white hover:bg-primary hover:text-white "
+                  className="text-center  rounded-[0.6rem] py-[1.5rem] px-[4.4rem] text-[2.6rem] font-medium  mt-12  text-black dark:text-heading  transition-colors bg-surface hover:bg-primary hover:text-onPrimary "
                   href={"/portfolio"}
                 >
                   View Portfolio
@@ -380,7 +380,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
               <div className="absolute left-0 top-[24rem] w-[33.5rem] h-[18rem] inline-flex items-center justify-center bg-Circle bg-no-repeat bg-contain animate-bounce">
                 <div className="h-[100px] rounded flex gap-4 flex-col w-full px-10 relative">
          
-                  <div className="flex items-center gap-[0.35rem] text-nowrap text-primary text-[2rem] font-medium rounded-[3.5rem] py-[0.69rem] bg-white shadow-lg max-w-max px-[0.9rem] pr-[1.4rem]">
+                  <div className="flex items-center gap-[0.35rem] text-nowrap text-primary text-[2rem] font-medium rounded-[3.5rem] py-[0.69rem] bg-surface shadow-lg max-w-max px-[0.9rem] pr-[1.4rem]">
                     <Image
                       src={"/images/dollar-symbol.svg"}
                       height={24}
@@ -394,7 +394,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                     </p>
                   </div>
                   
-                  <div className="flex gap-[0.35rem] text-nowrap text-primary text-[2rem] font-medium rounded-[3.5rem] py-[0.69rem] bg-white shadow-lg px-[1.2rem] min-w-max">
+                  <div className="flex gap-[0.35rem] text-nowrap text-primary text-[2rem] font-medium rounded-[3.5rem] py-[0.69rem] bg-surface shadow-lg px-[1.2rem] min-w-max">
                     <Image
                       src={"/images/clock.svg"}
                       height={26}
@@ -421,13 +421,13 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                 listOfdata.skills_ids.length > 0 && (
                   <div className="z-[50] absolute max-w-[49rem] w-full rounded-[0.6rem] border border-border border-solid overflow-hidden">
                     <div className="flex justify-between bg-primary border-b border-border w-full py-[1rem] px-[2rem]">
-                      <div className="text-left text-white text-[1.8rem] font-medium">
+                      <div className="text-left text-onPrimary text-[1.8rem] font-medium">
                         My Skills
                       </div>
                       {isOverflowing && (
                         <button
                           onClick={() => scrollToSection("skills_ids")}
-                          className="py-[3px] px-[1.6rem] text-center text-primary text-[1rem] font-medium bg-white rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn"
+                          className="py-[3px] px-[1.6rem] text-center text-primary text-[1rem] font-medium bg-surface rounded-[5rem] shadow border border-textMuted opacity-0 animate-fadeIn"
                         >
                           See More Skills
                         </button>
@@ -436,7 +436,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
 
                     <div
                       ref={skillsContainerRef}
-                      className="w-full p-[1.5rem] bg-white/70 backdrop-blur-xl justify-start items-center gap-[0.6rem] flex flex-wrap overflow-y-auto hide-scrollbar"
+                      className="w-full p-[1.5rem] bg-surface-70 backdrop-blur-xl justify-start items-center gap-[0.6rem] flex flex-wrap overflow-y-auto hide-scrollbar"
                       style={{ maxHeight: "46.3rem" }}
                     >
                       {Object?.values(skills)?.map((group, groupIndex) => (
@@ -458,7 +458,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                                       style={{
                                         animationDelay: `${i * 0.1}s`,
                                       }}
-                                      className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium px-[21px] py-[0.5rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
+                                      className="hover:bg-primary capitalize hover:text-onPrimary text-center text-primary text-[1.3rem] font-medium px-[21px] py-[0.5rem] bg-surface flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-textMuted opacity-0 animate-fadeIn relative group"
                                     >
                                       {skill?.title}
                                     </a>
@@ -469,7 +469,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                                     style={{
                                       animationDelay: `${i * 0.1}s`,
                                     }}
-                                    className="hover:bg-primary capitalize hover:text-white text-center text-primary text-[1.3rem] font-medium px-[21px] py-[0.5rem] bg-white flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-[#757575] opacity-0 animate-fadeIn relative group"
+                                    className="hover:bg-primary capitalize hover:text-onPrimary text-center text-primary text-[1.3rem] font-medium px-[21px] py-[0.5rem] bg-surface flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-textMuted opacity-0 animate-fadeIn relative group"
                                   >
                                     {skill?.title}
                                   </div>

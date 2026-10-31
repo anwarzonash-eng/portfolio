@@ -41,13 +41,13 @@ const ExpandableServiceCard = forwardRef<
             serviceRefs.current[service?.title] = el;
           }
         }}
-        className="w-full bg-white print:break-before-page block rounded-[1rem] 
+        className="w-full bg-surface print:break-before-page block rounded-[1rem] 
         border border-border border-solid mb-[3rem] overflow-hidden relative print-section"
       >
         {/* Header */}
         <div
           className={`p-[1rem] lg:p-[3rem] print:p-[17px] print:!mb-[2rem] 
-            bg-primary bg-cvBoxDesktop bg-center bg-no-repeat bg-contain 
+            bg-primary dark:bg-sectionBG bg-cvBoxDesktop bg-center bg-no-repeat bg-contain 
             print:text-white cursor-pointer transition-colors duration-300
             ${isActive ? "bg-expanded" : ""}`}
           onClick={() => setActiveDropdown(isActive ? null : index)}

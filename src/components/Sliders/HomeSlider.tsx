@@ -193,7 +193,7 @@ const HomeSlider = ({ portfolios, highlightedPortfolioId }) => {
   return (
     <div className="w-full flex flex-col items-center gap-3 mt-[3rem] relative">
       {/* Progress Bars */}
-      <div className="w-full flex gap-[4px] px-4 mb-3 sticky top-[7rem] z-10 bg-white xl:static xl:bg-transparent p-2 rounded-[1rem] max-xl:shadow-lg">
+      <div className="w-full flex gap-[4px] px-4 mb-3 sticky top-[7rem] z-10 bg-surface xl:static xl:bg-transparent p-2 rounded-[1rem] max-xl:shadow-lg">
         {portfolios.map((_, index) => {
           const isActive = index === currentSlide;
           const isCompleted = index < currentSlide;
@@ -201,12 +201,12 @@ const HomeSlider = ({ portfolios, highlightedPortfolioId }) => {
           return (
             <div
               key={index}
-              className="h-[4px] flex-1 bg-gray-300 rounded overflow-hidden relative"
+              className="h-[4px] flex-1 bg-gray-300 dark:bg-border rounded overflow-hidden relative"
             >
               <div
                 className={`h-full absolute top-0 left-0 transition-all duration-[${SLIDE_INTERVAL}ms] ease-linear
                   ${isPaused || isModalOpen || !isInViewport
-                    ? "bg-gray-400"
+                    ? "bg-gray-400 dark:bg-textMuted"
                     : "bg-primary"
                   }`}
                 style={{
@@ -275,14 +275,14 @@ const HomeSlider = ({ portfolios, highlightedPortfolioId }) => {
         {!isModalOpen && (
           <div className="absolute bottom-0 right-0 hidden xl:flex items-center gap-5 p-4 lg:p-8">
             <button
-              className="rounded-full h-[5rem] w-[5rem] border-2 border-primary hidden xl:flex items-center justify-center bg-white hover:bg-primary hover:text-white text-primary transition-colors duration-300"
+              className="rounded-full h-[5rem] w-[5rem] border-2 border-primary hidden xl:flex items-center justify-center bg-surface hover:bg-primary hover:text-onPrimary text-primary transition-colors duration-300"
               onClick={prevSlide}
             >
               <ChevronLeft className="w-8 h-8" />
             </button>
 
             <button
-              className="rounded-full h-[5rem] w-[5rem] border-2 border-primary hidden xl:flex items-center justify-center bg-white hover:bg-primary hover:text-white text-primary transition-colors duration-300"
+              className="rounded-full h-[5rem] w-[5rem] border-2 border-primary hidden xl:flex items-center justify-center bg-surface hover:bg-primary hover:text-onPrimary text-primary transition-colors duration-300"
               onClick={nextSlide}
             >
               <ChevronRight className="w-8 h-8" />

@@ -69,7 +69,7 @@ const OurBlogs = ({ domain }) => {
                     <Link
                       key={index}
                       href={`/blog-listing/${blog?.id}`}
-                      className="max-w-[41.8rem] w-full p-[2.4rem] bg-white shadow-lg mb-[1.6rem]"
+                      className="max-w-[41.8rem] w-full p-[2.4rem] bg-surface shadow-lg mb-[1.6rem]"
                     >
                       {blog && (
                         <Image

@@ -32,7 +32,7 @@ const MyServicesCards = ({ services }) => {
                   />
 
                   {/* Gradient overlay - only fades in on hover */}
-                  <div className="absolute inset-0 bg-white z-0">
+                  <div className="absolute inset-0 bg-surface z-0">
                     <div className="h-full w-full bg-gradient-to-t from-[#6f656591] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   </div>
                 </div>
@@ -57,7 +57,7 @@ const MyServicesCards = ({ services }) => {
                   href={`/service-detail?service=${encodeURIComponent(
                     service?.title
                   )}`}
-                  className="inline-flex items-center gap-2 text-white/90 hover:text-white transition-colors group"
+                  className="inline-flex items-center gap-2 text-white/90 hover:text-onPrimary transition-colors group"
                 >
                   <span className="font-bold text-[1.5rem] text-[#ffffff]">
                     Discover more 1

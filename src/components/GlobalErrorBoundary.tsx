@@ -34,13 +34,13 @@ export default class GlobalErrorBoundary extends React.Component<
     if (this.state.hasError) {
       return (
         <div className="min-h-screen bg-primary flex items-center justify-center p-6">
-          <div className="max-w-xl bg-white shadow-lg p-6 rounded-lg border border-red-300">
+          <div className="max-w-xl bg-surface shadow-lg p-6 rounded-lg border border-red-300">
             <h2 className="text-[2rem] font-bold text-red-600 mb-4">
               An unexpected error occurred
             </h2>
 
-            <p className="font-semibold text-gray-700 text-[1.4rem] mb-2">Error Message:</p>
-            <pre className="p-3 bg-gray-100 rounded text-sm overflow-auto">
+            <p className="font-semibold text-gray-700 dark:text-paragraph1 text-[1.4rem] mb-2">Error Message:</p>
+            <pre className="p-3 bg-gray-100 dark:bg-surfaceMuted rounded text-sm overflow-auto">
               {String(this.state.error)}
             </pre>
 

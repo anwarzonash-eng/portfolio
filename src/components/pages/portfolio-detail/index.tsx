@@ -276,7 +276,7 @@ const PortfolioDetails = ({ params }: { params: any }) => {
           : "Client Testimonial";
 
   return (
-    <div className="bg-[#EFF5FD]">
+    <div className="bg-[#EFF5FD] dark:bg-pageBG">
       <PageRendering
         props={{
           list: portfolioDetails,
@@ -328,7 +328,7 @@ const PortfolioDetails = ({ params }: { params: any }) => {
                   />
                   <article className="mt-[6rem] flex gap-[4rem] flex-col items-center justify-center md:flex-row md:items-start md:justify-normal">
                     <aside className="shadow-xl
- rounded-[1rem] bg-white p-[2rem] md:max-w-[36rem] w-full flex flex-col gap-[3.2rem]">
+ rounded-[1rem] bg-surface p-[2rem] md:max-w-[36rem] w-full flex flex-col gap-[3.2rem]">
                       {portfolioDetails?.my_role && (
                         <div className="">
                           <p className="text-[1.4rem] font-normal text-paragraph1 leading-[2rem] mb-[0.8rem]">
@@ -465,7 +465,7 @@ const PortfolioDetails = ({ params }: { params: any }) => {
                           listOfdata?.companytype !== "leewop" && (
                             <Link
                               href={portfolioDetails?.link || "#"}
-                              className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-center btn-primary inline-block max-w-max"
+                              className="text-onPrimary py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-center btn-primary inline-block max-w-max"
                             >
                               Launch Project - Live Preview
                             </Link>
@@ -531,7 +531,7 @@ const PortfolioDetails = ({ params }: { params: any }) => {
                         <div className="text-center mt-4">
                           <button
                             onClick={() => setIsExpanded((s) => !s)}
-                            className="text-white py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-center btn-primary inline-block max-w-max"
+                            className="text-onPrimary py-[1rem] px-[3.4rem] text-[1.6rem] leading-[2.4rem] font-medium text-center btn-primary inline-block max-w-max"
                           >
                             {isExpanded ? "Show Less" : "Read More"}
                           </button>
@@ -573,7 +573,7 @@ const PortfolioDetails = ({ params }: { params: any }) => {
                   </div>
 
                   {/* My Tools and Technologies */}
-                  <article className="my-[6.4rem] bg-white pt-16 border rounded-2xl">
+                  <article className="my-[6.4rem] bg-surface pt-16 border rounded-2xl">
                     <div className="text-heading text-[2.4rem] xl:text-[3rem] font-medium leading-[2.8rem] text-center mb-20">
                       The skills, tools and technologies I used in this project:
                     </div>

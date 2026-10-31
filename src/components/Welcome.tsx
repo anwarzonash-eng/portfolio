@@ -20,7 +20,7 @@ const Welcome: React.FC = () => {
 
   return (
     <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-[rgba(0,0,0,0.6)] z-50">
-      <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
+      <div className="bg-surface p-6 rounded-lg shadow-lg max-w-sm w-full">
         <h2 className="text-2xl font-bold mb-4">Welcome!</h2>
         <p className="mb-4">We're glad to have you here. Enjoy your visit!</p>
         <button
