@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Newsletter from "@/components/Newsletter";
-import OurBlogs from "@/components/OurBlogs";
+import OurBlogs from "@/components/OurBlogsLazy";
 import HomeSlider from "@/components/Sliders/HomeSlider";
 import useBodyBackgroundColor from "@/hooks/useBodyBackgroundColor";
 import { useSearchParams } from "next/navigation";

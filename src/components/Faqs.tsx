@@ -1,5 +1,4 @@
 "use client";
-import { FaqsDataUpdated } from "@/data/JsonData";
 import { usePathname } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import NoteDomainForPint from "./NoteDomainForPint";
@@ -8,26 +7,9 @@ import FaqContactBox from "@/components/FaqsComponents/FaqContactBox";
 import type { ProfileReport } from "@/types/api";
 import {
   buildFaqInjectLinks,
-  getFaqsByDomain,
   injectDynamicLinks,
 } from "@/components/FaqsComponents/faqLinkInjection";
-
-// Update FaqItem to include the new 'type' property
-interface FaqItem {
-  index?: number;
-  question: string;
-  answer: string;
-  type: "all" | "not_u" | "u"; // Added 'type' property
-  altName?: string;
-}
-
-// Define the shape of a user's FAQ group (remains the same)
-interface UserFaqGroup {
-  id?: string;
-  name: string;
-  faqs: FaqItem[];
-  altName?: string; // Made optional to match external data shape
-}
+import { useFaqItems } from "@/components/FaqsComponents/useFaqItems";
 
 // Define the props for the Faqs component (remains the same)
 interface FaqsProps {
@@ -38,7 +20,6 @@ interface FaqsProps {
 // --- End Type Definitions ---
 
 const Faqs: React.FC<FaqsProps> = ({ urlInfo, apiData }) => {
-  const [faqs, setFaqs] = useState<FaqItem[]>([]);
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
   const [isPrinting, setIsPrinting] = useState(false);
 
@@ -48,6 +29,9 @@ const Faqs: React.FC<FaqsProps> = ({ urlInfo, apiData }) => {
 
   // Check if urlInfo.u is present
   const isUrlU = !!urlInfo?.u;
+
+  // Shared with FaqsLazy so the placeholder renders an identical row set.
+  const faqs = useFaqItems(isUrlU);
 
   // ✅ Define the links once — they will be injected automatically
   const injectLinks = buildFaqInjectLinks(readyData);
@@ -73,40 +57,6 @@ const Faqs: React.FC<FaqsProps> = ({ urlInfo, apiData }) => {
       window.removeEventListener("afterprint", handleAfterPrint);
     };
   }, []);
-
-  // Logic to load and filter the FAQs based on domain and the new 'type' logic
-  useEffect(() => {
-    const user = getFaqsByDomain();
-    const matchedGroup = (FaqsDataUpdated as UserFaqGroup[]).find((f) => f.name === user);
-
-    if (matchedGroup) {
-      // 1. Get the base FAQs (altName group filtering is REMOVED as requested)
-      const baseFaqItems = matchedGroup.faqs;
-
-      // 2. Apply the NEW type filtering to the individual FAQ items
-      const filteredFaqItems = baseFaqItems.filter((faq) => {
-        if (faq.type === "all") {
-          return true; // Always display
-        }
-
-        // CORRECTION: Display 'not_u' when isUrlU is FALSE, otherwise hide them.
-        if (faq.type === "not_u") {
-          // Display if NOT isUrlU (i.e., display them always, EXCEPT when isUrlU is true)
-          return !isUrlU;
-        }
-
-        if (faq.type === "u") {
-          return true;
-        }
-
-        return true; // Default to display if type is missing or unknown
-      });
-
-      setFaqs(filteredFaqItems);
-    } else {
-      setFaqs([]);
-    }
-  }, [isUrlU]); // Re-run when isUrlU changes. Removed urlInfo and companyType dependencies.
 
   const faqsToDisplay = isPrinting ? faqs.slice(0, 6) : faqs;
 

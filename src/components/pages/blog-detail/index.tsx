@@ -2,19 +2,18 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Newsletter from "@/components/Newsletter";
-import OurBlogs from "@/components/OurBlogs";
+import OurBlogs from "@/components/OurBlogsLazy";
 import useBodyBackgroundColor from "@/hooks/useBodyBackgroundColor";
 import { useSearchParams } from "next/navigation";
 import { getRoutesDetails } from "@/hooks/url";
 import { useAppDispatch } from "@/store";
 import { setProfileUrlInfo } from "@/store/profileSlice";
 import { reportsApiHandler } from "@/hooks/apihandlers/reportsApiHandlers";
-import Swal, { SweetAlertIcon } from "sweetalert2";
+import type { SweetAlertIcon } from "sweetalert2";
 import { formatDate } from "@/hooks/formatdate";
 import { authorBlogIds, dateFormatsOptions } from "@/data/JsonData";
 import PageRendering from "@/components/PageRendering";
-import BlogDetailMobileSVG from "@/components/BlogDetailMobileSVG";
-import BlogDetailDesktopSVG from "@/components/BlogDetailDesktopSVG";
+import HeroBackdrop from "@/components/HeroBackdrop";
 import { getImageForIndex } from "@/utils/getImageForIndex";
 import { loadBlogs } from "@/hooks/apihandlers/blogListingApiHandler";
 import EducationComponent from "@/components/EducationComponent";
@@ -108,10 +107,7 @@ const BlogDetails = ({ params }: PageProps) => {
           actualPage: (
             <>
               <section className="mainContainer w-full lg:h-[90rem] relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-full h-auto">
-                  <BlogDetailDesktopSVG />
-                  <BlogDetailMobileSVG />
-                </div>
+                <HeroBackdrop breakpoint="md" />
                 <div className="mainContainer w-full flex items-center justify-center flex-col text-center pt-[12.5rem] pb-[8rem] relative z-20">
                   <div className="flex items-center text-white text-[1.4rem] leading-[2rem] font-medium">
                     <p>
@@ -136,8 +132,9 @@ const BlogDetails = ({ params }: PageProps) => {
                         alt="Copy"
                       />
                       <button
-                        onClick={() => {
+                        onClick={async () => {
                           navigator.clipboard.writeText(blogdata?.link);
+                          const Swal = (await import("sweetalert2")).default;
                           Swal.fire({
                             icon: "success" as SweetAlertIcon,
                             title: "Copied!",

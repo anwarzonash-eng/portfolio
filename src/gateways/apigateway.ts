@@ -1,6 +1,14 @@
 import { swalPopupEnums } from "@/enums/app.enums";
 import axios, { AxiosError, AxiosResponse, Method } from "axios";
-import Swal, { SweetAlertIcon } from "sweetalert2";
+import type { SweetAlertIcon } from "sweetalert2";
+
+/**
+ * sweetalert2 (~20 KB gzipped) is only ever needed when a popup is actually
+ * shown, which is rare. Importing it at module scope pulled it into the shared
+ * chunk of all 36 routes, including the print routes. Loading it on demand
+ * keeps it out of every initial bundle.
+ */
+const loadSwal = async () => (await import("sweetalert2")).default;
 
 export interface ApiGatewayOptions {
   endpoint: string;
@@ -44,6 +52,7 @@ export const apigateway = async <T = unknown>({
     const response = await axios<T>(config);
 
     if (isDisplayResponsePopUp) {
+      const Swal = await loadSwal();
       await Swal.fire({
         icon: swalPopupEnums.icon.SUCCESS as SweetAlertIcon,
         title: successMessage || `Action performed successfully.`,
@@ -64,6 +73,7 @@ export const apigateway = async <T = unknown>({
     const errorMessage = axiosError?.response?.data?.data?.results?.error;
 
     if (isDisplayResponsePopUp) {
+      const Swal = await loadSwal();
       await Swal.fire({
         icon: swalPopupEnums.icon.ERROR as SweetAlertIcon,
         title: errorMessage || `There's an unknown error. Try again later.`,

@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import Portfoliodetailbg from "@/components/portfoliodetailbg";
+import HeroBackdrop from "@/components/HeroBackdrop";
 import type { Portfolio } from "@/types/api";
 
 /** Hero banner with the project title (extracted verbatim from pages/portfolio-detail). */
@@ -10,7 +10,7 @@ const PortfolioHero = ({
   portfolioDetails: Portfolio | null;
 }) => (
   <section className="mainContainer w-full lg:h-[90rem] relative overflow-hidden">
-    <Portfoliodetailbg />
+    <HeroBackdrop breakpoint="sm" />
     <div className="mainContainer w-full flex items-center justify-center flex-col text-center pt-[6.5rem] pb-[8rem] relative z-20 ">
       <div className="flex items-center text-white text-[1.4rem] leading-[2rem] font-medium">
       </div>

@@ -2,7 +2,7 @@
 import React from "react";
 import { formatDate } from "@/hooks/formatdate";
 import { dateFormatsOptions } from "@/data/JsonData";
-import SideTestimonialPortfolioDetail from "@/components/SideTestimonialPortfolioDetail";
+import SideTestimonialPortfolioDetail from "@/components/SideTestimonialPortfolioDetailLazy";
 import type { Portfolio, ProfileReport } from "@/types/api";
 
 interface PortfolioSidebarProps {

@@ -17,7 +17,10 @@ Planned work on this project:
 
 ## Performance and accessibility
 - [ ] Compress the large SVG backgrounds and hero images
-- [ ] Lazy-load heavy sections and carousels
+- [x] Lazy-load heavy sections and carousels
+      (hero SVG backdrops moved to `/public/bg`; sweetalert2, formik/yup, swiper,
+      the portfolio modal, FAQs, blogs and the home video are now loaded on demand.
+      Print routes are deliberately excluded.)
 - [ ] Accessibility audit (labels, focus states, contrast)
 
 ## Testing and DevOps

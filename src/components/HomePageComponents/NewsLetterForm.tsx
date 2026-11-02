@@ -1,0 +1,84 @@
+"use client";
+
+import { useState } from "react";
+import { Formik, Form, Field } from "formik";
+import * as Yup from "yup";
+import { formikEnums } from "@/enums/formikEnums";
+import { addLeadsApi } from "@/apiHandlers/leadsApi";
+import type { AddLeadPayload } from "@/types/api";
+import ThankyouPopup from "@/components/ThankyouPopup";
+
+/**
+ * Interactive half of the services-page NewsLetter banner (Formik form, Yup
+ * schema, submit handler, thank-you modal). Split out of NewsLetter.tsx so
+ * formik + yup load only when the banner nears the viewport.
+ *
+ * The <Form> markup is kept identical to the placeholder in NewsLetter.tsx so
+ * the swap does not change the banner height.
+ */
+const NewsLetterForm = () => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const initialValues = { email: "" };
+
+    const validationSchema = Yup.object().shape({
+        email: Yup.string()
+            .email(formikEnums.Email.Invalid)
+            .required(formikEnums.Email.Required),
+    });
+
+    const handleSubmit = async (values: { email: string }, { resetForm }: { resetForm: () => void }) => {
+        // TODO: this payload does not match what /leads/manual-add expects
+        // (AddLeadPayload: action_type/title/lead_source/contact[]), unlike the
+        // other newsletter forms. Typing surfaced the mismatch; the payload is
+        // kept as-is to avoid changing runtime behaviour in a typing-only pass.
+        const payload = {
+            email: values.email,
+            source_category: "subscribe",
+        };
+        const res = await addLeadsApi(payload as unknown as AddLeadPayload);
+        if (/^2\d{2}$/.test(String(res?.status))) {
+            setIsModalOpen(true);
+            resetForm();
+        }
+    };
+
+    return (
+        <>
+            {isModalOpen && (
+                <ThankyouPopup setIsModalOpen={setIsModalOpen} listOfdata={null} />
+            )}
+            <Formik
+                initialValues={initialValues}
+                validationSchema={validationSchema}
+                onSubmit={handleSubmit}
+            >
+                {({ isSubmitting, errors, touched }) => (
+                    <Form className="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-2xl mx-auto">
+                        <Field
+                            type="email"
+                            name="email"
+                            placeholder={
+                                touched.email && errors.email ? errors.email : "Enter your email"
+                            }
+                            className={`w-full sm:flex-1 bg-white/5 border px-7 py-5 text-black dark:text-heading text-[2rem] focus:outline-none transition-colors rounded-lg ${touched.email && errors.email
+                                ? "border-red-500 placeholder:text-red-500"
+                                : "border-primary placeholder-gray-500 focus:border-primary/80"
+                                }`}
+                        />
+                        <button
+                            type="submit"
+                            disabled={isSubmitting}
+                            className={`w-full sm:w-auto bg-primary hover:bg-surface hover:text-black dark:hover:text-heading text-onPrimary font-semibold px-7 py-5 transition-colors text-[1.8rem] whitespace-nowrap rounded-lg border border-primary ${isSubmitting ? "cursor-not-allowed opacity-70" : ""
+                                }`}
+                        >
+                            {isSubmitting ? "Subscribing..." : "Get Started"}
+                        </button>
+                    </Form>
+                )}
+            </Formik>
+        </>
+    );
+};
+
+export default NewsLetterForm;

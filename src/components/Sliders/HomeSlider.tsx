@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect, useRef, useCallback } from "react";
 import PortfolioImagesLoader from "../PortfolioImagesLoader";
-import PortfolioPopUp from "../PortfolioPopUp";
+import PortfolioPopUp from "../PortfolioPopUpLazy";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import PortfolioCardContent from "../PortfolioCardContent";
 

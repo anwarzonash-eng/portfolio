@@ -15,7 +15,7 @@ import CVPortfoliosSection from "@/components/CVPageComponents/CVPortfoliosSecti
 import CVSectionHeading from "@/components/CVPageComponents/CVSectionHeading";
 import Newsletter from "@/components/Newsletter";
 import PageRendering from "@/components/PageRendering";
-import PortfolioPopUp from "@/components/PortfolioPopUp";
+import PortfolioPopUp from "@/components/PortfolioPopUpLazy";
 import WebsiteLoader from "@/components/WebsiteLoader";
 import Background from "@/components/background";
 import UpworkActivitySection from "@/components/UpworkActivitySection";

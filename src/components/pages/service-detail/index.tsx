@@ -7,7 +7,7 @@ import { reportsApiHandler } from "@/hooks/apihandlers/reportsApiHandlers";
 import { handleSkillsApiCall } from "@/hooks/apihandlers/skillsApiHandlers";
 import { handleCategoryPicture } from "@/hooks/apihandlers/categoryApiHandler";
 import PageRendering from "@/components/PageRendering";
-import OurBlogs from "@/components/OurBlogs";
+import OurBlogs from "@/components/OurBlogsLazy";
 import Newsletter from "@/components/Newsletter";
 import ExpandableServiceCard from "@/components/ExpandableServiceCard";
 import EducationComponent from "@/components/EducationComponent";

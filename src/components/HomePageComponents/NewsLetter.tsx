@@ -1,90 +1,62 @@
 "use client";
 
-import { useState } from "react";
-import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
-import { formikEnums } from "@/enums/formikEnums";
-import { addLeadsApi } from "@/apiHandlers/leadsApi";
-import type { AddLeadPayload } from "@/types/api";
-import ThankyouPopup from "@/components/ThankyouPopup";
+import dynamic from "next/dynamic";
+import { useInView } from "@/hooks/useInView";
+
+/**
+ * Services-page newsletter banner. The static shell renders immediately; the
+ * Formik form lives in NewsLetterForm.tsx and loads when the banner nears the
+ * viewport, keeping formik + yup out of the initial bundle.
+ *
+ * The placeholder is a disabled copy of the exact same form markup, so the
+ * banner is already at its final height before the chunk arrives.
+ */
+const NewsLetterFormPlaceholder = () => (
+    <form
+        className="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-2xl mx-auto"
+        aria-hidden="true"
+        onSubmit={(e) => e.preventDefault()}
+    >
+        <input
+            type="email"
+            placeholder="Enter your email"
+            disabled
+            className="w-full sm:flex-1 bg-white/5 border px-7 py-5 text-black dark:text-heading text-[2rem] focus:outline-none transition-colors rounded-lg border-primary placeholder-gray-500"
+        />
+        <button
+            type="button"
+            disabled
+            className="w-full sm:w-auto bg-primary text-onPrimary font-semibold px-7 py-5 transition-colors text-[1.8rem] whitespace-nowrap rounded-lg border border-primary"
+        >
+            Get Started
+        </button>
+    </form>
+);
+
+const NewsLetterForm = dynamic(() => import("./NewsLetterForm"), {
+    ssr: false,
+    loading: () => <NewsLetterFormPlaceholder />,
+});
 
 const NewsLetter = () => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
-    const initialValues = { email: "" };
-
-    const validationSchema = Yup.object().shape({
-        email: Yup.string()
-            .email(formikEnums.Email.Invalid)
-            .required(formikEnums.Email.Required),
-    });
-
-    const handleSubmit = async (values: { email: string }, { resetForm }: { resetForm: () => void }) => {
-        // TODO: this payload does not match what /leads/manual-add expects
-        // (AddLeadPayload: action_type/title/lead_source/contact[]), unlike the
-        // other newsletter forms. Typing surfaced the mismatch; the payload is
-        // kept as-is to avoid changing runtime behaviour in a typing-only pass.
-        const payload = {
-            email: values.email,
-            source_category: "subscribe",
-        };
-        const res = await addLeadsApi(payload as unknown as AddLeadPayload);
-        if (/^2\d{2}$/.test(String(res?.status))) {
-            setIsModalOpen(true);
-            resetForm();
-        }
-    };
+    const { ref, inView } = useInView<HTMLElement>();
 
     return (
-        <>
-            {isModalOpen && (
-                <ThankyouPopup setIsModalOpen={setIsModalOpen} listOfdata={null} />
-            )}
+        <section ref={ref} className="bg-bannerBG py-24 lg:py-36 border-t border-white/5">
+            <div className="mx-auto px-4 sm:px-6 text-center">
+                <h2 className="text-[3rem] lg:text-[4rem] font-black text-black dark:text-heading mb-4">
+                    Ready to Scale Your Digital Presence?
+                </h2>
+                <p className="text-gray-800 dark:text-heading text-[1.5rem] mb-10 leading-relaxed">
+                    Let&apos;s collaborate to build something extraordinary. Our team is ready to turn your vision <br />
+                    into reality.
+                </p>
 
-            <section className="bg-bannerBG py-24 lg:py-36 border-t border-white/5">
-                <div className="mx-auto px-4 sm:px-6 text-center">
-                    <h2 className="text-[3rem] lg:text-[4rem] font-black text-black dark:text-heading mb-4">
-                        Ready to Scale Your Digital Presence?
-                    </h2>
-                    <p className="text-gray-800 dark:text-heading text-[1.5rem] mb-10 leading-relaxed">
-                        Let&apos;s collaborate to build something extraordinary. Our team is ready to turn your vision <br />
-                        into reality.
-                    </p>
+                {inView ? <NewsLetterForm /> : <NewsLetterFormPlaceholder />}
 
-                    <Formik
-                        initialValues={initialValues}
-                        validationSchema={validationSchema}
-                        onSubmit={handleSubmit}
-                    >
-                        {({ isSubmitting, errors, touched }) => (
-                            <Form className="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-2xl mx-auto">
-                                <Field
-                                    type="email"
-                                    name="email"
-                                    placeholder={
-                                        touched.email && errors.email ? errors.email : "Enter your email"
-                                    }
-                                    className={`w-full sm:flex-1 bg-white/5 border px-7 py-5 text-black dark:text-heading text-[2rem] focus:outline-none transition-colors rounded-lg ${touched.email && errors.email
-                                        ? "border-red-500 placeholder:text-red-500"
-                                        : "border-primary placeholder-gray-500 focus:border-primary/80"
-                                        }`}
-                                />
-                                <button
-                                    type="submit"
-                                    disabled={isSubmitting}
-                                    className={`w-full sm:w-auto bg-primary hover:bg-surface hover:text-black dark:hover:text-heading text-onPrimary font-semibold px-7 py-5 transition-colors text-[1.8rem] whitespace-nowrap rounded-lg border border-primary ${isSubmitting ? "cursor-not-allowed opacity-70" : ""
-                                        }`}
-                                >
-                                    {isSubmitting ? "Subscribing..." : "Get Started"}
-                                </button>
-                            </Form>
-                        )}
-                    </Formik>
-
-                    <p className="text-gray-800 dark:text-heading text-[1.3rem] mt-4">No spam. Unsubscribe anytime.</p>
-                </div>
-            </section>
-        </>
+                <p className="text-gray-800 dark:text-heading text-[1.3rem] mt-4">No spam. Unsubscribe anytime.</p>
+            </div>
+        </section>
     );
 };
 
