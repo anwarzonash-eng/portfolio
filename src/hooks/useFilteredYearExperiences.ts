@@ -1,22 +1,7 @@
 import { useMemo } from "react";
 
-interface Experience {
-  company_name?: string;
-  company_website?: string;
-  starting_date?: string;
-  start_date?: string;
-  startDate?: string;
-  ending_date?: string;
-  end_date?: string;
-  endDate?: string;
-  isShow?: boolean;
-  [key: string]: any;
-}
+import type { Experience } from "@/types/api";
 
-interface UseFilteredExperiencesProps {
-  experiences: Experience[];
-  noOfYears: number;
-}
 
 export const useFilteredYearExperiences = (experiences: Experience[] = [], noOfYears: number) => {
   return useMemo(() => {
@@ -51,7 +36,7 @@ export const useFilteredYearExperiences = (experiences: Experience[] = [], noOfY
       if (startDateStr) {
         try {
           startYear = new Date(startDateStr).getFullYear();
-        } catch (error) {
+        } catch {
           // ignore
         }
       }
@@ -59,7 +44,7 @@ export const useFilteredYearExperiences = (experiences: Experience[] = [], noOfY
       if (endDateStr) {
         try {
           endYear = new Date(endDateStr).getFullYear();
-        } catch (error) {
+        } catch {
           // ignore
         }
       }

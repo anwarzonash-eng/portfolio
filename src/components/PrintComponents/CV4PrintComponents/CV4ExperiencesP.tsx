@@ -1,10 +1,7 @@
-import React from 'react'
-
 const CV4ExperiencesP = ({ experiences_for_cv4 }) => {
     // helper to convert YYYY-MM-DD or YYYY-MM to "Month YYYY" (e.g. May 2022)
     const formatDate = (d) => {
         if (!d) return "";
-        // if already contains a space (e.g. "May 2022"), assume formatted
         if (d.includes(" ")) return d;
         const parts = d.split("-");
         if (parts.length >= 2) {

@@ -1,8 +1,8 @@
 "use client";
 import CV4 from "@/components/pages/print/cv4";
-import React from "react";
+import type { PageProps } from "@/types/page";
 
-const cv4 = ({ params }: { params: any }) => {
+const cv4 = ({ params }: PageProps) => {
     return <CV4 params={params} />;
 };
 

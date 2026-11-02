@@ -1,9 +1,4 @@
-
-export function modifiedContent(content, skillsList, listOfdata) {
-
-  // console.log("Content:", content);
-  // console.log("Skills List:", skillsList);
-  // console.log("List of Data:", listOfdata);
+export function modifiedContent(content, skillsList, _listOfdata) {
 
   const modifiedContentInner = content
     ?.replace(/<h1>/g, `<h1 style="color:var(--primary-color)">`)

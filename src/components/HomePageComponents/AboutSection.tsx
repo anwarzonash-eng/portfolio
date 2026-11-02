@@ -4,30 +4,12 @@ import Link from "next/link";
 import WorkProofLinks from "../WorkProofLinks";
 import ContactMeLinks from "../ContactMeLinks";
 
+import type { ProfileReport } from "@/types/api";
+import type { RoutesInfo } from "@/hooks/url";
+
 interface AboutSectionProps {
-  listOfdata: {
-    profile_photo_3?: string;
-    no_of_experiences?: number;
-    projects_completed?: number;
-    website_purpose?: string;
-    tag_line?: string;
-    designation?: string;
-    name?: string;
-    email?: string;
-    phone_no?: string;
-    location?: string;
-    upwork?: string;
-    github?: string;
-    linkedIn?: string;
-    behance_link?: string;
-    is_pdf_generated?: boolean;
-    pdf_urls?: { type: string; url: string | null }[];
-    // pdf_urls?: Array<{
-    //   type: string;
-    //   url: string | null;
-    // }>;
-  };
-  urlInfo?: { u?: string };
+  listOfdata: ProfileReport | null;
+  urlInfo?: RoutesInfo | null;
   formatPhoneNumber: (phone: string | undefined) => string;
   downloadFile: (url: string, fileName: string) => void;
 }
@@ -42,37 +24,6 @@ const AboutSection: React.FC<AboutSectionProps> = ({
     (link) =>
       (urlInfo?.u ? link.type === "cv_with_u" : link.type === "cv") && link.url
   );
-
-  // console.log("About Section Data:", listOfdata);
-  // console.log("CV Link:", cvLink);
-
-  // Response Structure Sample 
-  // let pdf_urls = [
-  //   {
-  //     type: "home",
-  //     url: null,
-  //   },
-  //   {
-  //     type: "home_with_u",
-  //     url: null,
-  //   },
-  //   {
-  //     type: "cv",
-  //     url: "https://personalwebsites-pdfs.s3.eu-north-1.amazonaws.com/1766654279959_document-2025-12-25T09-17-32-008Z-cv.pdf",
-  //   },
-  //   {
-  //     type: "cv_with_u",
-  //     url: "https://personalwebsites-pdfs.s3.eu-north-1.amazonaws.com/1766654304420_document-2025-12-25T09-18-01-360Z-cv_with_u.pdf",
-  //   },
-  //   {
-  //     type: "portfolio_main",
-  //     url: null,
-  //   },
-  //   {
-  //     type: "portfolio_main_with_u",
-  //     url: null,
-  //   },
-  // ];
 
   return (
     <section
@@ -93,8 +44,8 @@ const AboutSection: React.FC<AboutSectionProps> = ({
             <div className="bg-surface rounded-[0.8rem] absolute bottom-auto left-auto top-[-3rem] right-[3rem] xl:top-[7rem] xl:right-[-8rem] p-[1.4rem] xl:h-[12rem] xl:w-[26rem] xl:rounded-[2rem] flex items-center shadow-md gap-[1rem] xl:gap-[2rem] animate-bounce">
               {/* Badge SVG */}
               <div className="bg-[#2A97FC] rounded-[50%] flex items-center justify-center h-[4.9rem] w-[4.9rem] xl:h-[6.8rem] xl:w-[6.8rem]">
-                <img
-                  src="./images/experience.svg"
+                <Image width={34} height={34}
+                  src="/images/experience.svg"
                   alt="Experience"
                   className="h-[2.4rem] w-[2.4rem] xl:h-[3.4rem] xl:w-[3.4rem]"
                 />
@@ -118,8 +69,8 @@ const AboutSection: React.FC<AboutSectionProps> = ({
               <div className="bg-surface mb-3 rounded-[0.8rem] absolute top-auto right-auto bottom-[-4rem] xl:bottom-[3rem] xl:left-[3rem] left-[3rem] p-[1.4rem] xl:h-[12rem] xl:rounded-[2rem] flex items-center shadow-md gap-[1rem] xl:gap-[2rem] animate-bounce xl:animate-none">
                 {/* Badge SVG */}
                 <div className="bg-[#FC822A] rounded-[50%] flex items-center justify-center h-[4.9rem] w-[4.9rem] xl:h-[6.8rem] xl:w-[6.8rem]">
-                  <img
-                    src="./images/badge.svg"
+                  <Image width={34} height={34}
+                    src="/images/badge.svg"
                     alt="Experience"
                     className="h-[2.4rem] w-[2.4rem] xl:h-[3.4rem] xl:w-[3.4rem]"
                   />
@@ -279,20 +230,6 @@ const AboutSection: React.FC<AboutSectionProps> = ({
                 View CV Online
               </button>
             </Link>
-            {/* {listOfdata?.pdf_urls?.urls.length > 0 &&
-              listOfdata?.pdf_urls?.urls
-                .filter((link) => link.type === "cv")
-                .map((cvLink, index) => (
-                  <button
-                    key={index}
-                    onClick={() =>
-                      downloadFile(cvLink.url, `${listOfdata?.name} - CV`)
-                    }
-                    className="w-full md:max-w-max mt-5 md:mt-0 btn-primary rounded-[0.6rem] text-onPrimary py-[2rem] px-[5.6rem] text-[1.8rem] font-medium border border-solid border-custom"
-                  >
-                    Download CV
-                  </button>
-                ))} */}
             {cvLink && (
               <button
                 onClick={() =>

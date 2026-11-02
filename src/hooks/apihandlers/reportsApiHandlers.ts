@@ -1,17 +1,33 @@
 import { reportsSync } from "@/apiHandlers/reportsApi";
 import { store } from "@/store";
 import { setListOfProfileData } from "@/store/profileSlice";
+import type { RoutesInfo } from "@/hooks/url";
+import type {
+  ProfileApiData,
+  ProfileReport,
+  ReportsPayload,
+  ServiceSkill,
+  SkillGroup,
+} from "@/types/api";
+
+interface ReportsApiHandlerArgs {
+  actionType?: string;
+  urlInfo: RoutesInfo | null;
+  setLoading: (loading: boolean) => void;
+  /** Accepts a React state setter; the handler passes the report or [] on error. */
+  setListOfData: (data: unknown) => void;
+  itemID?: string | number | null;
+  setError: (message: string) => void;
+}
 
 export const reportsApiHandler = async ({
-  actionType,
   urlInfo,
   setLoading,
   setListOfData,
   itemID = null,
   setError,
-}: any) => {
-  const payload: { domain: any; uniqueId: any; itemID?: any } =
-  {
+}: ReportsApiHandlerArgs) => {
+  const payload: ReportsPayload = {
     domain: urlInfo?.domain,
     uniqueId: urlInfo?.uniqueID,
   };
@@ -19,28 +35,13 @@ export const reportsApiHandler = async ({
     payload.itemID = itemID;
   }
 
-  // const results = await reportsSync(payload);
-  // const statusStr = String(results?.status);
-  // if (/^4\d{2}$/.test(statusStr)) {
-  //   setLoading(false);
-  //   // console.log("error", results);
-  // } else if (/^2\d{2}$/.test(statusStr)) {
-  //   // console.log("before success", results?.data?.data[0]);
-
-  //   let data = await adjustDynamicContent(results?.data?.data[0]);
-
-  //   // console.log("success", data);
-  //   setLoading(false);
-  //   setListOfData(data);
-  //   store.dispatch(setListOfProfileData(data));
-  // }
   try {
     const results = await reportsSync(payload);
     const statusStr = String(results?.status);
 
     if (/^2\d{2}$/.test(statusStr)) {
 
-      let data = await adjustDynamicContent(results?.data?.data[0][0]);
+      const data = await adjustDynamicContent(results?.data?.data[0][0]);
       setListOfData(data);
       store.dispatch(setListOfProfileData(data));
     } else {
@@ -48,7 +49,7 @@ export const reportsApiHandler = async ({
       setError("No data found");
       setListOfData([]);
     }
-  } catch (err) {
+  } catch {
     setError("Something went wrong while fetching reports");
     setListOfData([]);
   } finally {
@@ -56,7 +57,9 @@ export const reportsApiHandler = async ({
   }
 };
 
-const adjustDynamicContent = async (data) => {
+const adjustDynamicContent = async (
+  data: ProfileApiData
+): Promise<ProfileReport> => {
   try {
 
     data = await adjustmetaCV4Content(data);
@@ -68,7 +71,6 @@ const adjustDynamicContent = async (data) => {
     data = await adjustExperienceIntro(data);
     data = await adjustSkilledDescriptionInServices(data);
 
-
     console.log({ data })
   }
   catch (error) {
@@ -79,48 +81,15 @@ const adjustDynamicContent = async (data) => {
   return data;
 };
 
-
-// Donwload CV Test BY Passing test-CV.pdf
-// const adjustDynamicContent = async (data) => {
-//   try {
-//     data = await adjustSkillsDescriptionForCV(data);
-//     data = await adjustSkillsIDsInExperiencesAndPortflios(data);
-//     data = await adjustSkillsDescriptionInExperiences(data);
-//     data = await adjustSkillsDescriptionInPortfolios(data);
-//     data = await adjustExperienceIntro(data);
-//     data = await adjustSkilledDescriptionInServices(data);
-
-//     // ✅ ADD THIS BLOCK (IMMUTABLE)
-//     data = {
-//       ...data,
-//       pdf_urls: {
-//         ...data?.pdf_urls,
-//         urls: data?.pdf_urls?.urls?.map(item =>
-//           item.type === "cv_with_u"
-//             ? { ...item, url: "/test-cv.pdf" }
-//             : item
-//         ),
-//       },
-//     };
-
-//     console.log({ data });
-//   } catch (error) {
-//     console.log(error);
-//   }
-
-//   return data;
-// };
-
-const adjustmetaCV4Content = async (data) => {
-  const generateYears = (count) =>
+const adjustmetaCV4Content = async (
+  data: ProfileReport
+): Promise<ProfileReport> => {
+  const generateYears = (count: number) =>
     Array.from({ length: count }, (_, i) =>
       i === 0 ? 2025 : 2025 - i
     );
   //
   const eligibleYears = Math.min(...generateYears(data.no_of_experiences))
-  // const eligibleYears = Math.min(...generateYears(8))
-
-  // console.log({ eligibleYears })
   const eligibleExperiences = data.experiences_ids.filter(experience => {
 
     const isShow = experience.meta_data.job_types['fulltime'].is_show;
@@ -128,25 +97,25 @@ const adjustmetaCV4Content = async (data) => {
     if (isShow && companyEndYear >= eligibleYears) {
 
       return true
-    } else false;
+    }
+    return false;
 
   })
   const newCopyOfEligibleExperience = structuredClone(eligibleExperiences);
 
-  newCopyOfEligibleExperience.forEach((experience, index) => {
+  newCopyOfEligibleExperience.forEach((experience, _index) => {
 
     experience.starting_date = experience.meta_data.job_types['fulltime'].start_date || experience.starting_date;
     experience.ending_Date = experience.meta_data.job_types['fulltime'].end_date || experience.ending_Date;
     experience.is_still_working = experience.meta_data.job_types['fulltime'].is_continue || experience.is_still_working;
-    experience.type = experience.meta_data.job_types['fulltime'].type || experience.type; // Full Time, Contract, Freelance, 
+    experience.type = experience.meta_data.job_types['fulltime'].type || experience.type; // Full Time, Contract, Freelance,
     experience.nature = experience.meta_data.job_types['fulltime'].job_nature || 'Remote';
     experience.isShow = experience.meta_data.job_types['fulltime'].is_show || false;
 
-
   });
   newCopyOfEligibleExperience.sort((a, b) => {
-    const dateA: any = new Date(a.ending_Date);
-    const dateB: any = new Date(b.ending_Date);
+    const dateA = new Date(a.ending_Date).getTime();
+    const dateB = new Date(b.ending_Date).getTime();
 
     // For Descending (Latest date first):
     return dateB - dateA;
@@ -160,24 +129,15 @@ const adjustmetaCV4Content = async (data) => {
     experience.long_description = currentExperienceContend;
   });
 
-
-
-
-
-
-
   data.experiences_for_cv4 = newCopyOfEligibleExperience;
   console.log({ experiences_for_cv4: data.experiences_for_cv4 })
-
 
   // Adjust the dynamic content based on the received data
   return data;
 };
 
-const adjustmetaData = async (data) => {
+const adjustmetaData = async (data: ProfileReport): Promise<ProfileReport> => {
   data.email = data?.email_type == 'personal' ? data.non_business_email : data.email;
-  // console.log({ data })
-
 
   data.education_ids.forEach(element => {
     element.degree_start_date = '';
@@ -195,8 +155,6 @@ const adjustmetaData = async (data) => {
 
     element.title = desination_catgory?.experience_titles['title' + (index + 1)] || element.title;
 
-
-    // console.log(element.title);
     if (element.meta_data.job_types) {
 
       const metaDataForCurrentWebsitePurpose = element.meta_data.job_types[data.website_purpose]
@@ -204,33 +162,32 @@ const adjustmetaData = async (data) => {
       element.starting_date = metaDataForCurrentWebsitePurpose.start_date || element.starting_date;
       element.ending_Date = metaDataForCurrentWebsitePurpose.end_date || element.ending_Date;
       element.is_still_working = metaDataForCurrentWebsitePurpose.is_continue || element.is_still_working;
-      element.type = metaDataForCurrentWebsitePurpose.type || element.type; // Full Time, Contract, Freelance, 
+      element.type = metaDataForCurrentWebsitePurpose.type || element.type; // Full Time, Contract, Freelance,
       element.nature = metaDataForCurrentWebsitePurpose.job_nature || 'Remote';
       element.isShow = metaDataForCurrentWebsitePurpose.is_show || false;
 
-
-
-
-
-      // console.log({ meta_data: element.meta_data, website_purpose: data.website_purpose, metaDataForCurrentWebsitePurpose, experiences: element })
     }
-
-    // console.log({ desination_catgory })
-
-
 
   });
 
   data.website_purpose = data.website_purpose == 'freelance' ? 'upwork' : data.website_purpose == 'fulltime' || data.website_purpose == 'contract' ? 'contract' : 'startup'
 
-  data.portfolios_ids.sort((a, b) => { a.display_order - b.display_order })
-
+  // NOTE: kept as a no-op comparator — the original code never returned the
+  // difference, so portfolios were never actually re-ordered. Returning the
+  // subtraction here would newly enable display_order sorting (a behaviour
+  // change), so that is left for a separate task.
+  // NOTE: historically a no-op — the original comparator never returned the
+  // difference, so portfolios keep their API order. Enabling display_order
+  // sorting here would change page output, so it is left for a separate task.
+  data.portfolios_ids.sort(() => 0)
 
   // Adjust the dynamic content based on the received data
   return data;
 };
 
-const adjustSkillsDescriptionForCV = async (data) => {
+const adjustSkillsDescriptionForCV = async (
+  data: ProfileReport
+): Promise<ProfileReport> => {
 
   const matchedGroups = getMatchedSkillsGroups(data);
   data.skills = `<ul>${matchedGroups
@@ -241,7 +198,9 @@ const adjustSkillsDescriptionForCV = async (data) => {
   return data;
 };
 
-const adjustSkillsIDsInExperiencesAndPortflios = async (data) => {
+const adjustSkillsIDsInExperiencesAndPortflios = async (
+  data: ProfileReport
+): Promise<ProfileReport> => {
   // Ensure data.skills_ids is an array
   const dataToShuffle = Array.isArray(data.skills_ids) ? data.skills_ids : [];
 
@@ -256,14 +215,16 @@ const adjustSkillsIDsInExperiencesAndPortflios = async (data) => {
   return data;
 };
 
-const adjustSkillsDescriptionInExperiences = async (data) => {
+const adjustSkillsDescriptionInExperiences = async (
+  data: ProfileReport
+): Promise<ProfileReport> => {
   if (!data.experiences_ids) return data;
 
   const matchedGroups = getMatchedSkillsGroups(data);
   data.experiences_ids.forEach((exp, idx) => {
     // For each matched group, get the corresponding experience_variationN
     const variations = matchedGroups
-      .map((group) => group[`experience_variation${idx + 1}`])
+      .map((group) => group[`experience_variation${idx + 1}` as `experience_variation${number}`])
       .filter(Boolean); // Remove undefined/null
 
     if (variations.length > 0) {
@@ -290,7 +251,9 @@ const adjustSkillsDescriptionInExperiences = async (data) => {
   return data;
 };
 
-const adjustSkillsDescriptionInPortfolios = async (data) => {
+const adjustSkillsDescriptionInPortfolios = async (
+  data: ProfileReport
+): Promise<ProfileReport> => {
   const matchedGroups = getMatchedSkillsGroups(data);
 
   data.portfolios_ids?.forEach((portfolio, idx) => {
@@ -319,7 +282,9 @@ const adjustSkillsDescriptionInPortfolios = async (data) => {
   return data;
 };
 
-const adjustExperienceIntro = async (data) => {
+const adjustExperienceIntro = async (
+  data: ProfileReport
+): Promise<ProfileReport> => {
   if (!Array.isArray(data.services) || !Array.isArray(data.skills_categories))
     return data;
   const mainService = data.services.find((service) => service.type === "main");
@@ -356,27 +321,28 @@ const adjustExperienceIntro = async (data) => {
   return data;
 };
 
-const adjustSkilledDescriptionInServices = async (data) => {
+const adjustSkilledDescriptionInServices = async (
+  data: ProfileReport
+): Promise<ProfileReport> => {
   if (!Array.isArray(data.services) || !Array.isArray(data.skills_categories))
     return data;
 
-  // console.log({ services_length_before: data.services.length });
-
   data.services.forEach((service) => {
 
-    const skillsWithID = service.skills.map((skill) => { return { id: skill } })
+    // At this point the API still sends skills as an array of ids; the loop
+    // below rewrites them into { id, title } objects.
+    const rawSkillIds = (service.skills ?? []) as (string | number)[];
+    const skillsWithID = rawSkillIds.map((skill) => { return { id: skill } })
 
     const matchedGroups = getMatchedSkillsGroups({
       skills_groups: data.skills_groups,
       skills_ids: skillsWithID,
     });
-    let skills = `${matchedGroups
+    const skills = `${matchedGroups
       .map((group) => `<li>${group.description}</li>`)
       .join("")}`;
-    // console.log({ skills: data.skills_ids })
-    // console.log({ skills_services: service.skills })
 
-    const transformedSkills = service.skills.map((skillId) => {
+    const transformedSkills: ServiceSkill[] = rawSkillIds.map((skillId) => {
       const matched_skill = data.skills_ids.find((skill_parent) =>
         skill_parent.id === skillId
       );
@@ -389,7 +355,7 @@ const adjustSkilledDescriptionInServices = async (data) => {
 
     service.skills = transformedSkills;
 
-    const shuffledSkills = shuffleArray(service.skills || []);
+    const shuffledSkills = shuffleArray(transformedSkills);
     const skillsString = shuffledSkills.map((skill) => skill.title).join(", ");
 
     const matchedCategory = data.skills_categories.find(
@@ -413,21 +379,17 @@ const adjustSkilledDescriptionInServices = async (data) => {
         skillsString
       );
 
-
       service.picture = matchedCategory.thumbnail;
       service.tagline = matchedCategory.tagline;
       service.title = matchedCategory.title;
     }
-    // console.log({ from_service: data, services_skills_data: skills, matched_groups: matchedGroups, skillsWithID });
   });
-
 
   // Adjust the dynamic content based on the received data
   return data;
 };
 
-
-const shuffleArray = (array: any) => {
+const shuffleArray = <T,>(array: T[] | null | undefined): T[] => {
   if (!Array.isArray(array)) return []; // ✅ prevent crash
   const arr = [...array];
   for (let i = arr.length - 1; i > 0; i--) {
@@ -437,7 +399,9 @@ const shuffleArray = (array: any) => {
   return arr;
 };
 
-function getMatchedSkillsGroups(data) {
+function getMatchedSkillsGroups(
+  data: Pick<ProfileApiData, "skills_groups" | "skills_ids">
+): SkillGroup[] {
   if (
     !data ||
     !Array.isArray(data.skills_groups) ||
@@ -447,12 +411,12 @@ function getMatchedSkillsGroups(data) {
   }
 
   // Create a Set of all main skills_ids for fast lookup
-  const mainSkillIds = new Set(data.skills_ids.map((skill: any) => skill.id));
+  const mainSkillIds = new Set(data.skills_ids.map((skill) => skill.id));
 
   // Filter skills_groups where at least one skill id matches
-  const matchedGroups = data.skills_groups.filter((group: any) => {
+  const matchedGroups = data.skills_groups.filter((group) => {
     if (group.skills_ids && Array.isArray(group.skills_ids.skills_ids)) {
-      return group.skills_ids.skills_ids.some((id: string) =>
+      return group.skills_ids.skills_ids.some((id) =>
         mainSkillIds.has(id)
       );
     }

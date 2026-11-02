@@ -1,8 +1,8 @@
 "use client";
 import BlogListing from "@/components/pages/blog-listing";
-import React from "react";
+import type { PageProps } from "@/types/page";
 
-const blogListing = ({ params }: { params: any }) => {
+const blogListing = ({ params }: PageProps) => {
   return <BlogListing params={params} />;
 };
 

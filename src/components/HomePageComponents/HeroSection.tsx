@@ -3,18 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { useAppSelector } from "@/store";
 
+import type { ProfileReport } from "@/types/api";
+
 interface HeroSectionProps {
-  listOfdata: {
-    name?: string;
-    designation?: string;
-    tag_line?: string;
-    profile_photo_2?: string;
-    hourly_rate?: number;
-    salary_type?: string;
-    skills_ids?: string[];
-    hide_earnings?: boolean;
-    calendly_link?: string;
-  };
+  listOfdata: ProfileReport | null;
   skills: Record<string, { title: string; url?: string }[]>;
   showAll: boolean;
   setShowAll: (value: boolean) => void;
@@ -29,8 +21,6 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   showAll,
   setShowAll,
   skillsContainerRef,
-  isOverflowing,
-  scrollToSection,
 }) => {
 
   const urlInfo = useAppSelector((state) => state.profile.profileUrlInfo);
@@ -78,9 +68,6 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                       const groupIndex = Object.values(skills).findIndex(
                         (group) => group.includes(skill),
                       );
-                      const skillNumber = `${groupIndex + 1}.${skills[Object.keys(skills)[groupIndex]].indexOf(skill) +
-                        1
-                        }`;
 
                       return (
                         <Link
@@ -190,7 +177,6 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                     {Object?.values(skills)?.map((group, groupIndex) => (
                       <React.Fragment key={groupIndex}>
                         {group.map((skill, i) => {
-                          const skillNumber = `${groupIndex + 1}.${i + 1}`;
 
                           return (
                             <>
@@ -236,27 +222,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
       {/* Hero Section For Desktop */}
       <div className="mainContainer hidden xl:block print:hidden">
         <div className="text-center mt-[3rem]">
-          {/* <p className="text-heading text-[3.66rem] font-normal leading-normal mb-[1rem]">
-            Hello! I’m
-          </p>
-          <h1 className="font-bold md:text-[8rem] lg:text-[12rem] text-primary mt-[-3.5rem]">
-            {listOfdata?.name}
-          </h1> */}
           {/* Badge */}
-          {/* <div className="relative z-[50] mt-[1rem] flex items-center justify-start">
-            <div
-              className={`inline-block px-[2rem] py-[1.5rem] lg:py-[1rem] lg:px-[4rem] bg-primary lg:max-w-[45rem] rounded-[5rem] border-none outline-none mb-[2rem]`}
-            >
-              {listOfdata?.designation?.split("|").map((item, index) => (
-                <div
-                  key={index}
-                  className={`text-center ${index === 0 ? "text-[1.6rem] lg:text-[2.4rem] font-bold text-white" : "text-[1.4rem] lg:text-[1.6em] font-semibold text-gray-300"}`}
-                >
-                  {item.trim()}
-                </div>
-              ))}
-            </div>
-          </div> */}
           <div className="mt-[-8rem] flex justify-end relative">
             <div className="mt-[17rem] flex flex-col items-start absolute left-0 w-[70%]">
               <div className="flex  gap-5">
@@ -305,7 +271,6 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                 </div>
               )}
 
-
               <div className="mt-16  space-x-5 ">
                 {!urlInfo?.u && listOfdata?.calendly_link && (
                   <Link
@@ -327,8 +292,6 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                   View Portfolio
                 </Link>
               </div>
-
-
 
               {listOfdata?.hide_earnings !== true && (
                 <div className="  w-full inline-flex items-center justify-center  bg-no-repeat bg-contain animate-bounce mt-20">
@@ -362,9 +325,6 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                 </div>
               )}
 
-
-
-
             </div>
             {/* Center Dev Image */}
             <Image
@@ -376,113 +336,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
             />
 
             {/* Left Pricing and Hours Badge Positioned */}
-            {/* {listOfdata?.hide_earnings !== true && (
-              <div className="absolute left-0 top-[24rem] w-[33.5rem] h-[18rem] inline-flex items-center justify-center bg-Circle bg-no-repeat bg-contain animate-bounce">
-                <div className="h-[100px] rounded flex gap-4 flex-col w-full px-10 relative">
-         
-                  <div className="flex items-center gap-[0.35rem] text-nowrap text-primary text-[2rem] font-medium rounded-[3.5rem] py-[0.69rem] bg-surface shadow-lg max-w-max px-[0.9rem] pr-[1.4rem]">
-                    <Image
-                      src={"/images/dollar-symbol.svg"}
-                      height={24}
-                      width={24}
-                      alt="Dollar Symbol"
-                      className="h-[2.4rem] w-[2.4rem]"
-                    />
-                    <p>
-                      ${listOfdata?.hourly_rate} /{" "}
-                      {listOfdata?.salary_type === "per_day" ? "day" : "hour"}
-                    </p>
-                  </div>
-                  
-                  <div className="flex gap-[0.35rem] text-nowrap text-primary text-[2rem] font-medium rounded-[3.5rem] py-[0.69rem] bg-surface shadow-lg px-[1.2rem] min-w-max">
-                    <Image
-                      src={"/images/clock.svg"}
-                      height={26}
-                      width={26}
-                      alt="Clock"
-                      className="h-[2.6rem] w-[2.6rem]"
-                    />
-                    <p>45 hr / Week Availability</p>
-                  </div>
-                </div>
-              </div>
-            )} */}
             {/* Positioned Skills and Text Desktop */}
-            {/* <div className="max-w-[55rem] w-full absolute right-[-4rem] top-[7rem]">
-              <p
-                dangerouslySetInnerHTML={{
-                  __html: listOfdata?.tag_line,
-                }}
-                className="w-full text-primary text-[2.2rem] font-medium leading-[3rem] mb-[2rem] text-left"
-              ></p>
-
-              {listOfdata &&
-                listOfdata.skills_ids &&
-                listOfdata.skills_ids.length > 0 && (
-                  <div className="z-[50] absolute max-w-[49rem] w-full rounded-[0.6rem] border border-border border-solid overflow-hidden">
-                    <div className="flex justify-between bg-primary border-b border-border w-full py-[1rem] px-[2rem]">
-                      <div className="text-left text-onPrimary text-[1.8rem] font-medium">
-                        My Skills
-                      </div>
-                      {isOverflowing && (
-                        <button
-                          onClick={() => scrollToSection("skills_ids")}
-                          className="py-[3px] px-[1.6rem] text-center text-primary text-[1rem] font-medium bg-surface rounded-[5rem] shadow border border-textMuted opacity-0 animate-fadeIn"
-                        >
-                          See More Skills
-                        </button>
-                      )}
-                    </div>
-
-                    <div
-                      ref={skillsContainerRef}
-                      className="w-full p-[1.5rem] bg-surface-70 backdrop-blur-xl justify-start items-center gap-[0.6rem] flex flex-wrap overflow-y-auto hide-scrollbar"
-                      style={{ maxHeight: "46.3rem" }}
-                    >
-                      {Object?.values(skills)?.map((group, groupIndex) => (
-                        <React.Fragment key={groupIndex}>
-                          {group.map((skill, i) => {
-                            const skillNumber = `${groupIndex + 1}.${i + 1}`;
-
-                            return (
-                              <>
-                                {skill?.url ? (
-                                  <Link
-                                    href={skill.url || "#"}
-                                    legacyBehavior
-                                    key={`${groupIndex}-${i}`}
-                                  >
-                                    <a
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      style={{
-                                        animationDelay: `${i * 0.1}s`,
-                                      }}
-                                      className="hover:bg-primary capitalize hover:text-onPrimary text-center text-primary text-[1.3rem] font-medium px-[21px] py-[0.5rem] bg-surface flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-textMuted opacity-0 animate-fadeIn relative group"
-                                    >
-                                      {skill?.title}
-                                    </a>
-                                  </Link>
-                                ) : (
-                                  <div
-                                    key={`${groupIndex}-${i}`}
-                                    style={{
-                                      animationDelay: `${i * 0.1}s`,
-                                    }}
-                                    className="hover:bg-primary capitalize hover:text-onPrimary text-center text-primary text-[1.3rem] font-medium px-[21px] py-[0.5rem] bg-surface flex items-center justify-center gap-[8px] rounded-[5rem] shadow border border-textMuted opacity-0 animate-fadeIn relative group"
-                                  >
-                                    {skill?.title}
-                                  </div>
-                                )}
-                              </>
-                            );
-                          })}
-                        </React.Fragment>
-                      ))}
-                    </div>
-                  </div>
-                )}
-            </div> */}
 
           </div>
         </div>

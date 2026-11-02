@@ -5,44 +5,25 @@ import Link from "next/link";
 import ShowmoreSkills from "./showmoreSkills";
 import useIsDesktop from "@/hooks/useIsDesktop";
 import { modifiedContent } from "@/hooks/modifiedContent";
+import type { ProfileReport, SkillRef, Portfolio } from "@/types/api";
 
 interface CaseStudyCardProps {
-    portfolio: {
-        id: string;
-        thumbnail?: string;
-        pictures?: string;
-        child_hero_banner?: string;
-        company_icon?: string;
-        title?: string;
-        link?: string;
-        tagline_1?: string;
-        features_short?: string;
-        skills?: any[] | any[][];
-        has_testimonial?: boolean;
-    };
+    portfolio: Portfolio;
     thumbnailSize: string;
     website_purpose?: string;
-    listOfskills: any[];
-    listOfdata: any;
+    listOfskills: SkillRef[];
+    listOfdata: ProfileReport | null;
     index: number;
     showMoreSkills: boolean[];
     setShowMoreSkills: React.Dispatch<React.SetStateAction<boolean[]>>;
     openModal: (
-        pictures?: string,
+        pictures?: Portfolio["pictures"],
         thumbnail?: string,
         child_hero_banner?: string,
     ) => void;
 }
 
 // Accent colours that cycle per card
-const TAG_COLORS = [
-    "bg-blue-500/20 text-blue-400 border-blue-500/30",
-    "bg-green-500/20 text-green-400 border-green-500/30",
-    "bg-purple-500/20 text-purple-400 border-purple-500/30",
-    "bg-yellow-500/20 text-yellow-400 border-yellow-500/30",
-    "bg-pink-500/20 text-pink-400 border-pink-500/30",
-    "bg-cyan-500/20 text-cyan-400 border-cyan-500/30",
-];
 
 const CaseStudyCard: React.FC<CaseStudyCardProps> = ({
     portfolio,
@@ -63,8 +44,6 @@ const CaseStudyCard: React.FC<CaseStudyCardProps> = ({
         ? flatSkills
         : flatSkills.slice(0, initialSkillLimit);
 
-    const tagColor = TAG_COLORS[index % TAG_COLORS.length];
-    const categoryTag = flatSkills?.[0]?.title || "Project";
 
     return (
         <div className="flex flex-col bg-sectionBG  rounded-[1.2rem] overflow-hidden hover:border-primary/40 hover:-translate-y-1 transition-all duration-300 shadow-lg h-full">
@@ -83,7 +62,7 @@ const CaseStudyCard: React.FC<CaseStudyCardProps> = ({
                         )
                     }
                 >
-                    <img
+                    <Image width={600} height={400}
                         src={portfolio.thumbnail}
                         alt={portfolio.title || "Project"}
                         className="w-full h-full object-cover  hover:scale-105 transition-all duration-500"
@@ -126,7 +105,7 @@ const CaseStudyCard: React.FC<CaseStudyCardProps> = ({
                 {/* Tech skill pills */}
                 {skillsToShow.length > 0 && (
                     <div className="flex flex-wrap gap-2">
-                        {skillsToShow.map((skill: any, i: number) =>
+                        {skillsToShow.map((skill: SkillRef, i: number) =>
                             skill?.url ? (
                                 <Link
                                     key={i}

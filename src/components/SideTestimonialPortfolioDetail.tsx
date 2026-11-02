@@ -1,30 +1,12 @@
 import React, { useMemo, useRef, useState, useEffect } from "react";
+import Image from "next/image";
 import { Play } from "lucide-react";
 import { Instagram,  LinkedIn } from "./../components/SVGI-Icons";
 // SVGI-Icons
 
 import { processReviewText } from "@/hooks/processReviewText";
 
-// Define the TypeScript interface based on your backend data
-interface Testimonial {
-  client_company: string;
-  client_company_website: string;
-  client_designation: string;
-  designation: string;
-  client_name: string;
-  client_pic: string;
-  id: string;
-  linked_in: string;
-  instagram: string;
-  portfolio_id: number;
-  review_text: string;
-  video: string; // Video URL
-  thumbnail?: string; // Optional thumbnail URL from API
-  Prototype?: Array<{ video?: string }>;
-  upwork?: string;
-  website_purpose?: string | null;
-  twitter?: string;
-}
+import type { Testimonial } from "@/types/api";
 
 interface TestimonialsSectionProps {
   testimonials: Testimonial[];
@@ -88,22 +70,22 @@ const SideTestimonialPortfolioDetail: React.FC<TestimonialsSectionProps> = ({
 
   const processedReview = useMemo(() => {
     return firstTestimonial ? processReviewText(firstTestimonial.review_text, designation, "text-primary") : "";
-  }, [firstTestimonial?.review_text, designation]);
+  }, [firstTestimonial, designation]);
 
   const resolvedVideoUrl = useMemo(() => {
     if (!firstTestimonial) return "";
     return firstTestimonial.video || firstTestimonial.Prototype?.[0]?.video || firstTestimonial.upwork || "";
-  }, [firstTestimonial?.video, firstTestimonial?.Prototype, firstTestimonial?.upwork]);
+  }, [firstTestimonial]);
 
   const thumbnail = useMemo(() => {
     if (!firstTestimonial) return "/images/placeholder-video.jpg";
     return firstTestimonial.thumbnail || firstTestimonial.client_pic || "/images/placeholder-video.jpg";
-  }, [firstTestimonial?.thumbnail, firstTestimonial?.client_pic]);
+  }, [firstTestimonial]);
 
   // Preload thumbnail to avoid layout shift when component appears
   useEffect(() => {
     if (thumbnail) {
-      const img = new Image();
+      const img = new window.Image();
       img.src = thumbnail;
     }
   }, [thumbnail]);
@@ -132,7 +114,7 @@ const SideTestimonialPortfolioDetail: React.FC<TestimonialsSectionProps> = ({
               {resolvedVideoUrl ? (
                 <VideoPlayer src={resolvedVideoUrl} poster={thumbnail} />
               ) : (
-                <img
+                <Image width={400} height={260}
                   src={thumbnail}
                   alt="No video available"
                   className="w-full aspect-auto h-auto object-cover"
@@ -143,7 +125,7 @@ const SideTestimonialPortfolioDetail: React.FC<TestimonialsSectionProps> = ({
             <div className="mb-[3rem] mt-[2rem]">
               <div className="bg-[#A3DDD3] dark:bg-bannerBG rounded-xl 
               p-[1rem] backdrop-blur-xl">
-                <img
+                <Image width={400} height={260}
                   src="/images/DoubleQuotes.svg"
                   className="size-[2rem] mb-[1rem]"
                   alt="quote"
@@ -180,7 +162,7 @@ const SideTestimonialPortfolioDetail: React.FC<TestimonialsSectionProps> = ({
                 </div>
                 {/* Client Info */}
                 <div className="flex items-center gap-4">
-                  <img
+                  <Image width={400} height={260}
                     src={firstTestimonial.client_pic}
                     alt={firstTestimonial.client_name}
                     className="size-[7.2rem] lg:size-[7rem] rounded-[1rem]  object-cover border-2 border-black/20"

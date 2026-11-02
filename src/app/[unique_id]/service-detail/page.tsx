@@ -1,8 +1,8 @@
 "use client";
 import ServiceDetail from "@/components/pages/service-detail";
-import React from "react";
+import type { PageProps } from "@/types/page";
 
-const offer = ({ params }: { params: any }) => {
+const offer = ({ params }: PageProps) => {
   return <ServiceDetail params={params} />;
 };
 

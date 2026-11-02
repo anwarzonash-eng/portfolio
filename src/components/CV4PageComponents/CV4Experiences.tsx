@@ -1,10 +1,6 @@
-import React from 'react'
-
-
 // helper to convert YYYY-MM-DD or YYYY-MM to "Month YYYY" (e.g. May 2022)
 const formatDate = (d) => {
     if (!d) return "";
-    // if already contains a space (e.g. "May 2022"), assume formatted
     if (d.includes(" ")) return d;
     const parts = d.split("-");
     if (parts.length >= 2) {
@@ -40,11 +36,9 @@ const CV4Experiences = ({ experiences_for_cv4 }) => {
                 {experiences_for_cv4?.map((experience) => (
                     <div key={experience.id}>
 
-
                         <div className="cv-job-header" >
                             <div>
                                 <div className="cv-job-title">{experience?.title} | {experience?.company_name}</div>
-                                {/* <div className="cv-company">Stripe</div> */}
                             </div>
                             <div className="cv-job-title">
                                 <div>{formatDate(experience?.starting_date)} - {experience?.ending_Date === "Present" ? "Present" : formatDate(experience?.ending_Date)}</div>

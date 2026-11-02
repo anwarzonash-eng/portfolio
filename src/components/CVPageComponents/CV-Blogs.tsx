@@ -8,20 +8,10 @@ import { formatDate } from "@/hooks/formatdate";
 import { dateFormatsOptions } from "@/data/JsonData";
 import { getImageForIndex } from "@/utils/getImageForIndex";
 
-// Props interface
-interface BlogType {
-  id: string | number;
-  featuredImage?: string;
-  title: string;
-  excerpt: string;
-
-
-  
-  date: string;
-}
+import type { BlogSummary } from "@/types/api";
 
 interface CVBlogsProps {
-  blogsList: BlogType[];
+  blogsList: BlogSummary[];
   loadingblogs: boolean;
 
 

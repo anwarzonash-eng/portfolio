@@ -1,21 +1,12 @@
-import React from "react";
-import { formatDate } from "@/hooks/formatdate";
-import { dateFormatsOptions } from "@/data/JsonData";
+import type { Education } from "@/types/api";
 
 type Props = {
-  education?: any[] | null;
+  education?: Education[] | null;
   location?: string | null;
 };
 
-const toMonthYear = (value: any) => {
-  if (!value) return "";
-  const d = new Date(value);
-  return isNaN(d.getTime())
-    ? String(value)
-    : formatDate(value, dateFormatsOptions.shortMonthYear);
-};
 
-const CV2Education = ({ education, location }: Props) => {
+const CV2Education = ({ education }: Props) => {
   if (!education || education.length === 0) return null;
 
   return (
@@ -25,10 +16,6 @@ const CV2Education = ({ education, location }: Props) => {
         {education.map((edu, index) => (
           <div key={index} className="flex gap-[1.6rem]">
             <div className="w-[16rem] flex-shrink-0 text-[1.4rem] text-paragraph1 -mt-[0.2rem]">
-              {/* <div className="font-semibold text-heading">
-                {`${toMonthYear(edu?.degree_start_date)} - ${toMonthYear(edu?.degree_end_date)}`.trim()}
-              </div>
-              <div className="mt-[0.4rem]">{edu?.location || location}</div> */}
             </div>
             <div className="flex-1 border-l border-[#E5E7EB] pl-[1.6rem] relative">
               <span className="absolute -left-[0.7rem] top-0 h-[1.2rem] w-[1.2rem] rounded-full bg-primary" />

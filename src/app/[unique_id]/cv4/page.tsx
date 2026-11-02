@@ -1,6 +1,6 @@
-import React from 'react'
 import CV4 from "@/components/pages/cv4";
-const CV4Page = ({ params }: { params: any }) => {
+import type { PageProps } from "@/types/page";
+const CV4Page = ({ params }: PageProps) => {
     return (
         <CV4 params={params} />
     )

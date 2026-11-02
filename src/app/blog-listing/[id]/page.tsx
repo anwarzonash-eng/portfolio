@@ -1,8 +1,8 @@
 'use client';
 import BlogDetails from '@/components/pages/blog-detail';
-import React from 'react';
+import type { PageProps } from "@/types/page";
 
-const blogDetail = ({ params }: { params: any }) => {
+const blogDetail = ({ params }: PageProps) => {
   return <BlogDetails params={params} />;
 };
 

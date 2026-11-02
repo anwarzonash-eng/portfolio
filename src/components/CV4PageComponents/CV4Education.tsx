@@ -1,5 +1,4 @@
-import React from 'react'
-
+import type { Education } from "@/types/api";
 const CV4Education = ({ listOfdata }) => {
     return (
         <>
@@ -7,7 +6,7 @@ const CV4Education = ({ listOfdata }) => {
             {listOfdata?.education_ids && listOfdata.education_ids.length > 0 && (<section>
                 <h2 className="cv-section-header">Education</h2>
 
-                {listOfdata.education_ids.map((edu: any) => (
+                {listOfdata.education_ids.map((edu: Education) => (
                     <div key={edu.id} className="mb-4">
                         <div className="cv-job-header">
                             <div className="cv-job-title">{edu?.degree_name} | {edu.university_name}</div>

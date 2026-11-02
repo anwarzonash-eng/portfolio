@@ -3,7 +3,7 @@ import "@/styles/printStyles/home_p.css";
 import useBodyBackgroundColor from "@/hooks/useBodyBackgroundColor";
 import WorkProofLinks from "@/components/WorkProofLinks";
 import ContactMeLinks from "@/components/ContactMeLinks";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { formatPhoneNumber } from "@/hooks/formatPhoneNumber";
 import { formatDate } from "@/hooks/formatdate";
 import { dateFormatsOptions } from "@/data/JsonData";
@@ -15,33 +15,21 @@ import { store, useAppSelector } from "@/store";
 import { setProfileLoading, setProfileUrlInfo } from "@/store/profileSlice";
 import { scrollToSection } from "@/hooks/scrollToSection";
 import { skillsGrouping } from "@/hooks/skillsGrouping";
-import { useMediaQuery } from "react-responsive";
 import { loadBlogs } from "@/hooks/apihandlers/blogListingApiHandler";
 import { getImageForIndex } from "@/utils/getImageForIndex";
 import { preloadImages } from "@/utils/preLoadImages";
 
 // Components Imports
-import {
-  HomeWeclome,
-  HomeHeroSection,
-  HomeAboutSection,
-  HomeUpworkSection,
-  HomeSkillsSection,
-  HomeServicesSection,
-  HomeFAQSection,
-  HomeContactMeSection,
-  HomeEducationComponent,
-  HomeExperienceSection,
-  HomePortfolioCard,
-} from "@/components/PrintComponents/HomePrintComponents";
+import { HomeWeclome, HomeHeroSection, HomeAboutSection, HomeUpworkSection, HomeSkillsSection, HomeServicesSection, HomeContactMeSection, HomeEducationComponent, HomeExperienceSection, HomePortfolioCard } from "@/components/PrintComponents/HomePrintComponents";
 import PrintPageRenderer, { ComponentConfig } from "@/utils/printPageRenderer";
 import Link from "next/link";
 import { useSortedSkills } from "@/hooks/useSortedSkills";
 import HomeTestimonialSection from "@/components/PrintComponents/HomePrintComponents/HomeTestimonialSection";
+import type { PageProps } from "@/types/page";
 
-const Home_p = ({ params }: { params: any }) => {
+const Home_p = ({ params }: PageProps) => {
   useBodyBackgroundColor("#f8f9fa");
-  const [showMoreSkills, setShowMoreSkills] = useState([]);
+  const [showMoreSkills] = useState([]);
   const [urlInfo, setURLInfo] = useState(null);
   const [listOfdata, setListOfData] = useState(null);
   const [listOfskills, setListOfSkills] = useState([]);
@@ -52,8 +40,6 @@ const Home_p = ({ params }: { params: any }) => {
   const [blogsList, setBlogsList] = useState([]);
   const [loadingblogs, setLoadingBlogs] = useState(false);
   const [isOverflowing, setIsOverflowing] = useState(false);
-  const isSmallScreen = useMediaQuery({ query: "(max-width: 768px)" });
-  const [showAllExperiences, setShowAllExperiences] = useState(false);
   const listOfdatas = useAppSelector(
     (state) => state.profile.listOfProfileData,
   );
@@ -67,13 +53,14 @@ const Home_p = ({ params }: { params: any }) => {
   }, [params, searchParams]);
 
   useEffect(() => {
-    urlInfo &&
+    if (urlInfo) {
       reportsApiHandler({
         urlInfo,
         setError,
         setLoading,
         setListOfData,
       });
+    }
   }, [urlInfo]);
 
   useEffect(() => {
@@ -87,7 +74,7 @@ const Home_p = ({ params }: { params: any }) => {
   }, [listOfdata?.skills_ids]);
 
   useEffect(() => {
-    listOfdata && handleSkillsApiCall({ setListOfSkills });
+    if (listOfdata) handleSkillsApiCall({ setListOfSkills });
   }, [listOfdata]);
 
   useEffect(() => {
@@ -111,7 +98,6 @@ const Home_p = ({ params }: { params: any }) => {
   console.log("Testimonial Data:", listOfdata?.testimonials);
   console.log("Hide Link Status: ", urlInfo?.hideLinks);
 
-  // console.log("Unsorted Skills Print Home Page:", listOfdata?.skills_ids)
   // Here im Using Custom Hook in useSortedSkills
   const sortedSkills = useSortedSkills({
     skillsIdsWithOrder: listOfdata?.skills_ids,
@@ -359,18 +345,6 @@ const Home_p = ({ params }: { params: any }) => {
       ]
       : []),
 
-    // Home Testimonial Section
-    // ...(!urlInfo?.u ? [{
-    //   componentType: "static" as const,
-    //   hasDarkBackground: true,
-    //   component: (
-    //     <HomeTestimonialSection
-    //     testimonials={listOfdata?.testimonials}
-    //     designation={listOfdata?.designation}
-    //     />
-    //   ),
-    // }] : []),
-
     ...(urlInfo?.domain === "findusman.me"
       ? [
         {
@@ -462,8 +436,6 @@ const Home_p = ({ params }: { params: any }) => {
       if (exp.thumbnail) urls.push(exp.thumbnail);
     });
 
-    // 5. Portfolio thumbnails with special cases (used in HomePortfolioCard)
-    // Only first 3 portfolios based on the component logic (from 0 to 3)
     const visiblePortfolios = listOfdata?.portfolios_ids?.slice(0, 3) || [];
     visiblePortfolios.forEach((portfolio) => {
       if (portfolio?.title === "Velzon") {
@@ -491,7 +463,6 @@ const Home_p = ({ params }: { params: any }) => {
       });
     }
 
-    // console.log("Home_p - Extracted Image URLs:", urls);
     return urls;
   }
 
@@ -504,7 +475,6 @@ const Home_p = ({ params }: { params: any }) => {
 
     async function run() {
       const urls = extractAllImageUrls(listOfdata, blogsList);
-      // console.log("Preloading URLs:", urls);
 
       setImageProgress({ loaded: 0, total: urls.length });
 
@@ -520,9 +490,6 @@ const Home_p = ({ params }: { params: any }) => {
 
   // Check if all essential data is loaded
   const isDataReady = !loading && listOfdata && urlInfo && imagesReady;
-  // console.log("Data Ready", isDataReady);
-
-  // console.log("URL Info From Home Page:", urlInfo);
   return (
     <>
       {/* Show error state if there's an error */}

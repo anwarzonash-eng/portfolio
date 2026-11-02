@@ -4,12 +4,8 @@ import "@/styles/printStyles/cvLandscape.css";
 import useBodyBackgroundColor from "@/hooks/useBodyBackgroundColor";
 import { formatDate } from "@/hooks/formatdate";
 import { modifiedContent } from "@/hooks/modifiedContent";
-import React, { useEffect, useState } from "react";
-import {
-  contactDetails,
-  dateFormatsOptions,
-  socialLinks,
-} from "@/data/JsonData";
+import { useEffect, useState } from "react";
+import { dateFormatsOptions } from "@/data/JsonData";
 import { useSearchParams } from "next/navigation";
 import { getRoutesDetails } from "@/hooks/url";
 import { reportsApiHandler } from "@/hooks/apihandlers/reportsApiHandlers";
@@ -19,13 +15,9 @@ import { setProfileLoading, setProfileUrlInfo } from "@/store/profileSlice";
 import { scrollToSection } from "@/hooks/scrollToSection";
 import { loadBlogs } from "@/hooks/apihandlers/blogListingApiHandler";
 import { skillsGrouping } from "@/hooks/skillsGrouping";
-import NoteDomainForPint from "@/components/NoteDomainForPint";
 import { getImageForIndex } from "@/utils/getImageForIndex";
-import DesignationDomain from "@/components/DesignationDomain";
-import HomeSliderPrint from "@/components/Sliders/HomeSliderPrint";
-import SkillsContainer from "@/components/SkillsContainer";
-import AreasOfExpertiesSkillComponent from "@/components/AreasOfExpertiesSkillComponent";
 import { useSortedSkills } from "@/hooks/useSortedSkills";
+import type { PageProps } from "@/types/page";
 import {
   CVLandscapeExperienceSection,
   CVLandscapeOverviewSection,
@@ -34,18 +26,17 @@ import {
   EducationBlogsLandscape,
 } from "@/components/PrintComponents/cvLandscapeComponents";
 
-const CV_Landscape = ({ params }: { params: any }) => {
+const CV_Landscape = ({ params }: PageProps) => {
   const searchParams = useSearchParams();
   const [urlInfo, setURLInfo] = useState(null);
   const [listOfdata, setListOfData] = useState(null);
-  const [listOfskills, setListOfSkills] = useState([]);
+  const [, setListOfSkills] = useState([]);
   const [loading, setLoading] = useState(true);
   const [blogsList, setBlogsList] = useState([]);
   const [loadingblogs, setLoadingBlogs] = useState(false);
-  const [showAll, setShowAll] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [showAllExperiences, setShowAllExperiences] = useState(false);
-  const [showMoreSkills, setShowMoreSkills] = useState([]);
+  const [, setError] = useState<string | null>(null);
+  const [showAllExperiences] = useState(false);
+  const [showMoreSkills] = useState([]);
 
   // Filter skills based on listOfdata.skills_ids
   const [allSkills, setAllSkills] = useState([]);
@@ -69,7 +60,7 @@ const CV_Landscape = ({ params }: { params: any }) => {
       const skillsHtml = listOfdata?.skills || "";
       const matches = skillsHtml.match(/<li\b/gi);
       setSkillsListCount(matches ? matches.length : 0);
-    } catch (e) {
+    } catch {
       setSkillsListCount(0);
     }
   }, [listOfdata?.skills]);
@@ -88,13 +79,14 @@ const CV_Landscape = ({ params }: { params: any }) => {
   }, [params, searchParams]);
 
   useEffect(() => {
-    urlInfo &&
+    if (urlInfo) {
       reportsApiHandler({
         urlInfo,
         setError,
         setLoading,
         setListOfData,
       });
+    }
   }, [urlInfo]);
 
   useEffect(() => {

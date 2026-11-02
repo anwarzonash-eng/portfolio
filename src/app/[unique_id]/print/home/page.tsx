@@ -1,8 +1,8 @@
 "use client";
 import Home_p from "@/components/pages/print/home";
-import React from "react";
+import type { PageProps } from "@/types/page";
 
-const home_p = ({ params }: { params: any }) => {
+const home_p = ({ params }: PageProps) => {
   return <Home_p params={params} />;
 };
 

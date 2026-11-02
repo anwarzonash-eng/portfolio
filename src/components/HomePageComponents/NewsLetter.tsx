@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { formikEnums } from "@/enums/formikEnums";
 import { addLeadsApi } from "@/apiHandlers/leadsApi";
+import type { AddLeadPayload } from "@/types/api";
 import ThankyouPopup from "@/components/ThankyouPopup";
 
 const NewsLetter = () => {
@@ -18,13 +19,17 @@ const NewsLetter = () => {
             .required(formikEnums.Email.Required),
     });
 
-    const handleSubmit = async (values: { email: string }, { resetForm }: any) => {
+    const handleSubmit = async (values: { email: string }, { resetForm }: { resetForm: () => void }) => {
+        // TODO: this payload does not match what /leads/manual-add expects
+        // (AddLeadPayload: action_type/title/lead_source/contact[]), unlike the
+        // other newsletter forms. Typing surfaced the mismatch; the payload is
+        // kept as-is to avoid changing runtime behaviour in a typing-only pass.
         const payload = {
             email: values.email,
             source_category: "subscribe",
         };
-        const res = await addLeadsApi(payload);
-        if (/^2\d{2}$/.test(res?.status)) {
+        const res = await addLeadsApi(payload as unknown as AddLeadPayload);
+        if (/^2\d{2}$/.test(String(res?.status))) {
             setIsModalOpen(true);
             resetForm();
         }
@@ -42,7 +47,7 @@ const NewsLetter = () => {
                         Ready to Scale Your Digital Presence?
                     </h2>
                     <p className="text-gray-800 dark:text-heading text-[1.5rem] mb-10 leading-relaxed">
-                        Let's collaborate to build something extraordinary. Our team is ready to turn your vision <br />
+                        Let&apos;s collaborate to build something extraordinary. Our team is ready to turn your vision <br />
                         into reality.
                     </p>
 

@@ -1,6 +1,4 @@
 import { useAppSelector } from '@/store';
-import React from 'react'
-
 const CV4HeaderP = ({ listOfdata }) => {
     const urlInfo = useAppSelector((state) => state.profile.profileUrlInfo);
     return (

@@ -1,12 +1,11 @@
 "use client";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { store, useAppSelector } from "@/store";
+import { store } from "@/store";
 import { setProfileUrlInfo, setProfileLoading } from "@/store/profileSlice";
 import { reportsApiHandler } from "@/hooks/apihandlers/reportsApiHandlers";
 import { handleSkillsApiCall } from "@/hooks/apihandlers/skillsApiHandlers";
 import { getRoutesDetails } from "@/hooks/url";
-import { skillsGrouping } from "@/hooks/skillsGrouping";
 import { useFilteredYearExperiences } from "@/hooks/useFilteredYearExperiences";
 
 import {
@@ -20,25 +19,21 @@ import {
 
 import { preloadImages } from "@/utils/preLoadImages";
 import { useSortedSkills } from "@/hooks/useSortedSkills";
-import { contactDetails, socialLinks } from "@/data/JsonData";
-import CV2WorkProof from "@/components/CV2PageComponents/CV2ClickableLinkedinGihubLinks";
+import type { PageProps } from "@/types/page";
+import type { RoutesInfo } from "@/hooks/url";
+import type { ProfileReport } from "@/types/api";
 
-const CV2 = ({ params }: { params: any }) => {
+const CV2 = ({ params }: PageProps) => {
   // All Logic Start
   const searchParams = useSearchParams();
   // Global state
-  const [urlInfo, setURLInfo] = useState<any>(null);
-  const [listOfdata, setListOfData] = useState<any>(null);
+  const [urlInfo, setURLInfo] = useState<RoutesInfo | null>(null);
+  const [listOfdata, setListOfData] = useState<ProfileReport | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   // Experiences section
-  const [isMobile, setIsMobile] = useState(false);
 
   // Derived values
-  const visibleSkills = listOfdata?.skills_ids ?? [];
-  const skillsforCV = skillsGrouping(visibleSkills);
-
-  // console.log("API Data:", listOfdata);
 
   // Filter skills based on listOfdata.skills_ids
   const [allSkills, setAllSkills] = useState([]);
@@ -52,8 +47,6 @@ const CV2 = ({ params }: { params: any }) => {
     skillsIdsWithOrder: listOfdata?.skills_ids,
     allSkills,
   });
-
-  // console.log("Sorted Skills:", sortedSkills);
 
   useEffect(() => {
     handleSkillsApiCall({ setListOfSkills: setAllSkills });
@@ -90,7 +83,7 @@ const CV2 = ({ params }: { params: any }) => {
   }, [loading]);
 
   // Extract All image URLs Before Rendering
-  function extractAllImageUrls(listOfdata, allSkills) {
+  function extractAllImageUrls(listOfdata, _allSkills) {
     const urls = [];
 
     // 1. Profile image (used in CVLatestHeader)
@@ -158,8 +151,6 @@ const CV2 = ({ params }: { params: any }) => {
     listOfdata?.experiences_ids,
     listOfdata?.no_of_experiences,
   );
-
-  // console.log("Filtered Experiences:", filteredExperiences);
 
   if (error) {
     return (

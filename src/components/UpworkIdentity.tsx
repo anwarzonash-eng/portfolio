@@ -1,4 +1,4 @@
-import { Crown, MapPin, MoveUpRight } from "lucide-react";
+import { Crown, MapPin } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -23,7 +23,7 @@ const UpworkIdentity: React.FC<UpworkIdentityProps> = ({
     location: "London, United Kingdom",
     profile_photo_1: "https://via.placeholder.com/80", // Fallback image
   },
-  columnFormat = false,
+  columnFormat: _columnFormat = false,
   Header = false,
   cvTrue = false,
 }) => {
@@ -31,7 +31,6 @@ const UpworkIdentity: React.FC<UpworkIdentityProps> = ({
     data?.profile_photo_1 || "https://via.placeholder.com/80";
   return (
     <div className={`bg-surface flex lg:justify-between items-center rounded-[1.8rem] shadow-[0_0_10px_rgba(0,0,0,0.2)] p-[2rem] ${Header || cvTrue ? "w-[100%]" : "w-full md:w-4/5"} m-auto flex-wrap justify-center gap-10`}>
-
 
       <div className="flex  flex-col ">
         <div className="flex gap-[1rem]">
@@ -55,12 +54,6 @@ const UpworkIdentity: React.FC<UpworkIdentityProps> = ({
                 {data?.name}
               </h1>
               {/* Blue Verified Checkmark */}
-              {/* <Image
-                src="/images/blueTickIcon.png"
-                height={20}
-                width={20}
-                alt="Verfied Blue Tick Icon"
-              /> */}
               <BlueTick className="size-[2rem] text-blue-600" />
             </div>
 
@@ -94,7 +87,6 @@ const UpworkIdentity: React.FC<UpworkIdentityProps> = ({
 
             </div>
 
-
           </div>
         </div>
 
@@ -120,11 +112,7 @@ const UpworkIdentity: React.FC<UpworkIdentityProps> = ({
           </div>
         </div>
 
-
-
       </div>
-
-
 
       {/* Check My Upwork Profile Section */}
       <div className={`flex items-center max-lg:justify-center gap-4 ${Header ? "m-auto" : ""}`}>
@@ -134,15 +122,6 @@ const UpworkIdentity: React.FC<UpworkIdentityProps> = ({
           className="bg-[#0F3C3C] text-white border border-transparent hover:border-primary hover:bg-surface hover:text-primary duration-300 text-nowrap flex items-center justify-center text-[1.8rem] rounded-[20rem] px-[2rem] py-[1.5rem] group"
         >
           <span>Check My</span>
-          {/* <div className="h-[3rem] w-[3rem] rounded-full relative mx-2 inline-block">
-              <Image
-                src="/images/upwork.svg"
-                alt="Upwork Logo"
-                width={30}
-                height={30}
-                className="h-full w-full object-cover rounded-full group-hover:border-primary border border-transparent duration-300 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-              />
-            </div> */}
           <div className="h-[3.5rem] w-[10rem] relative mx-2 inline-block overflow-hidden rounded-[10rem] px-2 bg-white">
             <Image
               src="/images/upworkText.svg"

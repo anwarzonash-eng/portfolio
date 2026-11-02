@@ -1,7 +1,7 @@
-import React from "react";
+import type { Portfolio } from "@/types/api";
 
 type CV2ProjectsProps = {
-  portfolios?: any[] | null;
+  portfolios?: Portfolio[] | null;
 };
 
 const CV2Projects = ({ portfolios }: CV2ProjectsProps) => {

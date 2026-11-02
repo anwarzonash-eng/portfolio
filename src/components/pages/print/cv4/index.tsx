@@ -19,11 +19,14 @@ import {
 import { preloadImages } from "@/utils/preLoadImages";
 import { useSortedSkills } from "@/hooks/useSortedSkills";
 import PrintPageRenderer, { ComponentConfig } from "@/utils/printPageRenderer";
+import type { PageProps } from "@/types/page";
+import type { RoutesInfo } from "@/hooks/url";
+import type { ProfileReport } from "@/types/api";
 
-const CV4 = ({ params }: { params: any }) => {
+const CV4 = ({ params }: PageProps) => {
     const searchParams = useSearchParams();
-    const [urlInfo, setURLInfo] = useState<any>(null);
-    const [listOfdata, setListOfData] = useState<any>(null);
+    const [urlInfo, setURLInfo] = useState<RoutesInfo | null>(null);
+    const [listOfdata, setListOfData] = useState<ProfileReport | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
@@ -79,7 +82,7 @@ const CV4 = ({ params }: { params: any }) => {
     }, [loading]);
 
     // Extract All image URLs Before Rendering
-    function extractAllImageUrls(listOfdata, allSkills) {
+    function extractAllImageUrls(listOfdata, _allSkills) {
         const urls = [];
 
         // 1. Profile image

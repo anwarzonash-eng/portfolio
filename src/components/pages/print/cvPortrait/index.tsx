@@ -2,17 +2,15 @@
 import useBodyBackgroundColor from "@/hooks/useBodyBackgroundColor";
 import "@/styles/printStyles/cvPortrait.css";
 import { formatDate } from "@/hooks/formatdate";
-import { modifiedContent } from "@/hooks/modifiedContent";
 import React, { useEffect, useState } from "react";
 import { dateFormatsOptions } from "@/data/JsonData";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { getRoutesDetails } from "@/hooks/url";
 import { reportsApiHandler } from "@/hooks/apihandlers/reportsApiHandlers";
 import { handleSkillsApiCall } from "@/hooks/apihandlers/skillsApiHandlers";
 import { store } from "@/store";
 import { setProfileLoading, setProfileUrlInfo } from "@/store/profileSlice";
 import { loadBlogs } from "@/hooks/apihandlers/blogListingApiHandler";
-import { useAppSelector } from "@/store";
 import { getImageForIndex } from "@/utils/getImageForIndex";
 import {
   EducationBlogCvPortrait,
@@ -23,13 +21,13 @@ import {
 } from "@/components/PrintComponents/cvPortraitComponents";
 import ExperienceCvPortrait from "@/components/PrintComponents/cvPortraitComponents/ExperienceCvPortrait";
 import PrintPageRenderer, { ComponentConfig } from "@/utils/printPageRenderer";
-import ShowmoreSkills from "@/components/showmoreSkills";
 import { skillsGrouping } from "@/hooks/skillsGrouping";
 import { preloadImages } from "@/utils/preLoadImages";
 import Link from "next/link";
 import { useSortedSkills } from "@/hooks/useSortedSkills";
+import type { PageProps } from "@/types/page";
 
-const CV_Portrait = ({ params }: { params: any }) => {
+const CV_Portrait = ({ params }: PageProps) => {
   const searchParams = useSearchParams();
   const [urlInfo, setURLInfo] = useState(null);
   const [listOfdata, setListOfData] = useState(null);
@@ -40,7 +38,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
   // Filter skills based on listOfdata.skills_ids
   const [allSkills, setAllSkills] = useState([]);
   const [filteredSkills, setFilteredSkills] = useState([]);
-  const [skillsListCount, setSkillsListCount] = useState<number>(0);
+  const [, setSkillsListCount] = useState<number>(0);
 
   useEffect(() => {
     if (listOfdata?.skills_ids && allSkills.length > 0) {
@@ -57,7 +55,7 @@ const CV_Portrait = ({ params }: { params: any }) => {
       const skillsHtml = listOfdata?.skills || "";
       const matches = skillsHtml.match(/<li\b/gi);
       setSkillsListCount(matches ? matches.length : 0);
-    } catch (e) {
+    } catch {
       setSkillsListCount(0);
     }
   }, [listOfdata?.skills]);
@@ -66,25 +64,11 @@ const CV_Portrait = ({ params }: { params: any }) => {
     handleSkillsApiCall({ setListOfSkills: setAllSkills });
   }, []);
 
-  // console.log("Modified Content Response: ", {
-  //   __html: modifiedContent(listOfdata?.skills, filteredSkills, listOfdata),
-  // });
-
-  // console.log("CV Portrait Testing:", listOfdata?.portfolios_ids)
-
-  const router = useRouter();
 
   const [blogsList, setBlogsList] = useState([]);
-  const [loadingblogs, setLoadingBlogs] = useState(false);
-  const [showAll, setShowAll] = useState(false);
-  const [showAllExperiences, setShowAllExperiences] = useState(false);
-  const [showMoreSkillsForExperiences, setShowMoreSkillsForExperiences] =
-    useState([]);
-  const [showMoreSkillsForPortfolios, setShowMoreSkillsForPortfolios] =
-    useState([]);
-  const listOfdatas = useAppSelector(
-    (state) => state.profile.listOfProfileData
-  );
+  const [, setLoadingBlogs] = useState(false);
+  // Read-only here: the expansion map is rendered but never mutated on print.
+  const [showMoreSkillsForExperiences] = useState<boolean[]>([]);
 
   // Use getRoutesDetails
   useEffect(() => {
@@ -96,14 +80,14 @@ const CV_Portrait = ({ params }: { params: any }) => {
   }, [params, searchParams]);
 
   useEffect(() => {
-    // console.log("URL Info changed:", urlInfo);
-    urlInfo &&
+    if (urlInfo) {
       reportsApiHandler({
         urlInfo,
         setError,
         setLoading,
         setListOfData,
       });
+    }
   }, [urlInfo]);
 
   useEffect(() => {
@@ -120,9 +104,6 @@ const CV_Portrait = ({ params }: { params: any }) => {
     }
   }, [listOfdata]);
 
-  // console.log("List of Data:", listOfdata?.portfolios_ids);
-  // console.log("URL Info:", urlInfo);
-
   const domain = listOfdata?.domain;
 
   useBodyBackgroundColor("#EFF5FD");
@@ -135,40 +116,12 @@ const CV_Portrait = ({ params }: { params: any }) => {
     store.dispatch(setProfileLoading(loading));
   }, [loading]);
 
-  const [expandedItems, setExpandedItems] = useState({});
 
-  // const [isPrinting, setIsPrinting] = useState(false);
-
-  // useEffect(() => {
-  //   const handleBeforePrint = () => setIsPrinting(true);
-  //   const handleAfterPrint = () => setIsPrinting(false);
-
-  //   window.addEventListener("beforeprint", handleBeforePrint);
-  //   window.addEventListener("afterprint", handleAfterPrint);
-
-  //   return () => {
-  //     window.removeEventListener("beforeprint", handleBeforePrint);
-  //     window.removeEventListener("afterprint", handleAfterPrint);
-  //   };
-  // }, []);
-
-  // Extract and sort experiences once for reuse across components
-  const sortedExperiences = React.useMemo(() => {
-    if (!listOfdata?.experiences_ids) {
-      return [];
-    }
-    return [...listOfdata.experiences_ids].sort((a, b) => {
-      const dateA = new Date(a.starting_date).getTime();
-      const dateB = new Date(b.starting_date).getTime();
-      return dateB - dateA;
-    });
-  }, [listOfdata?.experiences_ids]);
 
   const sortedSkills = useSortedSkills({
     skillsIdsWithOrder: listOfdata?.skills_ids,
     allSkills,
   });
-  // console.log("Sorted Skills: ", sortedSkills)
 
   const allComponents: ComponentConfig[] = [
     {
@@ -505,7 +458,6 @@ const CV_Portrait = ({ params }: { params: any }) => {
       });
     }
 
-    // console.log("cvPortrait - Extracted Image URLs:", urls);
     return urls;
   }
 
@@ -518,7 +470,6 @@ const CV_Portrait = ({ params }: { params: any }) => {
 
     async function run() {
       const urls = extractAllImageUrls(listOfdata, blogsList);
-      // console.log("Preloading URLs:", urls);
 
       setImageProgress({ loaded: 0, total: urls.length });
 
@@ -535,10 +486,6 @@ const CV_Portrait = ({ params }: { params: any }) => {
   // Check if all essential data is loaded
   const isDataReady =
     !loading && listOfdata && urlInfo && allSkills.length > 0 && imagesReady; // ensure images are fully loaded
-
-  // console.log("Data Ready", isDataReady);
-
-  // console.log("All Skills:", allSkills);
 
   if (error) {
     return (

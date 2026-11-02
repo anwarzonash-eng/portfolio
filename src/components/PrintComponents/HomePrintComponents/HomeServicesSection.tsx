@@ -1,8 +1,6 @@
 import Image from "next/image";
-import Link from "next/link";
-import React from "react";
 
-const HomeServicesSection = ({ listOfdata, listOfdatas, services, hideLinks }) => {
+const HomeServicesSection = ({ hideLinks: _hideLinks, listOfdatas: _listOfdatas, listOfdata, services }) => {
   return (
     <>
       {listOfdata &&
@@ -13,14 +11,6 @@ const HomeServicesSection = ({ listOfdata, listOfdatas, services, hideLinks }) =
             m-0  flex items-center justify-center
             h-screen relative"
           >
-            {/* <div className="absolute block px-4 py-2 top-0 right-0 z-[2000]">
-              <Link
-                className="text-white font-medium text-[1.5rem] underline ml-2"
-                href={`https://www.${listOfdatas.domain}`}
-              >
-                {listOfdatas.domain}
-              </Link>
-            </div> */}
             <div
               className="max-w-[1550px] w-full mx-auto 
                             px-[4rem] py-[5rem] print:py-0"

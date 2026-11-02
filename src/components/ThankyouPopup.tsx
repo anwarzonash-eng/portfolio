@@ -1,7 +1,6 @@
 import { openChat } from "@/hooks/openTawkTochat";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 import Tooltip from "./Tooltip";
 
 const ThankyouPopup = ({ setIsModalOpen, listOfdata, text = null }) => {

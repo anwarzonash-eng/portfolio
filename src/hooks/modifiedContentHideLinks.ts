@@ -1,9 +1,4 @@
-
-export function modifiedContentHideLinks(content, skillsList, listOfdata) {
-
-  // console.log("Content:", content);
-  // console.log("Skills List:", skillsList);
-  // console.log("List of Data:", listOfdata);
+export function modifiedContentHideLinks(content, skillsList, _listOfdata) {
 
   const modifiedContentInner = content
     ?.replace(/<h1>/g, `<h1 style="color:var(--primary-color)">`)

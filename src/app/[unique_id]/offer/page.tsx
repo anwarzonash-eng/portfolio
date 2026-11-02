@@ -1,7 +1,7 @@
 import Offer from '@/components/pages/offer';
-import React from 'react';
+import type { PageProps } from "@/types/page";
 
-const offer = ({ params }: { params: any }) => {
+const offer = ({ params }: PageProps) => {
   return <Offer params={params} />;
 };
 

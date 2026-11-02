@@ -1,5 +1,6 @@
+import type { Experience } from "@/types/api";
 // utils/dateHelpers.ts
-export const sortByDate = (a: any, b: any) => {
+export const sortByDate = (a: Experience, b: Experience) => {
   const yearA = new Date(a.ending_Date).getFullYear();
   const yearB = new Date(b.ending_Date).getFullYear();
 

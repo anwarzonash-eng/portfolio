@@ -3,13 +3,13 @@ import Image from "next/image";
 import Link from "next/link";
 import "@/styles/printStyles/cvLandscape.css";
 import NoteDomainForPint from "@/components/NoteDomainForPint";
+import type { Education } from "@/types/api";
 
-const EducationBlogsLandscape = ({
+const EducationBlogsLandscape = ({ loadingblogs: _loadingblogs,
   listOfdata,
   domain,
   formatDate,
   dateFormatsOptions,
-  loadingblogs,
   blogsList,
   hideLinks,
   getImageForIndex,
@@ -36,7 +36,7 @@ const EducationBlogsLandscape = ({
                   Education & Certifications
                 </h2>
                 <div className="grid grid-cols-2 gap-[1.2rem] w-full">
-                  {listOfdata.education_ids.map((edu: any) => (
+                  {listOfdata.education_ids.map((edu: Education) => (
                     <div
                       key={edu.id}
                       className="p-[2rem] w-full rounded-[0.8rem] border border-solid border-[#E2E6EE] bg-[#F7F9FC]"

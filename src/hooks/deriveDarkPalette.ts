@@ -1,3 +1,4 @@
+import type { ProfileReport } from "@/types/api";
 /**
  * Derives a dark-mode palette from the light palette the API returns per domain.
  *
@@ -162,7 +163,8 @@ export const contrastRatio = (a: string, b: string): number => {
  * surfaces without changing its hue.
  */
 const lightenUntilContrast = (hex: string, bg: string, target: number): string => {
-  let [h, s, l] = toHsl(hex);
+  const [h, s, initialL] = toHsl(hex);
+  let l = initialL;
   let out = normalizeHex(hex);
   let guard = 0;
   while (contrastRatio(out, bg) < target && l < 96 && guard++ < 80) {
@@ -279,7 +281,7 @@ export function deriveDarkPalette(
  * Pull any `dark_*` fields the API may return in future, e.g. `dark_primary_color`.
  * Returns an empty object today, which keeps the derivation fully client-side.
  */
-export const getDarkOverridesFromApi = (listOfdata: any): Partial<ThemePalette> => {
+export const getDarkOverridesFromApi = (listOfdata: ProfileReport | null): Partial<ThemePalette> => {
   if (!listOfdata) return {};
   const map: Record<string, keyof ThemePalette> = {
     dark_primary_color: "primary",

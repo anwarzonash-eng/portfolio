@@ -1,16 +1,14 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import Newsletter from "@/components/Newsletter";
 import OurBlogs from "@/components/OurBlogs";
 import useBodyBackgroundColor from "@/hooks/useBodyBackgroundColor";
 import { useSearchParams } from "next/navigation";
 import { getRoutesDetails } from "@/hooks/url";
-import { store, useAppDispatch, useAppSelector } from "@/store";
+import { useAppDispatch } from "@/store";
 import { setProfileUrlInfo } from "@/store/profileSlice";
 import { reportsApiHandler } from "@/hooks/apihandlers/reportsApiHandlers";
-import { swalPopupEnums } from "@/enums/app.enums";
 import Swal, { SweetAlertIcon } from "sweetalert2";
 import { formatDate } from "@/hooks/formatdate";
 import { authorBlogIds, dateFormatsOptions } from "@/data/JsonData";
@@ -21,25 +19,19 @@ import { getImageForIndex } from "@/utils/getImageForIndex";
 import { loadBlogs } from "@/hooks/apihandlers/blogListingApiHandler";
 import EducationComponent from "@/components/EducationComponent";
 import UpworkActivitySection from "@/components/UpworkActivitySection";
+import type { PageProps } from "@/types/page";
 
-const BlogDetails = ({ params }: { params: any }) => {
+const BlogDetails = ({ params }: PageProps) => {
   const [urlInfo, setURLInfo] = useState(null);
   const [loadingblogs, setLoadingBlogs] = useState(true);
-  const [loading, setLoading] = useState(false);
+  const [, setLoading] = useState(false);
   const [listOfdata, setListOfData] = useState(null);
   const [blogdata, setBlogData] = useState(null);
   const [error, setError] = useState(null);
   const [blogsList, setBlogsList] = useState([]); // Add state for blogs list
   const searchParams = useSearchParams();
   const dispatch = useAppDispatch();
-  const store = useAppSelector((state) => state);
 
-  // Prev Code
-  // useEffect(() => {
-  //   setURLInfo(getRoutesDetails(params, searchParams));
-  // }, [params, searchParams]);
-
-  // New Code Use getRoutesDetails
   useEffect(() => {
     // 🛑 Must wrap in an async function and call it 🛑
     const fetchRoutes = async () => {
@@ -87,7 +79,7 @@ const BlogDetails = ({ params }: { params: any }) => {
           );
           setBlogData(foundData);
         }
-      } catch (error) {
+      } catch {
         setError("Invalid URL. Please try again.");
       } finally {
         setLoadingBlogs(false);

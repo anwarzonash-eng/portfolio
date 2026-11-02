@@ -1,8 +1,8 @@
 "use client";
 import CV_Portrait from "@/components/pages/print/cvPortrait";
-import React from "react";
+import type { PageProps } from "@/types/page";
 
-const cv = ({ params }: { params: any }) => {
+const cv = ({ params }: PageProps) => {
   return <CV_Portrait params={params} />;
 };
 

@@ -1,29 +1,10 @@
+import type { Testimonial } from "@/types/api";
 import React, { useMemo, useRef, useState } from "react";
 import { Play } from "lucide-react";
 import { Instagram,  LinkedIn } from "@/components/SVGI-Icons";
 
 import { processReviewText } from "@/hooks/processReviewText";
 
-// Define the TypeScript interface based on your backend data
-interface Testimonial {
-  client_company: string;
-  client_company_website: string;
-  client_designation: string;
-  designation: string;
-  client_name: string;
-  client_pic: string;
-  id: string;
-  linked_in: string;
-  instagram: string;
-  portfolio_id: number;
-  review_text: string;
-  video: string; // Video URL
-  thumbnail?: string; // Optional thumbnail URL from API
-  Prototype?: Array<{ video?: string }>;
-  upwork?: string;
-  website_purpose?: string | null;
-  twitter?: string;
-}
 
 interface TestimonialsSectionProps {
   testimonials: Testimonial[];

@@ -1,8 +1,8 @@
 "use client";
 import CV3 from "@/components/pages/print/cv3";
-import React from "react";
+import type { PageProps } from "@/types/page";
 
-const cv3 = ({ params }: { params: any }) => {
+const cv3 = ({ params }: PageProps) => {
     return <CV3 params={params} />;
 };
 

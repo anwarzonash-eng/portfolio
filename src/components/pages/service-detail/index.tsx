@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import useBodyBackgroundColor from "@/hooks/useBodyBackgroundColor";
 import { useSearchParams } from "next/navigation";
 import { getRoutesDetails } from "@/hooks/url";
@@ -7,7 +7,6 @@ import { reportsApiHandler } from "@/hooks/apihandlers/reportsApiHandlers";
 import { handleSkillsApiCall } from "@/hooks/apihandlers/skillsApiHandlers";
 import { handleCategoryPicture } from "@/hooks/apihandlers/categoryApiHandler";
 import PageRendering from "@/components/PageRendering";
-import { useAppSelector } from "@/store";
 import OurBlogs from "@/components/OurBlogs";
 import Newsletter from "@/components/Newsletter";
 import ExpandableServiceCard from "@/components/ExpandableServiceCard";
@@ -15,8 +14,9 @@ import EducationComponent from "@/components/EducationComponent";
 import UpworkActivitySection from "@/components/UpworkActivitySection";
 import { formatDate } from "@/hooks/formatdate";
 import { dateFormatsOptions } from "@/data/JsonData";
+import type { PageProps } from "@/types/page";
 
-const ServiceDetail = ({ params }: { params: any }) => {
+const ServiceDetail = ({ params }: PageProps) => {
   useBodyBackgroundColor("#EFF5FD");
 
   const searchParams = useSearchParams();
@@ -24,26 +24,15 @@ const ServiceDetail = ({ params }: { params: any }) => {
 
   const [urlInfo, setURLInfo] = useState(null);
   const [listOfdata, setListOfData] = useState(null);
-  const [mainService, setMainService] = useState(null);
+  const [, setMainService] = useState(null);
   const [detailService, setDetailService] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [listOfskills, setListOfSkills] = useState([]);
-  const [categoryPictures, setCategoryPictures] = useState({});
-  const listOfdatas = useAppSelector(
-    (state) => state.profile.listOfProfileData
-  );
+  const [, setCategoryPictures] = useState({});
   const [activeDropdown, setActiveDropdown] = useState(0);
 
-  const toggleDropdown = (index) => {
-    setActiveDropdown((prev) => (prev === index ? null : index));
-  };
 
-  // useEffect(() => {
-  //   setURLInfo(getRoutesDetails(params, searchParams));
-  // }, [params, searchParams]);
-
-  // Use getRoutesDetails
   useEffect(() => {
     // 🛑 Must wrap in an async function and call it 🛑
     const fetchRoutes = async () => {
@@ -72,7 +61,7 @@ const ServiceDetail = ({ params }: { params: any }) => {
         listOfdata?.services?.filter((service) => service.type === "detail")
       );
     }
-  }, [listOfdata]);
+  }, [listOfdata, urlInfo]);
 
   useEffect(() => {
     handleSkillsApiCall({ setListOfSkills });

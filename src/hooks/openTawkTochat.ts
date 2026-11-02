@@ -1,6 +1,7 @@
-export const openChat = (e) => {
+export const openChat = (e: { preventDefault: () => void }) => {
   e.preventDefault();
-  if (window.Tawk_API) {
-    window.Tawk_API.maximize();
+  const tawk = window.Tawk_API as { maximize?: () => void } | undefined;
+  if (tawk?.maximize) {
+    tawk.maximize();
   }
 };

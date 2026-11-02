@@ -1,27 +1,22 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import useBodyBackgroundColor from "@/hooks/useBodyBackgroundColor";
 import { useSearchParams } from "next/navigation";
 import { getRoutesDetails } from "@/hooks/url";
 import { store } from "@/store";
 import { setProfileLoading, setProfileUrlInfo } from "@/store/profileSlice";
 import { reportsApiHandler } from "@/hooks/apihandlers/reportsApiHandlers";
+import type { PageProps } from "@/types/page";
 
-const ContactMePage = ({ params }: { params: any }) => {
+const ContactMePage = ({ params }: PageProps) => {
   const [urlInfo, setURLInfo] = useState(null);
-  const [listOfdata, setListOfData] = useState(null);
+  const [, setListOfData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [, setError] = useState<string | null>(null);
 
   const searchParams = useSearchParams();
 
-  // Prev Code
-  // useEffect(() => {
-  //   setURLInfo(getRoutesDetails(params, searchParams));
-  // }, [params, searchParams]);
-
-  // New Code Use getRoutesDetails
   useEffect(() => {
     // 🛑 Must wrap in an async function and call it 🛑
     const fetchRoutes = async () => {
@@ -33,13 +28,14 @@ const ContactMePage = ({ params }: { params: any }) => {
   useBodyBackgroundColor("#EFF5FD");
 
   useEffect(() => {
-    urlInfo &&
+    if (urlInfo) {
       reportsApiHandler({
         urlInfo,
         setLoading,
         setListOfData,
         setError,
       });
+    }
   }, [urlInfo]);
 
   useEffect(() => {

@@ -6,29 +6,20 @@ import ShowmoreSkills from "./showmoreSkills";
 import useIsDesktop from "@/hooks/useIsDesktop";
 import { modifiedContent } from "@/hooks/modifiedContent";
 
+import type { Portfolio, ProfileReport, SkillRef } from "@/types/api";
+
 interface PortfolioCardContentProps {
-  portfolio: {
-    id: string;
-    thumbnail?: string;
-    pictures?: string;
-    child_hero_banner?: string;
-    company_icon?: string;
-    title?: string;
-    link?: string;
-    tagline_1?: string;
-    features_short?: string;
-    skills?: any[] | any[][];
-    has_testimonial?: boolean;
-  };
+  portfolio: Portfolio;
   thumbnailSize: string;
   website_purpose?: string;
-  listOfskills: any[];
-  listOfdata: any;
+  listOfskills: SkillRef[];
+  /** Either the full profile or a synthetic { primaryColor, companytype } object. */
+  listOfdata: ProfileReport | { primaryColor?: string; companytype?: string } | null;
   index: number;
   showMoreSkills: boolean[];
   setShowMoreSkills: React.Dispatch<React.SetStateAction<boolean[]>>;
   openModal: (
-    pictures?: string,
+    pictures?: Portfolio["pictures"],
     thumbnail?: string,
     child_hero_banner?: string,
   ) => void;
@@ -58,9 +49,6 @@ const PortfolioCardContent: React.FC<PortfolioCardContentProps> = ({
       ? flatSkills
       : flatSkills.slice(0, initialSkillLimit);
 
-  // console.log("website_purpose", website_purpose);
-  // console.log("API Data:", listOfdata)
-
   return (
     <div className="flex flex-col-reverse lg:flex-row max-lg:p-[1.5rem] bg-surface shadow-testimonialeShadow relative rounded-[1.2rem] border border-solid border-border overflow-hidden p-[2.4rem] gap-[2.4rem] print:mt-[10rem]">
       {/* Content */}
@@ -73,7 +61,7 @@ const PortfolioCardContent: React.FC<PortfolioCardContentProps> = ({
                 thumbnailSize === "small" ? "lg:w-[30rem]" : "lg:w-[50rem]"
               } float-right w-full rounded-[1.2rem] relative align-middle justify-center flex-col flex items-center`}
             >
-              <img
+              <Image
                 src={
                   portfolio.thumbnail
                     ? portfolio.thumbnail
@@ -158,12 +146,12 @@ const PortfolioCardContent: React.FC<PortfolioCardContentProps> = ({
                 <hr className="w-full my-[2rem] h-px bg-border print:hidden" />
                 {/* Skills */}
                 <h4 className="text-heading text-[1.4rem] lg:text-[1.6rem] font-medium mb-[1.2rem] ml-[0.2rem]">
-                  AREAS OF EXPERTISE I'VE WORKED IN
+                  AREAS OF EXPERTISE I&apos;VE WORKED IN
                 </h4>
                 <div className="flex items-center gap-[1rem] mt-3 lg:gap-[0.7rem] flex-wrap text-[1.2rem] w-full">
                   {Array.isArray(skillsToShow) && skillsToShow.length > 0 && (
                     <React.Fragment>
-                      {skillsToShow.map((skill: any, i: number) => (
+                      {skillsToShow.map((skill: SkillRef, i: number) => (
                         <>
                           {skill?.url ? (
                             <Link

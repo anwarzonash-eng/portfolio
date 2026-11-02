@@ -1,20 +1,15 @@
 import { skillsSyncApi } from "@/apiHandlers/skillsApi";
+import type { SkillRef } from "@/types/api";
 
-export const handleSkillsApiCall = async ({ setListOfSkills }) => {
-  const payload = {
-    actionType: "list",
-    id: "",
-    title: "",
-    url: "",
-    catagory: "",
-    description: "",
-    order: "",
-    skillsIds: "",
-    companytype: "",
-  };
+interface HandleSkillsApiCallArgs {
+  setListOfSkills: (skills: SkillRef[]) => void;
+}
 
+export const handleSkillsApiCall = async ({
+  setListOfSkills,
+}: HandleSkillsApiCallArgs) => {
   try {
-    const results = await skillsSyncApi(payload);
+    const results = await skillsSyncApi();
     const statusStr = String(results?.status);
     if (/^2\d{2}$/.test(statusStr)) {
       setListOfSkills(results?.data?.data || []);

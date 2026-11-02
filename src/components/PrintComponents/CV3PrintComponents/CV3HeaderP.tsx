@@ -1,15 +1,15 @@
 import React from "react";
 import Image from "next/image";
-import { formatDate } from "@/hooks/formatdate";
 import { Phone, AtSign, MapPin, GithubIcon, Link } from "lucide-react";
 import { useAppSelector } from "@/store";
+import type { ProfileReport } from "@/types/api";
 
 type CV3HeaderProps = {
-    listOfdata: any;
+    listOfdata: ProfileReport | null;
     hideLinks?: boolean;
 };
 
-const CV3HeaderP: React.FC<CV3HeaderProps> = ({ listOfdata, hideLinks }) => {
+const CV3HeaderP: React.FC<CV3HeaderProps> = ({ listOfdata }) => {
     const urlInfo = useAppSelector((state) => state.profile.profileUrlInfo);
     const headerInfo = [
         listOfdata?.phone_no && { key: "phone", icon: Phone, value: listOfdata.phone_no },
@@ -17,7 +17,7 @@ const CV3HeaderP: React.FC<CV3HeaderProps> = ({ listOfdata, hideLinks }) => {
         listOfdata?.location && { key: "location", icon: MapPin, value: listOfdata.location },
         listOfdata?.github && { key: "github", icon: GithubIcon, value: listOfdata.github },
         listOfdata?.linkedIn && { key: "linkedin", icon: Link, value: listOfdata.linkedIn },
-    ].filter(Boolean) as { key: string; icon: any; value: string }[];
+    ].filter(Boolean) as { key: string; icon: React.ComponentType<{ size?: number | string; className?: string }>; value: string }[];
 
     const visibleHeaderInfo = urlInfo?.u ? headerInfo.filter(h => h.key === "location" || h.key === "github") : headerInfo;
 

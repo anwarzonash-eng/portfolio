@@ -2,8 +2,9 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { skillsGrouping } from "@/hooks/skillsGrouping";
+import type { SkillRef } from "@/types/api";
 
 type SkillType = {
   title: string;
@@ -13,7 +14,7 @@ type SkillType = {
 };
 
 interface SkillsContainerProps {
-  list?: SkillType[] | any;
+  list?: SkillType[] | SkillRef[] | null;
   variant?: "default" | "portfolio" | "print";
   // pageType?: "home" | "portfolio" | "cv";
   layoutType?: boolean;
@@ -28,16 +29,14 @@ interface SkillsContainerProps {
 const SkillsContainer: React.FC<SkillsContainerProps> = ({
   list,
   variant = "default",
-  layoutType = false,
+  layoutType: _layoutType = false,
   // pageType = "home",
   useLinks = true,
   autoExpandOnParam = false,
-  portfolioId,
   numColumns = 6,
   numSkills = 8,
   hideLinks
 }) => {
-  const router = useRouter();
   const searchParams = useSearchParams();
 
   const [isExpanded, setIsExpanded] = useState(false);

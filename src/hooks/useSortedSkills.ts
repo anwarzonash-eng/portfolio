@@ -1,20 +1,9 @@
 import { useMemo } from 'react';
-
-interface SkillFromList {
-  id: number;
-  order: number | string | null | undefined;  // Allow null/undefined explicitly
-}
-
-interface Skill {
-  id: number;
-  // ... other skill properties
-}
-
-
+import type { SkillRef } from '@/types/api';
 
 interface UseSortedSkillsParams {
-  skillsIdsWithOrder: SkillFromList[] | undefined;
-  allSkills: Skill[];
+  skillsIdsWithOrder: SkillRef[] | undefined;
+  allSkills: SkillRef[];
 }
 
 /**
@@ -25,7 +14,7 @@ interface UseSortedSkillsParams {
 export const useSortedSkills = ({
   skillsIdsWithOrder,
   allSkills,
-}: UseSortedSkillsParams): Skill[] => {
+}: UseSortedSkillsParams): SkillRef[] => {
   return useMemo(() => {
     if (
       !skillsIdsWithOrder ||
@@ -36,7 +25,7 @@ export const useSortedSkills = ({
     }
 
     // Build map only for items that have a valid id and a valid numeric order
-    const orderMap = new Map<number, number>();
+    const orderMap = new Map<string | number, number>();
 
     skillsIdsWithOrder.forEach(item => {
       if (

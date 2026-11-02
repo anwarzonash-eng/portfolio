@@ -1,7 +1,7 @@
 "use client";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Image from "next/image";
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const SLIDE_INTERVAL = 2500; // milliseconds — change to 2000 or 3000 as desired
 const PROGRESS_TICK_MS = 100; // progress update tick
@@ -53,13 +53,15 @@ const SliderXL = ({ portfolioPictures }) => {
       { threshold: 0.25 }
     );
 
-    if (sliderContainerRef.current) {
-      observer.observe(sliderContainerRef.current);
+    // Capture the node so cleanup unobserves the same element it observed.
+    const el = sliderContainerRef.current;
+    if (el) {
+      observer.observe(el);
     }
 
     return () => {
-      if (sliderContainerRef.current) {
-        observer.unobserve(sliderContainerRef.current);
+      if (el) {
+        observer.unobserve(el);
       }
       observer.disconnect();
     };
@@ -150,7 +152,7 @@ const SliderXL = ({ portfolioPictures }) => {
     <div ref={sliderContainerRef} className="bg-surface rounded-lg p-10 relative w-full max-lg:pb-[2rem] sliderxl-root">
       {/* Progress Timeline Bars */}
       <div className="absolute top-0 left-0 right-0 z-10 flex gap-1 p-3">
-        {images.map((_: any, index: number) => (
+        {images.map((_: string, index: number) => (
           <div
             key={index}
             className="flex-1 h-1 bg-gray-300 dark:bg-border rounded-full overflow-hidden"

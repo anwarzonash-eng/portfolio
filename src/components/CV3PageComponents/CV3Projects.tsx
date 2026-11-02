@@ -1,8 +1,8 @@
 import { CalendarDays } from "lucide-react";
-import React from "react";
+import type { Portfolio } from "@/types/api";
 
 type CV3ProjectsProps = {
-    portfolios?: any[] | null;
+    portfolios?: Portfolio[] | null;
 };
 
 const CV3Projects = ({ portfolios }: CV3ProjectsProps) => {
@@ -11,7 +11,6 @@ const CV3Projects = ({ portfolios }: CV3ProjectsProps) => {
     const projects = portfolios.slice(0, 5);
 
     return (
-
 
         <div className="mb-6">
             <h2 className="text-[20px] font-bold text-black mb-4 border-b-2 border-black ">PROJECTS</h2>

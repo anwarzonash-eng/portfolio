@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import ShowmoreSkills from "./showmoreSkills";
 
-const SkillsComponent = ({ service, skillsList, index = 0 }) => {
+const SkillsComponent = ({ skillsList: _skillsList, service, index = 0 }) => {
   const [showMoreSkills, setShowMoreSkills] = useState([]);
 
   console.log("Service inside the SkillsComponent:", service)
@@ -26,14 +26,13 @@ const SkillsComponent = ({ service, skillsList, index = 0 }) => {
   );
   return (
     <div className="px-[1rem] lg:px-[3rem] text-black dark:text-heading list-div text-[1.6rem] leading-[2.4rem] sm:text-[1.8rem] sm:leading-[2.8rem] lg:text-[1.8rem] lg:leading-[2.9rem]  font-normal lg:font-medium mb-[2rem] print_AREAS_EXPERTISE ">
-      AREAS OF EXPERTISE I'VE WORKED IN
+      AREAS OF EXPERTISE I&apos;VE WORKED IN
       <div className="w-full flex-col items-start flex ">
         <div className="flex items-center gap-[1rem] lg:gap-[0.7rem] my-[2.4rem] text-nowrap flex-wrap">
           {Object?.values(skills)?.map((group, groupIndex) => (
             <React.Fragment key={groupIndex}>
               {group.map((skill, i) => {
                 // Calculate the skill number (groupIndex+1).(i+1)
-                const skillNumber = `${groupIndex + 1}.${i + 1}`;
 
                 return (
                   <Link

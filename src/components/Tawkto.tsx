@@ -5,7 +5,7 @@ const Tawkto = () => {
     if (typeof window !== "undefined") {
       const isUValue = localStorage.getItem("u");
       if (isUValue !== "true") {
-        var s1 = document.createElement("script"),
+        const s1 = document.createElement("script"),
           s0 = document.getElementsByTagName("script")[0];
         s1.async = true;
         s1.src = "https://embed.tawk.to/66defa8350c10f7a00a63f1e/1i7bg5521";

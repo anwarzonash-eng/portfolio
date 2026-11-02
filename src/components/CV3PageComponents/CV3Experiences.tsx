@@ -1,23 +1,19 @@
 import { CalendarDays, MapPin } from "lucide-react";
 import React from "react";
 import { modifiedContentHideLinks } from "@/hooks/modifiedContentHideLinks";
+import type { Experience, ProfileReport, SkillRef } from "@/types/api";
 
 type Props = {
-    rawExperiences?: any[];
-    listOfdata?: any;
+    rawExperiences?: Experience[];
+    listOfdata?: ProfileReport | null;
     isMobile?: boolean;
 };
 
-const stripHtml = (value: string) =>
-    value
-        .replace(/<[^>]*>/g, "")
-        .replace(/\s+/g, " ")
-        .trim();
 
 const extractBulletsFromHtml = (
     html?: string,
-    filteredSkills?: any[],
-    listOfdata?: any,
+    filteredSkills?: SkillRef[],
+    listOfdata?: ProfileReport | null,
 ) => {
     if (!html) return [] as string[];
 
@@ -28,7 +24,7 @@ const extractBulletsFromHtml = (
     return matches.map((m) => m[1] || "").filter(Boolean);
 };
 
-const toMonthYear = (value: any) => {
+const toMonthYear = (value: string | undefined) => {
     if (!value) return "";
     const d = new Date(value);
     if (isNaN(d.getTime())) return String(value);
@@ -41,12 +37,12 @@ const toMonthYear = (value: any) => {
 const CV3Experiences: React.FC<Props> = ({
     rawExperiences = [],
     listOfdata,
-    isMobile = false,
+    isMobile: _isMobile = false,
 }) => {
     // Remove the filtering logic since experiences should already be filtered by the hook
 
 
-    const filtered = (rawExperiences || []).filter((exp: any) => {
+    const filtered = (rawExperiences || []).filter((exp: Experience) => {
         if (!exp) return false;
 
         // Basic validation - ensure we have valid experience data
@@ -67,7 +63,7 @@ const CV3Experiences: React.FC<Props> = ({
         return a;
     };
 
-    const experiences = filtered.map((exp: any) => {
+    const experiences = filtered.map((exp: Experience) => {
         const startLabel = toMonthYear(
             exp?.starting_date ?? exp?.start_date ?? exp?.startDate,
         );

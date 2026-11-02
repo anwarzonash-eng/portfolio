@@ -1,8 +1,8 @@
 "use client";
 import CVLatestPrint from "@/components/pages/print/cv2";
-import React from "react";
+import type { PageProps } from "@/types/page";
 
-const cvLatestPrint = ({ params }: { params: any }) => {
+const cvLatestPrint = ({ params }: PageProps) => {
   return <CVLatestPrint params={params} />;
 };
 

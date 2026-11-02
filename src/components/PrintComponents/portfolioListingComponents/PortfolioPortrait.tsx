@@ -7,6 +7,7 @@ import { skillsGrouping } from "@/hooks/skillsGrouping";
 import AreasOfExpertiesSkillComponent from "@/components/AreasOfExpertiesSkillComponent";
 import { ArrowRight } from "lucide-react";
 import { modifiedContent } from "@/hooks/modifiedContent";
+import type { ProfileReport, SkillRef, Portfolio } from "@/types/api";
 
 type SkillType = {
   title: string;
@@ -15,29 +16,14 @@ type SkillType = {
   icon?: string;
 };
 
-type PortfolioType = {
-  id: string;
-  title: string;
-  tagline_1: string;
-  tagline_2: string;
-  skills: SkillType[];
-  thumbnail: string;
-  pictures: string;
-  child_hero_banner: string;
-  link: string;
-  has_testimonial: boolean;
-  company_icon?: string;
-  starting_date?: string;
-  ending_Date?: string;
-};
 
 interface PortfolioPortraitProps {
-  portfolios: PortfolioType[];
+  portfolios: Portfolio[];
   companyType: string;
   locationLink: string;
-  portfolioId: string;
-  listOfskills: any;
-  listOfdata: any;
+  portfolioId: string | number;
+  listOfskills: SkillRef[];
+  listOfdata: ProfileReport | null;
   hideLinks?: boolean;
   from: number;
   max?: number;
@@ -47,23 +33,12 @@ const PortfolioPortrait: React.FC<PortfolioPortraitProps> = ({
   portfolios,
   companyType,
   locationLink,
-  portfolioId,
   listOfskills,
   listOfdata,
   hideLinks,
   from,
   max,
 }) => {
-  const openModal = (
-    pictures: string,
-    thumbnail: string,
-    child_hero_banner: string
-  ) => {
-    const portfolioImages = JSON.parse(pictures) as string[];
-    const allImages = [thumbnail, child_hero_banner, ...portfolioImages];
-    setSelectedPorfolioPicturesforPopup(allImages);
-    setIsModalOpen(true);
-  };
 
   const closeModal = () => {
     setSelectedPorfolioPicturesforPopup(null);
@@ -91,12 +66,9 @@ const PortfolioPortrait: React.FC<PortfolioPortraitProps> = ({
             if (!skills || skills.length === 0) return [];
 
             // Check if any of the first 5 skills has a long name (more than 12 characters)
-            const first5Skills = skills.slice(0, 5);
-            const hasLongSkillNames = first5Skills.some(skill => skill.title && skill.title.length > 12);
 
             // If there are long names, show 4 skills to leave room for button
             // Otherwise, show 5 skills
-            const skillsToShow = hasLongSkillNames ? 4 : 5;
 
             return skills.slice(0, 11);
           };
@@ -153,20 +125,7 @@ const PortfolioPortrait: React.FC<PortfolioPortraitProps> = ({
                           )}
                       </p>
                       <div className="">
-                        {/* <p
-                            dangerouslySetInnerHTML={{
-                              __html: portfolio.tagline_1,
-                            }}
-                            className="text-[1.5rem] leading-[2rem] font-normal text-paragraph1 
-                            mt-[1rem] line-clamp-2"
-                          ></p> */}
 
-                        {/* <p
-                            dangerouslySetInnerHTML={{
-                              __html: portfolio.tagline_2,
-                            }}
-                            className="text-[1.6rem] leading-[2rem] font-normal text-primary mt-[1rem] line-clamp-3"
-                          ></p> */}
                         <div
                           dangerouslySetInnerHTML={{
                             __html: modifiedContent(
@@ -193,7 +152,7 @@ const PortfolioPortrait: React.FC<PortfolioPortraitProps> = ({
                     <hr className="w-full my-[2rem] h-px bg-border" />
                     <div className="text-black text-[1.8rem] leading-[2.8rem] font-medium">
                       <p className="mb-[1rem]">
-                        AREAS OF EXPERTISE I'VE WORKED IN:
+                        AREAS OF EXPERTISE I&apos;VE WORKED IN:
                       </p>
                       <div className="flex items-center gap-[0.7rem] text-nowrap flex-wrap">
                         {skillsToDisplay.map(
@@ -257,12 +216,6 @@ const PortfolioPortrait: React.FC<PortfolioPortraitProps> = ({
                   {portfolio?.thumbnail && (
                     <div
                       className="relative w-full rounded-[1.2rem] overflow-hidden"
-                      // style={{
-                      //   // Height = width / 1.75
-                      //   height: `calc(100vw / 1.75)`,
-                      //   // maxHeight: '420px', // fallback for A4 portrait
-                      //   // minHeight: '370px'
-                      // }}
                       style={{ aspectRatio: "16 / 9" }}
                     >
                       <Image

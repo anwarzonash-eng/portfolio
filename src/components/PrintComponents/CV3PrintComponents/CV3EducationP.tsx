@@ -1,18 +1,11 @@
-import React from "react";
-import { formatDate } from "@/hooks/formatdate";
-import { dateFormatsOptions } from "@/data/JsonData";
-import { CalendarDays, MapPin } from "lucide-react";
+import { MapPin } from "lucide-react";
+import type { Education } from "@/types/api";
 
 type Props = {
-    education?: any[] | null;
+    education?: Education[] | null;
     location?: string | null;
 };
 
-const toMonthYear = (value: any) => {
-    if (!value) return "";
-    const d = new Date(value);
-    return isNaN(d.getTime()) ? String(value) : formatDate(value, dateFormatsOptions.shortMonthYear);
-};
 
 const CV3EducationP = ({ education, location }: Props) => {
     if (!education || education.length === 0) return null;

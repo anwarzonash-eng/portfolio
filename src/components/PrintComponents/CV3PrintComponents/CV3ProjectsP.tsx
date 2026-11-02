@@ -1,8 +1,8 @@
-import React from "react";
 import { CalendarDays } from "lucide-react";
+import type { Portfolio } from "@/types/api";
 
 type CV3ProjectsProps = {
-    portfolios?: any[] | null;
+    portfolios?: Portfolio[] | null;
 };
 
 const CV3ProjectsP = ({ portfolios }: CV3ProjectsProps) => {

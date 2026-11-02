@@ -3,7 +3,8 @@
 import { modifiedContent } from "@/hooks/modifiedContent";
 import { modifiedContentHideLinks } from "@/hooks/modifiedContentHideLinks";
 import Link from "next/link";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import type { ProfileReport, SkillRef } from "@/types/api";
 
 const A4_HEIGHT_MM = 297;
 const A4_DYNAMIC_MARGIN_MM = 20; // Margin applied by printPageRenderer for dynamic components
@@ -18,8 +19,8 @@ const mmToPx = (mm: number) => mm * (96 / 25.4);
 const pxToMm = (px: number) => px / (96 / 25.4);
 
 interface OverviewCvPortraitProps {
-  listOfdata: any;
-  filteredSkills: any;
+  listOfdata: ProfileReport | null;
+  filteredSkills: SkillRef[];
   hideLinks?: boolean;
   // isPrinting: boolean;
 }
@@ -54,12 +55,6 @@ OverviewCvPortraitProps) => {
     // --- Show button logic ---
     setShowButton(listNaturalMm > SHOW_BUTTON_MM);
 
-    // if (!isPrinting) {
-    //   setMaxListHeightPx(undefined);
-    //   return;
-    // }
-
-    // --- Total space taken by fixed parts ---
     const fixedHeightMm = BUTTON_HEIGHT_MM + MARGIN_BOTTOM_MM;
     const availableForListMm = EFFECTIVE_HEIGHT_MM - fixedHeightMm; // Use effective height instead of full A4
     const availableForListPx = mmToPx(availableForListMm);

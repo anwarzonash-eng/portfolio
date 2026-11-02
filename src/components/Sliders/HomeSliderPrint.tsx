@@ -52,16 +52,6 @@ const HomeSliderPrint: React.FC<HomeSliderPrintProps> = ({
   from,
   max,
 }) => {
-  const openModal = (
-    pictures: string,
-    thumbnail: string,
-    child_hero_banner: string,
-  ) => {
-    const portfolioImages = JSON.parse(pictures) as string[];
-    const allImages = [thumbnail, child_hero_banner, ...portfolioImages];
-    setSelectedPorfolioPicturesforPopup(allImages);
-    setIsModalOpen(true);
-  };
 
   const closeModal = () => {
     setSelectedPorfolioPicturesforPopup(null);
@@ -151,19 +141,13 @@ const HomeSliderPrint: React.FC<HomeSliderPrintProps> = ({
                         mt-[1rem] ${!hideLinks ? "line-clamp-5" : "line-clamp-[8]"}`}
                       ></p>
 
-                      {/* <p
-                        dangerouslySetInnerHTML={{
-                          __html: portfolio.tagline_2,
-                        }}
-                        className="text-[1.8rem] leading-[2.4rem] font-normal text-primary mt-[1rem] line-clamp-3"
-                      ></p> */}
                     </div>
                   </div>
 
                   <hr className="w-full my-[2rem] h-px bg-border" />
                   <div className="text-black text-[1.8rem] leading-[2.8rem] font-medium">
                     <p className="mb-[1rem]">
-                      AREAS OF EXPERTISE I'VE WORKED IN:
+                      AREAS OF EXPERTISE I&apos;VE WORKED IN:
                     </p>
                     <div className="flex items-center gap-[0.7rem] text-nowrap flex-wrap">
                       {Object.values(skills)
@@ -171,6 +155,7 @@ const HomeSliderPrint: React.FC<HomeSliderPrintProps> = ({
                         .slice(0, 5)
                         .map((skill: SkillType, i: number) => (
                           <AreasOfExpertiesSkillComponent
+                            key={i}
                             skill={skill}
                             index={i}
                             variant="medium"
@@ -246,8 +231,6 @@ const HomeSliderPrint: React.FC<HomeSliderPrintProps> = ({
                       }
                       alt="Project Image"
                       fill
-                      // style={{ objectFit: "contain" }}
-                      // className="rounded-[1.2rem] cursor-pointer"
                       sizes={`${
                         pageOrientation === "portrait"
                           ? " 100vw, 38rem"

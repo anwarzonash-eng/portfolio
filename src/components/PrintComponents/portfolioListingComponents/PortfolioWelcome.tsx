@@ -1,6 +1,5 @@
 import DesignationDomain from "@/components/DesignationDomain";
 import Image from "next/image";
-import React from "react";
 
 const PortfolioWelcome = ({
   listOfdatas,

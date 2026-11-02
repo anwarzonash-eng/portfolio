@@ -1,9 +1,10 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { skillsGrouping } from "@/hooks/skillsGrouping";
 import { modifiedContent } from "@/hooks/modifiedContent";
+import type { ProfileReport, SkillRef, Portfolio } from "@/types/api";
 
 type SkillType = {
   title: string;
@@ -12,29 +13,14 @@ type SkillType = {
   icon?: string;
 };
 
-type PortfolioType = {
-  id: string;
-  title: string;
-  tagline_1: string;
-  tagline_2: string;
-  skills: SkillType[];
-  thumbnail: string;
-  pictures: string;
-  child_hero_banner: string;
-  link: string;
-  has_testimonial: boolean;
-  company_icon?: string;
-  starting_date?: string;
-  ending_Date?: string;
-};
 
 interface HomePortfolioCardProps {
-  portfolios: PortfolioType[];
+  portfolios: Portfolio[];
   companyType: string;
   locationLink: string;
-  portfolioId: string;
-  listOfskills: any;
-  listOfdata: any;
+  portfolioId: string | number;
+  listOfskills: SkillRef[];
+  listOfdata: ProfileReport | null;
   from: number;
   max?: number;
   hideLinks?: boolean;
@@ -76,7 +62,6 @@ const HomePortfolioCard: React.FC<HomePortfolioCardProps> = ({
   portfolios,
   companyType,
   locationLink,
-  portfolioId,
   listOfskills,
   listOfdata,
   from,
@@ -88,71 +73,6 @@ const HomePortfolioCard: React.FC<HomePortfolioCardProps> = ({
   const topTwoPortfolios = portfolios.slice(from, max);
 
   // Function to calculate how many skills can fit in two lines
-  const calculateSkillsToShow = (skillsArray: SkillType[]) => {
-    const containerWidth = 520; // 520px container width
-    const seeMoreButtonWidth = 160; // Approximate width of "See More" button
-    const gapWidth = 7; // 0.7rem gap between items
-
-    // Estimate skill button width based on text length
-    const estimateSkillWidth = (skillTitle: string) => {
-      const baseWidth = 40; // padding (4rem total) + border
-      const charWidth = 7; // approximate width per character at 1.3rem font size
-      return baseWidth + skillTitle.length * charWidth;
-    };
-
-    let currentLineWidth = 0;
-    let skillsToShow = 0;
-    let linesUsed = 0;
-    const maxLines = 2;
-
-    for (let i = 0; i < skillsArray.length; i++) {
-      const skillWidth = estimateSkillWidth(skillsArray[i].title);
-      const gapWidthForThisItem = skillsToShow > 0 ? gapWidth : 0;
-
-      // Check if we need "See More" button space (only on the last line)
-      const isLastSkill = i === skillsArray.length - 1;
-      const hasMoreSkills = !isLastSkill;
-      const spaceForSeeMore =
-        hasMoreSkills && linesUsed === maxLines - 1
-          ? seeMoreButtonWidth + gapWidth
-          : 0;
-
-      const requiredWidth =
-        currentLineWidth + gapWidthForThisItem + skillWidth + spaceForSeeMore;
-
-      // If skill doesn't fit on current line, try next line
-      if (requiredWidth > containerWidth) {
-        linesUsed++;
-
-        // If we've used all available lines, stop
-        if (linesUsed >= maxLines) {
-          break;
-        }
-
-        // Start new line with this skill
-        currentLineWidth = skillWidth;
-        // Check if "See More" button fits on this new line
-        const seeMoreSpaceNewLine =
-          hasMoreSkills && linesUsed === maxLines - 1
-            ? seeMoreButtonWidth + gapWidth
-            : 0;
-        if (currentLineWidth + seeMoreSpaceNewLine > containerWidth) {
-          break;
-        }
-      } else {
-        // Skill fits on current line
-        currentLineWidth = requiredWidth - spaceForSeeMore; // Don't include "See More" in line width yet
-      }
-
-      skillsToShow++;
-
-      // Safety check to prevent showing too many skills
-      if (skillsToShow >= 16) break;
-    }
-
-    // Ensure we show at least 2 skills if available
-    return Math.max(2, Math.min(skillsToShow, skillsArray.length));
-  };
 
   return (
     <div className="w-full flex flex-col items-center gap-6 mt-[0.5rem]">
@@ -165,7 +85,6 @@ const HomePortfolioCard: React.FC<HomePortfolioCardProps> = ({
 
         // Get flattened skills array and calculate how many to show
         const flatSkills = Object.values(skills).flat();
-        const skillsToDisplay = calculateSkillsToShow(flatSkills);
         const visibleSkills = flatSkills.slice(0, 16);
         const hasMoreSkills = flatSkills.length > 16;
 
@@ -212,12 +131,6 @@ const HomePortfolioCard: React.FC<HomePortfolioCardProps> = ({
                         )}
                     </p>
                     <div>
-                      {/* <p
-                        dangerouslySetInnerHTML={{
-                          __html: portfolio.tagline_1,
-                        }}
-                        className="text-[1.8rem] leading-[2.4rem] font-normal text-paragraph1 mt-[1rem] line-clamp-4"
-                      /> */}
 
                       {/* Correct Code Dynamically Links Injected */}
                       <div
@@ -240,7 +153,6 @@ const HomePortfolioCard: React.FC<HomePortfolioCardProps> = ({
                       )}
                     </div>
                   </div>
-
 
                 </div>
 
@@ -292,7 +204,6 @@ const HomePortfolioCard: React.FC<HomePortfolioCardProps> = ({
                   )}
                 </div>
 
-
               </div>
 
               <div>
@@ -300,9 +211,8 @@ const HomePortfolioCard: React.FC<HomePortfolioCardProps> = ({
                 <hr className="w-full my-[2rem] h-px bg-border" />
                 <div className="text-black text-[1.8rem] leading-[2.8rem] font-medium w-full overflow-hidden">
                   <p className="mb-[1rem]">
-                    AREAS OF EXPERTISE I'VE WORKED IN:
+                    AREAS OF EXPERTISE I&apos;VE WORKED IN:
                   </p>
-                  {/* <hr className="w-full my-[2rem] h-px bg-border" /> */}
 
                   <div className="flex items-center gap-[0.7rem] flex-wrap">
                     {visibleSkills.map((skill: SkillType, i: number) => (

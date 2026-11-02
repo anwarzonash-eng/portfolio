@@ -1,27 +1,18 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { dateFormatsOptions } from "@/data/JsonData";
-import {
-  blogsListing,
-  loadBlogs,
-} from "@/hooks/apihandlers/blogListingApiHandler";
+import { loadBlogs } from "@/hooks/apihandlers/blogListingApiHandler";
 import { formatDate } from "@/hooks/formatdate";
 import Image from "next/image";
 import PageRendering from "./PageRendering";
-import ContactMe from "./ContactMe";
-import { useAppSelector } from "@/store";
-import { usePathname } from "next/navigation";
 import { getImageForIndex } from "@/utils/getImageForIndex";
 
 const OurBlogs = ({ domain }) => {
   const [blogsList, setBlogs] = useState([]);
   const [loadingblogs, setLoadingBlogs] = useState(false);
-  const listOfdata = useAppSelector((state) => state.profile.listOfProfileData);
-  const urlInfo = useAppSelector((state) => state.profile.profileUrlInfo);
 
-  const pathname = usePathname();
 
   useEffect(() => {
     loadBlogs({

@@ -1,9 +1,10 @@
 import { getTargetURLFromTinyURL } from "@/apiHandlers/tinyURLApi";
+import type { TinyUrlPayload } from "@/types/api";
 
 
 async function tinyURLNavigation(routesInfo: RoutesInfo) {
   try {
-    const payload = {
+    const payload: TinyUrlPayload = {
       uniqueId: decodeURIComponent(routesInfo.uniqueID),
     };
     console.log("TinyURL Navigation Payload:", payload);
@@ -25,7 +26,7 @@ async function tinyURLNavigation(routesInfo: RoutesInfo) {
         window.location.href = targetLink;
       }
     }
-  } catch (error) {
+  } catch {
     window.location.href = "https://www.cypexsoft.com";
   }
 }
@@ -33,8 +34,10 @@ async function tinyURLNavigation(routesInfo: RoutesInfo) {
 
 
 // Type definitions
-interface RoutesInfo {
+export interface RoutesInfo {
   uniqueID: string;
+  /** `?d=` domain override, read by LinkInterceptor when rewriting hrefs. */
+  d?: string | false;
   u: string | false; // "_" ya false
   a: string | false; // "_" ya false
   domain: string;
@@ -89,7 +92,7 @@ export const getRoutesDetails = async (
   }
 
   let isShortURL = false;
-  let isPrintURL = checkPrintURL();
+  const isPrintURL = checkPrintURL();
 
   // Set hideLinks for non-admin flow as well
   routesInfo.hideLinks = routeParams?.get("link") === "false";

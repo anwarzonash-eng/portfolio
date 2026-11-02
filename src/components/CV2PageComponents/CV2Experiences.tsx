@@ -1,22 +1,18 @@
 import React from "react";
 import { modifiedContentHideLinks } from "@/hooks/modifiedContentHideLinks";
+import type { Experience, ProfileReport, SkillRef } from "@/types/api";
 
 type Props = {
-  rawExperiences?: any[];
-  listOfdata?: any;
-  filteredSkills?: any[];
+  rawExperiences?: Experience[];
+  listOfdata?: ProfileReport | null;
+  filteredSkills?: SkillRef[];
 };
 
-const stripHtml = (value: string) =>
-  value
-    .replace(/<[^>]*>/g, "")
-    .replace(/\s+/g, " ")
-    .trim();
 
 const extractBulletsFromHtml = (
   html?: string,
-  filteredSkills?: any[],
-  listOfdata?: any,
+  filteredSkills?: SkillRef[],
+  listOfdata?: ProfileReport | null,
 ) => {
   if (!html) return [] as string[];
 
@@ -31,7 +27,7 @@ const extractBulletsFromHtml = (
   return matches.map((m) => m[1] || "").filter(Boolean); // Keep HTML for highlighting
 };
 
-const toMonthYear = (value: any) => {
+const toMonthYear = (value: string | undefined) => {
   if (!value) return "";
   const d = new Date(value);
   if (isNaN(d.getTime())) return String(value);
@@ -56,7 +52,7 @@ const CV2Experiences: React.FC<Props> = ({
   filteredSkills = [],
 }) => {
   // Remove the filtering logic since experiences should already be filtered by the hook
-  const filtered = (rawExperiences || []).filter((exp: any) => {
+  const filtered = (rawExperiences || []).filter((exp: Experience) => {
     if (!exp) return false;
 
     // Basic validation - ensure we have valid experience data
@@ -77,7 +73,7 @@ const CV2Experiences: React.FC<Props> = ({
     return a;
   };
 
-  const experiences = filtered.map((exp: any) => {
+  const experiences = filtered.map((exp: Experience) => {
     const startLabel = toMonthYear(
       exp?.starting_date ?? exp?.start_date ?? exp?.startDate,
     );
@@ -121,7 +117,6 @@ const CV2Experiences: React.FC<Props> = ({
   });
 
   if (!experiences || experiences.length === 0) return null;
-  // console.log("API Data:", listOfdata);
 
   return (
     <section className="mt-[1.2rem]">
@@ -144,9 +139,6 @@ const CV2Experiences: React.FC<Props> = ({
                   </span>
                 )}
               </div>
-
-
-
 
             </div>
             <div className="flex-1 border-l border-[#E5E7EB] pl-[1.6rem] relative">

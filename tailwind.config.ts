@@ -68,28 +68,6 @@ const config: Config = {
         onPrimary: "var(--on_primary_color)",
         textMuted: "var(--text_muted_color)",
       },
-      // Haris Color Schemes
-      // colors: {
-      //   primary: "#9C3800",
-      //   pageBG: "#FFF2EA",
-      //   bannerBG: "#F9DFD0",
-      //   sectionBG: "#83350A",
-      //   heading: "#262626",
-      //   paragraph1: "#3E3E3E",
-      //   paragraph2: "#FFF2EA",
-      //   border: "#DAC2B4",
-      // },
-      // Noyan Color Schemes
-      // colors: {
-      //   primary: "#472B6B",
-      //   pageBG: "#EFE2FF",
-      //   bannerBG: "#DFCCF7",
-      //   sectionBG: "#34155B",
-      //   heading: "#262626",
-      //   paragraph1: "#3E3E3E",
-      //   paragraph2: "#EFE2FF",
-      //   border: "#C4B1DB",
-      // },
       borderColor: {
         custom: "rgba(255, 255, 255, 0.24)",
       },

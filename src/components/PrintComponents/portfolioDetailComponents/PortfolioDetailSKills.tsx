@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { skillsGrouping } from "@/hooks/skillsGrouping";
+import type { SkillRef } from "@/types/api";
 
 type SkillType = {
   title: string;
@@ -13,7 +14,7 @@ type SkillType = {
 };
 
 interface SkillsContainerProps {
-  list?: any[] | null;
+  list?: SkillRef[] | null;
   layoutType?: boolean;
   useLinks?: boolean;
   autoExpandOnParam?: boolean;
@@ -25,9 +26,9 @@ interface SkillsContainerProps {
 
 const PortfolioDetailSKills: React.FC<SkillsContainerProps> = ({
   list = [],
-  layoutType = false,
+  layoutType: _layoutType = false,
   useLinks = true,
-  autoExpandOnParam = false,
+  autoExpandOnParam: _autoExpandOnParam = false,
   portfolioId,
   numColumns = 6,
   numSkills = 24,

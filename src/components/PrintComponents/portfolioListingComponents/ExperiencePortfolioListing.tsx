@@ -128,7 +128,7 @@ export const SingleExperienceItemPortfolio = ({
                 {experience?.skills && experience?.skills.length > 0 && (
                   <div className="w-full">
                     <h4 className="text-[1.3rem] text-black font-medium mb-[0.5rem] mt-[1rem]">
-                      AREAS OF EXPERTISE I'VE WORKED IN
+                      AREAS OF EXPERTISE I&apos;VE WORKED IN
                     </h4>
                     <div className="w-full flex-col items-start flex gap-5">
                       <div className="flex items-center gap-[1rem] lg:gap-[0.7rem] text-nowrap flex-wrap text-[1.2rem]">
@@ -187,7 +187,6 @@ export const getSortedExperiencesPortfolio = (experiences_ids) => {
 // Original component for backward compatibility (renders all experiences)
 const ExperiencePortfolioListing = ({
   listOfdata,
-  showAllExperiences,
   ShowmoreSkills,
   filteredSkills,
 }) => {

@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect } from "react";
+import Image from "next/image";
 import { useState } from "react";
 import Newsletter from "@/components/Newsletter";
 import useBodyBackgroundColor from "@/hooks/useBodyBackgroundColor";
@@ -12,15 +13,16 @@ import { store } from "@/store";
 import { setProfileLoading, setProfileUrlInfo } from "@/store/profileSlice";
 import OurBlogs from "@/components/OurBlogs";
 import { handleSkillsApiCall } from "@/hooks/apihandlers/skillsApiHandlers";
-import { skillsGrouping } from "@/hooks/skillsGrouping";
 import { SmoothScroll } from "@/hooks/SmoothScroll";
 import Background from "@/components/background";
 import { useAppSelector } from "@/store";
 import EmptyState from "@/components/EmptyState";
 import PortfolioCardContent from "@/components/PortfolioCardContent";
 import UpworkActivitySection from "@/components/UpworkActivitySection";
+import type { PageProps } from "@/types/page";
+import type { Portfolio } from "@/types/api";
 
-const PortfolioListing = ({ params }: { params: any }) => {
+const PortfolioListing = ({ params }: PageProps) => {
   const [
     selectedPorfolioPicturesforPopup,
     setSelectedPorfolioPicturesforPopup,
@@ -29,7 +31,7 @@ const PortfolioListing = ({ params }: { params: any }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [urlInfo, setURLInfo] = useState(null);
   const [listOfdata, setListOfData] = useState(null);
-  const [listOfskills, setListOfSkills] = useState([]);
+  const [, setListOfSkills] = useState([]);
   const [error, setError] = useState<string | null>(null);
   const listOfdatas = useAppSelector(
     (state) => state.profile.listOfProfileData
@@ -59,11 +61,6 @@ const PortfolioListing = ({ params }: { params: any }) => {
     handleSkillsApiCall({ setListOfSkills: setAllSkills });
   }, []);
 
-  // useEffect(() => {
-  //   setURLInfo(getRoutesDetails(params, searchParams));
-  // }, [params, searchParams]);
-
-  // Use getRoutesDetails
   useEffect(() => {
     // 🛑 Must wrap in an async function and call it 🛑
     const fetchRoutes = async () => {
@@ -105,7 +102,7 @@ const PortfolioListing = ({ params }: { params: any }) => {
           hasOpenedFromQueryRef.current = true;
         }
       }
-    } catch (e) {
+    } catch {
       // ignore parse/open errors
     }
   }, [searchParams, listOfdata]);
@@ -204,7 +201,7 @@ const PortfolioListing = ({ params }: { params: any }) => {
               Check out some of the best work I have done.
             </p>
             <div className=" items-start justify-strat gap-[4rem] print:flex hidden  w-full  ">
-              <img
+              <Image width={145} height={143}
                 src={listOfdatas?.profile_photo_1}
                 alt=""
                 className="w-[145px] h-[143px] rounded-full "
@@ -255,18 +252,7 @@ const PortfolioListing = ({ params }: { params: any }) => {
                         p,
                       ]),
                     ).values(),
-                  ).map((portfolio: any, index: number) => {
-                    const skills: {
-                      [key: string]: {
-                        title: string;
-                        url?: string;
-                        order?: string;
-                      }[];
-                    } = skillsGrouping(
-                      showMoreSkills[index]
-                        ? portfolio?.skills
-                        : portfolio?.skills?.slice(0, 15),
-                    );
+                  ).map((portfolio: Portfolio, index: number) => {
                     return (
                       <div
                         id={`portfolio-${portfolio.id}`}

@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
+import Image from "next/image";
 import PortfolioImagesLoader from "./PortfolioImagesLoader";
 
 const PortfolioPopUp = ({ isModalOpen, closeModal, portfolioImages }) => {
@@ -13,22 +14,6 @@ const PortfolioPopUp = ({ isModalOpen, closeModal, portfolioImages }) => {
   const pressTimerRef = useRef(null);
   const thumbnailsContainerRef = useRef(null);
 
-  // Scroll popup to top when modal opens
-  // useEffect(() => {
-  //   if (isModalOpen) {
-  //     // Small delay ensures modal DOM is rendered
-  //     const timeout = setTimeout(() => {
-  //       window.scrollTo({
-  //         top: 0,
-  //         behavior: "smooth",
-  //       });
-  //     }, 10);
-
-  //     return () => clearTimeout(timeout);
-  //   }
-  // }, [isModalOpen]);
-
-  // Prevent body scroll when modal is open
   useEffect(() => {
     if (isModalOpen) {
       document.body.style.overflow = "hidden";
@@ -67,14 +52,21 @@ const PortfolioPopUp = ({ isModalOpen, closeModal, portfolioImages }) => {
         images.map(
           (src) =>
             new Promise((resolve) => {
-              const img = new Image();
+              const img = new window.Image();
               img.src = src;
               img.onload = resolve;
             })
         )
       ).then(() => setPreloaded(true));
     }
-  }, [isModalOpen, preloaded]);
+  }, [isModalOpen, preloaded, images]);
+
+  // Navigation
+  const nextImage = useCallback(
+    () =>
+      setCurrentImageIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1)),
+    [images.length],
+  );
 
   // Auto-progress logic
   useEffect(() => {
@@ -96,11 +88,8 @@ const PortfolioPopUp = ({ isModalOpen, closeModal, portfolioImages }) => {
     }, 100);
 
     return () => clearInterval(interval);
-  }, [currentImageIndex, isPaused, isModalOpen]);
+  }, [currentImageIndex, isPaused, isModalOpen, nextImage]);
 
-  // Navigation
-  const nextImage = () =>
-    setCurrentImageIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
 
   const prevImage = () =>
     setCurrentImageIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
@@ -190,7 +179,7 @@ const PortfolioPopUp = ({ isModalOpen, closeModal, portfolioImages }) => {
                   </div>
 
                   {/* Main Image (pause on hold) */}
-                  <img
+                  <Image width={900} height={450}
                     src={images[currentImageIndex]}
                     alt="Slide"
                     className="h-[342px] lg:h-[450px] w-full object-contain object-center"
@@ -233,7 +222,7 @@ const PortfolioPopUp = ({ isModalOpen, closeModal, portfolioImages }) => {
                     className="hidden md:flex gap-[10px] mt-4 overflow-x-auto max-w-full scrollbar-hidden"
                   >
                     {images.map((src, index) => (
-                      <img
+                      <Image width={900} height={450}
                         key={index}
                         src={src}
                         alt={`Thumbnail ${index}`}

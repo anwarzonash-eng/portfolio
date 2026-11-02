@@ -1,5 +1,3 @@
-import React from 'react'
-
 const CV4SummaryP = ({ summary }) => {
     return (
         <>

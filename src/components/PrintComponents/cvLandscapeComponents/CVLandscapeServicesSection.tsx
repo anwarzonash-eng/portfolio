@@ -3,7 +3,6 @@ import SkillsContainer from "@/components/SkillsContainer";
 import { contactDetails, socialLinks } from "@/data/JsonData";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 
 const CVLandscapeServicesSection = ({
   listOfdata,

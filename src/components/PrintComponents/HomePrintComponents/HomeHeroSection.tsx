@@ -1,9 +1,8 @@
-import DesignationDomain from "@/components/DesignationDomain";
-import NoteDomainForPint from "@/components/NoteDomainForPint";
 import { useAppSelector } from "@/store";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import type { ProfileReport } from "@/types/api";
 
 interface Skill {
   title: string;
@@ -11,7 +10,7 @@ interface Skill {
 }
 
 interface HomeHeroSectionProps {
-  listOfdata: any;
+  listOfdata: ProfileReport | null;
   isOverflowing: boolean;
   scrollToSection: (key: string) => void;
   skillsContainerRef: React.RefObject<HTMLDivElement>;
@@ -21,9 +20,6 @@ interface HomeHeroSectionProps {
 
 const HomeHeroSection: React.FC<HomeHeroSectionProps> = ({
   listOfdata,
-  isOverflowing,
-  scrollToSection,
-  skillsContainerRef,
   skills,
   hideLinks,
 }) => {
@@ -38,7 +34,7 @@ const HomeHeroSection: React.FC<HomeHeroSectionProps> = ({
           <div className="mt-[-13rem] flex justify-end relative">
             <div className="mt-[17rem] flex flex-col items-start absolute left-0 w-[70%]">
               <div className="flex gap-5 justify-center items-center">
-                <p className="text-heading text-[4.2rem] font-normal mt-5">Hi, I'm</p>
+                <p className="text-heading text-[4.2rem] font-normal mt-5">Hi, I&apos;m</p>
                 <h2 className="font-bold text-[6rem] text-primary mt-5">
                   {listOfdata?.name}
                 </h2>
@@ -50,7 +46,6 @@ const HomeHeroSection: React.FC<HomeHeroSectionProps> = ({
 
               {hideLinks ? null : (
                 <div className="ml-0 mt-2">
-                  {/* <DesignationDomain /> */}
                 </div>
               )}
 

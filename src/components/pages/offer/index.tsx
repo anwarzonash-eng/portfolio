@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import Image from "next/image";
 import Newsletter from "@/components/Newsletter";
 import OurBlogs from "@/components/OurBlogs";
 import HomeSlider from "@/components/Sliders/HomeSlider";
@@ -16,11 +17,11 @@ import Background from "@/components/background";
 import { useAppSelector } from "@/store";
 import SkillsComponent from "@/components/SkillsComponent";
 import ExpandableServiceCard from "@/components/ExpandableServiceCard";
-// import EducationComponent from "@/components/EducationComponent";
 import { useUniquePortfolios } from "@/hooks/useUniquePortfolios";
 import UpworkActivitySection from "@/components/UpworkActivitySection";
+import type { PageProps } from "@/types/page";
 
-const Offer = ({ params }: { params: any }) => {
+const Offer = ({ params }: PageProps) => {
   useBodyBackgroundColor("#EFF5FD");
   const searchParams = useSearchParams();
 
@@ -30,7 +31,7 @@ const Offer = ({ params }: { params: any }) => {
   const [detailService, setDetailService] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [listOfskills, setListOfSkills] = useState([]);
+  const [, setListOfSkills] = useState([]);
   const [activeDropdown, setActiveDropdown] = useState(0);
 
   const listOfdatas = useAppSelector(
@@ -54,12 +55,6 @@ const Offer = ({ params }: { params: any }) => {
     handleSkillsApiCall({ setListOfSkills: setAllSkills });
   }, []);
 
-  // API Calls
-  // useEffect(() => {
-  //   setURLInfo(getRoutesDetails(params, searchParams));
-  // }, [params, searchParams]);
-
-  // Use getRoutesDetails
   useEffect(() => {
     // 🛑 Must wrap in an async function and call it 🛑
     const fetchRoutes = async () => {
@@ -120,9 +115,6 @@ const Offer = ({ params }: { params: any }) => {
       listOfdata
     ) || "";
 
-  // Try to extract <li> elements
-
-  // If no <li>, fall back to treating content as one "block"
   const isMobile = window.innerWidth < 768;
   const MOBILE_LIMIT = 4;
   const DESKTOP_LIMIT = 10;
@@ -151,7 +143,7 @@ const Offer = ({ params }: { params: any }) => {
                       Cover Letter
                     </div>
                     <div className=" items-start justify-start gap-[4rem] print:flex hidden  w-full  ">
-                      <img
+                      <Image width={145} height={143}
                         src={listOfdatas?.profile_photo_1}
                         alt=""
                         className="w-[145px] h-[143px] rounded-full"
@@ -264,9 +256,6 @@ const Offer = ({ params }: { params: any }) => {
               </div>
 
               {/* Education Section */}
-              {/* <div id="education" className="my-[5rem]">
-                <EducationComponent />
-              </div> */}
 
               {/* Our Blogs */}
               <div className="my-[5rem]">

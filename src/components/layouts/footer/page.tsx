@@ -1,10 +1,8 @@
 "use client";
 
-import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import ContactMe from "@/components/ContactMe";
-import FooterNewsLetter from "@/components/FooterNewsLetter";
 import { useAppSelector } from "@/store";
 import UpworkActivitySection from "@/components/UpworkActivitySection";
 
@@ -12,7 +10,6 @@ import { usePathname } from "next/navigation";
 
 const Footer = () => {
   const pathname = usePathname();
-
 
   interface FooterLink {
     href: string;
@@ -83,7 +80,6 @@ const Footer = () => {
   const filteredSocialLinks = urlInfo?.u
     ? socialLinks.filter(({ label }) => label === "GitHub" || label === "Upwork")
     : socialLinks;
-
 
   return (
     <>

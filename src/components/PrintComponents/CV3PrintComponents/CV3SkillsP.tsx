@@ -1,7 +1,7 @@
-import React from "react";
+import type { SkillRef } from "@/types/api";
 
 type CV3SkillsProps = {
-    sortedSkills?: any[] | null;
+    sortedSkills?: SkillRef[] | null;
 };
 
 const CV3SkillsP = ({ sortedSkills }: CV3SkillsProps) => {

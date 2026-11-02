@@ -6,11 +6,7 @@ import { useAppSelector } from "@/store";
 import dynamic from "next/dynamic";
 import Tawkto from "./Tawkto";
 import GoogleAnalytics from "./GoogleAnalytics";
-import OfferBanner from "./OfferBanner";
 import { usePathname } from "next/navigation";
-import Tooltip from "./Tooltip";
-import Link from "next/link";
-import Image from "next/image";
 
 const Header = dynamic(() => import("./layouts/header/page"), {
   ssr: false,
@@ -31,7 +27,7 @@ export default function ChildWrapper({
 
   const urlInfo = useAppSelector((state) => state.profile.profileUrlInfo);
 
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [, setIsScrolled] = useState(false);
   const colors = getColors(listOfdata);
 
   const printPathFragments = [
@@ -117,32 +113,8 @@ export default function ChildWrapper({
   return (
     <>
       <GoogleAnalytics scriptNumber={listOfdata?.googleAnalyticsScript} />
-      {/* WhatsApp Icon */}
-      {/* {!urlInfo?.u && listOfdata && listOfdata?.phone_no && (
-        <div className="fixed bottom-[10rem] right-[2.5rem] z-[1000] print:hidden">
-          <Tooltip text={`My Whatsapp`} key={"whatsapp"}>
-            <Link
-              href={`https://wa.me/${listOfdata?.phone_no}`}
-              target="_blank"
-            >
-              <Image
-                src={"/images/whatsapp.svg"}
-                height={60}
-                width={60}
-                alt={"whatsapp"}
-              />
-            </Link>
-          </Tooltip>
-        </div>
-      )} */}
       {!urlInfo?.u && <Tawkto />}
 
-      {/* Offer Banner - conditionally shown */}
-      {/* {!urlInfo?.u && !isScrolled && (
-        <div className="print:hidden">
-          {isHiddenPaths ? false : <OfferBanner listOfdata={listOfdata} />}
-        </div>
-      )} */}
       {/* Header Wrapper */}
       {!isHiddenPaths && (
         <div className="print:hidden block sticky top-0 z-[100]">

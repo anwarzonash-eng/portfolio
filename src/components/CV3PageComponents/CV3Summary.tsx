@@ -1,4 +1,3 @@
-import React from "react";
 
 type CV3SummaryProps = {
   summary: string;
@@ -6,7 +5,6 @@ type CV3SummaryProps = {
 
 const CV3Summary = ({ summary }: CV3SummaryProps) => {
   return (
-
 
     <div className="mb-6">
       <h2 className="text-[20px] font-bold text-black mb-4 border-b-2 border-black ">SUMMARY</h2>

@@ -1,11 +1,26 @@
-// import { logoutFunction } from '@/utils/logoutFunction';
 import { swalPopupEnums } from "@/enums/app.enums";
-import axios from "axios";
-import { useRouter } from "next/router";
+import axios, { AxiosError, AxiosResponse, Method } from "axios";
 import Swal, { SweetAlertIcon } from "sweetalert2";
-// import { redirect } from 'next/navigation';
 
-export const apigateway = async ({
+export interface ApiGatewayOptions {
+  endpoint: string;
+  method: Method;
+  payload?: unknown;
+  isDisplayResponsePopUp?: boolean;
+  successMessage?: string | null;
+  successCallback?: (() => void) | null;
+  successPlainText?: string | null;
+  contentType?: string | null;
+  errorCallback?: (() => void) | null;
+}
+
+/**
+ * Thin Axios wrapper used by every API handler. `T` is the response body
+ * (usually an ApiEnvelope<...> from src/types/api.ts). On HTTP errors the
+ * failed response is returned instead of thrown, so callers must check
+ * `status`; it is `undefined` when the request never reached the server.
+ */
+export const apigateway = async <T = unknown>({
   endpoint,
   method,
   payload = null,
@@ -15,8 +30,7 @@ export const apigateway = async ({
   successPlainText = null,
   contentType = null,
   errorCallback = null,
-}) => {
-  // const token = localStorage.getItem('token');
+}: ApiGatewayOptions): Promise<AxiosResponse<T> | undefined> => {
   const config = {
     method: method,
     url: `${process.env.API_BASE_URL}${endpoint}`,
@@ -24,17 +38,16 @@ export const apigateway = async ({
       "Content-Type": contentType ? contentType : "application/json",
       // ...(token && { Authorization: `Bearer ${token}` }),
     },
-    ...(payload && { data: payload }),
+    ...(payload ? { data: payload } : {}),
   };
-  // console.log(config.url, "this is api url");
   try {
-    const response = await axios(config);
+    const response = await axios<T>(config);
 
     if (isDisplayResponsePopUp) {
       await Swal.fire({
         icon: swalPopupEnums.icon.SUCCESS as SweetAlertIcon,
         title: successMessage || `Action performed successfully.`,
-        text: successPlainText,
+        text: successPlainText ?? undefined,
       }).then((result) => {
         if (result.isConfirmed || result.isDismissed) {
           if (successCallback && typeof successCallback === "function") {
@@ -45,15 +58,13 @@ export const apigateway = async ({
     }
     return response;
   } catch (error) {
-    // if (error.response?.data?.message === 'UnauthorizedException') {
-    //   await logoutFunction('/?error=login');
-    //   return;
-    // }
+    const axiosError = error as AxiosError<{
+      data?: { results?: { error?: string } };
+    }>;
+    const errorMessage = axiosError?.response?.data?.data?.results?.error;
 
-    const errorMessage = error?.response?.data?.data?.results?.error;
-
-    isDisplayResponsePopUp &&
-      (await Swal.fire({
+    if (isDisplayResponsePopUp) {
+      await Swal.fire({
         icon: swalPopupEnums.icon.ERROR as SweetAlertIcon,
         title: errorMessage || `There's an unknown error. Try again later.`,
       }).then((result) => {
@@ -62,7 +73,8 @@ export const apigateway = async ({
             errorCallback();
           }
         }
-      }));
-    return error.response;
+      });
+    }
+    return axiosError.response as AxiosResponse<T> | undefined;
   }
 };

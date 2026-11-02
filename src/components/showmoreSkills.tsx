@@ -1,5 +1,4 @@
 import { toggleShowMoreSkills } from '@/hooks/toggleShowMoreSkills';
-import React, { useState } from 'react';
 
 const ShowmoreSkills = ({ props }) => {
   return (

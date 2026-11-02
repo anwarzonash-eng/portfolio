@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import type { Education } from "@/types/api";
 
 const EducationComponent = ({
   listOfdata,
@@ -26,7 +26,7 @@ const EducationComponent = ({
 
       {/* Education Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-[1.2rem] w-full">
-        {listOfdata && listOfdata.education_ids.map((edu: any) => (
+        {listOfdata && listOfdata.education_ids.map((edu: Education) => (
           <div
             key={edu.id}
             className="p-[2rem] w-full rounded-[0.8rem] border border-solid border-[#E2E6EE] dark:border-border bg-[#F7F9FC] dark:bg-surfaceMuted border-b-[4px]"

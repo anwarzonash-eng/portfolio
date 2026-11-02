@@ -3,10 +3,11 @@
 import React from "react";
 import Link from "next/link";
 import { Github, Linkedin } from "lucide-react";
+import type { ProfileReport } from "@/types/api";
 
 interface CV2ClickableLinkedinGihubLinksProps {
-  listOfdata: any;
-  socialLinks: (data: any) => Array<{
+  listOfdata: ProfileReport | null;
+  socialLinks: (data: ProfileReport | null) => Array<{
     href?: string;
     alt: string;
     platform: string;

@@ -4,6 +4,7 @@ import Link from "next/link";
 import React from "react";
 import SideTestimonialPortfolioDetailPrint from "./SideTestimonialPortfolioDetailPrint";
 import { modifiedContentHideLinks } from "@/hooks/modifiedContentHideLinks";
+import type { Portfolio, ProfileReport, SkillRef } from "@/types/api";
 
 type SkillType = {
   title: string;
@@ -74,13 +75,13 @@ const AreasOfExpertiesSkillComponent: React.FC<
 };
 
 interface PortfolioBlogDetailProps {
-  portfolioDetails: any;
-  formatDate: any;
-  dateFormatsOptions: any;
-  modifiedContent: any;
-  filteredSkills: any;
-  listOfdata: any;
-  skillsforDetailPortfolio: any;
+  portfolioDetails: Portfolio | null;
+  formatDate: (date?: string, format?: Intl.DateTimeFormatOptions) => string;
+  dateFormatsOptions: Record<string, Intl.DateTimeFormatOptions>;
+  modifiedContent: (content?: string, skillsList?: SkillRef[], listOfdata?: ProfileReport | null) => string;
+  filteredSkills: SkillRef[];
+  listOfdata: ProfileReport | null;
+  skillsforDetailPortfolio: Record<string, { title: string; url?: string; order?: string }[]>;
   hideLinks?: boolean;
   testimonialHeading?: string;
 }
@@ -230,7 +231,7 @@ const PortfolioBlogDetail: React.FC<PortfolioBlogDetailProps> = ({
           ></p>
           <div className="w-full ">
             <h4 className="text-primary text-[1.4rem] lg:text-[2rem] font-medium">
-              AREAS OF EXPERTISE I'VE WORKED IN:
+              AREAS OF EXPERTISE I&apos;VE WORKED IN:
             </h4>
             <div className="flex items-center gap-[1rem] lg:gap-[0.7rem] text-nowrap flex-wrap text-[1.2rem] mb-[3.2rem] mt-[1rem]">
               {skillsforDetailPortfolio && (
@@ -240,6 +241,7 @@ const PortfolioBlogDetail: React.FC<PortfolioBlogDetailProps> = ({
                     .slice(0, 10) // take only first 10
                     .map((skill, i) => (
                       <AreasOfExpertiesSkillComponent
+                        key={i}
                         skill={skill as SkillType}
                         index={i}
                         variant="different"

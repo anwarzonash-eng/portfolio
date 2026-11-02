@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import PortfolioImagesLoader from "../PortfolioImagesLoader";
 import PortfolioPopUp from "../PortfolioPopUp";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -12,7 +12,7 @@ const INACTIVITY_DELAY = 5000; // after interaction
 const HomeSlider = ({ portfolios, highlightedPortfolioId }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
-  const [progress, setProgress] = useState(0);
+  const [, setProgress] = useState(0);
   const [isInViewport, setIsInViewport] = useState(false);
   const [slideHeight, setSlideHeight] = useState<number>(0);
 
@@ -44,8 +44,6 @@ const HomeSlider = ({ portfolios, highlightedPortfolioId }) => {
       window.removeEventListener('setCarouselSlide', handleSetCarouselSlide as EventListener);
     };
   }, [portfolios.length]);
-
-  if (!portfolios?.length) return <PortfolioImagesLoader />;
 
   // --- Navigation ---
   const nextSlide = useCallback(() => {
@@ -101,10 +99,12 @@ const HomeSlider = ({ portfolios, highlightedPortfolioId }) => {
       { threshold: 0.1 }
     );
 
-    if (carouselRef.current) observer.observe(carouselRef.current);
+    // Capture the node so cleanup unobserves the same element it observed.
+    const el = carouselRef.current;
+    if (el) observer.observe(el);
 
     return () => {
-      if (carouselRef.current) observer.unobserve(carouselRef.current);
+      if (el) observer.unobserve(el);
     };
   }, []);
 
@@ -189,6 +189,9 @@ const HomeSlider = ({ portfolios, highlightedPortfolioId }) => {
 
     return () => observer.disconnect();
   }, [currentSlide]);
+
+  // Rendered after all hooks so hook order stays stable across renders.
+  if (!portfolios?.length) return <PortfolioImagesLoader />;
 
   return (
     <div className="w-full flex flex-col items-center gap-3 mt-[3rem] relative">

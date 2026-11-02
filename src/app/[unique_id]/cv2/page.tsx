@@ -1,8 +1,8 @@
 "use client";
 import CV2 from "@/components/pages/cv2";
-import React from "react";
+import type { PageProps } from "@/types/page";
 
-const cv2 = ({ params }: { params: any }) => {
+const cv2 = ({ params }: PageProps) => {
   return <CV2 params={params} />;
 };
 

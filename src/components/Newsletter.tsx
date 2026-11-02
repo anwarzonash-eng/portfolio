@@ -1,29 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { formikEnums } from "@/enums/formikEnums";
 import { addLeadsApi } from "@/apiHandlers/leadsApi";
+import type { AddLeadPayload } from "@/types/api";
 import ThankyouPopup from "./ThankyouPopup";
-
-// API
-// const addLeadsApi = async (payload: any) => {
-//   const response = await fetch("https://cypexsoft.net/leads/manual-add", {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify(payload),
-//   });
-
-//   const data = await response.json();
-//   return {
-//     status: response.status,
-//     data,
-//   };
-// };
 
 const Newsletter = ({ listOfdata }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -38,7 +22,7 @@ const Newsletter = ({ listOfdata }) => {
       .required(formikEnums.Email.Required),
   });
   const handleContactFormSubmit = async (values, { resetForm }) => {
-    const payload = {
+    const payload: AddLeadPayload = {
       action_type: "add",
       title: "subscribe at personal website",
       contact: [

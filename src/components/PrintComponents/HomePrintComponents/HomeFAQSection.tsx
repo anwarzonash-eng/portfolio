@@ -1,8 +1,6 @@
 import { FaqsDataUpdated } from "@/data/JsonData";
-import { scrollToSection } from "@/hooks/scrollToSection";
-import { usePathname } from "next/navigation";
 import React, { useState, useEffect } from "react";
-import NoteDomainForPint from "@/components/NoteDomainForPint";
+import type { ProfileReport } from "@/types/api";
 
 // Update FaqItem to include the new 'type' property
 interface FaqItem {
@@ -25,24 +23,23 @@ interface UserFaqGroup {
 interface FaqsProps {
   urlInfo?: { u?: string };
   companyType?: "leewop" | string;
-  apiData?: any;
+  apiData?: ProfileReport | null;
 }
 // --- End Type Definitions ---
 
 const HomeFAQSection: React.FC<FaqsProps> = ({
   urlInfo,
-  companyType,
   apiData,
 }) => {
   const [faqs, setFaqs] = useState<FaqItem[]>([]);
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
-  const [isPrinting, setIsPrinting] = useState(false);
+  const [isPrinting] = useState(false);
 
-  const pathname = usePathname();
 
-  const readyData = apiData ? apiData : {};
-
-  // console.log("API Data FAQs:", readyData)
+  const readyData = apiData ? apiData : ({} as ProfileReport);
+  // See the note below: this nested lookup never resolves, kept for parity.
+  const nestedReadyData = (readyData as { readyData?: ProfileReport })
+    ?.readyData;
 
   // Check if urlInfo.u is present
   const isUrlU = !!urlInfo?.u;
@@ -109,9 +106,11 @@ const HomeFAQSection: React.FC<FaqsProps> = ({
     portfolio_1_picture: readyData?.portfolios_ids?.[0]?.thumbnail,
     portfolio_1_title: readyData?.portfolios_ids?.[0]?.title,
     portfolio_1_description: readyData?.portfolios_ids?.[0]?.tagline_2,
-    portfolio_1_link: readyData?.readyData?.portfolios_ids?.[0]?.link,
+    // NOTE: `readyData.readyData` is a pre-existing double-access that always
+    // resolves to undefined; preserved as-is rather than silently changed.
+    portfolio_1_link: nestedReadyData?.portfolios_ids?.[0]?.link,
     portfolio_1_more_skills_count:
-      readyData?.readyData?.portfolios_ids?.[0]?.skills.length,
+      nestedReadyData?.portfolios_ids?.[0]?.skills.length,
     portfolio_1_skill_1_pic: readyData?.upwork,
     portfolio_1_skill_1_title_pic: readyData?.upwork,
     portfolio_1_skill_2_pic: readyData?.upwork,
@@ -271,7 +270,6 @@ const HomeFAQSection: React.FC<FaqsProps> = ({
         }
 
         if (faq.type === "u") {
-          // return  isUrlU; // Display only when isUrlU is TRUE
           return true;
         }
 

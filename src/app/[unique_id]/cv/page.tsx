@@ -1,8 +1,8 @@
 'use client';
 import CV from '@/components/pages/cv';
-import React from 'react';
+import type { PageProps } from "@/types/page";
 
-const cv = ({ params }: { params: any }) => {
+const cv = ({ params }: PageProps) => {
   return <CV params={params} />;
 };
 

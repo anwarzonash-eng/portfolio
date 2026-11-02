@@ -3,16 +3,17 @@ import React, { forwardRef } from "react";
 import Image from "next/image";
 import { modifiedContent } from "@/hooks/modifiedContent";
 import SkillsComponent from "./SkillsComponent";
+import type { ProfileReport, Service, SkillRef } from "@/types/api";
 import { ChevronDown, ChevronUp } from "lucide-react"; // ✅ lucide-react arrows
 
 interface ExpandableServiceCardProps {
-  service: any;
+  service: Service;
   index: number;
   activeDropdown: number | null;
   setActiveDropdown: React.Dispatch<React.SetStateAction<number | null>>;
-  serviceRefs?: React.MutableRefObject<any> | null;
-  listOfskills: any[];
-  listOfdata: any;
+  serviceRefs?: React.MutableRefObject<Record<string, HTMLElement | null>> | null;
+  listOfskills: SkillRef[];
+  listOfdata: ProfileReport | null;
 }
 
 const ExpandableServiceCard = forwardRef<
@@ -29,7 +30,6 @@ const ExpandableServiceCard = forwardRef<
       listOfskills,
       listOfdata,
     },
-    ref
   ) => {
     const isActive = activeDropdown === index;
 

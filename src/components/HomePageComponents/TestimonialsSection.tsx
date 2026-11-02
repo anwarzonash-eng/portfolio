@@ -1,32 +1,14 @@
 import React, { useMemo, useRef, useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
+import Image from "next/image";
+import { Swiper, SwiperSlide, type SwiperRef } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
 import { ArrowLeft, ArrowRight, Link, Pause, Play } from "lucide-react";
-import { Facebook, Instagram, Twitter, LinkedIn } from "../SVGI-Icons";
+import { Instagram, LinkedIn } from "../SVGI-Icons";
 
 import { processReviewText } from "@/hooks/processReviewText";
 
-// Define the TypeScript interface based on your backend data
-interface Testimonial {
-  client_company: string;
-  client_company_website: string;
-  client_designation: string;
-  designation: string;
-  client_name: string;
-  client_pic: string;
-  id: string;
-  linked_in: string;
-  instagram: string;
-  portfolio_id: number;
-  review_text: string;
-  video: string; // Video URL
-  thumbnail?: string; // Optional thumbnail URL from API
-  Prototype?: Array<{ video?: string }>;
-  upwork?: string;
-  website_purpose?: string | null;
-  twitter?: string;
-}
+import type { Testimonial } from "@/types/api";
 
 interface TestimonialsSectionProps {
   testimonials: Testimonial[];
@@ -37,43 +19,6 @@ interface VideoPlayerProps {
   src: string;
   poster?: string;
 }
-
-// const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, poster }) => {
-//   const videoRef = useRef<HTMLVideoElement>(null);
-//   const [isPlaying, setIsPlaying] = useState(false);
-
-//   const handlePlay = () => {
-//     if (videoRef.current) {
-//       videoRef.current.play();
-//       setIsPlaying(true);
-//     }
-//   };
-
-//   return (
-//     <div className="relative rounded-[20px] overflow-hidden group">
-//       <video
-//         ref={videoRef}
-//         src={src}
-//         className="w-full h-[30rem] lg:h-[56rem] object-cover"
-//         poster={poster || "/placeholder-thumbnail.jpg"}
-//         controls={isPlaying}
-//         muted
-//         playsInline
-//         preload="metadata"
-//         onPause={() => setIsPlaying(false)}
-//       />
-//       {!isPlaying && (
-//         <button
-//           onClick={handlePlay}
-//           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white/50 rounded-full p-4 flex items-center justify-center hover:bg-white/70 transition-all"
-//           aria-label="Play video"
-//         >
-//           <Play className="size-10 text-black" fill="black" />
-//         </button>
-//       )}
-//     </div>
-//   );
-// };
 
 const VideoPlayer: React.FC<VideoPlayerProps> = ({ src }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -120,9 +65,16 @@ const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
   testimonials,
   designation
 }) => {
-  const swiperRef = useRef<any>(null);
+  const swiperRef = useRef<SwiperRef["swiper"] | null>(null);
   const [isPaused, setIsPaused] = useState(false);
   const [activeBtn, setActiveBtn] = useState<"prev" | "next" | null>(null);
+
+  // Processed once for the whole list: a hook cannot be called inside the
+  // .map() callback below (rules-of-hooks).
+  const processedReviews = useMemo(
+    () => testimonials.map((t) => processReviewText(t.review_text, designation)),
+    [testimonials, designation],
+  );
 
   const togglePause = () => {
     if (swiperRef.current && swiperRef.current.autoplay) {
@@ -160,18 +112,11 @@ const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
             speed={800}
             onSwiper={(swiper) => (swiperRef.current = swiper)}
           >
-            {testimonials.map((t) => {
-              const processedReview = useMemo(() => {
-                return processReviewText(
-                  t.review_text,
-                  designation
-                );
-              }, [t.review_text, designation]);
+            {testimonials.map((t, tIndex) => {
+              const processedReview = processedReviews[tIndex];
               // Extract video URL: prefer Prototype[0].video → fallback to upwork → video field
-              // const videoUrl = t.video || t.Prototype?.[0]?.video || t.upwork || "";
               const videoUrl = t.video || t.Prototype?.[0]?.video || t.upwork || "";
               // Use thumbnail if available from API, fallback to client_pic or placeholder
-              const thumbnail = t.thumbnail ||  "/images/placeholder-video.jpg";
 
               return (
                 <SwiperSlide key={t.id}>
@@ -179,7 +124,7 @@ const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
                     {/* Left Side: Info Container */}
                     <div className="flex-1 mb-[3rem]">
                       <div className="bg-white/20 rounded-xl p-[1rem] lg:p-[2rem] text-white  backdrop-blur-xl">
-                        <img
+                        <Image width={72} height={72}
                           src="/images/DoubleQuotes.svg"
                           className="size-[30px] mb-[1rem]"
                           alt="quote"
@@ -189,25 +134,12 @@ const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
                           className="text-[1.4rem] lg:text-[2.5rem] leading-normal  mb-0"
                         />
 
-                        {/* <hr className="mb-[2rem] border-white/40" /> */}
-
-                        {/* <div className="flex justify-between items-center">
-                          <div>
-                            <div className="text-[1.6rem] text-white font-medium">
-                              {t.client_company}
-                            </div>
-                            <div className="text-[1.3rem] opacity-80">
-                              Client Company
-                            </div>
-                          </div>
-                          <ArrowRight className="text-white size-6" />
-                        </div> */}
                       </div>
 
                       {/* Client Info */}
                       <div className="mt-8">
                         <div className="flex items-center gap-4">
-                          <img
+                          <Image width={72} height={72}
                             src={t.client_pic}
                             alt={t.client_name}
                             className="size-[7.2rem] lg:size-[6rem] rounded-[1rem]  object-cover border-2 border-white/20"
@@ -271,7 +203,6 @@ const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
 
                     {/* Video Container */}
                     <div className="w-full lg:max-w-[40rem]">
-                      {/* <VideoPlayer src={videoUrl} poster={thumbnail} /> */}
                       <VideoPlayer src={videoUrl} />
                     </div>
                   </div>

@@ -4,25 +4,18 @@ import Link from "next/link";
 import Image from "next/image";
 import ShowmoreSkills from "./showmoreSkills";
 
-import { skillsGrouping } from "@/hooks/skillsGrouping";
 import { formatDate } from "@/hooks/formatdate";
 import { dateFormatsOptions } from "@/data/JsonData";
 import { modifiedContent } from "@/hooks/modifiedContent";
 import useIsDesktop from "@/hooks/useIsDesktop";
-import { MoveUpRight } from "lucide-react";
+import type { Experience, ProfileReport, SkillRef } from "@/types/api";
 
-interface SkillType {
-  title: string;
-  url?: string;
-  order?: string;
-  icon?: string;
-}
 
 interface ExperienceSectionProps {
-  experience: any; // refine type if possible
+  experience: Experience;
   index: number;
-  listOfskills: any;
-  listOfdata: any;
+  listOfskills: SkillRef[];
+  listOfdata: ProfileReport | null;
   showMoreSkills: boolean[];
   setShowMoreSkills: React.Dispatch<React.SetStateAction<boolean[]>>;
   variant?: "timeline" | "list"; // controls styling
@@ -39,9 +32,6 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
   variant = "list",
   isLast = false,
 }) => {
-
-
-
 
   const skills = experience?.skills || [];
   const isSkillsNested =
@@ -86,9 +76,6 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
     [experience.long_description, listOfskills, listOfdata],
   );
 
-  // console.log("Experiences:", experience);
-
-  // Parse the <li> elements, preserving all HTML and styles
   const items = useMemo(() => {
     if (!rawHtml) return [];
     const parser = new DOMParser();
@@ -139,7 +126,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
     experience?.ending_Date ?? experience?.end_date ?? experience?.endDate;
 
   // Safe formatter
-  const fmtMonthYear = (value: any) => {
+  const fmtMonthYear = (value: string | undefined) => {
     if (!value) return null;
     const d = new Date(value);
     return isNaN(d.getTime())
@@ -272,16 +259,6 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                               text-[1.4rem] lg:text-[1.6rem] lg:font-medium rounded-[20rem] p-[1rem] group"
                       >
                         <span>Check My</span>
-                        {/* <div className="h-[2.5rem] w-[2.5rem] rounded-full relative mx-2 inline-block">
-                          <Image
-                            src="/images/upworkforContactComponent.svg"
-                            alt="Upwork Logo"
-                            width={25}
-                            height={25}
-                            className="h-full w-full object-cover rounded-full group-hover:border-primary border border-transparent duration-300
-                                absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-                          />
-                        </div> */}
                         <div className="h-[3.5rem] w-[10rem] relative mx-2 inline-block overflow-hidden rounded-[10rem] px-2 bg-white">
                           <Image
                             src="/images/upworkText.svg"
@@ -296,21 +273,12 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                         </div>
                         <span>Profile</span>
                       </Link>
-                      {/* <Link
-                        href={experience.company_website ?? "#"}
-                        target="_blank"
-                        className="h-[3rem] w-[3rem] rounded-full relative mx-2 bg-sectionBG text-white flex items-center justify-center animate-bounce cursor-pointer hover:bg-surface hover:text-primary border border-transparent hover:border-primary duration-300"
-                      >
-                        <MoveUpRight className="size-[2rem]" />
-                      </Link> */}
                     </div>
                   )}
                 </div>
               </div>
             )}
           </div>
-
-
 
           {/* Short Description */}
           {experience?.short_description && (
@@ -357,12 +325,12 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
               {experience?.skills?.length > 0 && (
                 <div className="w-full mt-[1.6rem]">
                   <h4 className="text-primary text-[1.5rem] font-medium mb-[1.2rem]">
-                    AREAS OF EXPERTISE I'VE WORKED IN
+                    AREAS OF EXPERTISE I&apos;VE WORKED IN
                   </h4>
                   <div className="flex items-center gap-[1rem] mt-3 lg:gap-[0.7rem] flex-wrap text-[1.2rem] w-full">
                     {Array.isArray(skillsToShow) && skillsToShow.length > 0 && (
                       <React.Fragment>
-                        {skillsToShow.map((skill: any, i: number) => (
+                        {skillsToShow.map((skill: SkillRef, i: number) => (
                           <>
                             {skill?.url ? (
                               <Link

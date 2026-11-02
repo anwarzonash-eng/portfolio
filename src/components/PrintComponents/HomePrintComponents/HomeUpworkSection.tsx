@@ -1,10 +1,17 @@
-import React from "react";
 import NoteDomainForPint from "@/components/NoteDomainForPint";
 import Link from "next/link";
 import UpwrokIdentityPrint from "./UpwrokIdentityPrint";
-import { Clock, CheckCircle, Star, TrendingUp, MapPin, Crown } from "lucide-react";
+import { Clock, CheckCircle, Star } from "lucide-react";
+import type { ProfileReport } from "@/types/api";
+import type { RoutesInfo } from "@/hooks/url";
 
-const HomeUpworkSection = ({ listOfdata, urlInfo, hideLinks }: any) => {
+interface HomeUpworkSectionProps {
+  listOfdata: ProfileReport | null;
+  urlInfo: RoutesInfo | null;
+  hideLinks?: boolean;
+}
+
+const HomeUpworkSection = ({ listOfdata, urlInfo, hideLinks }: HomeUpworkSectionProps) => {
   const upworkActivityList = [
     {
       id: 1,
@@ -32,35 +39,6 @@ const HomeUpworkSection = ({ listOfdata, urlInfo, hideLinks }: any) => {
     },
   ];
 
-  const upworkFinancialActivityList = [
-    {
-      id: 1,
-      title: "Hourly rate",
-      content: "$10.00 - $30.00",
-    },
-
-    {
-      id: 2,
-      title: "Total earned",
-      content: "$200K+",
-      icon: TrendingUp,
-    },
-    {
-      id: 3,
-      title: "Total hours completed on Upwork",
-      content: "10,000+",
-    },
-    {
-      id: 4,
-      title: "Total jobs on Upwork",
-      content: "70+",
-    },
-    {
-      id: 5,
-      title: "Upwork Member since",
-      content: "Jan 31, 2022",
-    },
-  ];
   return (
     <section className={`h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center p-[4rem] mt-20 print:mt-0 relative bg-white`}>
       {/* Note and Domain For Each Page */}
@@ -78,21 +56,6 @@ const HomeUpworkSection = ({ listOfdata, urlInfo, hideLinks }: any) => {
           <div className="flex items-center justify-between w-full gap-5 mb-[2rem]">
             {/* Upwork Identity */}
             <UpwrokIdentityPrint data={listOfdata} hideLinks={hideLinks} />
-            {/* {hideLinks ?
-              <div
-                className="py-2 inline-block"
-              >
-                <img src="/images/up-logo.png" alt="Upwork Logo" className="mix-blend-darken " />
-              </div>
-              :
-              <Link
-                href={listOfdata?.upwork ?? "#"}
-                target="_blank"
-                className="py-2 inline-block"
-              >
-                <img src="/images/up-logo.png" alt="Upwork Logo" className="mix-blend-darken " />
-              </Link>
-            } */}
           </div>
 
           {/* Bottom Content */}

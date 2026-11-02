@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import "@/styles/printStyles/portfolio_detail_p.css";
 import useBodyBackgroundColor from "@/hooks/useBodyBackgroundColor";
 import { useSearchParams } from "next/navigation";
@@ -32,10 +32,12 @@ import { loadBlogs } from "@/hooks/apihandlers/blogListingApiHandler";
 import PrintPageRenderer, { ComponentConfig } from "@/utils/printPageRenderer";
 import { preloadImages } from "@/utils/preLoadImages";
 import { useSortedSkills } from "@/hooks/useSortedSkills";
+import type { PageProps, RouteParams } from "@/types/page";
+import type { BlogSummary, Education, Portfolio, ProfileReport } from "@/types/api";
 
-const PortfolioDetails_p = ({ params }: { params: any }) => {
+const PortfolioDetails_p = ({ params }: PageProps) => {
   const searchParams = useSearchParams();
-  const [resolvedParams, setResolvedParams] = useState<any>(null);
+  const [resolvedParams, setResolvedParams] = useState<RouteParams | null>(null);
 
   useEffect(() => {
     // Unwrap params if it's a promise
@@ -47,7 +49,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
   }, [params]);
 
   const [portfolioDetails, setPortfolioDetails] = useState(null);
-  const [blogsList, setBlogsList] = useState<any[]>([]);
+  const [blogsList, setBlogsList] = useState<BlogSummary[]>([]);
   const [loadingblogs, setLoadingBlogs] = useState(false);
   const [urlInfo, setURLInfo] = useState(null);
   const [listOfdata, setListOfData] = useState(null);
@@ -90,8 +92,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
   }, [resolvedParams, searchParams]);
 
   useEffect(() => {
-    urlInfo &&
-      resolvedParams &&
+    if (urlInfo && resolvedParams) {
       reportsApiHandler({
         urlInfo,
         setError,
@@ -104,8 +105,9 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
             : typeof resolvedParams.value === "object" &&
                 resolvedParams.value !== null
               ? resolvedParams.value.id // Case 3: ID is nested as an object property
-              : resolvedParams.value, // 🛑 END CORRECTED LOGIC 🛑
+              : (resolvedParams.value as string | undefined), // 🛑 END CORRECTED LOGIC 🛑
       });
+    }
   }, [urlInfo, resolvedParams]); //
 
   useEffect(() => {
@@ -146,17 +148,15 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
   } = skillsGrouping(portfolioDetails?.skills);
 
   // Features parsing and truncation for screen/print
-  const featuresRef = useRef<HTMLDivElement | null>(null);
   const [featuresItemCount, setFeaturesItemCount] = useState(0);
-  const [fullFeaturesHtml, setFullFeaturesHtml] = useState<string | null>(null);
-  const [defaultTruncatedHtml, setDefaultTruncatedHtml] = useState<
+  const [, setFullFeaturesHtml] = useState<string | null>(null);
+  const [, setDefaultTruncatedHtml] = useState<
     string | null
   >(null); // 15 items for screen
   const [printTruncatedHtml, setPrintTruncatedHtml] = useState<string | null>(
     null,
   ); // 12 items for print
-  const [isPrintMode, setIsPrintMode] = useState(false);
-  const [isExpanded, setIsExpanded] = useState(false); // screen expansion toggle
+  const [, setIsPrintMode] = useState(false);
 
   // Load blogs when profile data is ready
   useEffect(() => {
@@ -190,9 +190,6 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
           listOfdata,
         ) || "";
 
-      // DEBUG: inspect rawHtml and ensure it contains the expected <li> items
-      // Remove these logs after verification
-      // console.log("[features] rawHtml length:", rawHtml.length);
       const parserForCount = new DOMParser();
       const docForCount = parserForCount.parseFromString(rawHtml, "text/html");
       const allLis = Array.from(docForCount.querySelectorAll("li"));
@@ -275,7 +272,6 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
     skillsIdsWithOrder: listOfdata?.skills_ids,
     allSkills: listOfskills,
   });
-
 
    const techStackHeading =
     listOfdata?.website_purpose === "upwork"
@@ -429,10 +425,12 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
     },
   ];
 
-  const extractAllImageUrls = (
-    data: any,
-    blogs: any[],
-    portfolioDetails: any,
+  // Memoised so the preload effect below does not re-run on every render.
+  // Closes over filteredSkills, which the effect already depends on.
+  const extractAllImageUrls = useCallback((
+    data: ProfileReport | null,
+    blogs: BlogSummary[],
+    portfolioDetails: Portfolio | null,
   ) => {
     const urls = new Set<string>();
 
@@ -445,7 +443,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
     // 3. PortfolioDetailSliderSection: Portfolio pictures (JSON array)
     if (portfolioDetails?.pictures) {
       try {
-        const pictures = JSON.parse(portfolioDetails.pictures || "[]");
+        const pictures = JSON.parse((portfolioDetails.pictures as string) || "[]");
         if (Array.isArray(pictures)) {
           // Only add first image as component shows slice(0, 1)
           pictures.slice(0, 1).forEach((pic) => {
@@ -458,7 +456,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
     }
 
     // 4. EducationBlogPortfolioDetail: Education thumbnails
-    data?.education_ids?.forEach((edu: any) => {
+    data?.education_ids?.forEach((edu: Education) => {
       if (edu.thumbnail) urls.add(edu.thumbnail);
     });
 
@@ -494,14 +492,13 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
     });
 
     return Array.from(urls);
-  };
+  }, [filteredSkills]);
 
   // Preload images when data is available
   useEffect(() => {
     if (!listOfdata || listOfskills.length === 0) return;
 
     const urls = extractAllImageUrls(listOfdata, blogsList, portfolioDetails);
-    // console.log("Portfolio Detail - Preloading URLs:", urls);
     setImageProgress({ loaded: 0, total: urls.length });
 
     if (urls.length === 0) {
@@ -518,6 +515,7 @@ const PortfolioDetails_p = ({ params }: { params: any }) => {
     listOfskills.length,
     portfolioDetails,
     filteredSkills,
+    extractAllImageUrls,
   ]);
 
   // Loading / Error States

@@ -24,7 +24,6 @@ const AreasOfExpertiesSkillComponent: React.FC<
   AreasOfExpertiesSkillComponentProps
 > = ({ skill, index, groupIndex, variant = "small", hideLinks }) => {
 
-
   const animationDelay = `${index * 0.1}s`;
 
   // Define style variants
@@ -118,14 +117,9 @@ const ExperienceCvPortrait = ({
     if (!skills || skills.length === 0) return [];
 
     // Check if any of the first 6 skills has a long name (more than 12 characters)
-    const first9Skills = skills.slice(0, 9);
-    const hasLongSkillNames = first9Skills.some(
-      (skill) => skill.title && skill.title.length > 12,
-    );
 
     // If there are long names, show 5 skills to leave room for button
     // Otherwise, show 6 skills
-    const skillsToShow = hasLongSkillNames ? 8 : 9;
 
     return showMoreSkills[index] ? skills : skills.slice(0, 11);
   };
@@ -202,18 +196,6 @@ const ExperienceCvPortrait = ({
                                 text-[1.4rem] font-medium rounded-[20rem] p-[1rem] py-[0.5rem] group"
                             >
                               <span>Check My</span>
-                              {/* <div className="h-[2.5rem] w-[2.5rem] rounded-full relative mx-2 inline-block">
-                              <Image
-                                src="/images/upworkText.svg"
-                                alt="Upwork Logo"
-                                width={25}
-                                height={25}
-                                loading="eager"
-                                priority={true}
-                                className="h-full w-full object-cover rounded-full group-hover:border-primary border border-transparent duration-300
-                                  absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-                              />
-                            </div> */}
                               <div className="h-[3.5rem] w-[10rem] relative mx-2 inline-block overflow-hidden rounded-[10rem] px-2 bg-white">
                                 <Image
                                   src="/images/upworkText.svg"
@@ -231,7 +213,6 @@ const ExperienceCvPortrait = ({
                           </div>
                         )}
 
-
                       {!experience.company_website.includes("upwork") && <p className="mb-[1rem] text-primary text-[1.2rem] leading-[2rem] ">
                         {new Date(experience.starting_date).toLocaleString("en-US", {
                           month: "short",
@@ -245,20 +226,6 @@ const ExperienceCvPortrait = ({
                             year: "numeric",
                           })}
                       </p>}
-                      {/* {!experience.company_website.includes("upwork") && (
-                        <div className="bg-white border border-[#E2E6EE] text-[#47516B] rounded-[2rem] text-[1.5rem] font-medium leading-[0.8rem] hover:bg-sectionBG hover:text-white duration-300">
-                          <Link
-                            href={experience.company_website}
-                            className="flex gap-2 items-center p-4"
-                          >
-                            {
-                              experience.company_website
-                                .replace(/^(https?:\/\/)?(www\.)?/, "")
-                                .split("/")[0]
-                            }
-                          </Link>
-                        </div>
-                      )} */}
                     </div>
                   </div>
                 }
@@ -280,7 +247,6 @@ const ExperienceCvPortrait = ({
               {!hideLinks && experience?.company_name !== "Upwork" && (
                 <div className="flex items-center justify-center">
 
-
                   <Link
                     href={`/cv?sectionId=experienceSection&experienceId=${experience.id}`} // Navigate to CV page with experience ID
                     className="hover:bg-white bg-primary text-white hover:text-primary capitalize text-center text-primary text-[1.2rem] font-medium py-[0.4rem] px-[1.5rem] inline-flex items-center justify-center gap-[8px] rounded-[5rem] shadow opacity-0 animate-fadeIn relative group border border-transparent hover:border-primary mt-[1rem]"
@@ -296,7 +262,7 @@ const ExperienceCvPortrait = ({
             {experience?.skills && experience?.skills.length > 0 && (
               <div className="w-full">
                 <h4 className="text-[1.3rem] text-black font-medium mb-[0.5rem] mt-[1rem]">
-                  AREAS OF EXPERTISE I'VE WORKED IN
+                  AREAS OF EXPERTISE I&apos;VE WORKED IN
                 </h4>
                 <div className="w-full flex-col items-start flex gap-5">
                   <div className="flex items-center gap-[1rem] lg:gap-[0.7rem] text-nowrap flex-wrap text-[1.2rem]">

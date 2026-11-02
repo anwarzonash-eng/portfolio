@@ -1,9 +1,9 @@
 'use client';
 
 import PortfolioListing from '@/components/pages/potfolio-listing';
-import React from 'react';
+import type { PageProps } from "@/types/page";
 
-const portfolioListing = ({ params }: { params: any }) => {
+const portfolioListing = ({ params }: PageProps) => {
   return <PortfolioListing params={params} />;
 };
 

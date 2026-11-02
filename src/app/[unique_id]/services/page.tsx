@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import ServicesSection from '@/components/HomePageComponents/ServicesSection';
 import { reportsApiHandler } from '@/hooks/apihandlers/reportsApiHandlers';
@@ -10,14 +10,16 @@ import SkillsContainer from '@/components/SkillsContainer';
 import { useSortedSkills } from '@/hooks/useSortedSkills';
 import { handleSkillsApiCall } from "@/hooks/apihandlers/skillsApiHandlers";
 import NewsLetter from '@/components/HomePageComponents/NewsLetter';
+import type { PageProps } from "@/types/page";
+import type { ProfileReport, Service, SkillRef } from "@/types/api";
+import type { RoutesInfo } from "@/hooks/url";
 
-
-const Services = ({ params }: { params: any }) => {
+const Services = ({ params }: PageProps) => {
     const [loading, setLoading] = useState<boolean>(true);
-    const [urlInfo, setURLInfo] = useState<any | null>(null);
-    const [listOfdata, setListOfData] = useState<any | null>(null);
+    const [urlInfo, setURLInfo] = useState<RoutesInfo | null>(null);
+    const [listOfdata, setListOfData] = useState<ProfileReport | null>(null);
     const [error, setError] = useState<string | null>(null);
-    const [allSkills, setAllSkills] = useState<any[]>([]);
+    const [allSkills, setAllSkills] = useState<SkillRef[]>([]);
 
     const searchParams = useSearchParams();
 
@@ -29,7 +31,6 @@ const Services = ({ params }: { params: any }) => {
         };
         fetchRoutes();
     }, [params, searchParams]);
-
 
     useEffect(() => {
         if (urlInfo) {
@@ -56,7 +57,6 @@ const Services = ({ params }: { params: any }) => {
         skillsIdsWithOrder: listOfdata?.skills_ids,
         allSkills,
     });
-
 
     const servicesSectionHeading =
         listOfdata?.website_purpose === "upwork"
@@ -158,19 +158,16 @@ const Services = ({ params }: { params: any }) => {
                                     </div >
                                 </section >
 
-
                                 {/* Services Section */}
                                 {listOfdata &&
                                     listOfdata?.services &&
                                     listOfdata?.services?.length > 0 && (
                                         <ServicesSection
                                             services={listOfdata.services.filter(
-                                                (service: any) => service?.type !== "main",
+                                                (service: Service) => service?.type !== "main",
                                             )}
                                         />
                                     )}
-
-
 
                                 {/* My Development Process */}
                                 <section className=" py-24 lg:py-32 border-t border-white/5 mainContainer">
@@ -230,7 +227,6 @@ const Services = ({ params }: { params: any }) => {
                                     </div>
                                 </section>
 
-
                                 {/* skillSection */}
                                 {listOfdata && listOfdata?.skills_ids?.length > 0 && (
                                     <div
@@ -257,7 +253,6 @@ const Services = ({ params }: { params: any }) => {
                                         />
                                     </div>
                                 )}
-
 
                                 {/* NewsLetter section */}
                                 {!urlInfo?.u && <NewsLetter />}

@@ -1,7 +1,5 @@
-import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
 import { openChat } from "@/hooks/openTawkTochat";
 import Tooltip from "@/components/Tooltip";
 import {
@@ -14,7 +12,7 @@ import {
 
 declare global {
   interface Window {
-    Tawk_API?: any;
+    Tawk_API?: Record<string, unknown>;
   }
 }
 
@@ -24,8 +22,6 @@ const HomeContactMeSection = ({ listOfdata, formatPhoneNumber, hideLinks }) => {
     src: string;
     alt: string;
   }
-
-  // console.log("Data:", listOfdata.linkedIn);
 
   // Contact Links
   const constactLinks: ConstactLinks[] = [

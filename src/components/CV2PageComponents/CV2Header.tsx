@@ -1,23 +1,25 @@
 import React from "react";
 import Image from "next/image";
-import { Phone, AtSign, MapPin, GithubIcon, Link, Mail } from "lucide-react";
+import { Phone, MapPin, Mail } from "lucide-react";
 import { socialLinks } from "@/data/JsonData";
 import CV2ClickableLinkedinGihubLinks from "./CV2ClickableLinkedinGihubLinks";
 import { useAppSelector } from "@/store";
+import type { ProfileReport } from "@/types/api";
+import type { RoutesInfo } from "@/hooks/url";
 
 type CV2HeaderProps = {
-  listOfdata: any;
-  urlInfo: any;
+  listOfdata: ProfileReport | null;
+  urlInfo: RoutesInfo | null;
 };
 
-const CV2Header: React.FC<CV2HeaderProps> = ({ listOfdata, urlInfo }) => {
+const CV2Header: React.FC<CV2HeaderProps> = ({ listOfdata }) => {
   const url = useAppSelector((state) => state.profile.profileUrlInfo);
 
   const headerInfo = [
     listOfdata?.phone_no && { key: "phone", icon: Phone, value: listOfdata.phone_no },
     listOfdata?.email && { key: "email", icon: Mail, value: listOfdata.email },
     listOfdata?.location && { key: "location", icon: MapPin, value: listOfdata.location },
-  ].filter(Boolean) as { key: string; icon: any; value: string }[];
+  ].filter(Boolean) as { key: string; icon: React.ComponentType<{ size?: number | string; className?: string }>; value: string }[];
 
   const visibleHeaderInfo = url?.u ? headerInfo.filter((h) => h.key === "location") : headerInfo;
   return (

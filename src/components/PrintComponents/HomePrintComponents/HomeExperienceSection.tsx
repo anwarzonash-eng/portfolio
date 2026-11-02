@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import ExperienceCard from "./ExperienceCard"; // make sure path is correct
 
 const HomeExperienceSection = ({
@@ -29,20 +28,12 @@ const HomeExperienceSection = ({
   // Split first 3 experiences for first section
   const firstGroupExperiences = sortedExperiences.slice(start, end);
 
-  const renderExperience = (experience, index) => {
+  const renderExperience = (experience, _index) => {
     return (
       <div key={experience.id} className="relative flex items-start space-y-[2rem]">
         {/* Timeline Dot */}
-        {/* <div className="absolute top-0 left-[2rem] flex items-center z-50">
-          <div className="w-[2.6rem] h-[2.6rem] bg-white rounded-full flex items-center shadow-md justify-center">
-            <div className="w-[0.7rem] h-[0.7rem] bg-heading rounded-full"></div>
-          </div>
-        </div> */}
 
         {/* Vertical Timeline Line */}
-        {/* <div className="absolute left-[3.1rem] top-[-1rem] w-[0.4rem] 
-        h-full bg-primary" /> */}
-
 
         {/* Experience Card */}
         <div className="w-full">

@@ -1,8 +1,8 @@
 "use client";
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState } from "react";
 import "@/styles/printStyles/cvLatest.css";
 import { useSearchParams } from "next/navigation";
-import { store, useAppSelector } from "@/store";
+import { store } from "@/store";
 import { setProfileUrlInfo, setProfileLoading } from "@/store/profileSlice";
 import { reportsApiHandler } from "@/hooks/apihandlers/reportsApiHandlers";
 import { handleSkillsApiCall } from "@/hooks/apihandlers/skillsApiHandlers";
@@ -20,26 +20,19 @@ import {
 
 import { preloadImages } from "@/utils/preLoadImages";
 import { useSortedSkills } from "@/hooks/useSortedSkills";
-import { Github, GithubIcon, Linkedin, Mail, MapPin, Phone } from "lucide-react";
 import PrintPageRenderer, { ComponentConfig } from "@/utils/printPageRenderer";
 import { useFilteredYearExperiences } from "@/hooks/useFilteredYearExperiences";
+import type { PageProps } from "@/types/page";
+import type { ProfileReport } from "@/types/api";
+import type { RoutesInfo } from "@/hooks/url";
 
 // Helper functions moved outside component to avoid recreation on each render
-function isUpworkExperience(exp: any) {
-    const website = String(exp?.company_website || "").toLowerCase();
-    const company = String(exp?.company_name || "").toLowerCase();
-    return website.includes("upwork") || company.includes("upwork");
-}
 
-function parseDateSafe(d: any) {
-    const t = new Date(d);
-    return isNaN(t.getTime()) ? null : t;
-}
 
-const CV3 = ({ params }: { params: any }) => {
+const CV3 = ({ params }: PageProps) => {
     const searchParams = useSearchParams();
-    const [urlInfo, setURLInfo] = useState<any>(null);
-    const [listOfdata, setListOfData] = useState<any>(null);
+    const [urlInfo, setURLInfo] = useState<RoutesInfo | null>(null);
+    const [listOfdata, setListOfData] = useState<ProfileReport | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
@@ -61,16 +54,8 @@ const CV3 = ({ params }: { params: any }) => {
         listOfdata?.experiences_ids,
         listOfdata?.no_of_experiences
 
-
     );
 
-    const headerInfo = [
-        listOfdata?.phone_no && { icon: Phone, value: listOfdata.phone_no },
-        listOfdata?.email && { icon: Mail, value: listOfdata.email },
-        listOfdata?.location && { icon: MapPin, value: listOfdata.location },
-        listOfdata?.github && { icon: GithubIcon, value: listOfdata.github },
-        listOfdata?.linkedin && { icon: Linkedin, value: listOfdata.linkedin },
-    ].filter(Boolean);
 
     useEffect(() => {
         handleSkillsApiCall({ setListOfSkills: setAllSkills });
@@ -108,7 +93,7 @@ const CV3 = ({ params }: { params: any }) => {
     }, [loading]);
 
     // Extract All image URLs Before Rendering
-    function extractAllImageUrls(listOfdata, allSkills) {
+    function extractAllImageUrls(listOfdata, _allSkills) {
         const urls = [];
 
         // 1. Profile image (used in CV3HeaderP)
@@ -171,7 +156,7 @@ const CV3 = ({ params }: { params: any }) => {
         !loading && listOfdata && urlInfo && allSkills.length > 0 && imagesReady;
 
     // State for parsed skills HTML
-    const [visibleItems, setVisibleItems] = useState<string[]>([]);
+    const [, setVisibleItems] = useState<string[]>([]);
 
     // Generate HTML for skills (overview section) - only on client side
     useEffect(() => {
@@ -230,7 +215,6 @@ const CV3 = ({ params }: { params: any }) => {
         );
     }
 
-    const experiences = listOfdata?.experiences_ids || [];
 
     const portfolios = listOfdata?.portfolios_ids || [];
 
@@ -263,7 +247,6 @@ const CV3 = ({ params }: { params: any }) => {
                                 <CV3ExperiencesP rawExperiences={[filteredExperiences[1]]} listOfdata={listOfdata} bulletCount={7} />
                             </div>
 
-
                             )}
                         </div>
 
@@ -272,14 +255,11 @@ const CV3 = ({ params }: { params: any }) => {
                             <CV3SummaryP summary={summary} />
                             <CV3SkillsP sortedSkills={sortedSkills} />
 
-
-
                             {/* Interests */}
                             <div className="mb-6">
 
                                 <h2 className="text-[20px] font-bold text-black mb-4 border-b-2 border-black ">INTERESTS</h2>
                                 <div className="flex items-center gap-2">
-                                    {/* <span className="text-[18px]">✈️</span> */}
                                     <span className="font-bold text-[15px]">Skydiving | Scuba Diving | Singing</span>
                                 </div>
                             </div>
@@ -292,14 +272,11 @@ const CV3 = ({ params }: { params: any }) => {
                                 <CV3ProjectsP portfolios={[portfolios[0]]} />
                             </div>}
 
-
                         </div>
                     </div>
                 </div >
             ),
         },
-
-
 
         {
             componentType: "dynamic",
@@ -329,16 +306,13 @@ const CV3 = ({ params }: { params: any }) => {
 
                             {portfolios[2] && <div className="w-full relative  ">
 
-
                                 <CV3ProjectsP portfolios={[portfolios[2]]} />
                             </div>}
                             {portfolios[3] && <div className="w-full relative  ">
 
-
                                 <CV3ProjectsP portfolios={[portfolios[3]]} />
                             </div>}
                             {portfolios[4] && <div className="w-full relative  ">
-
 
                                 <CV3ProjectsP portfolios={[portfolios[4]]} />
                             </div>}
@@ -347,7 +321,6 @@ const CV3 = ({ params }: { params: any }) => {
                 </div>
             ) : null,
         },
-
 
         {
             componentType: "dynamic",
@@ -375,16 +348,11 @@ const CV3 = ({ params }: { params: any }) => {
                         </div>
                         <div className="col-span-2">
 
-
-
                         </div>
                     </div>
                 </div>
             ) : null,
         },
-
-
-
 
     ];
 

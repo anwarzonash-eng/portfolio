@@ -1,18 +1,19 @@
 "use client";
 
 import React from "react";
+import type { ProfileReport, SkillRef } from "@/types/api";
 
 interface PortfolioDetailKeyModuleProps {
   portfolioDetails: {
     features_long?: string | null;
   } | null;
-  filteredSkills?: any;
-  listOfdata?: any;
+  filteredSkills?: SkillRef[];
+  listOfdata?: ProfileReport | null;
   modulesFeaturesHeading?: string;
   modifiedContent: (
     html: string | null | undefined,
-    filteredSkills: any,
-    listOfdata: any
+    filteredSkills: SkillRef[],
+    listOfdata: ProfileReport | null
   ) => string;
 }
 

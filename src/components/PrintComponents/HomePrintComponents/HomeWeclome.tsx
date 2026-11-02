@@ -1,6 +1,5 @@
 import DesignationDomain from "@/components/DesignationDomain";
 import Image from "next/image";
-import React from "react";
 
 const HomeWeclome = ({
   listOfdata,
@@ -15,9 +14,6 @@ const HomeWeclome = ({
     <section className="h-screen bg-cvSideBg bg-no-repeat bg-cover w-full  flex items-center justify-center relative">
       <div className="text-center">
         <div className="flex items-center justify-center w-full">
-          {/* <div className="bg-primary text-white font-bold text-[3rem]  rounded-[100px] max-w-max px-10 tracking-wider">
-            Portfolio
-          </div> */}
         </div>
         <div className="flex items-center justify-start gap-[4rem] w-full">
           <Image

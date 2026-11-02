@@ -40,10 +40,6 @@ const VARIABLE_NAMES: Record<keyof ThemePalette, string> = {
   text_muted: "--text_muted_color",
 };
 
-/** Build the dark palette for the current tenant (memoised inside deriveDarkPalette). */
-export const getDarkColors = (listOfdata): ThemePalette =>
-  deriveDarkPalette(getColors(listOfdata), getDarkOverridesFromApi(listOfdata));
-
 /**
  * Write the tenant's light palette and the derived dark palette as CSS
  * variables on <html>. Theme switching is then handled purely by CSS via the

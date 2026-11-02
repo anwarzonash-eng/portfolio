@@ -1,37 +1,33 @@
 
 "use client"
 
-
-import { CalendarDays, Github, MapPin } from 'lucide-react';
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { store, useAppSelector } from "@/store";
+import { store } from "@/store";
 import { setProfileUrlInfo, setProfileLoading } from "@/store/profileSlice";
 import { reportsApiHandler } from "@/hooks/apihandlers/reportsApiHandlers";
 import { handleSkillsApiCall } from "@/hooks/apihandlers/skillsApiHandlers";
 import { getRoutesDetails } from "@/hooks/url";
-import { modifiedContent } from "@/hooks/modifiedContent";
-import { skillsGrouping } from "@/hooks/skillsGrouping";
 import { useFilteredYearExperiences } from "@/hooks/useFilteredYearExperiences";
 import { preloadImages } from "@/utils/preLoadImages";
 import { useSortedSkills } from "@/hooks/useSortedSkills";
 import { CV3Summary, CV3Header, CV3Skills, CV3Experiences, CV3Education, CV3Projects } from '@/components/CV3PageComponents';
+import type { PageProps } from "@/types/page";
+import type { RoutesInfo } from "@/hooks/url";
+import type { ProfileReport } from "@/types/api";
 
-
-const CV3 = ({ params }: { params: any }) => {
+const CV3 = ({ params }: PageProps) => {
   // All Logic Start
   const searchParams = useSearchParams();
   // Global state
-  const [urlInfo, setURLInfo] = useState<any>(null);
-  const [listOfdata, setListOfData] = useState<any>(null);
+  const [urlInfo, setURLInfo] = useState<RoutesInfo | null>(null);
+  const [listOfdata, setListOfData] = useState<ProfileReport | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   // Experiences section
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile] = useState(false);
 
   // Derived values
-  const visibleSkills = listOfdata?.skills_ids ?? [];
-  const skillsforCV = skillsGrouping(visibleSkills);
 
   console.log("API Data:", listOfdata);
 
@@ -47,8 +43,6 @@ const CV3 = ({ params }: { params: any }) => {
     skillsIdsWithOrder: listOfdata?.skills_ids,
     allSkills,
   });
-
-
 
   useEffect(() => {
     handleSkillsApiCall({ setListOfSkills: setAllSkills });
@@ -86,7 +80,7 @@ const CV3 = ({ params }: { params: any }) => {
   }, [loading]);
 
   // Extract All image URLs Before Rendering
-  function extractAllImageUrls(listOfdata, allSkills) {
+  function extractAllImageUrls(listOfdata, _allSkills) {
     const urls = [];
 
     // 1. Profile image (used in CVLatestHeader)
@@ -158,8 +152,6 @@ const CV3 = ({ params }: { params: any }) => {
     listOfdata?.no_of_experiences
   );
 
-
-
   if (error) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-white">
@@ -212,36 +204,26 @@ const CV3 = ({ params }: { params: any }) => {
               location={listOfdata?.location}
             />
 
-
-
-
           </div>
 
           {/* Right Column */}
           <div className="col-span-2">
             {/* Summary */}
 
-
             {/* Summary & Tagline Section */}
             <CV3Summary summary={summary} />
 
-
             {/* Skills */}
             <CV3Skills sortedSkills={sortedSkills} />
-
-
 
             {/* Interests */}
             <div className="mb-6">
 
               <h2 className="text-[20px] font-bold text-black mb-4 border-b-2 border-black ">INTERESTS</h2>
               <div className="flex items-center gap-2">
-                {/* <span className="text-[18px]">✈️</span> */}
                 <span className="font-bold text-[15px]">Skydiving | Scuba Diving | Singing</span>
               </div>
             </div>
-
-
 
             {/* Projects Section */}
             <CV3Projects portfolios={listOfdata?.portfolios_ids} />

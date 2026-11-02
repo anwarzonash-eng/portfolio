@@ -1,10 +1,11 @@
 import Image from "next/image";
+import type { Portfolio } from "@/types/api";
 
 interface HeroPortfolioDetailProps {
-  portfolioDetails: any;
-  formatDate: any;
-  dateFormatsOptions: any;
-  Portfoliodetailbg: React.FC | any;
+  portfolioDetails: Portfolio | null;
+  formatDate: (date?: string, format?: Intl.DateTimeFormatOptions) => string;
+  dateFormatsOptions: Record<string, Intl.DateTimeFormatOptions>;
+  Portfoliodetailbg: React.ComponentType;
 }
 
 const HeroPortfolioDetail: React.FC<HeroPortfolioDetailProps> = ({

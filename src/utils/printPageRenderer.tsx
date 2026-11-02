@@ -34,7 +34,6 @@ const DYNAMIC_MARGIN = 20; // 20px margin for dynamic components
 
 // Convert pixels to mm (96 DPI standard)
 const pxToMm = (px: number) => px / (96 / 25.4);
-const mmToPx = (mm: number) => mm * (96 / 25.4);
 
 const PrintPageRenderer: React.FC<PrintPageRendererProps> = ({
   componentsList,
@@ -162,18 +161,13 @@ const PrintPageRenderer: React.FC<PrintPageRendererProps> = ({
         const rect = ref.getBoundingClientRect();
         const heightMm = pxToMm(rect.height);
         heights[index] = heightMm + COMPONENT_PADDING;
-        // console.log(`Component ${index} height: ${heightMm.toFixed(2)}mm (${rect.height}px)`);
       } else {
         console.warn("Component ref not found at index", index);
         heights[index] = 0; // fallback instead of crash
       }
     });
     setComponentHeights(heights);
-    // console.log("✅ Component Heights:", heights);
-    // console.log("📄 Page Height:", pageHeight, "mm");
   };
-
-  // console.log("Component Heights:", componentHeights);
 
   const renderPages = () => {
     if (!dataLoaded || componentHeights.length === 0) {
@@ -214,8 +208,6 @@ const PrintPageRenderer: React.FC<PrintPageRendererProps> = ({
 
     const addCurrentPageToPages = () => {
       if (currentPageComponents.length > 0) {
-        // console.log(`📃 Finalizing page ${pages.length} with ${currentPageComponents.length} components (total height: ${currentPageHeight}mm)`);
-        // console.log(`📏 Page dimensions: ${pageDimensions.width}mm × ${pageDimensions.height}mm (margins: ${currentPageHasDynamic ? 'applied' : 'none'})`);
         pages.push(
           <section
             key={`page-${pages.length}`}
@@ -244,18 +236,14 @@ const PrintPageRenderer: React.FC<PrintPageRendererProps> = ({
 
     while (componentIndex < componentsList.length) {
       const currentConfig = componentsList[componentIndex];
-      // console.log(`🔄 Processing component ${componentIndex}: ${currentConfig.componentType}`);
       
       // Determine if we should show badge and title based on whether they've been shown on current page
-      const shouldShowBadge = currentConfig.badgeTitle ? !shownBadgesOnCurrentPage.has(currentConfig.badgeTitle) : true;
-      const shouldShowTitle = currentConfig.componentTitle ? !shownTitlesOnCurrentPage.has(currentConfig.componentTitle) : true;
       
       if (currentConfig.componentType === 'static') {
         // Check if forceSolo is true or if component won't fit in current page
         const componentHeight = getComponentHeight(componentIndex);
         const needsNewPage = currentConfig.forceSolo || (currentPageHeight + componentHeight > pageHeight);
         
-        // console.log(`📦 Static component - Height: ${componentHeight}mm, Current page: ${currentPageHeight}mm, Force solo: ${currentConfig.forceSolo}, Needs new page: ${needsNewPage}`);
         
         if (needsNewPage) {
           // Add current page if it has content
@@ -285,13 +273,9 @@ const PrintPageRenderer: React.FC<PrintPageRendererProps> = ({
         
       } else if (currentConfig.componentType === 'dynamic') {
         const componentHeight = getComponentHeight(componentIndex);
-        
-        // console.log(`🔀 Dynamic component - Height: ${componentHeight}mm`);
-        // console.log(`📐 Adjusted page height for dynamic component: ${pageHeight}mm (original: ${orientation === 'Portrait' ? PAGE_HEIGHT_PORTRAIT : PAGE_HEIGHT_LANDSCAPE}mm)`);
-        
+
         // Check if component fits on current page
         if (currentPageHeight + componentHeight <= pageHeight) {
-          // console.log(`➕ Adding dynamic component to current page (height will be ${currentPageHeight + componentHeight}mm)`);
           
           // Determine if we should show badge/title on current page
           const showBadge = currentConfig.badgeTitle ? !shownBadgesOnCurrentPage.has(currentConfig.badgeTitle) : true;
@@ -309,7 +293,6 @@ const PrintPageRenderer: React.FC<PrintPageRendererProps> = ({
             shownTitlesOnCurrentPage.add(currentConfig.componentTitle);
           }
         } else {
-          // console.log(`📄 Creating new page for dynamic component`);
           
           // Finalize current page if it has content
           if (currentPageComponents.length > 0) {
@@ -338,7 +321,6 @@ const PrintPageRenderer: React.FC<PrintPageRendererProps> = ({
           const nextComponentHeight = getComponentHeight(componentIndex + 1);
           
           if (currentPageHeight + nextComponentHeight > pageHeight) {
-            // console.log(`🚀 Next component won't fit, starting new page`);
             addCurrentPageToPages(); // Start fresh page for next component
           }
         }
@@ -350,7 +332,6 @@ const PrintPageRenderer: React.FC<PrintPageRendererProps> = ({
     // Add any remaining components to final page
     addCurrentPageToPages();
     
-    // console.log(`🎯 Final result: Generated ${pages.length} pages`);
     
     return pages;
   };

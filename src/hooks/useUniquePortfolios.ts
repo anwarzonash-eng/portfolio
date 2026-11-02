@@ -2,12 +2,7 @@
 
 import { useMemo } from "react";
 
-// Define the expected structure of a portfolio object
-// Adjust this interface to match your actual object structure if needed
-interface Portfolio {
-  id: string | number;
-  [key: string]: any; // Allows for any other properties on the object
-}
+import type { Portfolio } from "@/types/api";
 
 /**
  * Custom hook to filter an array of portfolio objects, returning only those

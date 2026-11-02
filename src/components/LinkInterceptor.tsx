@@ -1,23 +1,21 @@
 "use client";
 
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useAppSelector } from "@/store";
+import { ReactReduxContext } from "react-redux";
+import type { RootState } from "@/store";
 
 const LinkInterceptor = () => {
   const router = useRouter();
-  
-  // Add try-catch to handle Redux context not being available yet
-  let urlInfo = null;
-  try {
-    urlInfo = useAppSelector(
-      (state) => state.profile.profileUrlInfo
-    );
-  } catch (error) {
-    // console.log("Redux store not available yet in LinkInterceptor");
-    // Fallback to manual URL parsing when Redux isn't available
-    urlInfo = null;
-  }
+
+  // This component is mounted in the root layout *above* <ReduxProvider>, so
+  // there is normally no store in context. useContext is called
+  // unconditionally (rules-of-hooks) and simply yields null when the provider
+  // is absent, in which case the manual URL parsing below takes over.
+  const reduxContext = useContext(ReactReduxContext);
+  const urlInfo =
+    (reduxContext?.store?.getState() as RootState | undefined)?.profile
+      ?.profileUrlInfo ?? null;
 
   useEffect(() => {
     const rewriteAllHrefs = () => {
@@ -34,8 +32,7 @@ const LinkInterceptor = () => {
         uniqueID = urlInfo.uniqueID;
         isU = urlInfo.u === "_";
         isAdmin = urlInfo.a === "_";
-        domainParam = urlInfo.d;
-        // console.log("LinkInterceptor URLInfo from Redux:", { uniqueID, isU, isAdmin, domainParam });
+        domainParam = urlInfo.d || null;
       } else {
         // Fallback to manual URL parsing when Redux isn't available yet
         isAdmin = searchParams.get("a") === "_";
@@ -48,7 +45,6 @@ const LinkInterceptor = () => {
           uniqueID = localStorage.getItem("uniqueID") || "a";
           isU = localStorage.getItem("u") === "_";
         }
-        // console.log("LinkInterceptor using fallback URL parsing:", { uniqueID, isU, isAdmin, domainParam });
       }
 
       if (!uniqueID) return;
@@ -77,7 +73,7 @@ const LinkInterceptor = () => {
         }
 
         // ✅ build href with uniqueID
-        let newPath = `/${uniqueID}${url.pathname}`;
+        const newPath = `/${uniqueID}${url.pathname}`;
         const finalHref = `${newPath}${
           sp.toString() ? "?" + sp.toString() : ""
         }`;

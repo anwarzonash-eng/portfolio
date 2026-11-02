@@ -1,18 +1,14 @@
 
 "use client"
 
-
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { useSearchParams } from "next/navigation";
-import { store, useAppSelector } from "@/store";
+import { store } from "@/store";
 import { setProfileUrlInfo, setProfileLoading } from "@/store/profileSlice";
 import { reportsApiHandler } from "@/hooks/apihandlers/reportsApiHandlers";
 import { handleSkillsApiCall } from "@/hooks/apihandlers/skillsApiHandlers";
 import { getRoutesDetails } from "@/hooks/url";
-import { modifiedContent } from "@/hooks/modifiedContent";
-import { skillsGrouping } from "@/hooks/skillsGrouping";
-import { useFilteredYearExperiences } from "@/hooks/useFilteredYearExperiences";
 import { preloadImages } from "@/utils/preLoadImages";
 import { useSortedSkills } from "@/hooks/useSortedSkills";
 import CV4Header from "@/components/CV4PageComponents/CV4Header";
@@ -21,6 +17,9 @@ import CV4Skills from "@/components/CV4PageComponents/CV4Skills";
 import CV4Experiences from "@/components/CV4PageComponents/CV4Experiences";
 import CV4Education from "@/components/CV4PageComponents/CV4Education";
 import { Download } from "lucide-react";
+import type { PageProps } from "@/types/page";
+import type { RoutesInfo } from "@/hooks/url";
+import type { ProfileReport, SkillRef } from "@/types/api";
 
 // Dynamically imported — uses browser-only @react-pdf/renderer APIs
 const CV4PdfEditorModal = dynamic(
@@ -28,25 +27,19 @@ const CV4PdfEditorModal = dynamic(
     { ssr: false }
 );
 
-
-const CV4 = ({ params }: { params: any }) => {
+const CV4 = ({ params }: PageProps) => {
     // All Logic Start
     const searchParams = useSearchParams();
     // Global state
-    const [urlInfo, setURLInfo] = useState<any>(null);
-    const [listOfdata, setListOfData] = useState<any>(null);
+    const [urlInfo, setURLInfo] = useState<RoutesInfo | null>(null);
+    const [listOfdata, setListOfData] = useState<ProfileReport | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     // PDF editor modal
     const [pdfModalOpen, setPdfModalOpen] = useState(false);
     // Experiences section
-    const [isMobile, setIsMobile] = useState(false);
 
     // Derived values
-    const visibleSkills = listOfdata?.skills_ids ?? [];
-    const skillsforCV = skillsGrouping(visibleSkills);
-
-
 
     // Filter skills based on listOfdata.skills_ids
     const [allSkills, setAllSkills] = useState([]);
@@ -56,7 +49,7 @@ const CV4 = ({ params }: { params: any }) => {
     const [imageProgress, setImageProgress] = useState({ loaded: 0, total: 0 });
 
     // Sorted SKills
-    const sortedSkills: any = useSortedSkills({
+    const sortedSkills: SkillRef[] = useSortedSkills({
         skillsIdsWithOrder: listOfdata?.skills_ids,
         allSkills,
     });
@@ -96,7 +89,7 @@ const CV4 = ({ params }: { params: any }) => {
     }, [loading]);
 
     // Extract All image URLs Before Rendering
-    function extractAllImageUrls(listOfdata, allSkills) {
+    function extractAllImageUrls(listOfdata, _allSkills) {
         const urls = [];
 
         // 1. Profile image (used in CVLatestHeader)
@@ -163,12 +156,6 @@ const CV4 = ({ params }: { params: any }) => {
         "Web Designer with 2 years of experience, adept at UX and responsive design. Strong proficiency in Adobe Creative Suite and CMS. Successfully improved website user engagement by 25% at previous role. Passionate about enhancing the digital experience for educational institutions.";
 
     // Filtered Experiences
-    const filteredExperiences = useFilteredYearExperiences(
-        listOfdata?.experiences_ids,
-        listOfdata?.no_of_experiences
-    );
-
-
 
     if (error) {
         return (
@@ -199,7 +186,6 @@ const CV4 = ({ params }: { params: any }) => {
             </div>
         );
     }
-
 
     ;
 

@@ -1,8 +1,7 @@
 import NoteDomainForPint from "@/components/NoteDomainForPint";
 import HomeSliderPrint from "@/components/Sliders/HomeSliderPrint";
-import React from "react";
 
-const CVLandscapePortfolioSection = ({urlInfo, listOfdata, from, max, hideLinks}) => {
+const CVLandscapePortfolioSection = ({ urlInfo: _urlInfo, listOfdata, from, max, hideLinks }) => {
   return (
     <section className="print:h-screen print:section !w-full print:FlexWrapContainer flex items-center justify-center flex-col overflow-hidden relative my-[4rem] print:m-0">
       {/* Note and Domain For Each Page */}

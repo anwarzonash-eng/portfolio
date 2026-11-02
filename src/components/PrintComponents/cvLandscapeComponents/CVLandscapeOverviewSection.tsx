@@ -70,7 +70,7 @@ const CVLandscapeOverviewSection = ({
               }
               {/* Info Description*/}
               <p className="my-[2rem] text-[1.4rem] leading-[2rem] text-heading font-normal text-justify">
-                Reach out today and I'll provide you with my comprehensive
+                Reach out today and I&apos;ll provide you with my comprehensive
                 onboarding package designed for full-time employment or Contract
                 Based Jobs. This package covers various aspects that potential
                 employers often inquire about, such as my salary expectations

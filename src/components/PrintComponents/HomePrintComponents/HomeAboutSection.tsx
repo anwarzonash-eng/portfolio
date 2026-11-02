@@ -2,13 +2,15 @@ import NoteDomainForPint from "@/components/NoteDomainForPint";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import type { ProfileReport } from "@/types/api";
+import type { RoutesInfo } from "@/hooks/url";
 
 interface HomeAboutSectionProps {
-  listOfdata: any;
-  urlInfo: any;
-  formatPhoneNumber: any;
-  WorkProofLinks: any;
-  ContactMeLinks: any;
+  listOfdata: ProfileReport | null;
+  urlInfo: RoutesInfo | null;
+  formatPhoneNumber: (phone?: string) => string;
+  WorkProofLinks: React.ComponentType<{ props: Record<string, unknown> }>;
+  ContactMeLinks: React.ComponentType<{ props: Record<string, unknown> }>;
   hideLinks?: boolean;
 }
 

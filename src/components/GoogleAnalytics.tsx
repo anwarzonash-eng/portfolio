@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 declare global {
   interface Window {
-    dataLayer?: any[];
+    dataLayer?: unknown[];
   }
 }
 
@@ -23,17 +23,13 @@ const GoogleAnalytics = ({ scriptNumber }) => {
         script.onload = () => {
           // Initialize the dataLayer
           window.dataLayer = window.dataLayer || [];
-          function gtag(...args: any[]) {
+          function gtag(...args: unknown[]) {
             window.dataLayer.push(...args);
           }
 
           gtag("js", new Date());
           gtag("config", scriptNumber);
 
-          //   // console.log(
-          //     'Google Analytics script loaded successfully with ID:',
-          //     scriptNumber
-          //   );
         };
 
         script.onerror = () => {

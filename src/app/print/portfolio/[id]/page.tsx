@@ -1,8 +1,8 @@
 "use client";
 import PortfolioDetails_p from "@/components/pages/print/portfolio/portfolio-detail";
-import React from "react";
+import type { PageProps } from "@/types/page";
 
-const portfolioDetails = ({ params }: { params: any }) => {
+const portfolioDetails = ({ params }: PageProps) => {
   return <PortfolioDetails_p params={params} />;
 };
 

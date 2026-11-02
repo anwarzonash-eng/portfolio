@@ -5,18 +5,10 @@ import Image from "next/image";
 import { formatDate } from "@/hooks/formatdate";
 import { dateFormatsOptions } from "@/data/JsonData";
 
-// Define education type
-interface EducationType {
-  id: string | number;
-  university_name: string;
-  degree_name: string;
-  degree_start_date: string;
-  degree_end_date: string;
-  thumbnail?: string;
-}
+import type { Education } from "@/types/api";
 
 interface CVEducationProps {
-  educationList: EducationType[];
+  educationList: Education[];
 }
 
 const CVEducation: React.FC<CVEducationProps> = ({ educationList }) => {

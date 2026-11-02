@@ -2,18 +2,19 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import type { BlogSummary, Education, ProfileReport } from "@/types/api";
 
 // ----------------------------------------
 // Props Types
 // ----------------------------------------
 interface EducationBlogPortfolioDetailProps {
-  listOfdata: any;
+  listOfdata: ProfileReport | null;
   domain: string;
-  formatDate: (date: any, format: any) => string;
-  dateFormatsOptions: any;
+  formatDate: (date?: string, format?: Intl.DateTimeFormatOptions) => string;
+  dateFormatsOptions: Record<string, Intl.DateTimeFormatOptions>;
   loadingblogs: boolean;
   hideLinks?: boolean;
-  blogsList: any[];
+  blogsList: BlogSummary[];
   getImageForIndex: (domain: string, index: number) => string;
 }
 
@@ -25,7 +26,6 @@ const EducationBlogPortfolioDetail: React.FC<EducationBlogPortfolioDetailProps> 
   domain,
   formatDate,
   dateFormatsOptions,
-  loadingblogs,
   hideLinks,
   blogsList,
   getImageForIndex,
@@ -43,7 +43,7 @@ const EducationBlogPortfolioDetail: React.FC<EducationBlogPortfolioDetailProps> 
             </h2>
 
             <div className="grid grid-cols-2 gap-[1.2rem] w-full">
-              {listOfdata.education_ids.map((edu: any) => (
+              {listOfdata.education_ids.map((edu: Education) => (
                 <div
                   key={edu.id}
                   className="p-[2rem] w-full rounded-[0.8rem] border border-solid border-[#E2E6EE] bg-[#F7F9FC]"

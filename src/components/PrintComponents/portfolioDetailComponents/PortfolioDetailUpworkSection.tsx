@@ -1,4 +1,3 @@
-import React from "react";
 import NoteDomainForPint from "@/components/NoteDomainForPint";
 import Link from "next/link";
 import UpwrokIdentityPrint from "../HomePrintComponents/UpwrokIdentityPrint";

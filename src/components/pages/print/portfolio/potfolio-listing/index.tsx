@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, useMemo } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import "@/styles/printStyles/portfolio_p.css";
 import useBodyBackgroundColor from "@/hooks/useBodyBackgroundColor";
@@ -26,15 +26,18 @@ import {
   PortfolioPortrait,
 } from "@/components/PrintComponents/portfolioListingComponents";
 import { preloadImages } from "@/utils/preLoadImages";
+import type { PageProps } from "@/types/page";
+import type { BlogSummary, Education, Portfolio, ProfileReport, SkillRef } from "@/types/api";
+import type { RoutesInfo } from "@/hooks/url";
 
-const PortfolioListing_p = ({ params }: { params: any }) => {
-  const [urlInfo, setURLInfo] = useState<any>(null);
+const PortfolioListing_p = ({ params }: PageProps) => {
+  const [urlInfo, setURLInfo] = useState<RoutesInfo | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [listOfdata, setListOfData] = useState<any>(null);
-  const [listOfskills, setListOfSkills] = useState<any[]>([]);
+  const [listOfdata, setListOfData] = useState<ProfileReport | null>(null);
+  const [listOfskills, setListOfSkills] = useState<SkillRef[]>([]);
   const [loading, setLoading] = useState(true);
-  const [blogsList, setBlogsList] = useState<any[]>([]);
-  const [loadingblogs, setLoadingBlogs] = useState(false);
+  const [blogsList, setBlogsList] = useState<BlogSummary[]>([]);
+  const [, setLoadingBlogs] = useState(false);
   const [imagesReady, setImagesReady] = useState(false);
   const [imageProgress, setImageProgress] = useState({ loaded: 0, total: 0 });
 
@@ -92,14 +95,14 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
     }
   }, [listOfdata?.domain]);
 
-  const extractAllImageUrls = (data: any, blogs: any[]) => {
+  const extractAllImageUrls = (data: ProfileReport | null, blogs: BlogSummary[]) => {
     const urls = new Set<string>();
 
     // 1. PortfolioWelcome: Profile photo
     if (data?.profile_photo_1) urls.add(data.profile_photo_1);
 
     // 2. PortfolioPortrait: Portfolio thumbnails with special handling
-    data?.portfolios_ids?.forEach((portfolio: any) => {
+    data?.portfolios_ids?.forEach((portfolio: Portfolio) => {
       if (portfolio?.thumbnail) {
         // Handle special cases for specific portfolio titles
         if (portfolio?.title === "Velzon") {
@@ -115,7 +118,7 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
     });
 
     // 3. EducationBlogPortfolio: Education thumbnails
-    data?.education_ids?.forEach((edu: any) => {
+    data?.education_ids?.forEach((edu: Education) => {
       if (edu?.thumbnail) urls.add(edu.thumbnail);
     });
 
@@ -136,7 +139,6 @@ const PortfolioListing_p = ({ params }: { params: any }) => {
     if (!listOfdata || listOfskills.length === 0) return;
 
     const urls = extractAllImageUrls(listOfdata, blogsList);
-    // console.log("Portfolio Listing - Preloading URLs:", urls);
     setImageProgress({ loaded: 0, total: urls.length });
 
     if (urls.length === 0) {

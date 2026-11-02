@@ -181,7 +181,6 @@ const ExperienceCard = ({
                         )}
                     </h3>
 
-
                   </div>
                 </div>
 
@@ -216,27 +215,10 @@ const ExperienceCard = ({
                           </Link>
                         </div>
                       )}
-                      {/* {!experience.company_website.includes("upwork") && (
-                        <div className="bg-white border border-[#E2E6EE] text-[#47516B] rounded-[2rem] text-[1.5rem] font-medium leading-[0.8rem] hover:bg-sectionBG hover:text-white duration-300">
-                          <Link
-                            href={experience.company_website}
-                            className="flex gap-2 items-center p-4"
-                          >
-                            {
-                              experience.company_website
-                                .replace(/^(https?:\/\/)?(www\.)?/, "")
-                                .split("/")[0]
-                            }
-                          </Link>
-                        </div>
-                      )} */}
-
-
 
                     </div>
                   </div>
                 )}
-
 
                 {!experience.company_website.includes("upwork") && <p className="mb-[1rem] text-primary text-[1.2rem] leading-[2rem] ">
                   {new Date(experience.starting_date).toLocaleString("en-US", {
@@ -252,7 +234,6 @@ const ExperienceCard = ({
                     })}
                 </p>}
               </div>
-
 
             </div>
 
@@ -284,7 +265,7 @@ const ExperienceCard = ({
             {experience?.skills && experience?.skills.length > 0 && (
               <div className="w-full">
                 <h4 className="text-[1.3rem] text-black font-medium mb-[0.5rem] mt-[1rem]">
-                  AREAS OF EXPERTISE I'VE WORKED IN
+                  AREAS OF EXPERTISE I&apos;VE WORKED IN
                 </h4>
                 <div className="w-full flex-col items-start flex gap-5">
                   <div className="flex items-center gap-[1rem] lg:gap-[0.7rem] text-nowrap flex-wrap text-[1.2rem]">

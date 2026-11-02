@@ -1,12 +1,7 @@
 import React from "react";
 import Image from "next/image";
-import Link from "next/link";
 
-interface Service {
-  title: string;
-  tagline?: string;
-  picture?: string;
-}
+import type { Service } from "@/types/api";
 
 interface ServicesSectionProps {
   services: Service[];
@@ -27,52 +22,6 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({ services }) => {
         {/* Services Cards */}
         <div className="w-full flex items-center justify-center gap-10 flex-col">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mt-12  print:grid-cols-4">
-            {/* {services.map((service, index) => {
-              const truncatedTagline =
-                service?.tagline?.split(" ")?.slice(0, 12)?.join(" ") +
-                (service?.tagline?.split(" ").length > 12 ? "..." : "");
-
-              return (
-                <div
-                  key={index}
-                  className="bg-gradient-to-br from-white/10 to-white/5 rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-white/10"
-                >
-                
-                  {service.picture && (
-                    <div className="relative h-[17rem] print:h-[14rem] w-full flex items-center justify-center overflow-hidden group">
-                      <Image
-                        src={service.picture.trim()}
-                        alt={service.title || "Service image"}
-                        height={150}
-                        width={150}
-                        className="object-cover filter transition-transform duration-500 z-10 group-hover:scale-110 w-[9.8rem] h-[9.8rem] print:object-center"
-                        onError={(e) => {
-                          const target = e.target as HTMLImageElement;
-                          target.style.display = "none";
-                        }}
-                      />
-                      
-                      <div className="absolute inset-0 bg-surface z-0">
-                        <div className="h-full w-full bg-gradient-to-t from-[#6f656591] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                      </div>
-                    </div>
-                  )}
-                
-                  <div className="p-6 print:p-3">
-                    
-                    <h3 className="font-bold text-[2rem] print:font-semibold print:text-[1.3rem] text-white mb-3 line-clamp-2 print:text-nowrap">
-                      {service?.title}
-                    </h3>
-                    
-                    <p
-                      dangerouslySetInnerHTML={{ __html: truncatedTagline }}
-                      className="text-gray-300 text-[1.3rem] mb-6 print:mb-3 print:line-clamp-2 leading-relaxed print:text-[1.2rem] line-clamp-4"
-                    />
-                  </div>
-                </div>
-              );
-            })} */}
-
 
             {services.map((service, index) => {
               // keep tagline full; card will handle truncation via CSS if needed
@@ -114,7 +63,6 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({ services }) => {
                       </p>
                     )}
 
-
                   </div>
                 </div>
               );
@@ -127,9 +75,4 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({ services }) => {
 };
 
 export default ServicesSection;
-
-
-
-
-
 

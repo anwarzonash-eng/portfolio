@@ -1,8 +1,7 @@
 "use client";
 import { useAppSelector } from "@/store";
-import { ArrowRight, Globe } from "lucide-react";
+import { Globe } from "lucide-react";
 import Link from "next/link";
-import React from "react";
 
 function DesignationDomain() {
   const listOfdatas = useAppSelector(
@@ -12,9 +11,6 @@ function DesignationDomain() {
   const urlInfo = useAppSelector(
     (state) => state.profile.profileUrlInfo
   );
-
-  // console.log("listOfdatas in DesignationDomain:", listOfdatas);
-  // console.log("urlInfo in DesignationDomain:", urlInfo);
 
   // 🛑 NULL CHECK
   if (!listOfdatas || !listOfdatas.domain || !urlInfo?.uniqueID) return null;
@@ -29,9 +25,6 @@ function DesignationDomain() {
     >
       <Globe className="h-7 w-7" />
       {listOfdatas.domain}
-      {/* <span className="inline-flex items-center justify-center h-8 w-8  rounded-[50%] bg-white text-primary">
-        <ArrowRight className="h-7 w-7" />
-      </span> */}
     </Link>
   );
 }

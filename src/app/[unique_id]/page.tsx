@@ -1,8 +1,8 @@
 "use client";
 import Home from "@/components/pages/home";
-import React from "react";
+import type { PageProps } from "@/types/page";
 
-const index = ({ params }: { params: any }) => {
+const index = ({ params }: PageProps) => {
   return <Home params={params} />;
 };
 

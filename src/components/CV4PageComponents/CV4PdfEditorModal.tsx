@@ -1,29 +1,21 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
-import dynamic from "next/dynamic";
-import { X, Download, Plus, Trash2, ChevronDown, ChevronUp, Loader2 } from "lucide-react";
+import React, { useState, useEffect, useCallback } from "react";
+import { X, Download, Loader2 } from "lucide-react";
 import CV4PdfDocument, { CV4DraftData, CV4Experience, CV4Education } from "./CV4PdfDocument";
-
-// ─── PDFViewer is browser-only — load dynamically ────────────────────────────
-const PDFViewer = dynamic(
-    () => import("@react-pdf/renderer").then((m) => ({ default: m.PDFViewer })),
-    {
-        ssr: false,
-        loading: () => (
-            <div className="flex items-center justify-center h-full bg-gray-100">
-                <Loader2 className="animate-spin w-8 h-8 text-gray-400" />
-                <span className="ml-2 text-gray-500">Loading preview…</span>
-            </div>
-        ),
-    }
-);
+import SectionToggle from "./pdfEditor/SectionToggle";
+import Field from "./pdfEditor/Field";
+import CV4SkillsForm from "./pdfEditor/CV4SkillsForm";
+import CV4ExperienceForm from "./pdfEditor/CV4ExperienceForm";
+import CV4EducationForm from "./pdfEditor/CV4EducationForm";
+import CV4PdfPreviewPane from "./pdfEditor/CV4PdfPreviewPane";
+import type { Education, Experience, ProfileReport, SkillRef } from "@/types/api";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 const LS_KEY = "cv4_pdf_draft";
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
-function buildDraft(listOfdata: any, experiences_for_cv4: any[]): CV4DraftData {
+function buildDraft(listOfdata: ProfileReport | null, experiences_for_cv4: Experience[]): CV4DraftData {
     return {
         name: listOfdata?.name || "",
         location: listOfdata?.location || "",
@@ -32,80 +24,30 @@ function buildDraft(listOfdata: any, experiences_for_cv4: any[]): CV4DraftData {
         linkedin: (listOfdata?.linkedIn || listOfdata?.linkedin || "").replace(/^https?:\/\//, ""),
         github: (listOfdata?.github || "").replace(/^https?:\/\//, ""),
         summary: listOfdata?.ai_short_description || "",
-        skills: (listOfdata?.skills_ids || []).map((s: any) => s.title).filter(Boolean),
-        experiences: (experiences_for_cv4 || []).map((exp: any) => ({
-            id: exp.id || crypto.randomUUID(),
+        skills: (listOfdata?.skills_ids || []).map((s: SkillRef) => s.title).filter(Boolean),
+        experiences: (experiences_for_cv4 || []).map((exp: Experience) => ({
+            id: String(exp.id || crypto.randomUUID()),
             title: exp.title || "",
             company_name: exp.company_name || "",
             starting_date: exp.starting_date || "",
             ending_Date: exp.ending_Date || exp.ending_date || "",
             is_still_working: !!exp.is_still_working,
-            points: (exp.long_description || []).map((p: any) => p.point || "").filter(Boolean),
+            points: (Array.isArray(exp.long_description) ? exp.long_description : [])
+                .map((p: { point?: string }) => p.point || "")
+                .filter(Boolean),
         })),
-        education: (listOfdata?.education_ids || []).map((edu: any) => ({
-            id: edu.id || crypto.randomUUID(),
+        education: (listOfdata?.education_ids || []).map((edu: Education) => ({
+            id: String(edu.id || crypto.randomUUID()),
             degree_name: edu.degree_name || "",
             university_name: edu.university_name || "",
         })),
     };
 }
 
-// ─── Sub-components ───────────────────────────────────────────────────────────
-function SectionToggle({ title, children }: { title: string; children: React.ReactNode }) {
-    const [open, setOpen] = useState(true);
-    return (
-        <div className="border border-gray-200 rounded-lg mb-4 overflow-hidden">
-            <button
-                onClick={() => setOpen((o) => !o)}
-                className="w-full flex items-center justify-between px-4 py-3 bg-gray-50 hover:bg-gray-100 text-sm font-semibold text-gray-700 transition-colors"
-            >
-                {title}
-                {open ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-            </button>
-            {open && <div className="px-4 py-4 space-y-3">{children}</div>}
-        </div>
-    );
-}
-
-function Field({
-    label,
-    value,
-    onChange,
-    multiline = false,
-    rows = 3,
-}: {
-    label: string;
-    value: string;
-    onChange: (v: string) => void;
-    multiline?: boolean;
-    rows?: number;
-}) {
-    return (
-        <div>
-            <label className="block text-xs font-medium text-gray-500 mb-1">{label}</label>
-            {multiline ? (
-                <textarea
-                    rows={rows}
-                    value={value}
-                    onChange={(e) => onChange(e.target.value)}
-                    className="w-full text-sm border border-gray-300 rounded px-2 py-1.5 focus:outline-none focus:ring-1 focus:ring-blue-400 resize-y"
-                />
-            ) : (
-                <input
-                    type="text"
-                    value={value}
-                    onChange={(e) => onChange(e.target.value)}
-                    className="w-full text-sm border border-gray-300 rounded px-2 py-1.5 focus:outline-none focus:ring-1 focus:ring-blue-400"
-                />
-            )}
-        </div>
-    );
-}
-
 // ─── Main Modal ───────────────────────────────────────────────────────────────
 interface Props {
-    listOfdata: any;
-    experiences_for_cv4: any[];
+    listOfdata: ProfileReport | null;
+    experiences_for_cv4: Experience[];
     onClose: () => void;
 }
 
@@ -131,12 +73,17 @@ const CV4PdfEditorModal = ({ listOfdata, experiences_for_cv4, onClose }: Props) 
         localStorage.setItem(LS_KEY, JSON.stringify(formData));
     }, [formData]);
 
+    const handleCancel = useCallback(() => {
+        localStorage.removeItem(LS_KEY);
+        onClose();
+    }, [onClose]);
+
     // Close on Escape key
     useEffect(() => {
         const handler = (e: KeyboardEvent) => { if (e.key === "Escape") handleCancel(); };
         document.addEventListener("keydown", handler);
         return () => document.removeEventListener("keydown", handler);
-    }, []);
+    }, [handleCancel]);
 
     // Prevent body scroll while modal is open
     useEffect(() => {
@@ -160,7 +107,7 @@ const CV4PdfEditorModal = ({ listOfdata, experiences_for_cv4, onClose }: Props) 
     const removeSkill = (idx: number) =>
         setFormData((prev) => ({ ...prev, skills: prev.skills.filter((_, i) => i !== idx) }));
 
-    const setExpField = (expIdx: number, key: keyof CV4Experience, value: any) =>
+    const setExpField = (expIdx: number, key: keyof CV4Experience, value: string | boolean | string[]) =>
         setFormData((prev) => {
             const experiences = prev.experiences.map((e, i) =>
                 i === expIdx ? { ...e, [key]: value } : e
@@ -262,10 +209,6 @@ const CV4PdfEditorModal = ({ listOfdata, experiences_for_cv4, onClose }: Props) 
         }
     };
 
-    const handleCancel = () => {
-        localStorage.removeItem(LS_KEY);
-        onClose();
-    };
 
     // ── Render ──────────────────────────────────────────────────────────────
     return (
@@ -323,143 +266,37 @@ const CV4PdfEditorModal = ({ listOfdata, experiences_for_cv4, onClose }: Props) 
                     </SectionToggle>
 
                     {/* Skills */}
-                    <SectionToggle title={`Skills (${formData.skills.length})`}>
-                        {formData.skills.map((skill, idx) => (
-                            <div key={idx} className="flex items-center gap-2">
-                                <input
-                                    type="text"
-                                    value={skill}
-                                    onChange={(e) => setSkill(idx, e.target.value)}
-                                    className="flex-1 text-sm border border-gray-300 rounded px-2 py-1.5 focus:outline-none focus:ring-1 focus:ring-blue-400"
-                                />
-                                <button
-                                    onClick={() => removeSkill(idx)}
-                                    className="p-1 text-red-400 hover:text-red-600"
-                                >
-                                    <Trash2 className="w-4 h-4" />
-                                </button>
-                            </div>
-                        ))}
-                        <button
-                            onClick={addSkill}
-                            className="flex items-center gap-1 text-xs text-blue-600 hover:text-blue-800 mt-1"
-                        >
-                            <Plus className="w-3.5 h-3.5" /> Add Skill
-                        </button>
-                    </SectionToggle>
+                    <CV4SkillsForm
+                        skills={formData.skills}
+                        setSkill={setSkill}
+                        addSkill={addSkill}
+                        removeSkill={removeSkill}
+                    />
 
                     {/* Work Experience */}
-                    <SectionToggle title={`Work Experience (${formData.experiences.length})`}>
-                        {formData.experiences.map((exp, expIdx) => (
-                            <div key={exp.id} className="border border-gray-200 rounded-lg mb-3 overflow-hidden">
-                                <button
-                                    onClick={() => setOpenExpIdx(openExpIdx === expIdx ? null : expIdx)}
-                                    className="w-full flex items-center justify-between px-3 py-2 bg-gray-50 text-sm font-medium text-gray-700"
-                                >
-                                    <span className="truncate">{exp.title || exp.company_name || `Experience ${expIdx + 1}`}</span>
-                                    <div className="flex items-center gap-2">
-                                        <button
-                                            onClick={(e) => { e.stopPropagation(); removeExperience(expIdx); }}
-                                            className="p-1 text-red-400 hover:text-red-600"
-                                        >
-                                            <Trash2 className="w-3.5 h-3.5" />
-                                        </button>
-                                        {openExpIdx === expIdx ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-                                    </div>
-                                </button>
-                                {openExpIdx === expIdx && (
-                                    <div className="px-3 py-3 space-y-2.5">
-                                        <Field label="Job Title" value={exp.title} onChange={(v) => setExpField(expIdx, "title", v)} />
-                                        <Field label="Company" value={exp.company_name} onChange={(v) => setExpField(expIdx, "company_name", v)} />
-                                        <div className="grid grid-cols-2 gap-2">
-                                            <Field label="Start Date (YYYY-MM-DD)" value={exp.starting_date} onChange={(v) => setExpField(expIdx, "starting_date", v)} />
-                                            {!exp.is_still_working && (
-                                                <Field label="End Date (YYYY-MM-DD)" value={exp.ending_Date} onChange={(v) => setExpField(expIdx, "ending_Date", v)} />
-                                            )}
-                                        </div>
-                                        <label className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
-                                            <input
-                                                type="checkbox"
-                                                checked={exp.is_still_working}
-                                                onChange={(e) => setExpField(expIdx, "is_still_working", e.target.checked)}
-                                                className="rounded"
-                                            />
-                                            Currently working here
-                                        </label>
-                                        <div>
-                                            <label className="block text-xs font-medium text-gray-500 mb-1">Bullet Points</label>
-                                            {exp.points.map((pt, ptIdx) => (
-                                                <div key={ptIdx} className="flex items-start gap-1 mb-1.5">
-                                                    <textarea
-                                                        rows={2}
-                                                        value={pt}
-                                                        onChange={(e) => setExpPoint(expIdx, ptIdx, e.target.value)}
-                                                        className="flex-1 text-sm border border-gray-300 rounded px-2 py-1.5 focus:outline-none focus:ring-1 focus:ring-blue-400 resize-none"
-                                                    />
-                                                    <button
-                                                        onClick={() => removeExpPoint(expIdx, ptIdx)}
-                                                        className="mt-1 p-1 text-red-400 hover:text-red-600"
-                                                    >
-                                                        <Trash2 className="w-3.5 h-3.5" />
-                                                    </button>
-                                                </div>
-                                            ))}
-                                            <button
-                                                onClick={() => addExpPoint(expIdx)}
-                                                className="flex items-center gap-1 text-xs text-blue-600 hover:text-blue-800 mt-1"
-                                            >
-                                                <Plus className="w-3.5 h-3.5" /> Add Bullet
-                                            </button>
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
-                        ))}
-                        <button
-                            onClick={addExperience}
-                            className="flex items-center gap-1 text-xs text-blue-600 hover:text-blue-800 mt-1"
-                        >
-                            <Plus className="w-3.5 h-3.5" /> Add Experience
-                        </button>
-                    </SectionToggle>
+                    <CV4ExperienceForm
+                        experiences={formData.experiences}
+                        openExpIdx={openExpIdx}
+                        setOpenExpIdx={setOpenExpIdx}
+                        setExpField={setExpField}
+                        setExpPoint={setExpPoint}
+                        addExpPoint={addExpPoint}
+                        removeExpPoint={removeExpPoint}
+                        addExperience={addExperience}
+                        removeExperience={removeExperience}
+                    />
 
                     {/* Education */}
-                    <SectionToggle title={`Education (${formData.education.length})`}>
-                        {formData.education.map((edu, eduIdx) => (
-                            <div key={edu.id} className="flex flex-col gap-2 border border-gray-200 rounded p-3 mb-2">
-                                <div className="flex justify-between items-center">
-                                    <span className="text-xs font-medium text-gray-500">Entry {eduIdx + 1}</span>
-                                    <button
-                                        onClick={() => removeEducation(eduIdx)}
-                                        className="p-1 text-red-400 hover:text-red-600"
-                                    >
-                                        <Trash2 className="w-3.5 h-3.5" />
-                                    </button>
-                                </div>
-                                <Field label="Degree / Qualification" value={edu.degree_name} onChange={(v) => setEduField(eduIdx, "degree_name", v)} />
-                                <Field label="University / Institution" value={edu.university_name} onChange={(v) => setEduField(eduIdx, "university_name", v)} />
-                            </div>
-                        ))}
-                        <button
-                            onClick={addEducation}
-                            className="flex items-center gap-1 text-xs text-blue-600 hover:text-blue-800 mt-1"
-                        >
-                            <Plus className="w-3.5 h-3.5" /> Add Education
-                        </button>
-                    </SectionToggle>
+                    <CV4EducationForm
+                        education={formData.education}
+                        setEduField={setEduField}
+                        addEducation={addEducation}
+                        removeEducation={removeEducation}
+                    />
                 </div>
 
                 {/* Right: Live PDF Preview */}
-                <div className="flex-1 bg-gray-200 flex flex-col">
-                    <div className="text-xs text-center text-gray-500 py-2 bg-gray-100 border-b border-gray-300">
-                        Live Preview — updates as you type
-                    </div>
-                    <div className="flex-1">
-                        <PDFViewer width="100%" height="100%" showToolbar={false}>
-                            <CV4PdfDocument data={formData} />
-                        </PDFViewer>
-                    </div>
-                </div>
+                <CV4PdfPreviewPane formData={formData} />
             </div>
         </div>
     );

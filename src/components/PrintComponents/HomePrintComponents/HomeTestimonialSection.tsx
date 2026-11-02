@@ -77,20 +77,20 @@ const HomeTestimonialSection: React.FC<HomeTestimonialSectionProps> = ({
   // Use only the first testimonial
   const testimonial = testimonials[0];
 
+  // Properly process the review text with the designation
+  const processedReview = useMemo(() => {
+    return processReviewText(testimonial?.review_text, designation);
+  }, [testimonial?.review_text, designation]);
+
+  // Checked after the hooks so hook order stays stable across renders.
   if (!testimonial) {
     return null;
   }
-
-  // Properly process the review text with the designation
-  const processedReview = useMemo(() => {
-    return processReviewText(testimonial.review_text, designation);
-  }, [testimonial.review_text, designation]);
 
   const companyDomain = testimonial.client_company_website
     ? new URL(testimonial.client_company_website).hostname.replace("www.", "")
     : "";
 
-  const videoUrl = testimonial.video;
   // Prefer Prototype[0].video -> upwork -> video
   const resolvedVideoUrl =
     testimonial.Prototype?.[0]?.video || testimonial.upwork || testimonial.video || "";

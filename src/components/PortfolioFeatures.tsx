@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { modifiedContent } from "@/hooks/modifiedContent";
-import { getColors } from "@/hooks/colors";
+import type { ProfileReport, SkillRef } from "@/types/api";
 
 interface PortfolioFeaturesProps {
   features_short: string;
-  skillsList: any[];
-  listOfdata: any;
+  skillsList: SkillRef[];
+  listOfdata: ProfileReport | null;
 }
 
 const PortfolioFeatures: React.FC<PortfolioFeaturesProps> = ({
@@ -13,7 +13,7 @@ const PortfolioFeatures: React.FC<PortfolioFeaturesProps> = ({
   skillsList,
   listOfdata,
 }) => {
-  const [isMobile, setIsMobile] = useState<boolean>(false);
+  const [, setIsMobile] = useState<boolean>(false);
   const [showAll, setShowAll] = useState<boolean>(false);
   const [showInitial, setShowInitial] = useState<boolean>(false);
 

@@ -1,12 +1,11 @@
 import React from "react";
 import Image from "next/image";
-import { formatDate } from "@/hooks/formatdate";
 import { Phone, AtSign, MapPin, GithubIcon, Link } from "lucide-react";
 import { useAppSelector } from "@/store";
-
+import type { ProfileReport } from "@/types/api";
 
 type CV3HeaderProps = {
-    listOfdata: any;
+    listOfdata: ProfileReport | null;
 };
 
 const CV3Header: React.FC<CV3HeaderProps> = ({ listOfdata }) => {
@@ -18,7 +17,7 @@ const CV3Header: React.FC<CV3HeaderProps> = ({ listOfdata }) => {
         listOfdata?.location && { key: "location", icon: MapPin, value: listOfdata.location },
         listOfdata?.github && { key: "github", icon: GithubIcon, value: listOfdata.github },
         listOfdata?.linkedIn && { key: "linkedin", icon: Link, value: listOfdata.linkedIn },
-    ].filter(Boolean) as { key: string; icon: any; value: string }[];
+    ].filter(Boolean) as { key: string; icon: React.ComponentType<{ size?: number | string; className?: string }>; value: string }[];
 
     const visibleHeaderInfo = urlInfo?.u ? headerInfo.filter(h => h.key === "location" || h.key === "github") : headerInfo;
     return (
@@ -48,16 +47,6 @@ const CV3Header: React.FC<CV3HeaderProps> = ({ listOfdata }) => {
                         })}
                     </div>
                     {/* Availability */}
-                    {/* <div className="mt-[2rem]">
-            <p className="CVLatestHeading">NEXT AVAILABLE</p>
-            <h4 className="text-[1.6rem] font-medium text-primary leading-normal">
-              {formatDate(new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), {
-                day: "numeric",
-                month: "long",
-                year: "numeric",
-              })}
-            </h4>
-          </div> */}
                 </div>
             </div>
             {/* BG Picture */}

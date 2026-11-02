@@ -16,9 +16,6 @@ function NoteDomainForPint({ direction, isPrimary }: NoteDomainForPintProps) {
     (state) => state.profile.profileUrlInfo
   );
 
-  // console.log("listOfdatas in NoteDomainForPint:", listOfdatas);
-  // console.log("urlInfo in NoteDomainForPint:", urlInfo);
-
   // 🛑 NULL CHECK
   if (!listOfdatas || !listOfdatas.domain || !urlInfo?.uniqueID) return null;
 
