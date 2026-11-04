@@ -73,31 +73,19 @@ const config: Config = {
       },
 
       backgroundImage: {
-        // Home Page images
-        heroBG: "url(/images/heroBG.svg)",
-        heroBottomVector: "url(/images/heroBottomVector.svg)",
+        // Only keys that are actually applied as a `bg-*` class belong here.
+        // Tailwind emits a rule for a key only when the class is used, so an
+        // unused key is invisible at runtime and quietly keeps its file alive
+        // in /public. Sixteen such keys were removed; four of those pointed at
+        // files that never existed (Footer1.png, hero-vector.svg,
+        // heroBannerBottom.svg), which would have 404'd if ever used.
         cvSideBg: "url(/images/cvSideBG.svg)",
-        aboutBG: "url(/images/NewDevPics/About_1920x1920.jpg)",
-        aboutBgMobile: "url(/images/NewDevPics/About_1920x1920.jpg)",
-        testmonialBG: "url(/images/testmonialBG.png)",
-        faqDesktop: "url(/images/faqSideBG.svg)",
-        faqMobile: "url(/images/faqMobile.png)",
-        footer1: "url(/images/Footer1.png)",
-        thumbnail: "url(/images/thumbnail.png)",
-        footerBg: "url(/images/footerBg.svg)",
         footerDesktop: "url(/images/footerDektopBG.png)",
         footerMobile: "url(/images/footerMobileBG.png)",
-        heroVectorBg: "URL(/images/hero-vector.svg)",
-        Circle: "URL(/images/circle-shape.svg)",
-        bottomBG: "URL(/images/heroBannerBottom.svg)",
         // Blog Listing Page Images
-        blogHeroBg: "URL(/images/blogHeroBg.svg)",
         Newslatter: "URL(/images/Newslatter.svg)",
-        // Blog Detail Page Images
-        blogDetailBg: "URL(/images/blogDetailBg.svg)",
         // Cover Letter Page
         cvBoxDesktop: "URL(/images/cvBoxDesktop.svg)",
-        cvBoxMobile: "URL(/images/cvBoxMobile.svg)",
         // Gradients
         "radial-gradient":
           "radial-gradient(100% 100% at 50% 0%, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 100%)",
