@@ -22,31 +22,19 @@ export const metadata: Metadata = {
     "Web Developer",
     "Professional Journey",
   ],
-  authors: [{ name: "Your Name", url: "https://yourwebsite.com" }],
-  openGraph: {
-    title: "Personal Website – CV & Portfolio",
-    description:
-      "Explore my professional journey through CVs, portfolios, and more. Connect with me and discover what I bring to the table.",
-    url: "https://yourwebsite.com",
-    siteName: "Your Name",
-    images: [
-      {
-        url: "https://yourwebsite.com/og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Portfolio Preview",
-      },
-    ],
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Personal Website – CV & Portfolio",
-    description:
-      "Explore my professional journey through CVs, portfolios, and more. Connect with me and discover what I bring to the table.",
-    images: ["https://yourwebsite.com/og-image.jpg"],
-    creator: "@yourtwitterhandle",
-  },
+  /**
+   * No `openGraph` / `twitter` block here on purpose.
+   *
+   * The hard-coded `authors` entry was removed for the same reason: it
+   * named "Your Name" at yourwebsite.com on every tenant's site, which
+   * also contradicted the real Person in the JSON-LD graph.
+   *
+   * This file previously carried a hard-coded card pointing at
+   * yourwebsite.com/og-image.jpg — a placeholder image on a domain nobody
+   * owns, sent identically for every tenant. Share cards are now built per
+   * page from the tenant's own API content in src/utils/seo/pageSeo.ts, and
+   * a profile with no photo gets a card with no image rather than a stand-in.
+   */
   manifest: "/site.webmanifest",
 };
 

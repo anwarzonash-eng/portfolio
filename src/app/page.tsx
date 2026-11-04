@@ -1,9 +1,17 @@
-"use client";
 import Home from "@/components/pages/home";
-import type { PageProps } from "@/types/page";
+import { PageJsonLd } from "@/components/seo/JsonLd";
+import {
+  createGenerateMetadata,
+  type SeoPageProps,
+} from "@/utils/seo/pageSeo";
 
-const index = ({ params }: PageProps) => {
-  return <Home params={params} />;
-};
+export const generateMetadata = createGenerateMetadata("home");
 
-export default index;
+const Page = ({ params, searchParams }: SeoPageProps) => (
+  <>
+    <PageJsonLd kind="home" params={params} searchParams={searchParams} />
+    <Home params={params} />
+  </>
+);
+
+export default Page;

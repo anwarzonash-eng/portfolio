@@ -1,9 +1,17 @@
-'use client';
-import CV from '@/components/pages/cv';
-import type { PageProps } from "@/types/page";
+import CV from "@/components/pages/cv";
+import { PageJsonLd } from "@/components/seo/JsonLd";
+import {
+  createGenerateMetadata,
+  type SeoPageProps,
+} from "@/utils/seo/pageSeo";
 
-const cv = ({ params }: PageProps) => {
-  return <CV params={params} />;
-};
+export const generateMetadata = createGenerateMetadata("cv");
 
-export default cv;
+const Page = ({ params, searchParams }: SeoPageProps) => (
+  <>
+    <PageJsonLd kind="cv" params={params} searchParams={searchParams} />
+    <CV params={params} />
+  </>
+);
+
+export default Page;

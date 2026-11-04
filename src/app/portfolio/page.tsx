@@ -1,10 +1,17 @@
-'use client';
+import PortfolioListing from "@/components/pages/potfolio-listing";
+import { PageJsonLd } from "@/components/seo/JsonLd";
+import {
+  createGenerateMetadata,
+  type SeoPageProps,
+} from "@/utils/seo/pageSeo";
 
-import PortfolioListing from '@/components/pages/potfolio-listing';
-import type { PageProps } from "@/types/page";
+export const generateMetadata = createGenerateMetadata("portfolio");
 
-const portfolioListing = ({ params }: PageProps) => {
-  return <PortfolioListing params={params} />;
-};
+const Page = ({ params, searchParams }: SeoPageProps) => (
+  <>
+    <PageJsonLd kind="portfolio" params={params} searchParams={searchParams} />
+    <PortfolioListing params={params} />
+  </>
+);
 
-export default portfolioListing;
+export default Page;

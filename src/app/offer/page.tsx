@@ -1,9 +1,17 @@
-"use client";
 import Offer from "@/components/pages/offer";
-import type { PageProps } from "@/types/page";
+import { PageJsonLd } from "@/components/seo/JsonLd";
+import {
+  createGenerateMetadata,
+  type SeoPageProps,
+} from "@/utils/seo/pageSeo";
 
-const offer = ({ params }: PageProps) => {
-  return <Offer params={params} />;
-};
+export const generateMetadata = createGenerateMetadata("offer");
 
-export default offer;
+const Page = ({ params, searchParams }: SeoPageProps) => (
+  <>
+    <PageJsonLd kind="offer" params={params} searchParams={searchParams} />
+    <Offer params={params} />
+  </>
+);
+
+export default Page;

@@ -1,10 +1,17 @@
-'use client';
+import ContactMePage from "@/components/pages/contact-me";
+import { PageJsonLd } from "@/components/seo/JsonLd";
+import {
+  createGenerateMetadata,
+  type SeoPageProps,
+} from "@/utils/seo/pageSeo";
 
-import ContactMePage from '@/components/pages/contact-me';
-import type { PageProps } from "@/types/page";
+export const generateMetadata = createGenerateMetadata("contact");
 
-const contact = ({ params }: PageProps) => {
-  return <ContactMePage params={params} />;
-};
+const Page = ({ params, searchParams }: SeoPageProps) => (
+  <>
+    <PageJsonLd kind="contact" params={params} searchParams={searchParams} />
+    <ContactMePage params={params} />
+  </>
+);
 
-export default contact;
+export default Page;
