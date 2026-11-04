@@ -154,7 +154,7 @@ const ExperienceCvPortrait = ({
                   {experience?.thumbnail && (
                     <div className="h-[3.5rem] w-[3.5rem]  rounded-[0.4rem] relative">
                       <Image
-unoptimized
+                        unoptimized
                         src={experience?.thumbnail}
                         loading="eager"
                         priority={true}
@@ -199,7 +199,7 @@ unoptimized
                               <span>Check My</span>
                               <div className="h-[3.5rem] w-[10rem] relative mx-2 inline-block overflow-hidden rounded-[10rem] px-2 bg-white">
                                 <Image
-unoptimized
+                                  unoptimized
                                   src="/images/upworkText.svg"
                                   alt="Upwork Logo"
                                   width={100}

@@ -161,7 +161,7 @@ const HomePortfolioCard: React.FC<HomePortfolioCardProps> = ({
                   {portfolio?.thumbnail && (
                     <div className="relative w-full h-[300px] rounded-[1.2rem] overflow-hidden">
                       <Image
-unoptimized
+                        unoptimized
                         src={
                           portfolio?.title === "Velzon"
                             ? "/VelzonThumbnail.webp"

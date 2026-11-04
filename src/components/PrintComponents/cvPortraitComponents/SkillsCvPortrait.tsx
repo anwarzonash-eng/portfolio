@@ -84,7 +84,7 @@ const SkillsCvPortrait: React.FC<SkillsContainerProps> = ({
                       className="h-[8rem] w-[8rem] mx-auto"
                     >
                       <Image
-unoptimized
+                        unoptimized
                         src={skill.icon}
                         alt={skill.title}
                         loading="eager"

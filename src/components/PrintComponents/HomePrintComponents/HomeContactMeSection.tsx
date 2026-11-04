@@ -80,7 +80,7 @@ const HomeContactMeSection = ({ listOfdata, formatPhoneNumber, hideLinks }) => {
         <div className={`${hideLinks ? "flex items-center justify-center flex-wrap w-full":"grid grid-cols-2"} gap-[1.5rem] mb-[2rem]`}>
           <div className="w-full border border-border border-solid p-[1.5rem] rounded-[0.8rem] flex items-center gap-[1.5rem]">
             <Image
-unoptimized
+              unoptimized
               src={"/images/envelop.svg"}
               height={40}
               width={40}
@@ -111,7 +111,7 @@ unoptimized
           </div>
           <div className="w-full border border-border border-solid p-[1.5rem] rounded-[0.8rem] flex items-center gap-[1.5rem]">
             <Image
-unoptimized
+              unoptimized
               src={"/images/phone.svg"}
               height={40}
               width={40}
@@ -144,7 +144,7 @@ unoptimized
           </div>
           <div className="w-full border border-border border-solid p-[1.5rem] rounded-[0.8rem] flex items-center gap-[1.5rem]">
             <Image
-unoptimized
+              unoptimized
               src={"/images/location.svg"}
               height={40}
               width={40}
@@ -178,7 +178,7 @@ unoptimized
 
               {listOfdata?.location?.includes("Manchester, UK") && (
                 <Image
-unoptimized
+                  unoptimized
                   src={"/images/ukFlag.svg"}
                   height={35}
                   width={35}
@@ -200,7 +200,7 @@ unoptimized
                   >
                     <Link href={href} target="_blank">
                       <Image
-unoptimized
+                        unoptimized
                         src={src}
                         loading="eager"
                         priority={true}
@@ -272,7 +272,7 @@ unoptimized
                             target="_blank"
                           >
                             <Image
-unoptimized
+                              unoptimized
                               alt="WhatsApp"
                               src="/images/whatsappforContactComponent.svg"
                               width={100}
@@ -289,7 +289,7 @@ unoptimized
                         <Tooltip text="My Upwork">
                           <Link href={listOfdata?.upwork} target="_blank">
                             <Image
-unoptimized
+                              unoptimized
                               alt="Upwork"
                               src="/images/upworkforContactComponent.svg"
                               width={100}
@@ -309,7 +309,7 @@ unoptimized
                         >
                           <div className="h-[4rem] w-[4rem] bg-[#22357b] rounded-lg relative">
                             <Image
-unoptimized
+                              unoptimized
                               alt="Chat Now"
                               src="/images/chatNowIcon.svg"
                               width={100}
@@ -330,7 +330,7 @@ unoptimized
                           >
                             <div className="h-[4rem] w-[4rem] bg-[#006bff] rounded-lg flex items-center justify-center relative">
                               <Image
-unoptimized
+                                unoptimized
                                 alt=""
                                 src="/images/calendlyicon.svg"
                                 width={100}

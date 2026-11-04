@@ -36,7 +36,7 @@ const HomeServicesSection = ({ hideLinks: _hideLinks, listOfdatas: _listOfdatas,
                         {service.picture && (
                           <div className="relative h-[17rem] print:h-[14rem] w-full flex items-center justify-center overflow-hidden group">
                             <Image
-unoptimized
+                              unoptimized
                               src={service.picture.trim()}
                               alt={service.title || "Service image"}
                               height={150}

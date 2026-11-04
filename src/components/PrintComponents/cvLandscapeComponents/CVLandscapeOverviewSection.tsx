@@ -25,7 +25,9 @@ const CVLandscapeOverviewSection = ({
               {!hideLinks ? (
                 <Link href="/" className=" block">
                   <Image
-unoptimized
+                    loading="eager"
+                    priority
+                    unoptimized
                     src={listOfdata?.profile_photo_1}
                     height={1200}
                     width={1200}
@@ -35,7 +37,9 @@ unoptimized
                 </Link>
               ) : (
                 <Image
-unoptimized
+                  loading="eager"
+                  priority
+                  unoptimized
                   src={listOfdata?.profile_photo_1}
                   height={1200}
                   width={1200}

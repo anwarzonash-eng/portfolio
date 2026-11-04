@@ -43,7 +43,9 @@ export const SingleExperienceItemPortfolio = ({
                       {experience?.thumbnail && (
                         <div className="h-[3.5rem] w-[3.5rem]  rounded-[0.4rem] relative">
                           <Image
-unoptimized
+                            loading="eager"
+                            priority
+                            unoptimized
                             src={experience?.thumbnail}
                             height={26}
                             width={26}

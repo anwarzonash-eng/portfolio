@@ -17,7 +17,7 @@ const HomeWeclome = ({
         </div>
         <div className="flex items-center justify-start gap-[4rem] w-full">
           <Image
-unoptimized
+            unoptimized
             src={listOfdatas?.profile_photo_1.trim()}
             alt="Profile Photo"
             height={245}

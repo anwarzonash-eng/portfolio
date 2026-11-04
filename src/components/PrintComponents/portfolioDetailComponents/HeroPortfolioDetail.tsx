@@ -37,7 +37,7 @@ const HeroPortfolioDetail: React.FC<HeroPortfolioDetailProps> = ({
         <div className="relative z-50 top-[18rem] max-w-[1000px] mx-auto w-full min-h-[700px]">
           {/* Blog Detail Pic*/}
           <Image
-unoptimized
+            unoptimized
             src={portfolioDetails?.thumbnail}
             height={2000}
             width={2000}

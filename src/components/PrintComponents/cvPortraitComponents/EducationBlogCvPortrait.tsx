@@ -31,7 +31,7 @@ const EducationBlogCvPortrait = ({
                   <div className="flex items-center gap-[1.8rem]">
                     {edu?.thumbnail && (
                       <Image
-unoptimized
+                        unoptimized
                         src={edu?.thumbnail}
                         loading="eager"
                         priority={true}
@@ -93,7 +93,7 @@ unoptimized
                   {blog?.featuredImage && (
                     <div className="size-[18rem] flex-shrink-0">
                       <Image
-unoptimized
+                        unoptimized
                         src={getImageForIndex(domain, index)}
                         loading="eager"
                         priority={true}

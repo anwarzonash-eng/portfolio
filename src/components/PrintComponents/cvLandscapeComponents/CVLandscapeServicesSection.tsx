@@ -29,7 +29,7 @@ const CVLandscapeServicesSection = ({
                     {contact?.iconSrc && (
                       <div className="h-[3.5rem] w-[3.5rem] bg-[#E2E6EE] rounded-[50%] flex items-center justify-center relative">
                         <Image
-unoptimized
+                          unoptimized
                           src={contact?.iconSrc}
                           height={24}
                           width={24}
@@ -89,7 +89,7 @@ unoptimized
                           >
                             {social?.iconSrc && (
                               <Image
-unoptimized
+                                unoptimized
                                 src={social?.iconSrc}
                                 height={35}
                                 width={35}
