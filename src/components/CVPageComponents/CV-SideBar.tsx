@@ -129,6 +129,7 @@ const CVSideBar: React.FC<CVSideBarProps> = ({
                 {contact.iconSrc && (
                   <div className="h-[3.5rem] w-[3.5rem] bg-[#E2E6EE] rounded-[50%] flex items-center justify-center">
                     <Image
+unoptimized
                       src={contact.iconSrc}
                       height={24}
                       width={24}
@@ -176,6 +177,7 @@ const CVSideBar: React.FC<CVSideBarProps> = ({
                 >
                   {social.iconSrc && (
                     <Image
+unoptimized
                       src={social.iconSrc}
                       height={35}
                       width={35}
@@ -210,6 +212,7 @@ const CVSideBar: React.FC<CVSideBarProps> = ({
                   {contact.iconSrc && (
                     <div className="h-[3.5rem] w-[3.5rem] bg-[#E2E6EE] rounded-[50%] flex items-center justify-center">
                       <Image
+unoptimized
                         src={contact.iconSrc}
                         height={24}
                         width={24}
@@ -247,6 +250,7 @@ const CVSideBar: React.FC<CVSideBarProps> = ({
                 <div key={index} className="flex items-center gap-[1.78rem]">
                   {social.iconSrc && (
                     <Image
+unoptimized
                       src={social.iconSrc}
                       height={35}
                       width={35}

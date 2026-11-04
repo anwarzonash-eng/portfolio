@@ -16,42 +16,43 @@
  * defaulted to avoid silently changing either one.
  */
 const HeroBackdrop = ({ breakpoint }: { breakpoint: "sm" | "md" }) => {
-  // Tailwind needs literal class strings, so both variants are spelled out.
-  const desktopClass =
-    breakpoint === "sm" ? "hidden sm:block" : "hidden md:block";
-  const mobileClass = breakpoint === "sm" ? "sm:hidden" : "md:hidden";
+  // The media query has to match the Tailwind breakpoint this instance was
+  // asked for: sm = 640px, md = 768px.
+  const minWidth = breakpoint === "sm" ? "640px" : "768px";
 
   return (
     <div className="absolute top-0 left-0 w-full h-auto">
       <div className="relative w-full">
         {/* Themed backdrop: paints on the first frame at the tenant's colour. */}
         <div className="absolute inset-0 bg-sectionBG" aria-hidden="true" />
-        {/* width/height reserve the aspect ratio before the file arrives, so the
-            box never reflows. Eager: this sits above the fold.
+        {/* <picture> rather than two <img>s toggled with hidden/sm:block. CSS
+            display:none does not stop a download, so the old markup fetched
+            both drawings on every device and painted one - 85 KB of desktop
+            artwork on every phone, and 44 KB of phone artwork on every desktop.
+            A <source media> is resolved before the fetch, so exactly one is
+            requested.
+            width/height reserve the aspect ratio before the file arrives, so
+            the box never reflows. Eager: this sits above the fold.
             Plain <img>: next/image does not optimise SVG, so it would add a
             wrapper and a loader round-trip for no benefit. */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/bg/hero-desktop.svg"
-          alt=""
-          aria-hidden="true"
-          width={1550}
-          height={896}
-          loading="eager"
-          decoding="async"
-          className={`${desktopClass} relative w-full h-auto`}
-        />
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/bg/hero-mobile.svg"
-          alt=""
-          aria-hidden="true"
-          width={393}
-          height={896}
-          loading="eager"
-          decoding="async"
-          className={`${mobileClass} relative w-full h-auto`}
-        />
+        <picture>
+          <source
+            media={`(min-width: ${minWidth})`}
+            srcSet="/bg/hero-desktop.svg"
+            width={1550}
+            height={896}
+          />
+          <img
+            src="/bg/hero-mobile.svg"
+            alt=""
+            aria-hidden="true"
+            width={393}
+            height={896}
+            loading="eager"
+            decoding="async"
+            className="relative w-full h-auto"
+          />
+        </picture>
       </div>
     </div>
   );

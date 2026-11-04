@@ -125,7 +125,7 @@ const SideTestimonialPortfolioDetail: React.FC<TestimonialsSectionProps> = ({
             <div className="mb-[3rem] mt-[2rem]">
               <div className="bg-[#A3DDD3] dark:bg-bannerBG rounded-xl 
               p-[1rem] backdrop-blur-xl">
-                <Image width={400} height={260}
+                <Image unoptimized width={400} height={260}
                   src="/images/DoubleQuotes.svg"
                   className="size-[2rem] mb-[1rem]"
                   alt="quote"

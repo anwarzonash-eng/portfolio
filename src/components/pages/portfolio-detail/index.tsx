@@ -188,6 +188,9 @@ const PortfolioDetails = ({ params }: PageProps) => {
               {/* Blog Content Section */}
               <section className="mainContainer w-full relative top-0 lg:mt-[-67rem]">
                 <div className="w-full mt-[1rem]">
+                  {/* One element, responsive. This used to be two <Image>s
+                      toggled with hidden/lg:block, which meant every visitor
+                      downloaded both copies of the banner and displayed one. */}
                   <Image
                     src={
                       portfolioDetails?.title === "Velzon"
@@ -197,22 +200,9 @@ const PortfolioDetails = ({ params }: PageProps) => {
                     height={1500}
                     width={3000}
                     priority
-                    sizes="(min-width: 1024px) 1200px, 1px"
+                    sizes="(min-width: 1024px) 1200px, 100vw"
                     alt="Banner"
-                    className="hidden lg:block h-[70rem] w-auto mx-auto object-fill rounded-[1.5rem] border border-border border-solid"
-                  />
-                  <Image
-                    src={
-                      portfolioDetails?.title === "Velzon"
-                        ? "/VelzonThumbnail.webp"
-                        : portfolioDetails?.thumbnail
-                    }
-                    height={410}
-                    width={800}
-                    priority
-                    sizes="(max-width: 1023px) 100vw, 1px"
-                    alt="Banner"
-                    className="object-fill lg:hidden rounded-[1rem] w-auto border border-border border-solid mx-auto"
+                    className="object-fill w-auto mx-auto border border-border border-solid rounded-[1rem] lg:rounded-[1.5rem] lg:h-[70rem]"
                   />
                   <article className="mt-[6rem] flex gap-[4rem] flex-col items-center justify-center md:flex-row md:items-start md:justify-normal">
                     <PortfolioSidebar

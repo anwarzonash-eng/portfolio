@@ -27,6 +27,7 @@ const ContactInfoCards = ({
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2  gap-[1.5rem] mb-[2rem]">
       <div className="w-full border border-border border-solid p-[1.5rem] rounded-[0.8rem] flex items-center gap-[1.5rem]">
         <Image
+unoptimized
           src={"/images/envelop.svg"}
           height={40}
           width={40}
@@ -49,6 +50,7 @@ const ContactInfoCards = ({
       </div>
       <div className="w-full border border-border border-solid p-[1.5rem] rounded-[0.8rem] flex items-center gap-[1.5rem]">
         <Image
+unoptimized
           src={"/images/phone.svg"}
           height={40}
           width={40}
@@ -66,6 +68,7 @@ const ContactInfoCards = ({
       </div>
       <div className="w-full border border-border border-solid p-[1.5rem] rounded-[0.8rem] flex items-center gap-[1.5rem]">
         <Image
+unoptimized
           src={"/images/location.svg"}
           height={40}
           width={40}
@@ -91,6 +94,7 @@ const ContactInfoCards = ({
 
           {listOfdata?.location?.includes("Manchester, UK") && (
             <Image
+unoptimized
               src={"/images/ukFlag.svg"}
               height={35}
               width={35}
@@ -108,7 +112,7 @@ const ContactInfoCards = ({
               key={alt}
             >
               <Link href={href ? href : "#"} target="_blank">
-                <Image src={src.trim()} height={50} width={50} alt={alt} />
+                <Image unoptimized src={src.trim()} height={50} width={50} alt={alt} />
               </Link>
             </Tooltip>
           ) : null,

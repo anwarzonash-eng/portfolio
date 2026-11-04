@@ -38,6 +38,7 @@ const MobileHeader = ({
     <UserProfileBrand listOfdata={listOfdata} />
     {/* Hamburger Icon */}
     <Image
+unoptimized
       src={"/images/menu.svg"}
       height={24}
       width={24}
@@ -71,6 +72,7 @@ const MobileHeader = ({
                     >
                       <p className="font-medium">{link?.title}</p>
                       <Image
+unoptimized
                         src="/images/dropDown.svg" // Use a relative path starting with '/'
                         alt="dropMenu"
                         height={24}
@@ -130,6 +132,7 @@ const MobileHeader = ({
                 >
                   <p className="font-medium">Resources</p>
                   <Image
+unoptimized
                     src="/images/dropDown.svg" // Use a relative path starting with '/'
                     alt="dropMenu"
                     height={24}

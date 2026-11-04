@@ -127,6 +127,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
             {listOfdata?.hide_earnings !== true && (
               <div className="flex gap-[0.35rem] text-nowrap text-primary text-[1.4rem] font-medium rounded-[3.5rem] py-[0.69rem] bg-surface shadow-lg px-[1.2rem] absolute top-[25%] left-[98%] translate-x-[-90%] md:left-[80%] md:translate-x-[-80%] animate-pulse min-w-max">
                 <Image
+unoptimized
                   src={"/images/clock.svg"}
                   height={14}
                   width={14}
@@ -141,6 +142,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
             {listOfdata?.hide_earnings !== true && (
               <div className="flex gap-[0.35rem] text-nowrap text-primary text-[2rem] font-medium rounded-[3.5rem] py-[0.69rem] bg-surface shadow-lg max-w-max px-[0.9rem] pr-[1.4rem] absolute bottom-[25%] left-[10%] translate-x-[-15%] md:left-[20%] md:translate-x-[-20%] animate-pulse">
                 <Image
+unoptimized
                   src={"/images/dollar-symbol.svg"}
                   height={14}
                   width={14}
@@ -301,6 +303,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
 
                     <div className="flex items-center gap-[0.35rem] text-nowrap text-primary text-[2rem] font-medium rounded-[3.5rem] py-[0.69rem]   max-w-max  pr-[1.4rem]">
                       <Image
+unoptimized
                         src={"/images/dollar-symbol.svg"}
                         height={24}
                         width={24}
@@ -315,6 +318,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
 
                     <div className="flex gap-[0.35rem] text-nowrap text-primary text-[2rem] font-medium rounded-[3.5rem] py-[0.69rem]    min-w-max">
                       <Image
+unoptimized
                         src={"/images/clock.svg"}
                         height={26}
                         width={26}

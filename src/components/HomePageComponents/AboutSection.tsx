@@ -44,7 +44,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
             <div className="bg-surface rounded-[0.8rem] absolute bottom-auto left-auto top-[-3rem] right-[3rem] xl:top-[7rem] xl:right-[-8rem] p-[1.4rem] xl:h-[12rem] xl:w-[26rem] xl:rounded-[2rem] flex items-center shadow-md gap-[1rem] xl:gap-[2rem] animate-bounce">
               {/* Badge SVG */}
               <div className="bg-[#2A97FC] rounded-[50%] flex items-center justify-center h-[4.9rem] w-[4.9rem] xl:h-[6.8rem] xl:w-[6.8rem]">
-                <Image width={34} height={34}
+                <Image unoptimized width={34} height={34}
                   src="/images/experience.svg"
                   alt="Experience"
                   className="h-[2.4rem] w-[2.4rem] xl:h-[3.4rem] xl:w-[3.4rem]"
@@ -69,7 +69,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
               <div className="bg-surface mb-3 rounded-[0.8rem] absolute top-auto right-auto bottom-[-4rem] xl:bottom-[3rem] xl:left-[3rem] left-[3rem] p-[1.4rem] xl:h-[12rem] xl:rounded-[2rem] flex items-center shadow-md gap-[1rem] xl:gap-[2rem] animate-bounce xl:animate-none">
                 {/* Badge SVG */}
                 <div className="bg-[#FC822A] rounded-[50%] flex items-center justify-center h-[4.9rem] w-[4.9rem] xl:h-[6.8rem] xl:w-[6.8rem]">
-                  <Image width={34} height={34}
+                  <Image unoptimized width={34} height={34}
                     src="/images/badge.svg"
                     alt="Experience"
                     className="h-[2.4rem] w-[2.4rem] xl:h-[3.4rem] xl:w-[3.4rem]"
@@ -179,6 +179,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
                 </div>
                 {listOfdata?.location?.includes("Manchester, UK") && (
                   <Image
+unoptimized
                     src={"/images/ukFlag.svg"}
                     height={35}
                     width={35}

@@ -93,6 +93,7 @@ const ContactSocialLinks = ({
                     className="flex items-center justify-center"
                   >
                     <Image
+unoptimized
                       alt="WhatsApp"
                       src="/images/whatsappforContactComponent.svg"
                       width={100}
@@ -107,6 +108,7 @@ const ContactSocialLinks = ({
                 <Tooltip text="My Upwork">
                   <Link href={listOfdata?.upwork} target="_blank">
                     <Image
+unoptimized
                       alt="Upwork"
                       src="/images/upworkforContactComponent.svg"
                       width={100}
@@ -122,6 +124,7 @@ const ContactSocialLinks = ({
                   <Link href={listOfdata?.calendly_link} target="_blank">
                     <div className="h-[4rem] w-[4rem] bg-[#006bff] rounded-lg flex items-center justify-center">
                       <Image
+unoptimized
                         alt=""
                         src="/images/calendlyicon.svg"
                         width={100}

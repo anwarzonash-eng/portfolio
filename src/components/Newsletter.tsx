@@ -63,6 +63,7 @@ const Newsletter = ({ listOfdata }) => {
         {/* Image */}
         <div className="">
           <Image
+unoptimized
             src="/images/MailIcon.svg"
             width={179}
             height={144}

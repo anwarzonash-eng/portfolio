@@ -57,6 +57,7 @@ const ThankyouPopup = ({ setIsModalOpen, listOfdata, text = null }) => {
             {/* Close Icon */}
             <div className="absolute top-[-1rem] right-[-1rem] cursor-pointer z-[60]">
               <Image
+unoptimized
                 src="/images/close-icon.svg"
                 height={50}
                 width={50}
@@ -89,6 +90,7 @@ const ThankyouPopup = ({ setIsModalOpen, listOfdata, text = null }) => {
                           style={{ backgroundColor: bg }}
                         >
                           <Image
+unoptimized
                             alt={alt}
                             src={src}
                             width={100}
@@ -104,6 +106,7 @@ const ThankyouPopup = ({ setIsModalOpen, listOfdata, text = null }) => {
                           style={{ backgroundColor: bg }}
                         >
                           <Image
+unoptimized
                             alt={alt}
                             src={src}
                             width={100}

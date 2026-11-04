@@ -126,6 +126,7 @@ const BlogDetails = ({ params }: PageProps) => {
                   <div className="flex items-center justify-center gap-[1.2rem]">
                     <div className="h-[4rem] px-[1.6rem] flex items-center gap-[0.8rem] justify-center bg-white/30 rounded-[0.8rem] shadow border border-[#c6cbd8]/40 backdrop-blur-[14px] cursor-pointer">
                       <Image
+unoptimized
                         src={"/images/copy.svg"}
                         height={20}
                         width={20}
@@ -153,23 +154,17 @@ const BlogDetails = ({ params }: PageProps) => {
                   {/* Use getImageForIndex for the blog image */}
                   {blogdata && blogIndex !== -1 && (
                     <>
+                      {/* One element, responsive. This used to be two <Image>s
+                          toggled with hidden/lg:block, so every visitor
+                          downloaded both copies and displayed one. */}
                       <Image
                         src={getImageForIndex(listOfdata?.domain, blogIndex)}
                         height={532}
                         width={1024}
-                  priority
-                  sizes="(min-width: 1024px) 1024px, 1px"
+                        priority
+                        sizes="(min-width: 1024px) 1024px, 100vw"
                         alt="Banner"
-                        className="hidden lg:block h-[53.2rem] w-[102.4rem] object-contain rounded-[1rem]"
-                      />
-                      <Image
-                        src={getImageForIndex(listOfdata?.domain, blogIndex)}
-                        height={410}
-                        width={800}
-                  priority
-                  sizes="(max-width: 1023px) 100vw, 1px"
-                        alt="Banner"
-                        className="w-full object-contain lg:hidden rounded-[1rem]"
+                        className="w-full object-contain rounded-[1rem] lg:h-[53.2rem] lg:w-[102.4rem]"
                       />
                     </>
                   )}

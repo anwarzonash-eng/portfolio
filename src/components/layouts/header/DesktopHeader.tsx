@@ -72,6 +72,7 @@ const DesktopHeader = ({
                 >
                   {link.title}
                   <Image
+unoptimized
                     src="/images/dropDown.svg"
                     height={24}
                     width={24}
@@ -164,6 +165,7 @@ const DesktopHeader = ({
           >
             Resources
             <Image
+unoptimized
               src="/images/dropDown.svg"
               height={24}
               width={24}

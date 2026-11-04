@@ -124,7 +124,7 @@ const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
                     {/* Left Side: Info Container */}
                     <div className="flex-1 mb-[3rem]">
                       <div className="bg-white/20 rounded-xl p-[1rem] lg:p-[2rem] text-white  backdrop-blur-xl">
-                        <Image width={72} height={72}
+                        <Image unoptimized width={72} height={72}
                           src="/images/DoubleQuotes.svg"
                           className="size-[30px] mb-[1rem]"
                           alt="quote"
