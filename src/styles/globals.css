@@ -261,7 +261,9 @@ body {
 
 @font-face {
   font-family: "Helvetica Neue";
-  src: url("/fonts/HelveticaNeueItalic.otf") format("opentype");
+  /* This family ships as .ttf; every other weight here is .otf. The
+     declaration asked for .otf, which 404'd on every page load. */
+  src: url("/fonts/HelveticaNeueItalic.ttf") format("truetype");
   font-weight: 400;
   font-style: italic;
 }

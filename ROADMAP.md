@@ -16,7 +16,17 @@ Planned work on this project:
 - [ ] Add i18n support
 
 ## Performance and accessibility
-- [ ] Compress the large SVG backgrounds and hero images
+- [x] Compress the large SVG backgrounds and hero images
+      (Done, but wider than the line suggests, and one premise in it was wrong.
+      The two "large SVG backgrounds" - footerMobileBG.svg and formBg.svg,
+      12.78 MB each - turned out to be unreferenced Figma exports of the two
+      footer PNGs and were deleted, not compressed. What actually happened:
+      150 unreferenced assets removed (104.29 MB -> 1.42 MB in public/);
+      29 live rasters converted to WebP; 38 SVGs run through svgo
+      (123 KB -> 46 KB gzipped); the Next image optimiser enabled with
+      per-device sizes and priority on hero images; print routes deliberately
+      excluded from the optimiser to keep PDF capture correct.
+      See docs/image-optimisation.md for the before/after figures.)
 - [x] Lazy-load heavy sections and carousels
       (hero SVG backdrops moved to `/public/bg`; sweetalert2, formik/yup, swiper,
       the portfolio modal, FAQs, blogs and the home video are now loaded on demand.

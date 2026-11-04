@@ -61,12 +61,13 @@ const PortfolioCardContent: React.FC<PortfolioCardContentProps> = ({
                 thumbnailSize === "small" ? "lg:w-[30rem]" : "lg:w-[50rem]"
               } float-right w-full rounded-[1.2rem] relative align-middle justify-center flex-col flex items-center`}
             >
+              {/* No fallback src: the enclosing block only renders when
+                  portfolio.thumbnail is truthy, so the old
+                  `thumbnail ? thumbnail : "/images/project_img.webp"` could
+                  never reach its second branch. The placeholder file it named
+                  has been deleted. */}
               <Image
-                src={
-                  portfolio.thumbnail
-                    ? portfolio.thumbnail
-                    : "/images/project_img.webp"
-                }
+                src={portfolio.thumbnail}
                 alt="Project Image"
                 height={800}
                 width={800}
