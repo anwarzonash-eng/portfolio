@@ -191,7 +191,7 @@ const PortfolioDetails = ({ params }: PageProps) => {
                   <Image
                     src={
                       portfolioDetails?.title === "Velzon"
-                        ? "/VelzonThumbnail.PNG"
+                        ? "/VelzonThumbnail.webp"
                         : portfolioDetails?.thumbnail
                     }
                     height={1500}
@@ -202,7 +202,7 @@ const PortfolioDetails = ({ params }: PageProps) => {
                   <Image
                     src={
                       portfolioDetails?.title === "Velzon"
-                        ? "/VelzonThumbnail.PNG"
+                        ? "/VelzonThumbnail.webp"
                         : portfolioDetails?.thumbnail
                     }
                     height={410}
@@ -237,7 +237,7 @@ const PortfolioDetails = ({ params }: PageProps) => {
                     <Image
                       src={
                         portfolioDetails?.title === "Velzon"
-                          ? "/VelzonThumbnail.PNG"
+                          ? "/VelzonThumbnail.webp"
                           : portfolioDetails?.thumbnail
                       }
                       height={1500}

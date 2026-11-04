@@ -439,7 +439,7 @@ const Home_p = ({ params }: PageProps) => {
     const visiblePortfolios = listOfdata?.portfolios_ids?.slice(0, 3) || [];
     visiblePortfolios.forEach((portfolio) => {
       if (portfolio?.title === "Velzon") {
-        urls.push("/VelzonThumbnail.PNG");
+        urls.push("/VelzonThumbnail.webp");
       } else if (portfolio?.title === "Beyond Competitions") {
         urls.push("/BeyondCompetetionThumbnail.webp");
       } else if (portfolio?.thumbnail) {

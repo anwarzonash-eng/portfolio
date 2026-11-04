@@ -106,7 +106,7 @@ const PortfolioListing_p = ({ params }: PageProps) => {
       if (portfolio?.thumbnail) {
         // Handle special cases for specific portfolio titles
         if (portfolio?.title === "Velzon") {
-          urls.add("/VelzonThumbnail.PNG");
+          urls.add("/VelzonThumbnail.webp");
         } else if (portfolio?.title === "Beyond Competitions") {
           urls.add("/BeyondCompetetionThumbnail.webp");
         } else if (portfolio?.thumbnail) {

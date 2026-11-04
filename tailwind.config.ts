@@ -80,8 +80,8 @@ const config: Config = {
         // files that never existed (Footer1.png, hero-vector.svg,
         // heroBannerBottom.svg), which would have 404'd if ever used.
         cvSideBg: "url(/images/cvSideBG.svg)",
-        footerDesktop: "url(/images/footerDektopBG.png)",
-        footerMobile: "url(/images/footerMobileBG.png)",
+        footerDesktop: "url(/images/footerDektopBG.webp)",
+        footerMobile: "url(/images/footerMobileBG.webp)",
         // Blog Listing Page Images
         Newslatter: "URL(/images/Newslatter.svg)",
         // Cover Letter Page

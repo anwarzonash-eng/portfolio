@@ -105,7 +105,7 @@ const UpworkIdentity: React.FC<UpworkIdentityProps> = ({
             <Image
               height={30}
               width={30}
-              src={"/images/topRatedBadge.png"}
+              src={"/images/topRatedBadge.webp"}
               alt="Top Ratted Badge"
             />
             <span className={`${Header ? "text-[1.5rem]" : "text-[1.8rem]"} font-medium`}>Top Rated Plus</span>

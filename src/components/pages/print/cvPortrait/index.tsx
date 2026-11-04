@@ -434,7 +434,7 @@ const CV_Portrait = ({ params }: PageProps) => {
     // 5. Portfolio thumbnails with special cases (used in PortfolioCvPortrait)
     listOfdata?.portfolios_ids?.forEach((portfolio) => {
       if (portfolio?.title === "Velzon") {
-        urls.push("/VelzonThumbnail.PNG");
+        urls.push("/VelzonThumbnail.webp");
       } else if (portfolio?.title === "Beyond Competitions") {
         urls.push("/BeyondCompetetionThumbnail.webp");
       } else if (portfolio?.thumbnail) {

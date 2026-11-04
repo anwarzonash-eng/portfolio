@@ -65,7 +65,7 @@ const PortfolioCardContent: React.FC<PortfolioCardContentProps> = ({
                 src={
                   portfolio.thumbnail
                     ? portfolio.thumbnail
-                    : "/images/project_img.png"
+                    : "/images/project_img.webp"
                 }
                 alt="Project Image"
                 height={800}

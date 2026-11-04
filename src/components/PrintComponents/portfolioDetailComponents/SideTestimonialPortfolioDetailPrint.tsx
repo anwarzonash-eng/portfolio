@@ -71,7 +71,7 @@ const SideTestimonialPortfolioDetailPrint: React.FC<TestimonialsSectionProps> = 
   const t = testimonials[0];
   const processedReview = processReviewText(t.review_text, designation, "text-primary");
   const resolvedVideoUrl = t.video || t.Prototype?.[0]?.video || t.upwork || "";
-  const thumbnail = t.thumbnail || t.client_pic || "/images/placeholder-video.jpg";
+  const thumbnail = t.thumbnail || t.client_pic || "/images/placeholder-video.webp";
 
   return (
     <section className="w-full">

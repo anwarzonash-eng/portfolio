@@ -97,7 +97,7 @@ const UpwrokIdentityPrint: React.FC<UpwrokIdentityPrintProps> = ({
             <Image
               height={30}
               width={30}
-              src={"/images/topRatedBadge.png"}
+              src={"/images/topRatedBadge.webp"}
               alt="Top Rated Badge"
               className="size-[2.5rem] print:mt-4"
             />

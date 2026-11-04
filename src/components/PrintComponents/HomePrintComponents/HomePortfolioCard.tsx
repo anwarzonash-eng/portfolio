@@ -163,7 +163,7 @@ const HomePortfolioCard: React.FC<HomePortfolioCardProps> = ({
                       <Image
                         src={
                           portfolio?.title === "Velzon"
-                            ? "/VelzonThumbnail.PNG"
+                            ? "/VelzonThumbnail.webp"
                             : portfolio?.title === "Beyond Competitions"
                               ? "/BeyondCompetetionThumbnail.webp"
                               : portfolio?.thumbnail ||

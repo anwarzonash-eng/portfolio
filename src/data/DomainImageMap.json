@@ -1,14 +1,14 @@
 {
   "default": [
-    "/default/one.png",
-    "/default/two.png",
-    "/default/three.png",
-    "/default/four.png",
-    "/default/five.png",
-    "/default/six.png",
-    "/default/seven.png",
-    "/default/eight.png",
-    "/default/nine.png",
-    "/default/ten.png"
+    "/default/one.webp",
+    "/default/two.webp",
+    "/default/three.webp",
+    "/default/four.webp",
+    "/default/five.webp",
+    "/default/six.webp",
+    "/default/seven.webp",
+    "/default/eight.webp",
+    "/default/nine.webp",
+    "/default/ten.webp"
   ]
 }

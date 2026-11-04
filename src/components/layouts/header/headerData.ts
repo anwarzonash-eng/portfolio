@@ -29,32 +29,32 @@ export const serviceContentMap: Record<
   { image: string; description: string }
 > = {
   "Database Development": {
-    image: "/images/my_services/db.jpg",
+    image: "/images/my_services/db.webp",
     description:
       "Design and manage scalable, secure databases to support your applications and business logic.",
   },
   "Shopify Development": {
-    image: "/images/my_services/shopify.png",
+    image: "/images/my_services/shopify.webp",
     description:
       "Build and customize high-performing Shopify stores to grow your eCommerce business effectively.",
   },
   "Product Development": {
-    image: "/images/my_services/product.png",
+    image: "/images/my_services/product.webp",
     description:
       "Transform ideas into fully functional digital products with end-to-end design and development support.",
   },
   "Back-End Web Development": {
-    image: "/images/my_services/backend.png",
+    image: "/images/my_services/backend.webp",
     description:
       "Create robust server-side logic, APIs, and integrations to power modern, scalable web applications.",
   },
   "Full-Stack Developer": {
-    image: "/images/my_services/Full Stack Programmer.png",
+    image: "/images/my_services/Full Stack Programmer.webp",
     description:
       "Deliver complete solutions from front-end interfaces to back-end systems with end-to-end development expertise.",
   },
   "Front-End Web Development": {
-    image: "/images/my_services/Front-End Web Development.png",
+    image: "/images/my_services/Front-End Web Development.webp",
     description:
       "Craft responsive, user-friendly interfaces with modern technologies that enhance user experience.",
   },
@@ -64,23 +64,23 @@ export const serviceContentMap: Record<
       "Develop dynamic WordPress websites with custom themes, plugins, and SEO optimization for better performance.",
   },
   " Shopify Theme Customaization": {
-    image: "/images/my_services/Shopify Theme Development.png",
+    image: "/images/my_services/Shopify Theme Development.webp",
     description:
       "Tailor your Shopify store’s look and feel with custom themes designed to match your brand and boost engagement.",
   },
   "Shopify Theme Development": {
-    image: "/images/my_services/Shopify Theme.png",
+    image: "/images/my_services/Shopify Theme.webp",
     description:
       "Build responsive, high-converting Shopify themes from scratch to deliver a seamless shopping experience.",
   },
   "Shopify App  Development": {
-    image: "/images/my_services/Shopify App  Development.png",
+    image: "/images/my_services/Shopify App  Development.webp",
     description:
       "Create powerful custom Shopify apps to enhance functionality, automate processes, and improve user experience.",
   },
 
   "Web Performance Optimization": {
-    image: "/images/my_services/Web Performance Optimization.png",
+    image: "/images/my_services/Web Performance Optimization.webp",
     description:
       "Enhance website speed, loading times, and overall user experience through advanced performance tuning techniques.",
   },
@@ -92,19 +92,19 @@ export const serviceContentMap: Record<
   },
 
   "API Development and Integration": {
-    image: "/images/my_services/api.png",
+    image: "/images/my_services/api.webp",
     description:
       "Design robust APIs and seamlessly integrate third-party services to enable smooth data communication across platforms.",
   },
 
   "AWS Web Services Development": {
-    image: "/images/my_services/aws.png",
+    image: "/images/my_services/aws.webp",
     description:
       "Leverage AWS cloud solutions for building secure, scalable, and highly available web applications and infrastructures.",
   },
 
   "DevOps Developer": {
-    image: "/images/my_services/devops.png",
+    image: "/images/my_services/devops.webp",
     description:
       "Streamline development and deployment pipelines using CI/CD, containerization, and cloud automation practices.",
   },
@@ -112,7 +112,7 @@ export const serviceContentMap: Record<
 
 /** Fallback card for services missing from serviceContentMap. */
 export const defaultServiceContent = {
-  image: "/images/my_services/Full Stack Programmer.png",
+  image: "/images/my_services/Full Stack Programmer.webp",
   description:
     "Deliver complete solutions from front-end interfaces to back-end systems with end-to-end development expertise.",
 };

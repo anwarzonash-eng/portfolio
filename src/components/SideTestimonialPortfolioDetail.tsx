@@ -78,8 +78,8 @@ const SideTestimonialPortfolioDetail: React.FC<TestimonialsSectionProps> = ({
   }, [firstTestimonial]);
 
   const thumbnail = useMemo(() => {
-    if (!firstTestimonial) return "/images/placeholder-video.jpg";
-    return firstTestimonial.thumbnail || firstTestimonial.client_pic || "/images/placeholder-video.jpg";
+    if (!firstTestimonial) return "/images/placeholder-video.webp";
+    return firstTestimonial.thumbnail || firstTestimonial.client_pic || "/images/placeholder-video.webp";
   }, [firstTestimonial]);
 
   // Preload thumbnail to avoid layout shift when component appears

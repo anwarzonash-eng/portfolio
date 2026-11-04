@@ -95,7 +95,7 @@ const HomeTestimonialSection: React.FC<HomeTestimonialSectionProps> = ({
   const resolvedVideoUrl =
     testimonial.Prototype?.[0]?.video || testimonial.upwork || testimonial.video || "";
 
-  const thumbnail = testimonial.thumbnail || testimonial.client_pic || "/images/placeholder-video.jpg";
+  const thumbnail = testimonial.thumbnail || testimonial.client_pic || "/images/placeholder-video.webp";
 
   return (
     <section className="w-full bg-primary px-16 py-32 h-screen flex items-center justify-center">
@@ -207,7 +207,7 @@ const HomeTestimonialSection: React.FC<HomeTestimonialSectionProps> = ({
 
       <div className="hidden print:block ">
         <img
-          src="/images/testimonial.png"
+          src="/images/testimonial.webp"
           alt="testimonial"
           className="absolute top-0 left-0 w-full h-full object-fit "
         />

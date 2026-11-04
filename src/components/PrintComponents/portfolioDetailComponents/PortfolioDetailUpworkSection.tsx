@@ -74,7 +74,7 @@ const PortfolioDetailUpworkSection = ({ listOfdata, urlInfo, hideLinks }) => {
              <div
               className="py-2 inline-block"
             >
-              <img src="/images/up-logo.png" alt="Upwork Logo" />
+              <img src="/images/up-logo.webp" alt="Upwork Logo" />
             </div>
             :
              <Link
@@ -82,7 +82,7 @@ const PortfolioDetailUpworkSection = ({ listOfdata, urlInfo, hideLinks }) => {
               target="_blank"
               className="py-2 inline-block"
             >
-              <img src="/images/up-logo.png" alt="Upwork Logo" />
+              <img src="/images/up-logo.webp" alt="Upwork Logo" />
             </Link>
              }
           </div>
