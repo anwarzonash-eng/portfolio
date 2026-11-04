@@ -56,6 +56,7 @@ const CV3Header: React.FC<CV3HeaderProps> = ({ listOfdata }) => {
                         src={listOfdata?.profile_photo_1}
                         height={140}
                         width={140}
+                        sizes="140px"
                         alt="Profile Picture"
                         className="h-full w-full bg-cover bg-no-repeat bg-center"
                     />

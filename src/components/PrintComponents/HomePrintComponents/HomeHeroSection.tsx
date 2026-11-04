@@ -112,6 +112,7 @@ const HomeHeroSection: React.FC<HomeHeroSectionProps> = ({
                 <div className="rounded flex w-full relative">
                   <div className="flex items-center gap-[0.35rem] text-nowrap text-primary text-[1.8rem] font-medium rounded-[3.5rem] py-[0.69rem] max-w-max pr-[1rem] ">
                     <Image
+unoptimized
                       src={"/images/dollar-symbol.svg"}
                       height={20}
                       width={20}
@@ -125,6 +126,7 @@ const HomeHeroSection: React.FC<HomeHeroSectionProps> = ({
                   </div>
                   <div className="flex gap-[0.35rem] text-nowrap text-primary text-[1.8rem] font-medium rounded-[3.5rem] py-[0.69rem] min-w-max items-center">
                     <Image
+unoptimized
                       src={"/images/clock.svg"}
                       height={20}
                       width={20}
@@ -139,6 +141,7 @@ const HomeHeroSection: React.FC<HomeHeroSectionProps> = ({
 
             {/* Center Dev Image */}
             <Image
+unoptimized
               width={731}
               height={707}
               alt="Profile Photo"

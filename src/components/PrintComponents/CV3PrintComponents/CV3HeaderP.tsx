@@ -52,6 +52,7 @@ const CV3HeaderP: React.FC<CV3HeaderProps> = ({ listOfdata }) => {
             <div className="flex-shrink-0">
                 <div className="h-[14rem] w-[14rem] rounded-full overflow-hidden">
                     <Image
+unoptimized
                         src={listOfdata?.profile_photo_1}
                         height={140}
                         width={140}

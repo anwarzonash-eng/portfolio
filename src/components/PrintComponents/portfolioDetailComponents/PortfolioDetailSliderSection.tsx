@@ -32,6 +32,7 @@ const SliderXLPrint: React.FC<SliderXLPrintProps> = ({
       {visibleImages.length > 0 ? (
         visibleImages.map((img, index) => (
           <Image
+unoptimized
             key={index}
             src={img}
             height={600}

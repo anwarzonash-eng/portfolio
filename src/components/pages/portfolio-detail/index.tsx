@@ -196,6 +196,8 @@ const PortfolioDetails = ({ params }: PageProps) => {
                     }
                     height={1500}
                     width={3000}
+                    priority
+                    sizes="(min-width: 1024px) 1200px, 1px"
                     alt="Banner"
                     className="hidden lg:block h-[70rem] w-auto mx-auto object-fill rounded-[1.5rem] border border-border border-solid"
                   />
@@ -207,6 +209,8 @@ const PortfolioDetails = ({ params }: PageProps) => {
                     }
                     height={410}
                     width={800}
+                    priority
+                    sizes="(max-width: 1023px) 100vw, 1px"
                     alt="Banner"
                     className="object-fill lg:hidden rounded-[1rem] w-auto border border-border border-solid mx-auto"
                   />
@@ -242,6 +246,7 @@ const PortfolioDetails = ({ params }: PageProps) => {
                       }
                       height={1500}
                       width={1500}
+                      sizes="(min-width: 1024px) 1200px, 100vw"
                       alt="Banner"
                       className="shadow-2xl object-fill rounded-[1rem] border border-border border-solid"
                     />

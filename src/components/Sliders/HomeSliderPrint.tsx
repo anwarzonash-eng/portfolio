@@ -221,6 +221,7 @@ const HomeSliderPrint: React.FC<HomeSliderPrintProps> = ({
                       } rounded-[1.2rem] overflow-hidden`}
                   >
                     <Image
+unoptimized
                       src={
                         portfolio?.title === "Velzon"
                           ? "/VelzonThumbnail.webp"

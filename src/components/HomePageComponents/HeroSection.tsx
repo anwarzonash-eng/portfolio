@@ -117,6 +117,8 @@ const HeroSection: React.FC<HeroSectionProps> = ({
             <Image
               width={731}
               height={907}
+              priority
+              sizes="(min-width: 768px) 731px, 100vw"
               alt=""
               src={listOfdata?.profile_photo_2}
               className="print:h-[700px] print-w-[640px]"
@@ -330,6 +332,8 @@ const HeroSection: React.FC<HeroSectionProps> = ({
             <Image
               width={731}
               height={707}
+              priority
+              sizes="(min-width: 768px) 731px, 100vw"
               alt=""
               src={listOfdata?.profile_photo_2}
               className="mr-[-12rem] mt-[13rem]"

@@ -157,6 +157,7 @@ const ExperienceCard = ({
                   {experience?.thumbnail && (
                     <div className="h-[3.5rem] w-[3.5rem] mb-auto  rounded-[0.4rem] relative">
                       <Image
+unoptimized
                         src={experience?.thumbnail.trim()}
                         loading="eager"
                         priority={true}
@@ -201,6 +202,7 @@ const ExperienceCard = ({
                             <span>Check My</span>
                             <div className="h-[2.5rem] w-[2.5rem] rounded-full relative mx-2 inline-block">
                               <Image
+unoptimized
                                 src="/images/upworkforContactComponent.svg"
                                 alt="Upwork Logo"
                                 width={25}

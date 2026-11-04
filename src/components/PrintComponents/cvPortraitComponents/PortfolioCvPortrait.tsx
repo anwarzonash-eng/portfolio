@@ -226,6 +226,7 @@ const PortfolioCvPortrait: React.FC<PortfolioCvPortraitProps> = ({
                   // style={{ aspectRatio: "16 / 9" }}
                   >
                     <Image
+unoptimized
                       src={
                         portfolio?.title === "Velzon"
                           ? "/VelzonThumbnail.webp"

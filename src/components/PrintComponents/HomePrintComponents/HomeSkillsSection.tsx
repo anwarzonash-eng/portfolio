@@ -84,6 +84,7 @@ const HomeSkillsSection: React.FC<SkillsContainerProps> = ({
                     <div className="flex items-center justify-center 
                     h-[5.5rem] w-[5.5rem] mb-[1rem]">
                       <Image
+unoptimized
                         src={skill.icon.trim()}
                         alt={skill.title}
                         loading="eager"

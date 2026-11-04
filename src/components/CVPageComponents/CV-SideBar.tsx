@@ -47,6 +47,7 @@ const CVSideBar: React.FC<CVSideBarProps> = ({
                 src={listOfdata?.profile_photo_1}
                 height={1200}
                 width={1200}
+                  sizes="210px"
                 alt="Profile Picture"
                 className="h-[20.12rem] w-[20.12rem] rounded-[50%] bg-cover bg-no-repeat bg-center"
               />

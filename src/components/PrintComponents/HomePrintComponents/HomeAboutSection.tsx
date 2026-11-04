@@ -201,6 +201,7 @@ const HomeAboutSection: React.FC<HomeAboutSectionProps> = ({
                 </div>
                 {listOfdata?.location?.includes("Manchester, UK") && (
                   <Image
+unoptimized
                     src={"/images/ukFlag.svg"}
                     height={35}
                     width={35}

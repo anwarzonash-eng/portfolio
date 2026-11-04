@@ -157,6 +157,8 @@ const BlogDetails = ({ params }: PageProps) => {
                         src={getImageForIndex(listOfdata?.domain, blogIndex)}
                         height={532}
                         width={1024}
+                  priority
+                  sizes="(min-width: 1024px) 1024px, 1px"
                         alt="Banner"
                         className="hidden lg:block h-[53.2rem] w-[102.4rem] object-contain rounded-[1rem]"
                       />
@@ -164,6 +166,8 @@ const BlogDetails = ({ params }: PageProps) => {
                         src={getImageForIndex(listOfdata?.domain, blogIndex)}
                         height={410}
                         width={800}
+                  priority
+                  sizes="(max-width: 1023px) 100vw, 1px"
                         alt="Banner"
                         className="w-full object-contain lg:hidden rounded-[1rem]"
                       />

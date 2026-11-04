@@ -23,6 +23,7 @@ const BlogCard = ({ blog, imageSrc }: BlogCardProps) => (
         src={imageSrc}
         height={240}
         width={370}
+        sizes="370px"
         alt="blog"
         className="h-[240px] w-[370px]"
       />

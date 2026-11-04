@@ -77,6 +77,7 @@ const CVBlogs: React.FC<CVBlogsProps> = ({
                       src={getImageForIndex(domain, index)}
                       height={300}
                       width={300}
+                      sizes="(min-width: 640px) 320px, 100vw"
                       alt={`Blog ${index + 1}`}
                       className="object-cover h-full w-full"
                     />

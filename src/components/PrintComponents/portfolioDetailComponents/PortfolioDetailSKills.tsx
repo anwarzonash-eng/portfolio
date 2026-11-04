@@ -100,6 +100,7 @@ const PortfolioDetailSKills: React.FC<SkillsContainerProps> = ({
                           h-[4rem] w-[4rem] mb-[1rem]"
                     >
                       <Image
+unoptimized
                         src={skill.icon.trim()}
                         alt={skill.title}
                         loading="eager"

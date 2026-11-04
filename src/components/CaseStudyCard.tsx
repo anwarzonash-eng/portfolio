@@ -63,6 +63,7 @@ const CaseStudyCard: React.FC<CaseStudyCardProps> = ({
                     }
                 >
                     <Image width={600} height={400}
+                        sizes="(min-width: 1024px) 600px, 100vw"
                         src={portfolio.thumbnail}
                         alt={portfolio.title || "Project"}
                         className="w-full h-full object-cover  hover:scale-105 transition-all duration-500"

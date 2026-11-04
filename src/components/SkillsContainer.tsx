@@ -136,6 +136,7 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({
                     alt={skill.title}
                     height={64}
                     width={64}
+                    sizes="60px"
                     className="object-contain w-full h-full filter grayscale"
                   />
                 </div>
@@ -173,6 +174,14 @@ const SkillsContainer: React.FC<SkillsContainerProps> = ({
                         alt={skill.title}
                         height={64}
                         width={64}
+                        // Print captures preload the raw icon URLs before
+                        // rendering. An optimised <Image> requests
+                        // /_next/image?url=... instead, which is a different URL
+                        // than the one preloaded, so the gate would report ready
+                        // while these are still loading and the capture could
+                        // fire against blank icons.
+                        unoptimized={variant === "print"}
+                        sizes="60px"
                         className="object-contain w-full h-full filter "
                       />
                     </div>

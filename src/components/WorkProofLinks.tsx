@@ -54,6 +54,9 @@ const WorkProofLinks = ({ props }) => {
                   height={45}
                   width={45}
                   alt={alt}
+                  // Local SVGs, and this renders on print routes too - see the
+                  // note in ContactMeLinks.
+                  unoptimized
                   className="size-[5rem] print:size-[40px]"
                 />
               </Link>

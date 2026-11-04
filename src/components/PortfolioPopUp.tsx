@@ -180,6 +180,7 @@ const PortfolioPopUp = ({ isModalOpen, closeModal, portfolioImages }) => {
 
                   {/* Main Image (pause on hold) */}
                   <Image width={900} height={450}
+                    sizes="(min-width: 1024px) 900px, 100vw"
                     src={images[currentImageIndex]}
                     alt="Slide"
                     className="h-[342px] lg:h-[450px] w-full object-contain object-center"
@@ -223,6 +224,7 @@ const PortfolioPopUp = ({ isModalOpen, closeModal, portfolioImages }) => {
                   >
                     {images.map((src, index) => (
                       <Image width={900} height={450}
+                        sizes="160px"
                         key={index}
                         src={src}
                         alt={`Thumbnail ${index}`}

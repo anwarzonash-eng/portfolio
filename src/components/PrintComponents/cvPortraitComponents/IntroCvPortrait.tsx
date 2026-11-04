@@ -14,6 +14,7 @@ const IntroCvPortrait = ({ listOfdata, urlInfo, hideLinks }) => {
           <div className="print:flex flex flex-col print:flex-row items-center justify-center gap-20 print:w-full">
             <Link href="/" className=" block">
               <Image
+unoptimized
                 src={listOfdata?.profile_photo_1}
                 loading="eager"
                 priority={true}
@@ -84,6 +85,7 @@ const IntroCvPortrait = ({ listOfdata, urlInfo, hideLinks }) => {
                         className="h-[35px] w-[35px] bg-[#E2E6EE] 
                       rounded-[50%] relative">
                         <Image
+unoptimized
                           src={contact.iconSrc}
                           loading="eager"
                           priority={true}
@@ -119,6 +121,7 @@ const IntroCvPortrait = ({ listOfdata, urlInfo, hideLinks }) => {
                         className="h-[35px] w-[35px] bg-[#E2E6EE] 
                       rounded-[50%] relative">
                         <Image
+unoptimized
                           src={contact.iconSrc}
                           loading="eager"
                           priority={true}
@@ -164,6 +167,7 @@ const IntroCvPortrait = ({ listOfdata, urlInfo, hideLinks }) => {
                   <div key={index} className="flex items-center gap-[1.78rem]">
                     {social.iconSrc && (
                       <Image
+unoptimized
                         src={social.iconSrc}
                         loading="eager"
                         priority={true}

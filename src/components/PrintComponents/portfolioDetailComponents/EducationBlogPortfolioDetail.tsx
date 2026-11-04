@@ -51,6 +51,7 @@ const EducationBlogPortfolioDetail: React.FC<EducationBlogPortfolioDetailProps> 
                   <div className="flex items-center gap-[1.8rem]">
                     {edu.thumbnail && (
                       <Image
+unoptimized
                         src={edu.thumbnail}
                         loading="eager"
                         priority
@@ -117,6 +118,7 @@ const EducationBlogPortfolioDetail: React.FC<EducationBlogPortfolioDetailProps> 
                   {blog.featuredImage && (
                     <div className="size-[16rem] flex-shrink-0">
                       <Image
+unoptimized
                         src={getImageForIndex(domain, index)}
                         loading="eager"
                         priority

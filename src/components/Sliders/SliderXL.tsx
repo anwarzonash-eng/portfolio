@@ -190,6 +190,7 @@ const SliderXL = ({ portfolioPictures }) => {
               key={index}
               height={1500}
               width={3000}
+                      sizes="(min-width: 1024px) 1200px, 100vw"
               src={img}
               alt={`Slide ${index + 1}`}
               className="w-full h-full flex-shrink-0 object-fill rounded-[1.6rem] border border-solid border-border"
@@ -220,6 +221,7 @@ const SliderXL = ({ portfolioPictures }) => {
               src={img}
               alt={`Thumb ${index + 1}`}
               width={160}
+                      sizes="(min-width: 768px) 160px, 80px"
               height={160}
               className="w-20 h-20 md:w-40 md:h-40 object-cover"
             />

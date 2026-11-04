@@ -70,6 +70,7 @@ const PortfolioCardContent: React.FC<PortfolioCardContentProps> = ({
                 alt="Project Image"
                 height={800}
                 width={800}
+                sizes="(min-width: 1024px) 800px, 100vw"
                 className={` ${
                   thumbnailSize === "small" ? "lg:h-[200px]" : "lg:h-[300px]"
                 } lg:w-[800px] w-full object-fill rounded-[1.2rem] border border-solid border-border`}

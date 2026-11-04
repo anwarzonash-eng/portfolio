@@ -14,6 +14,7 @@ const PortfolioWelcome = ({
     <div className="text-center  bg-cvSideBg bg-no-repeat bg-cover relative !w-full !h-screen flex items-center justify-center flex-col gap-[2rem]">
       <div className="items-center justify-strat gap-[4rem] flex flex-col w-full">
         <Image
+unoptimized
           loading="eager"
           priority={true}
           src={listOfdatas?.profile_photo_1}

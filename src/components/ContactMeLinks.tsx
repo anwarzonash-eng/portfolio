@@ -51,6 +51,11 @@ const ContactMeLinks = ({ props }) => {
                 height={45}
                 width={45}
                 alt={alt}
+                // All sources here are local SVGs. The optimiser cannot resize a
+                // vector, so routing these through /_next/image only adds a
+                // round-trip - and this component also renders on print routes,
+                // where that round-trip eats into the 30s capture budget.
+                unoptimized
                 className={`size-[50px] print:size-[40px] ${
                   src == "/images/calendlyicon.svg"
                     ? "bg-[#006bff] rounded-full flex items-center justify-center"

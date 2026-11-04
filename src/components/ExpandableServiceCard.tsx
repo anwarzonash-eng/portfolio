@@ -61,6 +61,7 @@ const ExpandableServiceCard = forwardRef<
                     <div className="flex items-center justify-center w-[9.3rem] h-[9.3rem]">
                       <Image
                         src={service?.picture}
+                        sizes="93px"
                         alt="Icon"
                         fill
                         className="rounded-[12rem] w-[9.3rem] h-[9.3rem] object-contain"

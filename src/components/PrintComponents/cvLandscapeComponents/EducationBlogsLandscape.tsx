@@ -44,6 +44,7 @@ const EducationBlogsLandscape = ({ loadingblogs: _loadingblogs,
                       <div className="flex items-center gap-[1.8rem]">
                         {edu?.thumbnail && (
                           <Image
+unoptimized
                             src={edu.thumbnail}
                             height={34}
                             width={34}
@@ -107,6 +108,7 @@ const EducationBlogsLandscape = ({ loadingblogs: _loadingblogs,
                   {blog.featuredImage && (
                     <div className="size-[16rem] flex-shrink-0">
                       <Image
+unoptimized
                         src={getImageForIndex(domain, index)}
                         loading="eager"
                         priority={true}

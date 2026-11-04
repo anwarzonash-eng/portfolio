@@ -34,6 +34,7 @@ const UpwrokIdentityPrint: React.FC<UpwrokIdentityPrintProps> = ({
             <div className="w-[1.4rem] h-[1.4rem] border-white border-2 border-solid shadow-lg bg-green-500 rounded-full absolute top-[0.7rem] left-[-0.4rem]"></div>
 
             <Image
+unoptimized
               src={profileImageSrc}
               alt="Profile"
               width={80}
@@ -95,6 +96,7 @@ const UpwrokIdentityPrint: React.FC<UpwrokIdentityPrintProps> = ({
           {/* Top Rated Plus */}
           <div className="flex items-center gap-[0.5rem]">
             <Image
+unoptimized
               height={30}
               width={30}
               src={"/images/topRatedBadge.png"}
@@ -117,6 +119,7 @@ const UpwrokIdentityPrint: React.FC<UpwrokIdentityPrintProps> = ({
             <span>Check My</span>
             <div className="h-[3.5rem] w-[10rem] relative mx-2 inline-block overflow-hidden rounded-[10rem] px-2 bg-white">
               <Image
+unoptimized
                 src="/images/upworkText.svg"
                 alt="Upwork Logo"
                 width={100}

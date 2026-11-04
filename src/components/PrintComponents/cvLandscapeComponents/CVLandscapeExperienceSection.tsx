@@ -80,6 +80,7 @@ const CVLandscapeExperienceSection = ({ urlInfo: _urlInfo,
                                     {experience?.thumbnail && (
                                       <div className="h-[3.5rem] w-[3.5rem]  rounded-[0.4rem] relative">
                                         <Image
+unoptimized
                                           src={experience?.thumbnail}
                                           height={26}
                                           width={26}
@@ -121,6 +122,7 @@ const CVLandscapeExperienceSection = ({ urlInfo: _urlInfo,
                                                 <span>Check My</span>
                                                 <div className="h-[2.5rem] w-[2.5rem] rounded-full relative mx-2 inline-block">
                                                   <Image
+unoptimized
                                                     src="/images/upworkforContactComponent.svg"
                                                     alt="Upwork Logo"
                                                     width={25}
